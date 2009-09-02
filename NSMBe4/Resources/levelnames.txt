@@ -1,0 +1,111 @@
+-World 1|A
+World 1-1|01|3
+World 1-2|02|3
+World 1-3|03|1
+W1 Tower|07|3
+World 1-4|04|3
+World 1-5|05|2
+W1 Castle|08|3
+World 1-A|06|2
+Cannon (W1 to W5)|09|1
+-World 2|B
+World 2-1|01|3
+World 2-2|02|2
+World 2-3|03|2
+World 2-4|04|2
+W2 Tower|08|3
+World 2-5|05|2
+World 2-6|06|2
+W2 Castle|09|3
+World 2-A|07|3
+Cannon (W2 to W5)|10|1
+-World 3|C
+World 3-1|01|2
+World 3-2|02|2
+W3 Tower|08|2
+World 3-3|03|3
+W3 Ghost House|07|3
+W3 Castle|09|2
+World 3-A|04|3
+World 3-B|05|2
+World 3-C|06|2
+Cannon (W3 to W6)|10|1
+-World 4 (secret)|D
+World 4-1|01|1
+World 4-2|02|2
+World 4-3|03|2
+W4 Tower|09|2
+World 4-4|04|2
+W4 Ghost House|08|3
+World 4-5|05|3
+World 4-6|06|2
+W4 Castle|10|2
+World 4-A|07|2
+Cannon (W4 to W7)|11|1
+-World 5|E
+World 5-1|01|1
+World 5-2|02|2
+W5 Tower|09|2
+World 5-3|03|2
+W5 Ghost House|08|3
+World 5-4|04|1
+W5 Castle|10|2
+World 5-A|05|2
+World 5-B|06|1
+World 5-C|07|2
+Cannon (W5 to W8)|11|1
+-World 6|F
+World 6-1|01|2
+World 6-2|02|2
+W6 Tower 1|09|2
+World 6-3|03|2
+World 6-4|04|1
+W6 Tower 2|10|2
+World 6-5|05|2
+World 6-6|06|3
+W6 Castle|11|2
+World 6-A|07|2
+World 6-B|08|1
+Unused Cannon (W6 to W8)|12|1
+-World 7 (secret)|G
+World 7-1|01|1
+W7 Ghost House|09|3
+World 7-2|02|2
+World 7-3|03|2
+W7 Tower|10|2
+World 7-4|04|1
+World 7-5|05|3
+World 7-6|06|3
+World 7-7|07|1
+World 7-A|08|2
+W7 Castle|11|2
+-World 8|H
+World 8-1|01|2
+World 8-2|02|3
+W8 Tower 1|09|2
+World 8-3|03|2
+World 8-4|04|2
+W8 Castle|11|2
+World 8-5|05|2
+World 8-6|06|2
+World 8-7|07|1
+World 8-8|08|2
+W8 Tower 2|10|2
+W8 Final Castle|12|3
+-Toad Houses|I
+Bonus Game 1|01|1
+Bonus Game 2|02|1
+Bonus Game 3|03|1
+Bonus Game 4|04|1
+-Mario vs. Luigi|J
+SMB 1-1|01|1
+Underground|02|1
+Ice World|03|1
+Pipe World|04|1
+Castle|05|1
+-Unused Levels|J
+Unused Level 1|06|1
+Unused Level 2|07|1
+Unused Level 3|08|1
+Unused Level 4|09|1
+Unused Level 5|10|1

@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NSMBe4</RootNamespace>
+    <AssemblyName>NSMBe4</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>nsmbe3.ico</ApplicationIcon>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mono Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Mono Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;USE_GDIPLUS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mono Release|AnyCPU' ">
+    <OutputPath>bin\Mono Release\</OutputPath>
+    <DefineConstants>TRACE;USE_GDIPLUS</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ByteArrayInputStream.cs" />
+    <Compile Include="EntranceEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EntranceEditor.Designer.cs">
+      <DependentUpon>EntranceEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EntrancesEditionMode.cs" />
+    <Compile Include="CreatePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreatePanel.Designer.cs">
+      <DependentUpon>CreatePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditionMode.cs" />
+    <Compile Include="DataFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataFinder.designer.cs">
+      <DependentUpon>DataFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GDIImports.cs" />
+    <Compile Include="ImagePreviewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImagePreviewer.Designer.cs">
+      <DependentUpon>ImagePreviewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelChooser.Designer.cs">
+      <DependentUpon>LevelChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelConfig.Designer.cs">
+      <DependentUpon>LevelConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelEditorControl.Designer.cs">
+      <DependentUpon>LevelEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelEditor.Designer.cs">
+      <DependentUpon>LevelEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelHexEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelHexEditor.Designer.cs">
+      <DependentUpon>LevelHexEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelMinimap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelMinimap.Designer.cs">
+      <DependentUpon>LevelMinimap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Map16Viewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Map16Viewer.Designer.cs">
+      <DependentUpon>Map16Viewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NitroClass.cs" />
+    <Compile Include="NSMBEntrance.cs" />
+    <Compile Include="NSMBGraphics.cs" />
+    <Compile Include="NSMBLevel.cs" />
+    <Compile Include="NSMBObject.cs" />
+    <Compile Include="NSMBPath.cs" />
+    <Compile Include="NSMBPathPoint.cs" />
+    <Compile Include="NSMBSprite.cs" />
+    <Compile Include="NSMBTileset.cs" />
+    <Compile Include="NSMBView.cs" />
+    <Compile Include="ObjectEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ObjectEditor.Designer.cs">
+      <DependentUpon>ObjectEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectPickerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ObjectPickerControl.Designer.cs">
+      <DependentUpon>ObjectPickerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectsEditionMode.cs" />
+    <Compile Include="PathsEditionMode.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CreatePanel.resx">
+      <DependentUpon>CreatePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataFinder.resx">
+      <DependentUpon>DataFinder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntranceEditor.resx">
+      <DependentUpon>EntranceEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImagePreviewer.resx">
+      <DependentUpon>ImagePreviewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelChooser.resx">
+      <DependentUpon>LevelChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelConfig.resx">
+      <DependentUpon>LevelConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelEditorControl.resx">
+      <DependentUpon>LevelEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelEditor.resx">
+      <DependentUpon>LevelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelHexEditor.resx">
+      <DependentUpon>LevelHexEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelMinimap.resx">
+      <DependentUpon>LevelMinimap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map16Viewer.resx">
+      <DependentUpon>Map16Viewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectEditor.resx">
+      <DependentUpon>ObjectEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectPickerControl.resx">
+      <DependentUpon>ObjectPickerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PathEditor.resx">
+      <DependentUpon>PathEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpriteEditor.resx">
+      <DependentUpon>SpriteEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SpriteEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpriteEditor.Designer.cs">
+      <DependentUpon>SpriteEditor.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\levelnames.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg_ncg_table.bin" />
+    <None Include="Resources\bg_ncl_table.bin" />
+    <None Include="Resources\bg_nsc_table.bin" />
+    <None Include="Resources\exclamation.png" />
+    <None Include="Resources\fg_ncg_table.bin" />
+    <None Include="Resources\fg_ncl_table.bin" />
+    <None Include="Resources\fg_nsc_table.bin" />
+    <None Include="Resources\ts_chk_table.bin" />
+    <None Include="Resources\ts_ncg_table.bin" />
+    <None Include="Resources\ts_ncl_table.bin" />
+    <None Include="Resources\ts_pnl_table.bin" />
+    <None Include="Resources\ts_unt_hd_table.bin" />
+    <None Include="Resources\ts_unt_table.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\door.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tileoverrides.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\normal_objnotes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="nsmbe3.ico" />
+    <Compile Include="ByteArrayOutputStream.cs" />
+    <Compile Include="PathEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PathEditor.Designer.cs">
+      <DependentUpon>PathEditor.cs</DependentUpon>
+    </Compile>
+    <None Include="Resources\pathpoint.png" />
+    <None Include="Resources\sprite_invalid.png" />
+    <None Include="Resources\modifierchooser_lang1.txt" />
+    <None Include="Resources\modifierchooser.txt" />
+    <None Include="Resources\bglist_lang1.txt" />
+    <None Include="Resources\fglist_lang1.txt" />
+    <None Include="Resources\modifiertable.bin" />
+    <None Include="Resources\tilesetlist_lang1.txt" />
+    <None Include="Resources\fglist.txt" />
+    <None Include="Resources\bglist.txt" />
+    <None Include="Resources\tilesetlist.txt" />
+    <None Include="Resources\config.png" />
+    <None Include="Resources\spritelist_lang1.txt" />
+    <None Include="Resources\normal_objnotes_lang1.txt" />
+    <None Include="Resources\levelnames_lang1.txt" />
+    <None Include="Resources\entrances.png" />
+    <None Include="Resources\spritelist.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

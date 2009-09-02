@@ -1,0 +1,96 @@
+[1]
+0: Ninguno
+1: Generador de enemigos (287)
+2: Enemigos del desierto (136,204)
+3: Enemigos castillo (36,53,56,193,194)
+4: Enemigos bajo agua (31,96,185,211,213,257)
+5: Piedras cayendo (254)
+6: Swooper (94)
+7: Bowser Jr. (220)
+[2]
+0: Ninguno
+1: Floro Piraña en tuberias (23,24,25,26)
+2: Wiggler (90)
+3: Whomp y Koopa Pared (64,180)
+4: Bicho agua (116)
+5: Snailicorn (89)
+6: Sprites sin usar (214,215,216,221)
+7: Crow (250,271)
+9: Activador de jefe (y llave) (29,39,129,140)
+[3]
+0: Ninguno
+1: Hermanos Martillo/Fuego/etc (59,157,158,209)
+2: Chomp cadenas (42,43)
+3: Spike Bass (258,283)
+4: Tuberia hinchazon (245)
+5: Nube (323)
+[4]
+0: Ninguno
+1: Lakitu (40,183)
+2: Cheep Cheep Gigante (207)
+3: Beetles y Bola Electrica (52,109,219)
+4: Bloque ? saltador (275)
+5: Flame Chomp (121,205)
+6: Casa de Miedo (38,154,248,265,266,284)
+[5]
+0: Ninguno
+1: Bala bill/Bomba (27,28,37,55,241,243,252)
+2: Bowser Gigante (35)
+5: Cheep-Chomp (113)
+6: Dorrie (103)
+7: Sprites Volcano/Fuego (54,73,74)
+8: Plataforma subiendo (200,312)
+9: Cheep Cheep que salta (130)
+[6]
+0: Ninguno
+2: Tubería de Floruga Jr. (7-A) (281)
+3: Generador de tiburones? (67,247)
+4: Eels (92,251)
+5: Scuttlebugs (226,227,285)
+6: Floro Piraña (fuera tuberia) (120,122,123,124)
+7: Lanzador de bolas de nieve (273)
+[7]
+0: Ninguno
+1: Tornado (79,104)
+2: Burbujas y Whirlpool (48,49,50,51,105,111)
+3: Plataformas que mueven (78,119,126,127,187,249)
+4: Otras plataformas, cañon warpzone (75,77,128)
+5: Champiñones (162,174,203,238,239,242,244,267)
+6: Goo de Casa de Miedo (206)
+[8]
+0: Ninguno
+1: Rueda moviendo (99,176,177,178,179,246,282)
+2: Tierra hinchazon, plataformas (134,141,147,233)
+3: Cuerda caminable (142,146,191,232)
+4: Sin usar (125,175)
+5: Paredes, formas rotacion (70,82,86,97,112,223,224,236)
+6: Lanzallamas, pelota clavos en cadena (114,118,303)
+[9]
+0: Ninguno
+1: Plataforma escala (76)
+2: Cuerda (173)
+3: Broozer (237)
+4: Bloques verde moviendo (299)
+5: Pelota que bota a Mario (268)
+6: Bloque expansible (201,289)
+7: Sin usar (188)
+[10]
+0: Ninguno
+1: Sprites de nieve (272,274)
+2: Flecha, puerta moviendo en un solo sentido (277,279)
+3: Sprites de Casa de Miedo 2 (256,278,292,300)
+4: Wiggler Gigante (269)
+5: Clavo disparo (260,261,262,263,304,307,308,309)
+6: Pelota clavos (46,102,115)
+8: Casa champiñon (301,302)
+[16]
+0: Ninguno
+1: Final de nivel, plataformas en linea (32,91,93,190)
+2: Batallas de Bowser (41,58,62,63)
+3: Goomba Enorme (21)
+4: Petey Piraña (229)
+5: Momia Pokey (295)
+6: Jefe Lakitu (47)
+7: Cheep Skipper (65)
+8: Tanque Monty (30)
+9: Generador plataformas, Estrella Batalla (80,81,210,298)

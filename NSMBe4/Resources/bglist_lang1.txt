@@ -1,0 +1,77 @@
+0: Cesped (colinas naranja y nubes)
+1: Castillo
+2: Desierto (cielo azul, piramides)
+3: Bajo tierra
+4: Nubes
+5: Bajo agua
+6: Desierto (cielo amarillo, piramides)
+7: Volcanes
+8: Cesped (colinas pastel y nubes)
+9: Nubes en el fondo
+10: Montañas en el fondo
+11: Bosque
+12: Cesped (colinas verde/blanca y nubes)
+13: Nubes en el fondo 2
+14: Nubes en el fondo 2
+15: Volcanes 2
+16: Volcanes 3
+17: Arboles con nieve
+18: Colinas con nieve
+19: Nubes en el fondo
+20: Desierto (cielo azul, piramides, mas alto)
+21: Cuarto bonus sin usar (Mario y Luigi NES)
+22: Volcanes 3
+23: Casa fantasma
+24: Montañas en el fondo
+25: Montañas en el fondo
+26: Cielo morado
+27: Cesped (colinas naranja y nubes)
+28: Colinas con nieve
+29: Tuberias
+30: Vacio
+31: Torre volcanes
+32: Castillo 2
+33: Nubes con colinas naranja atras
+34: Colinas con nieve
+35: Cueva
+36: Desconocido
+37: Cielo morado con nubes
+38: Cielo morado con nubes 2
+39: Torre
+40: Salida casa fantasma
+41: Castillo
+42: Casa champiñon 1
+43: Casa champiñon 2
+44: Casa champiñon 3
+45: Castillo
+46: Casa champiñon 4
+47: Batalla Bowser Jr
+48: Nubes en el fondo (alto)
+49: Batalla jefe
+50: Nubes en el fondo
+51: Nubes en el fondo
+52: Desierto (cielo azul, piramides)
+53: Desierto (cielo amarillo, mas alto)
+54: Montañas en el fondo
+55: Batalla jefe final
+56: Volcanes 2
+57: Cueva bajo agua
+58: Castillo gris (primer castillo de mundo 8)
+59: Nubes amarilla??
+60: Montañas grande (mas alto)
+61: Nubes en el fondo
+62: Montañas en el fondo
+63: Batalla Momia Pokey
+64: Desierto (cielo amarillo, piramides)
+65: Desierto (piramides)
+66: Desierto (cielo azul, piramides, mas alto)
+67: Bonus sin usar (graficos NES)
+68: Bonus sin usar (Mario y Bowser NES)
+69: Bonus sin usar (M/L nadando NES)
+70: Bonus sin usar (M/L NES)
+71: Bonus sin usar (Mario en enredadera NES)
+72: Bonus sin usar (Marios multiple NES)
+73: Cueva bajo tierra (colorado)
+74: Cuarto bonus
+75: Cesped (colinas naranja y nubes)
+255: Nada

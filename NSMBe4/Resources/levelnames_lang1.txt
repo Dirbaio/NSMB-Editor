@@ -1,0 +1,111 @@
+-Mundo 1|A
+Mundo 1-1|01|3
+Mundo 1-2|02|3
+Mundo 1-3|03|1
+Torre M1|07|3
+Mundo 1-4|04|3
+Mundo 1-5|05|2
+Castillo M1|08|3
+Mundo 1-A|06|2
+Cañon (M1 a M5)|09|1
+-Mundo 2|B
+Mundo 2-1|01|3
+Mundo 2-2|02|2
+Mundo 2-3|03|2
+Mundo 2-4|04|2
+Torre M2|08|3
+Mundo 2-5|05|2
+Mundo 2-6|06|2
+Castillo M2|09|3
+Mundo 2-A|07|3
+Cañon (M2 a M5)|10|1
+-Mundo 3|C
+Mundo 3-1|01|2
+Mundo 3-2|02|2
+Torre M3|08|2
+Mundo 3-3|03|3
+Casa de Miedo M3|07|3
+Castillo M3|09|2
+Mundo 3-A|04|3
+Mundo 3-B|05|2
+Mundo 3-C|06|2
+Cañon (M3 a M6)|10|1
+-Mundo 4 (secreto)|D
+Mundo 4-1|01|1
+Mundo 4-2|02|2
+Mundo 4-3|03|2
+Torre M4|09|2
+Mundo 4-4|04|2
+Casa de Miedo M4|08|3
+Mundo 4-5|05|3
+Mundo 4-6|06|2
+Castillo M4|10|2
+Mundo 4-A|07|2
+Cañon (M4 a M7)|11|1
+-Mundo 5|E
+Mundo 5-1|01|1
+Mundo 5-2|02|2
+Torre M5|09|2
+Mundo 5-3|03|2
+Casa de Miedo M5|08|3
+Mundo 5-4|04|1
+Castillo M5|10|2
+Mundo 5-A|05|2
+Mundo 5-B|06|1
+Mundo 5-C|07|2
+Cañon (M5 a M8)|11|1
+-Mundo 6|F
+Mundo 6-1|01|2
+Mundo 6-2|02|2
+Torre Primera M6|09|2
+Mundo 6-3|03|2
+Mundo 6-4|04|1
+Torre Segunda M6|10|2
+Mundo 6-5|05|2
+Mundo 6-6|06|3
+Castillo M6|11|2
+Mundo 6-A|07|2
+Mundo 6-B|08|1
+Cañon sin usar (M6 a M8)|12|1
+-Mundo 7 (secret)|G
+Mundo 7-1|01|1
+Casa de Miedo M7|09|3
+Mundo 7-2|02|2
+Mundo 7-3|03|2
+Torre M7|10|2
+Mundo 7-4|04|1
+Mundo 7-5|05|3
+Mundo 7-6|06|3
+Mundo 7-7|07|1
+Mundo 7-A|08|2
+Castillo M7|11|2
+-Mundo 8|H
+Mundo 8-1|01|2
+Mundo 8-2|02|3
+Torre Primera M8|09|2
+Mundo 8-3|03|2
+Mundo 8-4|04|2
+Castillo M8|11|2
+Mundo 8-5|05|2
+Mundo 8-6|06|2
+Mundo 8-7|07|1
+Mundo 8-8|08|2
+Torre Segunda M8|10|2
+Castillo Final M8|12|3
+-Casas de Champiñon|I
+Casa Champiñon 1|01|1
+Casa Champiñon 2|02|1
+Casa Champiñon 3|03|1
+Casa Champiñon 4|04|1
+-Mario vs. Luigi|J
+SMB 1-1|01|1
+Bajo Tierra|02|1
+Mundo Nieve|03|1
+Mundo Tuberias|04|1
+Castillo|05|1
+-Niveles sin usar|J
+Nivel 1|06|1
+Nivel 2|07|1
+Nivel 3|08|1
+Nivel 4|09|1
+Nivel 5|10|1
