@@ -36,10 +36,23 @@ namespace NSMBe4 {
             Lighting = v.Lighting;
             FlagpoleID = v.FlagpoleID;
         }
+
         public void render(Graphics g)
         {
-            g.DrawRectangle(Pens.LightSteelBlue, X, Y, Width - 1, Height - 1);
-            g.DrawRectangle(Pens.LightSteelBlue, X + 1, Y + 1, Width - 3, Height - 3);
+            Pen p = Pens.LightSteelBlue;
+            if (Width < 16 * 16)
+                p = Pens.Red;
+            if (Height < 12 * 16)
+                p = Pens.Red;
+
+            g.DrawRectangle(p, X, Y, Width - 1, Height - 1);
+            g.DrawRectangle(p, X + 1, Y + 1, Width - 3, Height - 3);
+        }
+
+        public void renderSelected(Graphics g)
+        {
+            g.DrawRectangle(Pens.Yellow, X - 1, Y - 1, Width + 1, Height + 1);
+            g.DrawRectangle(Pens.Yellow, X + 2, Y + 2, Width - 5, Height - 5);
         }
 
         public void write(ByteArrayOutputStream outp)
@@ -75,6 +88,11 @@ namespace NSMBe4 {
             v.FlagpoleID = inp.readByte();
 
             return v;
+        }
+
+        public override string ToString()
+        {
+            return Number + ": " + X + ", " + Y + " (" + Width + " x " + Height + ")";
         }
     }
 }

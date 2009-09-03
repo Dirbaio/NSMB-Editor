@@ -33,6 +33,7 @@
             this.editObjectsButton = new System.Windows.Forms.ToolStripButton();
             this.editEntrancesButton = new System.Windows.Forms.ToolStripButton();
             this.editPathsButton = new System.Windows.Forms.ToolStripButton();
+            this.editViewsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +56,7 @@
             this.editObjectsButton,
             this.editEntrancesButton,
             this.editPathsButton,
+            this.editViewsButton,
             this.toolStripSeparator2,
             this.optionsMenu});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -127,6 +129,15 @@
             this.editPathsButton.Size = new System.Drawing.Size(54, 22);
             this.editPathsButton.Text = "Paths";
             this.editPathsButton.Click += new System.EventHandler(this.editPathsButton_Click);
+            // 
+            // editViewsButton
+            // 
+            this.editViewsButton.Image = ((System.Drawing.Image)(resources.GetObject("editViewsButton.Image")));
+            this.editViewsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editViewsButton.Name = "editViewsButton";
+            this.editViewsButton.Size = new System.Drawing.Size(54, 22);
+            this.editViewsButton.Text = "Views";
+            this.editViewsButton.Click += new System.EventHandler(this.editViewsButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -234,6 +245,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteAllSpritesToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton editPathsButton;
         private System.Windows.Forms.Panel PanelContainer;
+        private System.Windows.Forms.ToolStripButton editViewsButton;
     }
 }
 

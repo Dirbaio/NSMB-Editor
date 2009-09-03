@@ -39,3 +39,4 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NS
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NSMBe4.Properties.Resources.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NSMBe4.SpriteEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NSMBe4.csproj.GenerateResource.Cache
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NSMBe4.ViewEditor.resources

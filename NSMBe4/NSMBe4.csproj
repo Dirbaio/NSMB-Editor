@@ -218,6 +218,9 @@
     <EmbeddedResource Include="SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ViewEditor.resx">
+      <DependentUpon>ViewEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -299,6 +302,13 @@
     <Compile Include="PathEditor.Designer.cs">
       <DependentUpon>PathEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewEditor.Designer.cs">
+      <DependentUpon>ViewEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsEditionMode.cs" />
     <None Include="Resources\pathpoint.png" />
     <None Include="Resources\sprite_invalid.png" />
     <None Include="Resources\modifierchooser_lang1.txt" />

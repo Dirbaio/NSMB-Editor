@@ -12,7 +12,7 @@ namespace NSMBe4 {
         public ObjectsEditionMode oem;
         public EntrancesEditionMode eem;
         public PathsEditionMode pem;
-
+        public ViewsEditionMode vem;
         public LevelEditor(NitroClass ROM, string LevelFilename) {
             InitializeComponent();
             this.ROM = ROM;
@@ -78,6 +78,7 @@ namespace NSMBe4 {
             oem = new ObjectsEditionMode(Level, levelEditorControl1);
             eem = new EntrancesEditionMode(Level, levelEditorControl1);
             pem = new PathsEditionMode(Level, levelEditorControl1);
+            vem = new ViewsEditionMode(Level, levelEditorControl1, true);
             levelEditorControl1.SetEditionMode(oem);
 
         }
@@ -299,6 +300,7 @@ namespace NSMBe4 {
             editObjectsButton.Checked = true;
             editEntrancesButton.Checked = false;
             editPathsButton.Checked = false;
+            editViewsButton.Checked = false;
         }
 
         private void editEntrancesButton_Click(object sender, EventArgs e) {
@@ -306,6 +308,7 @@ namespace NSMBe4 {
             editObjectsButton.Checked = false;
             editEntrancesButton.Checked = true;
             editPathsButton.Checked = false;
+            editViewsButton.Checked = false;
         }
 
         private void editPathsButton_Click(object sender, EventArgs e) {
@@ -313,7 +316,19 @@ namespace NSMBe4 {
             editObjectsButton.Checked = false;
             editEntrancesButton.Checked = false;
             editPathsButton.Checked = true;
+            editViewsButton.Checked = false;
         }
+
+        private void editViewsButton_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.SetEditionMode(vem);
+            editObjectsButton.Checked = false;
+            editEntrancesButton.Checked = false;
+            editPathsButton.Checked = false;
+            editViewsButton.Checked = true;
+
+        }
+
 
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
             if (Properties.Settings.Default.Language != 1) {
