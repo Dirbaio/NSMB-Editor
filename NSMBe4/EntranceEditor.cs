@@ -42,11 +42,13 @@ namespace NSMBe4
                 entranceSetting1.Text = "Ver en pantalla baja (solo entradas)";            }
         }
 
-        private void UpdateList()
+        public void UpdateList()
         {
+            DataUpdateFlag = true;
             entranceListBox.Items.Clear();
             entranceListBox.Items.AddRange(EdControl.Level.Entrances.ToArray());
             entranceListBox.SelectedItem = en;
+            DataUpdateFlag = false;
         }
 
         public void UpdateItem()
@@ -222,6 +224,7 @@ namespace NSMBe4
             NSMBEntrance ne = new NSMBEntrance();
             ne.X = ViewableArea.X * 16;
             ne.Y = ViewableArea.Y * 16;
+            ne.Number = EdControl.Level.getFreeEntranceNumber();
             EdControl.Level.Entrances.Add(ne);
             entranceListBox.Items.Add(ne);
 
@@ -253,14 +256,15 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
+            DataUpdateFlag = true;
             groupBox2.Visible = en != null;
             entranceListBox.SelectedItem = en;
             deleteEntranceButton.Enabled = en != null;
+            DataUpdateFlag = false;
 
             if (en == null) return;
 
-            groupBox2.Visible = true;
-            
+            DataUpdateFlag = true;
             entranceXPosUpDown.Value = en.X;
             entranceYPosUpDown.Value = en.Y;
             entranceCameraXPosUpDown.Value = en.CameraX;
@@ -275,7 +279,7 @@ namespace NSMBe4
             entranceSetting8.Checked = (bool)((en.Settings & 8) != 0);
             entranceSetting1.Checked = (bool)((en.Settings & 1) != 0);
             entranceViewUpDown.Value = en.EntryView;
-
+            DataUpdateFlag = false;
         }
     }
 }

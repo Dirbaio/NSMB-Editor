@@ -345,5 +345,28 @@ namespace NSMBe4 {
             bw.Write(BGFile.Length);
             bw.Write(BGFile);
         }
+
+        public int getFreeEntranceNumber()
+        {
+            int n = 0;
+
+            while (true)
+            {
+                if (!isEntranceNumberUsed(n))
+                    return n;
+                n++;
+            }
+        }
+
+        private bool isEntranceNumberUsed(int n)
+        {
+            foreach (NSMBEntrance e in Entrances)
+            {
+                if (e.Number == n)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

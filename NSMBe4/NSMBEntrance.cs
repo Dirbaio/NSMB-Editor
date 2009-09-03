@@ -21,6 +21,24 @@ namespace NSMBe4 {
         public int EntryView;
         public int Unknown2;
 
+        public NSMBEntrance() { }
+        public NSMBEntrance(NSMBEntrance e)
+        {
+            X = e.X;
+            Y = e.Y;
+            CameraX = e.CameraX;
+            CameraY = e.CameraY;
+            Number = e.Number;
+            DestArea = e.DestArea;
+            ConnectedPipeID = e.ConnectedPipeID;
+            DestEntrance = e.DestEntrance;
+            Type = e.Type;
+            Settings = e.Settings;
+            Unknown1 = e.Unknown1;
+            EntryView = e.EntryView;
+            Unknown2 = e.Unknown2;
+        }
+
         public void Render(Graphics g) {
             int EntranceShowType = 13;
             if (Type == 0) EntranceShowType = 0;

@@ -16,10 +16,10 @@ namespace NSMBe4
         SpriteEditor se;
         CreatePanel cp;
 
-        public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
+        public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl, ObjectPickerControl opc)
             : base(Level, EdControl)
         {
-            oe = new ObjectEditor(null, EdControl);
+            oe = new ObjectEditor(null, EdControl, opc);
             se = new SpriteEditor(null, EdControl);
             cp = new CreatePanel(EdControl);
             SetPanel(cp);

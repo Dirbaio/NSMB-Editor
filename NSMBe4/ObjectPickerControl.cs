@@ -9,10 +9,10 @@ using System.Windows.Forms;
 namespace NSMBe4 {
     public partial class ObjectPickerControl : UserControl {
 
-        private static NSMBObject[][] TilesetObjects;
-        private static bool inited = false;
-        private static NSMBGraphics GFX;
-        private static bool Ready = false;
+        private NSMBObject[][] TilesetObjects;
+        private bool inited = false;
+        private NSMBGraphics GFX;
+        private bool Ready = false;
 
         public ObjectPickerControl()
         {
@@ -23,7 +23,7 @@ namespace NSMBe4 {
             DrawingArea.Invalidate();
         }
 
-        public static void Initialise(NSMBGraphics GFXd) {
+        public void Initialise(NSMBGraphics GFXd) {
             if (inited) return;
             inited = true;
             GFX = GFXd;
@@ -31,7 +31,7 @@ namespace NSMBe4 {
             LoadObjects();
         }
 
-        private static void LoadObjects() {
+        private void LoadObjects() {
             TilesetObjects = new NSMBObject[][] { null, null, null };
             TilesetObjects[0] = new NSMBObject[256];
             TilesetObjects[1] = new NSMBObject[256];
@@ -43,7 +43,7 @@ namespace NSMBe4 {
             }
         }
 
-        public static void ReRenderAll(int Tileset) {
+        public void ReRenderAll(int Tileset) {
             for (int ObjIdx = 0; ObjIdx < 256; ObjIdx++) {
                 TilesetObjects[Tileset][ObjIdx].UpdateObjCache();
             }

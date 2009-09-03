@@ -48,7 +48,6 @@
             this.objTileset0Button = new System.Windows.Forms.RadioButton();
             this.objTileset1Button = new System.Windows.Forms.RadioButton();
             this.objTileset2Button = new System.Windows.Forms.RadioButton();
-            this.objectPickerControl1 = new NSMBe4.ObjectPickerControl();
             this.objPositionBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objXPosUpDown)).BeginInit();
@@ -238,7 +237,6 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.objPickerBox.Controls.Add(this.tableLayoutPanel2);
-            this.objPickerBox.Controls.Add(this.objectPickerControl1);
             this.objPickerBox.Location = new System.Drawing.Point(6, 104);
             this.objPickerBox.Name = "objPickerBox";
             this.objPickerBox.Size = new System.Drawing.Size(272, 316);
@@ -337,17 +335,6 @@
             this.objTileset2Button.UseVisualStyleBackColor = true;
             this.objTileset2Button.Click += new System.EventHandler(this.objTileset2Button_Click);
             // 
-            // objectPickerControl1
-            // 
-            this.objectPickerControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.objectPickerControl1.Location = new System.Drawing.Point(3, 70);
-            this.objectPickerControl1.Name = "objectPickerControl1";
-            this.objectPickerControl1.Size = new System.Drawing.Size(266, 240);
-            this.objectPickerControl1.TabIndex = 1;
-            this.objectPickerControl1.ObjectSelected += new NSMBe4.ObjectPickerControl.ObjectSelectedDelegate(this.objectPickerControl1_ObjectSelected);
-            // 
             // ObjectEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,7 +375,6 @@
         private System.Windows.Forms.NumericUpDown objYPosUpDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox objPickerBox;
-        private ObjectPickerControl objectPickerControl1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;

@@ -13,6 +13,8 @@ namespace NSMBe4 {
         public EntrancesEditionMode eem;
         public PathsEditionMode pem;
         public ViewsEditionMode vem;
+        public ObjectPickerControl opc;
+
         public LevelEditor(NitroClass ROM, string LevelFilename) {
             InitializeComponent();
             this.ROM = ROM;
@@ -73,12 +75,14 @@ namespace NSMBe4 {
 
             Level = new NSMBLevel(ROM, LevelFileID, LevelBGDatFileID, GFX);
             levelEditorControl1.Initialise(GFX, Level, this);
-            ObjectPickerControl.Initialise(GFX);
 
-            oem = new ObjectsEditionMode(Level, levelEditorControl1);
+            opc = new ObjectPickerControl();
+            opc.Initialise(GFX);
+            oem = new ObjectsEditionMode(Level, levelEditorControl1, opc);
             eem = new EntrancesEditionMode(Level, levelEditorControl1);
             pem = new PathsEditionMode(Level, levelEditorControl1);
             vem = new ViewsEditionMode(Level, levelEditorControl1, true);
+
             levelEditorControl1.SetEditionMode(oem);
 
         }
@@ -175,7 +179,7 @@ namespace NSMBe4 {
         private void LevelConfigForm_ReloadTileset() {
             GFX.LoadTileset1(Level.Blocks[0][0xC], Level.Blocks[3][3]);
             Level.ReRenderAll();
-            ObjectPickerControl.ReRenderAll(1);
+            opc.ReRenderAll(1);
             Invalidate(true);
         }
 

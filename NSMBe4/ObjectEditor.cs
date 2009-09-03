@@ -13,10 +13,12 @@ namespace NSMBe4
         private NSMBObject o;
         private LevelEditorControl EdControl;
         private bool DataUpdateFlag = false;
+        private ObjectPickerControl objectPickerControl1;
 
-        public ObjectEditor(NSMBObject o, LevelEditorControl EdControl)
+        public ObjectEditor(NSMBObject o, LevelEditorControl EdControl, ObjectPickerControl opc)
         {
             InitializeComponent();
+            setOPC(opc);
             this.o = o;
             this.EdControl = EdControl;
             UpdateInfo();
@@ -33,6 +35,22 @@ namespace NSMBe4
                     label6.Text = "Tipo de Objeto:";
                 }
             }
+        }
+
+        private void setOPC(ObjectPickerControl opc)
+        {
+            objectPickerControl1 = opc;
+
+            this.objectPickerControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.objectPickerControl1.Location = new System.Drawing.Point(3, 70);
+            this.objectPickerControl1.Name = "objectPickerControl1";
+            this.objectPickerControl1.Size = new System.Drawing.Size(266, 240);
+            this.objectPickerControl1.TabIndex = 1;
+            this.objectPickerControl1.ObjectSelected += new NSMBe4.ObjectPickerControl.ObjectSelectedDelegate(this.objectPickerControl1_ObjectSelected);
+            this.objPickerBox.Controls.Add(this.objectPickerControl1);
+
         }
 
         private void SetTileset(int T)

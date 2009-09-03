@@ -13,6 +13,7 @@ namespace NSMBe4
         EntranceEditor ed;
         int step = 1;
         int DragStartX, DragStartY;
+        bool CloneMode;
 
         public EntrancesEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
             : base(Level, EdControl)
@@ -53,12 +54,24 @@ namespace NSMBe4
             DragStartX = x;
             DragStartY = y;
 
-            SetDirtyFlag(); //Maybe we moved the entrance, maybe not. Who knows?
+            CloneMode = Control.ModifierKeys == Keys.Control;
         }
 
         public override void MouseDrag(int x, int y)
         {
             if (e == null) return;
+
+            if (CloneMode)
+            {
+                e = new NSMBEntrance(e);
+                Level.Entrances.Add(e);
+                e.Number = Level.getFreeEntranceNumber();
+                EdControl.repaint();
+                EdControl.FireSetDirtyFlag();
+                ed.UpdateList();
+                UpdatePanel();
+                CloneMode = false;
+            }
 
             step = 1;
             if (Control.ModifierKeys == Keys.Shift)
