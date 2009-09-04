@@ -129,6 +129,12 @@ namespace NSMBe4 {
 
             e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
 
+            
+            //RENDER PANNING BLOCKS GRID
+            for(int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width+ViewableBlocks.X)/16; x++)
+                for (int y = ViewableBlocks.Y / 16; y <= (ViewableBlocks.Height + ViewableBlocks.Y) / 16; y++)
+                    e.Graphics.DrawRectangle(Pens.LightGray, x * 256, y * 256, 256, 256);
+
 
             //RENDER OBJECTS
 #if USE_GDIPLUS
