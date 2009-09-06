@@ -35,6 +35,7 @@
             this.editPathsButton = new System.Windows.Forms.ToolStripButton();
             this.editViewsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.spriteFinder = new System.Windows.Forms.ToolStripButton();
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewMap16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +59,7 @@
             this.editPathsButton,
             this.editViewsButton,
             this.toolStripSeparator2,
+            this.spriteFinder,
             this.optionsMenu});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -143,6 +145,15 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // spriteFinder
+            // 
+            this.spriteFinder.Image = ((System.Drawing.Image)(resources.GetObject("spriteFinder.Image")));
+            this.spriteFinder.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.spriteFinder.Name = "spriteFinder";
+            this.spriteFinder.Size = new System.Drawing.Size(88, 22);
+            this.spriteFinder.Text = "Sprite Finder";
+            this.spriteFinder.Click += new System.EventHandler(this.spriteFinder_Click);
             // 
             // optionsMenu
             // 
@@ -246,6 +257,7 @@
         private System.Windows.Forms.ToolStripButton editPathsButton;
         private System.Windows.Forms.Panel PanelContainer;
         private System.Windows.Forms.ToolStripButton editViewsButton;
+        private System.Windows.Forms.ToolStripButton spriteFinder;
     }
 }
 

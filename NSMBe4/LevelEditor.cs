@@ -15,6 +15,8 @@ namespace NSMBe4 {
         public ViewsEditionMode vem;
         public ObjectPickerControl opc;
 
+        public ToolsForm tools;
+
         public LevelEditor(NitroClass ROM, string LevelFilename) {
             InitializeComponent();
             this.ROM = ROM;
@@ -84,6 +86,8 @@ namespace NSMBe4 {
             vem = new ViewsEditionMode(Level, levelEditorControl1, true);
 
             levelEditorControl1.SetEditionMode(oem);
+
+            tools = new ToolsForm(levelEditorControl1);
 
         }
 
@@ -376,5 +380,9 @@ namespace NSMBe4 {
             Dirty = true;
         }
 
+        private void spriteFinder_Click(object sender, EventArgs e)
+        {
+            tools.Show();
+        }
     }
 }

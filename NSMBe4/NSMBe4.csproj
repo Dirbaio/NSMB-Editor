@@ -218,6 +218,9 @@
     <EmbeddedResource Include="SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolsForm.resx">
+      <DependentUpon>ToolsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewEditor.resx">
       <DependentUpon>ViewEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -301,6 +304,12 @@
     </Compile>
     <Compile Include="PathEditor.Designer.cs">
       <DependentUpon>PathEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToolsForm.Designer.cs">
+      <DependentUpon>ToolsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewEditor.cs">
       <SubType>UserControl</SubType>
