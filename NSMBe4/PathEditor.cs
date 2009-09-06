@@ -107,13 +107,14 @@ namespace NSMBe4
         private void pathsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            setNode(pathsList.SelectedItem as NSMBPath, null);
+            setNode(pathsList.SelectedItem as NSMBPath, ((NSMBPath)pathsList.SelectedItem).points[0]);
         }
 
         public void setNode(NSMBPath np, NSMBPathPoint nn)
         {
             this.p = np;
             this.n = nn;
+            if (nn != null) EdControl.EnsurePosVisible(nn.X / 16, nn.Y / 16);
 
             UpdateInfo();
         }

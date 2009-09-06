@@ -92,7 +92,7 @@ namespace NSMBe4 {
 
         public override string ToString()
         {
-            return Number + ": " + X + ", " + Y + " (" + Width + " x " + Height + ")";
+            return Number + ": " + X + "," + Y + " (" + Width + " x " + Height + ")";
         }
     }
 }

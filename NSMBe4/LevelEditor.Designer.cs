@@ -125,7 +125,7 @@
             // 
             // editPathsButton
             // 
-            this.editPathsButton.Image = ((System.Drawing.Image)(resources.GetObject("editPathsButton.Image")));
+            this.editPathsButton.Image = global::NSMBe4.Properties.Resources.paths;
             this.editPathsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editPathsButton.Name = "editPathsButton";
             this.editPathsButton.Size = new System.Drawing.Size(54, 22);
@@ -134,7 +134,7 @@
             // 
             // editViewsButton
             // 
-            this.editViewsButton.Image = ((System.Drawing.Image)(resources.GetObject("editViewsButton.Image")));
+            this.editViewsButton.Image = global::NSMBe4.Properties.Resources.views;
             this.editViewsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editViewsButton.Name = "editViewsButton";
             this.editViewsButton.Size = new System.Drawing.Size(54, 22);

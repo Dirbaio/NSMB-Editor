@@ -84,6 +84,7 @@
             this.viewsList.Name = "viewsList";
             this.viewsList.Size = new System.Drawing.Size(238, 82);
             this.viewsList.TabIndex = 0;
+            this.viewsList.SelectedIndexChanged += new System.EventHandler(this.viewsList_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -168,9 +169,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 111);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.Size = new System.Drawing.Size(78, 13);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Unknow 3 (B)";
+            this.label4.Text = "Unknown 3 (B)";
             // 
             // label5
             // 
@@ -217,6 +218,7 @@
             // 
             // music
             // 
+            this.music.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.music.FormattingEnabled = true;
             this.music.Items.AddRange(new object[] {
             "00 - None",

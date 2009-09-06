@@ -1,10 +1,10 @@
 Treeki's editor para New Super Mario Bros
-Version 4.7 - publicado 29 de Junio 2009
-http://jul.rustedlogic.net/thread.php?id=244&page=15
+Version 4.8 - publicado 4 de Septiembre 2009
+http://jul.rustedlogic.net/thread.php?id=5814
 ----------
 Gracias por haber bajado mi nuevo editor.
 Este editor te deja editar niveles y el sistema de archivos en New Super Mario Bros.
-Soporta edición de objetos, sprites/enemigos y entradas/salidas, con más para venir.
+Soporta edición de objetos, sprites/enemigos, entradas/salidas, vistas, rutas, y mas.
 
 Desde versión 4.3, puedes usar el editor en español también. Ejecuta el editor, haz clic en "Options" y escoge Español como el idioma. Tendrás que cerrar y abrir el editor para que el idioma cambie.
 Ten en cuenta que mi español no es perfecto - probablemente habrá faltas en la traducción, pero se podra usar.
@@ -42,6 +42,11 @@ v4.7 - 29 de Junio 2009:
 - Data para algunos objetos actualizados.
 - Puedes cambiar el tamaño de un objeto si tienes la tecla Shift pulsada.
 - Puedes hacer una copia de un objeto si tienes la tecla Ctrl pulsada.
+v4.8 - 4 de Septiembre 2009:
+- Ya puedes bajar el codigo del editor; gracias a Dirbaio para casi todas las cosas en esta version!
+- Vistas se pueden cambiar.
+- Rutas se pueden cambiar.
+- Otros cambios menores.
 
 ----------
 Preguntas:
@@ -69,8 +74,15 @@ Cambie los surtidos de sprites, y ahora el juego se parte en la pantalla "Mundo 
 He movido una tuberia; ¿por qué no trabaja?
 - Crear una entrada/salida para la tuberia.
 
-Cambie el tamaño del nivel; ¿por qué no trabaja?
-- Las vistas no están soportadas porque todavía no sé como trabaja el formato entero. Por ahora tendras que quedarte con el tamaño normal de cada nivel. Desde version 4.3, puedes ver el tamaño de cada nivel en el editor, para ayudarte, pero no puedes cambiarlo.
+Cambie el tamaño del nivel; ¿por qué no puedo entrar en la parte nueva?
+- Desde la version 4.8, ya puedes cambiar vistas. Mira los rectangulos azul en el nivel - marcan la parte del nivel que puedes entrar. Escojer "Views" arriba en el editor y puedes editarlos para cambiar donde puedes entrar.
+
+¿Como cambio rutas? ¿Para que se pueden usar?
+- Rutas estan usadas para algunas cosas en el juego - la camara que mueve automaticamente, algunos enemigos como "Dorrie" (el dinosaurio del Mundo 4), el tren de bloques y tuberias conectadas.
+  Para editarlas: Todas las rutas deberian de tener un punto o mas. Pulsa el boton Ctrl y haz clic en un punto y mueve el raton para añadir un punto nuevo. Pulsa el boton Shift cuando mueves un punto para que se quede entre 8 pixels. Pulsa el boton Alt y haz clic en un punto para borrar el punto.
+
+¿Hay trucos que puedo usar para editar niveles mas pronto?
+- Pulsa el boton Ctrl y mueve un objeto, sprite o entrada para hacer una copia de el. Puedes mover la parte del nivel en la pantalla pronto pulsando el boton derecho en el raton y moviendolo.
 
 ¡No lo puedo ejecutar!
 - Mira para ver si tienes el Microsoft .NET Framework 2.0 instalado. (Si estas en Vista, ya lo deberias tener.) Si no, baja esto: http://www.microsoft.com/downloads/details.aspx?displaylang=en&FamilyID=0856eacb-4362-4b0d-8edd-aab15c5e04f5
@@ -78,8 +90,11 @@ Cambie el tamaño del nivel; ¿por qué no trabaja?
 No tengo Windows; ¿puedo usarlo?
 - Desde la versión 4.4, trabaja en Mono: http://www.mono-project.com/Main_Page
 
-Donde bajo un ROM de NSMB?
+¿Donde bajo un ROM de NSMB?
 - http://www.google.es
+
+Mi pregunta no esta aqui..
+- Hay un foro en Ingles para el editor aqui: http://jul.rustedlogic.net/forum.php?id=11 - Si puedes escribir en Ingles, puedes enviar tus preguntas aqui.
 
 
 ----------
@@ -87,6 +102,7 @@ Creditos:
 
 Treeki- Diseño y codigo
 Blackhole89- Codigo para dibujar objetos
+Dirbaio- Codigo para editar vistas, rutas y otras cosas
 Piranhaplant- Lista de sprites en ingles
 Madman200, Tanks- Informacion en el data de sprites
 Master01- Lista de sprites en español

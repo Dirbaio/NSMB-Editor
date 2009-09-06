@@ -40,3 +40,27 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NS
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NSMBe4.SpriteEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NSMBe4.csproj.GenerateResource.Cache
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Release\NSMBe4.ViewEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\bin\Release\NSMBe4.exe.config
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.exe
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.pdb
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\bin\Release\NSMBe4.exe
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\bin\Release\NSMBe4.pdb
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\ResolveAssemblyReference.cache
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.CreatePanel.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.DataFinder.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.EntranceEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.ImagePreviewer.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.LevelChooser.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.LevelConfig.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.LevelEditorControl.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.LevelEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.LevelHexEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.LevelMinimap.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.Map16Viewer.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.ObjectEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.ObjectPickerControl.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.PathEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.Properties.Resources.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.SpriteEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.ViewEditor.resources
+C:\C\Emulation\Hacking\NSMBe4_Dev\NSMBe4\obj\Release\NSMBe4.csproj.GenerateResource.Cache

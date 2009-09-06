@@ -56,7 +56,9 @@ namespace NSMBe4
 
         public void UpdateItem()
         {
+            DataUpdateFlag = true;
             viewsList.SelectedItem = v;
+            DataUpdateFlag = false;
             if (v == null)
                 return;
             if (viewsList.Items.Contains(v))
@@ -123,6 +125,13 @@ namespace NSMBe4
             v.Lighting = (int)light.Value;
             v.FlagpoleID = (int)progressID.Value;
             EdControl.FireSetDirtyFlag();
+        }
+
+        private void viewsList_SelectedIndexChanged(object sender, EventArgs e) {
+            if (DataUpdateFlag) return;
+
+            SetView((NSMBView)viewsList.SelectedItem);
+            EdControl.EnsurePosVisible(v.X / 16, v.Y / 16);
         }
     }
 }

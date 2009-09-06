@@ -1,10 +1,10 @@
 Treeki's New Super Mario Bros editor
-Version 4.7 - released 29th June 2009
-http://jul.rustedlogic.net/thread.php?id=244&page=15
+Version 4.8 - released 4th September 2009
+http://jul.rustedlogic.net/thread.php?id=5814
 ----------
 Thanks for downloading my new editor.
 This editor will allow you to modify levels and the file system in New Super Mario Bros.
-It supports editing objects, enemies/sprites and entrances, with more to come soon.
+It supports editing objects, enemies/sprites, entrances, views, paths, and more.
 
 ----------
 Changelog:
@@ -39,6 +39,11 @@ v4.7 - 29th June 2009:
 - Object definitions updated.
 - Dragging an object with the Shift key held will now allow you to resize it.
 - Clicking and/or dragging an object with the Ctrl key held will create an exact clone of it.
+v4.8 - 4th September 2009:
+- Editor now open-source; thanks to Dirbaio for almost all the additions in this release!
+- Views are now editable.
+- Paths are now editable.
+- Some interface updates.
 
 ----------
 FAQ:
@@ -67,8 +72,15 @@ A: Click on the Entrances button in the toolbar, then feel free to edit them! No
 Q: I made or moved a pipe, why won't it work?
 A: Create an entrance for it.
 
-Q: I made the level bigger, why won't it work?
-A: Views aren't supported yet, because I don't know enough of the format. Therefore, for now you'll have to stick to the default level sizes. However, to help you, you can see the size of each view.
+Q: I made the level bigger, why can't I go into the part I added?
+A: Look at the blue rectangles surrounding the level (or in the case of some levels, each area/room). You can reposition and resize them using the "Views" option located at the top of the editor. This will control the usable area in the level.
+
+Q: How do I edit paths? What do they do?
+A: Paths are used for some things in the game - most notably: the autoscrolling camera, a few enemies such as Dorrie (World 4's ridable dinosaur), block trains and connected pipes.
+   To edit them: Each path should automatically have at least one point. Hold down Ctrl and drag from a point to add a new one. Hold down Shift to snap to 8 pixels. Hold down Alt and click on a point to delete it.
+
+Q: Are there any shortcuts I can use?
+A: You can clone objects, sprites and entrances by holding down Ctrl and dragging. You can scroll the level around easily by holding down the right mouse button and dragging.
 
 Q: I can't run it! halp!
 A: Check to make sure you have the .NET Framework 2.0 installed. (If you're on Vista, you should already have it.) If not, download this: http://www.microsoft.com/downloads/details.aspx?displaylang=en&FamilyID=0856eacb-4362-4b0d-8edd-aab15c5e04f5
@@ -79,12 +91,16 @@ A: As from version 4.4, it works on Mono: http://www.mono-project.com/Main_Page
 Q: Where do I get a NSMB ROM?
 A: http://www.google.com
 
+Q: My question wasn't answered here...
+A: The official forum for this editor is here: http://jul.rustedlogic.net/forum.php?id=11 - Feel free to register and ask questions, but please use common sense.
+
 
 ----------
 Credits:
 
 Treeki- Main coding and design
 Blackhole89- Object parsing/rendering code
+Dirbaio- View editing, path editing, other contributions
 Piranhaplant- Sprite list
 Master01 - Spanish translation for the sprite list
 Treeki, Piranhaplant, Madman200- Sprite data list

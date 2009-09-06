@@ -298,6 +298,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="nsmbe3.ico" />
+    <None Include="Resources\paths.png" />
+    <None Include="Resources\views.png" />
     <Compile Include="ByteArrayOutputStream.cs" />
     <Compile Include="PathEditor.cs">
       <SubType>UserControl</SubType>

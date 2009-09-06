@@ -487,6 +487,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap paths {
+            get {
+                object obj = ResourceManager.GetObject("paths", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
@@ -650,11 +657,12 @@ namespace NSMBe4.Properties {
         ///18: Nieve
         ///19: Bosque
         ///20: Playa (amarillo)
-        ///21: Cuarto bonus (sin usar)
+        ///21: Sala bonus (sin usar)
         ///22: Volcan (negro 2)
         ///23: Casa fantasma
         ///24: Monte
-        ///25: Monte        /// [rest of string was truncated]&quot;;.
+        ///25: Monte
+        ///2 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string tilesetlist_lang1 {
             get {
@@ -701,6 +709,13 @@ namespace NSMBe4.Properties {
             get {
                 object obj = ResourceManager.GetObject("ts_unt_table", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap views {
+            get {
+                object obj = ResourceManager.GetObject("views", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
