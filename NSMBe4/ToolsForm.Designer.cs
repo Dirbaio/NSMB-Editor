@@ -70,20 +70,20 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(273, 30);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(271, 30);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // SpriteNumber
             // 
             this.SpriteNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpriteNumber.Location = new System.Drawing.Point(139, 5);
+            this.SpriteNumber.Location = new System.Drawing.Point(138, 5);
             this.SpriteNumber.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.SpriteNumber.Name = "SpriteNumber";
-            this.SpriteNumber.Size = new System.Drawing.Size(131, 20);
+            this.SpriteNumber.Size = new System.Drawing.Size(130, 20);
             this.SpriteNumber.TabIndex = 1;
             // 
             // label1
@@ -103,7 +103,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(295, 360);
+            this.tabControl1.Size = new System.Drawing.Size(293, 184);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -116,7 +116,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(287, 334);
+            this.tabPage1.Size = new System.Drawing.Size(285, 158);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Sprite Find and Replace";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -265,10 +265,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 360);
+            this.ClientSize = new System.Drawing.Size(293, 184);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ToolsForm";
+            this.ShowInTaskbar = false;
             this.Text = "Tools";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ToolsForm_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteNumber)).EndInit();

@@ -98,5 +98,11 @@ namespace NSMBe4
             EdControl.repaint();
             MessageBox.Show(count + " sprites replaced.", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void ToolsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
     }
 }
