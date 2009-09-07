@@ -130,7 +130,7 @@ namespace NSMBe4
         private void viewsList_SelectedIndexChanged(object sender, EventArgs e) {
             if (DataUpdateFlag) return;
 
-            SetView((NSMBView)viewsList.SelectedItem);
+            EdControl.SelectObject(viewsList.SelectedItem);
             EdControl.EnsurePosVisible(v.X / 16, v.Y / 16);
         }
     }
