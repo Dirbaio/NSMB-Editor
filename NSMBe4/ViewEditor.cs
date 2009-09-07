@@ -131,7 +131,8 @@ namespace NSMBe4
             if (DataUpdateFlag) return;
 
             EdControl.SelectObject(viewsList.SelectedItem);
-            EdControl.EnsurePosVisible(v.X / 16, v.Y / 16);
+            if(v != null)
+                EdControl.EnsurePosVisible(v.X / 16, v.Y / 16);
         }
     }
 }

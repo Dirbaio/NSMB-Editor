@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Be.Windows.Forms;
 
 namespace NSMBe4 {
     public partial class LevelHexEditor : Form {
@@ -68,8 +69,8 @@ namespace NSMBe4 {
 
             DataUpdateFlag = true;
             this.BlockID = BlockID;
-            //hexBox1.ByteProvider = new DynamicByteProvider(Blocks[BlockID]);
-            //((DynamicByteProvider)hexBox1.ByteProvider).Changed += new EventHandler(LevelHexEditor_Changed);
+            hexBox1.ByteProvider = new DynamicByteProvider(Blocks[BlockID]);
+            ((DynamicByteProvider)hexBox1.ByteProvider).Changed += new EventHandler(LevelHexEditor_Changed);
             blockComboBox.SelectedIndex = BlockID;
             DataUpdateFlag = false;
 
@@ -82,7 +83,7 @@ namespace NSMBe4 {
 
         private void Save() {
             Dirty = false;
-            //Blocks[BlockID] = ((DynamicByteProvider)hexBox1.ByteProvider).Bytes.ToArray();
+            Blocks[BlockID] = ((DynamicByteProvider)hexBox1.ByteProvider).Bytes.ToArray();
 
             ushort LevelFileID = ROM.FileIDs[LevelFilename + ".bin"];
             int LevelFileSize = 8 * 14;
