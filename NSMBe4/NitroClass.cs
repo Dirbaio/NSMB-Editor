@@ -16,7 +16,12 @@ namespace NSMBe4 {
         public Dictionary<string,ushort> FileIDs;
         public Dictionary<ushort,string> FileNames;
         public Dictionary<ushort,uint> FileOffsets;
-        public Dictionary<ushort,uint> FileSizes;
+        public Dictionary<ushort, uint> FileSizes;
+        public Dictionary<ushort,ushort> FileParentIDs;
+        /* Dirs */
+
+        public Dictionary<string, ushort> DirIDs;
+
         /* Misc */
         public ushort FileCount;
         public uint FileLastEnd;
@@ -49,11 +54,16 @@ namespace NSMBe4 {
                 FileNames = new Dictionary<ushort, string>();
                 FileOffsets = new Dictionary<ushort,uint>();
                 FileSizes = new Dictionary<ushort,uint>();
+                FileParentIDs = new Dictionary<ushort, ushort>();
+
+                DirIDs = new Dictionary<string, ushort>();
             }
             FileIDs.Clear();
             FileNames.Clear();
             FileOffsets.Clear();
             FileSizes.Clear();
+            FileParentIDs.Clear();
+            DirIDs.Clear();
 
             // start reading
             LoadDir("Root", 61440, 0);
@@ -69,6 +79,8 @@ namespace NSMBe4 {
             uint EntryStart = ReadUInt(rfs);
             ushort EntryFileID = ReadUShort(rfs);
             ushort ParentID = ReadUShort(rfs);
+
+            DirIDs[DirName] = DirID;
 
             // list to class owner
             if (Parent == 0) {
@@ -107,10 +119,13 @@ namespace NSMBe4 {
             uint FATStart = ReadUInt(rfs);
             uint FATEnd = ReadUInt(rfs);
             if (FileReady != null) FileReady(FileID, Parent, FileName);
+
             FileIDs[FileName] = FileID;
             FileNames[FileID] = FileName;
             FileOffsets[FileID] = FATStart;
             FileSizes[FileID] = FATEnd - FATStart;
+            FileParentIDs[FileID] = Parent;
+
             if (FATEnd > FileLastEnd) FileLastEnd = FATEnd;
             FileCount++;
             rfs.Seek(PreviousSeek, SeekOrigin.Begin);

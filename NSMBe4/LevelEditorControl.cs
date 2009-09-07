@@ -158,7 +158,7 @@ namespace NSMBe4 {
 #endif
 
             foreach(NSMBView v in Level.Views)
-                v.render(e.Graphics);
+                v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
             
             foreach(NSMBSprite s in Level.Sprites)
                 if(ViewableBlocks.Contains(s.X, s.Y))

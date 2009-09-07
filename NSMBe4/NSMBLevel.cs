@@ -282,7 +282,7 @@ namespace NSMBe4 {
                         "Unreadable File", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 } else {
                     MessageBox.Show(
-                        "Este no es un archivo de nivel de NSMB Editor 4. Si esta seguro que es un archivo valido, puedes haber sido corrompido.",
+                        "Este no es un archivo de nivel de NSMB Editor 4. Si esta seguro de que es un archivo valido, puede estar corrupto.",
                         "Error de Archivo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 return;
@@ -315,7 +315,7 @@ namespace NSMBe4 {
                 } else {
                     dr = MessageBox.Show(
                         "Este archivo esta importado en un nivel diferente que el original\n" +
-                        "Todavia trabajara (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en una orden incorrecta.\n" +
+                        "Todavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\n" +
                         "Quieres continuar?",
                         "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 }

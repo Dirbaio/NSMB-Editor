@@ -51,10 +51,16 @@
             this.replaceFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.importLevelDialog = new System.Windows.Forms.OpenFileDialog();
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.patchExport = new System.Windows.Forms.Button();
+            this.patchImport = new System.Windows.Forms.Button();
+            this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -62,13 +68,13 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(361, 301);
+            this.tabControl1.Size = new System.Drawing.Size(375, 296);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -83,7 +89,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(353, 275);
+            this.tabPage1.Size = new System.Drawing.Size(367, 270);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "File Browser";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -93,7 +99,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 227);
+            this.label1.Location = new System.Drawing.Point(7, 222);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 7;
@@ -103,7 +109,7 @@
             // 
             this.selectedFileInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.selectedFileInfo.AutoSize = true;
-            this.selectedFileInfo.Location = new System.Drawing.Point(94, 227);
+            this.selectedFileInfo.Location = new System.Drawing.Point(94, 222);
             this.selectedFileInfo.Name = "selectedFileInfo";
             this.selectedFileInfo.Size = new System.Drawing.Size(13, 13);
             this.selectedFileInfo.TabIndex = 6;
@@ -112,7 +118,7 @@
             // decompressFileButton
             // 
             this.decompressFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.decompressFileButton.Location = new System.Drawing.Point(251, 246);
+            this.decompressFileButton.Location = new System.Drawing.Point(265, 241);
             this.decompressFileButton.Name = "decompressFileButton";
             this.decompressFileButton.Size = new System.Drawing.Size(96, 23);
             this.decompressFileButton.TabIndex = 5;
@@ -123,7 +129,7 @@
             // compressFileButton
             // 
             this.compressFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.compressFileButton.Location = new System.Drawing.Point(168, 246);
+            this.compressFileButton.Location = new System.Drawing.Point(182, 241);
             this.compressFileButton.Name = "compressFileButton";
             this.compressFileButton.Size = new System.Drawing.Size(77, 23);
             this.compressFileButton.TabIndex = 4;
@@ -134,7 +140,7 @@
             // replaceFileButton
             // 
             this.replaceFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.replaceFileButton.Location = new System.Drawing.Point(87, 246);
+            this.replaceFileButton.Location = new System.Drawing.Point(87, 241);
             this.replaceFileButton.Name = "replaceFileButton";
             this.replaceFileButton.Size = new System.Drawing.Size(75, 23);
             this.replaceFileButton.TabIndex = 3;
@@ -145,7 +151,7 @@
             // extractFileButton
             // 
             this.extractFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.extractFileButton.Location = new System.Drawing.Point(6, 246);
+            this.extractFileButton.Location = new System.Drawing.Point(6, 241);
             this.extractFileButton.Name = "extractFileButton";
             this.extractFileButton.Size = new System.Drawing.Size(75, 23);
             this.extractFileButton.TabIndex = 2;
@@ -163,7 +169,7 @@
             this.fileTreeView.Location = new System.Drawing.Point(6, 6);
             this.fileTreeView.Name = "fileTreeView";
             this.fileTreeView.SelectedImageIndex = 0;
-            this.fileTreeView.Size = new System.Drawing.Size(341, 218);
+            this.fileTreeView.Size = new System.Drawing.Size(355, 213);
             this.fileTreeView.TabIndex = 1;
             this.fileTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.fileTreeView_AfterSelect);
             // 
@@ -185,14 +191,15 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(353, 275);
+            this.tabPage2.Size = new System.Drawing.Size(367, 270);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Level Editor";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // hexEditLevelButton
             // 
-            this.hexEditLevelButton.Location = new System.Drawing.Point(200, 246);
+            this.hexEditLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.hexEditLevelButton.Location = new System.Drawing.Point(214, 241);
             this.hexEditLevelButton.Name = "hexEditLevelButton";
             this.hexEditLevelButton.Size = new System.Drawing.Size(66, 23);
             this.hexEditLevelButton.TabIndex = 4;
@@ -203,7 +210,7 @@
             // exportLevelButton
             // 
             this.exportLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exportLevelButton.Location = new System.Drawing.Point(88, 246);
+            this.exportLevelButton.Location = new System.Drawing.Point(88, 241);
             this.exportLevelButton.Name = "exportLevelButton";
             this.exportLevelButton.Size = new System.Drawing.Size(75, 23);
             this.exportLevelButton.TabIndex = 3;
@@ -214,7 +221,7 @@
             // importLevelButton
             // 
             this.importLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.importLevelButton.Location = new System.Drawing.Point(7, 246);
+            this.importLevelButton.Location = new System.Drawing.Point(7, 241);
             this.importLevelButton.Name = "importLevelButton";
             this.importLevelButton.Size = new System.Drawing.Size(75, 23);
             this.importLevelButton.TabIndex = 2;
@@ -225,7 +232,7 @@
             // editLevelButton
             // 
             this.editLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editLevelButton.Location = new System.Drawing.Point(272, 246);
+            this.editLevelButton.Location = new System.Drawing.Point(286, 241);
             this.editLevelButton.Name = "editLevelButton";
             this.editLevelButton.Size = new System.Drawing.Size(75, 23);
             this.editLevelButton.TabIndex = 1;
@@ -240,30 +247,32 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.levelTreeView.Location = new System.Drawing.Point(6, 6);
             this.levelTreeView.Name = "levelTreeView";
-            this.levelTreeView.Size = new System.Drawing.Size(341, 234);
+            this.levelTreeView.Size = new System.Drawing.Size(355, 229);
             this.levelTreeView.TabIndex = 0;
             this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);
             this.levelTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.levelTreeView_AfterSelect);
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox1);
+            this.tabPage3.Controls.Add(this.patchImport);
+            this.tabPage3.Controls.Add(this.patchExport);
             this.tabPage3.Controls.Add(this.dataFinderButton);
-            this.tabPage3.Controls.Add(this.changeLanguageButton);
-            this.tabPage3.Controls.Add(this.languageListBox);
-            this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(353, 275);
+            this.tabPage3.Size = new System.Drawing.Size(367, 270);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Settings";
+            this.tabPage3.Text = "Tools";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // dataFinderButton
             // 
-            this.dataFinderButton.Location = new System.Drawing.Point(132, 6);
+            this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataFinderButton.Location = new System.Drawing.Point(185, 6);
             this.dataFinderButton.Name = "dataFinderButton";
-            this.dataFinderButton.Size = new System.Drawing.Size(132, 23);
+            this.dataFinderButton.Size = new System.Drawing.Size(176, 23);
             this.dataFinderButton.TabIndex = 3;
             this.dataFinderButton.Text = "Data Finder";
             this.dataFinderButton.UseVisualStyleBackColor = true;
@@ -271,7 +280,8 @@
             // 
             // changeLanguageButton
             // 
-            this.changeLanguageButton.Location = new System.Drawing.Point(28, 120);
+            this.changeLanguageButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.changeLanguageButton.Location = new System.Drawing.Point(49, 133);
             this.changeLanguageButton.Name = "changeLanguageButton";
             this.changeLanguageButton.Size = new System.Drawing.Size(75, 23);
             this.changeLanguageButton.TabIndex = 2;
@@ -281,19 +291,21 @@
             // 
             // languageListBox
             // 
+            this.languageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.languageListBox.FormattingEnabled = true;
             this.languageListBox.Items.AddRange(new object[] {
             "English",
             "Spanish"});
-            this.languageListBox.Location = new System.Drawing.Point(6, 19);
+            this.languageListBox.Location = new System.Drawing.Point(6, 32);
             this.languageListBox.Name = "languageListBox";
-            this.languageListBox.Size = new System.Drawing.Size(120, 95);
+            this.languageListBox.Size = new System.Drawing.Size(161, 95);
             this.languageListBox.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 3);
+            this.label2.Location = new System.Drawing.Point(6, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 0;
@@ -319,11 +331,57 @@
             // 
             this.exportLevelDialog.Filter = "NSMB Editor Exported Levels (*.nml)|*.nml|All files (*.*)|*.*";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.languageListBox);
+            this.groupBox1.Controls.Add(this.changeLanguageButton);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(173, 258);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Settings";
+            // 
+            // patchExport
+            // 
+            this.patchExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchExport.Location = new System.Drawing.Point(185, 35);
+            this.patchExport.Name = "patchExport";
+            this.patchExport.Size = new System.Drawing.Size(176, 23);
+            this.patchExport.TabIndex = 3;
+            this.patchExport.Text = "Export Patch";
+            this.patchExport.UseVisualStyleBackColor = true;
+            this.patchExport.Click += new System.EventHandler(this.patchExport_Click);
+            // 
+            // patchImport
+            // 
+            this.patchImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchImport.Location = new System.Drawing.Point(185, 64);
+            this.patchImport.Name = "patchImport";
+            this.patchImport.Size = new System.Drawing.Size(176, 23);
+            this.patchImport.TabIndex = 3;
+            this.patchImport.Text = "Import Patch";
+            this.patchImport.UseVisualStyleBackColor = true;
+            this.patchImport.Click += new System.EventHandler(this.patchImport_Click);
+            // 
+            // savePatchDialog
+            // 
+            this.savePatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
+            // 
+            // openPatchDialog
+            // 
+            this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 325);
+            this.ClientSize = new System.Drawing.Size(400, 320);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelChooser";
@@ -335,7 +393,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -368,5 +427,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button dataFinderButton;
         private System.Windows.Forms.Button hexEditLevelButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button patchExport;
+        private System.Windows.Forms.Button patchImport;
+        private System.Windows.Forms.SaveFileDialog savePatchDialog;
+        private System.Windows.Forms.OpenFileDialog openPatchDialog;
     }
 }

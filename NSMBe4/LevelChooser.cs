@@ -395,5 +395,154 @@ namespace NSMBe4 {
             DataFinderForm.Show();
             DataFinderForm.Activate();
         }
+
+
+        /**
+         * PATCH FILE FORMAT
+         * 
+         * - String "NSMBe4 Exported Patch"
+         * - Some files (see below)
+         * - byte 0
+         * 
+         * STRUCTURE OF A FILE
+         * - byte 1
+         * - File name as a string
+         * - File ID as ushort (to check for different versions, only gives a warning)
+         * - File length as uint
+         * - File contents as byte[]
+         */
+
+        private void patchExport_Click(object sender, EventArgs e)
+        {
+
+            //input
+            bool onlyCourse = true;
+
+            //output to show to the user
+            bool differentRomsWarning = false; // tells if we have shown the warning
+            int fileCount = 0;
+
+            //load the original rom
+            MessageBox.Show("Select a clean original rom.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            NitroClass origROM = new NitroClass();
+            if(openROMDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            origROM.LoadROM(openROMDialog.FileName);
+
+            //open the output patch
+            MessageBox.Show("Select where to save the patch.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (savePatchDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            FileStream fs = new FileStream(savePatchDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write("NSMBe4 Exported Patch");
+
+            //DO THE PATCH!!
+            MessageBox.Show("Patching will start now. It may take a long time.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ushort CourseDirID = ROM.DirIDs["course"];
+
+            foreach (ushort id in ROM.FileNames.Keys)
+            {
+                if (onlyCourse && ROM.FileParentIDs[id] != CourseDirID)
+                    continue;
+
+                Console.Out.WriteLine("Checking " + ROM.FileNames[id]);
+
+                //check same version
+                if(!differentRomsWarning && ROM.FileNames[id] != origROM.FileNames[id])
+                {
+                    if (MessageBox.Show("The two roms seem to be different versions. Are you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        differentRomsWarning = true;
+                    else
+                    {
+                        fs.Close();
+                        return;
+                    }
+                }
+
+                byte[] oldFile = origROM.ExtractFile(id);
+                byte[] newFile = ROM.ExtractFile(id);
+
+                if (!arrayEqual(oldFile, newFile))
+                {
+                    //include file in patch
+                    string fileName = origROM.FileNames[id];
+                    Console.Out.WriteLine("Including: " + fileName);
+                    fileCount++;
+
+                    bw.Write((byte)1);
+                    bw.Write(fileName);
+                    bw.Write(id);
+                    bw.Write((uint)newFile.Length);
+                    bw.Write(newFile, 0, newFile.Length);
+                }
+            }
+            bw.Write((byte)0);
+            bw.Close();
+
+            MessageBox.Show("Patch exported succesfully. Included " + fileCount + " files.", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public bool arrayEqual(byte[] a, byte[] b)
+        {
+            if (a.Length != b.Length)
+                return false;
+
+            for (int i = 0; i < a.Length; i++)
+                if (a[i] != b[i])
+                    return false;
+
+            return true;
+        }
+
+        private void patchImport_Click(object sender, EventArgs e)
+        {
+            //output to show to the user
+            bool differentRomsWarning = false; // tells if we have shown the warning
+            int fileCount = 0;
+
+            //open the input patch
+            if (openPatchDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            FileStream fs = new FileStream(openPatchDialog.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            BinaryReader br = new BinaryReader(fs);
+
+            string header = br.ReadString();
+            if (header != "NSMBe4 Exported Patch")
+            {
+                MessageBox.Show(
+                    "This is not a NSMBe4 patch file. If you're sure it's a valid patch file, it may be corrupted.",
+                    "Unreadable File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                br.Close();
+                return;
+            }
+
+            byte filestartByte = br.ReadByte();
+            while (filestartByte == 1)
+            {
+                string fileName = br.ReadString();
+                ushort origFileID = br.ReadUInt16();
+                ushort fileID = ROM.FileIDs[fileName];
+
+                uint length = br.ReadUInt32();
+                byte[] newFile = new byte[length];
+                br.Read(newFile, 0, (int)length);
+                filestartByte = br.ReadByte();
+
+                if (!differentRomsWarning && origFileID != fileID)
+                {
+                    MessageBox.Show("The two roms seem to be different versions. The patch should work, but maybe it doesn't.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    differentRomsWarning = true;
+                }
+
+                Console.Out.WriteLine("Replace " + fileName);
+                ROM.ReplaceFile(fileID, newFile);
+                fileCount++;
+            }
+            br.Close();
+            MessageBox.Show("Patch applied succesfully. "+fileCount+" files replaced.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

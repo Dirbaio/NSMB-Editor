@@ -37,7 +37,7 @@ namespace NSMBe4 {
             FlagpoleID = v.FlagpoleID;
         }
 
-        public void render(Graphics g)
+        public void render(Graphics g, int vx, int vy)
         {
             Pen p = Pens.LightSteelBlue;
             if (Width < 16 * 16)
@@ -47,12 +47,30 @@ namespace NSMBe4 {
 
             g.DrawRectangle(p, X, Y, Width - 1, Height - 1);
             g.DrawRectangle(p, X + 1, Y + 1, Width - 3, Height - 3);
+
+            if (X + Width > vx * 16 && Y + Height > vy * 16)
+            {
+                int numx = X;
+                int numy = Y;
+
+                if (numx < vx * 16)
+                    numx = vx * 16;
+                if (numy < vy * 16)
+                    numy = vy * 16;
+
+                g.DrawString("View " + Number, NSMBGraphics.InfoFont, Brushes.White, (float)numx, (float)numy);
+            }
         }
 
         public void renderSelected(Graphics g)
         {
             g.DrawRectangle(Pens.Yellow, X - 1, Y - 1, Width + 1, Height + 1);
             g.DrawRectangle(Pens.Yellow, X + 2, Y + 2, Width - 5, Height - 5);
+
+            for (int x = X+16-X%16; x < X+Width; x += 16)
+                g.DrawLine(Pens.Yellow, x, Y, x, Y + Height);
+            for (int y = Y + 16 - Y % 16; y < Y + Height; y += 16)
+                g.DrawLine(Pens.Yellow, X, y, X + Width, y);
         }
 
         public void write(ByteArrayOutputStream outp)
