@@ -107,7 +107,8 @@ namespace NSMBe4
         private void pathsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            setNode(pathsList.SelectedItem as NSMBPath, ((NSMBPath)pathsList.SelectedItem).points[0]);
+            if(pathsList.SelectedItem != null)
+                setNode(pathsList.SelectedItem as NSMBPath, ((NSMBPath)pathsList.SelectedItem).points[0]);
         }
 
         public void setNode(NSMBPath np, NSMBPathPoint nn)
