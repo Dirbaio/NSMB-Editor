@@ -44,8 +44,10 @@ namespace NSMBe4
             // This is basically just RenderCachedObject from the tileset class, with some edits
             Rectangle Limits = new Rectangle(XOffset - X, YOffset - Y, Clip.Width, Clip.Height);
             Rectangle srcRect = new Rectangle();
-            Rectangle destRect = new Rectangle((X - XOffset) * 16, (Y - YOffset) * 16, 16, 16);
-            for (int CurrentX = 0; CurrentX < CachedObj.GetLength(0); CurrentX++) {
+            Rectangle destRect = new Rectangle((X) * 16, (Y) * 16, 16, 16);
+//            Rectangle destRect = new Rectangle((X - XOffset) * 16, (Y - YOffset) * 16, 16, 16);
+            for (int CurrentX = 0; CurrentX < CachedObj.GetLength(0); CurrentX++)
+            {
                 for (int CurrentY = 0; CurrentY < CachedObj.GetLength(1); CurrentY++) {
                     if (CurrentX >= Limits.X && CurrentX < Limits.Right && CurrentY >= Limits.Y && CurrentY < Limits.Bottom) {
                         if (CachedObj[CurrentX, CurrentY] >= 768 && GFX.Tilesets[Tileset].UseOverrides) {
@@ -59,7 +61,7 @@ namespace NSMBe4
                     destRect.Y += 16;
                 }
                 destRect.X += 16;
-                destRect.Y = (Y - YOffset) * 16;
+                destRect.Y = (Y) * 16;
             }
         }
 #else

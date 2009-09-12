@@ -321,7 +321,7 @@
             this.unk1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.unk1.Location = new System.Drawing.Point(120, 55);
             this.unk1.Maximum = new decimal(new int[] {
-            65536,
+            65535,
             0,
             0,
             0});
@@ -335,7 +335,7 @@
             this.unk3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.unk3.Location = new System.Drawing.Point(120, 107);
             this.unk3.Maximum = new decimal(new int[] {
-            65536,
+            65535,
             0,
             0,
             0});
@@ -349,7 +349,7 @@
             this.unk2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.unk2.Location = new System.Drawing.Point(120, 81);
             this.unk2.Maximum = new decimal(new int[] {
-            65536,
+            65535,
             0,
             0,
             0});
@@ -363,7 +363,7 @@
             this.unk4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.unk4.Location = new System.Drawing.Point(120, 133);
             this.unk4.Maximum = new decimal(new int[] {
-            65536,
+            65535,
             0,
             0,
             0});
@@ -377,7 +377,7 @@
             this.unk5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.unk5.Location = new System.Drawing.Point(120, 159);
             this.unk5.Maximum = new decimal(new int[] {
-            65536,
+            65535,
             0,
             0,
             0});
@@ -391,7 +391,7 @@
             this.unk6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.unk6.Location = new System.Drawing.Point(120, 186);
             this.unk6.Maximum = new decimal(new int[] {
-            65536,
+            65535,
             0,
             0,
             0});

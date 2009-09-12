@@ -307,6 +307,7 @@
     <None Include="Resources\paths.png" />
     <None Include="Resources\views.png" />
     <Compile Include="ByteArrayOutputStream.cs" />
+    <Compile Include="Map16.cs" />
     <Compile Include="PathEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -4,6 +4,30 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
+/**
+ * 
+ * TILESET FORMAT DOCS:
+ * 
+ * Graphics file:
+ *  - LZ Compressed
+ *  - 8bpp 8x8 tiles
+ *  
+ * Palette file:
+ *  - LZ Compressed
+ *  - 512 entries
+ *  - 2-byte entries in RGB15 format
+ *  - 0 and 256 transparent
+ *  - 2 different palettes: 0-255 and 256-511
+ *  
+ * Map16 file:
+ *  - Groups 8x8 tiles into 16x16 tiles
+ *  - 8-byte per 16x16 tile
+ *  - order: top-left, top-right, bottom-left, bottom-right
+ *  - 2-byte per tile.
+ *  
+ **/
+
+
 namespace NSMBe4 {
     public class NSMBTileset {
         public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, bool OverrideFlag) {
@@ -14,6 +38,7 @@ namespace NSMBe4 {
             ObjFileID = ObjFile;
             ObjIndexFileID = ObjIndexFile;
 
+            Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
             // First get the palette out
             byte[] ePalFile = ROM.LZ77_Decompress(ROM.ExtractFile(PalFile));
             Color[] Palette = new Color[512];
@@ -47,7 +72,9 @@ namespace NSMBe4 {
                     }
                 }
             }
-
+            
+//            ImagePreviewer.ShowCutImage(TilesetBuffer, 256, 2);
+            
 #if USE_GDIPLUS
             Bitmap TilesetBufferFlipX = (Bitmap)TilesetBuffer.Clone();
             TilesetBufferFlipX.RotateFlip(RotateFlipType.RotateNoneFlipX);
@@ -84,6 +111,7 @@ namespace NSMBe4 {
 #if USE_GDIPLUS
             Bitmap SourceBitmap = null;
 #endif
+
             for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++) {
                 int Map16SrcX = Map16Idx * 16;
                 // This algorithm makes absolutely NO SENSE to me, but for some reason it works.
@@ -228,6 +256,8 @@ namespace NSMBe4 {
                 } else {
                     SourceBitmap = TilesetBuffer;
                 }
+
+                
                 if (TileNum != 0 || ControlByte != 0) {
                     Map16Graphics.DrawImage(SourceBitmap, DestRect, SrcRect, GraphicsUnit.Pixel);
                 }
@@ -245,7 +275,6 @@ namespace NSMBe4 {
             GDIImports.DeleteObject(TilesetBufferHandle);
             TilesetGraphics.ReleaseHdc(TilesetBufferHDC);
 #endif
-
             // Finally the object file.
             byte[] eObjIndexFile = ROM.ExtractFile(ObjIndexFile);
             byte[] eObjFile = ROM.ExtractFile(ObjFile);

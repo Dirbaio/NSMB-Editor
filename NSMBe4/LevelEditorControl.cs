@@ -140,8 +140,8 @@ namespace NSMBe4 {
 #if USE_GDIPLUS
             for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
                 Rectangle ObjRect = new Rectangle(Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
-                if (ObjRect.IntersectsWith(Viewable)) {
-                    Level.Objects[ObjIdx].Render(e.Graphics, Viewable.X, Viewable.Y, Viewable);
+                if (ObjRect.IntersectsWith(ViewableArea)) {
+                    Level.Objects[ObjIdx].Render(e.Graphics, ViewableArea.X, ViewableArea.Y, ViewableArea);
                 }
             }
 #else

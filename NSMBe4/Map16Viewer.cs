@@ -12,6 +12,11 @@ namespace NSMBe4 {
             InitializeComponent();
             this.GFX = GFX;
         }
+        public Map16Viewer(NSMBTileset t)
+        {
+            InitializeComponent();
+            LoadMap16(t);
+        }
 
         private void button1_Click(object sender, EventArgs e) {
             LoadMap16(GFX.Tilesets[0]);
@@ -27,7 +32,8 @@ namespace NSMBe4 {
 
         private void LoadMap16(NSMBTileset tileset) {
             SelectedTileset = tileset;
-            SelectedTilesetData = GFX.ROM.ExtractFile(tileset.Map16FileID);
+            if(GFX != null)
+                SelectedTilesetData = GFX.ROM.ExtractFile(tileset.Map16FileID);
             int TileCount = tileset.Map16Buffer.Width / 16;
             int RowCount = TileCount / 16;
 
@@ -64,6 +70,9 @@ namespace NSMBe4 {
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e) {
+            if (SelectedTilesetData == null)
+                return;
+
             if (e.Button == MouseButtons.Left) {
                 int ClickedTileX = (int)Math.Floor((double)e.X / 16);
                 int ClickedTileY = (int)Math.Floor((double)e.Y / 16);
