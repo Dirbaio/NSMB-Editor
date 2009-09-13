@@ -11,6 +11,8 @@ namespace NSMBe4
         bool ResizeMode, CloneMode, SelectMode;
         int DragStartX, DragStartY;
 
+        int minBoundX, minBoundY; //the top left corner of the selected objects
+
         Rectangle SelectionRectangle;
 
         List<object> SelectedObjects = new List<object>();
@@ -62,7 +64,33 @@ namespace NSMBe4
             }
         }
 
-        private void findSelectedObjects(int selXE, int selYE)
+
+        private void UpdateSelectedBounds()
+        {
+            minBoundX = Int32.MaxValue;
+            minBoundY = Int32.MaxValue;
+
+            foreach (object oo in SelectedObjects)
+            {
+                if (oo is NSMBObject)
+                {
+                    NSMBObject o = oo as NSMBObject;
+                    if (o.X < minBoundX)
+                        minBoundX = o.X;
+                    if (o.Y < minBoundY)
+                        minBoundY = o.Y;
+                }
+                if (oo is NSMBSprite)
+                {
+                    NSMBSprite s = oo as NSMBSprite;
+                    if (s.X < minBoundX)
+                        minBoundX = s.X;
+                    if (s.Y < minBoundY)
+                        minBoundY = s.Y;
+                }
+            }
+        }
+        private void findSelectedObjects(int selXE, int selYE, bool firstOnly)
         {
             SelectedObjects.Clear();
 
@@ -79,6 +107,7 @@ namespace NSMBe4
             SelectionRectangle.Width = xb-xs+1;
             SelectionRectangle.Height = yb-ys+1;
 
+
             Rectangle r = new Rectangle();
             foreach (NSMBObject o in Level.Objects)
             {
@@ -91,10 +120,18 @@ namespace NSMBe4
                     SelectedObjects.Add(o);
             }
 
-            foreach(NSMBSprite s in Level.Sprites)
-                if(SelectionRectangle.Contains(s.X, s.Y))
+            foreach (NSMBSprite s in Level.Sprites)
+                if (SelectionRectangle.Contains(s.X, s.Y))
                     SelectedObjects.Add(s);
 
+            if (firstOnly && SelectedObjects.Count > 1)
+            {
+                object first = SelectedObjects[SelectedObjects.Count - 1];
+                SelectedObjects.Clear();
+                SelectedObjects.Add(first);
+            }
+
+            UpdateSelectedBounds();
             EdControl.repaint();
         }
 
@@ -134,10 +171,11 @@ namespace NSMBe4
             if (!isInSelection(xb, yb))
             {
                 // Select an object
-                findSelectedObjects(xb, yb);
+                findSelectedObjects(xb, yb, true);
                 SelectMode = SelectedObjects.Count == 0;
             }
-            else
+
+            if (!SelectMode)
             {
                 //look if we are in resize mode...
                 ResizeMode = Control.ModifierKeys == Keys.Shift;
@@ -163,29 +201,13 @@ namespace NSMBe4
 
             if(SelectMode)
             {
-                findSelectedObjects(NewX, NewY);
+                findSelectedObjects(NewX, NewY, false);
             }
             else
             {
                 if (CloneMode)
                 {
-                    List<object> newObjects = new List<object>();
-                    foreach(object SelectedObject in SelectedObjects)
-                    {
-                        if (SelectedObject is NSMBObject)
-                        {
-                            NSMBObject o = SelectedObject as NSMBObject;
-                            o = new NSMBObject(o);
-                            Level.Objects.Add(o);
-                        }
-                        else if (SelectedObject is NSMBSprite)
-                        {
-                            NSMBSprite s = SelectedObject as NSMBSprite;
-                            s = new NSMBSprite(s);
-                            Level.Sprites.Add(s);
-                        }
-                        newObjects.Add(SelectedObject);
-                    }
+                    List<object> newObjects = CloneList(SelectedObjects);
                     CloneMode = false;
                     ResizeMode = false;
                     SelectedObjects = newObjects;
@@ -228,6 +250,14 @@ namespace NSMBe4
                 }
                 else
                 {
+
+                    if (minBoundX + XDelta < 0)
+                        XDelta = -minBoundX;
+                    if (minBoundY + YDelta < 0)
+                        YDelta = -minBoundY;
+
+                    minBoundX += XDelta;
+                    minBoundY += YDelta;
                     // Move Objects
                     foreach(object SelectedObject in SelectedObjects)
                     {
@@ -261,6 +291,12 @@ namespace NSMBe4
             }
         }
 
+        public override void MouseUp()
+        {
+            SelectMode = false;
+            EdControl.repaint();
+        }
+
         private void UpdatePanel()
         {
             if (SelectedObjects.Count == 1)
@@ -288,6 +324,128 @@ namespace NSMBe4
         {
             SelectObject(null);
             UpdatePanel();
+        }
+
+        public override void DeleteObject()
+        {
+            if (SelectedObjects == null)
+                return;
+            if (SelectedObjects.Count == 0)
+                return;
+
+            foreach (object oo in SelectedObjects)
+            {
+                if (oo is NSMBObject)
+                {
+                    NSMBObject o = oo as NSMBObject;
+                    Level.Objects.Remove(o);
+                }
+                if (oo is NSMBSprite)
+                {
+                    NSMBSprite o = oo as NSMBSprite;
+                    Level.Sprites.Remove(o);
+                }
+            }
+
+            SelectedObjects.Clear();
+
+            EdControl.repaint();
+            EdControl.FireSetDirtyFlag();
+
+        }
+        public override object copy()
+        {
+            if (SelectedObjects == null)
+                return null;
+            if (SelectedObjects.Count == 0)
+                return null;
+
+            List<object> copyList = new List<object>();
+            copyList.AddRange(SelectedObjects);
+            return copyList;
+        }
+
+        public override void paste(object contents)
+        {
+            if (contents is List<object>)
+            {
+                if ((contents as List<object>).Count == 0)
+                    return;
+
+                SelectedObjects = CloneList(contents as List<object>);
+                
+                //now place the new objects on the topleft corner
+
+                int XMin = Int32.MaxValue; //position of the objects
+                int YMin = Int32.MaxValue;
+
+                foreach (object oo in SelectedObjects)
+                {
+                    if (oo is NSMBObject)
+                    {
+                        NSMBObject o = oo as NSMBObject;
+
+                        if (o.X < XMin) XMin = o.X;
+                        if (o.Y < YMin) YMin = o.Y;
+                    }
+                    if (oo is NSMBSprite)
+                    {
+                        NSMBSprite o = oo as NSMBSprite;
+
+                        if (o.X < XMin) XMin = o.X;
+                        if (o.Y < YMin) YMin = o.Y;
+                    }
+                }
+
+                int XOffs = EdControl.ViewableArea.X - XMin; //Offset to move all the objects
+                int YOffs = EdControl.ViewableArea.Y - YMin; //so they are on the topleft corner
+
+                foreach (object oo in SelectedObjects)
+                {
+                    if (oo is NSMBObject)
+                    {
+                        NSMBObject o = oo as NSMBObject;
+                        o.X += XOffs;
+                        o.Y += YOffs;
+                    }
+                    if (oo is NSMBSprite)
+                    {
+                        NSMBSprite o = oo as NSMBSprite;
+                        o.X += XOffs;
+                        o.Y += YOffs;
+                    }
+                }
+
+                UpdateSelectedBounds();
+                EdControl.repaint();
+                EdControl.FireSetDirtyFlag();
+            }
+        }
+
+        //creates a clone of a list and adds it to the level
+
+        private List<object> CloneList(List<object> Objects)
+        {
+            List<object> newObjects = new List<object>();
+            foreach (object SelectedObject in Objects)
+            {
+                if (SelectedObject is NSMBObject)
+                {
+                    NSMBObject o = SelectedObject as NSMBObject;
+                    o = new NSMBObject(o);
+                    Level.Objects.Add(o);
+                    newObjects.Add(o);
+                }
+                else if (SelectedObject is NSMBSprite)
+                {
+                    NSMBSprite s = SelectedObject as NSMBSprite;
+                    s = new NSMBSprite(s);
+                    Level.Sprites.Add(s);
+                    newObjects.Add(s);
+                }
+            }
+
+            return newObjects;
         }
     }
 }

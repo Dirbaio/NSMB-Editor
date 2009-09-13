@@ -65,7 +65,7 @@ namespace NSMBe4
             }
         }
 #else
-        public void Render(IntPtr target, int XOffset, int YOffset, Rectangle Clip) {
+        public void Render(IntPtr target, int XOffset, int YOffset, Rectangle Clip, float zoom) {
             // This is basically just RenderCachedObject from the tileset class, with some edits
             Rectangle Limits = new Rectangle(XOffset - X, YOffset - Y, Clip.Width, Clip.Height);
             int destX = (X - XOffset) * 16;
@@ -74,9 +74,15 @@ namespace NSMBe4
                 for (int CurrentY = 0; CurrentY < CachedObj.GetLength(1); CurrentY++) {
                     if (CurrentX >= Limits.X && CurrentX < Limits.Right && CurrentY >= Limits.Y && CurrentY < Limits.Bottom) {
                         if (CachedObj[CurrentX, CurrentY] >= 768 && GFX.Tilesets[Tileset].UseOverrides) {
-                            GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].OverrideHDC, (CachedObj[CurrentX, CurrentY] - 768) * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
+                            if (zoom == 1)
+                                GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].OverrideHDC, (CachedObj[CurrentX, CurrentY] - 768) * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
+                            else
+                                GDIImports.StretchBlt(target, (int)(destX * zoom), (int)(destY * zoom), (int)Math.Ceiling(16 * zoom), (int)Math.Ceiling(16 * zoom), GFX.Tilesets[Tileset].OverrideHDC, (CachedObj[CurrentX, CurrentY] - 768) * 16, 0, 16, 16, GDIImports.TernaryRasterOperations.SRCCOPY);
                         } else {
-                            GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].Map16BufferHDC, CachedObj[CurrentX, CurrentY] * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
+                            if (zoom == 1)
+                                GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].Map16BufferHDC, CachedObj[CurrentX, CurrentY] * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
+                            else
+                                GDIImports.StretchBlt(target, (int)(destX * zoom), (int)(destY * zoom), (int)Math.Ceiling(16 * zoom), (int)Math.Ceiling(16 * zoom), GFX.Tilesets[Tileset].Map16BufferHDC, CachedObj[CurrentX, CurrentY] * 16, 0, 16, 16, GDIImports.TernaryRasterOperations.SRCCOPY);
                         }
                     }
                     destY += 16;

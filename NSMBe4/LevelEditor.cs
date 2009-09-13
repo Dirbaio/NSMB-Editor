@@ -384,5 +384,40 @@ namespace NSMBe4 {
         {
             tools.Show();
         }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.cut();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.copy();
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.paste();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.delete();
+        }
+
+        private void toolStripDropDownButton1_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            foreach (ToolStripMenuItem it in zoomMenu.DropDown.Items)
+                it.Checked = false;
+            (e.ClickedItem as ToolStripMenuItem).Checked = true;
+
+            String s = e.ClickedItem.Text;
+
+            int ind = s.IndexOf(" %");
+            s = s.Remove(ind);
+
+            float z = Int32.Parse(s);
+            levelEditorControl1.SetZoom(z / 100);
+        }
     }
 }

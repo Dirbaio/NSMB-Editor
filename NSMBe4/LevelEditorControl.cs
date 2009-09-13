@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace NSMBe4 {
     public partial class LevelEditorControl : UserControl {
+
+        private float zoom = 1;
+
         public LevelEditorControl() {
             InitializeComponent();
             Ready = false;
@@ -11,6 +14,13 @@ namespace NSMBe4 {
             vScrollBar.Visible = false;
             MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
             DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+        }
+
+        public void SetZoom(float nZoom)
+        {
+            this.zoom = nZoom;
+            UpdateScrollbars();
+            repaint();
         }
 
         public LevelEditor editor;
@@ -29,6 +39,9 @@ namespace NSMBe4 {
 
         public void SetEditionMode(EditionMode nm)
         {
+            if (nm == mode)
+                return;
+
             mode = nm;
             if(mode != null)
                 mode.Refresh();
@@ -38,11 +51,16 @@ namespace NSMBe4 {
 
         #region Scrolling
         private void UpdateScrollbars() {
-            ViewableWidth = (int)Math.Ceiling((float)DrawingArea.Width / 16);
-            ViewableHeight = (int)Math.Ceiling((float)DrawingArea.Height / 16);
+            ViewableWidth = (int)Math.Ceiling((float)DrawingArea.Width / 16 / zoom);
+            ViewableHeight = (int)Math.Ceiling((float)DrawingArea.Height / 16 / zoom);
 
-            hScrollBar.Maximum = 512 - ViewableWidth;
-            vScrollBar.Maximum = 256 - ViewableHeight;
+            int xMax = 512 - ViewableWidth;
+            int yMax = 256 - ViewableHeight;
+            if (yMax < 0) yMax = 0;
+            if (xMax < 0) xMax = 0;
+
+            vScrollBar.Maximum = yMax;
+            hScrollBar.Maximum = xMax;
 
             ViewableArea.X = hScrollBar.Value;
             ViewableArea.Y = vScrollBar.Value;
@@ -127,8 +145,8 @@ namespace NSMBe4 {
             Rectangle ViewablePixels = new Rectangle(hScrollBar.Value * 16, vScrollBar.Value * 16, ViewableWidth * 16, ViewableHeight * 16);
             //Viewable.X += 4; Viewable.Y += 4; Viewable.Width -= 8; Viewable.Height -= 8;
 
+            e.Graphics.ScaleTransform(zoom, zoom);
             e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
-
             
             //RENDER PANNING BLOCKS GRID
             for(int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width+ViewableBlocks.X)/16; x++)
@@ -151,7 +169,7 @@ namespace NSMBe4 {
             {
                 Rectangle ObjRect = new Rectangle(o.X, o.Y, o.Width, o.Height);
                 if (ObjRect.IntersectsWith(ViewableBlocks))
-                    o.Render(pTarget, ViewableBlocks.X, ViewableBlocks.Y, ViewableBlocks);
+                    o.Render(pTarget, ViewableBlocks.X, ViewableBlocks.Y, ViewableBlocks, zoom);
             }
 
             e.Graphics.ReleaseHdc(pTarget);
@@ -220,15 +238,15 @@ namespace NSMBe4 {
                 }
 
                 if (mode != null)
-                    mode.MouseDown(e.X + hScrollBar.Value * 16, e.Y + vScrollBar.Value * 16);
+                    mode.MouseDown((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y/zoom) + vScrollBar.Value * 16);
             }
         }
 
         private void DrawingArea_MouseMove(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left && Ready && mode != null)
-                mode.MouseDrag(e.X + hScrollBar.Value * 16, e.Y + vScrollBar.Value * 16);
+                mode.MouseDrag((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y / zoom) + vScrollBar.Value * 16);
 
-            const int DragSpeed = 8;
+            int DragSpeed = (int)Math.Ceiling(8*zoom);
 
             if (e.Button == MouseButtons.Right) {
                 int NewX = e.X;
@@ -279,6 +297,43 @@ namespace NSMBe4 {
         {
             if(mode != null)
                 mode.SelectObject(no);
+        }
+
+        private object Clipboard = null;
+        private EditionMode ClipboardOriginMode;
+
+        public void cut()
+        {
+            object nc = mode.copy();
+            if (nc != null)
+                Clipboard = nc;
+
+            ClipboardOriginMode = mode;
+            mode.DeleteObject();
+        }
+
+        public void copy()
+        {
+            object nc = mode.copy();
+            if (nc != null)
+                Clipboard = nc;
+            ClipboardOriginMode = mode;
+        }
+
+        public void paste()
+        {
+            SetEditionMode(ClipboardOriginMode);
+            mode.paste(Clipboard);
+        }
+
+        public void delete()
+        {
+            mode.DeleteObject();
+        }
+
+        private void DrawingArea_MouseUp(object sender, MouseEventArgs e)
+        {
+            mode.MouseUp();
         }
     }
 }
