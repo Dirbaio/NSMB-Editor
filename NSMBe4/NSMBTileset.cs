@@ -25,6 +25,15 @@ using System.Drawing.Drawing2D;
  *  - order: top-left, top-right, bottom-left, bottom-right
  *  - 2-byte per tile.
  *  
+ * Object index file:
+ *  - 4 bytes per object
+ *  - Defines offsets in the Object file
+ *  - Offset as ushort
+ *  - Width and Height as byte
+ *  
+ * Object file:
+ *  - Data for each object.
+ *  
  **/
 
 
@@ -467,7 +476,7 @@ namespace NSMBe4 {
 
             ObjTile t = new ObjTile();
 
-            int a = XOffset, b = YOffset;
+            int x = XOffset, y = YOffset;
             int vrs = -1, vre = -1;
             int hrs = -1, hre = -1;
 
@@ -482,21 +491,22 @@ namespace NSMBe4 {
             }
 
             while (true) {
-                if (ObjData[FilePos] == 0xFE) {
+                if (ObjData[FilePos] == 0xFE)
+                {
                     // Linebreak
                     // Here if the last tile was an X repeat, this means we never processed X looping earlier
                     // So let's do it here.
-                    if ((lr & 1) != 0 && b < YOffset + Height && a < XOffset + Width && b < MaxYBound && a < MaxXBound && hre > hrs) {
-                        for (int i = a; i < Width; i++) {
+                    if ((lr & 1) != 0 && y < YOffset + Height && x < XOffset + Width && y < MaxYBound && x < MaxXBound && hre > hrs) {
+                        for (int i = x; i < Width; i++) {
                             if (i < Width) {
-                                Dest[i, b] = Dest[a + (i % (hre - hrs)) - (hre - hrs), b];
+                                Dest[i, y] = Dest[x + (i % (hre - hrs)) - (hre - hrs), y];
                                 if (i > ReturnVal.Width) ReturnVal.Width = i;
-                                if (b > ReturnVal.Height) ReturnVal.Height = b;
+                                if (y > ReturnVal.Height) ReturnVal.Height = y;
                             }
                         }
                     }
-                    b++; // increment Y
-                    a = XOffset; // reset X
+                    y++; // increment Y
+                    x = XOffset; // reset X
                     lr = 0; // reset last repeat flag
                     hrs = -1; hre = -1; // reset h-repeat start/end
                     FilePos++; // eat a byte
@@ -517,62 +527,64 @@ namespace NSMBe4 {
                 if (t.TileID == 0 && t.ControlByte == 0) t.TileID = -1;
                 FilePos += 3;
 
-                if (vrs < 0 && ((t.ControlByte & 2) != 0)) vrs = b;
-                if (vrs >= 0 && vre < 0 && ((t.ControlByte & 2) == 0)) vre = b;
+                if (vrs < 0 && ((t.ControlByte & 2) != 0)) vrs = y;
+                if (vrs >= 0 && vre < 0 && ((t.ControlByte & 2) == 0)) vre = y;
 
-                if ((t.ControlByte & 1) == 0) {
-                    if ((lr & 1) != 0) {
+                if ((t.ControlByte & 1) == 0)
+                {
+                    if ((lr & 1) != 0)
+                    {
                         // H-repeating region ended
-                        if (b < YOffset + Height) {
-                            for (int i = a; i < XOffset + Width; i++) {
-                                if (i < MaxXBound && b < MaxYBound) {
-                                    Dest[i, b] = Dest[a + (i % (hre - hrs)) - (hre - hrs), b];
+                        if (y < YOffset + Height) {
+                            for (int i = x; i < XOffset + Width; i++) {
+                                if (i < MaxXBound && y < MaxYBound) {
+                                    Dest[i, y] = Dest[x + (i % (hre - hrs)) - (hre - hrs), y];
                                     if (i > ReturnVal.Width) ReturnVal.Width = i;
-                                    if (b > ReturnVal.Height) ReturnVal.Height = b;
+                                    if (y > ReturnVal.Height) ReturnVal.Height = y;
                                 }
                             }
                         }
-                        a = Width - 1;
+                        x = Width - 1;
                     }
                 } else {
-                    if ((lr & 1) == 0) hrs = hre = a; //this might be the start of the repeated region...
+                    if ((lr & 1) == 0) hrs = hre = x; //this might be the start of the repeated region...
                     hre++; //...either way, it shifts its end to the right by one
                 }
-                if (a != 0 && a == (XOffset + Width - 1) && (lr & 1) == 0 && hre >= 0 && b < Height && a < MaxXBound && b < MaxYBound) {
+                if (x != 0 && x == (XOffset + Width - 1) && (lr & 1) == 0 && hre >= 0 && y < Height && x < MaxXBound && y < MaxYBound) {
                     //Dest[a - 1, b] = Dest[a, b];
                 }
-                if (a < XOffset + Width && b < YOffset + Height && a < MaxXBound && b < MaxYBound) {
-                    Dest[a, b] = t.TileID;
-                    if (a > ReturnVal.Width) ReturnVal.Width = a;
-                    if (b > ReturnVal.Height) ReturnVal.Height = b;
+                if (x < XOffset + Width && y < YOffset + Height && x < MaxXBound && y < MaxYBound) {
+                    Dest[x, y] = t.TileID;
+                    if (x > ReturnVal.Width) ReturnVal.Width = x;
+                    if (y > ReturnVal.Height) ReturnVal.Height = y;
                 }
 
                 //if (a != (Width - 1)) a++; // move 1 to the right
                 //if ((t.ControlByte & 1) != 0 || a != (Width - 1)) a++;
                 //if ((t.ControlByte & 1) != 0) a++;
-                a++;
+                x++;
 
                 lr = t.ControlByte;
             }
 
-            if (vrs < 0) vrs = b;
-            if (vre < 0) vre = b;
+            if (vrs < 0) vrs = y;
+            if (vre < 0) vre = y;
 
             // now stretch vertically; direction of loops IS important
             // relocate bottom lines...
-            for (int i = b - 1; i >= vre; i--) {
+            for (int i = y - 1; i >= vre; i--) {
                 if (i < YOffset + Height) {
                     for (int CopyOffset = XOffset; CopyOffset < XOffset + Width; CopyOffset++) {
                         if (CopyOffset < MaxXBound) {
-                            Dest[CopyOffset, YOffset + Height + i - b] = Dest[CopyOffset, i];
-                            if ((Height + i - b) > ReturnVal.Height) ReturnVal.Height = (Height + i - b);
+                            Dest[CopyOffset, YOffset + Height + i - y] = Dest[CopyOffset, i];
+                            if ((Height + i - y) > ReturnVal.Height) ReturnVal.Height = (Height + i - y);
                         }
                     }
                 }
             }
             // and copypaste the replicated zone into the gap
             if (vre != vrs) {
-                for (int i = YOffset + Height + vre - b - 1; i >= vre; i--) {
+                for (int i = YOffset + Height + vre - y - 1; i >= vre; i--) {
                     for (int CopyOffset = XOffset; CopyOffset < XOffset + Width; CopyOffset++) {
                         if (CopyOffset < MaxXBound && i < MaxYBound) {
                             Dest[CopyOffset, i] = Dest[CopyOffset, vrs + (i % (vre - vrs))];

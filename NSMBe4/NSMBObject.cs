@@ -7,6 +7,15 @@ namespace NSMBe4
 {
     public class NSMBObject
     {
+        public int ObjNum;
+        public int Tileset;
+        public int X;
+        public int Y;
+        public int Width;
+        public int Height;
+        private int[,] CachedObj;
+        private NSMBGraphics GFX;
+        
         public NSMBObject(int ObjNum, int Tileset, int X, int Y, int Width, int Height, NSMBGraphics GFX)
         {
             this.ObjNum = ObjNum;
@@ -133,13 +142,5 @@ namespace NSMBe4
         }
 #endif
 
-        public int ObjNum;
-        public int Tileset;
-        public int X;
-        public int Y;
-        public int Width;
-        public int Height;
-        private int[,] CachedObj;
-        private NSMBGraphics GFX;
     }
 }

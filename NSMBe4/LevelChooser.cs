@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,22 +7,19 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace NSMBe4 {
-    public partial class LevelChooser : Form {
+    public partial class LevelChooser : Form
+    {
         public LevelChooser() {
             InitializeComponent();
         }
 
         private void LevelChooser_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.Language == 1) {
+            if (Properties.Settings.Default.Language == 1)
+            {
                 tabPage1.Text = "Sistema de archivos";
-                label1.Text = "Info seleccion:";
-                extractFileButton.Text = "Extraer";
-                replaceFileButton.Text = "Sustituir";
-                compressFileButton.Text = "Comprimir LZ";
-                decompressFileButton.Text = "Descomprimir LZ";
-
                 tabPage2.Text = "Editor de niveles";
                 importLevelButton.Text = "Importar nivel";
                 exportLevelButton.Text = "Exportar nivel";
@@ -36,21 +34,13 @@ namespace NSMBe4 {
             if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
                 Application.Exit();
             } else {
-                extractFileButton.Enabled = false;
-                replaceFileButton.Enabled = false;
-                compressFileButton.Enabled = false;
-                decompressFileButton.Enabled = false;
-
                 importLevelButton.Enabled = false;
                 exportLevelButton.Enabled = false;
                 editLevelButton.Enabled = false;
                 hexEditLevelButton.Enabled = false;
 
-                DirHolder = new Dictionary<int, TreeNode>();
-                ROM = new NitroClass();
-                ROM.DirReady += new NitroClass.DirReadyD(ROM_DirReady);
-                ROM.FileReady += new NitroClass.FileReadyD(ROM_FileReady);
-                ROM.LoadROM(openROMDialog.FileName);
+                ROM = new NitroClass(openROMDialog.FileName);
+                filesystemBrowser1.Load(ROM);
 
                 LoadLevelNames();
 
@@ -59,49 +49,7 @@ namespace NSMBe4 {
             }
         }
 
-        private void ROM_DirReady(int DirID, int ParentID, string DirName, bool IsRoot) {
-            if (IsRoot) {
-                DirHolder[61440] = fileTreeView.Nodes.Add("61440", "Root [" + openROMDialog.FileName.Substring(openROMDialog.FileName.LastIndexOf('\\') + 1) + "]", 0, 0);
-                DirHolder[61440].Tag = "61440";
-            } else {
-                DirHolder[DirID] = DirHolder[ParentID].Nodes.Add(DirID.ToString(), DirName, 0, 0);
-                DirHolder[DirID].Tag = DirID.ToString();
-            }
-        }
-
-        private void ROM_FileReady(int FileID, int ParentID, string FileName) {
-            DirHolder[ParentID].Nodes.Add(FileID.ToString(), FileName, 2, 2).Tag = FileID.ToString();
-        }
-
-        private Dictionary<int, TreeNode> DirHolder;
         public static NitroClass ROM;
-
-        private void fileTreeView_AfterSelect(object sender, TreeViewEventArgs e) {
-            ushort FSObjId = Convert.ToUInt16(e.Node.Tag);
-            string StatusMsg;
-            if (FSObjId >= 61440) {
-                if (Properties.Settings.Default.Language != 1) {
-                    StatusMsg = "Directory: " + e.Node.Text + " - ID " + e.Node.Tag;
-                } else {
-                    StatusMsg = "Carpeta: " + e.Node.Text + " - ID " + e.Node.Tag;
-                }
-                extractFileButton.Enabled = false;
-                replaceFileButton.Enabled = false;
-                compressFileButton.Enabled = false;
-                decompressFileButton.Enabled = false;
-            } else {
-                if (Properties.Settings.Default.Language != 1) {
-                    StatusMsg = "Offset: 0x" + ROM.FileOffsets[FSObjId].ToString("X") + " - Size: " + ROM.FileSizes[FSObjId].ToString() + " bytes - ID " + e.Node.Tag;
-                } else {
-                    StatusMsg = "Posicion: 0x" + ROM.FileOffsets[FSObjId].ToString("X") + " - Tamaño: " + ROM.FileSizes[FSObjId].ToString() + " bytes - ID " + e.Node.Tag;
-                }
-                extractFileButton.Enabled = true;
-                replaceFileButton.Enabled = true;
-                compressFileButton.Enabled = true;
-                decompressFileButton.Enabled = true;
-            }
-            selectedFileInfo.Text = StatusMsg;
-        }
 
         private void LoadLevelNames() {
             string[] LevelNames;
@@ -271,46 +219,6 @@ namespace NSMBe4 {
             }
         }
 
-        private void extractFileButton_Click(object sender, EventArgs e) {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            string FileName = ROM.FileNames[FSObjID];
-            extractFileDialog.FileName = FileName;
-            if (extractFileDialog.ShowDialog() == DialogResult.OK) {
-                string DestFileName = extractFileDialog.FileName;
-                byte[] TempFile = ROM.ExtractFile(FSObjID);
-                FileStream wfs = new FileStream(DestFileName, FileMode.Create, FileAccess.Write, FileShare.None);
-                wfs.Write(TempFile, 0, TempFile.GetLength(0));
-                wfs.Dispose();
-            }
-        }
-
-        private void replaceFileButton_Click(object sender, EventArgs e) {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            string FileName = ROM.FileNames[FSObjID];
-            replaceFileDialog.FileName = FileName;
-            if (replaceFileDialog.ShowDialog() == DialogResult.OK) {
-                string SrcFileName = replaceFileDialog.FileName;
-                FileStream rfs = new FileStream(SrcFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                byte[] TempFile = new byte[rfs.Length];
-                rfs.Read(TempFile, 0, (int)rfs.Length);
-                rfs.Dispose();
-                ROM.ReplaceFile(FSObjID, TempFile);
-            }
-        }
-
-        private void compressFileButton_Click(object sender, EventArgs e) {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            byte[] RawFile = ROM.ExtractFile(FSObjID);
-            byte[] CompFile = ROM.LZ77_Compress(RawFile);
-            ROM.ReplaceFile(FSObjID, CompFile);
-        }
-
-        private void decompressFileButton_Click(object sender, EventArgs e) {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            byte[] CompFile = ROM.ExtractFile(FSObjID);
-            byte[] RawFile = ROM.LZ77_Decompress(CompFile);
-            ROM.ReplaceFile(FSObjID, RawFile);
-        }
 
         private void importLevelButton_Click(object sender, EventArgs e) {
             if (levelTreeView.SelectedNode == null) return;
@@ -414,9 +322,8 @@ namespace NSMBe4 {
 
         private void patchExport_Click(object sender, EventArgs e)
         {
-
             //input
-            bool onlyCourse = true;
+            bool onlyCourse = false;
 
             //output to show to the user
             bool differentRomsWarning = false; // tells if we have shown the warning
@@ -424,10 +331,10 @@ namespace NSMBe4 {
 
             //load the original rom
             MessageBox.Show("Select a clean original rom.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            NitroClass origROM = new NitroClass();
-            if(openROMDialog.ShowDialog() == DialogResult.Cancel)
+            if (openROMDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            origROM.LoadROM(openROMDialog.FileName);
+            NitroClass origROM = new NitroClass(openROMDialog.FileName);
+            origROM.Load(null);
 
             //open the output patch
             MessageBox.Show("Select where to save the patch.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -439,6 +346,10 @@ namespace NSMBe4 {
             bw.Write("NSMBe4 Exported Patch");
 
             //DO THE PATCH!!
+            ProgressWindow progress = new ProgressWindow("Eporting patch...");
+            progress.Show();
+            progress.SetMax(ROM.FileCount);
+            int progVal = 0;
             MessageBox.Show("Patching will start now. It may take a long time.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ushort CourseDirID = ROM.DirIDs["course"];
 
@@ -448,6 +359,7 @@ namespace NSMBe4 {
                     continue;
 
                 Console.Out.WriteLine("Checking " + ROM.FileNames[id]);
+                progress.SetCurrentAction("Comparing " + ROM.FileNames[id] + "...");
 
                 //check same version
                 if(!differentRomsWarning && ROM.FileNames[id] != origROM.FileNames[id])
@@ -469,6 +381,7 @@ namespace NSMBe4 {
                     //include file in patch
                     string fileName = origROM.FileNames[id];
                     Console.Out.WriteLine("Including: " + fileName);
+                    progress.WriteLine("Included " + fileName);
                     fileCount++;
 
                     bw.Write((byte)1);
@@ -477,11 +390,12 @@ namespace NSMBe4 {
                     bw.Write((uint)newFile.Length);
                     bw.Write(newFile, 0, newFile.Length);
                 }
+                progress.setValue(++progVal);
             }
             bw.Write((byte)0);
             bw.Close();
-
-            MessageBox.Show("Patch exported succesfully. Included " + fileCount + " files.", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            progress.SetCurrentAction("");
+            progress.WriteLine("Finished! Included "+fileCount+" files.");
         }
 
         public bool arrayEqual(byte[] a, byte[] b)
@@ -519,14 +433,26 @@ namespace NSMBe4 {
                 return;
             }
 
+
+            //shitty way to show progress: I don't know how many files, so i do it size-based...
+
+            ProgressWindow progress = new ProgressWindow("Importing Patch...");
+            progress.Show();
+            progress.SetMax((int)br.BaseStream.Length);//i don't think there are such big patches
+            int progVal = 0;
+
             byte filestartByte = br.ReadByte();
             while (filestartByte == 1)
             {
                 string fileName = br.ReadString();
+                progress.WriteLine("Replacing " + fileName + "...");
                 ushort origFileID = br.ReadUInt16();
                 ushort fileID = ROM.FileIDs[fileName];
 
                 uint length = br.ReadUInt32();
+                progVal += (int)length;
+                progress.setValue(progVal);
+
                 byte[] newFile = new byte[length];
                 br.Read(newFile, 0, (int)length);
                 filestartByte = br.ReadByte();
@@ -542,7 +468,75 @@ namespace NSMBe4 {
                 fileCount++;
             }
             br.Close();
+            progress.setValue(0);
+            progress.SetMax(100);
+            progress.setValue(100);
             MessageBox.Show("Patch applied succesfully. "+fileCount+" files replaced.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            progress.Close();
+        }
+
+        private void mpPatch_Click(object sender, EventArgs e)
+        {
+            NarcReplace("Dat_Field.narc",    "J01_1.bin", "J01_1_bgdat.bin");
+            NarcReplace("Dat_Basement.narc", "J02_1.bin", "J02_1_bgdat.bin");
+            NarcReplace("Dat_Ice.narc",      "J03_1.bin", "J03_1_bgdat.bin");
+            NarcReplace("Dat_Pipe.narc",     "J04_1.bin", "J04_1_bgdat.bin");
+            NarcReplace("Dat_Fort.narc",     "J05_1.bin", "J05_1_bgdat.bin");
+
+            MessageBox.Show("Completed!");
+        }
+
+        private void NarcReplace(string NarcName, string f1, string f2)
+        {
+            NitroClass NARC = new NitroClass(ROM, ROM.FileIDs[NarcName]);
+            NARC.Load(null);
+
+            byte[] file = ROM.ExtractFile(ROM.FileIDs[f1]);
+            NARC.ReplaceFile(NARC.FileIDs[f1], file);
+            file = ROM.ExtractFile(ROM.FileIDs[f2]);
+            NARC.ReplaceFile(NARC.FileIDs[f2], file);
+        }
+
+        private void lzUncompressAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("This feature is dangerous!\nIt LZ Uncompresses ALL in the rom!\nUse it on a copy of your rom, because this will break the game completely.\n It is only useful for file examination in Taxahan.\nAre you sure you want to continue?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                return;
+
+            bool UncompressNARCS = MessageBox.Show("Do you want to uncompress files inside NARCS?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes;
+
+            lzUncompress(ROM, UncompressNARCS);
+        }
+
+        private void lzUncompress(NitroClass ROM, bool narcs)
+        {
+            foreach (ushort FileID in ROM.FileIDs.Values)
+            {
+                Console.Out.WriteLine("Uncompressing " + ROM.FileNames[FileID]);
+
+                if (ROM.FileNames[FileID].EndsWith("narc") || ROM.FileNames[FileID].EndsWith("NARC"))
+                {
+                    if (narcs)
+                    {
+                        NitroClass narc = new NitroClass(ROM, FileID);
+                        narc.Load(null);
+                        lzUncompress(narc, narcs);
+                    }
+                }
+                else
+                {
+                    byte[] file = ROM.ExtractFile(FileID);
+                    bool success = false;
+                    try
+                    {
+                        file = ROM.LZ77_Decompress(file);
+                        success = true;
+                    }
+                    catch (Exception) { }
+
+                    if (success)
+                        ROM.ReplaceFile(FileID, file);
+                }
+            }
         }
     }
 }

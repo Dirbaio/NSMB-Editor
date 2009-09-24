@@ -11,7 +11,7 @@ namespace NSMBe4 {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            SpriteData.Load();
             //just for tesing
 
             /*

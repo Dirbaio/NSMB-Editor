@@ -48,6 +48,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "LevelMinimap";
             this.Text = "Minimap";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onFormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

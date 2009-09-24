@@ -17,7 +17,7 @@ namespace NSMBe4 {
         public List<NSMBObject> Objects;
         public List<NSMBSprite> Sprites;
         public List<NSMBEntrance> Entrances;
-        public List<NSMBView> Views;
+        public List<NSMBView> Views, Zones;
         public List<NSMBPath> Paths;
 
         public bool[] ValidSprites;        
@@ -107,6 +107,12 @@ namespace NSMBe4 {
             Views = new List<NSMBView>();
             while (ViewBlock.available(16))
                 Views.Add(NSMBView.read(ViewBlock));
+
+            // Zones
+            ByteArrayInputStream ZoneBlock = new ByteArrayInputStream(Blocks[8]);
+            Zones = new List<NSMBView>();
+            while (ZoneBlock.available(12))
+                Zones.Add(NSMBView.readZone(ZoneBlock));
 
             // Paths!!! (warning, cool feature)
 
@@ -357,10 +363,32 @@ namespace NSMBe4 {
                 n++;
             }
         }
+        public int getFreeViewNumber(List<NSMBView> l)
+        {
+            int n = 0;
+
+            while (true)
+            {
+                if (!isViewNumberUsed(n, l))
+                    return n;
+                n++;
+            }
+        }
 
         private bool isEntranceNumberUsed(int n)
         {
             foreach (NSMBEntrance e in Entrances)
+            {
+                if (e.Number == n)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool isViewNumberUsed(int n, List<NSMBView> l)
+        {
+            foreach (NSMBView e in l)
             {
                 if (e.Number == n)
                     return true;

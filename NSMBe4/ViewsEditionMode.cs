@@ -14,13 +14,14 @@ namespace NSMBe4
         private ViewEditor ve;
 
         private List<NSMBView> l;
-        private bool EdVi;
 
         public ViewsEditionMode(NSMBLevel Level, LevelEditorControl EdControl, bool EdVi)
             : base(Level, EdControl)
         {
-//            if(EdVi)
-            l = Level.Views;
+            if (EdVi)
+                l = Level.Views;
+            else
+                l = Level.Zones;
             ve = new ViewEditor(EdControl, l, EdVi);
         }
 
@@ -28,7 +29,7 @@ namespace NSMBe4
         public override void MouseDown(int x, int y)
         {
             v = null;
-            foreach(NSMBView vv in Level.Views)
+            foreach(NSMBView vv in l)
                 if (vv.X <= x && vv.X + vv.Width >= x)
                     if (vv.Y <= y && vv.Y + vv.Height >= y)
                         v = vv;
@@ -53,7 +54,8 @@ namespace NSMBe4
             if (CloneMode)
             {
                 v = new NSMBView(v);
-                Level.Views.Add(v);
+                v.Number = EdControl.Level.getFreeViewNumber(l);
+                l.Add(v);
                 CloneMode = false;
                 UpdatePanel();
                 ve.UpdateList();
@@ -97,8 +99,16 @@ namespace NSMBe4
                 }
                 if (v.X < 0) v.X = 0;
                 if (v.Y < 0) v.Y = 0;
-                if (v.Width < 16 * 16) v.Width = 16 * 16;
-                if (v.Height < 12 * 16) v.Height = 12 * 16;
+                if (v.isZone)
+                {
+                    if (v.Width < 16) v.Width = 16;
+                    if (v.Height < 16) v.Height = 16;
+                }
+                else
+                {
+                    if (v.Width < 16 * 16) v.Width = 16 * 16;
+                    if (v.Height < 12 * 16) v.Height = 12 * 16;
+                }
                 EdControl.repaint();
                 UpdatePanel();
                 SetDirtyFlag();
@@ -124,7 +134,7 @@ namespace NSMBe4
 
         public override void Refresh()
         {
-            if (!EdControl.Level.Views.Contains(v))
+            if (!l.Contains(v))
                 SelectObject(null);
 
             SetPanel(ve);

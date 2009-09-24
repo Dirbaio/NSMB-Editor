@@ -64,6 +64,7 @@ namespace NSMBe4
 
             NSMBPathPoint fp = points[0];
             NSMBPathPoint lp = points[points.Count - 1];
+            int num = 0;
             foreach (NSMBPathPoint p in points)
             {
                 Pen pe = null;
@@ -72,7 +73,8 @@ namespace NSMBe4
                 if (p == lp)
                     pe = Pens.Red;
 
-                p.Render(g, pe);
+                p.Render(g, pe, num);
+                num++;
             }
         }
 

@@ -76,6 +76,7 @@ namespace NSMBe4
                 yPos.Value = v.Y;
                 width.Value = v.Width;
                 height.Value = v.Height;
+                viewID.Value = v.Number;
 
                 cameraID.Value = v.Camera;
                 music.SelectedIndex = v.Music;

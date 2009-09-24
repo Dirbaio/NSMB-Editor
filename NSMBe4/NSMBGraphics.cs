@@ -17,6 +17,8 @@ namespace NSMBe4 {
             Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], false);
 
             // Patch in a bunch of overrides to the normal tileset
+            Tilesets[0].Objects[0] = Tilesets[0].Objects[1];
+
             Tilesets[0].Objects[57] = new NSMBTileset.ObjectDef(-1, 2, 2, new byte[] { 64, 0, 0, 64, 1, 0, 0xFE, 64, 2, 0, 64, 3, 0, 0xFE, 0xFF });
             Tilesets[0].Objects[58] = new NSMBTileset.ObjectDef(-1, 2, 2, new byte[] { 64, 4, 0, 64, 5, 0, 0xFE, 64, 6, 0, 64, 7, 0, 0xFE, 0xFF });
             Tilesets[0].Objects[59] = new NSMBTileset.ObjectDef(-1, 2, 2, new byte[] { 64, 8, 0, 64, 9, 0, 0xFE, 64, 10, 0, 64, 11, 0, 0xFE, 0xFF });

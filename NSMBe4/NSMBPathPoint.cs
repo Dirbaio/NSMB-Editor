@@ -34,7 +34,7 @@ namespace NSMBe4 {
             Unknown6 = p.Unknown6;
         }
 
-        public void Render(Graphics g, Pen p) {
+        public void Render(Graphics g, Pen p, int num) {
             g.DrawImage(Properties.Resources.pathpoint, X + NSMBPath.XOffs, Y+NSMBPath.YOffs);
             if (p != null)
             {
@@ -42,7 +42,7 @@ namespace NSMBe4 {
                 g.DrawRectangle(p, X+1, Y+1, 14, 14);
 
             }
-//            g.DrawString(Index.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, (float)X - XScroll, (float)Y - YScroll);
+            g.DrawString(num.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, X, Y);
         }
 
         public static NSMBPathPoint read(ByteArrayInputStream inp, NSMBPath parent)

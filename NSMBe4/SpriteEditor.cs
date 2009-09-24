@@ -45,15 +45,47 @@ namespace NSMBe4
                 deleteSpriteButton.Text = "Borrar Sprite";
                 groupBox1.Text = "Posicion de Sprite";
                 label8.Text = "Tipo de Sprite:";
-                label10.Text = "Data para Sprite:";
-                saveSpriteDataButton.Text = "Guardar Data";
+                label10.Text = "Datos de Sprite:";
             }
         }
 
+        private SpriteData.SpriteDataEditor sed;
+
         public void SetSprite(NSMBSprite ns)
         {
+            if (ns == s)
+            {
+                UpdateInfo();
+                return;
+            }
+
             this.s = ns;
+
+            UpdateDataEditor();
             UpdateInfo();
+        }
+
+        private void UpdateDataEditor()
+        {
+            if (sed != null)
+            {
+                sed.saveData(null, null);
+                spriteDataTextBox.Focus();
+                sed.Parent = null;
+            }
+            sed = null;
+            if (SpriteData.datas.ContainsKey(s.Type))
+            {
+                sed = new SpriteData.SpriteDataEditor(s.Data, SpriteData.datas[s.Type], EdControl);
+                sed.Parent = spriteDataPanel;
+                spriteDataPanel.Visible = true;
+                rawSpriteData.Visible = false;
+            }
+            else
+            {
+                spriteDataPanel.Visible = false;
+                rawSpriteData.Visible = true;
+            }
         }
 
         public void UpdateInfo()
@@ -69,6 +101,7 @@ namespace NSMBe4
                 "{0:X2} {1:X2} {2:X2} {3:X2} {4:X2} {5:X2}",
                 SpriteData[0], SpriteData[1], SpriteData[2],
                 SpriteData[3], SpriteData[4], SpriteData[5]);
+            spriteDataTextBox.BackColor = SystemColors.Window;
 
             spriteListBox.SelectedIndex = s.Type;
 
@@ -107,32 +140,10 @@ namespace NSMBe4
             DataUpdateFlag = true;
             spriteTypeUpDown.Value = s.Type;
             DataUpdateFlag = false;
+            UpdateDataEditor();
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
 
-        }
-
-        private void saveSpriteDataButton_Click(object sender, EventArgs e)
-        {
-            // validate
-            if (System.Text.RegularExpressions.Regex.IsMatch(
-                spriteDataTextBox.Text,
-                "^[0-9a-f][0-9a-f] [0-9a-f][0-9a-f] [0-9a-f][0-9a-f] [0-9a-f][0-9a-f] [0-9a-f][0-9a-f] [0-9a-f][0-9a-f]$", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
-            {
-                string[] parseit = spriteDataTextBox.Text.Split(' ');
-                byte[] data = new byte[6];
-                for (int hexidx = 0; hexidx < 6; hexidx++)
-                {
-                    data[hexidx] = byte.Parse(parseit[hexidx], System.Globalization.NumberStyles.AllowHexSpecifier);
-                }
-                s.Data = data;
-            }
-            else
-            {
-                MessageBox.Show("Invalid format for the sprite data. You must enter it as 6 consecutive hex numbers.");
-            }
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
         }
 
         private void addSpriteButton_Click(object sender, EventArgs e)
@@ -182,6 +193,33 @@ namespace NSMBe4
             TextRenderer.DrawText(e.Graphics, (string)spriteListBox.Items[e.Index], spriteListBox.Font, e.Bounds, UseColour, e.BackColor, TextFormatFlags.Left);
 
             e.DrawFocusRectangle();
+        }
+
+        private void spriteDataTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag || !spriteDataTextBox.Visible)
+                return;
+
+            // validate
+            if (System.Text.RegularExpressions.Regex.IsMatch(
+                spriteDataTextBox.Text,
+                "^[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *[0-9a-f] *$", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            {
+                string parseit = spriteDataTextBox.Text.Replace(" ", "");
+                byte[] data = new byte[6];
+                for (int hexidx = 0; hexidx < 6; hexidx++)
+                {
+                    data[hexidx] = byte.Parse(parseit.Substring(hexidx*2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+                }
+                s.Data = data;
+                spriteDataTextBox.BackColor = SystemColors.Window;
+            }
+            else
+            {
+                spriteDataTextBox.BackColor = Color.Coral;
+            }
+            EdControl.Invalidate(true);
+            EdControl.FireSetDirtyFlag();
         }
 
     }

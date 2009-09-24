@@ -6,6 +6,7 @@ namespace NSMBe4 {
     public partial class LevelEditorControl : UserControl {
 
         private float zoom = 1;
+        public LevelMinimap minimap;
 
         public LevelEditorControl() {
             InitializeComponent();
@@ -121,9 +122,6 @@ namespace NSMBe4 {
         private int DragStartX;
         private int DragStartY;
 
-        public delegate void UpdateViewableAreaDelegate();
-        public event UpdateViewableAreaDelegate UpdateViewableArea;
-
         public delegate void SetDirtyFlagDelegate();
         public event SetDirtyFlagDelegate SetDirtyFlag;
         public void FireSetDirtyFlag()
@@ -140,6 +138,7 @@ namespace NSMBe4 {
 
         private void DrawingArea_Paint(object sender, PaintEventArgs e) {
             if (!Ready) return;
+            minimap.Invalidate(true);
 
             Rectangle ViewableBlocks = new Rectangle(hScrollBar.Value, vScrollBar.Value, ViewableWidth, ViewableHeight);
             Rectangle ViewablePixels = new Rectangle(hScrollBar.Value * 16, vScrollBar.Value * 16, ViewableWidth * 16, ViewableHeight * 16);
@@ -175,7 +174,9 @@ namespace NSMBe4 {
             e.Graphics.ReleaseHdc(pTarget);
 #endif
 
-            foreach(NSMBView v in Level.Views)
+            foreach (NSMBView v in Level.Views)
+                v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
+            foreach (NSMBView v in Level.Zones)
                 v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
             
             foreach(NSMBSprite s in Level.Sprites)

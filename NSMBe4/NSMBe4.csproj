@@ -183,6 +183,12 @@
     <EmbeddedResource Include="EntranceEditor.resx">
       <DependentUpon>EntranceEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FilesystemBrowser.resx">
+      <DependentUpon>FilesystemBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilesystemBrowserDialog.resx">
+      <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImagePreviewer.resx">
       <DependentUpon>ImagePreviewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PathEditor.resx">
       <DependentUpon>PathEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressWindow.resx">
+      <DependentUpon>ProgressWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -304,16 +313,38 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="nsmbe3.ico" />
+    <None Include="Resources\zones1.png" />
+    <None Include="Resources\zones.png" />
     <None Include="Resources\paths.png" />
     <None Include="Resources\views.png" />
     <Compile Include="ByteArrayOutputStream.cs" />
-    <Compile Include="Map16.cs" />
+    <Compile Include="FileLister.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="FilesystemBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FilesystemBrowser.Designer.cs">
+      <DependentUpon>FilesystemBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FilesystemBrowserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FilesystemBrowserDialog.Designer.cs">
+      <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="PathEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PathEditor.Designer.cs">
       <DependentUpon>PathEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProgressWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressWindow.Designer.cs">
+      <DependentUpon>ProgressWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpriteData.cs" />
     <Compile Include="ToolsForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -12,10 +12,11 @@ namespace NSMBe4 {
         public ObjectsEditionMode oem;
         public EntrancesEditionMode eem;
         public PathsEditionMode pem;
-        public ViewsEditionMode vem;
+        public ViewsEditionMode vem, zem;
         public ObjectPickerControl opc;
 
         public ToolsForm tools;
+        private List<ToolStripButton> EditionModeButtons;
 
         public LevelEditor(NitroClass ROM, string LevelFilename) {
             InitializeComponent();
@@ -25,6 +26,12 @@ namespace NSMBe4 {
 
             smallBlockOverlaysToolStripMenuItem.Checked = Properties.Settings.Default.SmallBlockOverlays;
 
+            EditionModeButtons = new List<ToolStripButton>();
+            EditionModeButtons.Add(editObjectsButton);
+            EditionModeButtons.Add(editEntrancesButton);
+            EditionModeButtons.Add(editPathsButton);
+            EditionModeButtons.Add(editViewsButton);
+            EditionModeButtons.Add(editZonesButton);
 
             if (Properties.Settings.Default.Language == 1)
             {
@@ -84,11 +91,14 @@ namespace NSMBe4 {
             eem = new EntrancesEditionMode(Level, levelEditorControl1);
             pem = new PathsEditionMode(Level, levelEditorControl1);
             vem = new ViewsEditionMode(Level, levelEditorControl1, true);
+            zem = new ViewsEditionMode(Level, levelEditorControl1, false);
 
             levelEditorControl1.SetEditionMode(oem);
 
             tools = new ToolsForm(levelEditorControl1);
-
+            MinimapForm = new LevelMinimap(Level, levelEditorControl1);
+            levelEditorControl1.minimap = MinimapForm;
+            MinimapForm.Text = "Minimap - " + this.Text;
         }
 
         private void viewMap16ToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -108,8 +118,6 @@ namespace NSMBe4 {
         public string LevelFilename;
 
         private bool Dirty;
-        private bool DataUpdateFlag;
-        private bool FocusFlag;
 
         private UserControl SelectedPanel;
 
@@ -133,7 +141,7 @@ namespace NSMBe4 {
                 if (Properties.Settings.Default.Language != 1) {
                     dr = MessageBox.Show("This level contains unsaved changes.\nIf you close the editor without saving, you will lose them.\nDo you want to save?", "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                 } else {
-                    dr = MessageBox.Show("Este nivel tiene cambios sin guardar.\nSi cierras el editor sin guardarlo, los pierderas.\nQuiere guardarlos?", "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                    dr = MessageBox.Show("Este nivel tiene cambios sin guardar.\nSi cierras el editor sin guardar, los perderas.\nQuieres guardarlos?", "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                 }
                 if (dr == DialogResult.Yes) {
                     Level.Save();
@@ -152,21 +160,13 @@ namespace NSMBe4 {
 
         private void LevelEditor_FormClosing(object sender, FormClosingEventArgs e) {
             if (ForceClose()) {
-                e.Cancel = true;
+             //   e.Cancel = true;
             }
         }
 
-        private void viewMinimapButton_Click(object sender, EventArgs e) {
-            if (MinimapForm == null || MinimapForm.IsDisposed) {
-                MinimapForm = new LevelMinimap(Level);
-                MinimapForm.ScrollEditor += new LevelMinimap.ScrollEditorDelegate(MinimapForm_ScrollEditor);
-            }
-            MinimapForm.ViewableArea = levelEditorControl1.ViewableArea;
+        private void viewMinimapButton_Click(object sender, EventArgs e)
+        {
             MinimapForm.Show();
-        }
-
-        private void MinimapForm_ScrollEditor(Point NewPosition) {
-            levelEditorControl1.ScrollEditor(NewPosition);
         }
 
         private void levelConfigButton_Click(object sender, EventArgs e) {
@@ -201,95 +201,10 @@ namespace NSMBe4 {
             if (LevelConfigForm != null) {
                 LevelConfigForm.Close();
             }
+            if (tools != null)
+                tools.Close();
         }
 
-        private void levelEditorControl1_UpdateViewableArea() {
-            if (MinimapForm != null && MinimapForm.Visible) {
-                MinimapForm.ViewableArea = levelEditorControl1.ViewableArea;
-                MinimapForm.Invalidate(true);
-            }
-        }
-        /*
-        private void levelEditorControl1_UpdateSelectedObjInfo() {
-            if (levelEditorControl1.SelectedObject == -1 && EditingMode != EditingModeType.Entrances) {
-                tabControl1.Visible = false;
-            } else {
-                DataUpdateFlag = true;
-
-                if (levelEditorControl1.SelectedObjectType == LevelEditorControl.ObjectType.Object) {
-                    tabControl1.SelectTab(0);
-                    objXPosUpDown.Value = Level.Objects[levelEditorControl1.SelectedObject].X;
-                    objYPosUpDown.Value = Level.Objects[levelEditorControl1.SelectedObject].Y;
-                    objWidthUpDown.Value = Level.Objects[levelEditorControl1.SelectedObject].Width;
-                    objHeightUpDown.Value = Level.Objects[levelEditorControl1.SelectedObject].Height;
-
-                    objTileset0Button.Checked = (Level.Objects[levelEditorControl1.SelectedObject].Tileset == 0);
-                    objTileset1Button.Checked = (Level.Objects[levelEditorControl1.SelectedObject].Tileset == 1);
-                    objTileset2Button.Checked = (Level.Objects[levelEditorControl1.SelectedObject].Tileset == 2);
-
-                    objTypeUpDown.Value = Level.Objects[levelEditorControl1.SelectedObject].ObjNum;
-
-                    objectPickerControl1.CurrentTileset = Level.Objects[levelEditorControl1.SelectedObject].Tileset;
-                    objectPickerControl1.SelectedObject = Level.Objects[levelEditorControl1.SelectedObject].ObjNum;
-                    objectPickerControl1.EnsureObjVisible((int)objTypeUpDown.Value);
-                    objectPickerControl1.Invalidate(true);
-                } else if (levelEditorControl1.SelectedObjectType == LevelEditorControl.ObjectType.Sprite) {
-                    tabControl1.SelectTab(1);
-                    spriteXPosUpDown.Value = Level.Sprites[levelEditorControl1.SelectedObject].X;
-                    spriteYPosUpDown.Value = Level.Sprites[levelEditorControl1.SelectedObject].Y;
-                    spriteTypeUpDown.Value = Level.Sprites[levelEditorControl1.SelectedObject].Type;
-
-                    byte[] SpriteData = Level.Sprites[levelEditorControl1.SelectedObject].Data;
-                    spriteDataTextBox.Text = String.Format(
-                        "{0:X2} {1:X2} {2:X2} {3:X2} {4:X2} {5:X2}",
-                        SpriteData[0], SpriteData[1], SpriteData[2],
-                        SpriteData[3], SpriteData[4], SpriteData[5]);
-
-                    spriteListBox.SelectedIndex = Level.Sprites[levelEditorControl1.SelectedObject].Type;
-                } else if (levelEditorControl1.SelectedObjectType == LevelEditorControl.ObjectType.Entrance) {
-                    tabControl1.SelectTab(2);
-                    if (levelEditorControl1.SelectedObject == -1) {
-                        entranceListBox.SelectedItem = null;
-                        deleteEntranceButton.Enabled = false;
-                        groupBox2.Visible = false;
-                    } else {
-                        entranceListBox.SelectedIndex = levelEditorControl1.SelectedObject;
-                        deleteEntranceButton.Enabled = true;
-                        groupBox2.Visible = true;
-
-                        NSMBEntrance Entrance = Level.Entrances[levelEditorControl1.SelectedObject];
-
-                        entranceListBox.Items[levelEditorControl1.SelectedObject] = String.Format("{0}: {1} ({2},{3})", Entrance.Number,
-                            Properties.Settings.Default.Language != 1 ? NSMBEntrance.TypeList[Entrance.Type] : NSMBEntrance.TypeList_lang1[Entrance.Type],
-                            Entrance.X, Entrance.Y);
-
-                        entranceXPosUpDown.Value = Entrance.X;
-                        entranceYPosUpDown.Value = Entrance.Y;
-                        entranceCameraXPosUpDown.Value = Entrance.CameraX;
-                        entranceCameraYPosUpDown.Value = Entrance.CameraY;
-                        entranceNumberUpDown.Value = Entrance.Number;
-                        entranceDestAreaUpDown.Value = Entrance.DestArea;
-                        entrancePipeIDUpDown.Value = Entrance.ConnectedPipeID;
-                        entranceDestEntranceUpDown.Value = Entrance.DestEntrance;
-                        entranceTypeComboBox.SelectedIndex = Entrance.Type;
-                        entranceSetting128.Checked = (bool)((Entrance.Settings & 128) != 0);
-                        entranceSetting16.Checked = (bool)((Entrance.Settings & 16) != 0);
-                        entranceSetting8.Checked = (bool)((Entrance.Settings & 8) != 0);
-                        entranceSetting1.Checked = (bool)((Entrance.Settings & 1) != 0);
-                        entranceViewUpDown.Value = Entrance.EntryView;
-                                            }
-                }
-
-                DataUpdateFlag = false;
-                tabControl1.Visible = true;
-                if (!FocusFlag) {
-                    levelEditorControl1.Focus();
-                } else {
-                    FocusFlag = false;
-                }
-            }
-        }
-*/
         private void levelEditorControl1_SetDirtyFlag() {
             Dirty = true;
         }
@@ -302,41 +217,45 @@ namespace NSMBe4 {
             Level.ReRenderAll();
             Invalidate(true);
         }
+
+        private void uncheckModeButtons()
+        {
+            foreach (ToolStripButton b in EditionModeButtons)
+                b.Checked = false;
+        }
         
         private void editObjectsButton_Click(object sender, EventArgs e) {
             levelEditorControl1.SetEditionMode(oem);
+            uncheckModeButtons();
             editObjectsButton.Checked = true;
-            editEntrancesButton.Checked = false;
-            editPathsButton.Checked = false;
-            editViewsButton.Checked = false;
         }
 
         private void editEntrancesButton_Click(object sender, EventArgs e) {
             levelEditorControl1.SetEditionMode(eem);
-            editObjectsButton.Checked = false;
+            uncheckModeButtons();
             editEntrancesButton.Checked = true;
-            editPathsButton.Checked = false;
-            editViewsButton.Checked = false;
         }
 
         private void editPathsButton_Click(object sender, EventArgs e) {
             levelEditorControl1.SetEditionMode(pem);
-            editObjectsButton.Checked = false;
-            editEntrancesButton.Checked = false;
+            uncheckModeButtons();
             editPathsButton.Checked = true;
-            editViewsButton.Checked = false;
         }
 
         private void editViewsButton_Click(object sender, EventArgs e)
         {
             levelEditorControl1.SetEditionMode(vem);
-            editObjectsButton.Checked = false;
-            editEntrancesButton.Checked = false;
-            editPathsButton.Checked = false;
+            uncheckModeButtons();
             editViewsButton.Checked = true;
 
         }
 
+        private void editZonesButton_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.SetEditionMode(zem);
+            uncheckModeButtons();
+            editZonesButton.Checked = true;
+        }
 
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
             if (Properties.Settings.Default.Language != 1) {
@@ -353,9 +272,6 @@ namespace NSMBe4 {
             if(levelEditorControl1.mode != null)
                 levelEditorControl1.mode.Refresh();
             levelEditorControl1.Invalidate(true);
-            if (MinimapForm != null && MinimapForm.Visible) {
-                MinimapForm.Invalidate(true);
-            }
             Dirty = true;
         }
 
@@ -374,9 +290,6 @@ namespace NSMBe4 {
             if(levelEditorControl1.mode != null)
                 levelEditorControl1.mode.Refresh();
             levelEditorControl1.Invalidate(true);
-            if (MinimapForm != null && MinimapForm.Visible) {
-                MinimapForm.Invalidate(true);
-            }
             Dirty = true;
         }
 
@@ -419,5 +332,6 @@ namespace NSMBe4 {
             float z = Int32.Parse(s);
             levelEditorControl1.SetZoom(z / 100);
         }
+
     }
 }

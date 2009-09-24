@@ -45,3 +45,6 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMB
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ViewEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.csproj.GenerateResource.Cache
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\bin\Debug\Be.Windows.Forms.HexBox.dll
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.FilesystemBrowser.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.FilesystemBrowserDialog.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ProgressWindow.resources

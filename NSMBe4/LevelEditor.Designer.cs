@@ -35,8 +35,17 @@
             this.editEntrancesButton = new System.Windows.Forms.ToolStripButton();
             this.editPathsButton = new System.Windows.Forms.ToolStripButton();
             this.editViewsButton = new System.Windows.Forms.ToolStripButton();
+            this.editZonesButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.spriteFinder = new System.Windows.Forms.ToolStripButton();
+            this.zoomMenu = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewMap16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,14 +58,6 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomMenu = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -74,6 +75,7 @@
             this.editEntrancesButton,
             this.editPathsButton,
             this.editViewsButton,
+            this.editZonesButton,
             this.toolStripSeparator2,
             this.spriteFinder,
             this.zoomMenu,
@@ -124,39 +126,53 @@
             // 
             // editObjectsButton
             // 
+            this.editObjectsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.editObjectsButton.Image = ((System.Drawing.Image)(resources.GetObject("editObjectsButton.Image")));
             this.editObjectsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editObjectsButton.Name = "editObjectsButton";
-            this.editObjectsButton.Size = new System.Drawing.Size(101, 22);
+            this.editObjectsButton.Size = new System.Drawing.Size(23, 22);
             this.editObjectsButton.Text = "Objects/Sprites";
             this.editObjectsButton.Click += new System.EventHandler(this.editObjectsButton_Click);
             // 
             // editEntrancesButton
             // 
+            this.editEntrancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.editEntrancesButton.Image = ((System.Drawing.Image)(resources.GetObject("editEntrancesButton.Image")));
             this.editEntrancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editEntrancesButton.Name = "editEntrancesButton";
-            this.editEntrancesButton.Size = new System.Drawing.Size(75, 22);
+            this.editEntrancesButton.Size = new System.Drawing.Size(23, 22);
             this.editEntrancesButton.Text = "Entrances";
             this.editEntrancesButton.Click += new System.EventHandler(this.editEntrancesButton_Click);
             // 
             // editPathsButton
             // 
-            this.editPathsButton.Image = global::NSMBe4.Properties.Resources.paths;
+            this.editPathsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editPathsButton.Image = ((System.Drawing.Image)(resources.GetObject("editPathsButton.Image")));
             this.editPathsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editPathsButton.Name = "editPathsButton";
-            this.editPathsButton.Size = new System.Drawing.Size(54, 22);
+            this.editPathsButton.Size = new System.Drawing.Size(23, 22);
             this.editPathsButton.Text = "Paths";
             this.editPathsButton.Click += new System.EventHandler(this.editPathsButton_Click);
             // 
             // editViewsButton
             // 
-            this.editViewsButton.Image = global::NSMBe4.Properties.Resources.views;
+            this.editViewsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editViewsButton.Image = ((System.Drawing.Image)(resources.GetObject("editViewsButton.Image")));
             this.editViewsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editViewsButton.Name = "editViewsButton";
-            this.editViewsButton.Size = new System.Drawing.Size(54, 22);
+            this.editViewsButton.Size = new System.Drawing.Size(23, 22);
             this.editViewsButton.Text = "Views";
             this.editViewsButton.Click += new System.EventHandler(this.editViewsButton_Click);
+            // 
+            // editZonesButton
+            // 
+            this.editZonesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editZonesButton.Image = ((System.Drawing.Image)(resources.GetObject("editZonesButton.Image")));
+            this.editZonesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editZonesButton.Name = "editZonesButton";
+            this.editZonesButton.Size = new System.Drawing.Size(23, 22);
+            this.editZonesButton.Text = "Zones";
+            this.editZonesButton.Click += new System.EventHandler(this.editZonesButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -171,6 +187,67 @@
             this.spriteFinder.Size = new System.Drawing.Size(88, 22);
             this.spriteFinder.Text = "Sprite Finder";
             this.spriteFinder.Click += new System.EventHandler(this.spriteFinder_Click);
+            // 
+            // zoomMenu
+            // 
+            this.zoomMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem7,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6});
+            this.zoomMenu.Image = ((System.Drawing.Image)(resources.GetObject("zoomMenu.Image")));
+            this.zoomMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomMenu.Name = "zoomMenu";
+            this.zoomMenu.Size = new System.Drawing.Size(62, 22);
+            this.zoomMenu.Text = "Zoom";
+            this.zoomMenu.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripDropDownButton1_DropDownItemClicked);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Checked = true;
+            this.toolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Text = "100 %";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Text = "66 %";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Text = "50 %";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Text = "33 %";
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem6.Text = "25 %";
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem7.Text = "75 %";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Text = "85 %";
             // 
             // optionsMenu
             // 
@@ -270,67 +347,6 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // zoomMenu
-            // 
-            this.zoomMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem1});
-            this.zoomMenu.Image = ((System.Drawing.Image)(resources.GetObject("zoomMenu.Image")));
-            this.zoomMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomMenu.Name = "zoomMenu";
-            this.zoomMenu.Size = new System.Drawing.Size(62, 22);
-            this.zoomMenu.Text = "Zoom";
-            this.zoomMenu.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripDropDownButton1_DropDownItemClicked);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Checked = true;
-            this.toolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem2.Text = "100 %";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem3.Text = "66 %";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem4.Text = "50 %";
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem5.Text = "33 %";
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem6.Text = "25 %";
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem7.Text = "10 %";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
-            // 
             // levelEditorControl1
             // 
             this.levelEditorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -401,6 +417,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripButton editZonesButton;
     }
 }
 

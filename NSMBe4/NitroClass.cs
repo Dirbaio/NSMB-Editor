@@ -5,71 +5,96 @@ using System.IO;
 using System.Diagnostics;
 
 namespace NSMBe4 {
-    public class NitroClass {
+    public class NitroClass : FileSystem
+    {
         /* Base */
         public string ROMFilename;
         public uint NTOffset;
         public uint NTSize;
         public uint FATOffset;
         public uint FATSize;
-        /* Files */
-        public Dictionary<string,ushort> FileIDs;
-        public Dictionary<ushort,string> FileNames;
-        public Dictionary<ushort,uint> FileOffsets;
-        public Dictionary<ushort, uint> FileSizes;
-        public Dictionary<ushort,ushort> FileParentIDs;
-        /* Dirs */
+        public uint FileLocations = 0; //0 for NitroFS, start of GMIF in NARC
 
-        public Dictionary<string, ushort> DirIDs;
+        private bool isNestedFile = false; //this file is inside other file (e.g. a narc)
 
         /* Misc */
         public ushort FileCount;
         public uint FileLastEnd;
 
-        private FileStream rfs;
+        private Stream rfs;
 
-        public delegate void DirReadyD(int DirID, int ParentID, string DirName, bool IsRoot);
-        public delegate void FileReadyD(int FileID, int ParentID, string FileName);
+        private NitroClass parentFS;
+        private ushort parentFileID;
 
-        public event DirReadyD DirReady;
-        public event FileReadyD FileReady;
+        public NitroClass(string FileName)
+        {
+            this.ROMFilename = FileName;
+        }
+
+        public NitroClass(NitroClass parentFS, ushort parentFileID)
+        {
+            this.isNestedFile = true;
+            this.parentFileID = parentFileID;
+            this.parentFS = parentFS;
+            this.ROMFilename = parentFS.FileNames[parentFileID];
+        }
+
 
         /* Load a ROM */
-        public void LoadROM(string FileName) {
-            // init stream
-            rfs = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            rfs.Seek(0x40, SeekOrigin.Begin);
+        public void Load(FileLister lister)
+        {
+            this.lister = lister;
 
-            // obtain base info
-            NTOffset = ReadUInt(rfs);
-            NTSize = ReadUInt(rfs);
-            FATOffset = ReadUInt(rfs);
-            FATSize = ReadUInt(rfs);
-            ROMFilename = FileName;
-            
-            // reset dictionaries
-            if (FileIDs == null) {
-                // not initialised!
-                FileIDs = new Dictionary<string, ushort>();
-                FileNames = new Dictionary<ushort, string>();
-                FileOffsets = new Dictionary<ushort,uint>();
-                FileSizes = new Dictionary<ushort,uint>();
-                FileParentIDs = new Dictionary<ushort, ushort>();
-
-                DirIDs = new Dictionary<string, ushort>();
+            if (isNestedFile)
+            {
+                //tricky code to get a resizble MemoryStream
+                byte[] file = parentFS.ExtractFile(parentFileID);
+                MemoryStream mms = new MemoryStream(file.Length);
+                mms.Write(file, 0, file.Length);
+                rfs = mms;
+                CalcNarcOffsets();
             }
-            FileIDs.Clear();
-            FileNames.Clear();
-            FileOffsets.Clear();
-            FileSizes.Clear();
-            FileParentIDs.Clear();
-            DirIDs.Clear();
+            else
+            {
+                // init stream
+                rfs = new FileStream(ROMFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                rfs.Seek(0x40, SeekOrigin.Begin);
+
+                // obtain base info
+                NTOffset = ReadUInt(rfs);
+                NTSize = ReadUInt(rfs);
+                FATOffset = ReadUInt(rfs);
+                FATSize = ReadUInt(rfs);
+            }
+
+            LoadCommon();
+        }
+
+        private void LoadCommon()
+        {
+            ResetDictionaries();
 
             // start reading
             LoadDir("Root", 61440, 0);
 
             // clear up
-            rfs.Dispose();
+            if(!isNestedFile)
+                rfs.Dispose();
+            lister = null; //we ensure not sending more to this lister.
+        }
+
+        private void CalcNarcOffsets()
+        {
+            //I have to do some tricky offset calculations here ...
+            FATOffset = 0x1C;
+            rfs.Seek(0x18, SeekOrigin.Begin); //number of files
+            FATSize = ReadUInt(rfs) * 8;
+
+            rfs.Seek(FATSize + FATOffset + 4, SeekOrigin.Begin); //size of FNTB
+            NTSize = ReadUInt(rfs) - 8; //do not include header
+            NTOffset = FATSize + FATOffset + 8;
+
+            FileLocations = NTSize + NTOffset + 8;
         }
 
         /* Load a Directory */
@@ -84,9 +109,9 @@ namespace NSMBe4 {
 
             // list to class owner
             if (Parent == 0) {
-                if (DirReady != null) DirReady(61440, 0, "Root", true);
+                if (lister != null) lister.DirReady(61440, 0, "Root", true);
             } else {
-                if (DirReady != null) DirReady(DirID, Parent, DirName, false);
+                if (lister != null) lister.DirReady(DirID, Parent, DirName, false);
             }
 
             // read FNT entries
@@ -116,9 +141,9 @@ namespace NSMBe4 {
         private void LoadFile(string FileName, ushort FileID, ushort Parent) {
             long PreviousSeek = rfs.Position;
             rfs.Seek(FATOffset + (FileID * 8), SeekOrigin.Begin);
-            uint FATStart = ReadUInt(rfs);
-            uint FATEnd = ReadUInt(rfs);
-            if (FileReady != null) FileReady(FileID, Parent, FileName);
+            uint FATStart = ReadUInt(rfs) + FileLocations;
+            uint FATEnd = ReadUInt(rfs) + FileLocations;
+            if (lister != null) lister.FileReady(FileID, Parent, FileName);
 
             FileIDs[FileName] = FileID;
             FileNames[FileID] = FileName;
@@ -132,18 +157,21 @@ namespace NSMBe4 {
         }
 
         /* Extract a File */
-        public byte[] ExtractFile(ushort FileID) {
-            rfs = new FileStream(ROMFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+        public override byte[] ExtractFile(ushort FileID) {
+            if(!isNestedFile)
+                rfs = new FileStream(ROMFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
             rfs.Seek(FileOffsets[FileID], SeekOrigin.Begin);
             byte[] TempFile = new byte[FileSizes[FileID]];
             rfs.Read(TempFile, 0, (int)FileSizes[FileID]);
-            rfs.Dispose();
+            if (!isNestedFile)
+                rfs.Dispose();
             return TempFile;
         }
 
         /* Reinsert a File */
-        public void ReplaceFile(ushort FileID, byte[] NewFile) {
-            rfs = new FileStream(ROMFilename, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        public override void ReplaceFile(ushort FileID, byte[] NewFile) {
+            if (!isNestedFile)
+                rfs = new FileStream(ROMFilename, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
             uint OldOffset = FileOffsets[FileID];
             uint TempEnd;
             int cDiff = (int)(NewFile.Length - FileSizes[FileID]);
@@ -176,134 +204,12 @@ namespace NSMBe4 {
             rfs.Seek(-4, SeekOrigin.Current);
             WriteUInt(rfs, Convert.ToUInt32((int)TempEnd + cDiff));
             FileSizes[FileID] = (uint)NewFile.Length;
-            rfs.Dispose();
+            if (isNestedFile)
+                parentFS.ReplaceFile(parentFileID, (rfs as MemoryStream).ToArray());
+            else
+                rfs.Dispose();
         }
 
-        /* Supporting Functions */
-        private uint ReadUInt(FileStream fs) {
-            // get an unsigned int from a passed filestream
-            // operates in little-endian
-            byte[] TempByte = new byte[4];
-            fs.Read(TempByte, 0, 4);
-            uint NewVal = TempByte[0];
-            NewVal += (uint)TempByte[1] * 0x100;
-            NewVal += (uint)TempByte[2] * 0x10000;
-            NewVal += (uint)TempByte[3] * 0x1000000;
-            return NewVal;
-        }
 
-        private ushort ReadUShort(FileStream fs) {
-            // get an unsigned short from a passed filestream
-            // operates in little-endian
-            byte[] TempByte = new byte[2];
-            fs.Read(TempByte, 0, 2);
-            ushort NewVal = (ushort)(TempByte[0] + (TempByte[1] * 0x100));
-            return NewVal;
-        }
-
-        private string ReadString(FileStream fs, int StringLength) {
-            // get a string from a passed filestream
-            if (StringLength == 0) return ""; // simple error checking
-            byte[] TempByte = new byte[StringLength];
-            fs.Read(TempByte, 0, StringLength);
-            StringBuilder NewStr = new StringBuilder(StringLength);
-            for (int CharPos = 0; CharPos < StringLength; CharPos++) {
-                NewStr.Append((char)TempByte[CharPos]);
-            }
-            return NewStr.ToString();
-        }
-
-        private void WriteUInt(FileStream fs, uint WriteThis) {
-            // write an unsigned int to a passed filestream
-            byte[] TempByte = new byte[4];
-            uint OldVal = WriteThis;
-            TempByte[0] = (byte)(OldVal & 0xFF);
-            OldVal >>= 8;
-            TempByte[1] = (byte)(OldVal & 0xFF);
-            OldVal >>= 8;
-            TempByte[2] = (byte)(OldVal & 0xFF);
-            OldVal >>= 8;
-            TempByte[3] = (byte)OldVal;
-            fs.Write(TempByte, 0, 4);
-        }
-
-        public byte[] LZ77_Compress(byte[] source) {
-            // This should really be named LZ77_FakeCompress for more accuracy
-            int DataLen = 4;
-            DataLen += source.Length;
-            DataLen += (int)Math.Ceiling((double)source.Length / 8);
-            byte[] dest = new byte[DataLen];
-
-            dest[0] = 0;
-            dest[1] = (byte)(source.Length & 0xFF);
-            dest[2] = (byte)((source.Length >> 8) & 0xFF);
-            dest[3] = (byte)((source.Length >> 16) & 0xFF);
-
-            int FilePos = 4;
-            int UntilNext = 0;
-
-            for (int SrcPos = 0; SrcPos < source.Length; SrcPos++) {
-                if (UntilNext == 0) {
-                    dest[FilePos] = 0;
-                    FilePos++;
-                    UntilNext = 8;
-                }
-                dest[FilePos] = source[SrcPos];
-                FilePos++;
-                UntilNext -= 1;
-            }
-
-            return dest;
-        }
-
-        /* DeLZ */
-        public byte[] LZ77_Decompress(byte[] source) {
-            /* This code converted from Elitemap */
-            int DataLen;
-            DataLen = source[1] | (source[2] << 8) | (source[3] << 8);
-            byte[] dest = new byte[DataLen];
-            int i, j, xin, xout;
-            xin = 4;
-            xout = 0;
-            int length, offset, windowOffset, data;
-            byte d;
-            while (DataLen > 0) {
-                d = source[xin++];
-                if (d != 0) {
-                    for (i = 0; i < 8; i++) {
-                        if ((d & 0x80) != 0) {
-                            data = ((source[xin] << 8) | source[xin + 1]);
-                            xin += 2;
-                            length = (data >> 12) + 3;
-                            offset = data & 0xFFF;
-                            windowOffset = xout - offset - 1;
-                            for (j = 0; j < length; j++) {
-                                dest[xout++] = dest[windowOffset++];
-                                DataLen--;
-                                if (DataLen == 0) {
-                                    return dest;
-                                }
-                            }
-                        } else {
-                            dest[xout++] = source[xin++];
-                            DataLen--;
-                            if (DataLen == 0) {
-                                return dest;
-                            }
-                        }
-                        d <<= 1;
-                    }
-                } else {
-                    for (i = 0; i < 8; i++) {
-                        dest[xout++] = source[xin++];
-                        DataLen--;
-                        if (DataLen == 0) {
-                            return dest;
-                        }
-                    }
-                }
-            }
-            return dest;
-        }
     }
 }

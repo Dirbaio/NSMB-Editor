@@ -168,7 +168,7 @@ namespace NSMBe4
             DragStartX = xb;
             DragStartY = yb;
 
-            if (!isInSelection(xb, yb))
+            if (!isInSelection(xb, yb) || SelectedObjects.Count == 1)
             {
                 // Select an object
                 findSelectedObjects(xb, yb, true);
@@ -397,8 +397,9 @@ namespace NSMBe4
                     }
                 }
 
-                int XOffs = EdControl.ViewableArea.X - XMin; //Offset to move all the objects
-                int YOffs = EdControl.ViewableArea.Y - YMin; //so they are on the topleft corner
+                Rectangle va = EdControl.ViewableArea;
+                int XOffs = va.X - XMin; //Offset to move all the objects
+                int YOffs = va.Y - YMin; //so they are on the topleft corner
 
                 foreach (object oo in SelectedObjects)
                 {
