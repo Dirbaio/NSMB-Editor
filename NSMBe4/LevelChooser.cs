@@ -528,7 +528,7 @@ namespace NSMBe4 {
                     bool success = false;
                     try
                     {
-                        file = ROM.LZ77_Decompress(file);
+                        file = FileSystem.LZ77_Decompress(file);
                         success = true;
                     }
                     catch (Exception) { }

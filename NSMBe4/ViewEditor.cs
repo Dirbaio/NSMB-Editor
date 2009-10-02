@@ -32,6 +32,7 @@ namespace NSMBe4
             nv.Y = va.Y * 16;
             nv.Height = 12 * 16;
             nv.Width = 16 * 16;
+            nv.isZone = !EditingViews;
 
             l.Add(nv);
             EdControl.FireSetDirtyFlag();

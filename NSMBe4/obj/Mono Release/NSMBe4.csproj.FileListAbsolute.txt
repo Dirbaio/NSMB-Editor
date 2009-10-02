@@ -17,3 +17,37 @@ C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBe4\NS
 C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBe4\NSMBe4\obj\Mono Release\NSMBe4.DataFinder.resources
 C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBe4\NSMBe4\obj\Mono Release\NSMBe4.LevelHexEditor.resources
 C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBe4\NSMBe4\obj\Mono Release\Be.Windows.Forms.HexBox.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\bin\Mono Release\NSMBe4.exe.config
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.exe
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.pdb
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\bin\Mono Release\NSMBe4.exe
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\bin\Mono Release\NSMBe4.pdb
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\bin\Mono Release\Be.Windows.Forms.HexBox.dll
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.CreatePanel.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.DataFinder.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.EntranceEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.FileHexEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.FilesystemBrowser.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.FilesystemBrowserDialog.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.ImagePreviewer.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.LevelChooser.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.LevelConfig.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.LevelEditorControl.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.LevelEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.LevelHexEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.LevelMinimap.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.Map16Picker.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.Map16Viewer.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.ObjectEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.ObjectPickerControl.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.PathEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.ProgressWindow.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.Properties.Resources.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.GraphicsViewer.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.SpriteEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.TilesetEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.TilesetObjectEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.ToolsForm.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.ViewEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Mono Release\NSMBe4.csproj.GenerateResource.Cache

@@ -183,6 +183,9 @@
     <EmbeddedResource Include="EntranceEditor.resx">
       <DependentUpon>EntranceEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FileHexEditor.resx">
+      <DependentUpon>FileHexEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FilesystemBrowser.resx">
       <DependentUpon>FilesystemBrowser.cs</DependentUpon>
     </EmbeddedResource>
@@ -210,6 +213,9 @@
     <EmbeddedResource Include="LevelMinimap.resx">
       <DependentUpon>LevelMinimap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Map16Picker.resx">
+      <DependentUpon>Map16Picker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Map16Viewer.resx">
       <DependentUpon>Map16Viewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -230,8 +236,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="GraphicsViewer.resx">
+      <DependentUpon>GraphicsViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetEditor.resx">
+      <DependentUpon>TilesetEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetObjectEditor.resx">
+      <DependentUpon>TilesetObjectEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolsForm.resx">
       <DependentUpon>ToolsForm.cs</DependentUpon>
@@ -318,6 +333,12 @@
     <None Include="Resources\paths.png" />
     <None Include="Resources\views.png" />
     <Compile Include="ByteArrayOutputStream.cs" />
+    <Compile Include="FileHexEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileHexEditor.Designer.cs">
+      <DependentUpon>FileHexEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileLister.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="FilesystemBrowser.cs">
@@ -332,6 +353,12 @@
     <Compile Include="FilesystemBrowserDialog.Designer.cs">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Map16Picker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Map16Picker.Designer.cs">
+      <DependentUpon>Map16Picker.cs</DependentUpon>
+    </Compile>
     <Compile Include="PathEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -344,7 +371,25 @@
     <Compile Include="ProgressWindow.Designer.cs">
       <DependentUpon>ProgressWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphicsViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphicsViewer.Designer.cs">
+      <DependentUpon>GraphicsViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="SpriteData.cs" />
+    <Compile Include="TilesetEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor.Designer.cs">
+      <DependentUpon>TilesetEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TilesetObjectEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilesetObjectEditor.Designer.cs">
+      <DependentUpon>TilesetObjectEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolsForm.cs">
       <SubType>Form</SubType>
     </Compile>

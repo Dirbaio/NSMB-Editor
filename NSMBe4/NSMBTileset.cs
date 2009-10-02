@@ -34,6 +34,60 @@ using System.Drawing.Drawing2D;
  * Object file:
  *  - Data for each object.
  *  
+ * 0xFF - End of object
+ * 0xFE - New Line
+ * & 0x80 - Slope Control Byte
+ * Else, its the beginning of a tile:
+ *   Control Byte
+ *   Map16 tile number as ushort
+ *   
+ * STANDARD OBJECTS:
+ * 
+ * Tile control byte:
+ *  1 = horizontal repeat
+ *  2 = vertical repeat
+ *  
+ * If no repeats, repeat all.
+ * If there are repeats, divide everyting in 3:
+ *    Before repeat (no repeat set)
+ *    In repeat     (repeat set)
+ *    After repeat  (no repeat set)
+ *    
+ * Then put the before repeat at the beginning.
+ * The after repeat at the end
+ * And then fill the space between them (if any) repeating the In repeat tiles.
+ * 
+ * SLOPED OBJECTS:
+ * 
+ * These objects are a pain to work with.
+ * 
+ * Slope anchors depending on first slope control byte:
+ * 
+ *   byte   anchor           direction
+ *   ==============================
+ *   0x80:  Bottom left      Top right
+ *   0x81:  Bottom right     Top left
+ *   0x82:  Top left         Bottom right
+ *   0x83:  Top right        Bottom left
+ *   0x84:  Top left         Bottom right
+ *   
+ * (The last three are only used at the ghost house tileset)
+ * 
+ * The slope format is:
+ * 
+ * A slope control indicating it's a slope and its anchor.
+ * Then follows a rectangular block of tiles. These have to be placed
+ * corner-by-corner, respecting their size, like this:
+ * 
+ *              _|_|
+ *      _      | |             __
+ *    _|_|    _|_|          __|__|
+ *  _|_|     | |         __|__|
+ * |_|       |_|        |__|
+ * 
+ * Optional: Then follows a 0x85 slope control, then another block of tiles 
+ * that has to be placed UNDER the previous blocks, and they are also UNDER the anchor.
+ * 
  **/
 
 
@@ -49,7 +103,7 @@ namespace NSMBe4 {
 
             Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
             // First get the palette out
-            byte[] ePalFile = ROM.LZ77_Decompress(ROM.ExtractFile(PalFile));
+            byte[] ePalFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(PalFile));
             Color[] Palette = new Color[512];
 
             for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
@@ -66,7 +120,7 @@ namespace NSMBe4 {
             Palette[256] = Color.LightSlateGray;
 
             // Load graphics
-            byte[] eGFXFile = ROM.LZ77_Decompress(ROM.ExtractFile(GFXFile));
+            byte[] eGFXFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(GFXFile));
             int TileCount = eGFXFile.Length / 64;
             Bitmap TilesetBuffer = new Bitmap(TileCount * 8, 16);
 
@@ -307,8 +361,9 @@ namespace NSMBe4 {
             for (int ObjIdx = 0; ObjIdx < ObjectCount; ObjIdx++) {
                 int NextOffset = (ObjIdx == (ObjectCount - 1)) ? eObjFile.Length : Objects[ObjIdx + 1].Offset;
                 int ObjDataLength = NextOffset - Objects[ObjIdx].Offset;
-                Objects[ObjIdx].Data = new byte[ObjDataLength];
-                Array.Copy(eObjFile, Objects[ObjIdx].Offset, Objects[ObjIdx].Data, 0, ObjDataLength);
+                byte[] data = new byte[ObjDataLength];
+                Array.Copy(eObjFile, Objects[ObjIdx].Offset, data, 0, ObjDataLength);
+                Objects[ObjIdx].setData(data);
             }
 
             // Finally for objects, I have to calculate the width and height. x_x
@@ -396,34 +451,143 @@ namespace NSMBe4 {
 
         public ObjectDef[] Objects;
 
-        public struct ObjectDef {
+        public class ObjectDef {
             public int Offset;
             public int Width;
             public int Height;
             public byte[] Data;
 
+            public List<List<ObjectDefTile>> tiles;
+
+            public ObjectDef() { }
+
             public ObjectDef(int Offset, int Width, int Height, byte[] Data) {
                 this.Offset = Offset;
                 this.Width = Width;
                 this.Height = Height;
+                setData(Data);
+            }
+            public void setData(byte[] Data)
+            {
                 this.Data = Data;
+
+                ByteArrayInputStream inp = new ByteArrayInputStream(Data);
+                tiles = new List<List<ObjectDefTile>>();
+                List<ObjectDefTile> row = new List<ObjectDefTile>();
+
+                while (true)
+                {
+                    ObjectDefTile t = new ObjectDefTile(inp);
+                    if (t.lineBreak)
+                    {
+                        tiles.Add(row);
+                        row = new List<ObjectDefTile>();
+                    }
+                    else if (t.objectEnd)
+                        break;
+                    else
+                        row.Add(t);
+                }
+            }
+        }
+
+        public class ObjectDefTile
+        {
+            public int tileID;
+            public byte controlByte;
+
+            public bool emptyTile = false;
+
+            public bool lineBreak = false;
+            public bool objectEnd = false;
+            public bool slopeControl = false;
+
+            public bool controlTile = false; // any type of nondisplaying tile
+
+            public ObjectDefTile(ByteArrayInputStream inp)
+            {
+                controlByte = inp.readByte();
+
+                if (controlByte == 0xFE) //line break
+                    lineBreak = true;
+                else if (controlByte == 0xFF)
+                    objectEnd = true;
+                else if ((controlByte & 0x80) > 0) //slope control byte
+                    slopeControl = true;
+                else
+                {
+                    byte a, b;
+                    a = inp.readByte();
+                    b = inp.readByte();
+
+                    tileID = a + (((b != 0) ? b - 1 : 0) % 3 << 8);
+
+                    if ((controlByte & 64) != 0)
+                        tileID += 768;
+                    if (tileID == 0 && controlByte == 0)
+                    {
+                        tileID = -1;
+                        emptyTile = true;
+                    }
+                }
+                controlTile = lineBreak || objectEnd || slopeControl;
             }
         }
 
         public int[,] RenderObject(int ObjNum, int Width, int Height) {
             // First allocate an array
             int[,] Dest = new int[Width, Height];
-
             // Non-existent objects can just be made out of 0s
-            if (ObjNum >= Objects.Length) {
+            if (ObjNum >= Objects.Length)
+            {
                 return Dest;
             }
 
+            ObjectDef obj = Objects[ObjNum];
+
+
             // Diagonal objects are rendered differently
             if ((Objects[ObjNum].Data[0] & 0x80) != 0) {
-                RenderDiagonalObject(Dest, ObjNum, Width, Height);
+                RenderDiagonalObject(Dest, obj, Width, Height);
             } else {
-                Size Rendered = RenderStandardObject(Dest, ObjNum, 0, 0, Width, Height, Width, Height);
+
+                bool repeatFound = false;
+                List<List<ObjectDefTile>> beforeRepeat = new List<List<ObjectDefTile>>();
+                List<List<ObjectDefTile>> inRepeat = new List<List<ObjectDefTile>>();
+                List<List<ObjectDefTile>> afterRepeat = new List<List<ObjectDefTile>>();
+
+                foreach (List<ObjectDefTile> row in obj.tiles)
+                {
+                    if (row.Count == 0)
+                        continue;
+
+                    if ((row[0].controlByte & 2) != 0)
+                    {
+                        repeatFound = true;
+                        inRepeat.Add(row);
+                    }
+                    else
+                    {
+                        if (repeatFound)
+                            afterRepeat.Add(row);
+                        else
+                            beforeRepeat.Add(row);
+                    }
+                }
+
+                for (int y = 0; y < Height; y++)
+                {
+                    if (inRepeat.Count == 0) //if no repeat data, just repeat all
+                        renderStandardRow(Dest, beforeRepeat[y % beforeRepeat.Count], y, Width);
+                    else if (y < beforeRepeat.Count) //if repeat data
+                        renderStandardRow(Dest, beforeRepeat[y], y, Width);
+                    else if (y > Height - afterRepeat.Count - 1)
+                        renderStandardRow(Dest, afterRepeat[y - Height + afterRepeat.Count], y, Width);
+                    else
+                        renderStandardRow(Dest, inRepeat[(y - beforeRepeat.Count) % inRepeat.Count], y, Width);
+                }
+
+                /*Size Rendered = RenderStandardObject(Dest, ObjNum, 0, 0, Width, Height, Width, Height);
                 int RemainingX = (int)Math.Ceiling((double)(Width - Rendered.Width) / Rendered.Width);
                 int RemainingY = (int)Math.Ceiling((double)(Height - Rendered.Height) / Rendered.Height);
                 for (int RepeatX = 0; RepeatX < RemainingX; RepeatX++) {
@@ -438,7 +602,7 @@ namespace NSMBe4 {
                             RenderStandardObject(Dest, ObjNum, Rendered.Width * (RepeatX + 1), Rendered.Height * (RepeatY + 1), Rendered.Width, Rendered.Height, Width, Height);
                         }
                     }
-                }
+                }*/
             }
 
             /*int XLoops = (int)Math.Ceiling((float)Width / (float)Objects[ObjNum].Width);
@@ -459,11 +623,136 @@ namespace NSMBe4 {
             return Dest;
         }
 
-        private struct ObjTile {
-            public byte ControlByte;
-            public int TileID;
+        private void renderStandardRow(int[,] Dest, List<ObjectDefTile> row, int y, int width)
+        {
+            bool repeatFound = false;
+            List<ObjectDefTile> beforeRepeat = new List<ObjectDefTile>();
+            List<ObjectDefTile> inRepeat =     new List<ObjectDefTile>();
+            List<ObjectDefTile> afterRepeat =  new List<ObjectDefTile>();
+
+            foreach (ObjectDefTile tile in row)
+            {
+                if ((tile.controlByte & 1) != 0)
+                {
+                    repeatFound = true;
+                    inRepeat.Add(tile);
+                }
+                else
+                {
+                    if (repeatFound)
+                        afterRepeat.Add(tile);
+                    else
+                        beforeRepeat.Add(tile);
+                }
+            }
+
+            for (int x = 0; x < width; x++)
+            {
+                if (inRepeat.Count == 0) //if no repeat data, just repeat all
+                    Dest[x, y] = beforeRepeat[x % beforeRepeat.Count].tileID;
+                else if (x < beforeRepeat.Count) //if repeat data
+                    Dest[x, y] = beforeRepeat[x].tileID;
+                else if (x > width - afterRepeat.Count - 1)
+                    Dest[x, y] = afterRepeat[x - width + afterRepeat.Count].tileID;
+                else
+                    Dest[x, y] = inRepeat[(x - beforeRepeat.Count) % inRepeat.Count].tileID;
+            }
         }
 
+        private void RenderDiagonalObject(int[,] Dest, ObjectDef obj, int width, int height)
+        {
+            //empty tiles fill
+            for (int xp = 0; xp < width; xp++)
+                for (int yp = 0; yp < height; yp++)
+                    Dest[xp, yp] = -1;
+
+            //find out direction:
+            byte controlByte = obj.tiles[0][0].controlByte;
+            bool goLeft = controlByte == 0x81 || controlByte == 0x82 || controlByte == 0x84; //note: this means go top left or bottom right
+
+            //find out anchor:
+            bool topAnchor = controlByte >= 0x82 && controlByte <= 0x84;
+
+            //find vertical increment
+            int yi = 0;
+            bool bottomControlFound = false;
+            foreach (List<ObjectDefTile> row in obj.tiles)
+            {
+                if (row[0].controlByte == 0x85)
+                    bottomControlFound = true;
+
+                if (!bottomControlFound)
+                    yi++;
+            }
+            if (yi == 0) yi = 1;
+
+            //find horizontal increment
+            int xi = countTiles(obj.tiles[0]);
+            if (xi == 0) xi = 1;
+            if (goLeft) xi = -xi;
+
+            //starting position
+            int x = goLeft ? width - 1 : 0;
+            int y = height - yi;
+            if (topAnchor)
+            {
+                int numBlocks = height / yi;
+                if (numBlocks * yi != height) //round up
+                    numBlocks++;
+
+                y = numBlocks * yi;
+                if (goLeft)
+                    x = numBlocks * xi - xi;
+                else
+                    x = width - numBlocks * xi - xi;
+            }
+
+            //render the slope
+            while (x > -1 && x < width + 2 && y >= -obj.tiles.Count)
+            {
+                int yy = y;
+
+                foreach (List<ObjectDefTile> row in obj.tiles)
+                {
+                    int xx = x;
+                    if (goLeft)
+                        xx -= countTiles(row) - 1;
+                    /*
+                    if (bottomControlFound && upMove > 1)
+                        xx--;*/
+
+                    foreach (ObjectDefTile tile in row)
+                    {
+                        if (tile.controlTile)
+                            continue;
+                        putTile(Dest, xx, yy, width, height, tile);
+                        xx++;
+                    }
+                    yy++;
+                }
+                y -= yi;
+                x += xi;
+            }
+        }
+        
+        private int countTiles(List<ObjectDefTile> l)
+        {
+            int res = 0;
+            foreach (ObjectDefTile t in l)
+                if (!t.controlTile)
+                    res++;
+            return res;
+        }
+
+        private void putTile(int[,] Dest, int x, int y, int width, int height, ObjectDefTile t)
+        {
+            if (x >= 0 && x < width)
+                if (y >= 0 && y < height)
+                    Dest[x, y] = t.tileID;
+        }
+
+
+#if false
         private Size RenderStandardObject(int[,] Dest, int ObjNum, int XOffset, int YOffset, int Width, int Height, int MaxXBound, int MaxYBound) {
             Size ReturnVal = new Size();
 
@@ -522,7 +811,7 @@ namespace NSMBe4 {
                 // Parse a tile
                 // I know this is a totally WTFy method of grabbing the tile ID. But for some reason it works.
                 t.ControlByte = ObjData[FilePos];
-                t.TileID = ObjData[FilePos + 1] + ((((ObjData[FilePos + 2] > 0) ? ObjData[FilePos + 2] - 1 : ObjData[FilePos + 2]) % 3) * 256);
+                t.TileID = ObjData[FilePos + 1] + (((ObjData[FilePos + 2] != 0) ? ObjData[FilePos + 2]-1 : 0) %3 << 8);
                 if ((t.ControlByte & 64) != 0) t.TileID += 768;
                 if (t.TileID == 0 && t.ControlByte == 0) t.TileID = -1;
                 FilePos += 3;
@@ -672,8 +961,10 @@ namespace NSMBe4 {
                 destY++;
                 ObjDataPos++;
             }*/
+        
         }
-
+    
+        /*
         private void RenderDiagonalObject(int[,] Dest, int ObjNum, int Width, int Height) {
             // First of all clear this all out to blank tiles
             for (int clearX = 0; clearX < Width; clearX++) {
@@ -740,7 +1031,8 @@ namespace NSMBe4 {
                 ObjDataPos++;
                 if (destY == Height) break;
             }*/
-        }
+        //}
+#endif
 
 #if USE_GDIPLUS
         public void RenderCachedObject(Graphics g, int[,] Obj, int X, int Y) {

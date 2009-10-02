@@ -41,8 +41,8 @@
 40=Unused
 41=Bowser Battle P-Switch
 42=Chain Chomp
-43=Unused
-44=Unused
+43=Chain Chomp without log
+44=Unused / Nothing
 45=Make brick contain coin
 46=Spiked Ball (102) Activator?
 47=Lakithunder
@@ -58,9 +58,9 @@
 57=Coin (In bubble if in water)
 58=Bowser falling from ceiling
 59=Hammer Brother
-60=Unused
-61=Unused
-62=Unused
+60=Unused / Nothing
+61=Unused / Nothing
+62=Unused Bowser
 63=Skeleton Bowser
 64=Whomp
 65=Cheep Skipper
@@ -68,7 +68,7 @@
 67=Unknown, used in 1-A
 68=Vertical Moving Platform
 69=Horizontal Moving Platform
-70=Unused
+70=Unused spinning log
 71=Moving Stone Block Vertical 2 Sided
 72=Moving Stone Block 2 Sided
 73=Hanging Platform
@@ -95,7 +95,7 @@
 94=Swooper
 95=Spinning jump board
 96=Sea Weed
-97=Unused
+97=Unused / Nothing
 98=Unused
 99=Manual Moving Wheel
 100=Unused
@@ -110,7 +110,7 @@
 109=Electric Ball
 110=Unused
 111=Spinning Log
-112=Unused
+112=Unused / Nothing
 113=Cheep-Chomp
 114=Small flamethrower
 115=Giant Spike Ball
@@ -119,10 +119,10 @@
 118=Flamethrower
 119=Pendulum Platform
 120=Piranha Plant
-121=Unused
+121=Unused / Nothing
 122=Giant Piranha Plant
 123=Fire Spitting Piranha Plant
-124=Unused
+124=Giant Fire Spitting Piranha Plant
 125=Unused
 126=Draw Bridge Platform
 127=Giant Spinning Platforms

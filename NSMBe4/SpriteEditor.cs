@@ -129,6 +129,7 @@ namespace NSMBe4
             DataUpdateFlag = true;
             spriteListBox.SelectedIndex = s.Type;
             DataUpdateFlag = false;
+            UpdateDataEditor();
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
         }
@@ -174,6 +175,7 @@ namespace NSMBe4
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
+
             e.DrawBackground();
             //Brush UseBrush;
             Color UseColour;
@@ -191,6 +193,15 @@ namespace NSMBe4
 
             //e.Graphics.DrawString((string)spriteListBox.Items[e.Index], spriteListBox.Font, UseBrush, e.Bounds);
             TextRenderer.DrawText(e.Graphics, (string)spriteListBox.Items[e.Index], spriteListBox.Font, e.Bounds, UseColour, e.BackColor, TextFormatFlags.Left);
+
+            byte[] SSTable = Properties.Resources.modifiertable;
+            int SSNumber = SSTable[e.Index << 1];
+            int SSValue = SSTable[(e.Index << 1) + 1];
+            string txt = (SSNumber + 1) + "-" + SSValue;
+            if (SSValue == 0)
+                txt = "-";
+
+            TextRenderer.DrawText(e.Graphics, txt, spriteListBox.Font, new Rectangle(e.Bounds.X +e.Bounds.Width - 30, e.Bounds.Y, 30, e.Bounds.Height), UseColour, e.BackColor, TextFormatFlags.Right);
 
             e.DrawFocusRectangle();
         }

@@ -11,7 +11,8 @@ namespace NSMBe4 {
         public byte[] Data;
         private NSMBLevel Level;
 
-        public NSMBSprite(NSMBLevel Level) {
+        public NSMBSprite(NSMBLevel Level)
+        {
             this.Level = Level;
         }
 
@@ -20,8 +21,10 @@ namespace NSMBe4 {
             this.X = s.X;
             this.Y = s.Y;
             this.Type = s.Type;
-            this.Data = s.Data;
             this.Level = s.Level;
+
+            this.Data = new byte[6];
+            Array.Copy(s.Data, Data, 6);
         }
 
         public void Render(Graphics g) {

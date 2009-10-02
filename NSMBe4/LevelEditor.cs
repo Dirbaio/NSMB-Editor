@@ -333,5 +333,10 @@ namespace NSMBe4 {
             levelEditorControl1.SetZoom(z / 100);
         }
 
+        private void editTileset_Click(object sender, EventArgs e)
+        {
+            new TilesetEditor(GFX.Tilesets[1], GFX).Show();
+        }
+
     }
 }

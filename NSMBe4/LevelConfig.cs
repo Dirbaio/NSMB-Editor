@@ -195,7 +195,7 @@ namespace NSMBe4 {
             int FilePos;
 
             // First get the palette out
-            byte[] ePalFile = ROM.LZ77_Decompress(ROM.ExtractFile(PalFile));
+            byte[] ePalFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(PalFile));
             Color[] Palette = new Color[512];
 
             for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
@@ -212,7 +212,7 @@ namespace NSMBe4 {
             Palette[256] = Color.LightSlateGray;
 
             // Load graphics
-            byte[] eGFXFile = ROM.LZ77_Decompress(ROM.ExtractFile(GFXFile));
+            byte[] eGFXFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(GFXFile));
             int TileCount = eGFXFile.Length / 64;
             Bitmap TilesetBuffer = new Bitmap(256, 224);
 
@@ -294,7 +294,7 @@ namespace NSMBe4 {
             int FilePos;
 
             // First get the palette out
-            byte[] ePalFile = ROM.LZ77_Decompress(ROM.ExtractFile(PalFile));
+            byte[] ePalFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(PalFile));
             Color[] Palette = new Color[512];
 
             for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
@@ -311,7 +311,7 @@ namespace NSMBe4 {
             Palette[256] = Color.LightSlateGray;
 
             // Load graphics
-            byte[] eGFXFile = ROM.LZ77_Decompress(ROM.ExtractFile(GFXFile));
+            byte[] eGFXFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(GFXFile));
             int TileCount = eGFXFile.Length / 64;
             Bitmap TilesetBuffer = new Bitmap(TileCount * 8, 16);
 
@@ -336,7 +336,7 @@ namespace NSMBe4 {
             //GDIImports.SelectObject(TilesetBufferHDC, TilesetBufferHandle);
 
             // Load layout
-            byte[] eLayoutFile = ROM.LZ77_Decompress(ROM.ExtractFile(LayoutFile));
+            byte[] eLayoutFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(LayoutFile));
             int LayoutCount = eLayoutFile.Length / 2;
             Bitmap BG = new Bitmap(512, 512, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Graphics BGGraphics = Graphics.FromImage(BG);

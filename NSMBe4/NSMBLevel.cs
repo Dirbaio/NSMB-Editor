@@ -196,8 +196,14 @@ namespace NSMBe4 {
             ByteArrayOutputStream Block8 = new ByteArrayOutputStream();
             foreach (NSMBView v in Views)
                 v.write(Block8);
-
+            // Save Views
             Blocks[7] = Block8.getArray();
+
+            ByteArrayOutputStream Block9 = new ByteArrayOutputStream();
+            foreach (NSMBView v in Zones)
+                v.writeZone(Block9);
+            Blocks[8] = Block9.getArray();
+
 
             // Save blocks
             int LevelFileSize = 8 * 14;

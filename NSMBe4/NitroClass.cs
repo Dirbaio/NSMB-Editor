@@ -13,13 +13,13 @@ namespace NSMBe4 {
         public uint NTSize;
         public uint FATOffset;
         public uint FATSize;
-        public uint FileLocations = 0; //0 for NitroFS, start of GMIF in NARC
+        public uint FileDataOffset = 0; //0 for NitroFS, start of GMIF in NARC
 
         private bool isNestedFile = false; //this file is inside other file (e.g. a narc)
 
         /* Misc */
         public ushort FileCount;
-        public uint FileLastEnd;
+        public uint FileLastEnd; //Relative to FileDataOffset
 
         private Stream rfs;
 
@@ -94,7 +94,7 @@ namespace NSMBe4 {
             NTSize = ReadUInt(rfs) - 8; //do not include header
             NTOffset = FATSize + FATOffset + 8;
 
-            FileLocations = NTSize + NTOffset + 8;
+            FileDataOffset = NTSize + NTOffset + 8;
         }
 
         /* Load a Directory */
@@ -108,22 +108,19 @@ namespace NSMBe4 {
             DirIDs[DirName] = DirID;
 
             // list to class owner
-            if (Parent == 0) {
-                if (lister != null) lister.DirReady(61440, 0, "Root", true);
-            } else {
-                if (lister != null) lister.DirReady(DirID, Parent, DirName, false);
-            }
-
+            if (lister != null)
+                lister.DirReady(DirID, Parent, DirName, Parent == 0);
+            
             // read FNT entries
             rfs.Seek(NTOffset + EntryStart, SeekOrigin.Begin);
             ushort CurFile = EntryFileID;
             while (true) {
-                byte EntryLength = (byte)rfs.ReadByte();
-                byte NameLength = (byte)(EntryLength & 127);
+                byte EntryData = (byte)rfs.ReadByte();
+                byte NameLength = (byte)(EntryData & 127);
                 if (NameLength == 0) break;
                 // read entry
                 string EntryName = ReadString(rfs, NameLength);
-                if (EntryLength > 127) {
+                if (EntryData > 127) {
                     // directory
                     ushort SubTableID = ReadUShort(rfs);
                     LoadDir(EntryName, SubTableID, DirID);
@@ -138,33 +135,48 @@ namespace NSMBe4 {
         }
 
         /* Load a File */
-        private void LoadFile(string FileName, ushort FileID, ushort Parent) {
+        private void LoadFile(string FileName, ushort FileID, ushort Parent)
+        {
             long PreviousSeek = rfs.Position;
+
+            //read file pos and size
             rfs.Seek(FATOffset + (FileID * 8), SeekOrigin.Begin);
-            uint FATStart = ReadUInt(rfs) + FileLocations;
-            uint FATEnd = ReadUInt(rfs) + FileLocations;
+            uint FATStart = ReadUInt(rfs);
+            uint FATEnd = ReadUInt(rfs);
+
+            //list file
             if (lister != null) lister.FileReady(FileID, Parent, FileName);
 
+            //get data
             FileIDs[FileName] = FileID;
             FileNames[FileID] = FileName;
             FileOffsets[FileID] = FATStart;
             FileSizes[FileID] = FATEnd - FATStart;
             FileParentIDs[FileID] = Parent;
 
+            //keep things updated
             if (FATEnd > FileLastEnd) FileLastEnd = FATEnd;
             FileCount++;
+
+            //leave position as it were
             rfs.Seek(PreviousSeek, SeekOrigin.Begin);
         }
 
         /* Extract a File */
         public override byte[] ExtractFile(ushort FileID) {
-            if(!isNestedFile)
+            if(!isNestedFile) //open file
                 rfs = new FileStream(ROMFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-            rfs.Seek(FileOffsets[FileID], SeekOrigin.Begin);
+
+            //read file
+            rfs.Seek(FileOffsets[FileID]+FileDataOffset, SeekOrigin.Begin);
             byte[] TempFile = new byte[FileSizes[FileID]];
             rfs.Read(TempFile, 0, (int)FileSizes[FileID]);
+
+            //close file
             if (!isNestedFile)
                 rfs.Dispose();
+
+            //return
             return TempFile;
         }
 
@@ -174,36 +186,54 @@ namespace NSMBe4 {
                 rfs = new FileStream(ROMFilename, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
             uint OldOffset = FileOffsets[FileID];
             uint TempEnd;
-            int cDiff = (int)(NewFile.Length - FileSizes[FileID]);
-            if (cDiff > 0) {
-                uint Diff = (uint)cDiff;
-                Dictionary<ushort, string>.KeyCollection EnumThis = FileNames.Keys;
-                foreach (ushort ModID in EnumThis) {
-                    uint ModOffset = FileOffsets[ModID];
-                    if (ModOffset > OldOffset) {
-                        ModOffset += Diff;
-                        FileOffsets[ModID] = ModOffset;
+
+            int Diff = (int)(NewFile.Length - FileSizes[FileID]);
+
+            if (Diff > 0) { //if file grows
+                uint uDiff = (uint)Diff;
+                //move all files after this one right
+                //update the FAT
+                Dictionary<ushort, string>.KeyCollection FileIDs = FileNames.Keys;
+                foreach (ushort ModID in FileIDs)
+                {
+                    uint NewFileOffset = FileOffsets[ModID];
+                    if (NewFileOffset > OldOffset)
+                    {
+                        NewFileOffset += uDiff;
+                        FileOffsets[ModID] = NewFileOffset;
                         rfs.Seek(FATOffset + (ModID * 8), SeekOrigin.Begin);
-                        WriteUInt(rfs, ModOffset);
-                        TempEnd = ReadUInt(rfs) + Diff;
+                        WriteUInt(rfs, NewFileOffset);
+                        TempEnd = ReadUInt(rfs) + uDiff;
                         rfs.Seek(-4, SeekOrigin.Current);
                         WriteUInt(rfs, TempEnd);
                     }
                 }
-                rfs.Seek(OldOffset, SeekOrigin.Begin);
+
+                //Move the file data itself
+                rfs.Seek(OldOffset + FileDataOffset, SeekOrigin.Begin);
                 byte[] MoveBuffer = new byte[FileLastEnd - OldOffset + 1];
                 rfs.Read(MoveBuffer, 0, MoveBuffer.Length);
-                rfs.Seek(OldOffset + Diff, SeekOrigin.Begin);
+                rfs.Seek(OldOffset + FileDataOffset + Diff, SeekOrigin.Begin);
                 rfs.Write(MoveBuffer, 0, MoveBuffer.Length);
-                FileLastEnd += Diff;
+                FileLastEnd += uDiff;
             }
-            rfs.Seek(OldOffset, SeekOrigin.Begin);
+
+            //update THIS FILE
+
+            //File data
+            rfs.Seek(OldOffset+FileDataOffset, SeekOrigin.Begin);
             rfs.Write(NewFile, 0, NewFile.Length);
+
+            //FAT
             rfs.Seek(FATOffset + 4 + (FileID * 8), SeekOrigin.Begin);
             TempEnd = ReadUInt(rfs);
             rfs.Seek(-4, SeekOrigin.Current);
-            WriteUInt(rfs, Convert.ToUInt32((int)TempEnd + cDiff));
+            WriteUInt(rfs, Convert.ToUInt32(TempEnd + Diff));
+
+            //Keep the sizes updated
             FileSizes[FileID] = (uint)NewFile.Length;
+
+            //save modified file
             if (isNestedFile)
                 parentFS.ReplaceFile(parentFileID, (rfs as MemoryStream).ToArray());
             else

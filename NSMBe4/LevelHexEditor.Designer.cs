@@ -97,6 +97,7 @@
             this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
             this.hexBox1.Size = new System.Drawing.Size(667, 306);
             this.hexBox1.TabIndex = 2;
+            this.hexBox1.VScrollBarVisible = true;
             // 
             // LevelHexEditor
             // 

@@ -114,6 +114,17 @@ namespace NSMBe4 {
             return v;
         }
 
+        public void writeZone(ByteArrayOutputStream outp)
+        {
+            outp.writeUShort((ushort)X);
+            outp.writeUShort((ushort)Y);
+            outp.writeUShort((ushort)Width);
+            outp.writeUShort((ushort)Height);
+            outp.writeByte((byte)Number);
+            outp.writeByte(0);
+            outp.writeByte(0);
+            outp.writeByte(0);
+        }
 
         public static NSMBView readZone(ByteArrayInputStream inp)
         {
