@@ -33,11 +33,14 @@
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.filesystemBrowser1 = new NSMBe4.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
             this.changeLanguageButton = new System.Windows.Forms.Button();
+            this.lzUncompressAll = new System.Windows.Forms.Button();
+            this.mpPatch = new System.Windows.Forms.Button();
             this.patchImport = new System.Windows.Forms.Button();
             this.patchExport = new System.Windows.Forms.Button();
             this.dataFinderButton = new System.Windows.Forms.Button();
@@ -47,9 +50,7 @@
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
-            this.mpPatch = new System.Windows.Forms.Button();
-            this.filesystemBrowser1 = new NSMBe4.FilesystemBrowser();
-            this.lzUncompressAll = new System.Windows.Forms.Button();
+            this.tilesetEditor = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -153,9 +154,18 @@
             this.tabPage1.Text = "File Browser";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(361, 264);
+            this.filesystemBrowser1.TabIndex = 0;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.groupBox1);
+            this.tabPage3.Controls.Add(this.tilesetEditor);
             this.tabPage3.Controls.Add(this.lzUncompressAll);
             this.tabPage3.Controls.Add(this.mpPatch);
             this.tabPage3.Controls.Add(this.patchImport);
@@ -215,6 +225,30 @@
             this.changeLanguageButton.Text = "Change";
             this.changeLanguageButton.UseVisualStyleBackColor = true;
             this.changeLanguageButton.Click += new System.EventHandler(this.changeLanguageButton_Click);
+            // 
+            // lzUncompressAll
+            // 
+            this.lzUncompressAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lzUncompressAll.Location = new System.Drawing.Point(185, 122);
+            this.lzUncompressAll.Name = "lzUncompressAll";
+            this.lzUncompressAll.Size = new System.Drawing.Size(176, 23);
+            this.lzUncompressAll.TabIndex = 3;
+            this.lzUncompressAll.Text = "LZ Uncompress Everything";
+            this.lzUncompressAll.UseVisualStyleBackColor = true;
+            this.lzUncompressAll.Click += new System.EventHandler(this.lzUncompressAll_Click);
+            // 
+            // mpPatch
+            // 
+            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch.Location = new System.Drawing.Point(185, 93);
+            this.mpPatch.Name = "mpPatch";
+            this.mpPatch.Size = new System.Drawing.Size(176, 23);
+            this.mpPatch.TabIndex = 3;
+            this.mpPatch.Text = "Multiplayer NARC Patch";
+            this.mpPatch.UseVisualStyleBackColor = true;
+            this.mpPatch.Click += new System.EventHandler(this.mpPatch_Click);
             // 
             // patchImport
             // 
@@ -280,37 +314,17 @@
             // 
             this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
             // 
-            // mpPatch
+            // tilesetEditor
             // 
-            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tilesetEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.mpPatch.Location = new System.Drawing.Point(185, 93);
-            this.mpPatch.Name = "mpPatch";
-            this.mpPatch.Size = new System.Drawing.Size(176, 23);
-            this.mpPatch.TabIndex = 3;
-            this.mpPatch.Text = "Multiplayer NARC Patch";
-            this.mpPatch.UseVisualStyleBackColor = true;
-            this.mpPatch.Click += new System.EventHandler(this.mpPatch_Click);
-            // 
-            // filesystemBrowser1
-            // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(361, 264);
-            this.filesystemBrowser1.TabIndex = 0;
-            // 
-            // lzUncompressAll
-            // 
-            this.lzUncompressAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.lzUncompressAll.Location = new System.Drawing.Point(185, 122);
-            this.lzUncompressAll.Name = "lzUncompressAll";
-            this.lzUncompressAll.Size = new System.Drawing.Size(176, 23);
-            this.lzUncompressAll.TabIndex = 3;
-            this.lzUncompressAll.Text = "LZ Uncompress Everything";
-            this.lzUncompressAll.UseVisualStyleBackColor = true;
-            this.lzUncompressAll.Click += new System.EventHandler(this.lzUncompressAll_Click);
+            this.tilesetEditor.Location = new System.Drawing.Point(185, 151);
+            this.tilesetEditor.Name = "tilesetEditor";
+            this.tilesetEditor.Size = new System.Drawing.Size(176, 23);
+            this.tilesetEditor.TabIndex = 3;
+            this.tilesetEditor.Text = "Tileset Editor";
+            this.tilesetEditor.UseVisualStyleBackColor = true;
+            this.tilesetEditor.Click += new System.EventHandler(this.tilesetEditor_Click);
             // 
             // LevelChooser
             // 
@@ -360,5 +374,6 @@
         private FilesystemBrowser filesystemBrowser1;
         private System.Windows.Forms.Button mpPatch;
         private System.Windows.Forms.Button lzUncompressAll;
+        private System.Windows.Forms.Button tilesetEditor;
     }
 }

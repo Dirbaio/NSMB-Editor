@@ -77,10 +77,9 @@ namespace NSMBe4 {
             int Block1Offset = LevelFile[0] | (LevelFile[1] << 8) | (LevelFile[2] << 16) | (LevelFile[3] << 24);
             int Block4Offset = LevelFile[12] | (LevelFile[13] << 8) | (LevelFile[14] << 16) | (LevelFile[15] << 24);
             byte TilesetID = LevelFile[Block1Offset + 0x0C];
-            byte TilesetPalID = LevelFile[Block4Offset + 3];
 
             GFX = new NSMBGraphics(ROM);
-            GFX.LoadTilesets(TilesetID, TilesetPalID);
+            GFX.LoadTilesets(TilesetID);
 
             Level = new NSMBLevel(ROM, LevelFileID, LevelBGDatFileID, GFX);
             levelEditorControl1.Initialise(GFX, Level, this);
@@ -181,7 +180,7 @@ namespace NSMBe4 {
         }
 
         private void LevelConfigForm_ReloadTileset() {
-            GFX.LoadTileset1(Level.Blocks[0][0xC], Level.Blocks[3][3]);
+            GFX.LoadTileset1(Level.Blocks[0][0xC]);
             Level.ReRenderAll();
             opc.ReRenderAll(1);
             Invalidate(true);
@@ -335,7 +334,7 @@ namespace NSMBe4 {
 
         private void editTileset_Click(object sender, EventArgs e)
         {
-            new TilesetEditor(GFX.Tilesets[1], GFX).Show();
+            new TilesetEditor(ROM, Level.Blocks[0][0xC], "").Show();
         }
 
     }

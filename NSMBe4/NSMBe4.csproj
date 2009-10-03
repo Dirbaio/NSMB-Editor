@@ -242,6 +242,9 @@
     <EmbeddedResource Include="SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TilesetChooser.resx">
+      <DependentUpon>TilesetChooser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor.resx">
       <DependentUpon>TilesetEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -378,6 +381,12 @@
       <DependentUpon>GraphicsViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="SpriteData.cs" />
+    <Compile Include="TilesetChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TilesetChooser.Designer.cs">
+      <DependentUpon>TilesetChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="TilesetEditor.cs">
       <SubType>Form</SubType>
     </Compile>

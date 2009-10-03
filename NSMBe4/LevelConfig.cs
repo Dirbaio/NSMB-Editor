@@ -29,7 +29,7 @@ namespace NSMBe4 {
                 label2.Text = "Entrada punto empezar:";
                 label3.Text = "Entrada punto medio:";
 
-                levelWrapCheckBox.Text = "Movimiento camara transversal (como 7-2)";
+                levelWrapCheckBox.Text = "Nivel cíclico (como en 7-2 y multijugador)";
 
                 OKButton.Text = "Vale";
                 cancelButton.Text = "Cancelar";

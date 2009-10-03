@@ -98,7 +98,7 @@ namespace NSMBe4 {
             for (int ObjIdx = 0; ObjIdx < ViewableHeight; ObjIdx++) {
                 e.Graphics.FillRectangle((RealObjIdx == SelectedObject) ? Brushes.WhiteSmoke : Brushes.Gainsboro, 2, CurrentDrawY, DrawingArea.Width - 4, 52);
                 e.Graphics.DrawString("Object " + RealObjIdx.ToString(), NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY);
-                if (RealObjIdx >= GFX.Tilesets[CurrentTileset].Objects.Length) {
+                if (!GFX.Tilesets[CurrentTileset].objectExists(RealObjIdx)) {
                     // Invalid object
                     e.Graphics.DrawImage(NSMBe4.Properties.Resources.warning, DrawingArea.Width - 22, CurrentDrawY + 2);
                     e.Graphics.DrawString("This object does not exist\nin the selected tileset.", NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY + 14);

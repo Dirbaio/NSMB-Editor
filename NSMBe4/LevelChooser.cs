@@ -538,5 +538,10 @@ namespace NSMBe4 {
                 }
             }
         }
+
+        private void tilesetEditor_Click(object sender, EventArgs e)
+        {
+            new TilesetEditor(ROM, 0, "Nohara").Show();
+        }
     }
 }

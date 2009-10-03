@@ -53,3 +53,4 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMB
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.TilesetEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.TilesetObjectEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Map16Picker.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.TilesetChooser.resources

@@ -29,7 +29,8 @@ using System.Drawing.Drawing2D;
  *  - 4 bytes per object
  *  - Defines offsets in the Object file
  *  - Offset as ushort
- *  - Width and Height as byte
+ *  - Width and Height as 2 bytes. 
+ *    These are inaccurate, and my implementation doesn't use them
  *  
  * Object file:
  *  - Data for each object.
@@ -91,10 +92,46 @@ using System.Drawing.Drawing2D;
  **/
 
 
-namespace NSMBe4 {
-    public class NSMBTileset {
-        public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, bool OverrideFlag) {
+namespace NSMBe4
+{
+   
+    public class NSMBTileset
+    {
+        public NitroClass ROM;
+
+        public ushort GFXFileID;
+        public ushort PalFileID;
+        public ushort Map16FileID;
+        public ushort ObjFileID;
+        public ushort ObjIndexFileID;
+
+        public Bitmap Map16Buffer;
+        public bool UseOverrides;
+        public Bitmap OverrideBitmap;
+
+        public bool UseNotes;
+        public string[] ObjNotes;
+
+        public ObjectDef[] Objects;
+
+#if !USE_GDIPLUS
+        private Graphics Map16Graphics;
+        public IntPtr Map16BufferHDC;
+        private IntPtr Map16BufferHandle;
+#endif
+
+#if !USE_GDIPLUS
+        private Graphics OverrideGraphics;
+        public IntPtr OverrideHDC;
+        private IntPtr OverrideHandle;
+#endif
+
+        public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, bool OverrideFlag)
+        {
             int FilePos;
+
+            this.ROM = ROM;
+
             GFXFileID = GFXFile;
             PalFileID = PalFile;
             Map16FileID = Map16File;
@@ -102,6 +139,7 @@ namespace NSMBe4 {
             ObjIndexFileID = ObjIndexFile;
 
             Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
+
             // First get the palette out
             byte[] ePalFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(PalFile));
             Color[] Palette = new Color[512];
@@ -339,60 +377,7 @@ namespace NSMBe4 {
             TilesetGraphics.ReleaseHdc(TilesetBufferHDC);
 #endif
             // Finally the object file.
-            byte[] eObjIndexFile = ROM.ExtractFile(ObjIndexFile);
-            byte[] eObjFile = ROM.ExtractFile(ObjFile);
-
-            int ObjectCount = eObjIndexFile.Length / 4;
-            Objects = new ObjectDef[ObjectCount];
-
-            FilePos = 0;
-            for (int ObjIdx = 0; ObjIdx < ObjectCount; ObjIdx++) {
-                Objects[ObjIdx] = new ObjectDef();
-                Objects[ObjIdx].Offset = eObjIndexFile[FilePos] + (eObjIndexFile[FilePos + 1] << 8);
-                // The width here is inaccurate for slopes and diagonal objects. :(
-                //Objects[ObjIdx].Width = eObjIndexFile[FilePos + 2];
-                //Objects[ObjIdx].Height = eObjIndexFile[FilePos + 3];
-                FilePos += 4;
-            }
-
-            // Now load each individual object's data
-            // There's a sort of hack here, the format doesn't store the size of each object
-            // So I must calculate it from the following object's size.
-            for (int ObjIdx = 0; ObjIdx < ObjectCount; ObjIdx++) {
-                int NextOffset = (ObjIdx == (ObjectCount - 1)) ? eObjFile.Length : Objects[ObjIdx + 1].Offset;
-                int ObjDataLength = NextOffset - Objects[ObjIdx].Offset;
-                byte[] data = new byte[ObjDataLength];
-                Array.Copy(eObjFile, Objects[ObjIdx].Offset, data, 0, ObjDataLength);
-                Objects[ObjIdx].setData(data);
-            }
-
-            // Finally for objects, I have to calculate the width and height. x_x
-            for (int ObjIdx = 0; ObjIdx < ObjectCount; ObjIdx++) {
-                int ObjWidth = 0;
-                int ObjHeight = 0;
-                int ObjDataPos = 0;
-                int CurLineWidth = 0;
-                while (Objects[ObjIdx].Data[ObjDataPos] != 0xFF) {
-                    CurLineWidth = 0;
-                    // Skip past slope control byte
-                    if ((Objects[ObjIdx].Data[ObjDataPos] & 0x80) != 0) {
-                        // This is just part of the slope screwery
-                        if ((Objects[ObjIdx].Data[ObjDataPos] & 4) != 0) {
-                            ObjHeight -= 1;
-                        }
-                        ObjDataPos += 1;
-                    }
-                    while (Objects[ObjIdx].Data[ObjDataPos] != 0xFE) {
-                        ObjDataPos += 3;
-                        CurLineWidth += 1;
-                    }
-                    if (CurLineWidth > ObjWidth) ObjWidth = CurLineWidth;
-                    ObjHeight += 1;
-                    ObjDataPos += 1;
-                }
-                Objects[ObjIdx].Width = ObjWidth;
-                Objects[ObjIdx].Height = ObjHeight;
-            }
+            loadObjects();
 
             // Finally, load overrides
             if (OverrideFlag) {
@@ -425,53 +410,26 @@ namespace NSMBe4 {
 #endif
         }
 
-        public ushort GFXFileID;
-        public ushort PalFileID;
-        public ushort Map16FileID;
-        public ushort ObjFileID;
-        public ushort ObjIndexFileID;
+        public void save()
+        {
+            saveObjects();
+        }
 
-        public Bitmap Map16Buffer;
-#if !USE_GDIPLUS
-        private Graphics Map16Graphics;
-        public IntPtr Map16BufferHDC;
-        private IntPtr Map16BufferHandle;
-#endif
-
-        public bool UseOverrides;
-        public Bitmap OverrideBitmap;
-#if !USE_GDIPLUS
-        private Graphics OverrideGraphics;
-        public IntPtr OverrideHDC;
-        private IntPtr OverrideHandle;
-#endif
-
-        public bool UseNotes;
-        public string[] ObjNotes;
-
-        public ObjectDef[] Objects;
-
-        public class ObjectDef {
-            public int Offset;
-            public int Width;
-            public int Height;
-            public byte[] Data;
-
+        #region Objects
+        public class ObjectDef
+        {
             public List<List<ObjectDefTile>> tiles;
+            public int width, height; //these are useless, but I keep them
+                                      //in case the game uses them.
 
             public ObjectDef() { }
-
-            public ObjectDef(int Offset, int Width, int Height, byte[] Data) {
-                this.Offset = Offset;
-                this.Width = Width;
-                this.Height = Height;
-                setData(Data);
-            }
-            public void setData(byte[] Data)
+            public ObjectDef(byte[] data)
             {
-                this.Data = Data;
+                load(new ByteArrayInputStream(data));
+            }
 
-                ByteArrayInputStream inp = new ByteArrayInputStream(Data);
+            public void load(ByteArrayInputStream inp)
+            {
                 tiles = new List<List<ObjectDefTile>>();
                 List<ObjectDefTile> row = new List<ObjectDefTile>();
 
@@ -489,6 +447,17 @@ namespace NSMBe4 {
                         row.Add(t);
                 }
             }
+
+            public void save(ByteArrayOutputStream outp)
+            {
+                foreach (List<ObjectDefTile> row in tiles)
+                {
+                    foreach (ObjectDefTile t in row)
+                        t.write(outp);
+                    outp.writeByte(0xFE); //new line
+                }
+                outp.writeByte(0xFF); //end object
+            }
         }
 
         public class ObjectDefTile
@@ -504,6 +473,7 @@ namespace NSMBe4 {
 
             public bool controlTile = false; // any type of nondisplaying tile
 
+            public ObjectDefTile() { }
             public ObjectDefTile(ByteArrayInputStream inp)
             {
                 controlByte = inp.readByte();
@@ -520,11 +490,11 @@ namespace NSMBe4 {
                     a = inp.readByte();
                     b = inp.readByte();
 
-                    tileID = a + (((b != 0) ? b - 1 : 0) % 3 << 8);
+                    tileID = a + (((b != 0) ? b - 1 : 0)%3 << 8);
 
-                    if ((controlByte & 64) != 0)
+                    if ((controlByte & 64) != 0) //OVERRIDES
                         tileID += 768;
-                    if (tileID == 0 && controlByte == 0)
+                    if (a == 0 && b == 0 && controlByte == 0)
                     {
                         tileID = -1;
                         emptyTile = true;
@@ -532,24 +502,87 @@ namespace NSMBe4 {
                 }
                 controlTile = lineBreak || objectEnd || slopeControl;
             }
+
+            public void write(ByteArrayOutputStream outp)
+            {
+                if (controlTile)
+                    outp.writeByte(controlByte);
+                else if(emptyTile)
+                {
+                    outp.writeByte(0);
+                    outp.writeByte(0);
+                    outp.writeByte(0);
+                }
+                else
+                {
+                    outp.writeByte(controlByte);
+                    outp.writeByte((byte)(tileID % 256));
+                    outp.writeByte((byte)(tileID / 256 + 1));
+                }
+            }
         }
 
-        public int[,] RenderObject(int ObjNum, int Width, int Height) {
-            // First allocate an array
-            int[,] Dest = new int[Width, Height];
-            // Non-existent objects can just be made out of 0s
-            if (ObjNum >= Objects.Length)
+        public void loadObjects()
+        {
+            ByteArrayInputStream eObjIndexFile = new ByteArrayInputStream(ROM.ExtractFile(ObjIndexFileID));
+            ByteArrayInputStream eObjFile = new ByteArrayInputStream(ROM.ExtractFile(ObjFileID));
+
+            Objects = new ObjectDef[256];
+
+            //read object index
+            int obj = 0;
+            while (eObjIndexFile.available(4) && obj < Objects.Length)
             {
-                return Dest;
+                Objects[obj] = new ObjectDef();
+                int offset = eObjIndexFile.readUShort();
+                Objects[obj].width = eObjIndexFile.readByte();
+                Objects[obj].height = eObjIndexFile.readByte();
+
+                eObjFile.seek(offset);
+                Objects[obj].load(eObjFile);
+                obj++;
+            }
+        }
+
+        public void saveObjects()
+        {
+            ByteArrayOutputStream eObjIndexFile = new ByteArrayOutputStream();
+            ByteArrayOutputStream eObjFile = new ByteArrayOutputStream();
+
+            for (int i = 0; i < Objects.Length; i++)
+            {
+                if (Objects[i] == null)
+                    break;
+
+                eObjIndexFile.writeUShort((ushort)eObjFile.getPos());
+                eObjIndexFile.writeByte((byte)Objects[i].width);
+                eObjIndexFile.writeByte((byte)Objects[i].height);
+                Objects[i].save(eObjFile);
             }
 
+            ROM.ReplaceFile(ObjFileID, eObjFile.getArray());
+            ROM.ReplaceFile(ObjIndexFileID, eObjIndexFile.getArray());
+        }
+
+        public int[,] RenderObject(int ObjNum, int Width, int Height)
+        {
+            // First allocate an array
+            int[,] Dest = new int[Width, Height];
+
+            // Non-existent objects can just be made out of 0s
+            if (ObjNum >= Objects.Length || ObjNum < 0 || Objects[ObjNum] == null)
+                return Dest;
+            
             ObjectDef obj = Objects[ObjNum];
 
 
             // Diagonal objects are rendered differently
-            if ((Objects[ObjNum].Data[0] & 0x80) != 0) {
+            if ((Objects[ObjNum].tiles[0][0].controlByte & 0x80) != 0)
+            {
                 RenderDiagonalObject(Dest, obj, Width, Height);
-            } else {
+            }
+            else
+            {
 
                 bool repeatFound = false;
                 List<List<ObjectDefTile>> beforeRepeat = new List<List<ObjectDefTile>>();
@@ -587,39 +620,7 @@ namespace NSMBe4 {
                         renderStandardRow(Dest, inRepeat[(y - beforeRepeat.Count) % inRepeat.Count], y, Width);
                 }
 
-                /*Size Rendered = RenderStandardObject(Dest, ObjNum, 0, 0, Width, Height, Width, Height);
-                int RemainingX = (int)Math.Ceiling((double)(Width - Rendered.Width) / Rendered.Width);
-                int RemainingY = (int)Math.Ceiling((double)(Height - Rendered.Height) / Rendered.Height);
-                for (int RepeatX = 0; RepeatX < RemainingX; RepeatX++) {
-                    RenderStandardObject(Dest, ObjNum, Rendered.Width * (RepeatX + 1), 0, Rendered.Width, Rendered.Height, Width, Height);
-                }
-                for (int RepeatY = 0; RepeatY < RemainingY; RepeatY++) {
-                    RenderStandardObject(Dest, ObjNum, 0, Rendered.Height * (RepeatY + 1), Rendered.Width, Rendered.Height, Width, Height);
-                }
-                if (RemainingX > 0 && RemainingY > 0) {
-                    for (int RepeatX = 0; RepeatX < RemainingX; RepeatX++) {
-                        for (int RepeatY = 0; RepeatY < RemainingY; RepeatY++) {
-                            RenderStandardObject(Dest, ObjNum, Rendered.Width * (RepeatX + 1), Rendered.Height * (RepeatY + 1), Rendered.Width, Rendered.Height, Width, Height);
-                        }
-                    }
-                }*/
             }
-
-            /*int XLoops = (int)Math.Ceiling((float)Width / (float)Objects[ObjNum].Width);
-            int YLoops = (int)Math.Ceiling((float)Height / (float)Objects[ObjNum].Height);
-
-            int destX = 0;
-            int destY = 0;
-            for (int CurXLoop = 0; CurXLoop < XLoops; CurXLoop++) {
-                for (int CurYLoop = 0; CurYLoop < YLoops; CurYLoop++) {
-                    CopyLoopedObject(Dest, ObjNum, destX, destY, 1, 2);
-                    destY += Objects[ObjNum].Height;
-                }
-                destX += Objects[ObjNum].Width;
-                destY = 0;
-            }*/
-            
-
             return Dest;
         }
 
@@ -689,7 +690,6 @@ namespace NSMBe4 {
             //find horizontal increment
             int xi = countTiles(obj.tiles[0]);
             if (xi == 0) xi = 1;
-            if (goLeft) xi = -xi;
 
             //starting position
             int x = goLeft ? width - 1 : 0;
@@ -702,13 +702,15 @@ namespace NSMBe4 {
 
                 y = numBlocks * yi;
                 if (goLeft)
-                    x = numBlocks * xi - xi;
+                    x = numBlocks * xi;
                 else
                     x = width - numBlocks * xi - xi;
             }
 
+            if (goLeft) xi = -xi;
+
             //render the slope
-            while (x > -1 && x < width + 2 && y >= -obj.tiles.Count)
+            while ((x > -1 || !goLeft) && (x < width + 2 || goLeft) && y >= -obj.tiles.Count)
             {
                 int yy = y;
 
@@ -717,6 +719,7 @@ namespace NSMBe4 {
                     int xx = x;
                     if (goLeft)
                         xx -= countTiles(row) - 1;
+
                     /*
                     if (bottomControlFound && upMove > 1)
                         xx--;*/
@@ -752,319 +755,14 @@ namespace NSMBe4 {
         }
 
 
-#if false
-        private Size RenderStandardObject(int[,] Dest, int ObjNum, int XOffset, int YOffset, int Width, int Height, int MaxXBound, int MaxYBound) {
-            Size ReturnVal = new Size();
-
-            // First of all clear this all out to blank tiles
-            for (int clearX = XOffset; clearX < Math.Min(XOffset + Width, MaxXBound); clearX++) {
-                for (int clearY = YOffset; clearY < Math.Min(YOffset + Height, MaxYBound); clearY++) {
-                    Dest[clearX, clearY] = -1;
-                }
-            }
-
-            ObjTile t = new ObjTile();
-
-            int x = XOffset, y = YOffset;
-            int vrs = -1, vre = -1;
-            int hrs = -1, hre = -1;
-
-            byte lr = 0;
-
-            byte[] ObjData = Objects[ObjNum].Data; // Create a reference for quicker access
-            int FilePos = 0;
-
-            // At the start of the file, there will always be an object so this assumption is safe
-            if ((ObjData[FilePos] & 0x80) != 0) {
-                FilePos++;
-            }
-
-            while (true) {
-                if (ObjData[FilePos] == 0xFE)
-                {
-                    // Linebreak
-                    // Here if the last tile was an X repeat, this means we never processed X looping earlier
-                    // So let's do it here.
-                    if ((lr & 1) != 0 && y < YOffset + Height && x < XOffset + Width && y < MaxYBound && x < MaxXBound && hre > hrs) {
-                        for (int i = x; i < Width; i++) {
-                            if (i < Width) {
-                                Dest[i, y] = Dest[x + (i % (hre - hrs)) - (hre - hrs), y];
-                                if (i > ReturnVal.Width) ReturnVal.Width = i;
-                                if (y > ReturnVal.Height) ReturnVal.Height = y;
-                            }
-                        }
-                    }
-                    y++; // increment Y
-                    x = XOffset; // reset X
-                    lr = 0; // reset last repeat flag
-                    hrs = -1; hre = -1; // reset h-repeat start/end
-                    FilePos++; // eat a byte
-                    if ((ObjData[FilePos] & 0x80) != 0 && ObjData[FilePos] != 0xFF) {
-                        // Same as earlier - Basically, if the first byte in a line has bit 7 set,
-                        // it's a diagonal object. I skip over it since it's not part of the control byte.
-                        FilePos++;
-                    }
-                }
-                if (ObjData[FilePos] == 0xFF) {
-                    break; // tile over
-                }
-                // Parse a tile
-                // I know this is a totally WTFy method of grabbing the tile ID. But for some reason it works.
-                t.ControlByte = ObjData[FilePos];
-                t.TileID = ObjData[FilePos + 1] + (((ObjData[FilePos + 2] != 0) ? ObjData[FilePos + 2]-1 : 0) %3 << 8);
-                if ((t.ControlByte & 64) != 0) t.TileID += 768;
-                if (t.TileID == 0 && t.ControlByte == 0) t.TileID = -1;
-                FilePos += 3;
-
-                if (vrs < 0 && ((t.ControlByte & 2) != 0)) vrs = y;
-                if (vrs >= 0 && vre < 0 && ((t.ControlByte & 2) == 0)) vre = y;
-
-                if ((t.ControlByte & 1) == 0)
-                {
-                    if ((lr & 1) != 0)
-                    {
-                        // H-repeating region ended
-                        if (y < YOffset + Height) {
-                            for (int i = x; i < XOffset + Width; i++) {
-                                if (i < MaxXBound && y < MaxYBound) {
-                                    Dest[i, y] = Dest[x + (i % (hre - hrs)) - (hre - hrs), y];
-                                    if (i > ReturnVal.Width) ReturnVal.Width = i;
-                                    if (y > ReturnVal.Height) ReturnVal.Height = y;
-                                }
-                            }
-                        }
-                        x = Width - 1;
-                    }
-                } else {
-                    if ((lr & 1) == 0) hrs = hre = x; //this might be the start of the repeated region...
-                    hre++; //...either way, it shifts its end to the right by one
-                }
-                if (x != 0 && x == (XOffset + Width - 1) && (lr & 1) == 0 && hre >= 0 && y < Height && x < MaxXBound && y < MaxYBound) {
-                    //Dest[a - 1, b] = Dest[a, b];
-                }
-                if (x < XOffset + Width && y < YOffset + Height && x < MaxXBound && y < MaxYBound) {
-                    Dest[x, y] = t.TileID;
-                    if (x > ReturnVal.Width) ReturnVal.Width = x;
-                    if (y > ReturnVal.Height) ReturnVal.Height = y;
-                }
-
-                //if (a != (Width - 1)) a++; // move 1 to the right
-                //if ((t.ControlByte & 1) != 0 || a != (Width - 1)) a++;
-                //if ((t.ControlByte & 1) != 0) a++;
-                x++;
-
-                lr = t.ControlByte;
-            }
-
-            if (vrs < 0) vrs = y;
-            if (vre < 0) vre = y;
-
-            // now stretch vertically; direction of loops IS important
-            // relocate bottom lines...
-            for (int i = y - 1; i >= vre; i--) {
-                if (i < YOffset + Height) {
-                    for (int CopyOffset = XOffset; CopyOffset < XOffset + Width; CopyOffset++) {
-                        if (CopyOffset < MaxXBound) {
-                            Dest[CopyOffset, YOffset + Height + i - y] = Dest[CopyOffset, i];
-                            if ((Height + i - y) > ReturnVal.Height) ReturnVal.Height = (Height + i - y);
-                        }
-                    }
-                }
-            }
-            // and copypaste the replicated zone into the gap
-            if (vre != vrs) {
-                for (int i = YOffset + Height + vre - y - 1; i >= vre; i--) {
-                    for (int CopyOffset = XOffset; CopyOffset < XOffset + Width; CopyOffset++) {
-                        if (CopyOffset < MaxXBound && i < MaxYBound) {
-                            Dest[CopyOffset, i] = Dest[CopyOffset, vrs + (i % (vre - vrs))];
-                            if (i > ReturnVal.Height) ReturnVal.Height = i;
-                        }
-                    }
-                }
-            }
-
-            ReturnVal.Height += 1;
-            ReturnVal.Width += 1;
-            return ReturnVal;
+        public bool objectExists(int objNum)
+        {
+            if (objNum < 0) return false;
+            if (objNum >= Objects.Length) return false;
+            if (Objects[objNum] == null) return false;
+            return true;
         }
+        #endregion
 
-        private void CopyLoopedObject(int[,] Dest, int ObjNum, int X, int Y, int CanLoopX, int CanLoopY) {
-            // Changed the algorithm to something that works better
-            // Basically now it relies on the inbuilt linefeeds like NSMBe3 did
-            // and ignores the width/height listed in the object indexes file.
-            int destX = X;
-            int destY = Y;
-            int ObjDataPos = 0;
-            //bool RowBlank = true;
-            while (true) { // Y loop
-                if (destY >= Dest.GetLength(1)) break;
-                if (Objects[ObjNum].Data[ObjDataPos] == 0xFF) {
-                    break;
-                }
-                // Ignore diagonal object control data
-                if ((Objects[ObjNum].Data[ObjDataPos] & 0x80) != 0) {
-                    ObjDataPos++;
-                }
-                while (true) { // X loop
-                    if (destX >= Dest.GetLength(0)) {
-                        while (Objects[ObjNum].Data[ObjDataPos] != 0xFE) {
-                            ObjDataPos += 3;
-                        }
-                        break;
-                    }
-                    if ((CanLoopX != -1 && (Objects[ObjNum].Data[ObjDataPos] & CanLoopX) == 0) || (CanLoopY != -1 && (Objects[ObjNum].Data[ObjDataPos] & CanLoopY) == 0)) {
-                        ObjDataPos += 3;
-                    } else {
-                        ObjDataPos++;
-                        if (destX >= 0 && destY >= 0) {
-                            //RowBlank = false;
-                            // Ignore completely blank tiles
-                            if (Objects[ObjNum].Data[ObjDataPos - 1] != 0 || Objects[ObjNum].Data[ObjDataPos] != 0 || Objects[ObjNum].Data[ObjDataPos + 1] != 0) {
-                                Dest[destX, destY] = Objects[ObjNum].Data[ObjDataPos] + (((Objects[ObjNum].Data[ObjDataPos + 1] > 0) ? Objects[ObjNum].Data[ObjDataPos + 1] - 1 : Objects[ObjNum].Data[ObjDataPos + 1]) * 256);
-                            } else {
-                                Dest[destX, destY] = -1;
-                            }
-                        }
-                        ObjDataPos += 2;
-                        destX++;
-                    }
-                    if (Objects[ObjNum].Data[ObjDataPos] == 0xFE) {
-                        break;
-                    }
-                }
-                destX = X;
-                //if (!RowBlank) {
-                destY++;
-                //}
-                //RowBlank = true;
-                ObjDataPos++;
-            }
-            /*int destX = X;
-            int destY = Y;
-            int ObjDataPos = 0;
-            for (int srcY = 0; srcY < Objects[ObjNum].Height; srcY++) {
-                if (destY >= Dest.GetLength(1)) break;
-                for (int srcX = 0; srcX < Objects[ObjNum].Width; srcX++) {
-                    if (destX >= Dest.GetLength(0)) {
-                        while (Objects[ObjNum].Data[ObjDataPos] != 0xFE) {
-                            ObjDataPos++;
-                        }
-                        break;
-                    }
-                    ObjDataPos++;
-                    // Yet another one of the weird algorithms that doesn't make sense but works from NSMBe3
-                    Dest[destX, destY] = Objects[ObjNum].Data[ObjDataPos] + (((Objects[ObjNum].Data[ObjDataPos + 1] > 0) ? Objects[ObjNum].Data[ObjDataPos + 1] - 1 : Objects[ObjNum].Data[ObjDataPos + 1]) * 256);
-                    ObjDataPos += 2;
-                    destX++;
-                }
-                destX = X;
-                destY++;
-                ObjDataPos++;
-            }*/
-        
-        }
-    
-        /*
-        private void RenderDiagonalObject(int[,] Dest, int ObjNum, int Width, int Height) {
-            // First of all clear this all out to blank tiles
-            for (int clearX = 0; clearX < Width; clearX++) {
-                for (int clearY = 0; clearY < Height; clearY++) {
-                    Dest[clearX, clearY] = -1;
-                }
-            }
-
-            int XLoops = (int)Math.Ceiling((float)Width / (float)Objects[ObjNum].Width);
-
-            int destX;
-            int destY;
-            int XStep;
-            int YStep;
-
-            // Okay, depending on the direction this changes
-            if ((Objects[ObjNum].Data[0] & 1) != 0) {
-                // Y goes down
-                destY = 0;
-                YStep = Objects[ObjNum].Height;
-            } else {
-                // Y goes up
-                destY = (int)((Height - Objects[ObjNum].Height) / Objects[ObjNum].Height) * Objects[ObjNum].Height;
-                YStep = Objects[ObjNum].Height * -1;
-            }
-            
-            destX = 0;
-            XStep = Objects[ObjNum].Width;
-
-            for (int CurXLoop = 0; CurXLoop < XLoops; CurXLoop++) {
-                CopyLoopedObject(Dest, ObjNum, destX, destY, -1, -1);
-                destX += XStep;
-                destY += YStep;
-            }
-
-            /*int destX = 0;
-            int destY = 0;
-            int ObjDataPos = 0;
-            int LineStartPos;
-            while (true) { // Y loop
-                if (Objects[ObjNum].Data[ObjDataPos] == 0xFF) {
-                    ObjDataPos = 0;
-                }
-                ObjDataPos++;
-                LineStartPos = ObjDataPos;
-                while (true) { // X loop
-                    ObjDataPos++;
-                    Dest[destX, destY] = Objects[ObjNum].Data[ObjDataPos] + (((Objects[ObjNum].Data[ObjDataPos + 1] > 0) ? Objects[ObjNum].Data[ObjDataPos + 1] - 1 : Objects[ObjNum].Data[ObjDataPos + 1]) * 256);
-                    ObjDataPos += 2;
-                    if (Objects[ObjNum].Data[ObjDataPos] == 0xFE) {
-                        ObjDataPos = LineStartPos;
-                    }
-                    destX++;
-                    if (destX == Width) {
-                        // Skip past to next FE
-                        while (Objects[ObjNum].Data[ObjDataPos] != 0xFE) {
-                            ObjDataPos += 3;
-                        }
-                        break;
-                    }
-                }
-                destX = 0;
-                destY++;
-                ObjDataPos++;
-                if (destY == Height) break;
-            }*/
-        //}
-#endif
-
-#if USE_GDIPLUS
-        public void RenderCachedObject(Graphics g, int[,] Obj, int X, int Y) {
-            Rectangle srcRect = new Rectangle();
-            Rectangle destRect = new Rectangle(X, Y, 16, 16);
-            for (int CurrentX = 0; CurrentX < Obj.GetLength(0); CurrentX++) {
-                for (int CurrentY = 0; CurrentY < Obj.GetLength(1); CurrentY++) {
-                    srcRect = new Rectangle(Obj[CurrentX, CurrentY] * 16, 0, 16, 16);
-                    g.DrawImage(Map16Buffer, destRect, srcRect, GraphicsUnit.Pixel);
-                    destRect.Y += 16;
-                }
-                destRect.X += 16;
-                destRect.Y = Y;
-            }
-        }
-#else
-        public void RenderCachedObject(IntPtr target, int[,] Obj, int X, int Y) {
-            int destX = X;
-            int destY = Y;
-            for (int CurrentX = 0; CurrentX < Obj.GetLength(0); CurrentX++) {
-                for (int CurrentY = 0; CurrentY < Obj.GetLength(1); CurrentY++) {
-                    if (Obj[CurrentX, CurrentY] >= 768 && UseOverrides) {
-                        GDIImports.BitBlt(target, destX, destY, 16, 16, OverrideHDC, (Obj[CurrentX, CurrentY] - 768) * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
-                    } else {
-                        GDIImports.BitBlt(target, destX, destY, 16, 16, Map16BufferHDC, Obj[CurrentX, CurrentY] * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
-                    }
-                    destY += 16;
-                }
-                destX += 16;
-                destY = Y;
-            }
-        }
-#endif
     }
 }

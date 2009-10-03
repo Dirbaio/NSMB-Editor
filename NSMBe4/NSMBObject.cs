@@ -45,12 +45,8 @@ namespace NSMBe4
         }
 
 #if USE_GDIPLUS
-        public void Render(Graphics g, int X, int Y) {
-            GFX.Tilesets[Tileset].RenderCachedObject(g, CachedObj, X, Y);
-        }
 
         public void Render(Graphics g, int XOffset, int YOffset, Rectangle Clip) {
-            // This is basically just RenderCachedObject from the tileset class, with some edits
             Rectangle Limits = new Rectangle(XOffset - X, YOffset - Y, Clip.Width, Clip.Height);
             Rectangle srcRect = new Rectangle();
             Rectangle destRect = new Rectangle((X) * 16, (Y) * 16, 16, 16);
