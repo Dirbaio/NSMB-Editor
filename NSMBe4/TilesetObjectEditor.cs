@@ -191,6 +191,8 @@ namespace NSMBe4
             map16Tile.Value = selTile.tileID;
             controlByte.Value = selTile.controlByte;
             map16Picker1.selectTile(selTile.tileID);
+            groupBox1.Visible = selTile != null;
+
             DataUpdateFlag = false;
         }
 

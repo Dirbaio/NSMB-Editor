@@ -213,6 +213,9 @@
     <EmbeddedResource Include="LevelMinimap.resx">
       <DependentUpon>LevelMinimap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Map16Editor.resx">
+      <DependentUpon>Map16Editor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Map16Picker.resx">
       <DependentUpon>Map16Picker.cs</DependentUpon>
     </EmbeddedResource>
@@ -241,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilePicker.resx">
+      <DependentUpon>TilePicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetChooser.resx">
       <DependentUpon>TilesetChooser.cs</DependentUpon>
@@ -356,6 +362,12 @@
     <Compile Include="FilesystemBrowserDialog.Designer.cs">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Map16Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Map16Editor.Designer.cs">
+      <DependentUpon>Map16Editor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Map16Picker.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -381,6 +393,12 @@
       <DependentUpon>GraphicsViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="SpriteData.cs" />
+    <Compile Include="TilePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilePicker.Designer.cs">
+      <DependentUpon>TilePicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="TilesetChooser.cs">
       <SubType>Form</SubType>
     </Compile>

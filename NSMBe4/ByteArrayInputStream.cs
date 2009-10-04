@@ -15,6 +15,11 @@ namespace NSMBe4
             pos = 0;
         }
 
+        public int available()
+        {
+            return array.Length - pos;
+        }
+
         public bool available(int len)
         {
             return pos + len <= array.Length;

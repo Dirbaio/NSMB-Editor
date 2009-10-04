@@ -114,8 +114,17 @@ namespace NSMBe4
 
         public ObjectDef[] Objects;
 
+        public Map16Tile[] Map16;
+
+        public Bitmap TilesetBuffer;
+        private Graphics TilesetGraphics;
 #if !USE_GDIPLUS
+        IntPtr TilesetBufferHDC;
+        IntPtr TilesetBufferHandle;
+#endif
+
         private Graphics Map16Graphics;
+#if !USE_GDIPLUS
         public IntPtr Map16BufferHDC;
         private IntPtr Map16BufferHandle;
 #endif
@@ -160,7 +169,7 @@ namespace NSMBe4
             // Load graphics
             byte[] eGFXFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(GFXFile));
             int TileCount = eGFXFile.Length / 64;
-            Bitmap TilesetBuffer = new Bitmap(TileCount * 8, 16);
+            TilesetBuffer = new Bitmap(TileCount * 8, 16);
 
             FilePos = 0;
             for (int TileIdx = 0; TileIdx < TileCount; TileIdx++) {
@@ -173,209 +182,16 @@ namespace NSMBe4
                     }
                 }
             }
-            
-//            ImagePreviewer.ShowCutImage(TilesetBuffer, 256, 2);
-            
-#if USE_GDIPLUS
-            Bitmap TilesetBufferFlipX = (Bitmap)TilesetBuffer.Clone();
-            TilesetBufferFlipX.RotateFlip(RotateFlipType.RotateNoneFlipX);
-            Bitmap TilesetBufferFlipY = (Bitmap)TilesetBuffer.Clone();
-            TilesetBufferFlipY.RotateFlip(RotateFlipType.RotateNoneFlipY);
-            Bitmap TilesetBufferFlipXY = (Bitmap)TilesetBuffer.Clone();
-            TilesetBufferFlipXY.RotateFlip(RotateFlipType.RotateNoneFlipXY);
-#else
-            Graphics TilesetGraphics = Graphics.FromImage(TilesetBuffer);
-            IntPtr TilesetBufferHDC = TilesetGraphics.GetHdc();
-            IntPtr TilesetBufferHandle = TilesetBuffer.GetHbitmap();
+
+
+#if !USE_GDIPLUS
+            TilesetGraphics = Graphics.FromImage(TilesetBuffer);
+            TilesetBufferHDC = TilesetGraphics.GetHdc();
+            TilesetBufferHandle = TilesetBuffer.GetHbitmap();
             GDIImports.SelectObject(TilesetBufferHDC, TilesetBufferHandle);
 #endif
+            loadMap16();
 
-            // Load Map16
-            byte[] eMap16File = ROM.ExtractFile(Map16File);
-            int Map16Count = eMap16File.Length / 8;
-            Map16Buffer = new Bitmap(Map16Count * 16, 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-#if USE_GDIPLUS
-            Graphics Map16Graphics;
-#endif
-            Map16Graphics = Graphics.FromImage(Map16Buffer);
-            Map16Graphics.Clear(Color.LightSlateGray);
-#if !USE_GDIPLUS
-            Map16BufferHDC = Map16Graphics.GetHdc();
-            Map16BufferHandle = Map16Buffer.GetHbitmap();
-            GDIImports.SelectObject(Map16BufferHDC, Map16BufferHandle);
-#endif
-
-            FilePos = 0;
-            int TileNum;
-            byte ControlByte;
-            Rectangle SrcRect, DestRect;
-#if USE_GDIPLUS
-            Bitmap SourceBitmap = null;
-#endif
-
-            for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++) {
-                int Map16SrcX = Map16Idx * 16;
-                // This algorithm makes absolutely NO SENSE to me, but for some reason it works.
-                // Maybe it made more sense back in 2007 when I wrote it..
-                // I wonder what the game actually uses.
-                
-                // Top-left Tile
-                TileNum = eMap16File[FilePos];
-                ControlByte = eMap16File[FilePos + 1];
-                if ((ControlByte & 64) != 0) {
-                    TileNum -= 128;
-                } else {
-                    if ((ControlByte & 32) != 0) TileNum += 64;
-                    if (TileNum >= 256 && ((ControlByte & 1) == 0)) TileNum -= 256;
-                    if ((ControlByte & 2) != 0) TileNum += 256;
-                }
-                SrcRect = new Rectangle(TileNum * 8, ((eMap16File[FilePos + 1] & 16) != 0) ? 8 : 0, 8, 8);
-                DestRect = new Rectangle(Map16SrcX, 0, 8, 8);
-                //GDIImports.BitBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, GDIImports.TernaryRasterOperations.SRCCOPY);
-#if USE_GDIPLUS
-                if ((ControlByte & 4) != 0 && (ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipXY;
-                    SrcRect.X = TilesetBufferFlipXY.Width - SrcRect.X - 8;
-                    SrcRect.Y = TilesetBufferFlipXY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipY;
-                    SrcRect.Y = TilesetBufferFlipY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 4) != 0) {
-                    SourceBitmap = TilesetBufferFlipX;
-                    SrcRect.X = TilesetBufferFlipX.Width - SrcRect.X - 8;
-                } else {
-                    SourceBitmap = TilesetBuffer;
-                }
-                if (TileNum != 0 || ControlByte != 0) {
-                    Map16Graphics.DrawImage(SourceBitmap, DestRect, SrcRect, GraphicsUnit.Pixel);
-                }
-#else
-                if ((ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 7; }
-                if ((ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += 7; }
-                if (TileNum != 0 || ControlByte != 0) {
-                    GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
-                }
-#endif
-                FilePos += 2;
-                // Top-right Tile
-                TileNum = eMap16File[FilePos];
-                ControlByte = eMap16File[FilePos + 1];
-                if ((ControlByte & 64) != 0) {
-                    TileNum -= 128;
-                } else {
-                    if ((ControlByte & 32) != 0) TileNum += 64;
-                    if (TileNum >= 256 && ((ControlByte & 1) == 0)) TileNum -= 256;
-                    if ((ControlByte & 2) != 0) TileNum += 256;
-                }
-                SrcRect = new Rectangle(TileNum * 8, ((eMap16File[FilePos + 1] & 16) != 0) ? 8 : 0, 8, 8);
-                DestRect = new Rectangle(Map16SrcX + 8, 0, 8, 8);
-#if USE_GDIPLUS
-                if ((ControlByte & 4) != 0 && (ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipXY;
-                    SrcRect.X = TilesetBufferFlipXY.Width - SrcRect.X - 8;
-                    SrcRect.Y = TilesetBufferFlipXY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipY;
-                    SrcRect.Y = TilesetBufferFlipY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 4) != 0) {
-                    SourceBitmap = TilesetBufferFlipX;
-                    SrcRect.X = TilesetBufferFlipX.Width - SrcRect.X - 8;
-                } else {
-                    SourceBitmap = TilesetBuffer;
-                }
-                if (TileNum != 0 || ControlByte != 0) {
-                    Map16Graphics.DrawImage(SourceBitmap, DestRect, SrcRect, GraphicsUnit.Pixel);
-                }
-#else
-                if ((ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 7; }
-                if ((ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += 7; }
-                if (TileNum != 0 || ControlByte != 0) {
-                    GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
-                }
-#endif
-                FilePos += 2;
-                // Bottom-left Tile
-                TileNum = eMap16File[FilePos];
-                ControlByte = eMap16File[FilePos + 1];
-                if ((ControlByte & 64) != 0) {
-                    TileNum -= 128;
-                } else {
-                    if ((ControlByte & 32) != 0) TileNum += 64;
-                    if (TileNum >= 256 && ((ControlByte & 1) == 0)) TileNum -= 256;
-                    if ((ControlByte & 2) != 0) TileNum += 256;
-                }
-                SrcRect = new Rectangle(TileNum * 8, ((eMap16File[FilePos + 1] & 16) != 0) ? 8 : 0, 8, 8);
-                DestRect = new Rectangle(Map16SrcX, 8, 8, 8);
-#if USE_GDIPLUS
-                if ((ControlByte & 4) != 0 && (ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipXY;
-                    SrcRect.X = TilesetBufferFlipXY.Width - SrcRect.X - 8;
-                    SrcRect.Y = TilesetBufferFlipXY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipY;
-                    SrcRect.Y = TilesetBufferFlipY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 4) != 0) {
-                    SourceBitmap = TilesetBufferFlipX;
-                    SrcRect.X = TilesetBufferFlipX.Width - SrcRect.X - 8;
-                } else {
-                    SourceBitmap = TilesetBuffer;
-                }
-                if (TileNum != 0 || ControlByte != 0) {
-                    Map16Graphics.DrawImage(SourceBitmap, DestRect, SrcRect, GraphicsUnit.Pixel);
-                }
-#else
-                if ((ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 7; }
-                if ((ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += 7; }
-                if (TileNum != 0 || ControlByte != 0) {
-                    GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
-                }
-#endif
-                FilePos += 2;
-                // Bottom-right Tile
-                TileNum = eMap16File[FilePos];
-                ControlByte = eMap16File[FilePos + 1];
-                if ((ControlByte & 64) != 0) {
-                    TileNum -= 128;
-                } else {
-                    if ((ControlByte & 32) != 0) TileNum += 64;
-                    if (TileNum >= 256 && ((ControlByte & 1) == 0)) TileNum -= 256;
-                    if ((ControlByte & 2) != 0) TileNum += 256;
-                }
-                SrcRect = new Rectangle(TileNum * 8, ((eMap16File[FilePos + 1] & 16) != 0) ? 8 : 0, 8, 8);
-                DestRect = new Rectangle(Map16SrcX + 8, 8, 8, 8);
-#if USE_GDIPLUS
-                if ((ControlByte & 4) != 0 && (ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipXY;
-                    SrcRect.X = TilesetBufferFlipXY.Width - SrcRect.X - 8;
-                    SrcRect.Y = TilesetBufferFlipXY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 8) != 0) {
-                    SourceBitmap = TilesetBufferFlipY;
-                    SrcRect.Y = TilesetBufferFlipY.Height - SrcRect.Y - 8;
-                } else if ((ControlByte & 4) != 0) {
-                    SourceBitmap = TilesetBufferFlipX;
-                    SrcRect.X = TilesetBufferFlipX.Width - SrcRect.X - 8;
-                } else {
-                    SourceBitmap = TilesetBuffer;
-                }
-
-                
-                if (TileNum != 0 || ControlByte != 0) {
-                    Map16Graphics.DrawImage(SourceBitmap, DestRect, SrcRect, GraphicsUnit.Pixel);
-                }
-#else
-                if ((ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 7; }
-                if ((ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += 7; }
-                if (TileNum != 0 || ControlByte != 0) {
-                    GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
-                }
-#endif
-                FilePos += 2;
-            }
-
-#if !USE_GDIPLUS
-            GDIImports.DeleteObject(TilesetBufferHandle);
-            TilesetGraphics.ReleaseHdc(TilesetBufferHDC);
-#endif
             // Finally the object file.
             loadObjects();
 
@@ -390,23 +206,24 @@ namespace NSMBe4
                 GDIImports.SelectObject(OverrideHDC, OverrideHandle);
 #endif
             }
-
-            //GDIImports.DeleteObject(Map16BufferHandle);
-            //Map16Graphics.ReleaseHdc(Map16BufferHDC);
         }
 
-        ~NSMBTileset() {
+        ~NSMBTileset()
+        {
 #if !USE_GDIPLUS
             try {
                 GDIImports.DeleteObject(Map16BufferHandle);
                 Map16Graphics.ReleaseHdc(Map16BufferHDC);
+                GDIImports.DeleteObject(TilesetBufferHandle);
+                TilesetGraphics.ReleaseHdc(TilesetBufferHDC);
+
+                if (UseOverrides) {
+                    GDIImports.DeleteObject(OverrideHandle);
+                    OverrideGraphics.ReleaseHdc(OverrideHDC);
+                }
             } catch {
             }
 
-            if (UseOverrides) {
-                GDIImports.DeleteObject(OverrideHandle);
-                OverrideGraphics.ReleaseHdc(OverrideHDC);
-            }
 #endif
         }
 
@@ -415,6 +232,102 @@ namespace NSMBe4
             saveObjects();
         }
 
+        #region Map16
+
+        private void loadMap16()
+        {
+            // Load Map16
+            ByteArrayInputStream eMap16File = new ByteArrayInputStream(ROM.ExtractFile(Map16FileID));
+            int Map16Count = eMap16File.available() / 8;
+            Map16 = new Map16Tile[Map16Count];
+
+            Map16Buffer = new Bitmap(Map16Count * 16, 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
+            Map16Graphics = Graphics.FromImage(Map16Buffer);
+            Map16Graphics.Clear(Color.LightSlateGray);
+#if !USE_GDIPLUS
+            Map16BufferHDC = Map16Graphics.GetHdc();
+            Map16BufferHandle = Map16Buffer.GetHbitmap();
+            GDIImports.SelectObject(Map16BufferHDC, Map16BufferHandle);
+#endif
+
+
+            for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++)
+            {
+                Map16[Map16Idx] = new Map16Tile(eMap16File);
+                RenderMap16Tile(Map16Idx);
+            }
+
+        }
+
+
+        private void RenderMap16Quarter(Map16Quarter q, int x, int y)
+        {            
+            Rectangle SrcRect = new Rectangle(q.TileNum*8, ((q.ControlByte & 16) != 0) ? 8 : 0, 8, 8);
+            Rectangle DestRect = new Rectangle(x, y, 8, 8);
+
+            if ((q.ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 7; }
+            if ((q.ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += 7; }
+            if (q.TileNum != 0 || q.ControlByte != 0)
+            {
+#if USE_GDIPLUS
+                Map16Graphics.DrawImage(TilesetBuffer, DestRect, SrcRect, GraphicsUnit.Pixel);
+#else
+                GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
+#endif
+            }
+        }
+
+        private void RenderMap16Tile(int Map16Idx)
+        {
+            Map16Tile t = Map16[Map16Idx];
+            int x = Map16Idx*16;
+            RenderMap16Quarter(t.topLeft, x, 0);
+            RenderMap16Quarter(t.topRight, x + 8, 0);
+            RenderMap16Quarter(t.bottomLeft, x, 8);
+            RenderMap16Quarter(t.bottomRight, x + 8, 8);
+        }
+
+        public class Map16Tile
+        {
+            public Map16Quarter topLeft, topRight, bottomLeft, bottomRight;
+
+            public Map16Tile() { }
+            public Map16Tile(ByteArrayInputStream inp)
+            {
+                topLeft = new Map16Quarter(inp);
+                topRight = new Map16Quarter(inp);
+                bottomLeft = new Map16Quarter(inp);
+                bottomRight = new Map16Quarter(inp);
+            }
+        }
+
+        public class Map16Quarter
+        {
+            public byte ControlByte;
+            public byte TileByte;
+            public int TileNum;
+
+            public Map16Quarter() { }
+            public Map16Quarter(ByteArrayInputStream inp)
+            {
+                TileByte = inp.readByte();
+                ControlByte = inp.readByte();
+                TileNum = TileByte;
+                if ((ControlByte & 64) != 0)
+                {
+                    TileNum -= 128;
+                }
+                else
+                {
+                    if ((ControlByte & 32) != 0) TileNum += 64;
+                    if (TileNum >= 256 && ((ControlByte & 1) == 0)) TileNum -= 256;
+                    if ((ControlByte & 2) != 0) TileNum += 256;
+                }
+            }
+        }
+
+        #endregion
         #region Objects
         public class ObjectDef
         {
