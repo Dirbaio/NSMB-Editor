@@ -304,26 +304,45 @@ namespace NSMBe4
 
         public class Map16Quarter
         {
-            public byte ControlByte;
-            public byte TileByte;
-            public int TileNum;
+            private byte ControlByteF;
+
+            public byte ControlByte
+            {
+                get { return ControlByteF; }
+                set { ControlByteF = value;}
+            }
+            private byte TileByteF;
+            public byte TileByte
+            {
+                get{return TileByteF;}
+                set{TileByteF = value;}
+            }
+
+            public int TileNumF;
+            public int TileNum
+            {
+                get
+                {
+                    TileNumF = TileByteF;
+                    if ((ControlByteF & 64) != 0)
+                    {
+                        TileNumF -= 128;
+                    }
+                    else
+                    {
+                        if ((ControlByteF & 32) != 0) TileNumF += 64;
+                        if (TileNumF >= 256 && ((ControlByteF & 1) == 0)) TileNumF -= 256;
+                        if ((ControlByteF & 2) != 0) TileNumF += 256;
+                    }
+                    return TileNumF;
+                }
+            }
 
             public Map16Quarter() { }
             public Map16Quarter(ByteArrayInputStream inp)
             {
-                TileByte = inp.readByte();
-                ControlByte = inp.readByte();
-                TileNum = TileByte;
-                if ((ControlByte & 64) != 0)
-                {
-                    TileNum -= 128;
-                }
-                else
-                {
-                    if ((ControlByte & 32) != 0) TileNum += 64;
-                    if (TileNum >= 256 && ((ControlByte & 1) == 0)) TileNum -= 256;
-                    if ((ControlByte & 2) != 0) TileNum += 256;
-                }
+                TileByteF = inp.readByte();
+                ControlByteF = inp.readByte();
             }
         }
 

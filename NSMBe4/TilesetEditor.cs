@@ -27,6 +27,8 @@ namespace NSMBe4
             objectPickerControl1.CurrentTileset = 1;
 
             tilesetObjectEditor1.load(g);
+            map16Editor1.load(t);
+            
         }
 
         private void objectPickerControl1_ObjectSelected()

@@ -240,6 +240,9 @@ namespace NSMBe4
 
         private void previewBox_Paint(object sender, PaintEventArgs e)
         {
+            if (previewObject == null)
+                return;
+
             e.Graphics.FillRectangle(Brushes.LightSteelBlue, 0, 0, previewObject.Width * 16, previewObject.Height * 16);
 #if USE_GDIPLUS
             previewObject.RenderPlain(e.Graphics, 0, 0);
