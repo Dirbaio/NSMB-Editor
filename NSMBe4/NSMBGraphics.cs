@@ -12,9 +12,9 @@ namespace NSMBe4 {
         public void LoadTilesets(ushort TilesetID) {
             Tilesets = new NSMBTileset[3];
 
-            Tilesets[0] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"], ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"], ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu_hd.bin"], true);
+            Tilesets[0] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"], ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"], ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu_hd.bin"], true, 0);
             LoadTileset1(TilesetID);
-            Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], false);
+            Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], false, 2);
 
             // Patch in a bunch of overrides to the normal tileset
             Tilesets[0].Objects[0] = Tilesets[0].Objects[1];
@@ -110,7 +110,7 @@ namespace NSMBe4 {
                 GFXFile -= 2;
             }
 
-            Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, false);
+            Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, false, 1);
         }
 
         public void RepatchBlocks(bool type) {

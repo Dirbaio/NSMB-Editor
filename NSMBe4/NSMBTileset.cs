@@ -105,6 +105,8 @@ namespace NSMBe4
         public ushort ObjFileID;
         public ushort ObjIndexFileID;
 
+        public int TilesetNumber; // 0 for Jyotyu, 1 for Normal, 2 for SubUnit
+
         public Bitmap Map16Buffer;
         public bool UseOverrides;
         public Bitmap OverrideBitmap;
@@ -135,7 +137,7 @@ namespace NSMBe4
         private IntPtr OverrideHandle;
 #endif
 
-        public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, bool OverrideFlag)
+        public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, bool OverrideFlag, int TilesetNumber)
         {
             int FilePos;
 
@@ -146,6 +148,7 @@ namespace NSMBe4
             Map16FileID = Map16File;
             ObjFileID = ObjFile;
             ObjIndexFileID = ObjIndexFile;
+            this.TilesetNumber = TilesetNumber;
 
             Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
 
@@ -255,15 +258,19 @@ namespace NSMBe4
             for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++)
             {
                 Map16[Map16Idx] = new Map16Tile(eMap16File);
-                RenderMap16Tile(Map16Idx);
+                RenderMap16Tile(Map16Idx, TilesetNumber);
             }
 
         }
 
 
-        private void RenderMap16Quarter(Map16Quarter q, int x, int y)
-        {            
-            Rectangle SrcRect = new Rectangle(q.TileNum*8, ((q.ControlByte & 16) != 0) ? 8 : 0, 8, 8);
+        private void RenderMap16Quarter(Map16Quarter q, int x, int y, int TilesetNumber)
+        {
+            int TileNum = q.TileNum;
+            if (TilesetNumber == 1) TileNum -= 192;
+            if (TilesetNumber == 2) TileNum -= 640;
+
+            Rectangle SrcRect = new Rectangle(TileNum*8, ((q.ControlByte & 16) != 0) ? 8 : 0, 8, 8);
             Rectangle DestRect = new Rectangle(x, y, 8, 8);
 
             if ((q.ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 7; }
@@ -278,14 +285,14 @@ namespace NSMBe4
             }
         }
 
-        private void RenderMap16Tile(int Map16Idx)
+        private void RenderMap16Tile(int Map16Idx, int TilesetNumber)
         {
             Map16Tile t = Map16[Map16Idx];
             int x = Map16Idx*16;
-            RenderMap16Quarter(t.topLeft, x, 0);
-            RenderMap16Quarter(t.topRight, x + 8, 0);
-            RenderMap16Quarter(t.bottomLeft, x, 8);
-            RenderMap16Quarter(t.bottomRight, x + 8, 8);
+            RenderMap16Quarter(t.topLeft, x, 0, TilesetNumber);
+            RenderMap16Quarter(t.topRight, x + 8, 0, TilesetNumber);
+            RenderMap16Quarter(t.bottomLeft, x, 8, TilesetNumber);
+            RenderMap16Quarter(t.bottomRight, x + 8, 8, TilesetNumber);
         }
 
         public class Map16Tile
@@ -318,23 +325,11 @@ namespace NSMBe4
                 set{TileByteF = value;}
             }
 
-            public int TileNumF;
             public int TileNum
             {
                 get
                 {
-                    TileNumF = TileByteF;
-                    if ((ControlByteF & 64) != 0)
-                    {
-                        TileNumF -= 128;
-                    }
-                    else
-                    {
-                        if ((ControlByteF & 32) != 0) TileNumF += 64;
-                        if (TileNumF >= 256 && ((ControlByteF & 1) == 0)) TileNumF -= 256;
-                        if ((ControlByteF & 2) != 0) TileNumF += 256;
-                    }
-                    return TileNumF;
+                    return TileByteF | ((ControlByte & 3) << 8);
                 }
             }
 
