@@ -92,7 +92,26 @@ namespace NSMBe4
             if (selQuarter == null)
                 return;
 
-            
+//            selQuarter.TileNum = tileNumber.Value;
+            updateQuarterInfo(); //in case things change
+        }
+
+        private void controlByte_ValueChanged(object sender, EventArgs e)
+        {
+            if (selQuarter == null)
+                return;
+
+            selQuarter.ControlByte = (byte)controlByte.Value;
+            updateQuarterInfo(); //in case things change
+        }
+
+        private void tileByte_ValueChanged(object sender, EventArgs e)
+        {
+            if (selQuarter == null)
+                return;
+
+            selQuarter.TileByte = (byte)tileByte.Value;
+            updateQuarterInfo(); //in case things change
         }
     }
 }

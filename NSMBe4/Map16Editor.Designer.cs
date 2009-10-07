@@ -157,19 +157,21 @@
             this.controlByte.Name = "controlByte";
             this.controlByte.Size = new System.Drawing.Size(94, 20);
             this.controlByte.TabIndex = 0;
+            this.controlByte.ValueChanged += new System.EventHandler(this.controlByte_ValueChanged);
             // 
             // tileByte
             // 
             this.tileByte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tileByte.Location = new System.Drawing.Point(103, 69);
             this.tileByte.Maximum = new decimal(new int[] {
-            65536,
+            255,
             0,
             0,
             0});
             this.tileByte.Name = "tileByte";
             this.tileByte.Size = new System.Drawing.Size(94, 20);
             this.tileByte.TabIndex = 0;
+            this.tileByte.ValueChanged += new System.EventHandler(this.tileByte_ValueChanged);
             // 
             // label1
             // 
