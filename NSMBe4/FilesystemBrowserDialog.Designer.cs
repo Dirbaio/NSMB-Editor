@@ -36,17 +36,17 @@
             this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesystemBrowser1.Location = new System.Drawing.Point(0, 0);
             this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(382, 293);
+            this.filesystemBrowser1.Size = new System.Drawing.Size(471, 292);
             this.filesystemBrowser1.TabIndex = 0;
             // 
             // FilesystemBrowserDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 293);
+            this.ClientSize = new System.Drawing.Size(471, 292);
             this.Controls.Add(this.filesystemBrowser1);
             this.Name = "FilesystemBrowserDialog";
-            this.Text = "FilesystemBrowserDialog";
+            this.Text = "Filesystem Browser";
             this.ResumeLayout(false);
 
         }

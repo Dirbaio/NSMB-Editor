@@ -74,12 +74,16 @@ namespace NSMBe4 {
         {
             ResetDictionaries();
 
-            // start reading
-            LoadDir("Root", 61440, 0);
 
-            // clear up
-            if(!isNestedFile)
+            // start reading
+            LoadDir("Root ["+ROMFilename.Substring(ROMFilename.LastIndexOf("\\")+1)+"]", 61440, 0);
+
+            if (!isNestedFile)
+            {
+                loadOverlayTable(0x50, "ARM9 Overlay Table", 65534);
+                loadOverlayTable(0x58, "ARM7 Overlay Table", 65535);
                 rfs.Dispose();
+            }
             lister = null; //we ensure not sending more to this lister.
         }
 
@@ -97,8 +101,37 @@ namespace NSMBe4 {
             FileDataOffset = NTSize + NTOffset + 8;
         }
 
+        private void loadOverlayTable(int locOffset, string name, ushort DirID)
+        {
+            //Creates a fake dir with all the overlay files
+
+            if (lister != null)
+                lister.DirReady(DirID, 0, name, true);
+
+            rfs.Seek(locOffset, SeekOrigin.Begin);
+            uint tableOffset = ReadUInt(rfs);
+            uint tableSize = ReadUInt(rfs);
+
+            rfs.Seek(tableOffset, SeekOrigin.Begin);
+
+            for (int i = 0; i < tableSize / 32; i++)
+            {
+                uint ovId = ReadUInt(rfs);
+                uint ramAddr = ReadUInt(rfs);
+                uint ramSize = ReadUInt(rfs);
+                uint bssSize = ReadUInt(rfs);
+                uint staticInitStart = ReadUInt(rfs);
+                uint staticInitEnd = ReadUInt(rfs);
+                ushort fileID = ReadUShort(rfs);
+                rfs.Seek(2, SeekOrigin.Current); //skip 0's
+                rfs.Seek(4, SeekOrigin.Current); //skip 0's
+
+                LoadFile("ID: " + ovId + " @ " + ramAddr.ToString("X") + " " + ramSize.ToString("X"), fileID, DirID);
+            }
+        }
         /* Load a Directory */
-        private void LoadDir(string DirName, ushort DirID, ushort Parent) {
+        private void LoadDir(string DirName, ushort DirID, ushort Parent)
+        {
             long PreviousSeek = rfs.Position;
             rfs.Seek(NTOffset + (8 * (DirID & 0xFFF)), SeekOrigin.Begin);
             uint EntryStart = ReadUInt(rfs);

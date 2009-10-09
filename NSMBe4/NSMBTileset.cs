@@ -62,21 +62,16 @@ using System.Drawing.Drawing2D;
  * 
  * These objects are a pain to work with.
  * 
- * Slope anchors depending on first slope control byte:
+ * The first slope control byte defines the direction of slope:
  * 
- *   byte   anchor           direction
- *   ==============================
- *   0x80:  Bottom left      Top right
- *   0x81:  Bottom right     Top left
- *   0x82:  Top left         Bottom right
- *   0x83:  Top right        Bottom left
- *   0x84:  Top left         Bottom right
+ *  & with 1 -> Go left
+ *  & with 2 -> Go Down
  *   
  * (The last three are only used at the ghost house tileset)
  * 
  * The slope format is:
  * 
- * A slope control indicating it's a slope and its anchor.
+ * A slope control indicating it's a slope and its direction.
  * Then follows a rectangular block of tiles. These have to be placed
  * corner-by-corner, respecting their size, like this:
  * 
@@ -86,8 +81,21 @@ using System.Drawing.Drawing2D;
  *  _|_|     | |         __|__|
  * |_|       |_|        |__|
  * 
+ * The first corner must be placed on a corner of the object, on the opposite
+ * side of the direction.
+ * 
  * Optional: Then follows a 0x85 slope control, then another block of tiles 
- * that has to be placed UNDER the previous blocks, and they are also UNDER the anchor.
+ * that has to be placed under the previous blocks, or OVER if the slope goes down.
+ * 
+ * If the slope goes right the blocks have to be left-aligned:
+ *  _
+ * |_|__
+ * |____|
+ * 
+ * If the slope goes left the blocks have to be right-aligned:
+ *     _
+ *  __|_|
+ * |____|
  * 
  **/
 
@@ -233,9 +241,19 @@ namespace NSMBe4
         public void save()
         {
             saveObjects();
+            saveMap16();
         }
 
         #region Map16
+
+        private void saveMap16()
+        {
+            ByteArrayOutputStream file = new ByteArrayOutputStream();
+            foreach (Map16Tile t in Map16)
+                t.save(file);
+
+            ROM.ReplaceFile(Map16FileID, file.getArray());
+        }
 
         private void loadMap16()
         {
@@ -307,6 +325,14 @@ namespace NSMBe4
                 bottomLeft = new Map16Quarter(inp);
                 bottomRight = new Map16Quarter(inp);
             }
+
+            public void save(ByteArrayOutputStream outp)
+            {
+                topLeft.save(outp);
+                topRight.save(outp);
+                bottomLeft.save(outp);
+                bottomRight.save(outp);
+            }
         }
 
         public class Map16Quarter
@@ -338,6 +364,12 @@ namespace NSMBe4
             {
                 TileByteF = inp.readByte();
                 ControlByteF = inp.readByte();
+            }
+
+            public void save(ByteArrayOutputStream outp)
+            {
+                outp.writeByte(TileByteF);
+                outp.writeByte(ControlByteF);
             }
         }
 
@@ -587,6 +619,7 @@ namespace NSMBe4
             }
         }
 
+#if false
         private void RenderDiagonalObject(int[,] Dest, ObjectDef obj, int width, int height)
         {
             //empty tiles fill
@@ -596,6 +629,8 @@ namespace NSMBe4
 
             //find out direction:
             byte controlByte = obj.tiles[0][0].controlByte;
+
+            
             bool goLeft = controlByte == 0x81 || controlByte == 0x82 || controlByte == 0x84; //note: this means go top left or bottom right
 
             //find out anchor:
@@ -664,7 +699,125 @@ namespace NSMBe4
                 x += xi;
             }
         }
-        
+#endif
+
+        private void RenderDiagonalObject(int[,] Dest, ObjectDef obj, int width, int height)
+        {
+            //empty tiles fill
+            for (int xp = 0; xp < width; xp++)
+                for (int yp = 0; yp < height; yp++)
+                    Dest[xp, yp] = -1;
+
+            //get sections
+            List<ObjectDefTile[,]> sections = getSlopeSections(obj);
+            ObjectDefTile[,] mainBlock = sections[0];
+            ObjectDefTile[,] subBlock = null;
+            if (sections.Count > 1)
+                subBlock = sections[1];
+
+            byte controlByte = obj.tiles[0][0].controlByte;
+
+            //get direction
+            bool goLeft = (controlByte & 1) != 0;
+            bool goDown = (controlByte & 2) != 0;
+
+            //get starting point
+
+            int x = 0;
+            int y = 0;
+            if (!goDown)
+                y = height - mainBlock.GetLength(1);
+            if (goLeft)
+                x = width - mainBlock.GetLength(0);
+
+            //get increments
+            int xi = mainBlock.GetLength(0);
+            if (goLeft)
+                xi = -xi;
+
+            int yi = mainBlock.GetLength(1);
+            if (!goDown)
+                yi = -yi;
+
+            //this is a strange stop condition.
+            //Put tells if we have put a tile in the destination
+            //When we don't put any tile in destination we are completely
+            //out of bounds, so stop.
+            bool put = true;
+            while (put)
+            {
+                put = false;
+                putArray(Dest, x, y, mainBlock, width, height, ref put);
+                if (subBlock != null)
+                {
+                    int xb = x;
+                    if (goLeft) // right align
+                        xb = x + mainBlock.GetLength(0) - subBlock.GetLength(0);
+                    if(goDown)
+                        putArray(Dest, xb, y - subBlock.GetLength(1), subBlock, width, height, ref put);
+                    else
+                        putArray(Dest, xb, y + mainBlock.GetLength(1), subBlock, width, height, ref put);
+                }
+                x += xi;
+                y += yi;
+            }
+        }
+
+        private void putArray(int[,] Dest, int xo, int yo, ObjectDefTile[,] block, int width, int height, ref bool put)
+        {
+            for (int x = 0; x < block.GetLength(0); x++)
+                for (int y = 0; y < block.GetLength(1); y++)
+                    putTile(Dest, x + xo, y + yo, width, height, block[x, y], ref put);
+        }
+
+        private List<ObjectDefTile[,]> getSlopeSections(ObjectDef d)
+        {
+            List<ObjectDefTile[,]> sections = new List<ObjectDefTile[,]>();
+            List<List<ObjectDefTile>> currentSection = null;
+
+            foreach (List<ObjectDefTile> row in d.tiles)
+            {
+                if (row.Count > 0 && row[0].slopeControl) // begin new section
+                {
+                    if (currentSection != null)
+                        sections.Add(createSection(currentSection));
+                    currentSection = new List<List<ObjectDefTile>>();
+                }
+                currentSection.Add(row);
+            }
+            if (currentSection != null) //end last section
+                sections.Add(createSection(currentSection));
+
+            return sections;
+        }
+
+        private ObjectDefTile[,] createSection(List<List<ObjectDefTile>> tiles)
+        {
+            //calculate width
+            int width = 0;
+            foreach (List<ObjectDefTile> row in tiles)
+            {
+                int thiswidth = countTiles(row);
+                if (width < thiswidth)
+                    width = thiswidth;
+            }
+
+            //allocate array
+            ObjectDefTile[,] section = new ObjectDefTile[width, tiles.Count];
+            for (int y = 0; y < tiles.Count; y++)
+            {
+                int x = 0;
+                foreach(ObjectDefTile t in tiles[y])
+                    if (!t.controlTile)
+                    {
+                        section[x, y] = t;
+                        x++;
+                    }
+            }
+
+            return section;
+        }
+
         private int countTiles(List<ObjectDefTile> l)
         {
             int res = 0;
@@ -674,11 +827,15 @@ namespace NSMBe4
             return res;
         }
 
-        private void putTile(int[,] Dest, int x, int y, int width, int height, ObjectDefTile t)
+        private void putTile(int[,] Dest, int x, int y, int width, int height, ObjectDefTile t, ref bool put)
         {
             if (x >= 0 && x < width)
                 if (y >= 0 && y < height)
-                    Dest[x, y] = t.tileID;
+                {
+                    put = true;
+                    if(t != null)
+                        Dest[x, y] = t.tileID;
+                }
         }
 
 

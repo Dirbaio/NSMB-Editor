@@ -33,6 +33,7 @@ namespace NSMBe4
             replaceFileButton.Enabled = false;
             compressFileButton.Enabled = false;
             decompressFileButton.Enabled = false;
+            hexEdButton.Enabled = false;
 
             DirHolder = new Dictionary<int, TreeNode>();
         }
@@ -68,6 +69,7 @@ namespace NSMBe4
                 replaceFileButton.Enabled = false;
                 compressFileButton.Enabled = false;
                 decompressFileButton.Enabled = false;
+                hexEdButton.Enabled = false;
             }
             else
             {
@@ -83,22 +85,18 @@ namespace NSMBe4
                 replaceFileButton.Enabled = true;
                 compressFileButton.Enabled = true;
                 decompressFileButton.Enabled = true;
+                hexEdButton.Enabled = true;
             }
             selectedFileInfo.Text = StatusMsg;
         }
 
         public void DirReady(int DirID, int ParentID, string DirName, bool IsRoot)
         {
-            if (IsRoot)
-            {
-                DirHolder[61440] = fileTreeView.Nodes.Add("61440", "Root [" + ROM.ROMFilename.Substring(ROM.ROMFilename.LastIndexOf('\\') + 1) + "]", 0, 0);
-                DirHolder[61440].Tag = "61440";
-            }
+            if(IsRoot)
+                DirHolder[DirID] = fileTreeView.Nodes.Add(DirID.ToString(), DirName, 0, 0);
             else
-            {
                 DirHolder[DirID] = DirHolder[ParentID].Nodes.Add(DirID.ToString(), DirName, 0, 0);
-                DirHolder[DirID].Tag = DirID.ToString();
-            }
+           DirHolder[DirID].Tag = DirID.ToString();
         }
 
         public void FileReady(int FileID, int ParentID, string FileName)
