@@ -50,5 +50,11 @@ namespace NSMBe4
             Array.Copy(buf, nbuf, buf.Length);
             buf = nbuf;
         }
-	}
+
+        public void write(byte[] ar)
+        {
+            for (int i = 0; i < ar.Length; i++)
+                writeByte(ar[i]);
+        }
+    }
 }

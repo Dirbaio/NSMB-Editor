@@ -26,9 +26,10 @@ namespace NSMBe4
             tilePicker1.SetTileset(t);
         }
 
-        private void selectTile(NSMBTileset.Map16Tile selTile)
+        private void selectTile(int tile)
         {
-            this.selTile = selTile;
+            this.selTile = t.Map16[tile];
+            tileBehavior.setArray(t.TileBehaviors[tile]);
             selectQuarter(selTile.topLeft);
         }
 
@@ -48,7 +49,7 @@ namespace NSMBe4
 
         private void map16Picker1_TileSelected(int tile)
         {
-            selectTile(t.Map16[tile]);
+            selectTile(tile);
         }
 
         private void tilePicker1_TileSelected(int tile)

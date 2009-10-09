@@ -12,9 +12,9 @@ namespace NSMBe4 {
         public void LoadTilesets(ushort TilesetID) {
             Tilesets = new NSMBTileset[3];
 
-            Tilesets[0] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"], ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"], ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu_hd.bin"], true, 0);
+            Tilesets[0] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"], ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"], ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu_hd.bin"], 0, true, 0);
             LoadTileset1(TilesetID);
-            Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], false, 2);
+            Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], 0, false, 2);
 
             // Patch in a bunch of overrides to the normal tileset
             Tilesets[0].Objects[0] = Tilesets[0].Objects[1];
@@ -98,19 +98,23 @@ namespace NSMBe4 {
             table = NSMBe4.Properties.Resources.ts_unt_hd_table;
             ushort ObjIndexFile = (ushort)((table[TSOffset] | (table[TSOffset + 1] << 8)) + 131);
 
+            table = NSMBe4.Properties.Resources.ts_chk_table;
+            ushort TileBehaviorFile = (ushort)((table[TSOffset] | (table[TSOffset + 1] << 8)) + 131);
+
             // Since these tables are from the US ROM, counteract it by finding an offset
             GFXFile += (ushort)(ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"] - 235);
             PalFile += (ushort)(ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"] - 408);
             Map16File += (ushort)(ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"] - 686);
             ObjFile += (ushort)(ROM.FileIDs["A_J_jyotyu.bin"] - 730);
             ObjIndexFile += (ushort)(ROM.FileIDs["A_J_jyotyu_hd.bin"] - 731);
+            TileBehaviorFile += (ushort)(ROM.FileIDs["ChiKa2MainUnitChangeData.bin"] - 180);
 
             // Is this version of the ROM missing files?
             if (!ROM.FileIDs.ContainsKey("d_2d_TEN_W_kazangake2_ncg.bin") && GFXFile > ROM.FileIDs["d_2d_TEN_W_kazangake_ncg.bin"]) {
                 GFXFile -= 2;
             }
 
-            Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, false, 1);
+            Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, TileBehaviorFile, false, 1);
         }
 
         public void RepatchBlocks(bool type) {

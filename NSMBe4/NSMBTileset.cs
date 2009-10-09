@@ -112,6 +112,7 @@ namespace NSMBe4
         public ushort Map16FileID;
         public ushort ObjFileID;
         public ushort ObjIndexFileID;
+        public ushort TileBehaviorFileID;
 
         public int TilesetNumber; // 0 for Jyotyu, 1 for Normal, 2 for SubUnit
 
@@ -125,6 +126,8 @@ namespace NSMBe4
         public ObjectDef[] Objects;
 
         public Map16Tile[] Map16;
+
+        public byte[][] TileBehaviors;
 
         public Bitmap TilesetBuffer;
         private Graphics TilesetGraphics;
@@ -145,7 +148,7 @@ namespace NSMBe4
         private IntPtr OverrideHandle;
 #endif
 
-        public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, bool OverrideFlag, int TilesetNumber)
+        public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, ushort TileBehaviorFile, bool OverrideFlag, int TilesetNumber)
         {
             int FilePos;
 
@@ -156,6 +159,9 @@ namespace NSMBe4
             Map16FileID = Map16File;
             ObjFileID = ObjFile;
             ObjIndexFileID = ObjIndexFile;
+            TileBehaviorFileID = TileBehaviorFile;
+            Console.Out.WriteLine(ROM.FileNames[TileBehaviorFile]);
+
             this.TilesetNumber = TilesetNumber;
 
             Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
@@ -202,6 +208,7 @@ namespace NSMBe4
             GDIImports.SelectObject(TilesetBufferHDC, TilesetBufferHandle);
 #endif
             loadMap16();
+            loadTileBehaviors();
 
             // Finally the object file.
             loadObjects();
@@ -242,8 +249,35 @@ namespace NSMBe4
         {
             saveObjects();
             saveMap16();
+            saveTileBehaviors();
         }
 
+
+        #region Tile Behaviors
+        private void loadTileBehaviors()
+        {
+            if (TilesetNumber == 1)
+            {
+                byte[] tileBehaviorsFile = ROM.ExtractFile(TileBehaviorFileID);
+                TileBehaviors = new byte[Map16.Length][];
+                for (int i = 0; i < Map16.Length; i++)
+                {
+                    TileBehaviors[i] = new byte[4];
+                    Array.Copy(tileBehaviorsFile, i*4, TileBehaviors[i], 0, 4);
+                }
+            }
+        }
+
+        private void saveTileBehaviors()
+        {
+            ByteArrayOutputStream file = new ByteArrayOutputStream();
+            for (int i = 0; i < Map16.Length; i++)
+                file.write(TileBehaviors[i]);
+
+            ROM.ReplaceFile(TileBehaviorFileID, file.getArray());
+        }
+
+        #endregion
         #region Map16
 
         private void saveMap16()
