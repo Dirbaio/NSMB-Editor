@@ -325,8 +325,12 @@ namespace NSMBe4
             Rectangle SrcRect = new Rectangle(TileNum*8, ((q.ControlByte & 16) != 0) ? 8 : 0, 8, 8);
             Rectangle DestRect = new Rectangle(x, y, 8, 8);
 
-            if ((q.ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 7; }
-            if ((q.ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += 7; }
+            int xi = 7;
+#if USE_GDIPLUS
+            xi = 8;
+#endif
+            if ((q.ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += xi; }
+            if ((q.ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += xi; }
             if (q.TileNum != 0 || q.ControlByte != 0)
             {
 #if USE_GDIPLUS
@@ -458,26 +462,33 @@ namespace NSMBe4
             public int tileID;
             public byte controlByte;
 
-            public bool emptyTile = false;
+            public bool emptyTile {
+                get { return tileID == -1; }
+            }
 
-            public bool lineBreak = false;
-            public bool objectEnd = false;
-            public bool slopeControl = false;
+            public bool lineBreak {
+                get { return controlByte == 0xFE; }
+            }
 
-            public bool controlTile = false; // any type of nondisplaying tile
+            public bool objectEnd {
+                get { return controlByte == 0xFF; }
+            }
+
+            public bool slopeControl
+            {
+                get { return (controlByte & 0x80) != 0; }
+            }
+
+            public bool controlTile {
+                get { return lineBreak || objectEnd || slopeControl; }
+            }
 
             public ObjectDefTile() { }
             public ObjectDefTile(ByteArrayInputStream inp)
             {
                 controlByte = inp.readByte();
 
-                if (controlByte == 0xFE) //line break
-                    lineBreak = true;
-                else if (controlByte == 0xFF)
-                    objectEnd = true;
-                else if ((controlByte & 0x80) > 0) //slope control byte
-                    slopeControl = true;
-                else
+                if (!controlTile)
                 {
                     byte a, b;
                     a = inp.readByte();
@@ -487,13 +498,9 @@ namespace NSMBe4
 
                     if ((controlByte & 64) != 0) //OVERRIDES
                         tileID += 768;
-                    if (a == 0 && b == 0 && controlByte == 0)
-                    {
+                    if (a == 0 && b == 0)
                         tileID = -1;
-                        emptyTile = true;
-                    }
                 }
-                controlTile = lineBreak || objectEnd || slopeControl;
             }
 
             public void write(ByteArrayOutputStream outp)
@@ -568,6 +575,8 @@ namespace NSMBe4
             
             ObjectDef obj = Objects[ObjNum];
 
+            if (Objects[ObjNum].tiles.Count == 0)
+                return Dest;
 
             // Diagonal objects are rendered differently
             if ((Objects[ObjNum].tiles[0][0].controlByte & 0x80) != 0)

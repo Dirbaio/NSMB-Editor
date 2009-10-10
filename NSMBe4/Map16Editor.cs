@@ -14,6 +14,9 @@ namespace NSMBe4
         NSMBTileset.Map16Tile selTile = null;
         NSMBTileset.Map16Quarter selQuarter = null;
 
+        public delegate void mustRepaintObjectsD();
+        public event mustRepaintObjectsD mustRepaintObjects;
+
         public Map16Editor()
         {
             InitializeComponent();
@@ -104,6 +107,8 @@ namespace NSMBe4
 
             selQuarter.ControlByte = (byte)controlByte.Value;
             updateQuarterInfo(); //in case things change
+            if (mustRepaintObjects != null)
+                mustRepaintObjects();
         }
 
         private void tileByte_ValueChanged(object sender, EventArgs e)
@@ -113,6 +118,13 @@ namespace NSMBe4
 
             selQuarter.TileByte = (byte)tileByte.Value;
             updateQuarterInfo(); //in case things change
+            if (mustRepaintObjects != null)
+                mustRepaintObjects();
+        }
+
+        public void redrawThings()
+        {
+            map16Picker1.SetTileset(t);
         }
     }
 }

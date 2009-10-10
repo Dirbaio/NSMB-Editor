@@ -45,5 +45,12 @@ namespace NSMBe4
         {
             t.save();
         }
+
+        private void mustRepaintObjects()
+        {
+            objectPickerControl1.ReRenderAll(1);
+            tilesetObjectEditor1.redrawThings();
+            map16Editor1.redrawThings();
+        }
     }
 }

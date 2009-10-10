@@ -17,6 +17,9 @@ namespace NSMBe4
         NSMBObject previewObject;
         bool couldDrawObject = true;
 
+        public delegate void mustRepaintObjectsD();
+        public event mustRepaintObjectsD mustRepaintObjects;
+
         public TilesetObjectEditor()
         {
             InitializeComponent();
@@ -49,6 +52,8 @@ namespace NSMBe4
             }
             editZone.Invalidate(true);
             previewBox.Invalidate(true);
+            if (mustRepaintObjects != null)
+                mustRepaintObjects();
         }
 
         public void load(NSMBGraphics g)
@@ -204,7 +209,6 @@ namespace NSMBe4
                 return;
 
             selTile.tileID = (int)map16Tile.Value;
-            selTile.emptyTile = map16Tile.Value == -1;
             map16Picker1.selectTile(selTile.tileID);
             repaint();
         }
@@ -279,6 +283,11 @@ namespace NSMBe4
 
             obj.tiles.Insert(obj.tiles.IndexOf(selRow)+1, new List<NSMBTileset.ObjectDefTile>());
             repaint();
+        }
+
+        public void redrawThings()
+        {
+            map16Picker1.SetTileset(tls);
         }
     }
 }
