@@ -41,7 +41,7 @@ namespace NSMBe4
         {
             int tx = e.X / 8;
             int ty = e.Y / 8;
-            int t = ty * 16 + tx;
+            int t = ty * 32 + tx;
             if (t >= 0 && t < 256*224/64)
             {
                 selx = tx;

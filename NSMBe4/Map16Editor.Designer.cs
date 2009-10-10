@@ -29,11 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.editQ2 = new System.Windows.Forms.Button();
-            this.editQ4 = new System.Windows.Forms.Button();
-            this.editQ3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.editQ1 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.editQ2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tileNumber = new System.Windows.Forms.NumericUpDown();
             this.controlByte = new System.Windows.Forms.NumericUpDown();
@@ -41,16 +39,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.editQ4 = new System.Windows.Forms.Button();
+            this.editQ1 = new System.Windows.Forms.Button();
+            this.editQ3 = new System.Windows.Forms.Button();
+            this.tileBehavior = new NSMBe4.ByteArrayEditor();
             this.tilePicker1 = new NSMBe4.TilePicker();
             this.map16Picker1 = new NSMBe4.Map16Picker();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.tileBehavior = new NSMBe4.ByteArrayEditor();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tileNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.controlByte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileByte)).BeginInit();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -64,6 +64,27 @@
             this.panel1.Size = new System.Drawing.Size(442, 229);
             this.panel1.TabIndex = 2;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 139);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Tile Behavior:";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.editQ2);
+            this.panel2.Controls.Add(this.tableLayoutPanel1);
+            this.panel2.Controls.Add(this.editQ4);
+            this.panel2.Controls.Add(this.editQ1);
+            this.panel2.Controls.Add(this.editQ3);
+            this.panel2.Location = new System.Drawing.Point(6, 6);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(303, 104);
+            this.panel2.TabIndex = 2;
+            // 
             // editQ2
             // 
             this.editQ2.Location = new System.Drawing.Point(3, 65);
@@ -72,42 +93,6 @@
             this.editQ2.TabIndex = 1;
             this.editQ2.UseVisualStyleBackColor = true;
             this.editQ2.Click += new System.EventHandler(this.editQ2_Click);
-            // 
-            // editQ4
-            // 
-            this.editQ4.Location = new System.Drawing.Point(43, 65);
-            this.editQ4.Name = "editQ4";
-            this.editQ4.Size = new System.Drawing.Size(34, 34);
-            this.editQ4.TabIndex = 1;
-            this.editQ4.UseVisualStyleBackColor = true;
-            this.editQ4.Click += new System.EventHandler(this.editQ4_Click);
-            // 
-            // editQ3
-            // 
-            this.editQ3.Location = new System.Drawing.Point(43, 25);
-            this.editQ3.Name = "editQ3";
-            this.editQ3.Size = new System.Drawing.Size(34, 34);
-            this.editQ3.TabIndex = 1;
-            this.editQ3.UseVisualStyleBackColor = true;
-            this.editQ3.Click += new System.EventHandler(this.editQ3_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 134);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Tile Behavior:";
-            // 
-            // editQ1
-            // 
-            this.editQ1.Location = new System.Drawing.Point(3, 25);
-            this.editQ1.Name = "editQ1";
-            this.editQ1.Size = new System.Drawing.Size(34, 34);
-            this.editQ1.TabIndex = 1;
-            this.editQ1.UseVisualStyleBackColor = true;
-            this.editQ1.Click += new System.EventHandler(this.editQ1_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -138,6 +123,11 @@
             0,
             0,
             0});
+            this.tileNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.tileNumber.Name = "tileNumber";
             this.tileNumber.Size = new System.Drawing.Size(96, 20);
             this.tileNumber.TabIndex = 0;
@@ -202,6 +192,40 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Tile byte";
             // 
+            // editQ4
+            // 
+            this.editQ4.Location = new System.Drawing.Point(43, 65);
+            this.editQ4.Name = "editQ4";
+            this.editQ4.Size = new System.Drawing.Size(34, 34);
+            this.editQ4.TabIndex = 1;
+            this.editQ4.UseVisualStyleBackColor = true;
+            this.editQ4.Click += new System.EventHandler(this.editQ4_Click);
+            // 
+            // editQ1
+            // 
+            this.editQ1.Location = new System.Drawing.Point(3, 25);
+            this.editQ1.Name = "editQ1";
+            this.editQ1.Size = new System.Drawing.Size(34, 34);
+            this.editQ1.TabIndex = 1;
+            this.editQ1.UseVisualStyleBackColor = true;
+            this.editQ1.Click += new System.EventHandler(this.editQ1_Click);
+            // 
+            // editQ3
+            // 
+            this.editQ3.Location = new System.Drawing.Point(43, 25);
+            this.editQ3.Name = "editQ3";
+            this.editQ3.Size = new System.Drawing.Size(34, 34);
+            this.editQ3.TabIndex = 1;
+            this.editQ3.UseVisualStyleBackColor = true;
+            this.editQ3.Click += new System.EventHandler(this.editQ3_Click);
+            // 
+            // tileBehavior
+            // 
+            this.tileBehavior.Location = new System.Drawing.Point(81, 139);
+            this.tileBehavior.Name = "tileBehavior";
+            this.tileBehavior.Size = new System.Drawing.Size(228, 25);
+            this.tileBehavior.TabIndex = 3;
+            // 
             // tilePicker1
             // 
             this.tilePicker1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -223,25 +247,6 @@
             this.map16Picker1.TabIndex = 0;
             this.map16Picker1.TileSelected += new NSMBe4.Map16Picker.TileSelectedd(this.map16Picker1_TileSelected);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.editQ2);
-            this.panel2.Controls.Add(this.tableLayoutPanel1);
-            this.panel2.Controls.Add(this.editQ4);
-            this.panel2.Controls.Add(this.editQ1);
-            this.panel2.Controls.Add(this.editQ3);
-            this.panel2.Location = new System.Drawing.Point(6, 6);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(303, 104);
-            this.panel2.TabIndex = 2;
-            // 
-            // tileBehavior
-            // 
-            this.tileBehavior.Location = new System.Drawing.Point(81, 134);
-            this.tileBehavior.Name = "tileBehavior";
-            this.tileBehavior.Size = new System.Drawing.Size(228, 21);
-            this.tileBehavior.TabIndex = 3;
-            // 
             // Map16Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -253,12 +258,12 @@
             this.Size = new System.Drawing.Size(724, 453);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tileNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.controlByte)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileByte)).EndInit();
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

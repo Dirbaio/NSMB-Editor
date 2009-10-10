@@ -115,6 +115,18 @@ namespace NSMBe4
         public ushort TileBehaviorFileID;
 
         public int TilesetNumber; // 0 for Jyotyu, 1 for Normal, 2 for SubUnit
+        public int Map16QuarterOffset
+        {
+            get
+            {
+                if (TilesetNumber == 1)
+                    return 192;
+                else if (TilesetNumber == 2)
+                    return 640;
+                else
+                    return 0;
+            }
+        }
 
         public Bitmap Map16Buffer;
         public bool UseOverrides;
@@ -310,17 +322,15 @@ namespace NSMBe4
             for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++)
             {
                 Map16[Map16Idx] = new Map16Tile(eMap16File);
-                RenderMap16Tile(Map16Idx, TilesetNumber);
+                RenderMap16Tile(Map16Idx);
             }
 
         }
 
 
-        private void RenderMap16Quarter(Map16Quarter q, int x, int y, int TilesetNumber)
+        private void RenderMap16Quarter(Map16Quarter q, int x, int y)
         {
-            int TileNum = q.TileNum;
-            if (TilesetNumber == 1) TileNum -= 192;
-            if (TilesetNumber == 2) TileNum -= 640;
+            int TileNum = q.TileNum - Map16QuarterOffset;
 
             Rectangle SrcRect = new Rectangle(TileNum*8, ((q.ControlByte & 16) != 0) ? 8 : 0, 8, 8);
             Rectangle DestRect = new Rectangle(x, y, 8, 8);
@@ -341,14 +351,14 @@ namespace NSMBe4
             }
         }
 
-        private void RenderMap16Tile(int Map16Idx, int TilesetNumber)
+        public void RenderMap16Tile(int Map16Idx)
         {
             Map16Tile t = Map16[Map16Idx];
             int x = Map16Idx*16;
-            RenderMap16Quarter(t.topLeft, x, 0, TilesetNumber);
-            RenderMap16Quarter(t.topRight, x + 8, 0, TilesetNumber);
-            RenderMap16Quarter(t.bottomLeft, x, 8, TilesetNumber);
-            RenderMap16Quarter(t.bottomRight, x + 8, 8, TilesetNumber);
+            RenderMap16Quarter(t.topLeft, x, 0);
+            RenderMap16Quarter(t.topRight, x + 8, 0);
+            RenderMap16Quarter(t.bottomLeft, x, 8);
+            RenderMap16Quarter(t.bottomRight, x + 8, 8);
         }
 
         public class Map16Tile
@@ -394,6 +404,12 @@ namespace NSMBe4
                 get
                 {
                     return TileByteF | ((ControlByte & 3) << 8);
+                }
+                set
+                {
+                    TileByteF = (byte)(value % 256);
+                    ControlByte &= 0xFF ^ 3;
+                    ControlByte |= (byte)((value >> 8) & 3);
                 }
             }
 
@@ -661,88 +677,6 @@ namespace NSMBe4
                     Dest[x, y] = inRepeat[(x - beforeRepeat.Count) % inRepeat.Count].tileID;
             }
         }
-
-#if false
-        private void RenderDiagonalObject(int[,] Dest, ObjectDef obj, int width, int height)
-        {
-            //empty tiles fill
-            for (int xp = 0; xp < width; xp++)
-                for (int yp = 0; yp < height; yp++)
-                    Dest[xp, yp] = -1;
-
-            //find out direction:
-            byte controlByte = obj.tiles[0][0].controlByte;
-
-            
-            bool goLeft = controlByte == 0x81 || controlByte == 0x82 || controlByte == 0x84; //note: this means go top left or bottom right
-
-            //find out anchor:
-            bool topAnchor = controlByte >= 0x82 && controlByte <= 0x84;
-
-            //find vertical increment
-            int yi = 0;
-            bool bottomControlFound = false;
-            foreach (List<ObjectDefTile> row in obj.tiles)
-            {
-                if (row[0].controlByte == 0x85)
-                    bottomControlFound = true;
-
-                if (!bottomControlFound)
-                    yi++;
-            }
-            if (yi == 0) yi = 1;
-
-            //find horizontal increment
-            int xi = countTiles(obj.tiles[0]);
-            if (xi == 0) xi = 1;
-
-            //starting position
-            int x = goLeft ? width - 1 : 0;
-            int y = height - yi;
-            if (topAnchor)
-            {
-                int numBlocks = height / yi;
-                if (numBlocks * yi != height) //round up
-                    numBlocks++;
-
-                y = numBlocks * yi;
-                if (goLeft)
-                    x = numBlocks * xi;
-                else
-                    x = width - numBlocks * xi - xi;
-            }
-
-            if (goLeft) xi = -xi;
-
-            //render the slope
-            while ((x > -1 || !goLeft) && (x < width + 2 || goLeft) && y >= -obj.tiles.Count)
-            {
-                int yy = y;
-
-                foreach (List<ObjectDefTile> row in obj.tiles)
-                {
-                    int xx = x;
-                    if (goLeft)
-                        xx -= countTiles(row) - 1;
-
-                    /*
-                    if (bottomControlFound && upMove > 1)
-                        xx--;*/
-
-                    foreach (ObjectDefTile tile in row)
-                    {
-                        if (tile.controlTile)
-                            continue;
-                        putTile(Dest, xx, yy, width, height, tile);
-                        xx++;
-                    }
-                    yy++;
-                }
-                y -= yi;
-                x += xi;
-            }
-        }
-#endif
 
         private void RenderDiagonalObject(int[,] Dest, ObjectDef obj, int width, int height)
         {
