@@ -13,6 +13,7 @@ namespace NSMBe4
         Image map16Image;
         int selx = -1, sely = -1;
         int hovx = -1, hovy = -1;
+        int tileCount;
 
         public Map16Picker()
         {
@@ -27,7 +28,9 @@ namespace NSMBe4
         public void SetTileset(NSMBTileset t)
         {
             this.t = t;
+            tileCount = t.Map16Buffer.Width / 16;
             map16Image = GraphicsViewer.CutImage(t.Map16Buffer, 256, 1);
+            pictureBox1.Size = map16Image.Size;
             pictureBox1.Invalidate(true);
         }
 
@@ -44,7 +47,7 @@ namespace NSMBe4
             int tx = e.X / 16;
             int ty = e.Y / 16;
             int t = ty * 16 + tx;
-            if (t >= 0 && t < 768)
+            if (t >= 0 && t < tileCount)
             {
                 selx = tx;
                 sely = ty;

@@ -115,7 +115,7 @@ namespace NSMBe4
         public ushort TileBehaviorFileID;
 
         public int TilesetNumber; // 0 for Jyotyu, 1 for Normal, 2 for SubUnit
-        public int Map16QuarterOffset
+        public int Map16TileOffset
         {
             get
             {
@@ -125,6 +125,14 @@ namespace NSMBe4
                     return 640;
                 else
                     return 0;
+            }
+        }
+
+        public int Map16PaletteOffset
+        {
+            get
+            {
+                return TilesetNumber * 2;
             }
         }
 
@@ -311,7 +319,6 @@ namespace NSMBe4
             Map16Buffer = new Bitmap(Map16Count * 16, 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
             Map16Graphics = Graphics.FromImage(Map16Buffer);
-            Map16Graphics.Clear(Color.LightSlateGray);
 #if !USE_GDIPLUS
             Map16BufferHDC = Map16Graphics.GetHdc();
             Map16BufferHandle = Map16Buffer.GetHbitmap();
@@ -321,31 +328,48 @@ namespace NSMBe4
 
             for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++)
             {
-                Map16[Map16Idx] = new Map16Tile(eMap16File);
-                RenderMap16Tile(Map16Idx);
+                Map16[Map16Idx] = new Map16Tile(eMap16File, this);
             }
-
+            repaintAllMap16();
         }
 
 
+        public void repaintAllMap16()
+        {
+            Map16Graphics.Clear(Color.LightSlateGray);
+            for (int Map16Idx = 0; Map16Idx < Map16.Length; Map16Idx++)
+                RenderMap16Tile(Map16Idx);
+        }
+
         private void RenderMap16Quarter(Map16Quarter q, int x, int y)
         {
-            int TileNum = q.TileNum - Map16QuarterOffset;
+            int TileNum = q.TileNum;
 
-            Rectangle SrcRect = new Rectangle(TileNum*8, ((q.ControlByte & 16) != 0) ? 8 : 0, 8, 8);
+            Rectangle SrcRect = new Rectangle(TileNum*8, q.secondPalette ? 8 : 0, 8, 8);
             Rectangle DestRect = new Rectangle(x, y, 8, 8);
 
-            int xi = 7;
-#if USE_GDIPLUS
-            xi = 8;
-#endif
-            if ((q.ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += xi; }
-            if ((q.ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += xi; }
-            if (q.TileNum != 0 || q.ControlByte != 0)
+            if (q.TileByte != 0 || q.ControlByte != 0)
             {
 #if USE_GDIPLUS
-                Map16Graphics.DrawImage(TilesetBuffer, DestRect, SrcRect, GraphicsUnit.Pixel);
+                Bitmap tile = new Bitmap(8, 8);
+                Graphics g = Graphics.FromImage(tile);
+                g.DrawImage(TilesetBuffer, new Rectangle(0, 0, 8, 8), SrcRect, GraphicsUnit.Pixel);
+                if ((q.ControlByte & 4) != 0)
+                    tile.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                if ((q.ControlByte & 8) != 0)
+                    tile.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                Map16Graphics.DrawImage(tile, DestRect, new Rectangle(0, 0, 8, 8), GraphicsUnit.Pixel);
 #else
+                if ((q.ControlByte & 4) != 0)
+                {
+                    DestRect.Width = -8;
+                    DestRect.X += xi;
+                }
+                if ((q.ControlByte & 8) != 0)
+                {
+                    DestRect.Height = -8;
+                    DestRect.Y += xi;
+                }
                 GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
 #endif
             }
@@ -364,14 +388,18 @@ namespace NSMBe4
         public class Map16Tile
         {
             public Map16Quarter topLeft, topRight, bottomLeft, bottomRight;
-
-            public Map16Tile() { }
-            public Map16Tile(ByteArrayInputStream inp)
+            NSMBTileset t;
+            public Map16Tile(NSMBTileset t)
             {
-                topLeft = new Map16Quarter(inp);
-                topRight = new Map16Quarter(inp);
-                bottomLeft = new Map16Quarter(inp);
-                bottomRight = new Map16Quarter(inp);
+                this.t = t;
+            }
+            public Map16Tile(ByteArrayInputStream inp, NSMBTileset t)
+            {
+                this.t = t;
+                topLeft = new Map16Quarter(inp, t);
+                topRight = new Map16Quarter(inp, t);
+                bottomLeft = new Map16Quarter(inp, t);
+                bottomRight = new Map16Quarter(inp, t);
             }
 
             public void save(ByteArrayOutputStream outp)
@@ -385,6 +413,8 @@ namespace NSMBe4
 
         public class Map16Quarter
         {
+            private NSMBTileset t;
+
             private byte ControlByteF;
 
             public byte ControlByte
@@ -403,19 +433,59 @@ namespace NSMBe4
             {
                 get
                 {
-                    return TileByteF | ((ControlByte & 3) << 8);
+                    if (TileByte == 0 && ControlByte == 0)
+                        return -1;
+
+                    return (TileByteF | ((ControlByte & 3) << 8))-t.Map16TileOffset;
                 }
                 set
                 {
+                    if (value == -1)
+                    {
+                        ControlByte = 0;
+                        TileByte = 0;
+                    }
+                    value += t.Map16TileOffset;
+
                     TileByteF = (byte)(value % 256);
                     ControlByte &= 0xFF ^ 3;
                     ControlByte |= (byte)((value >> 8) & 3);
                 }
             }
 
-            public Map16Quarter() { }
-            public Map16Quarter(ByteArrayInputStream inp)
+            public bool secondPalette
             {
+                get
+                {
+                    return (ControlByte >> 4) % 2 == 1;
+                }
+                set
+                {
+                    ControlByte &= 0xF;
+                    int num = t.Map16PaletteOffset;
+                    if (value) num++;
+                    ControlByte |= (byte)(num << 4);
+                }
+            }
+
+            public bool xFlip
+            {
+                get { return (ControlByte & 4) != 0; }
+                set { if (((ControlByte & 4) != 0) != value) ControlByte ^= 4; }
+            }
+            public bool yFlip
+            {
+                get { return (ControlByte & 8) != 0; }
+                set { if (((ControlByte & 8) != 0) != value) ControlByte ^= 8; }
+            }
+
+            public Map16Quarter(NSMBTileset t)
+            {
+                this.t = t;
+            }
+            public Map16Quarter(ByteArrayInputStream inp, NSMBTileset t)
+            {
+                this.t = t;
                 TileByteF = inp.readByte();
                 ControlByteF = inp.readByte();
             }
@@ -425,6 +495,34 @@ namespace NSMBe4
                 outp.writeByte(TileByteF);
                 outp.writeByte(ControlByteF);
             }
+        }
+
+        public void removeUnusedMap16()
+        {
+            for (int i = 0; i < Map16.Length; i++)
+            {
+                if (!isMap16Used(i))
+                    emptyMap16Tile(Map16[i]);
+            }
+        }
+
+        private bool isMap16Used(int tile)
+        {
+            foreach (ObjectDef o in Objects)
+                if(o != null)
+                    foreach (List<ObjectDefTile> row in o.tiles)
+                        foreach (ObjectDefTile t in row)
+                            if (t.tileID == tile)
+                                return true;
+            return false;
+        }
+
+        private void emptyMap16Tile(Map16Tile t)
+        {
+            t.topLeft = new Map16Quarter(this);
+            t.topRight = new Map16Quarter(this);
+            t.bottomLeft = new Map16Quarter(this);
+            t.bottomRight = new Map16Quarter(this);
         }
 
         #endregion
@@ -601,7 +699,6 @@ namespace NSMBe4
             }
             else
             {
-
                 bool repeatFound = false;
                 List<List<ObjectDefTile>> beforeRepeat = new List<List<ObjectDefTile>>();
                 List<List<ObjectDefTile>> inRepeat = new List<List<ObjectDefTile>>();
@@ -824,6 +921,5 @@ namespace NSMBe4
             return true;
         }
         #endregion
-
     }
 }

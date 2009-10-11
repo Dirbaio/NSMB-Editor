@@ -14,6 +14,7 @@ namespace NSMBe4
         NSMBTileset.Map16Tile selTile = null;
         NSMBTileset.Map16Quarter selQuarter = null;
         int selTileNum = -1;
+        bool DataUpdateFlag = false;
 
         public delegate void mustRepaintObjectsD();
         public event mustRepaintObjectsD mustRepaintObjects;
@@ -34,7 +35,8 @@ namespace NSMBe4
         {
             this.selTile = t.Map16[tile];
             this.selTileNum = tile;
-            tileBehavior.setArray(t.TileBehaviors[tile]);
+            if(t.TileBehaviors != null)
+                tileBehavior.setArray(t.TileBehaviors[tile]);
             selectQuarter(selTile.topLeft);
         }
 
@@ -46,13 +48,18 @@ namespace NSMBe4
 
         private void updateQuarterInfo()
         {
-            int val = selQuarter.TileNum - t.Map16QuarterOffset;
+            DataUpdateFlag = true;
+            int val = selQuarter.TileNum;
             if (val < -1)
                 val = -1;
             tileNumber.Value = val;
             tileByte.Value = selQuarter.TileByte;
             controlByte.Value = selQuarter.ControlByte;
-            tilePicker1.selectTile(selQuarter.TileNum - t.Map16QuarterOffset + ((selQuarter.ControlByte & 16) != 0? 448:0));
+            tilePicker1.selectTile(selQuarter.TileNum, selQuarter.secondPalette);
+            secPal.Checked = selQuarter.secondPalette;
+            xFlip.Checked = selQuarter.xFlip;
+            yFlip.Checked = selQuarter.yFlip;
+            DataUpdateFlag = false;
         }
 
         private void map16Picker1_TileSelected(int tile)
@@ -62,23 +69,17 @@ namespace NSMBe4
 
         private NSMBTileset.Map16Quarter createQuarter(int tile, bool secondPalette)
         {
-            NSMBTileset.Map16Quarter q = new NSMBTileset.Map16Quarter();
-            if (secondPalette)
-                q.ControlByte = 16;
-
-            q.TileNum = tile + t.Map16QuarterOffset;
+            NSMBTileset.Map16Quarter q = new NSMBTileset.Map16Quarter(t);
+            q.secondPalette = secondPalette;
+            q.TileNum = tile;
 
             return q;
 
         }
-        private void tilePicker1_TileSelected(int tile)
+        private void tilePicker1_TileSelected(int tile, bool secondPalette)
         {
-            bool secondPalette = false;
-            if (tile >= 448)
-            {
-                secondPalette = true;
-                tile -= 448;
-            }
+            if (DataUpdateFlag)
+                return;
 
             if (Control.ModifierKeys == Keys.Control)
             {
@@ -101,7 +102,7 @@ namespace NSMBe4
                 if (secondPalette != ((selQuarter.ControlByte & 16) != 0))
                     selQuarter.ControlByte ^= 16; //change byte
 
-                selQuarter.TileNum = tile + t.Map16QuarterOffset;
+                selQuarter.TileNum = tile;
                 repaint();
             }
         }
@@ -115,7 +116,6 @@ namespace NSMBe4
 
         private void editQ3_Click(object sender, EventArgs e)
         {
-
             if (selTile == null)
                 return;
             selectQuarter(selTile.topRight);
@@ -123,7 +123,6 @@ namespace NSMBe4
 
         private void editQ2_Click(object sender, EventArgs e)
         {
-
             if (selTile == null)
                 return;
             selectQuarter(selTile.bottomLeft);
@@ -131,7 +130,6 @@ namespace NSMBe4
 
         private void editQ4_Click(object sender, EventArgs e)
         {
-
             if (selTile == null)
                 return;
             selectQuarter(selTile.bottomRight);
@@ -139,10 +137,12 @@ namespace NSMBe4
 
         private void tileNumber_ValueChanged(object sender, EventArgs e)
         {
+            if (DataUpdateFlag)
+                return;
             if (selQuarter == null)
                 return;
 
-            selQuarter.TileNum = (int)tileNumber.Value + t.Map16QuarterOffset;
+            selQuarter.TileNum = (int)tileNumber.Value;
             repaint();
         }
 
@@ -156,6 +156,8 @@ namespace NSMBe4
 
         private void controlByte_ValueChanged(object sender, EventArgs e)
         {
+            if (DataUpdateFlag)
+                return;
             if (selQuarter == null)
                 return;
 
@@ -165,6 +167,8 @@ namespace NSMBe4
 
         private void tileByte_ValueChanged(object sender, EventArgs e)
         {
+            if (DataUpdateFlag)
+                return;
             if (selQuarter == null)
                 return;
 
@@ -175,6 +179,41 @@ namespace NSMBe4
         public void redrawThings()
         {
             map16Picker1.SetTileset(t);
+        }
+
+        private void secPal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag || selQuarter == null)
+                return;
+
+            selQuarter.secondPalette = secPal.Checked;
+            repaint();
+        }
+
+        private void xFlip_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag || selQuarter == null)
+                return;
+
+            selQuarter.xFlip = xFlip.Checked;
+            repaint();
+        }
+
+        private void yFlip_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag || selQuarter == null)
+                return;
+
+            selQuarter.yFlip = yFlip.Checked;
+            repaint();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            t.removeUnusedMap16();
+            selectTile(0);
+            t.repaintAllMap16();
+            repaint();
         }
     }
 }

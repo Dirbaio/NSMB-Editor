@@ -35,9 +35,8 @@
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.MinimumSize = new System.Drawing.Size(256, 768);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(256, 768);
+            this.pictureBox1.Size = new System.Drawing.Size(259, 267);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
@@ -53,7 +52,7 @@
             this.Controls.Add(this.pictureBox1);
             this.MinimumSize = new System.Drawing.Size(282, 187);
             this.Name = "Map16Picker";
-            this.Size = new System.Drawing.Size(265, 187);
+            this.Size = new System.Drawing.Size(265, 242);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
