@@ -45,7 +45,11 @@ namespace NSMBe4 {
 
         public void ReRenderAll(int Tileset) {
             for (int ObjIdx = 0; ObjIdx < 256; ObjIdx++) {
-                TilesetObjects[Tileset][ObjIdx].UpdateObjCache();
+                try
+                {
+                    TilesetObjects[Tileset][ObjIdx].UpdateObjCache();
+                }
+                catch (Exception) { }
             }
         }
 

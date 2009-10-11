@@ -347,6 +347,7 @@ namespace NSMBe4
 
             Rectangle SrcRect = new Rectangle(TileNum*8, q.secondPalette ? 8 : 0, 8, 8);
             Rectangle DestRect = new Rectangle(x, y, 8, 8);
+            Map16Graphics.FillRectangle(Brushes.LightSlateGray, DestRect);
 
             if (q.TileByte != 0 || q.ControlByte != 0)
             {
@@ -444,7 +445,9 @@ namespace NSMBe4
                     {
                         ControlByte = 0;
                         TileByte = 0;
+                        return;
                     }
+
                     value += t.Map16TileOffset;
 
                     TileByteF = (byte)(value % 256);
@@ -533,7 +536,13 @@ namespace NSMBe4
             public int width, height; //these are useless, but I keep them
                                       //in case the game uses them.
 
-            public ObjectDef() { }
+            public ObjectDef()
+            {
+                tiles = new List<List<ObjectDefTile>>();
+                List<ObjectDefTile> row = new List<ObjectDefTile>();
+                tiles.Add(row);
+            }
+
             public ObjectDef(byte[] data)
             {
                 load(new ByteArrayInputStream(data));

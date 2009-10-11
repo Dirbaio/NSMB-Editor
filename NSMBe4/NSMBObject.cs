@@ -25,6 +25,7 @@ namespace NSMBe4
             this.Y = Y;
             this.Width = Width;
             this.Height = Height;
+            CachedObj = new int[Width, Height];
             UpdateObjCache();
         }
 
@@ -37,11 +38,16 @@ namespace NSMBe4
             this.Y = o.Y;
             this.Width = o.Width;
             this.Height = o.Height;
+            CachedObj = new int[Width, Height];
             UpdateObjCache();
         }
 
         public void UpdateObjCache() {
-            CachedObj = GFX.Tilesets[Tileset].RenderObject(ObjNum, Width, Height);
+            try
+            {
+                CachedObj = GFX.Tilesets[Tileset].RenderObject(ObjNum, Width, Height);
+            }
+            catch (Exception e) { Console.Out.WriteLine(e.StackTrace); }
         }
 
 #if USE_GDIPLUS

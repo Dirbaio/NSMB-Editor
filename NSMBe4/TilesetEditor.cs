@@ -36,7 +36,9 @@ namespace NSMBe4
             if (t.Objects.Length <= objectPickerControl1.SelectedObject)
                 return;
             if (t.Objects[objectPickerControl1.SelectedObject] == null)
-                return;
+            {
+                t.Objects[objectPickerControl1.SelectedObject] = new NSMBTileset.ObjectDef();
+            }
 
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
         }

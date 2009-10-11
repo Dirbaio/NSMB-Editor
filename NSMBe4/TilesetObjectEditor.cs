@@ -28,7 +28,6 @@ namespace NSMBe4
         public void setObject(int num)
         {
             previewObject.ObjNum = num;
-            previewObject.UpdateObjCache();
             selTile = null;
             selRow = null;
             groupBox1.Visible = false;
@@ -36,6 +35,7 @@ namespace NSMBe4
             DataUpdateFlag = true;
             objWidth.Value = obj.width;
             objHeight.Value = obj.height;
+            DataUpdateFlag = false;
             repaint();
         }
 
