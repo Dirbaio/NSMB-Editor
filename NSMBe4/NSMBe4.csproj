@@ -370,7 +370,10 @@
   <ItemGroup>
     <Content Include="nsmbe3.ico" />
     <Content Include="Resources\english.txt" />
+    <Content Include="Resources\find.png" />
+    <Content Include="Resources\gfxeditor.png" />
     <Content Include="Resources\spanish.txt" />
+    <Content Include="Resources\zoom.png" />
     <None Include="Resources\zones1.png" />
     <None Include="Resources\zones.png" />
     <None Include="Resources\paths.png" />

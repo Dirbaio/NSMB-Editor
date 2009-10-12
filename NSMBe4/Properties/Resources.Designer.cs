@@ -166,8 +166,16 @@ namespace NSMBe4.Properties {
         ///;English Translation File
         ///;Created by Treeki; 12 Oct 2009
         ///
+        ///[General]
+        ///EditingSomething=Editing
+        ///Warning=Warning
+        ///Question=Question
+        ///Completed=Completed!
+        ///
+        ///
+        ///
         ///[LevelChooser]
-        ///_Title=NSMB Editor 4.8
+        ///_TITLE=NSMB Editor 4.8
         ///
         ///tabPage1=File Browser
         ///tabPage2=Level Editor
@@ -182,12 +190,7 @@ namespace NSMBe4.Properties {
         ///;File Browser Tab
         ///;These aren&apos;t located here, check FilesystemBrowser
         ///
-        ///;Tools Tab
-        ///groupBox1=Settings
-        ///label2=Language:
-        ///changeLanguageButton=Change
-        ///dataFinderButton=Data Finder
-        ///pat [rest of string was truncated]&quot;;.
+        ///;Tools Tab        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string english {
             get {
@@ -298,6 +301,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap find {
+            get {
+                object obj = ResourceManager.GetObject("find", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
@@ -308,6 +318,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap folder_open {
             get {
                 object obj = ResourceManager.GetObject("folder_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap gfxeditor {
+            get {
+                object obj = ResourceManager.GetObject("gfxeditor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -540,6 +557,14 @@ namespace NSMBe4.Properties {
         ///;Spanish Translation File
         ///;Created by Treeki; 12 Oct 2009
         ///
+        ///[General]
+        ///EditingSomething=Edicion de
+        ///Warning=Aviso
+        ///Question=Pregunta
+        ///Completed=Terminado!
+        ///
+        ///
+        ///
         ///[LevelChooser]
         ///_Title=NSMB Editor 4.8
         ///
@@ -554,13 +579,7 @@ namespace NSMBe4.Properties {
         ///editLevelButton=Editar nivel
         ///
         ///;File Browser Tab
-        ///;These aren&apos;t located here, check FilesystemBrowser
-        ///
-        ///;Tools Tab
-        ///groupBox1=Opciones
-        ///label2=Idioma:
-        ///changeLanguageButton=Cambiar
-        ///data [rest of string was truncated]&quot;;.
+        ///;These aren&apos;t located here, check F [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string spanish {
             get {
@@ -803,6 +822,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap zones1 {
             get {
                 object obj = ResourceManager.GetObject("zones1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap zoom {
+            get {
+                object obj = ResourceManager.GetObject("zoom", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

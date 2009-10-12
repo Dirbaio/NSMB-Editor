@@ -11,7 +11,7 @@ Completed=Terminado!
 
 
 [LevelChooser]
-_Title=NSMB Editor 4.8
+_TITLE=NSMB Editor 4.8
 
 tabPage1=Sistema de archivos
 tabPage2=Editor de niveles
@@ -72,6 +72,32 @@ ImportProgressTitle=Aplicando parche...
 ReplacingFile=Sustitiendo {0}...
 ImportDiffVersions=The two roms seem to be different versions. The patch should work, but maybe it doesn't.
 ImportReady=Parche aplicado! {0} archivos sustituido.
+
+
+
+[LevelEditor]
+saveLevelButton=Guardar Nivel
+viewMinimapButton=Ver Mapa
+levelConfigButton=Configuracion de Nivel
+toolStripLabel1=Edicion de:
+editObjectsButton=Objetos/Sprites
+editEntrancesButton=Entradas
+editPathsButton=Rutas
+editViewsButton=Vistas
+editZonesButton=Zonas
+spriteFinder=Buscar Sprites
+editTileset=Editar Graficos
+zoomMenu=Zoom
+optionsMenu=Opciones
+smallBlockOverlaysToolStripMenuItem=Ver contenidos de bloque en pequeño
+deleteAllObjectsToolStripMenuItem=Borrar todos los objetos
+deleteAllSpritesToolStripMenuItem=Borrar todos los sprites
+
+MinimapTitle=Mapa - {0}
+
+UnsavedLevel=Este nivel tiene cambios sin guardar.\nSi cierras el editor sin guardar, los perderas.\nQuieres guardarlos?
+ConfirmDelObjects=Estas seguro que quieres borrar todos los objetos en el nivel?
+ConfirmDelSprites=Estas seguro que quieres borrar todos los sprites en el nivel?
 
 
 

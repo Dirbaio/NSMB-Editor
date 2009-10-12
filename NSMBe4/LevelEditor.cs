@@ -33,21 +33,7 @@ namespace NSMBe4 {
             EditionModeButtons.Add(editViewsButton);
             EditionModeButtons.Add(editZonesButton);
 
-            if (Properties.Settings.Default.Language == 1)
-            {
-                saveLevelButton.Text = "Guardar Nivel";
-                viewMinimapButton.Text = "Ver Mapa";
-                levelConfigButton.Text = "Configuracion de Nivel";
-                toolStripLabel1.Text = "Edicion de:";
-                editObjectsButton.Text = "Objetos/Sprites";
-                editEntrancesButton.Text = "Entradas";
-                editPathsButton.Text = "Rutas";
-                optionsMenu.Text = "Opciones";
-                smallBlockOverlaysToolStripMenuItem.Text = "Ver contenidos de bloque en pequeño";
-                deleteAllObjectsToolStripMenuItem.Text = "Borrar todos los objetos";
-                deleteAllSpritesToolStripMenuItem.Text = "Borrar todos los sprites";
-
-            }
+            LanguageManager.ApplyToContainer(this, "LevelEditor");
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -97,7 +83,7 @@ namespace NSMBe4 {
             tools = new ToolsForm(levelEditorControl1);
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);
             levelEditorControl1.minimap = MinimapForm;
-            MinimapForm.Text = "Minimap - " + this.Text;
+            MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), this.Text);
         }
 
         private void viewMap16ToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -137,11 +123,7 @@ namespace NSMBe4 {
         public bool ForceClose() {
             if (Dirty) {
                 DialogResult dr;
-                if (Properties.Settings.Default.Language != 1) {
-                    dr = MessageBox.Show("This level contains unsaved changes.\nIf you close the editor without saving, you will lose them.\nDo you want to save?", "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                } else {
-                    dr = MessageBox.Show("Este nivel tiene cambios sin guardar.\nSi cierras el editor sin guardar, los perderas.\nQuieres guardarlos?", "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                }
+                dr = MessageBox.Show(LanguageManager.Get("LevelEditor", "UnsavedLevel"), "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                 if (dr == DialogResult.Yes) {
                     Level.Save();
                 } else if (dr == DialogResult.Cancel) {
@@ -257,32 +239,20 @@ namespace NSMBe4 {
         }
 
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Properties.Settings.Default.Language != 1) {
-                if (MessageBox.Show("Are you sure you want to delete every object in the level?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
-                    return;
-                }
-            } else {
-                if (MessageBox.Show("Estas seguro que quieres borrar todos los objetos en el nivel?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
-                    return;
-                }
+            if (MessageBox.Show(LanguageManager.Get("LevelChooser", "ConfirmDelObjects"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
+                return;
             }
 
             Level.Objects.Clear();
-            if(levelEditorControl1.mode != null)
+            if (levelEditorControl1.mode != null)
                 levelEditorControl1.mode.Refresh();
             levelEditorControl1.Invalidate(true);
             Dirty = true;
         }
 
         private void deleteAllSpritesToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Properties.Settings.Default.Language != 1) {
-                if (MessageBox.Show("Are you sure you want to delete every sprite in the level?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
-                    return;
-                }
-            } else {
-                if (MessageBox.Show("Estas seguro que quieres borrar todos los sprites en el nivel?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
-                    return;
-                }
+            if (MessageBox.Show(LanguageManager.Get("LevelChooser", "ConfirmDelSprites"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
+                return;
             }
 
             Level.Sprites.Clear();
@@ -336,6 +306,5 @@ namespace NSMBe4 {
         {
             new TilesetEditor(ROM, Level.Blocks[0][0xC], "").Show();
         }
-
     }
 }

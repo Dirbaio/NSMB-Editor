@@ -75,6 +75,32 @@ ImportReady=Patch applied succesfully. {0} files replaced.
 
 
 
+[LevelEditor]
+saveLevelButton=Save Level
+viewMinimapButton=View Minimap
+levelConfigButton=Level Configuration
+toolStripLabel1=Editing:
+editObjectsButton=Objects/Sprites
+editEntrancesButton=Entrances
+editPathsButton=Paths
+editViewsButton=Views
+editZonesButton=Zones
+spriteFinder=Sprite Finder
+editTileset=Edit Tileset
+zoomMenu=Zoom
+optionsMenu=Options
+smallBlockOverlaysToolStripMenuItem=Use Small Block Overlays
+deleteAllObjectsToolStripMenuItem=Delete All Objects
+deleteAllSpritesToolStripMenuItem=Delete All Sprites
+
+MinimapTitle=Minimap - {0}
+
+UnsavedLevel=This level contains unsaved changes.\nIf you close the editor without saving, you will lose them.\nDo you want to save?
+ConfirmDelObjects=Are you sure you want to delete every object in the level?
+ConfirmDelSprites=Are you sure you want to delete every sprite in the level?
+
+
+
 [LevelConfig]
 _TITLE=Level Configuration
 

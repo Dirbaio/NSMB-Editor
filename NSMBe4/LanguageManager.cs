@@ -47,11 +47,7 @@ namespace NSMBe4 {
             if (Contents.ContainsKey(Area)) {
                 Dictionary<string, string> Referred = Contents[Area];
 
-                foreach (System.Windows.Forms.Control Control in Container.Controls) {
-                    if (Referred.ContainsKey(Control.Name)) {
-                        Control.Text = Referred[Control.Name];
-                    }
-                }
+                ApplyToContainer(Container, Referred);
 
                 if (Referred.ContainsKey("_TITLE")) {
                     Container.Text = Referred["_TITLE"];
@@ -63,6 +59,27 @@ namespace NSMBe4 {
                     "NSMB Editor 4",
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private static void ApplyToContainer(System.Windows.Forms.Control Container, Dictionary<string, string> Referred) {
+            foreach (System.Windows.Forms.Control Control in Container.Controls) {
+                if (Referred.ContainsKey(Control.Name)) {
+                    Control.Text = Referred[Control.Name];
+                }
+
+                if (Control is System.Windows.Forms.ToolStrip) {
+                    System.Windows.Forms.ToolStrip TS = Control as System.Windows.Forms.ToolStrip;
+                    foreach (System.Windows.Forms.ToolStripItem TSItem in TS.Items) {
+                        if (Referred.ContainsKey(TSItem.Name)) {
+                            TSItem.Text = Referred[TSItem.Name];
+                        }
+                    }
+                }
+
+                if (Control.Controls.Count > 0) {
+                    ApplyToContainer(Control, Referred);
+                }
             }
         }
     }

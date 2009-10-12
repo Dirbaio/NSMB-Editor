@@ -127,6 +127,9 @@
   <data name="pathpoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pathpoint.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="modifiertable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\modifiertable.bin;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="config" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\config.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -157,14 +160,17 @@
   <data name="fglist_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fglist_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="fglist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fglist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="sprite_invalid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sprite_invalid.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="modifierchooser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\modifierchooser.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="fg_ncl_table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fg_ncl_table.bin;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="modifiertable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\modifiertable.bin;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="english" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\english.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="bg_ncg_table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bg_ncg_table.bin;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -190,14 +196,14 @@
   <data name="file" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sprite_invalid" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sprite_invalid.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="tileoverrides" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tileoverrides.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ts_ncl_table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ts_ncl_table.bin;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="spanish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\spanish.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sprite.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,26 +214,32 @@
   <data name="ts_unt_hd_table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ts_unt_hd_table.bin;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="bglist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bglist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="options" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fglist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fglist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="tilesetlist_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tilesetlist_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="modifierchooser" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\modifierchooser.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="bglist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bglist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="spritelist" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spritelist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\find.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="door" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\door.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bglist_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bglist_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zoom.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="fg_ncg_table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fg_ncg_table.bin;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -256,10 +268,7 @@
   <data name="zones1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zones1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="english" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\english.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="spanish" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\spanish.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="gfxeditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gfxeditor.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
