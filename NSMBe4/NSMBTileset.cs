@@ -276,14 +276,22 @@ namespace NSMBe4
         #region Tile Behaviors
         private void loadTileBehaviors()
         {
-            if (TilesetNumber == 1)
+            byte[] tileBehaviorsFile = null;
+
+            if (TilesetNumber == 0)
             {
-                byte[] tileBehaviorsFile = ROM.ExtractFile(TileBehaviorFileID);
+                tileBehaviorsFile = Properties.Resources.jyotyu_chk;
+            }
+            else if (TilesetNumber == 1)
+            {
+                tileBehaviorsFile = ROM.ExtractFile(TileBehaviorFileID);
+            }
+
+            if (tileBehaviorsFile != null) {
                 TileBehaviors = new byte[Map16.Length][];
-                for (int i = 0; i < Map16.Length; i++)
-                {
+                for (int i = 0; i < Map16.Length; i++) {
                     TileBehaviors[i] = new byte[4];
-                    Array.Copy(tileBehaviorsFile, i*4, TileBehaviors[i], 0, 4);
+                    Array.Copy(tileBehaviorsFile, i * 4, TileBehaviors[i], 0, 4);
                 }
             }
         }

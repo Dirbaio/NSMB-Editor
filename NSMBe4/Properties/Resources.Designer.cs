@@ -329,6 +329,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static byte[] jyotyu_chk {
+            get {
+                object obj = ResourceManager.GetObject("jyotyu_chk", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to -World 1|A
         ///World 1-1|01|3
@@ -566,7 +573,7 @@ namespace NSMBe4.Properties {
         ///
         ///
         ///[LevelChooser]
-        ///_Title=NSMB Editor 4.8
+        ///_TITLE=NSMB Editor 4.8
         ///
         ///tabPage1=Sistema de archivos
         ///tabPage2=Editor de niveles

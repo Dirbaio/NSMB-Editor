@@ -374,6 +374,7 @@
     <Content Include="Resources\gfxeditor.png" />
     <Content Include="Resources\spanish.txt" />
     <Content Include="Resources\zoom.png" />
+    <None Include="Resources\jyotyu_chk.bin" />
     <None Include="Resources\zones1.png" />
     <None Include="Resources\zones.png" />
     <None Include="Resources\paths.png" />
