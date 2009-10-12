@@ -1,0 +1,101 @@
+﻿;NSMB Editor 4
+;Spanish Translation File
+;Created by Treeki; 12 Oct 2009
+
+[General]
+EditingSomething=Edicion de
+Warning=Aviso
+Question=Pregunta
+Completed=Terminado!
+
+
+
+[LevelChooser]
+_Title=NSMB Editor 4.8
+
+tabPage1=Sistema de archivos
+tabPage2=Editor de niveles
+tabPage3=Herramientas
+
+;Level Editor Tab
+importLevelButton=Importar nivel
+exportLevelButton=Exportar nivel
+hexEditLevelButton=Editar en hex
+editLevelButton=Editar nivel
+
+;File Browser Tab
+;These aren't located here, check FilesystemBrowser
+
+;Tools Tab
+groupBox1=Opciones
+label2=Idioma:
+changeLanguageButton=Cambiar
+dataFinderButton=Buscar Data
+patchExport=Exportar Parche
+patchImport=Importar Parche
+mpPatch=Parchar Mario vs Luigi
+lzUncompressAll=Descomprimir Todo (en LZ)
+tilesetEditor=Editar Objetos
+
+;Non-Control Strings
+AlreadyHexEditing=Tienes un editor hex abierto para este nivel. Para que no pasen problemas, no puedes editar el nivel en el editor normal a la misma vez.
+AlreadyNormalEditing=Tienes un editor normal abierto para este nivel. Para que no pasen problemas, no puedes editar el nivel en el editor hex a la misma vez.
+
+CantImportTitle=No puedes sustituir
+CantImport=Tienes un editor abierto con este nivel. Cerrar el editor antes que importa un nuevo nivel en esta posicion.
+
+LangChangedTitle=Cambiado
+LangChanged=Idioma cambiado. Tendras que cerrar y abrir el editor para ver el efecto.
+
+LZUncompWarning=Este modo es peligroso!\nDescomprimira todos los archivos en el juego!\nUsarlo en una copia del ROM, porque el juego estara completamente roto.\nEl unico uso que tiene es para examinar archivos en Tahaxan.\nEstas seguro que quieres continuar?
+DecompInNarcs=Quieres descomprimir archivos dentro de los NARCs?
+
+
+
+[Patch]
+
+;Exporting Patches
+Export=Exportar Parche
+SelectROM=Elegir un ROM limpio del juego original.
+SelectLocation=Elegir un sitio para guardar el parche.
+ExportProgressTitle=Exportando parche...
+StartingPatch=Parchando empiezara ahora. Puede tardar un tiempo, pero acabara.
+ExportDiffVersions=Los dos juegos parecen que son de diferentes versiones. Estas seguro que quieres continuar?
+ComparingFile=Comparando {0}...
+IncludedFile={0} incluido
+ExportReady=Ya esta acabado! {0} archivos incluido.
+
+;Importing Patches
+InvalidFile=Este no es un parche de NSMB Editor 4. Si esta seguro de que es un parche valido, puede estar corrupto.
+Unreadable=Error de Archivo
+ImportProgressTitle=Aplicando parche...
+ReplacingFile=Sustitiendo {0}...
+ImportDiffVersions=The two roms seem to be different versions. The patch should work, but maybe it doesn't.
+ImportReady=Parche aplicado! {0} archivos sustituido.
+
+
+
+[LevelConfig]
+_TITLE=Configuracion del Nivel
+
+tabPage1=Opciones
+tabPage2=Graficos
+tabPage3=Surtido Sprites (1)
+tabPage4=Surtido Sprites (2)
+
+OKButton=Vale
+cancelButton=Cancelar
+
+;Options tab
+label1=Limite de tiempo:
+label2=Entrada punto empezar:
+label3=Entrada punto medio:
+levelWrapCheckBox=Nivel cíclico (como en 7-2 y multijugador)
+
+;Graphics tab
+groupBox1=Serie de objetos
+groupBox2=Fondo delantero
+groupBox3=Fondo detras
+tilesetPreviewButton=Probar
+bgTopLayerPreviewButton=Probar
+bgBottomLayerPreviewButton=Probar

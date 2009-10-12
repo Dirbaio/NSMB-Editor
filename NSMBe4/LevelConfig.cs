@@ -14,26 +14,7 @@ namespace NSMBe4 {
             this.ROM = ROM;
             tabControl1.SelectTab(0);
 
-            // Translate
-            if (Properties.Settings.Default.Language == 1) {
-                tabPage1.Text = "Opciones";
-                tabPage2.Text = "Graficos";
-                tabPage3.Text = "Surtido Sprites (1)";
-                tabPage4.Text = "Surtido Sprites (2)";
-
-                groupBox1.Text = "Serie de objetos";
-                groupBox2.Text = "Fondo delantero";
-                groupBox3.Text = "Fondo detras";
-
-                label1.Text = "Limite de tiempo:";
-                label2.Text = "Entrada punto empezar:";
-                label3.Text = "Entrada punto medio:";
-
-                levelWrapCheckBox.Text = "Nivel cíclico (como en 7-2 y multijugador)";
-
-                OKButton.Text = "Vale";
-                cancelButton.Text = "Cancelar";
-            }
+            LanguageManager.ApplyToContainer(this, "LevelConfig");
 
             string[] rawlist;
             string[] parsedlist;

@@ -17,18 +17,10 @@ namespace NSMBe4 {
         }
 
         private void LevelChooser_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.Language == 1)
-            {
-                tabPage1.Text = "Sistema de archivos";
-                tabPage2.Text = "Editor de niveles";
-                importLevelButton.Text = "Importar nivel";
-                exportLevelButton.Text = "Exportar nivel";
-                editLevelButton.Text = "Editar nivel";
-
-                tabPage3.Text = "Opciones";
-                label2.Text = "Idioma:";
-                changeLanguageButton.Text = "Cambiar";
-                dataFinderButton.Text = "Buscar Data";
+            if (Properties.Settings.Default.Language == 0) {
+                LanguageManager.Load(Properties.Resources.english.Split('\n'));
+            } else if (Properties.Settings.Default.Language == 1) {
+                LanguageManager.Load(Properties.Resources.spanish.Split('\n'));
             }
 
             if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
@@ -46,6 +38,8 @@ namespace NSMBe4 {
 
                 OpenEditors = new List<LevelEditor>();
                 OpenLevelHexEditors = new List<LevelHexEditor>();
+
+                LanguageManager.ApplyToContainer(this, "LevelChooser");
             }
         }
 
@@ -121,23 +115,14 @@ namespace NSMBe4 {
             if (OpenLevelHexEditors.Count > 0) {
                 foreach (LevelHexEditor le in OpenLevelHexEditors) {
                     if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        if (Properties.Settings.Default.Language != 1) {
-                            MessageBox.Show("You are currently editing this level in a hex editor. To prevent problems, you can't edit it normally at the same time.", "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        } else {
-                            MessageBox.Show("Tienes un editor hex abierto para este nivel. Para que no pasen problemas, no puedes editar el nivel en el editor normal a la misma vez.", "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        MessageBox.Show(LanguageManager.Get("LevelChooser", "AlreadyHexEditing"), "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }
             }
 
             // Make a caption
-            String EditorCaption;
-            if (Properties.Settings.Default.Language != 1) {
-                EditorCaption = "Editing ";
-            } else {
-                EditorCaption = "Edicion de ";
-            }
+            string EditorCaption = LanguageManager.Get("General", "EditingSomething") + " ";
 
             if (levelTreeView.SelectedNode.Parent.Parent == null) {
                 EditorCaption += levelTreeView.SelectedNode.Text;
@@ -159,11 +144,7 @@ namespace NSMBe4 {
             if (OpenEditors.Count > 0) {
                 foreach (LevelEditor le in OpenEditors) {
                     if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        if (Properties.Settings.Default.Language != 1) {
-                            MessageBox.Show("You are currently editing this level in a normal editor. To prevent problems, you can't hex edit it at the same time.", "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        } else {
-                            MessageBox.Show("Tienes un editor normal abierto para este nivel. Para que no pasen problemas, no puedes editar el nivel en el editor hex a la misma vez.", "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        MessageBox.Show(LanguageManager.Get("LevelChooser", "AlreadyNormalEditing"), "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }
@@ -179,12 +160,7 @@ namespace NSMBe4 {
             }
 
             // Make a caption
-            String EditorCaption;
-            if (Properties.Settings.Default.Language != 1) {
-                EditorCaption = "Editing ";
-            } else {
-                EditorCaption = "Edicion de ";
-            }
+            string EditorCaption = LanguageManager.Get("General", "EditingSomething") + " ";
 
             if (levelTreeView.SelectedNode.Parent.Parent == null) {
                 EditorCaption += levelTreeView.SelectedNode.Text;
@@ -227,15 +203,10 @@ namespace NSMBe4 {
             if (OpenEditors.Count > 0) {
                 foreach (LevelEditor le in OpenEditors) {
                     if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        if (Properties.Settings.Default.Language != 1) {
-                            MessageBox.Show(
-                                "You currently have an editor open with this level. Please close it before you import a new level into this slot.",
-                                "Can't Replace", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        } else {
-                            MessageBox.Show(
-                                "Tienes un editor abierto con este nivel. Cerrar el editor antes que importa un nuevo nivel en esta posicion.",
-                                "No puedes sustituir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
+                        MessageBox.Show(
+                            LanguageManager.Get("LevelChooser", "CantImport"),
+                            LanguageManager.Get("LevelChooser", "CantImportTitle"),
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                 }
@@ -283,13 +254,10 @@ namespace NSMBe4 {
                 Properties.Settings.Default.Language = languageListBox.SelectedIndex;
                 Properties.Settings.Default.Save();
 
-                if (Properties.Settings.Default.Language != 1) {
-                    MessageBox.Show("Language changed. You will have to close and re-open the editor to see the effect.",
-                        "Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else {
-                    MessageBox.Show("Idioma cambiado. Tendras que cerrar y abrir el editor para ver el efecto.",
-                        "Cambiado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                    MessageBox.Show(
+                        LanguageManager.Get("LevelChooser", "LangChanged"),
+                        LanguageManager.Get("LevelChooser", "LangChangedTitle"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -330,14 +298,14 @@ namespace NSMBe4 {
             int fileCount = 0;
 
             //load the original rom
-            MessageBox.Show("Select a clean original rom.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(LanguageManager.Get("Patch", "SelectROM"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (openROMDialog.ShowDialog() == DialogResult.Cancel)
                 return;
             NitroClass origROM = new NitroClass(openROMDialog.FileName);
             origROM.Load(null);
 
             //open the output patch
-            MessageBox.Show("Select where to save the patch.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(LanguageManager.Get("Patch", "SelectLocation"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (savePatchDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
@@ -346,11 +314,11 @@ namespace NSMBe4 {
             bw.Write("NSMBe4 Exported Patch");
 
             //DO THE PATCH!!
-            ProgressWindow progress = new ProgressWindow("Eporting patch...");
+            ProgressWindow progress = new ProgressWindow(LanguageManager.Get("Patch", "ExportProgressTitle"));
             progress.Show();
             progress.SetMax(ROM.FileCount);
             int progVal = 0;
-            MessageBox.Show("Patching will start now. It may take a long time.", "Export Patch", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(LanguageManager.Get("Patch", "StartingPatch"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             ushort CourseDirID = ROM.DirIDs["course"];
 
             foreach (ushort id in ROM.FileNames.Keys)
@@ -359,12 +327,12 @@ namespace NSMBe4 {
                     continue;
 
                 Console.Out.WriteLine("Checking " + ROM.FileNames[id]);
-                progress.SetCurrentAction("Comparing " + ROM.FileNames[id] + "...");
+                progress.SetCurrentAction(string.Format(LanguageManager.Get("Patch", "ComparingFile"), ROM.FileNames[id]));
 
                 //check same version
                 if(!differentRomsWarning && ROM.FileNames[id] != origROM.FileNames[id])
                 {
-                    if (MessageBox.Show("The two roms seem to be different versions. Are you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    if (MessageBox.Show(LanguageManager.Get("Patch", "ExportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         differentRomsWarning = true;
                     else
                     {
@@ -381,7 +349,7 @@ namespace NSMBe4 {
                     //include file in patch
                     string fileName = origROM.FileNames[id];
                     Console.Out.WriteLine("Including: " + fileName);
-                    progress.WriteLine("Included " + fileName);
+                    progress.WriteLine(string.Format(LanguageManager.Get("Patch", "IncludedFile"), fileName));
                     fileCount++;
 
                     bw.Write((byte)1);
@@ -395,7 +363,7 @@ namespace NSMBe4 {
             bw.Write((byte)0);
             bw.Close();
             progress.SetCurrentAction("");
-            progress.WriteLine("Finished! Included "+fileCount+" files.");
+            progress.WriteLine(string.Format(LanguageManager.Get("Patch", "ExportReady"), fileCount));
         }
 
         public bool arrayEqual(byte[] a, byte[] b)
@@ -427,8 +395,9 @@ namespace NSMBe4 {
             if (header != "NSMBe4 Exported Patch")
             {
                 MessageBox.Show(
-                    "This is not a NSMBe4 patch file. If you're sure it's a valid patch file, it may be corrupted.",
-                    "Unreadable File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LanguageManager.Get("Patch", "InvalidFile"),
+                    LanguageManager.Get("Patch", "Unreadable"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 br.Close();
                 return;
             }
@@ -436,7 +405,7 @@ namespace NSMBe4 {
 
             //shitty way to show progress: I don't know how many files, so i do it size-based...
 
-            ProgressWindow progress = new ProgressWindow("Importing Patch...");
+            ProgressWindow progress = new ProgressWindow(LanguageManager.Get("Patch", "ImportProgressTitle"));
             progress.Show();
             progress.SetMax((int)br.BaseStream.Length);//i don't think there are such big patches
             int progVal = 0;
@@ -445,7 +414,7 @@ namespace NSMBe4 {
             while (filestartByte == 1)
             {
                 string fileName = br.ReadString();
-                progress.WriteLine("Replacing " + fileName + "...");
+                progress.WriteLine(string.Format(LanguageManager.Get("Patch", "ReplacingFile"), fileName));
                 ushort origFileID = br.ReadUInt16();
                 ushort fileID = ROM.FileIDs[fileName];
 
@@ -459,7 +428,7 @@ namespace NSMBe4 {
 
                 if (!differentRomsWarning && origFileID != fileID)
                 {
-                    MessageBox.Show("The two roms seem to be different versions. The patch should work, but maybe it doesn't.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(LanguageManager.Get("Patch", "ImportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     differentRomsWarning = true;
                 }
 
@@ -471,7 +440,7 @@ namespace NSMBe4 {
             progress.setValue(0);
             progress.SetMax(100);
             progress.setValue(100);
-            MessageBox.Show("Patch applied succesfully. "+fileCount+" files replaced.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(LanguageManager.Get("Patch", "ImportReady"), fileCount), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             progress.Close();
         }
 
@@ -483,7 +452,7 @@ namespace NSMBe4 {
             NarcReplace("Dat_Pipe.narc",     "J04_1.bin", "J04_1_bgdat.bin");
             NarcReplace("Dat_Fort.narc",     "J05_1.bin", "J05_1_bgdat.bin");
 
-            MessageBox.Show("Completed!");
+            MessageBox.Show(LanguageManager.Get("General", "Completed"));
         }
 
         private void NarcReplace(string NarcName, string f1, string f2)
@@ -499,10 +468,10 @@ namespace NSMBe4 {
 
         private void lzUncompressAll_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("This feature is dangerous!\nIt LZ Uncompresses ALL in the rom!\nUse it on a copy of your rom, because this will break the game completely.\n It is only useful for file examination in Taxahan.\nAre you sure you want to continue?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+            if (MessageBox.Show(LanguageManager.Get("LevelChooser", "LZUncompWarning"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                 return;
 
-            bool UncompressNARCS = MessageBox.Show("Do you want to uncompress files inside NARCS?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes;
+            bool UncompressNARCS = MessageBox.Show(LanguageManager.Get("LevelChooser", "DecompInNarcs"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo) == DialogResult.Yes;
 
             lzUncompress(ROM, UncompressNARCS);
         }

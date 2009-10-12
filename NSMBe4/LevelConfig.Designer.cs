@@ -92,7 +92,7 @@
             this.groupBox1.Size = new System.Drawing.Size(326, 46);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tileset";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // tilesetPreviewButton
             // 
@@ -100,7 +100,7 @@
             this.tilesetPreviewButton.Name = "tilesetPreviewButton";
             this.tilesetPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.tilesetPreviewButton.TabIndex = 1;
-            this.tilesetPreviewButton.Text = "Preview";
+            this.tilesetPreviewButton.Text = "<tilesetPreviewButton>";
             this.tilesetPreviewButton.UseVisualStyleBackColor = true;
             this.tilesetPreviewButton.Click += new System.EventHandler(this.tilesetPreviewButton_Click);
             // 
@@ -122,7 +122,7 @@
             this.groupBox2.Size = new System.Drawing.Size(326, 46);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Background Top Layer";
+            this.groupBox2.Text = "<groupBox2>";
             // 
             // bgTopLayerPreviewButton
             // 
@@ -130,7 +130,7 @@
             this.bgTopLayerPreviewButton.Name = "bgTopLayerPreviewButton";
             this.bgTopLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.bgTopLayerPreviewButton.TabIndex = 1;
-            this.bgTopLayerPreviewButton.Text = "Preview";
+            this.bgTopLayerPreviewButton.Text = "<bgTopLayerPreviewButton>";
             this.bgTopLayerPreviewButton.UseVisualStyleBackColor = true;
             this.bgTopLayerPreviewButton.Click += new System.EventHandler(this.bgTopLayerPreviewButton_Click);
             // 
@@ -152,7 +152,7 @@
             this.groupBox3.Size = new System.Drawing.Size(326, 46);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Background Bottom Layer";
+            this.groupBox3.Text = "<groupBox3>";
             // 
             // bgBottomLayerPreviewButton
             // 
@@ -160,7 +160,7 @@
             this.bgBottomLayerPreviewButton.Name = "bgBottomLayerPreviewButton";
             this.bgBottomLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.bgBottomLayerPreviewButton.TabIndex = 1;
-            this.bgBottomLayerPreviewButton.Text = "Preview";
+            this.bgBottomLayerPreviewButton.Text = "<bgBottomLayerPreviewButton>";
             this.bgBottomLayerPreviewButton.UseVisualStyleBackColor = true;
             this.bgBottomLayerPreviewButton.Click += new System.EventHandler(this.bgBottomLayerPreviewButton_Click);
             // 
@@ -229,11 +229,11 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(83, 32);
+            this.label2.Location = new System.Drawing.Point(113, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Start entrance:";
+            this.label2.Text = "<label2>";
             // 
             // timeLimitUpDown
             // 
@@ -252,21 +252,21 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(107, 6);
+            this.label1.Location = new System.Drawing.Point(113, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Time limit:";
+            this.label1.Text = "<label1>";
             // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(69, 58);
+            this.label3.Location = new System.Drawing.Point(113, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Midway entrance:";
+            this.label3.Text = "<label3>";
             // 
             // levelWrapCheckBox
             // 
@@ -275,9 +275,9 @@
             this.tableLayoutPanel1.SetColumnSpan(this.levelWrapCheckBox, 2);
             this.levelWrapCheckBox.Location = new System.Drawing.Point(3, 81);
             this.levelWrapCheckBox.Name = "levelWrapCheckBox";
-            this.levelWrapCheckBox.Size = new System.Drawing.Size(176, 17);
+            this.levelWrapCheckBox.Size = new System.Drawing.Size(135, 17);
             this.levelWrapCheckBox.TabIndex = 6;
-            this.levelWrapCheckBox.Text = "Level wraps around on left/right";
+            this.levelWrapCheckBox.Text = "<levelWrapCheckBox>";
             this.levelWrapCheckBox.UseVisualStyleBackColor = true;
             // 
             // cancelButton
@@ -288,7 +288,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 4;
-            this.cancelButton.Text = "Cancel";
+            this.cancelButton.Text = "<cancelButton>";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -299,7 +299,7 @@
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 5;
-            this.OKButton.Text = "OK";
+            this.OKButton.Text = "<OKButton>";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
@@ -326,7 +326,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(338, 168);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Options";
+            this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -339,7 +339,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(338, 168);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Graphics";
+            this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
@@ -359,7 +359,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(338, 168);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Sprite Sets (1)";
+            this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // label8
@@ -471,7 +471,7 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(338, 168);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Sprite Sets (2)";
+            this.tabPage4.Text = "<tabPage4>";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // label14
@@ -596,7 +596,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LevelConfig";
-            this.Text = "Level Configuration";
+            this.Text = "<_TITLE>";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);

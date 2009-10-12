@@ -84,7 +84,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(482, 322);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Level Editor";
+            this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // hexEditLevelButton
@@ -94,7 +94,7 @@
             this.hexEditLevelButton.Name = "hexEditLevelButton";
             this.hexEditLevelButton.Size = new System.Drawing.Size(66, 23);
             this.hexEditLevelButton.TabIndex = 4;
-            this.hexEditLevelButton.Text = "Hex Edit";
+            this.hexEditLevelButton.Text = "<hexEditLevelButton>";
             this.hexEditLevelButton.UseVisualStyleBackColor = true;
             this.hexEditLevelButton.Click += new System.EventHandler(this.hexEditLevelButton_Click);
             // 
@@ -105,7 +105,7 @@
             this.exportLevelButton.Name = "exportLevelButton";
             this.exportLevelButton.Size = new System.Drawing.Size(75, 23);
             this.exportLevelButton.TabIndex = 3;
-            this.exportLevelButton.Text = "Export Level";
+            this.exportLevelButton.Text = "<exportLevelButton>";
             this.exportLevelButton.UseVisualStyleBackColor = true;
             this.exportLevelButton.Click += new System.EventHandler(this.exportLevelButton_Click);
             // 
@@ -116,7 +116,7 @@
             this.importLevelButton.Name = "importLevelButton";
             this.importLevelButton.Size = new System.Drawing.Size(75, 23);
             this.importLevelButton.TabIndex = 2;
-            this.importLevelButton.Text = "Import Level";
+            this.importLevelButton.Text = "<importLevelButton>";
             this.importLevelButton.UseVisualStyleBackColor = true;
             this.importLevelButton.Click += new System.EventHandler(this.importLevelButton_Click);
             // 
@@ -127,7 +127,7 @@
             this.editLevelButton.Name = "editLevelButton";
             this.editLevelButton.Size = new System.Drawing.Size(75, 23);
             this.editLevelButton.TabIndex = 1;
-            this.editLevelButton.Text = "Edit Level";
+            this.editLevelButton.Text = "<editLevelButton>";
             this.editLevelButton.UseVisualStyleBackColor = true;
             this.editLevelButton.Click += new System.EventHandler(this.editLevelButton_Click);
             // 
@@ -151,7 +151,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(482, 322);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "File Browser";
+            this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // filesystemBrowser1
@@ -176,7 +176,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(482, 322);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Tools";
+            this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -191,16 +191,16 @@
             this.groupBox1.Size = new System.Drawing.Size(246, 310);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Settings";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Language:";
+            this.label2.Text = "<label2>";
             // 
             // languageListBox
             // 
@@ -222,7 +222,7 @@
             this.changeLanguageButton.Name = "changeLanguageButton";
             this.changeLanguageButton.Size = new System.Drawing.Size(75, 23);
             this.changeLanguageButton.TabIndex = 2;
-            this.changeLanguageButton.Text = "Change";
+            this.changeLanguageButton.Text = "<changeLanguageButton>";
             this.changeLanguageButton.UseVisualStyleBackColor = true;
             this.changeLanguageButton.Click += new System.EventHandler(this.changeLanguageButton_Click);
             // 
@@ -234,7 +234,7 @@
             this.tilesetEditor.Name = "tilesetEditor";
             this.tilesetEditor.Size = new System.Drawing.Size(218, 23);
             this.tilesetEditor.TabIndex = 3;
-            this.tilesetEditor.Text = "Tileset Editor";
+            this.tilesetEditor.Text = "<tilesetEditor>";
             this.tilesetEditor.UseVisualStyleBackColor = true;
             this.tilesetEditor.Click += new System.EventHandler(this.tilesetEditor_Click);
             // 
@@ -246,7 +246,7 @@
             this.lzUncompressAll.Name = "lzUncompressAll";
             this.lzUncompressAll.Size = new System.Drawing.Size(218, 23);
             this.lzUncompressAll.TabIndex = 3;
-            this.lzUncompressAll.Text = "LZ Uncompress Everything";
+            this.lzUncompressAll.Text = "<lzUncompressAll>";
             this.lzUncompressAll.UseVisualStyleBackColor = true;
             this.lzUncompressAll.Click += new System.EventHandler(this.lzUncompressAll_Click);
             // 
@@ -258,7 +258,7 @@
             this.mpPatch.Name = "mpPatch";
             this.mpPatch.Size = new System.Drawing.Size(218, 23);
             this.mpPatch.TabIndex = 3;
-            this.mpPatch.Text = "Multiplayer NARC Patch";
+            this.mpPatch.Text = "<mpPatch>";
             this.mpPatch.UseVisualStyleBackColor = true;
             this.mpPatch.Click += new System.EventHandler(this.mpPatch_Click);
             // 
@@ -270,7 +270,7 @@
             this.patchImport.Name = "patchImport";
             this.patchImport.Size = new System.Drawing.Size(218, 23);
             this.patchImport.TabIndex = 3;
-            this.patchImport.Text = "Import Patch";
+            this.patchImport.Text = "<patchImport>";
             this.patchImport.UseVisualStyleBackColor = true;
             this.patchImport.Click += new System.EventHandler(this.patchImport_Click);
             // 
@@ -282,7 +282,7 @@
             this.patchExport.Name = "patchExport";
             this.patchExport.Size = new System.Drawing.Size(218, 23);
             this.patchExport.TabIndex = 3;
-            this.patchExport.Text = "Export Patch";
+            this.patchExport.Text = "<patchExport>";
             this.patchExport.UseVisualStyleBackColor = true;
             this.patchExport.Click += new System.EventHandler(this.patchExport_Click);
             // 
@@ -294,7 +294,7 @@
             this.dataFinderButton.Name = "dataFinderButton";
             this.dataFinderButton.Size = new System.Drawing.Size(218, 23);
             this.dataFinderButton.TabIndex = 3;
-            this.dataFinderButton.Text = "Data Finder";
+            this.dataFinderButton.Text = "<dataFinderButton>";
             this.dataFinderButton.UseVisualStyleBackColor = true;
             this.dataFinderButton.Click += new System.EventHandler(this.dataFinderButton_Click);
             // 
@@ -334,7 +334,7 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelChooser";
-            this.Text = "NSMB Editor 4.8";
+            this.Text = "<_TITLE>";
             this.Load += new System.EventHandler(this.LevelChooser_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelChooser_FormClosing);
             this.tabControl1.ResumeLayout(false);

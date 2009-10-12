@@ -1,0 +1,101 @@
+﻿;NSMB Editor 4
+;English Translation File
+;Created by Treeki; 12 Oct 2009
+
+[General]
+EditingSomething=Editing
+Warning=Warning
+Question=Question
+Completed=Completed!
+
+
+
+[LevelChooser]
+_TITLE=NSMB Editor 4.8
+
+tabPage1=File Browser
+tabPage2=Level Editor
+tabPage3=Tools
+
+;Level Editor Tab
+importLevelButton=Import Level
+exportLevelButton=Export Level
+hexEditLevelButton=Hex Edit
+editLevelButton=Edit Level
+
+;File Browser Tab
+;These aren't located here, check FilesystemBrowser
+
+;Tools Tab
+groupBox1=Settings
+label2=Language:
+changeLanguageButton=Change
+dataFinderButton=Data Finder
+patchExport=Export Patch
+patchImport=Import Patch
+mpPatch=Multiplayer NARC Patch
+lzUncompressAll=LZ Uncompress Everything
+tilesetEditor=Tileset Editor
+
+;Non-Control Strings
+AlreadyHexEditing=You are currently editing this level in a hex editor. To prevent problems, you can't edit it normally at the same time.
+AlreadyNormalEditing=You are currently editing this level in a normal editor. To prevent problems, you can't hex edit it at the same time.
+
+CantImportTitle=Can't Replace
+CantImport=You currently have an editor open with this level. Please close it before you import a new level into this slot.
+
+LangChangedTitle=Changed
+LangChanged=Language changed. You will have to close and re-open the editor to see the effect.
+
+LZUncompWarning=This feature is dangerous!\nIt LZ Uncompresses ALL in the rom!\nUse it on a copy of your rom, because this will break the game completely.\nIt is only useful for file examination in Tahaxan.\nAre you sure you want to continue?
+DecompInNarcs=Do you want to uncompress files inside NARCS?
+
+
+
+[Patch]
+
+;Exporting Patches
+Export=Export Patch
+SelectROM=Select a clean original rom.
+SelectLocation=Select where to save the patch.
+ExportProgressTitle=Exporting patch...
+StartingPatch=Patching will start now. It may take a long time.
+ExportDiffVersions=The two roms seem to be different versions. Are you sure you want to continue?
+ComparingFile=Comparing {0}...
+IncludedFile=Included {0}
+ExportReady=Finished! Included {0} files.
+
+;Importing Patches
+InvalidFile=This is not a NSMBe4 patch file. If you're sure it's a valid patch file, it may be corrupted.
+Unreadable=Unreadable File
+ImportProgressTitle=Importing Patch...
+ReplacingFile=Replacing {0}...
+ImportDiffVersions=The two roms seem to be different versions. The patch should work, but maybe it doesn't.
+ImportReady=Patch applied succesfully. {0} files replaced.
+
+
+
+[LevelConfig]
+_TITLE=Level Configuration
+
+tabPage1=Options
+tabPage2=Graphics
+tabPage3=Sprite Sets (1)
+tabPage4=Sprite Sets (2)
+
+OKButton=OK
+cancelButton=Cancel
+
+;Options tab
+label1=Time limit:
+label2=Start entrance:
+label3=Midway entrance:
+levelWrapCheckBox=Level wraps around on left/right
+
+;Graphics tab
+groupBox1=Tileset
+groupBox2=Background Top Layer
+groupBox3=Background Bottom Layer
+tilesetPreviewButton=Preview
+bgTopLayerPreviewButton=Preview
+bgBottomLayerPreviewButton=Preview
