@@ -419,6 +419,7 @@
     <Compile Include="Map16Picker.Designer.cs">
       <DependentUpon>Map16Picker.cs</DependentUpon>
     </Compile>
+    <Compile Include="NSMBDataHandler.cs" />
     <Compile Include="PathEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

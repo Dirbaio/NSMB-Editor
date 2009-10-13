@@ -17,7 +17,126 @@ namespace NSMBe4 {
             Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], 0, false, 2);
 
             // Patch in a bunch of overrides to the normal tileset
-            Tilesets[0].Objects[0] = Tilesets[0].Objects[1];
+            // Now works directly on the map16 data
+            Tilesets[0].EditorOverrides[36] = 135;
+            Tilesets[0].Overrides[112] = 26;
+            Tilesets[0].Overrides[113] = 27;
+            Tilesets[0].Overrides[114] = 53;
+            Tilesets[0].Overrides[115] = 55;
+            Tilesets[0].Overrides[116] = 28;
+            Tilesets[0].Overrides[117] = 57;
+            Tilesets[0].Overrides[118] = 0;
+            Tilesets[0].Overrides[119] = 1;
+            Tilesets[0].Overrides[120] = 4;
+            Tilesets[0].Overrides[121] = 5;
+            Tilesets[0].Overrides[122] = 30;
+            Tilesets[0].Overrides[123] = 31;
+            Tilesets[0].Overrides[124] = 8;
+            Tilesets[0].Overrides[125] = 9;
+            Tilesets[0].Overrides[126] = 20;
+            Tilesets[0].Overrides[127] = 21;
+            Tilesets[0].Overrides[128] = 24;
+            Tilesets[0].Overrides[129] = 25;
+            Tilesets[0].Overrides[132] = 29;
+            Tilesets[0].Overrides[130] = 54;
+            Tilesets[0].Overrides[131] = 56;
+            Tilesets[0].Overrides[133] = 58;
+            Tilesets[0].Overrides[134] = 2;
+            Tilesets[0].Overrides[135] = 3;
+            Tilesets[0].Overrides[136] = 6;
+            Tilesets[0].Overrides[137] = 7;
+            Tilesets[0].Overrides[138] = 12;
+            Tilesets[0].Overrides[139] = 13;
+            Tilesets[0].Overrides[140] = 10;
+            Tilesets[0].Overrides[141] = 11;
+            Tilesets[0].Overrides[142] = 22;
+            Tilesets[0].Overrides[143] = 23;
+            Tilesets[0].Overrides[145] = 32;
+            Tilesets[0].Overrides[146] = 19;
+            Tilesets[0].Overrides[147] = 17;
+            Tilesets[0].Overrides[148] = 18;
+            Tilesets[0].Overrides[149] = 14;
+            Tilesets[0].Overrides[150] = 22;
+            Tilesets[0].Overrides[151] = 23;
+            Tilesets[0].Overrides[152] = 71;
+            Tilesets[0].Overrides[153] = 72;
+            Tilesets[0].Overrides[154] = 15;
+            Tilesets[0].Overrides[155] = 16;
+            Tilesets[0].Overrides[156] = 20;
+            Tilesets[0].Overrides[157] = 21;
+            Tilesets[0].Overrides[158] = 28;
+            Tilesets[0].Overrides[159] = 29;
+            Tilesets[0].Overrides[160] = 71;
+            Tilesets[0].Overrides[161] = 72;
+            Tilesets[0].Overrides[171] = 53;
+            Tilesets[0].Overrides[172] = 57;
+            Tilesets[0].Overrides[173] = 55;
+            Tilesets[0].Overrides[174] = 26;
+            Tilesets[0].Overrides[175] = 27;
+            Tilesets[0].Overrides[187] = 54;
+            Tilesets[0].Overrides[188] = 58;
+            Tilesets[0].Overrides[189] = 56;
+            Tilesets[0].Overrides[190] = 24;
+            Tilesets[0].Overrides[191] = 25;
+            Tilesets[0].Overrides[192] = 59;
+            Tilesets[0].Overrides[193] = 63;
+            Tilesets[0].Overrides[194] = 61;
+            Tilesets[0].Overrides[195] = 65;
+            Tilesets[0].Overrides[196] = 69;
+            Tilesets[0].Overrides[197] = 67;
+            Tilesets[0].Overrides[198] = 33;
+            Tilesets[0].Overrides[199] = 34;
+            Tilesets[0].Overrides[200] = 41;
+            Tilesets[0].Overrides[201] = 42;
+            Tilesets[0].Overrides[202] = 37;
+            Tilesets[0].Overrides[203] = 38;
+            Tilesets[0].Overrides[204] = 47;
+            Tilesets[0].Overrides[205] = 48;
+            Tilesets[0].Overrides[206] = 51;
+            Tilesets[0].Overrides[207] = 52;
+            Tilesets[0].Overrides[208] = 60;
+            Tilesets[0].Overrides[209] = 64;
+            Tilesets[0].Overrides[210] = 62;
+            Tilesets[0].Overrides[211] = 66;
+            Tilesets[0].Overrides[212] = 70;
+            Tilesets[0].Overrides[213] = 68;
+            Tilesets[0].Overrides[214] = 35;
+            Tilesets[0].Overrides[215] = 36;
+            Tilesets[0].Overrides[216] = 43;
+            Tilesets[0].Overrides[217] = 44;
+            Tilesets[0].Overrides[218] = 39;
+            Tilesets[0].Overrides[219] = 40;
+            Tilesets[0].Overrides[220] = 49;
+            Tilesets[0].Overrides[221] = 50;
+            Tilesets[0].Overrides[222] = 45;
+            Tilesets[0].Overrides[223] = 46;
+            Tilesets[0].Overrides[228] = 41;
+            Tilesets[0].Overrides[229] = 42;
+            Tilesets[0].Overrides[230] = 45;
+            Tilesets[0].Overrides[231] = 65;
+            Tilesets[0].Overrides[232] = 69;
+            Tilesets[0].Overrides[233] = 67;
+            Tilesets[0].Overrides[234] = 47;
+            Tilesets[0].Overrides[235] = 48;
+            Tilesets[0].Overrides[236] = 52;
+            Tilesets[0].Overrides[237] = 59;
+            Tilesets[0].Overrides[238] = 63;
+            Tilesets[0].Overrides[239] = 61;
+            Tilesets[0].Overrides[244] = 43;
+            Tilesets[0].Overrides[245] = 44;
+            Tilesets[0].Overrides[246] = 46;
+            Tilesets[0].Overrides[247] = 66;
+            Tilesets[0].Overrides[248] = 70;
+            Tilesets[0].Overrides[249] = 68;
+            Tilesets[0].Overrides[250] = 49;
+            Tilesets[0].Overrides[251] = 50;
+            Tilesets[0].Overrides[252] = 51;
+            Tilesets[0].Overrides[253] = 60;
+            Tilesets[0].Overrides[254] = 64;
+            Tilesets[0].Overrides[255] = 62;
+            Tilesets[0].repaintAllMap16();
+
+            /*Tilesets[0].Objects[0] = Tilesets[0].Objects[1];
 
             Tilesets[0].Objects[57] = new NSMBTileset.ObjectDef(new byte[] { 64, 0, 0, 64, 1, 0, 0xFE, 64, 2, 0, 64, 3, 0, 0xFE, 0xFF });
             Tilesets[0].Objects[58] = new NSMBTileset.ObjectDef(new byte[] { 64, 4, 0, 64, 5, 0, 0xFE, 64, 6, 0, 64, 7, 0, 0xFE, 0xFF });
@@ -53,9 +172,9 @@ namespace NSMBe4 {
             Tilesets[0].Objects[81] = Tilesets[0].Objects[118] = new NSMBTileset.ObjectDef(new byte[] { 65, 69, 0, 64, 67, 0, 0xFE, 65, 70, 0, 64, 68, 0, 0xFE, 0xFF });
             Tilesets[0].Objects[64] = Tilesets[0].Objects[119] = new NSMBTileset.ObjectDef(new byte[] { 64, 71, 0, 0xFE, 0xFF });
             Tilesets[0].Objects[65] = Tilesets[0].Objects[120] = new NSMBTileset.ObjectDef(new byte[] { 64, 72, 0, 0xFE, 0xFF });
-            Tilesets[0].Objects[26] = new NSMBTileset.ObjectDef(new byte[] { 64, 135, 0, 0xFE, 0xFF });
+            Tilesets[0].Objects[26] = new NSMBTileset.ObjectDef(new byte[] { 64, 135, 0, 0xFE, 0xFF });*/
 
-            RepatchBlocks(Properties.Settings.Default.SmallBlockOverlays);
+            //RepatchBlocks(Properties.Settings.Default.SmallBlockOverlays);
 
             // Enable notes for the normal tileset
             Tilesets[0].UseNotes = true;
@@ -80,7 +199,7 @@ namespace NSMBe4 {
         public void LoadTileset1(ushort TilesetID)
         {
             // Create a reference to each table to make the code less messy
-            int TSOffset = TilesetID * 4;
+            /*int TSOffset = TilesetID * 4;
             byte[] table = null;
 
             table = NSMBe4.Properties.Resources.ts_ncg_table;
@@ -112,7 +231,14 @@ namespace NSMBe4 {
             // Is this version of the ROM missing files?
             if (!ROM.FileIDs.ContainsKey("d_2d_TEN_W_kazangake2_ncg.bin") && GFXFile > ROM.FileIDs["d_2d_TEN_W_kazangake_ncg.bin"]) {
                 GFXFile -= 2;
-            }
+            }*/
+
+            ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_NCG);
+            ushort PalFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_NCL);
+            ushort Map16File = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_PNL);
+            ushort ObjFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_UNT);
+            ushort ObjIndexFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_UNT_HD);
+            ushort TileBehaviorFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_CHK);
 
             Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, TileBehaviorFile, false, 1);
         }

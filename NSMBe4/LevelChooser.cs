@@ -27,6 +27,7 @@ namespace NSMBe4 {
 
                 ROM = new NitroClass(openROMDialog.FileName);
                 filesystemBrowser1.Load(ROM);
+                NSMBDataHandler.load(ROM);
 
                 LoadLevelNames();
 

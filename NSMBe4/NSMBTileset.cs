@@ -140,6 +140,9 @@ namespace NSMBe4
         public bool UseOverrides;
         public Bitmap OverrideBitmap;
 
+        public short[] Overrides;
+        public short[] EditorOverrides;
+
         public bool UseNotes;
         public string[] ObjNotes;
 
@@ -237,6 +240,15 @@ namespace NSMBe4
             if (OverrideFlag) {
                 UseOverrides = true;
                 OverrideBitmap = Properties.Resources.tileoverrides;
+
+                Overrides = new short[Map16.Length];
+                EditorOverrides = new short[Map16.Length];
+
+                for (int idx = 0; idx < Map16.Length; idx++) {
+                    Overrides[idx] = -1;
+                    EditorOverrides[idx] = -1;
+                }
+
 #if !USE_GDIPLUS
                 OverrideGraphics = Graphics.FromImage(OverrideBitmap);
                 OverrideHDC = OverrideGraphics.GetHdc();
@@ -386,6 +398,11 @@ namespace NSMBe4
 
         public void RenderMap16Tile(int Map16Idx)
         {
+            if (UseOverrides && Overrides[Map16Idx] > -1) {
+                Map16Graphics.DrawImage(OverrideBitmap, new Rectangle(Map16Idx << 4, 0, 16, 16), new Rectangle(Overrides[Map16Idx] << 4, 0, 16, 16), GraphicsUnit.Pixel);
+                return;
+            }
+
             Map16Tile t = Map16[Map16Idx];
             int x = Map16Idx*16;
             RenderMap16Quarter(t.topLeft, x, 0);
@@ -534,6 +551,10 @@ namespace NSMBe4
             t.topRight = new Map16Quarter(this);
             t.bottomLeft = new Map16Quarter(this);
             t.bottomRight = new Map16Quarter(this);
+        }
+
+        public void ApplyOverride(int Target, int Override) {
+            Map16Graphics.DrawImage(OverrideBitmap, new Rectangle(Target << 4, 0, 16, 16), new Rectangle(Override << 4, 0, 16, 16), GraphicsUnit.Pixel);
         }
 
         #endregion

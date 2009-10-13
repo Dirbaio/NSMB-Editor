@@ -313,6 +313,14 @@ label9=Y:
 
 
 
+[TilesetChooser]
+_TITLE=Editar Objetos
+groupBox1=Elegir una serie de objetos para modificar:
+editJyotyuButton=Modificar Jyotyu (Serie 0: Bloques/Tuberias)
+openTilesetButton=Abrir
+
+
+
 [TilesetEditor]
 _TITLE=Edicion de Serie de Objetos - {0}
 toolStripButton1=Guardar Objetos
