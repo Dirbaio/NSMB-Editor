@@ -28,6 +28,8 @@ namespace NSMBe4
                         palette[colorNum++] = Color.FromArgb(r, g, b);
 
             updatePaletteCount();
+
+            LanguageManager.ApplyToContainer(this, "GraphicsViewer");
         }
 
         private void updatePaletteCount()

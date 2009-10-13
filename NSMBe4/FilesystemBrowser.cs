@@ -19,21 +19,13 @@ namespace NSMBe4
         public FilesystemBrowser()
         {
             InitializeComponent();
-            if (Properties.Settings.Default.Language == 1)
-            {
-                label1.Text = "Info seleccion:";
-                extractFileButton.Text = "Extraer";
-                replaceFileButton.Text = "Sustituir";
-                compressFileButton.Text = "Comprimir LZ";
-                decompressFileButton.Text = "Descomprimir LZ";
-            }
-
 
             extractFileButton.Enabled = false;
             replaceFileButton.Enabled = false;
             compressFileButton.Enabled = false;
             decompressFileButton.Enabled = false;
             hexEdButton.Enabled = false;
+            LanguageManager.ApplyToContainer(this, "FilesystemBrowser");
 
             DirHolder = new Dictionary<int, TreeNode>();
         }
@@ -57,14 +49,7 @@ namespace NSMBe4
             string StatusMsg;
             if (FSObjId >= 61440)
             {
-                if (Properties.Settings.Default.Language != 1)
-                {
-                    StatusMsg = "Directory: " + n.Text + " - ID " + n.Tag;
-                }
-                else
-                {
-                    StatusMsg = "Carpeta: " + n.Text + " - ID " + n.Tag;
-                }
+                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FolderStatus"), n.Text, n.Tag);
                 extractFileButton.Enabled = false;
                 replaceFileButton.Enabled = false;
                 compressFileButton.Enabled = false;
@@ -73,14 +58,7 @@ namespace NSMBe4
             }
             else
             {
-                if (Properties.Settings.Default.Language != 1)
-                {
-                    StatusMsg = "Offset: 0x" + ROM.FileOffsets[FSObjId].ToString("X") + " - Size: " + ROM.FileSizes[FSObjId].ToString() + " bytes - ID " + n.Tag;
-                }
-                else
-                {
-                    StatusMsg = "Posicion: 0x" + ROM.FileOffsets[FSObjId].ToString("X") + " - Tamaño: " + ROM.FileSizes[FSObjId].ToString() + " bytes - ID " + n.Tag;
-                }
+                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FileStatus"), ROM.FileOffsets[FSObjId].ToString("X"), ROM.FileSizes[FSObjId].ToString(), n.Tag);
                 extractFileButton.Enabled = true;
                 replaceFileButton.Enabled = true;
                 compressFileButton.Enabled = true;
@@ -157,7 +135,7 @@ namespace NSMBe4
             }
             catch (Exception)
             {
-                MessageBox.Show("Couldn't decompress file. Maybe it's not compressed?");
+                MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "DecompressionFail"));
             }
         }
 

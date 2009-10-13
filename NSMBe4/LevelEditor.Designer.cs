@@ -96,7 +96,7 @@
             this.saveLevelButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveLevelButton.Name = "saveLevelButton";
             this.saveLevelButton.Size = new System.Drawing.Size(81, 22);
-            this.saveLevelButton.Text = "Save Level";
+            this.saveLevelButton.Text = "<saveLevelButton>";
             this.saveLevelButton.Click += new System.EventHandler(this.saveLevelButton_Click);
             // 
             // viewMinimapButton
@@ -105,7 +105,7 @@
             this.viewMinimapButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.viewMinimapButton.Name = "viewMinimapButton";
             this.viewMinimapButton.Size = new System.Drawing.Size(103, 22);
-            this.viewMinimapButton.Text = "View Minimap";
+            this.viewMinimapButton.Text = "<viewMinimapButton>";
             this.viewMinimapButton.Click += new System.EventHandler(this.viewMinimapButton_Click);
             // 
             // levelConfigButton
@@ -114,7 +114,7 @@
             this.levelConfigButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.levelConfigButton.Name = "levelConfigButton";
             this.levelConfigButton.Size = new System.Drawing.Size(131, 22);
-            this.levelConfigButton.Text = "Level Configuration";
+            this.levelConfigButton.Text = "<levelConfigButton>";
             this.levelConfigButton.Click += new System.EventHandler(this.levelConfigButton_Click);
             // 
             // toolStripSeparator1
@@ -126,7 +126,7 @@
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(47, 22);
-            this.toolStripLabel1.Text = "Editing:";
+            this.toolStripLabel1.Text = "<toolStripLabel1>";
             // 
             // editObjectsButton
             // 
@@ -135,7 +135,7 @@
             this.editObjectsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editObjectsButton.Name = "editObjectsButton";
             this.editObjectsButton.Size = new System.Drawing.Size(23, 22);
-            this.editObjectsButton.Text = "Objects/Sprites";
+            this.editObjectsButton.Text = "<editObjectsButton>";
             this.editObjectsButton.Click += new System.EventHandler(this.editObjectsButton_Click);
             // 
             // editEntrancesButton
@@ -145,7 +145,7 @@
             this.editEntrancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editEntrancesButton.Name = "editEntrancesButton";
             this.editEntrancesButton.Size = new System.Drawing.Size(23, 22);
-            this.editEntrancesButton.Text = "Entrances";
+            this.editEntrancesButton.Text = "<editEntrancesButton>";
             this.editEntrancesButton.Click += new System.EventHandler(this.editEntrancesButton_Click);
             // 
             // editPathsButton
@@ -155,7 +155,7 @@
             this.editPathsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editPathsButton.Name = "editPathsButton";
             this.editPathsButton.Size = new System.Drawing.Size(23, 22);
-            this.editPathsButton.Text = "Paths";
+            this.editPathsButton.Text = "<editPathsButton>";
             this.editPathsButton.Click += new System.EventHandler(this.editPathsButton_Click);
             // 
             // editViewsButton
@@ -165,7 +165,7 @@
             this.editViewsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editViewsButton.Name = "editViewsButton";
             this.editViewsButton.Size = new System.Drawing.Size(23, 22);
-            this.editViewsButton.Text = "Views";
+            this.editViewsButton.Text = "<editViewsButton>";
             this.editViewsButton.Click += new System.EventHandler(this.editViewsButton_Click);
             // 
             // editZonesButton
@@ -175,7 +175,7 @@
             this.editZonesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editZonesButton.Name = "editZonesButton";
             this.editZonesButton.Size = new System.Drawing.Size(23, 22);
-            this.editZonesButton.Text = "Zones";
+            this.editZonesButton.Text = "<editZonesButton>";
             this.editZonesButton.Click += new System.EventHandler(this.editZonesButton_Click);
             // 
             // toolStripSeparator2
@@ -189,7 +189,7 @@
             this.spriteFinder.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.spriteFinder.Name = "spriteFinder";
             this.spriteFinder.Size = new System.Drawing.Size(93, 22);
-            this.spriteFinder.Text = "Sprite Finder";
+            this.spriteFinder.Text = "<spriteFinder>";
             this.spriteFinder.Click += new System.EventHandler(this.spriteFinder_Click);
             // 
             // zoomMenu
@@ -206,7 +206,7 @@
             this.zoomMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomMenu.Name = "zoomMenu";
             this.zoomMenu.Size = new System.Drawing.Size(68, 22);
-            this.zoomMenu.Text = "Zoom";
+            this.zoomMenu.Text = "<zoomMenu>";
             this.zoomMenu.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripDropDownButton1_DropDownItemClicked);
             // 
             // toolStripMenuItem2
@@ -265,35 +265,35 @@
             this.optionsMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.optionsMenu.Name = "optionsMenu";
             this.optionsMenu.Size = new System.Drawing.Size(29, 22);
-            this.optionsMenu.Text = "Options";
-            this.optionsMenu.ToolTipText = "Options";
+            this.optionsMenu.Text = "<optionsMenu>";
             // 
             // smallBlockOverlaysToolStripMenuItem
             // 
             this.smallBlockOverlaysToolStripMenuItem.Name = "smallBlockOverlaysToolStripMenuItem";
             this.smallBlockOverlaysToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.smallBlockOverlaysToolStripMenuItem.Text = "Use Small Block Overlays";
+            this.smallBlockOverlaysToolStripMenuItem.Text = "<smallBlockOverlaysToolStripMenuItem>";
             this.smallBlockOverlaysToolStripMenuItem.Click += new System.EventHandler(this.smallBlockOverlaysToolStripMenuItem_Click);
             // 
             // viewMap16ToolStripMenuItem
             // 
             this.viewMap16ToolStripMenuItem.Name = "viewMap16ToolStripMenuItem";
             this.viewMap16ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.viewMap16ToolStripMenuItem.Text = "View Map16";
+            this.viewMap16ToolStripMenuItem.Text = "<viewMap16ToolStripMenuItem>";
             this.viewMap16ToolStripMenuItem.Click += new System.EventHandler(this.viewMap16ToolStripMenuItem_Click);
+            this.viewMap16ToolStripMenuItem.Visible = false;
             // 
             // deleteAllObjectsToolStripMenuItem
             // 
             this.deleteAllObjectsToolStripMenuItem.Name = "deleteAllObjectsToolStripMenuItem";
             this.deleteAllObjectsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.deleteAllObjectsToolStripMenuItem.Text = "Delete All Objects";
+            this.deleteAllObjectsToolStripMenuItem.Text = "<deleteAllObjectsToolStripMenuItem>";
             this.deleteAllObjectsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllObjectsToolStripMenuItem_Click);
             // 
             // deleteAllSpritesToolStripMenuItem
             // 
             this.deleteAllSpritesToolStripMenuItem.Name = "deleteAllSpritesToolStripMenuItem";
             this.deleteAllSpritesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.deleteAllSpritesToolStripMenuItem.Text = "Delete All Sprites";
+            this.deleteAllSpritesToolStripMenuItem.Text = "<deleteAllSpritesToolStripMenuItem>";
             this.deleteAllSpritesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllSpritesToolStripMenuItem_Click);
             // 
             // editTileset
@@ -303,7 +303,7 @@
             this.editTileset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editTileset.Name = "editTileset";
             this.editTileset.Size = new System.Drawing.Size(23, 22);
-            this.editTileset.Text = "Edit Tileset";
+            this.editTileset.Text = "<editTileset>";
             this.editTileset.Click += new System.EventHandler(this.editTileset_Click);
             // 
             // PanelContainer
@@ -335,7 +335,7 @@
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.cutToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.cutToolStripMenuItem.Text = "Cut";
+            this.cutToolStripMenuItem.Text = "<cutToolStripMenuItem>";
             this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
             // 
             // copyToolStripMenuItem
@@ -343,7 +343,7 @@
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Text = "<copyToolStripMenuItem>";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // pasteToolStripMenuItem
@@ -351,7 +351,7 @@
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pasteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Text = "<pasteToolStripMenuItem>";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
@@ -359,7 +359,7 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Text = "<deleteToolStripMenuItem>";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // levelEditorControl1

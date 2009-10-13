@@ -80,7 +80,7 @@
             this.addPath.Name = "addPath";
             this.addPath.Size = new System.Drawing.Size(75, 21);
             this.addPath.TabIndex = 0;
-            this.addPath.Text = "Add Path";
+            this.addPath.Text = "<addPath>";
             this.addPath.UseVisualStyleBackColor = true;
             this.addPath.Click += new System.EventHandler(this.addPath_Click);
             // 
@@ -91,7 +91,7 @@
             this.deletePath.Name = "deletePath";
             this.deletePath.Size = new System.Drawing.Size(75, 21);
             this.deletePath.TabIndex = 0;
-            this.deletePath.Text = "Delete Path";
+            this.deletePath.Text = "<deletePath>";
             this.deletePath.UseVisualStyleBackColor = true;
             this.deletePath.Click += new System.EventHandler(this.deletePath_Click);
             // 
@@ -119,7 +119,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Path ID:";
+            this.label1.Text = "<label1>";
             // 
             // pathID
             // 
@@ -156,7 +156,7 @@
             this.groupBox1.Size = new System.Drawing.Size(241, 53);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Path settings";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // groupBox2
             // 
@@ -168,7 +168,7 @@
             this.groupBox2.Size = new System.Drawing.Size(244, 235);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Node settings";
+            this.groupBox2.Text = "<groupBox2>";
             // 
             // tableLayoutPanel2
             // 
@@ -216,7 +216,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "X:";
+            this.label2.Text = "<label2>";
             // 
             // nodeX
             // 
@@ -240,7 +240,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Unknown 1:";
+            this.label3.Text = "<label3>";
             // 
             // label4
             // 
@@ -250,7 +250,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Unknown 2:";
+            this.label4.Text = "<label4>";
             // 
             // label5
             // 
@@ -260,7 +260,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Y:";
+            this.label5.Text = "<label5>";
             // 
             // label6
             // 
@@ -270,7 +270,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Unknown 4:";
+            this.label6.Text = "<label6>";
             // 
             // label7
             // 
@@ -280,7 +280,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Unknown 5:";
+            this.label7.Text = "<label7>";
             // 
             // label8
             // 
@@ -290,7 +290,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 13);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Unknown 6:";
+            this.label8.Text = "<label8>";
             // 
             // label9
             // 
@@ -300,7 +300,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 13);
             this.label9.TabIndex = 0;
-            this.label9.Text = "Unknown 3:";
+            this.label9.Text = "<label9>";
             // 
             // nodeY
             // 
@@ -420,7 +420,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(17, 13);
             this.label10.TabIndex = 0;
-            this.label10.Text = "X:";
+            this.label10.Text = "<label10>";
             // 
             // numericUpDown6
             // 

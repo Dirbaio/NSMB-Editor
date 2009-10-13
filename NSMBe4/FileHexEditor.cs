@@ -19,7 +19,8 @@ namespace NSMBe4
             InitializeComponent();
             this.ROM = ROM;
             this.FileID = FileID;
-            this.Text += " - " + ROM.FileNames[FileID];
+            LanguageManager.ApplyToContainer(this, "FileHexEditor");
+            this.Text = string.Format(LanguageManager.Get("FileHexEditor", "_TITLE"), ROM.FileNames[FileID]);
 
             hexBox1.ByteProvider = new DynamicByteProvider(ROM.ExtractFile(FileID));
         }

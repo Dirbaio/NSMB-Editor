@@ -14,6 +14,10 @@ namespace NSMBe4 {
         private NSMBGraphics GFX;
         private bool Ready = false;
 
+        // save countless dictionary lookups every repaint
+        private string ObjectString = LanguageManager.Get("ObjectPickerControl", "Object");
+        private string InvalidObjectString = LanguageManager.Get("ObjectPickerControl", "InvalidObject");
+
         public ObjectPickerControl()
         {
             InitializeComponent();
@@ -101,11 +105,11 @@ namespace NSMBe4 {
 
             for (int ObjIdx = 0; ObjIdx < ViewableHeight; ObjIdx++) {
                 e.Graphics.FillRectangle((RealObjIdx == SelectedObject) ? Brushes.WhiteSmoke : Brushes.Gainsboro, 2, CurrentDrawY, DrawingArea.Width - 4, 52);
-                e.Graphics.DrawString("Object " + RealObjIdx.ToString(), NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY);
+                e.Graphics.DrawString(ObjectString + " " + RealObjIdx.ToString(), NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY);
                 if (!GFX.Tilesets[CurrentTileset].objectExists(RealObjIdx)) {
                     // Invalid object
                     e.Graphics.DrawImage(NSMBe4.Properties.Resources.warning, DrawingArea.Width - 22, CurrentDrawY + 2);
-                    e.Graphics.DrawString("This object does not exist\nin the selected tileset.", NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY + 14);
+                    e.Graphics.DrawString(InvalidObjectString, NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY + 14);
                 }
                 if (GFX.Tilesets[CurrentTileset].UseNotes && RealObjIdx < GFX.Tilesets[CurrentTileset].ObjNotes.Length) {
                     e.Graphics.DrawString(GFX.Tilesets[CurrentTileset].ObjNotes[RealObjIdx], NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY + 14);

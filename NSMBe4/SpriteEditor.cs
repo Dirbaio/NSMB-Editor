@@ -39,14 +39,7 @@ namespace NSMBe4
 
             UpdateInfo();
 
-            if (Properties.Settings.Default.Language == 1)
-            {
-                addSpriteButton.Text = "Añadir Sprite";
-                deleteSpriteButton.Text = "Borrar Sprite";
-                groupBox1.Text = "Posicion de Sprite";
-                label8.Text = "Tipo de Sprite:";
-                label10.Text = "Datos de Sprite:";
-            }
+            LanguageManager.ApplyToContainer(this, "SpriteEditor");
         }
 
         private SpriteData.SpriteDataEditor sed;

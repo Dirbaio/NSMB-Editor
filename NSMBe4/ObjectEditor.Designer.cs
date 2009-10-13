@@ -65,7 +65,7 @@
             this.deleteObjectButton.Name = "deleteObjectButton";
             this.deleteObjectButton.Size = new System.Drawing.Size(88, 23);
             this.deleteObjectButton.TabIndex = 12;
-            this.deleteObjectButton.Text = "Delete Object";
+            this.deleteObjectButton.Text = "<deleteObjectButton>";
             this.deleteObjectButton.UseVisualStyleBackColor = true;
             this.deleteObjectButton.Click += new System.EventHandler(this.deleteObjectButton_Click);
             // 
@@ -75,7 +75,7 @@
             this.addObjectButton.Name = "addObjectButton";
             this.addObjectButton.Size = new System.Drawing.Size(88, 23);
             this.addObjectButton.TabIndex = 11;
-            this.addObjectButton.Text = "Add Object";
+            this.addObjectButton.Text = "<addObjectButton>";
             this.addObjectButton.UseVisualStyleBackColor = true;
             this.addObjectButton.Click += new System.EventHandler(this.addObjectButton_Click);
             // 
@@ -89,7 +89,7 @@
             this.objPositionBox.Size = new System.Drawing.Size(272, 69);
             this.objPositionBox.TabIndex = 9;
             this.objPositionBox.TabStop = false;
-            this.objPositionBox.Text = "Object Positioning";
+            this.objPositionBox.Text = "<objPositionBox>";
             // 
             // tableLayoutPanel1
             // 
@@ -133,11 +133,11 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(151, 6);
+            this.label2.Location = new System.Drawing.Point(142, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Width:";
+            this.label2.Text = "<label2>";
             // 
             // objWidthUpDown
             // 
@@ -167,21 +167,21 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 31);
+            this.label3.Location = new System.Drawing.Point(3, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 13);
+            this.label3.Size = new System.Drawing.Size(33, 25);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Y:";
+            this.label3.Text = "<label3>";
             // 
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(148, 31);
+            this.label4.Location = new System.Drawing.Point(142, 31);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.Size = new System.Drawing.Size(47, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Height:";
+            this.label4.Text = "<label4>";
             // 
             // objHeightUpDown
             // 
@@ -225,11 +225,11 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 6);
+            this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 13);
+            this.label1.Size = new System.Drawing.Size(33, 25);
             this.label1.TabIndex = 0;
-            this.label1.Text = "X:";
+            this.label1.Text = "<label1>";
             // 
             // objPickerBox
             // 
@@ -242,7 +242,7 @@
             this.objPickerBox.Size = new System.Drawing.Size(272, 316);
             this.objPickerBox.TabIndex = 10;
             this.objPickerBox.TabStop = false;
-            this.objPickerBox.Text = "Object Picker";
+            this.objPickerBox.Text = "<objPickerBox>";
             // 
             // tableLayoutPanel2
             // 
@@ -271,21 +271,21 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(62, 6);
+            this.label5.Location = new System.Drawing.Point(56, 6);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Tileset:";
+            this.label5.Text = "<label5>";
             // 
             // label6
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(35, 31);
+            this.label6.Location = new System.Drawing.Point(56, 31);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.Size = new System.Drawing.Size(47, 13);
             this.label6.TabIndex = 1;
-            this.label6.Text = "Object Type:";
+            this.label6.Text = "<label6>";
             // 
             // objTypeUpDown
             // 

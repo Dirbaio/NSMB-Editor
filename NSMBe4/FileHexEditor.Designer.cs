@@ -51,8 +51,8 @@
             this.saveButton.Image = global::NSMBe4.Properties.Resources.save;
             this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(51, 22);
-            this.saveButton.Text = "Save";
+            this.saveButton.Size = new System.Drawing.Size(102, 22);
+            this.saveButton.Text = "<saveButton>";
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // toolStrip1
@@ -73,7 +73,7 @@
             this.Controls.Add(this.hexBox1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "FileHexEditor";
-            this.Text = "Hex Editor";
+            this.Text = "<_TITLE>";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

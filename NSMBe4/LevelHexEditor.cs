@@ -33,10 +33,7 @@ namespace NSMBe4 {
         }
 
         private void LevelHexEditor_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.Language == 1) {
-                saveBlockButton.Text = "Guardar Bloque";
-                toolStripLabel1.Text = "Bloque:";
-            }
+            LanguageManager.ApplyToContainer(this, "LevelHexEditor");
         }
 
         private NitroClass ROM;
@@ -49,11 +46,7 @@ namespace NSMBe4 {
         public bool ForceClose() {
             if (Dirty) {
                 DialogResult dr;
-                if (Properties.Settings.Default.Language != 1) {
-                    dr = MessageBox.Show("This level contains unsaved changes.\nIf you close the editor without saving, you will lose them.\nDo you want to save?", "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                } else {
-                    dr = MessageBox.Show("Este nivel tiene cambios sin guardar.\nSi cierras el editor sin guardarlo, los pierderas.\nQuiere guardarlos?", "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                }
+                dr = MessageBox.Show(LanguageManager.Get("LevelHexEditor", "UnsavedLevel"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                 if (dr == DialogResult.Yes) {
                     Save();
                 } else if (dr == DialogResult.Cancel) {

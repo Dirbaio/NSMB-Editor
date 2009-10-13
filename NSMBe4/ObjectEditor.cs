@@ -22,19 +22,7 @@ namespace NSMBe4
             this.o = o;
             this.EdControl = EdControl;
             UpdateInfo();
-            if (Properties.Settings.Default.Language == 1)
-            {
-                {
-                    addObjectButton.Text = "Añadir Objeto";
-                    deleteObjectButton.Text = "Borrar Objeto";
-                    objPositionBox.Text = "Posicion de Objeto";
-                    objPickerBox.Text = "Elegir Objeto";
-                    label2.Text = "Anchura:";
-                    label4.Text = "Altura:";
-                    label5.Text = "Serie de Objetos:";
-                    label6.Text = "Tipo de Objeto:";
-                }
-            }
+            LanguageManager.ApplyToContainer(this, "ObjectEditor");
         }
 
         private void setOPC(ObjectPickerControl opc)

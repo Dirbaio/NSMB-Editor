@@ -288,49 +288,29 @@ namespace NSMBe4 {
         public static void ImportLevel(NitroClass ROM, ushort LevelFileID, ushort BGFileID, BinaryReader br) {
             string Header = br.ReadString();
             if (Header != "NSMBe4 Exported Level") {
-                if (Properties.Settings.Default.Language != 1) {
-                    MessageBox.Show(
-                        "This is not a NSMBe4 level file. If you're sure it's a valid level file, it may be corrupted.",
-                        "Unreadable File", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } else {
-                    MessageBox.Show(
-                        "Este no es un archivo de nivel de NSMB Editor 4. Si esta seguro de que es un archivo valido, puede estar corrupto.",
-                        "Error de Archivo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show(
+                    LanguageManager.Get("NSMBLevel", "InvalidFile"),
+                    LanguageManager.Get("NSMBLevel", "Unreadable"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             ushort FileVersion = br.ReadUInt16();
             if (FileVersion > 1) {
-                if (Properties.Settings.Default.Language != 1) {
-                    MessageBox.Show(
-                        "This level file was created with a newer version of NSMBe4 and is no longer compatible due to format changes. It can't be used; please download an updated version.",
-                        "Unusable File", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } else {
-                    MessageBox.Show(
-                        "Este archivo de nivel estaba creado con una version mas nueva del editor y ya no es compatible por cambios en el formato. No se puede usar; baja una version actualizada.",
-                        "Archivo Inutilizable", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show(
+                    LanguageManager.Get("NSMBLevel", "OldVersion"),
+                    LanguageManager.Get("NSMBLevel", "Unusable"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             ushort SavedLevelFileID = br.ReadUInt16();
             ushort SavedBGFileID = br.ReadUInt16();
             if (SavedLevelFileID != LevelFileID) {
-                DialogResult dr;
-                if (Properties.Settings.Default.Language != 1) {
-                    dr = MessageBox.Show(
-                        "This level file is being imported into a different level than the original.\n" +
-                        "It will still work (and might be your intention) but if this level is part of a hack, it will be in the wrong order.\n" +
-                        "Do you want to import it anyway?",
-                        "Mismatch Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                } else {
-                    dr = MessageBox.Show(
-                        "Este archivo esta importado en un nivel diferente que el original\n" +
-                        "Todavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\n" +
-                        "Quieres continuar?",
-                        "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                }
+                DialogResult dr = MessageBox.Show(
+                    LanguageManager.Get("NSMBLevel", "Mismatch"),
+                    LanguageManager.Get("General", "Warning"),
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dr == DialogResult.No) {
                     return;
                 }

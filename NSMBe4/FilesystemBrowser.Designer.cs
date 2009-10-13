@@ -52,7 +52,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 14;
-            this.label1.Text = "Selection Info:";
+            this.label1.Text = "<label1>";
             // 
             // selectedFileInfo
             // 
@@ -71,7 +71,7 @@
             this.decompressFileButton.Name = "decompressFileButton";
             this.decompressFileButton.Size = new System.Drawing.Size(96, 23);
             this.decompressFileButton.TabIndex = 12;
-            this.decompressFileButton.Text = "LZ Decompress";
+            this.decompressFileButton.Text = "<decompressFileButton>";
             this.decompressFileButton.UseVisualStyleBackColor = true;
             this.decompressFileButton.Click += new System.EventHandler(this.decompressFileButton_Click);
             // 
@@ -82,7 +82,7 @@
             this.compressFileButton.Name = "compressFileButton";
             this.compressFileButton.Size = new System.Drawing.Size(77, 23);
             this.compressFileButton.TabIndex = 11;
-            this.compressFileButton.Text = "LZ Compress";
+            this.compressFileButton.Text = "<compressFileButton>";
             this.compressFileButton.UseVisualStyleBackColor = true;
             this.compressFileButton.Click += new System.EventHandler(this.compressFileButton_Click);
             // 
@@ -93,7 +93,7 @@
             this.replaceFileButton.Name = "replaceFileButton";
             this.replaceFileButton.Size = new System.Drawing.Size(75, 23);
             this.replaceFileButton.TabIndex = 10;
-            this.replaceFileButton.Text = "Replace File";
+            this.replaceFileButton.Text = "<replaceFileButton>";
             this.replaceFileButton.UseVisualStyleBackColor = true;
             this.replaceFileButton.Click += new System.EventHandler(this.replaceFileButton_Click);
             // 
@@ -104,7 +104,7 @@
             this.extractFileButton.Name = "extractFileButton";
             this.extractFileButton.Size = new System.Drawing.Size(75, 23);
             this.extractFileButton.TabIndex = 9;
-            this.extractFileButton.Text = "Extract File";
+            this.extractFileButton.Text = "<extractFileButton>";
             this.extractFileButton.UseVisualStyleBackColor = true;
             this.extractFileButton.Click += new System.EventHandler(this.extractFileButton_Click);
             // 
@@ -146,7 +146,7 @@
             this.hexEdButton.Name = "hexEdButton";
             this.hexEdButton.Size = new System.Drawing.Size(77, 23);
             this.hexEdButton.TabIndex = 11;
-            this.hexEdButton.Text = "Hex edit";
+            this.hexEdButton.Text = "<hexEdButton>";
             this.hexEdButton.UseVisualStyleBackColor = true;
             this.hexEdButton.Click += new System.EventHandler(this.hexEdButton_Click);
             // 

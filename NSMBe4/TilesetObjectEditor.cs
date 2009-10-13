@@ -23,6 +23,7 @@ namespace NSMBe4
         public TilesetObjectEditor()
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "TilesetObjectEditor");
         }
 
         public void setObject(int num)

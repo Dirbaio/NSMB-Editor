@@ -72,7 +72,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(96, 18);
             this.label10.TabIndex = 24;
-            this.label10.Text = "Sprite Data:";
+            this.label10.Text = "<label10>";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // spriteDataTextBox
@@ -107,7 +107,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 15);
             this.label8.TabIndex = 21;
-            this.label8.Text = "Sprite Type:";
+            this.label8.Text = "<label8>";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // deleteSpriteButton
@@ -117,7 +117,7 @@
             this.deleteSpriteButton.Name = "deleteSpriteButton";
             this.deleteSpriteButton.Size = new System.Drawing.Size(88, 23);
             this.deleteSpriteButton.TabIndex = 20;
-            this.deleteSpriteButton.Text = "Delete Sprite";
+            this.deleteSpriteButton.Text = "<deleteSpriteButton>";
             this.deleteSpriteButton.UseVisualStyleBackColor = true;
             this.deleteSpriteButton.Click += new System.EventHandler(this.deleteSpriteButton_Click);
             // 
@@ -128,7 +128,7 @@
             this.addSpriteButton.Name = "addSpriteButton";
             this.addSpriteButton.Size = new System.Drawing.Size(88, 23);
             this.addSpriteButton.TabIndex = 19;
-            this.addSpriteButton.Text = "Add Sprite";
+            this.addSpriteButton.Text = "<addSpriteButton>";
             this.addSpriteButton.UseVisualStyleBackColor = true;
             this.addSpriteButton.Click += new System.EventHandler(this.addSpriteButton_Click);
             // 
@@ -142,7 +142,7 @@
             this.groupBox1.Size = new System.Drawing.Size(283, 45);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Sprite Positioning";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // tableLayoutPanel3
             // 
@@ -200,7 +200,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(17, 13);
             this.label11.TabIndex = 0;
-            this.label11.Text = "X:";
+            this.label11.Text = "<label11>";
             // 
             // label9
             // 
@@ -210,7 +210,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(17, 13);
             this.label9.TabIndex = 4;
-            this.label9.Text = "Y:";
+            this.label9.Text = "<label9>";
             // 
             // spriteDataPanel
             // 

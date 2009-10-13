@@ -76,12 +76,12 @@ namespace NSMBe4 {
 
 
             // start reading
-            LoadDir("Root ["+ROMFilename.Substring(ROMFilename.LastIndexOf("\\")+1)+"]", 61440, 0);
+            LoadDir(string.Format(LanguageManager.Get("NitroClass", "Root"), ROMFilename.Substring(ROMFilename.LastIndexOf("\\")+1)), 61440, 0);
 
             if (!isNestedFile)
             {
-                loadOverlayTable(0x50, "ARM9 Overlay Table", 65534);
-                loadOverlayTable(0x58, "ARM7 Overlay Table", 65535);
+                loadOverlayTable(0x50, LanguageManager.Get("NitroClass", "Overlay9"), 65534);
+                loadOverlayTable(0x58, LanguageManager.Get("NitroClass", "Overlay7"), 65535);
                 rfs.Dispose();
             }
             lister = null; //we ensure not sending more to this lister.
@@ -126,7 +126,7 @@ namespace NSMBe4 {
                 rfs.Seek(2, SeekOrigin.Current); //skip 0's
                 rfs.Seek(4, SeekOrigin.Current); //skip 0's
 
-                LoadFile("ID: " + ovId + " @ " + ramAddr.ToString("X") + " " + ramSize.ToString("X"), fileID, DirID);
+                LoadFile(string.Format(LanguageManager.Get("NitroClass", "OverlayFile"), ovId, ramAddr.ToString("X"), ramSize.ToString("X")), fileID, DirID);
             }
         }
         /* Load a Directory */

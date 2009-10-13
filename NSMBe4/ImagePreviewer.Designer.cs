@@ -46,7 +46,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ImagePreviewer";
-            this.Text = "Preview";
+            this.Text = "<_TITLE>";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

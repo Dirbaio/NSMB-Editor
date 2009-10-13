@@ -109,7 +109,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(235, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Object Editor";
+            this.label5.Text = "<label5>";
             // 
             // panel2
             // 
@@ -134,7 +134,7 @@
             this.groupBox2.Size = new System.Drawing.Size(148, 99);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Object settings";
+            this.groupBox2.Text = "<groupBox2>";
             // 
             // label7
             // 
@@ -143,7 +143,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Height";
+            this.label7.Text = "<label7>";
             // 
             // label6
             // 
@@ -152,7 +152,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Width";
+            this.label6.Text = "<label6>";
             // 
             // objWidth
             // 
@@ -197,7 +197,7 @@
             this.groupBox1.Size = new System.Drawing.Size(148, 101);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tile settings";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // label1
             // 
@@ -206,7 +206,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Map16 Tile Number";
+            this.label1.Text = "<label1>";
             // 
             // label2
             // 
@@ -215,7 +215,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Control Byte";
+            this.label2.Text = "<label2>";
             // 
             // map16Tile
             // 
@@ -274,7 +274,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(392, 13);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Object Preview:";
+            this.label3.Text = "<label3>";
             // 
             // panel1
             // 
@@ -297,7 +297,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(282, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Map16 Tiles:";
+            this.label4.Text = "<label4>";
             // 
             // panel3
             // 
@@ -316,7 +316,7 @@
             this.slopeControlButton.Name = "slopeControlButton";
             this.slopeControlButton.Size = new System.Drawing.Size(87, 23);
             this.slopeControlButton.TabIndex = 0;
-            this.slopeControlButton.Text = "Slope Control";
+            this.slopeControlButton.Text = "<slopeControlButton>";
             this.slopeControlButton.UseVisualStyleBackColor = true;
             // 
             // emptyTileButton
@@ -325,7 +325,7 @@
             this.emptyTileButton.Name = "emptyTileButton";
             this.emptyTileButton.Size = new System.Drawing.Size(72, 23);
             this.emptyTileButton.TabIndex = 0;
-            this.emptyTileButton.Text = "Empty tile";
+            this.emptyTileButton.Text = "<emptyTileButton>";
             this.emptyTileButton.UseVisualStyleBackColor = true;
             // 
             // newLineButton
@@ -334,7 +334,7 @@
             this.newLineButton.Name = "newLineButton";
             this.newLineButton.Size = new System.Drawing.Size(72, 23);
             this.newLineButton.TabIndex = 0;
-            this.newLineButton.Text = "New Line";
+            this.newLineButton.Text = "<newLineButton>";
             this.newLineButton.UseVisualStyleBackColor = true;
             this.newLineButton.Click += new System.EventHandler(this.newLineButton_Click);
             // 

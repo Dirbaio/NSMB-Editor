@@ -33,6 +33,8 @@ namespace NSMBe4 {
         }
 
         public static string Get(string Area, string Key) {
+            if (Contents == null) return "<NOT LOADED>";
+
             if (Contents.ContainsKey(Area)) {
                 Dictionary<string, string> Referred = Contents[Area];
                 if (Referred.ContainsKey(Key)) {
@@ -44,6 +46,8 @@ namespace NSMBe4 {
         }
 
         public static void ApplyToContainer(System.Windows.Forms.Control Container, string Area) {
+            if (Contents == null) return;
+
             if (Contents.ContainsKey(Area)) {
                 Dictionary<string, string> Referred = Contents[Area];
 

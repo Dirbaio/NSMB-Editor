@@ -50,8 +50,8 @@
             this.saveBlockButton.Image = global::NSMBe4.Properties.Resources.save;
             this.saveBlockButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveBlockButton.Name = "saveBlockButton";
-            this.saveBlockButton.Size = new System.Drawing.Size(78, 22);
-            this.saveBlockButton.Text = "Save Block";
+            this.saveBlockButton.Size = new System.Drawing.Size(131, 22);
+            this.saveBlockButton.Text = "<saveBlockButton>";
             this.saveBlockButton.Click += new System.EventHandler(this.saveBlockButton_Click);
             // 
             // toolStripSeparator1
@@ -62,8 +62,8 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(35, 22);
-            this.toolStripLabel1.Text = "Block:";
+            this.toolStripLabel1.Size = new System.Drawing.Size(102, 22);
+            this.toolStripLabel1.Text = "<toolStripLabel1>";
             // 
             // blockComboBox
             // 

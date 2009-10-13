@@ -19,6 +19,8 @@ namespace NSMBe4
             this.parentROM = ROM;
             this.FileID = FileID;
 
+            LanguageManager.ApplyToContainer(this, "FilesystemBrowserDialog");
+
             newROM = new NitroClass(ROM, FileID);
 
             filesystemBrowser1.Load(newROM);

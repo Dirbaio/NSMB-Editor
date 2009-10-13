@@ -51,15 +51,7 @@ namespace NSMBe4 {
         private List<string> LevelFiles;
 
         private void DataFinder_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.Language == 1) {
-                Text = "Buscador de Data";
-
-                label1.Text = "Esta herramienta no es util para casi todos. Pero si estas tratando de buscar algo especifico (por ejemplo, como el data para un sprite trabaja) puedes usarlo para coger una lista de todas las vezes que esta usado - para que sepas donde mirar.";
-                findBlockRadioButton.Text = "Buscar todos del bloque";
-                findSpriteRadioButton.Text = "Buscar todos del sprite";
-                label2.Text = "partido en:";
-                processButton.Text = "Buscar!";
-            }
+            LanguageManager.ApplyToContainer(this, "DataFinder");
         }
 
         private void processButton_Click(object sender, EventArgs e) {

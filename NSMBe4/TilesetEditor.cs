@@ -16,7 +16,12 @@ namespace NSMBe4
         public TilesetEditor(NitroClass ROM, ushort TilesetID, string tilesetName)
         {
             InitializeComponent();
-            Text = "Editing Tileset - " + tilesetName;
+            try {
+                LanguageManager.ApplyToContainer(this, "TilesetEditor");
+                Text = string.Format(LanguageManager.Get("TilesetEditor", "_TITLE"), tilesetName);
+            } catch (Exception) {
+                // fails in the designer otherwise
+            }
 
             this.ROM = ROM;
             g = new NSMBGraphics(ROM);

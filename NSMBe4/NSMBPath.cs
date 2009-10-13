@@ -80,7 +80,7 @@ namespace NSMBe4
 
         public override string ToString()
         {
-            return id + ": size " + points.Count;
+            return string.Format(LanguageManager.Get("NSMBPath", "ToString"), id, points.Count);
         }
     }
 }

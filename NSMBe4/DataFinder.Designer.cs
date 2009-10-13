@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataFinder));
             this.outputTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.findBlockRadioButton = new System.Windows.Forms.RadioButton();
@@ -62,17 +61,17 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(406, 54);
             this.label1.TabIndex = 1;
-            this.label1.Text = resources.GetString("label1.Text");
+            this.label1.Text = "<label1>";
             // 
             // findBlockRadioButton
             // 
             this.findBlockRadioButton.AutoSize = true;
             this.findBlockRadioButton.Location = new System.Drawing.Point(16, 71);
             this.findBlockRadioButton.Name = "findBlockRadioButton";
-            this.findBlockRadioButton.Size = new System.Drawing.Size(195, 17);
+            this.findBlockRadioButton.Size = new System.Drawing.Size(140, 17);
             this.findBlockRadioButton.TabIndex = 2;
             this.findBlockRadioButton.TabStop = true;
-            this.findBlockRadioButton.Text = "Find all instances of a specific block";
+            this.findBlockRadioButton.Text = "<findBlockRadioButton>";
             this.findBlockRadioButton.UseVisualStyleBackColor = true;
             // 
             // findSpriteRadioButton
@@ -80,10 +79,10 @@
             this.findSpriteRadioButton.AutoSize = true;
             this.findSpriteRadioButton.Location = new System.Drawing.Point(16, 95);
             this.findSpriteRadioButton.Name = "findSpriteRadioButton";
-            this.findSpriteRadioButton.Size = new System.Drawing.Size(194, 17);
+            this.findSpriteRadioButton.Size = new System.Drawing.Size(140, 17);
             this.findSpriteRadioButton.TabIndex = 3;
             this.findSpriteRadioButton.TabStop = true;
-            this.findSpriteRadioButton.Text = "Find all instances of a specific sprite";
+            this.findSpriteRadioButton.Text = "<findSpriteRadioButton>";
             this.findSpriteRadioButton.UseVisualStyleBackColor = true;
             // 
             // blockNumberUpDown
@@ -113,9 +112,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(282, 73);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "split by:";
+            this.label2.Text = "<label2>";
             // 
             // splitCountUpDown
             // 
@@ -152,7 +151,7 @@
             this.processButton.Name = "processButton";
             this.processButton.Size = new System.Drawing.Size(75, 20);
             this.processButton.TabIndex = 8;
-            this.processButton.Text = "Search!";
+            this.processButton.Text = "<processButton>";
             this.processButton.UseVisualStyleBackColor = true;
             this.processButton.Click += new System.EventHandler(this.processButton_Click);
             // 
@@ -181,7 +180,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.outputTextBox);
             this.Name = "DataFinder";
-            this.Text = "Data Finder";
+            this.Text = "<_TITLE>";
             this.Load += new System.EventHandler(this.DataFinder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.blockNumberUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitCountUpDown)).EndInit();

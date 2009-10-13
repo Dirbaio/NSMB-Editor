@@ -24,6 +24,12 @@ namespace NSMBe4 {
 
 //            Application.Run();*/
 
+            if (Properties.Settings.Default.Language == 0) {
+                LanguageManager.Load(Properties.Resources.english.Split('\n'));
+            } else if (Properties.Settings.Default.Language == 1) {
+                LanguageManager.Load(Properties.Resources.spanish.Split('\n'));
+            }
+
             Application.Run(new LevelChooser());
         }
     }

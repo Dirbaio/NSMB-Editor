@@ -22,6 +22,7 @@ namespace NSMBe4
         public Map16Editor()
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "Map16Editor");
         }
 
         public void load(NSMBTileset t)

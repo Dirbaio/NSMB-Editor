@@ -20,6 +20,10 @@ namespace NSMBe4 {
 
         public bool isZone = false;
 
+        // save two dictionary lookups every repaint
+        private string ViewDesc = LanguageManager.Get("NSMBView", "ViewDesc");
+        private string ZoneDesc = LanguageManager.Get("NSMBView", "ZoneDesc");
+
         public NSMBView()
         { }
 
@@ -60,7 +64,7 @@ namespace NSMBe4 {
                     numy = vy * 16;
                 if (isZone)
                     numy += 16;
-                g.DrawString((isZone ? "Zone " : "View ") + Number, NSMBGraphics.InfoFont, Brushes.White, (float)numx, (float)numy);
+                g.DrawString(string.Format((isZone ? ZoneDesc : ViewDesc), Number), NSMBGraphics.InfoFont, Brushes.White, (float)numx, (float)numy);
             }
         }
 
@@ -143,7 +147,7 @@ namespace NSMBe4 {
 
         public override string ToString()
         {
-            return Number + ": " + X + "," + Y + " (" + Width + " x " + Height + ")";
+            return string.Format(LanguageManager.Get("NSMBView", "ToString"), Number, X, Y, Width, Height);
         }
     }
 }

@@ -89,15 +89,95 @@ spriteFinder=Sprite Finder
 editTileset=Edit Tileset
 zoomMenu=Zoom
 optionsMenu=Options
+
+;these are submenus, they need to be added manually in LevelEditor's constructor...
 smallBlockOverlaysToolStripMenuItem=Use Small Block Overlays
 deleteAllObjectsToolStripMenuItem=Delete All Objects
 deleteAllSpritesToolStripMenuItem=Delete All Sprites
+cutToolStripMenuItem=Cut
+copyToolStripMenuItem=Copy
+pasteToolStripMenuItem=Paste
+deleteToolStripMenuItem=Delete
 
 MinimapTitle=Minimap - {0}
 
 UnsavedLevel=This level contains unsaved changes.\nIf you close the editor without saving, you will lose them.\nDo you want to save?
 ConfirmDelObjects=Are you sure you want to delete every object in the level?
 ConfirmDelSprites=Are you sure you want to delete every sprite in the level?
+
+
+
+[CreatePanel]
+CreateObject=Create Object
+CreateSprite=Create Sprite
+
+
+
+[DataFinder]
+_TITLE=Data Finder
+label1=This tool isn't useful for most ROM hackers. But if you're trying to find something specific (how the data for a sprite works, for example) you can use it to get a list of every time it's used - so you know where to look.
+findBlockRadioButton=Find all instances of a specific block
+findSpriteRadioButton=Find all instances of a specific sprite
+label2=split by:
+processButton=Search!
+
+
+
+[EntranceEditor]
+addEntranceButton=Add Entrance
+deleteEntranceButton=Delete Entrance
+groupBox2=Editing Entrance
+label12=X:
+label13=Y:
+label15=Camera X:
+label16=Camera Y:
+label17=Entrance ID:
+label18=Destination Area:
+label19=Destination Entrance:
+label20=Connected Pipe ID:
+label21=View:
+entranceSetting128=Exit only (pipes and doors only)
+entranceSetting16=Use fading screen transition
+entranceSetting8=Connected pipe
+entranceSetting1=Display on lower screen (entrances only)
+
+
+
+[FileHexEditor]
+_TITLE=Hex Editor - {0}
+saveButton=Save
+
+
+
+[FilesystemBrowser]
+label1=Selection Info:
+extractFileButton=Extract File
+replaceFileButton=Replace File
+compressFileButton=LZ Compress
+decompressFileButton=LZ Decompress
+hexEdButton=Hex Edit
+
+FolderStatus=Directory: {0} - ID {1}
+FileStatus=Offset: {0} - Size: {1} bytes - ID: {2}
+DecompressionFail=Couldn't decompress file. Maybe it's not compressed?
+
+
+
+[FilesystemBrowserDialog]
+_TITLE=Filesystem Browser
+
+
+
+[GraphicsViewer]
+_TITLE=Graphics Viewer
+label1=Palette:
+label2=Image sizes:
+use4bpp=Use 4bpp format
+
+
+
+[ImagePreviewer]
+_TITLE=Preview
 
 
 
@@ -125,3 +205,176 @@ groupBox3=Background Bottom Layer
 tilesetPreviewButton=Preview
 bgTopLayerPreviewButton=Preview
 bgBottomLayerPreviewButton=Preview
+
+
+
+[LevelHexEditor]
+saveBlockButton=Save Block
+toolStripLabel1=Block:
+UnsavedLevel=This level contains unsaved changes.\nIf you close the editor without saving, you will lose them.\nDo you want to save?
+
+
+
+[Map16Editor]
+groupBox1=Select tile:
+groupBox2=Tile settings
+groupBox3=Tile Behavior
+groupBox4=Tools
+label1=Tile number
+label2=Control byte
+label3=Tile byte
+secPal=Second palette
+xFlip=X flip
+yFlip=Y flip
+button1=Remove unused tiles
+
+
+
+[NitroClass]
+Root=Root [{0}]
+Overlay9=ARM9 Overlay Table
+Overlay7=ARM7 Overlay Table
+OverlayFile=ID {0} loaded into {2} bytes at {1}
+
+
+
+[NSMBLevel]
+InvalidFile=This is not a NSMBe4 level file. If you're sure it's a valid level file, it may be corrupted.
+Unreadable=Unreadable File
+OldVersion=This level file was created with a newer version of NSMBe4 and is no longer compatible due to format changes. It can't be used; please download an updated version.
+;"Este archivo de nivel estaba creado con una version mas nueva del editor y ya no es compatible por cambios en el formato. No se puede usar; baja una version actualizada."
+Unusable=Unusable File
+;"Archivo Inutilizable"
+Mismatch=This level file is being imported into a different level than the original.\nIt will still work (and might be your intention) but if this level is part of a hack, it will be in the wrong order.\nDo you want to import it anyway?
+;Este archivo esta importado en un nivel diferente que el original.\nTodavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\nQuieres continuar?
+
+
+
+[NSMBPath]
+ToString=Path {0}: {1} nodes
+
+
+
+[NSMBView]
+ViewDesc=View {0}
+ZoneDesc=Zone {0}
+ToString={0}: {1},{2} ({3}x{4})
+
+
+
+[ObjectEditor]
+addObjectButton=Add Object
+deleteObjectButton=Delete Object
+objPositionBox=Object Positioning
+objPickerBox=Object Picker
+label1=X:
+label3=Y:
+label2=Width:
+label4=Height:
+label5=Tileset:
+label6=Object Type:
+;                    addObjectButton.Text = "Añadir Objeto";
+;                    deleteObjectButton.Text = "Borrar Objeto";
+;                    objPositionBox.Text = "Posicion de Objeto";
+;                    objPickerBox.Text = "Elegir Objeto";
+;                    label2.Text = "Anchura:";
+;                    label4.Text = "Altura:";
+;                    label5.Text = "Serie de Objetos:";
+;                    label6.Text = "Tipo de Objeto:";
+
+
+
+[ObjectPickerControl]
+Object=Object
+InvalidObject=This object does not exist\nin the selected tileset.
+
+
+
+[PathEditor]
+addPath=Add Path
+deletePath=Delete Path
+label1=Path ID:
+groupBox1=Path settings
+groupBox2=Node settings
+label2=X:
+label3=Unknown 1:
+label4=Unknown 2:
+label5=Y:
+label6=Unknown 4:
+label7=Unknown 5:
+label8=Unknown 6:
+label9=Unknown 3:
+label10=X:
+
+
+
+[SpriteEditor]
+addSpriteButton=Add Sprite
+deleteSpriteButton=Delete Sprite
+groupBox1=Sprite Positioning
+label8=Sprite Type:
+label10=Sprite Data:
+label11=X:
+label9=Y:
+
+
+
+[TilesetEditor]
+_TITLE=Editing Tileset - {0}
+toolStripButton1=Save Tileset
+tabPage1=Objects
+tabPage2=Map16
+
+
+
+[TilesetObjectEditor]
+label5=Object Editor
+groupBox2=Object settings
+label7=Height
+label6=Width
+groupBox1=Tile settings
+label1=Map16 Tile Number
+label2=Control Byte
+label3=Object Preview:
+label4=Map16 Tiles:
+slopeControlButton=Slope Control
+emptyTileButton=Empty Tile
+newLineButton=New Line
+
+
+
+[ToolsForm]
+_TITLE=Tools
+tabPage1=Sprite Find and Replace
+label1=Sprite Number
+spriteFindNext=Find Next
+spriteCount=Count
+spriteDelete=Delete All
+groupBox1=Replace Sprite Number
+label2=New Sprite Number
+spriteReplaceAll=Replace All
+
+SpriteCount=Sprite {0} appears {1} times in this level.
+DeletedSprites={0} sprites deleted.
+ReplacedSprites={0} sprites replaced.
+NoSprites=No sprites in level.
+NotFound=No sprites found.
+
+
+
+[ViewEditor]
+addViewButton=Add
+deleteViewButton=Delete
+label8=X:
+label11=Y:
+label10=Width:
+label9=Height:
+label12=ID:
+groupBox1=View settings
+label1=Camera ID:
+label6=Music:
+label2=Unknown 1:
+label3=Unknown 2 (A):
+label4=Unknown 3 (B):
+label5=3D Lighting:
+label7=Progress Path ID:

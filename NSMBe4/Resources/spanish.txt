@@ -18,9 +18,9 @@ tabPage2=Editor de niveles
 tabPage3=Herramientas
 
 ;Level Editor Tab
-importLevelButton=Importar nivel
-exportLevelButton=Exportar nivel
-hexEditLevelButton=Editar en hex
+importLevelButton=Importar
+exportLevelButton=Exportar
+hexEditLevelButton=Editar hex
 editLevelButton=Editar nivel
 
 ;File Browser Tab
@@ -89,15 +89,95 @@ spriteFinder=Buscar Sprites
 editTileset=Editar Graficos
 zoomMenu=Zoom
 optionsMenu=Opciones
+
+;these are submenus, they need to be added manually in LevelEditor's constructor...
 smallBlockOverlaysToolStripMenuItem=Ver contenidos de bloque en pequeño
 deleteAllObjectsToolStripMenuItem=Borrar todos los objetos
 deleteAllSpritesToolStripMenuItem=Borrar todos los sprites
+cutToolStripMenuItem=Cortar
+copyToolStripMenuItem=Copiar
+pasteToolStripMenuItem=Pegar
+deleteToolStripMenuItem=Borrar
 
 MinimapTitle=Mapa - {0}
 
 UnsavedLevel=Este nivel tiene cambios sin guardar.\nSi cierras el editor sin guardar, los perderas.\nQuieres guardarlos?
 ConfirmDelObjects=Estas seguro que quieres borrar todos los objetos en el nivel?
 ConfirmDelSprites=Estas seguro que quieres borrar todos los sprites en el nivel?
+
+
+
+[CreatePanel]
+CreateObject=Crear Objeto
+CreateSprite=Crear Sprite
+
+
+
+[DataFinder]
+_TITLE=Buscador de Data
+label1=Esta herramienta no es util para casi todos. Pero si estas tratando de buscar algo especifico (por ejemplo, como el data para un sprite trabaja) puedes usarlo para coger una lista de todas las vezes que esta usado - para que sepas donde mirar.
+findBlockRadioButton=Buscar todos del bloque
+findSpriteRadioButton=Buscar todos del sprite
+label2=partido en:
+processButton=Buscar!
+
+
+
+[EntranceEditor]
+addEntranceButton=Crear Entrada
+deleteEntranceButton=Borrar Entrada
+groupBox2=Edicion de Entrada
+label12=X:
+label13=Y:
+label15=Camara X:
+label16=Camara Y:
+label17=Numero de Entrada:
+label18=Area de destino:
+label19=Entrada de destino:
+label20=ID de connexion:
+label21=Vista:
+entranceSetting128=Bloquear entrada (para tuberias y puertas)
+entranceSetting16=Usar transicion desaparicion
+entranceSetting8=Usar connexion de tuberia
+entranceSetting1=Ver en pantalla baja (solo entradas)
+
+
+
+[FileHexEditor]
+_TITLE=Editor Hex - {0}
+saveButton=Guardar
+
+
+
+[FilesystemBrowser]
+label1=Info seleccion:
+extractFileButton=Extraer
+replaceFileButton=Sustituir
+compressFileButton=Comprimir LZ
+decompressFileButton=Descomprimir LZ
+hexEdButton=Editar hex
+
+FolderStatus=Carpeta: {0} - ID {1}
+FileStatus=Posicion: {0} - Tamaño: {1} bytes - ID: {2}
+DecompressionFail=El archivo no se puede descomprimir - puede ser que no es comprimido.
+
+
+
+[FilesystemBrowserDialog]
+_TITLE=Navegador de Archivos
+
+
+
+[GraphicsViewer]
+_TITLE=Mirador de Graficos
+label1=Paleta:
+label2=Tamaños de imagen:
+use4bpp=Usar formato 4bpp
+
+
+
+[ImagePreviewer]
+_TITLE=Ver Imagen
 
 
 
@@ -125,3 +205,165 @@ groupBox3=Fondo detras
 tilesetPreviewButton=Probar
 bgTopLayerPreviewButton=Probar
 bgBottomLayerPreviewButton=Probar
+
+
+
+[LevelHexEditor]
+saveBlockButton=Guardar Bloque
+toolStripLabel1=Bloque:
+UnsavedLevel=Este nivel tiene cambios sin guardar.\nSi cierras el editor sin guardar, los perderas.\nQuieres guardarlos?
+
+
+
+[Map16Editor]
+groupBox1=Elegir teja:
+groupBox2=Opciones de teja
+groupBox3=Funcionamiento de la teja
+groupBox4=Herramientas
+label1=Numero de teja
+label2=Byte de control
+label3=Byte de teja
+secPal=Paleta segunda
+xFlip=X flip
+yFlip=Y flip
+button1=Borrar tejas sin usar
+
+
+
+[NitroClass]
+Root=Raíz [{0}]
+Overlay9=Tabla de Overlay ARM9
+Overlay7=Tabla de Overlay ARM7
+OverlayFile=ID {0} cargado con {2} bytes a posicion {1}
+
+
+
+[NSMBLevel]
+InvalidFile=Este no es un archivo de nivel de NSMB Editor 4. Si esta seguro de que es un nivel valido, puede estar corrupto.
+Unreadable=Error de Archivo
+OldVersion=Este archivo de nivel estaba creado con una version mas nueva del editor y ya no es compatible por cambios en el formato. No se puede usar; baja una version actualizada.
+Unusable=Archivo Inutilizable
+Mismatch=Este archivo esta importado en un nivel diferente que el original.\nTodavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\nQuieres continuar?
+
+
+
+[NSMBPath]
+ToString=Ruta {0}: {1} puntos
+
+
+
+[NSMBView]
+ViewDesc=Vista {0}
+ZoneDesc=Zona {0}
+ToString={0}: {1},{2} ({3}x{4})
+
+
+
+[ObjectEditor]
+addObjectButton=Crear Objeto
+deleteObjectButton=Borrar Objeto
+objPositionBox=Posicion de Objeto
+objPickerBox=Elegir Objeto
+label1=X:
+label3=Y:
+label2=Anchura:
+label4=Altura:
+label5=Serie de Objetos:
+label6=Tipo de Objetos:
+
+
+
+[ObjectPickerControl]
+Object=Objeto
+InvalidObject=Este objeto no existe en\nesta serie de objetos.
+
+
+
+[PathEditor]
+addPath=Crear Ruta
+deletePath=Borrar Ruta
+label1=Numero de Ruta:
+groupBox1=Opciones de ruta:
+groupBox2=Opciones de punto:
+label2=X:
+label3=Desconocido 1:
+label4=Desconocido 2:
+label5=Y:
+label6=Desconocido 4:
+label7=Desconocido 5:
+label8=Desconocido 6:
+label9=Desconocido 3:
+label10=X:
+
+
+
+[SpriteEditor]
+addSpriteButton=Crear Sprite
+deleteSpriteButton=Borrar Sprite
+groupBox1=Posicion de Sprite
+label8=Tipo de Sprite:
+label10=Datos de Sprite:
+label11=X:
+label9=Y:
+
+
+
+[TilesetEditor]
+_TITLE=Edicion de Serie de Objetos - {0}
+toolStripButton1=Guardar Objetos
+tabPage1=Objetos
+tabPage2=Map16
+
+
+
+[TilesetObjectEditor]
+label5=Editor de Objetos
+groupBox2=Opciones de objeto
+label7=Altura
+label6=Anchura
+groupBox1=Opciones de teja
+label1=Numero de Teja Map16
+label2=Byte de Control
+label3=Preestreno de Objeto:
+label4=Tejas Map16:
+slopeControlButton=Crear Cuesta
+emptyTileButton=Teja Vacia
+newLineButton=Nueva Linea
+
+
+
+[ToolsForm]
+_TITLE=Herramientas
+tabPage1=Buscar y Sustituir Sprite
+label1=Numero de Sprite
+spriteFindNext=Buscar Proxima
+spriteCount=Cuenta
+spriteDelete=Borrar Todos
+groupBox1=Sustituir Numero de Sprite
+label2=Numero de Sprite Nuevo
+spriteReplaceAll=Sustituir Todos
+
+SpriteCount=Sprite {0} aparece {1} veces en este nivel.
+DeletedSprites={0} sprites borrados.
+ReplacedSprites={0} sprites sustituidos.
+NoSprites=No hay sprites en el nivel.
+NotFound=No podias encontrar este sprite.
+
+
+
+[ViewEditor]
+addViewButton=Crear
+deleteViewButton=Borrar
+label8=X:
+label11=Y:
+label10=Anchura:
+label9=Altura:
+label12=ID:
+groupBox1=Opciones de vista
+label1=Camara ID:
+label6=Musica:
+label2=Desconocido 1:
+label3=Desconocido 2 (A):
+label4=Desconocido 3 (B):
+label5=Efectos Luz 3D:
+label7=ID Ruta de Progreso:

@@ -17,6 +17,7 @@ namespace NSMBe4
         public ToolsForm(LevelEditorControl edc)
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "ToolsForm");
             this.EdControl = edc;
         }
 
@@ -24,7 +25,7 @@ namespace NSMBe4
         {
             if (EdControl.Level.Sprites.Count == 0)
             {
-                MessageBox.Show("No sprites in level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Get("ToolsForm", "NoSprites"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -55,7 +56,7 @@ namespace NSMBe4
                 EdControl.EnsurePosVisible(foundSprite.X, foundSprite.Y);
             }
             else
-                MessageBox.Show("No sprites found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void spriteCount_Click(object sender, EventArgs e)
@@ -65,7 +66,7 @@ namespace NSMBe4
                 if (s.Type == SpriteNumber.Value)
                     count++;
 
-            MessageBox.Show("Sprite "+SpriteNumber.Value+" appears "+count+" times in this level.", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "SpriteCount"), SpriteNumber.Value, count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void spriteDelete_Click(object sender, EventArgs e)
@@ -81,7 +82,7 @@ namespace NSMBe4
 
             EdControl.FireSetDirtyFlag();
             EdControl.repaint();
-            MessageBox.Show(toDelete.Count + " sprites deleted.", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "DeletedSprites"), toDelete.Count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void spriteReplaceAll_Click(object sender, EventArgs e)
@@ -96,7 +97,7 @@ namespace NSMBe4
 
             EdControl.FireSetDirtyFlag();
             EdControl.repaint();
-            MessageBox.Show(count + " sprites replaced.", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "ReplacedSprites"), count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ToolsForm_FormClosing(object sender, FormClosingEventArgs e)

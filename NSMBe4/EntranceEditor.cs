@@ -24,22 +24,7 @@ namespace NSMBe4
                 entranceTypeComboBox.Items.AddRange(Properties.Settings.Default.Language != 1 ? NSMBEntrance.TypeList : NSMBEntrance.TypeList_lang1);
 
             deleteEntranceButton.Enabled = false;
-            if (Properties.Settings.Default.Language == 1)
-            {
-                addEntranceButton.Text = "Añadir Entrada";
-                deleteEntranceButton.Text = "Borrar Entrada";
-                groupBox2.Text = "Edicion de Entrada";
-                label15.Text = "Camara X:";
-                label16.Text = "Camara Y:";
-                label17.Text = "Numero de Entrada:";
-                label18.Text = "Area de destino:";
-                label19.Text = "Entrada de destino:";
-                label20.Text = "ID de connexion:";
-                label21.Text = "Vista:";
-                entranceSetting128.Text = "Bloquear entrada (para tuberias y puertas)";
-                entranceSetting16.Text = "Usar transicion desaparicion";
-                entranceSetting8.Text = "Usar connexion de tuberia";
-                entranceSetting1.Text = "Ver en pantalla baja (solo entradas)";            }
+            LanguageManager.ApplyToContainer(this, "EntranceEditor");
         }
 
         public void UpdateList()

@@ -21,6 +21,7 @@ namespace NSMBe4
             this.EdControl = EdControl;
             this.l = l;
             EditingViews = EdVi;
+            LanguageManager.ApplyToContainer(this, "ViewEditor");
             UpdateList();
         }
 

@@ -46,7 +46,7 @@
             this.ClientSize = new System.Drawing.Size(471, 292);
             this.Controls.Add(this.filesystemBrowser1);
             this.Name = "FilesystemBrowserDialog";
-            this.Text = "Filesystem Browser";
+            this.Text = "_TITLE";
             this.ResumeLayout(false);
 
         }

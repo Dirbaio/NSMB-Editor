@@ -96,7 +96,7 @@
             this.groupBox1.Size = new System.Drawing.Size(238, 210);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "View settings";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // tableLayoutPanel1
             // 
@@ -141,7 +141,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Camera ID";
+            this.label1.Text = "<label1>";
             // 
             // label2
             // 
@@ -151,7 +151,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Unknown 1";
+            this.label2.Text = "<label2>";
             // 
             // label3
             // 
@@ -161,7 +161,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Unknown 2 (A)";
+            this.label3.Text = "<label3>";
             // 
             // label4
             // 
@@ -171,7 +171,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 13);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Unknown 3 (B)";
+            this.label4.Text = "<label4>";
             // 
             // label5
             // 
@@ -181,7 +181,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 13);
             this.label5.TabIndex = 0;
-            this.label5.Text = "3D Lighting";
+            this.label5.Text = "<label5>";
             // 
             // label6
             // 
@@ -191,7 +191,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Music";
+            this.label6.Text = "<label6>";
             // 
             // label7
             // 
@@ -201,7 +201,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(87, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Progress Path ID";
+            this.label7.Text = "<label7>";
             // 
             // cameraID
             // 
@@ -360,7 +360,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(17, 13);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Y:";
+            this.label8.Text = "<label8>";
             // 
             // label9
             // 
@@ -370,7 +370,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(38, 13);
             this.label9.TabIndex = 0;
-            this.label9.Text = "Height";
+            this.label9.Text = "<label9>";
             // 
             // label10
             // 
@@ -380,7 +380,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 0;
-            this.label10.Text = "Width";
+            this.label10.Text = "<label10>";
             // 
             // label11
             // 
@@ -390,7 +390,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(17, 13);
             this.label11.TabIndex = 0;
-            this.label11.Text = "X:";
+            this.label11.Text = "<label11>";
             // 
             // xPos
             // 
@@ -442,7 +442,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(21, 13);
             this.label12.TabIndex = 0;
-            this.label12.Text = "ID:";
+            this.label12.Text = "<label12>";
             // 
             // yPos
             // 
@@ -480,7 +480,7 @@
             this.addViewButton.Name = "addViewButton";
             this.addViewButton.Size = new System.Drawing.Size(82, 22);
             this.addViewButton.TabIndex = 3;
-            this.addViewButton.Text = "Add";
+            this.addViewButton.Text = "<addViewButton>";
             this.addViewButton.UseVisualStyleBackColor = true;
             this.addViewButton.Click += new System.EventHandler(this.addViewButton_Click);
             // 
@@ -491,7 +491,7 @@
             this.deleteViewButton.Name = "deleteViewButton";
             this.deleteViewButton.Size = new System.Drawing.Size(82, 22);
             this.deleteViewButton.TabIndex = 3;
-            this.deleteViewButton.Text = "Delete";
+            this.deleteViewButton.Text = "<deleteViewButton>";
             this.deleteViewButton.UseVisualStyleBackColor = true;
             this.deleteViewButton.Click += new System.EventHandler(this.deleteViewButton_Click);
             // 

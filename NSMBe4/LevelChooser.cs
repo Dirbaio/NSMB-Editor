@@ -17,12 +17,6 @@ namespace NSMBe4 {
         }
 
         private void LevelChooser_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.Language == 0) {
-                LanguageManager.Load(Properties.Resources.english.Split('\n'));
-            } else if (Properties.Settings.Default.Language == 1) {
-                LanguageManager.Load(Properties.Resources.spanish.Split('\n'));
-            }
-
             if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
                 Application.Exit();
             } else {

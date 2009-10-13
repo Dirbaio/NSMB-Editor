@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tileBehavior = new NSMBe4.ByteArrayEditor();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.yFlip = new System.Windows.Forms.CheckBox();
@@ -46,12 +49,10 @@
             this.editQ3 = new System.Windows.Forms.Button();
             this.editQ2 = new System.Windows.Forms.Button();
             this.editQ4 = new System.Windows.Forms.Button();
-            this.tileBehavior = new NSMBe4.ByteArrayEditor();
             this.tilePicker1 = new NSMBe4.TilePicker();
             this.map16Picker1 = new NSMBe4.Map16Picker();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -59,7 +60,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.controlByte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileByte)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -74,6 +74,29 @@
             this.panel1.Size = new System.Drawing.Size(423, 248);
             this.panel1.TabIndex = 2;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Location = new System.Drawing.Point(6, 172);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(414, 73);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "<groupBox4>";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(119, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "<button1>";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -84,7 +107,17 @@
             this.groupBox3.Size = new System.Drawing.Size(414, 52);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Tile Behavior";
+            this.groupBox3.Text = "<groupBox3>";
+            // 
+            // tileBehavior
+            // 
+            this.tileBehavior.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tileBehavior.Location = new System.Drawing.Point(6, 19);
+            this.tileBehavior.Name = "tileBehavior";
+            this.tileBehavior.Size = new System.Drawing.Size(402, 27);
+            this.tileBehavior.TabIndex = 3;
             // 
             // groupBox2
             // 
@@ -96,7 +129,7 @@
             this.groupBox2.Size = new System.Drawing.Size(319, 102);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Tile settings";
+            this.groupBox2.Text = "<groupBox2>";
             // 
             // tableLayoutPanel1
             // 
@@ -127,18 +160,18 @@
             // 
             this.yFlip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.yFlip.AutoSize = true;
-            this.yFlip.Location = new System.Drawing.Point(174, 56);
+            this.yFlip.Location = new System.Drawing.Point(158, 56);
             this.yFlip.Name = "yFlip";
-            this.yFlip.Size = new System.Drawing.Size(130, 17);
+            this.yFlip.Size = new System.Drawing.Size(146, 17);
             this.yFlip.TabIndex = 3;
-            this.yFlip.Text = "Y flip";
+            this.yFlip.Text = "<yFlip>";
             this.yFlip.UseVisualStyleBackColor = true;
             this.yFlip.CheckedChanged += new System.EventHandler(this.yFlip_CheckedChanged);
             // 
             // tileNumber
             // 
             this.tileNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tileNumber.Location = new System.Drawing.Point(72, 3);
+            this.tileNumber.Location = new System.Drawing.Point(56, 3);
             this.tileNumber.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -158,7 +191,7 @@
             // 
             this.controlByte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.controlByte.Hexadecimal = true;
-            this.controlByte.Location = new System.Drawing.Point(72, 29);
+            this.controlByte.Location = new System.Drawing.Point(56, 29);
             this.controlByte.Maximum = new decimal(new int[] {
             255,
             0,
@@ -172,7 +205,7 @@
             // tileByte
             // 
             this.tileByte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tileByte.Location = new System.Drawing.Point(72, 55);
+            this.tileByte.Location = new System.Drawing.Point(56, 55);
             this.tileByte.Maximum = new decimal(new int[] {
             255,
             0,
@@ -189,9 +222,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Tile number";
+            this.label1.Text = "<label1>";
             // 
             // label2
             // 
@@ -199,9 +232,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Control byte";
+            this.label2.Text = "<label2>";
             // 
             // label3
             // 
@@ -209,19 +242,19 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Tile byte";
+            this.label3.Text = "<label3>";
             // 
             // secPal
             // 
             this.secPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.secPal.AutoSize = true;
-            this.secPal.Location = new System.Drawing.Point(174, 4);
+            this.secPal.Location = new System.Drawing.Point(158, 4);
             this.secPal.Name = "secPal";
-            this.secPal.Size = new System.Drawing.Size(130, 17);
+            this.secPal.Size = new System.Drawing.Size(146, 17);
             this.secPal.TabIndex = 2;
-            this.secPal.Text = "Second palette";
+            this.secPal.Text = "<secPal>";
             this.secPal.UseVisualStyleBackColor = true;
             this.secPal.CheckedChanged += new System.EventHandler(this.secPal_CheckedChanged);
             // 
@@ -229,11 +262,11 @@
             // 
             this.xFlip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.xFlip.AutoSize = true;
-            this.xFlip.Location = new System.Drawing.Point(174, 30);
+            this.xFlip.Location = new System.Drawing.Point(158, 30);
             this.xFlip.Name = "xFlip";
-            this.xFlip.Size = new System.Drawing.Size(130, 17);
+            this.xFlip.Size = new System.Drawing.Size(146, 17);
             this.xFlip.TabIndex = 2;
-            this.xFlip.Text = "X flip";
+            this.xFlip.Text = "<xFlip>";
             this.xFlip.UseVisualStyleBackColor = true;
             this.xFlip.CheckedChanged += new System.EventHandler(this.xFlip_CheckedChanged);
             // 
@@ -248,7 +281,7 @@
             this.groupBox1.Size = new System.Drawing.Size(89, 102);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Select tile:";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // editQ1
             // 
@@ -286,16 +319,6 @@
             this.editQ4.UseVisualStyleBackColor = true;
             this.editQ4.Click += new System.EventHandler(this.editQ4_Click);
             // 
-            // tileBehavior
-            // 
-            this.tileBehavior.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tileBehavior.Location = new System.Drawing.Point(6, 19);
-            this.tileBehavior.Name = "tileBehavior";
-            this.tileBehavior.Size = new System.Drawing.Size(402, 27);
-            this.tileBehavior.TabIndex = 3;
-            // 
             // tilePicker1
             // 
             this.tilePicker1.AutoSize = true;
@@ -318,29 +341,6 @@
             this.map16Picker1.TabIndex = 0;
             this.map16Picker1.TileSelected += new NSMBe4.Map16Picker.TileSelectedd(this.map16Picker1_TileSelected);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.button1);
-            this.groupBox4.Location = new System.Drawing.Point(6, 172);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(414, 73);
-            this.groupBox4.TabIndex = 6;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Tools";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Remove unused tiles";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Map16Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -351,6 +351,7 @@
             this.Name = "Map16Editor";
             this.Size = new System.Drawing.Size(705, 472);
             this.panel1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -359,7 +360,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.controlByte)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileByte)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

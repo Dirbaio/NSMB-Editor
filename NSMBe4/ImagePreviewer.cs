@@ -15,6 +15,7 @@ namespace NSMBe4 {
             this.Width += 8;
             this.Height += 24;
             this.Image = image;
+            LanguageManager.ApplyToContainer(this, "ImagePreviewer");
             pictureBox1.Image = image;
         }
 

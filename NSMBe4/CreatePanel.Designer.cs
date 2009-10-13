@@ -39,7 +39,7 @@
             this.CreateObject.Name = "CreateObject";
             this.CreateObject.Size = new System.Drawing.Size(110, 23);
             this.CreateObject.TabIndex = 0;
-            this.CreateObject.Text = "Create Object";
+            this.CreateObject.Text = "<CreateObject>";
             this.CreateObject.UseVisualStyleBackColor = true;
             this.CreateObject.Click += new System.EventHandler(this.CreateObject_Click);
             // 
@@ -50,7 +50,7 @@
             this.CreateSprite.Name = "CreateSprite";
             this.CreateSprite.Size = new System.Drawing.Size(110, 23);
             this.CreateSprite.TabIndex = 0;
-            this.CreateSprite.Text = "Create Sprite";
+            this.CreateSprite.Text = "<CreateSprite>";
             this.CreateSprite.UseVisualStyleBackColor = true;
             this.CreateSprite.Click += new System.EventHandler(this.CreateSprite_Click);
             // 

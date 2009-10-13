@@ -16,11 +16,7 @@ namespace NSMBe4
             InitializeComponent();
             this.EdControl = EdControl;
 
-            if (Properties.Settings.Default.Language == 1)
-            {
-                CreateObject.Text = "Crear Objeto";
-                CreateSprite.Text = "Crear Sprite";
-            }
+            LanguageManager.ApplyToContainer(this, "CreatePanel");
         }
 
         private void CreateObject_Click(object sender, EventArgs e)

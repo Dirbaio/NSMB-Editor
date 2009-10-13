@@ -63,7 +63,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(828, 510);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Objects";
+            this.tabPage1.Text = "<tabPage1>";
             // 
             // tilesetObjectEditor1
             // 
@@ -92,7 +92,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(828, 510);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Map16";
+            this.tabPage2.Text = "<tabPage2>";
             // 
             // map16Editor1
             // 
@@ -118,8 +118,8 @@
             this.toolStripButton1.Image = global::NSMBe4.Properties.Resources.save;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(85, 22);
-            this.toolStripButton1.Text = "Save Tileset";
+            this.toolStripButton1.Size = new System.Drawing.Size(130, 22);
+            this.toolStripButton1.Text = "<toolStripButton1>";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // TilesetEditor

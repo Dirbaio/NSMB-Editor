@@ -82,7 +82,7 @@
             this.groupBox2.Size = new System.Drawing.Size(256, 363);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Editing Entrance";
+            this.groupBox2.Text = "<groupBox2>";
             // 
             // tableLayoutPanel5
             // 
@@ -136,9 +136,9 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting1, 2);
             this.entranceSetting1.Location = new System.Drawing.Point(3, 283);
             this.entranceSetting1.Name = "entranceSetting1";
-            this.entranceSetting1.Size = new System.Drawing.Size(216, 17);
+            this.entranceSetting1.Size = new System.Drawing.Size(119, 17);
             this.entranceSetting1.TabIndex = 21;
-            this.entranceSetting1.Text = "Display on lower screen (entrances only)";
+            this.entranceSetting1.Text = "<entranceSetting1>";
             this.entranceSetting1.UseVisualStyleBackColor = true;
             this.entranceSetting1.CheckedChanged += new System.EventHandler(this.entranceSetting1_CheckedChanged);
             // 
@@ -172,11 +172,11 @@
             // 
             this.label21.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(86, 188);
+            this.label21.Location = new System.Drawing.Point(66, 188);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(33, 13);
+            this.label21.Size = new System.Drawing.Size(53, 13);
             this.label21.TabIndex = 16;
-            this.label21.Text = "View:";
+            this.label21.Text = "<label21>";
             // 
             // entrancePipeIDUpDown
             // 
@@ -196,11 +196,11 @@
             // 
             this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(19, 162);
+            this.label20.Location = new System.Drawing.Point(66, 162);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(100, 13);
+            this.label20.Size = new System.Drawing.Size(53, 13);
             this.label20.TabIndex = 14;
-            this.label20.Text = "Connected Pipe ID:";
+            this.label20.Text = "<label20>";
             // 
             // entranceDestEntranceUpDown
             // 
@@ -220,11 +220,11 @@
             // 
             this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(10, 136);
+            this.label19.Location = new System.Drawing.Point(66, 136);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(109, 13);
+            this.label19.Size = new System.Drawing.Size(53, 13);
             this.label19.TabIndex = 12;
-            this.label19.Text = "Destination Entrance:";
+            this.label19.Text = "<label19>";
             // 
             // entranceDestAreaUpDown
             // 
@@ -244,11 +244,11 @@
             // 
             this.label18.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(31, 110);
+            this.label18.Location = new System.Drawing.Point(66, 110);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(88, 13);
+            this.label18.Size = new System.Drawing.Size(53, 13);
             this.label18.TabIndex = 10;
-            this.label18.Text = "Destination Area:";
+            this.label18.Text = "<label18>";
             // 
             // entranceCameraYPosUpDown
             // 
@@ -285,9 +285,9 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting128, 2);
             this.entranceSetting128.Location = new System.Drawing.Point(3, 211);
             this.entranceSetting128.Name = "entranceSetting128";
-            this.entranceSetting128.Size = new System.Drawing.Size(171, 17);
+            this.entranceSetting128.Size = new System.Drawing.Size(131, 17);
             this.entranceSetting128.TabIndex = 18;
-            this.entranceSetting128.Text = "Exit only (pipes and doors only)";
+            this.entranceSetting128.Text = "<entranceSetting128>";
             this.entranceSetting128.UseVisualStyleBackColor = true;
             this.entranceSetting128.CheckedChanged += new System.EventHandler(this.entranceSetting128_CheckedChanged);
             // 
@@ -298,9 +298,9 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting16, 2);
             this.entranceSetting16.Location = new System.Drawing.Point(3, 235);
             this.entranceSetting16.Name = "entranceSetting16";
-            this.entranceSetting16.Size = new System.Drawing.Size(157, 17);
+            this.entranceSetting16.Size = new System.Drawing.Size(125, 17);
             this.entranceSetting16.TabIndex = 19;
-            this.entranceSetting16.Text = "Use fading screen transition";
+            this.entranceSetting16.Text = "<entranceSetting16>";
             this.entranceSetting16.UseVisualStyleBackColor = true;
             this.entranceSetting16.CheckedChanged += new System.EventHandler(this.entranceSetting16_CheckedChanged);
             // 
@@ -311,9 +311,9 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting8, 2);
             this.entranceSetting8.Location = new System.Drawing.Point(3, 259);
             this.entranceSetting8.Name = "entranceSetting8";
-            this.entranceSetting8.Size = new System.Drawing.Size(101, 17);
+            this.entranceSetting8.Size = new System.Drawing.Size(119, 17);
             this.entranceSetting8.TabIndex = 20;
-            this.entranceSetting8.Text = "Connected pipe";
+            this.entranceSetting8.Text = "<entranceSetting8>";
             this.entranceSetting8.UseVisualStyleBackColor = true;
             this.entranceSetting8.CheckedChanged += new System.EventHandler(this.entranceSetting8_CheckedChanged);
             // 
@@ -321,21 +321,21 @@
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(26, 84);
+            this.label17.Location = new System.Drawing.Point(66, 84);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(93, 13);
+            this.label17.Size = new System.Drawing.Size(53, 13);
             this.label17.TabIndex = 8;
-            this.label17.Text = "Entrance Number:";
+            this.label17.Text = "<label17>";
             // 
             // label15
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(63, 32);
+            this.label15.Location = new System.Drawing.Point(66, 32);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(56, 13);
+            this.label15.Size = new System.Drawing.Size(53, 13);
             this.label15.TabIndex = 4;
-            this.label15.Text = "Camera X:";
+            this.label15.Text = "<label15>";
             // 
             // entranceNumberUpDown
             // 
@@ -355,11 +355,11 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(63, 58);
+            this.label16.Location = new System.Drawing.Point(66, 58);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(56, 13);
+            this.label16.Size = new System.Drawing.Size(53, 13);
             this.label16.TabIndex = 6;
-            this.label16.Text = "Camera Y:";
+            this.label16.Text = "<label16>";
             // 
             // tableLayoutPanel4
             // 
@@ -414,21 +414,21 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(13, 6);
+            this.label12.Location = new System.Drawing.Point(3, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(17, 13);
+            this.label12.Size = new System.Drawing.Size(27, 26);
             this.label12.TabIndex = 0;
-            this.label12.Text = "X:";
+            this.label12.Text = "<label12>";
             // 
             // label13
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(134, 6);
+            this.label13.Location = new System.Drawing.Point(124, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(17, 13);
+            this.label13.Size = new System.Drawing.Size(27, 26);
             this.label13.TabIndex = 4;
-            this.label13.Text = "Y:";
+            this.label13.Text = "<label13>";
             // 
             // deleteEntranceButton
             // 
@@ -437,7 +437,7 @@
             this.deleteEntranceButton.Name = "deleteEntranceButton";
             this.deleteEntranceButton.Size = new System.Drawing.Size(93, 23);
             this.deleteEntranceButton.TabIndex = 6;
-            this.deleteEntranceButton.Text = "Delete Entrance";
+            this.deleteEntranceButton.Text = "<deleteEntranceButton>";
             this.deleteEntranceButton.UseVisualStyleBackColor = true;
             this.deleteEntranceButton.Click += new System.EventHandler(this.deleteEntranceButton_Click);
             // 
@@ -448,7 +448,7 @@
             this.addEntranceButton.Name = "addEntranceButton";
             this.addEntranceButton.Size = new System.Drawing.Size(93, 23);
             this.addEntranceButton.TabIndex = 5;
-            this.addEntranceButton.Text = "Add Entrance";
+            this.addEntranceButton.Text = "<addEntranceButton>";
             this.addEntranceButton.UseVisualStyleBackColor = true;
             this.addEntranceButton.Click += new System.EventHandler(this.addEntranceButton_Click);
             // 

@@ -92,9 +92,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Sprite Number";
+            this.label1.Text = "<label1>";
             // 
             // tabControl1
             // 
@@ -118,7 +118,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(285, 158);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Sprite Find and Replace";
+            this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -130,7 +130,7 @@
             this.groupBox1.Size = new System.Drawing.Size(270, 77);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Replace Sprite Number";
+            this.groupBox1.Text = "<groupBox1>";
             // 
             // tableLayoutPanel2
             // 
@@ -167,9 +167,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "New Sprite Number";
+            this.label2.Text = "<label2>";
             // 
             // spriteReplaceAll
             // 
@@ -177,7 +177,7 @@
             this.spriteReplaceAll.Name = "spriteReplaceAll";
             this.spriteReplaceAll.Size = new System.Drawing.Size(74, 22);
             this.spriteReplaceAll.TabIndex = 0;
-            this.spriteReplaceAll.Text = "Replace All";
+            this.spriteReplaceAll.Text = "<spriteReplaceAll>";
             this.spriteReplaceAll.UseVisualStyleBackColor = true;
             this.spriteReplaceAll.Click += new System.EventHandler(this.spriteReplaceAll_Click);
             // 
@@ -187,7 +187,7 @@
             this.spriteFindNext.Name = "spriteFindNext";
             this.spriteFindNext.Size = new System.Drawing.Size(74, 22);
             this.spriteFindNext.TabIndex = 0;
-            this.spriteFindNext.Text = "Find Next";
+            this.spriteFindNext.Text = "<spriteFindNext>";
             this.spriteFindNext.UseVisualStyleBackColor = true;
             this.spriteFindNext.Click += new System.EventHandler(this.spriteFindNext_Click);
             // 
@@ -197,7 +197,7 @@
             this.spriteDelete.Name = "spriteDelete";
             this.spriteDelete.Size = new System.Drawing.Size(74, 22);
             this.spriteDelete.TabIndex = 0;
-            this.spriteDelete.Text = "Delete all";
+            this.spriteDelete.Text = "<spriteDelete>";
             this.spriteDelete.UseVisualStyleBackColor = true;
             this.spriteDelete.Click += new System.EventHandler(this.spriteDelete_Click);
             // 
@@ -207,7 +207,7 @@
             this.spriteCount.Name = "spriteCount";
             this.spriteCount.Size = new System.Drawing.Size(74, 22);
             this.spriteCount.TabIndex = 0;
-            this.spriteCount.Text = "Count";
+            this.spriteCount.Text = "<spriteCount>";
             this.spriteCount.UseVisualStyleBackColor = true;
             this.spriteCount.Click += new System.EventHandler(this.spriteCount_Click);
             // 
@@ -272,7 +272,7 @@
             this.MinimizeBox = false;
             this.Name = "ToolsForm";
             this.ShowInTaskbar = false;
-            this.Text = "Tools";
+            this.Text = "<_TITLE>";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ToolsForm_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

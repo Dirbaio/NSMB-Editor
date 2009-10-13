@@ -18,6 +18,7 @@ namespace NSMBe4
         public PathEditor(LevelEditorControl EdControl)
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "PathEditor");
             this.EdControl = EdControl;
             UpdateList();
         }
