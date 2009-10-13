@@ -13,12 +13,15 @@ namespace NSMBe4
         private NSMBSprite s;
         private LevelEditorControl EdControl;
         private bool DataUpdateFlag = false;
+        private byte[] SSTable;
 
         public SpriteEditor(NSMBSprite s, LevelEditorControl EdControl)
         {
             InitializeComponent();
             this.s = s;
             this.EdControl = EdControl;
+
+            SSTable = NSMBDataHandler.GetInlineFile(NSMBDataHandler.Data.File_Modifiers);
 
             string[] spritelist = new string[324];
             string[] rawlist;
@@ -187,7 +190,6 @@ namespace NSMBe4
             //e.Graphics.DrawString((string)spriteListBox.Items[e.Index], spriteListBox.Font, UseBrush, e.Bounds);
             TextRenderer.DrawText(e.Graphics, (string)spriteListBox.Items[e.Index], spriteListBox.Font, e.Bounds, UseColour, e.BackColor, TextFormatFlags.Left);
 
-            byte[] SSTable = Properties.Resources.modifiertable;
             int SSNumber = SSTable[e.Index << 1];
             int SSValue = SSTable[(e.Index << 1) + 1];
             string txt = (SSNumber + 1) + "-" + SSValue;

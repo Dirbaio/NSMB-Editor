@@ -269,7 +269,7 @@ namespace NSMBe4 {
 
         public void CalculateSpriteModifiers() {
             ValidSprites = new bool[324];
-            byte[] ModifierTable = Properties.Resources.modifiertable;
+            byte[] ModifierTable = NSMBDataHandler.GetInlineFile(NSMBDataHandler.Data.File_Modifiers);
 
             for (int idx = 0; idx < 324; idx++) {
                 int ModifierOffset = ModifierTable[idx << 1];

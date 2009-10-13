@@ -8,6 +8,8 @@ Warning=Warning
 Question=Question
 Completed=Completed!
 
+UnknownRegion=The region of the ROM can't be identified.\nThe editor will treat it as a US release.
+
 
 
 [LevelChooser]

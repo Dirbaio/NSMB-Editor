@@ -12,9 +12,9 @@ namespace NSMBe4 {
         public void LoadTilesets(ushort TilesetID) {
             Tilesets = new NSMBTileset[3];
 
-            Tilesets[0] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"], ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"], ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu_hd.bin"], 0, true, 0);
+            Tilesets[0] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"], ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"], ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu_hd.bin"], 65535, true, 0);
             LoadTileset1(TilesetID);
-            Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], 0, false, 2);
+            Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], 65535, false, 2);
 
             // Patch in a bunch of overrides to the normal tileset
             // Now works directly on the map16 data
@@ -233,12 +233,12 @@ namespace NSMBe4 {
                 GFXFile -= 2;
             }*/
 
-            ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_NCG);
-            ushort PalFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_NCL);
-            ushort Map16File = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_PNL);
-            ushort ObjFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_UNT);
-            ushort ObjIndexFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_UNT_HD);
-            ushort TileBehaviorFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Table_TS_CHK);
+            ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCG);
+            ushort PalFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCL);
+            ushort Map16File = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_PNL);
+            ushort ObjFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT);
+            ushort ObjIndexFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT_HD);
+            ushort TileBehaviorFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_CHK);
 
             Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, TileBehaviorFile, false, 1);
         }

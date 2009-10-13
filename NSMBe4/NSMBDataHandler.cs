@@ -24,6 +24,7 @@ using System.Text;
  * 31494: Tileset palette (ncl) table
  * 315C4: Foreground palette (ncl) table
  * 316F4: Map16 (pnl) table
+ * 
  **/
 
 namespace NSMBe4 {
@@ -34,27 +35,86 @@ namespace NSMBe4 {
         public static void load(NitroClass ROM) {
             NSMBDataHandler.ROM = ROM;
             Overlay0 = DecompressOverlay(ROM.ExtractFile(0));
+
+            if (Overlay0[28] == 0x84) {
+                Region = Origin.US;
+            } else if (Overlay0[28] == 0x64) {
+                Region = Origin.EU;
+            } else if (Overlay0[28] == 0x04) {
+                Region = Origin.JP;
+            } else {
+                Region = Origin.US;
+                System.Windows.Forms.MessageBox.Show(LanguageManager.Get("General", "UnknownRegion"), LanguageManager.Get("General", "Warning"), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+            }
         }
 
-        public const int Table_TS_UNT_HD = 0x2F8E4;
-        public const int Table_TS_UNT = 0x2FA14;
-        public const int Table_TS_CHK = 0x2FB44;
-        public const int Table_TS_ANIM_NCG = 0x2FC74;
-        public const int Table_BG_NCG = 0x30D74;
-        public const int Table_TS_NCG = 0x30EA4;
-        public const int Table_FG_NCG = 0x30FD4;
-        public const int Table_FG_NSC = 0x31104;
-        public const int Table_BG_NSC = 0x31234;
-        public const int Table_BG_NCL = 0x31364;
-        public const int Table_TS_NCL = 0x31494;
-        public const int Table_FG_NCL = 0x315C4;
-        public const int Table_TS_PNL = 0x316F4;
+        public enum Origin {
+            US = 0, EU = 1, JP = 2
+        }
 
-        public const int File_Jyotyu_CHK = 0x2FDA4;
+        public static Origin Region = Origin.US;
+
+        public enum Data : int {
+            Number_FileOffset = 0,
+            Table_TS_UNT_HD = 1,
+            Table_TS_UNT = 2,
+            Table_TS_CHK = 3,
+            Table_TS_ANIM_NCG = 4,
+            Table_BG_NCG = 5,
+            Table_TS_NCG = 6,
+            Table_FG_NCG = 7,
+            Table_FG_NSC = 8,
+            Table_BG_NSC = 9,
+            Table_BG_NCL = 10,
+            Table_TS_NCL = 11,
+            Table_FG_NCL = 12,
+            Table_TS_PNL = 13,
+            File_Jyotyu_CHK = 14,
+            File_Modifiers = 15
+        }
+
+        public static int[,] Offsets = {
+                                           {131, 135, 131}, //File Offset (Overlay Count)
+                                           {0x2F8E4, 0x2F0F8, 0x2ECE4}, //TS_UNT_HD
+                                           {0x2FA14, 0x2F228, 0x2EE14}, //TS_UNT
+                                           {0x2FB44, 0x2F358, 0x2EF44}, //TS_CHK
+                                           {0x2FC74, 0x2F488, 0x2F074}, //TS_ANIM_NCG
+                                           {0x30D74, 0x30588, 0x30174}, //BG_NCG
+                                           {0x30EA4, 0x306B8, 0x302A4}, //TS_NCG
+                                           {0x30FD4, 0x307E8, 0x303D4}, //FG_NCG
+                                           {0x31104, 0x30918, 0x30504}, //FG_NSC
+                                           {0x31234, 0x30A48, 0x30634}, //BG_NSC
+                                           {0x31364, 0x30B78, 0x30764}, //BG_NCL
+                                           {0x31494, 0x30CA8, 0x30894}, //TS_NCL
+                                           {0x315C4, 0x30DD8, 0x309C4}, //FG_NCL
+                                           {0x316F4, 0x30F08, 0x30AF4}, //TS_PNL
+                                           {0x2FDA4, 0x2F5B8, 0x2F1A4}, //Jyotyu_CHK
+                                           {0x2C930, 0x2BDF0, 0x2BD30}, //Modifiers
+                                       };
+
+        public static int[] FileSizes = {
+                                            0,0,0,0,0,0,0,0,0,0,0,0,0,0, //Don't include tables
+                                            0x400, //Jyotyu_CHK
+                                            0x288, //Modifiers
+                                        };
+
+        public static ushort GetFileIDFromTable(int id, Data datatype) {
+            return GetFileIDFromTable(id, GetOffset(datatype));
+        }
 
         public static ushort GetFileIDFromTable(int id, int tableoffset) {
             int off = tableoffset + (id << 2);
-            return (ushort)((Overlay0[off] | (Overlay0[off + 1] << 8)) + 131);
+            return (ushort)((Overlay0[off] | (Overlay0[off + 1] << 8)) + GetOffset(Data.Number_FileOffset));
+        }
+
+        public static int GetOffset(Data datatype) {
+            return Offsets[(int)datatype, (int)Region];
+        }
+
+        public static byte[] GetInlineFile(Data datatype) {
+            byte[] output = new byte[FileSizes[(int)datatype]];
+            Array.Copy(Overlay0, GetOffset(datatype), output, 0, output.Length);
+            return output;
         }
 
         public static byte[] DecompressOverlay(byte[] sourcedata) {

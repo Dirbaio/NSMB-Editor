@@ -183,7 +183,7 @@ namespace NSMBe4
             ObjFileID = ObjFile;
             ObjIndexFileID = ObjIndexFile;
             TileBehaviorFileID = TileBehaviorFile;
-            Console.Out.WriteLine(ROM.FileNames[TileBehaviorFile]);
+            //Console.Out.WriteLine(ROM.FileNames[TileBehaviorFile]);
 
             this.TilesetNumber = TilesetNumber;
 
@@ -292,7 +292,7 @@ namespace NSMBe4
 
             if (TilesetNumber == 0)
             {
-                tileBehaviorsFile = Properties.Resources.jyotyu_chk;
+                tileBehaviorsFile = NSMBDataHandler.GetInlineFile(NSMBDataHandler.Data.File_Jyotyu_CHK);
             }
             else if (TilesetNumber == 1)
             {

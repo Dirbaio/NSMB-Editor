@@ -60,27 +60,6 @@ namespace NSMBe4.Properties {
             }
         }
         
-        internal static byte[] bg_ncg_table {
-            get {
-                object obj = ResourceManager.GetObject("bg_ncg_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] bg_ncl_table {
-            get {
-                object obj = ResourceManager.GetObject("bg_ncl_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] bg_nsc_table {
-            get {
-                object obj = ResourceManager.GetObject("bg_nsc_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to 0: Grassland (orange hills and clouds)
         ///1: Castle
@@ -172,6 +151,8 @@ namespace NSMBe4.Properties {
         ///Question=Question
         ///Completed=Completed!
         ///
+        ///UnknownRegion=The region of the ROM can&apos;t be identified.\nThe editor will treat it as a US release.
+        ///
         ///
         ///
         ///[LevelChooser]
@@ -185,12 +166,7 @@ namespace NSMBe4.Properties {
         ///importLevelButton=Import Level
         ///exportLevelButton=Export Level
         ///hexEditLevelButton=Hex Edit
-        ///editLevelButton=Edit Level
-        ///
-        ///;File Browser Tab
-        ///;These aren&apos;t located here, check FilesystemBrowser
-        ///
-        ///;Tools Tab        /// [rest of string was truncated]&quot;;.
+        ///editLevelBut [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string english {
             get {
@@ -202,27 +178,6 @@ namespace NSMBe4.Properties {
             get {
                 object obj = ResourceManager.GetObject("entrances", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static byte[] fg_ncg_table {
-            get {
-                object obj = ResourceManager.GetObject("fg_ncg_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] fg_ncl_table {
-            get {
-                object obj = ResourceManager.GetObject("fg_ncl_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] fg_nsc_table {
-            get {
-                object obj = ResourceManager.GetObject("fg_nsc_table", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -326,13 +281,6 @@ namespace NSMBe4.Properties {
             get {
                 object obj = ResourceManager.GetObject("gfxeditor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static byte[] jyotyu_chk {
-            get {
-                object obj = ResourceManager.GetObject("jyotyu_chk", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -483,13 +431,6 @@ namespace NSMBe4.Properties {
             }
         }
         
-        internal static byte[] modifiertable {
-            get {
-                object obj = ResourceManager.GetObject("modifiertable", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to 9=Door. This object will not|function without a|matching entrance.
         ///10=Beta style flagpole.
@@ -570,6 +511,8 @@ namespace NSMBe4.Properties {
         ///Question=Pregunta
         ///Completed=Terminado!
         ///
+        ///UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como una version del US.
+        ///
         ///
         ///
         ///[LevelChooser]
@@ -580,13 +523,9 @@ namespace NSMBe4.Properties {
         ///tabPage3=Herramientas
         ///
         ///;Level Editor Tab
-        ///importLevelButton=Importar nivel
-        ///exportLevelButton=Exportar nivel
-        ///hexEditLevelButton=Editar en hex
-        ///editLevelButton=Editar nivel
-        ///
-        ///;File Browser Tab
-        ///;These aren&apos;t located here, check F [rest of string was truncated]&quot;;.
+        ///importLevelButton=Importar
+        ///exportLevelButton=Exportar
+        ///hexEditLevelButton=Editar h [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string spanish {
             get {
@@ -760,48 +699,6 @@ namespace NSMBe4.Properties {
         internal static string tilesetlist_lang1 {
             get {
                 return ResourceManager.GetString("tilesetlist_lang1", resourceCulture);
-            }
-        }
-        
-        internal static byte[] ts_chk_table {
-            get {
-                object obj = ResourceManager.GetObject("ts_chk_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] ts_ncg_table {
-            get {
-                object obj = ResourceManager.GetObject("ts_ncg_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] ts_ncl_table {
-            get {
-                object obj = ResourceManager.GetObject("ts_ncl_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] ts_pnl_table {
-            get {
-                object obj = ResourceManager.GetObject("ts_pnl_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] ts_unt_hd_table {
-            get {
-                object obj = ResourceManager.GetObject("ts_unt_hd_table", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] ts_unt_table {
-            get {
-                object obj = ResourceManager.GetObject("ts_unt_table", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

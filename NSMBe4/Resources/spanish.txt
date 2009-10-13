@@ -8,6 +8,8 @@ Warning=Aviso
 Question=Pregunta
 Completed=Terminado!
 
+UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como una version del US.
+
 
 
 [LevelChooser]

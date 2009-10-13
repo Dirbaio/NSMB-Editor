@@ -335,19 +335,7 @@
     <None Include="Resources\document.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bg_ncg_table.bin" />
-    <None Include="Resources\bg_ncl_table.bin" />
-    <None Include="Resources\bg_nsc_table.bin" />
     <None Include="Resources\exclamation.png" />
-    <None Include="Resources\fg_ncg_table.bin" />
-    <None Include="Resources\fg_ncl_table.bin" />
-    <None Include="Resources\fg_nsc_table.bin" />
-    <None Include="Resources\ts_chk_table.bin" />
-    <None Include="Resources\ts_ncg_table.bin" />
-    <None Include="Resources\ts_ncl_table.bin" />
-    <None Include="Resources\ts_pnl_table.bin" />
-    <None Include="Resources\ts_unt_hd_table.bin" />
-    <None Include="Resources\ts_unt_table.bin" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sprite.png" />
@@ -374,7 +362,6 @@
     <Content Include="Resources\gfxeditor.png" />
     <Content Include="Resources\spanish.txt" />
     <Content Include="Resources\zoom.png" />
-    <None Include="Resources\jyotyu_chk.bin" />
     <None Include="Resources\zones1.png" />
     <None Include="Resources\zones.png" />
     <None Include="Resources\paths.png" />
@@ -482,7 +469,6 @@
     <None Include="Resources\modifierchooser.txt" />
     <None Include="Resources\bglist_lang1.txt" />
     <None Include="Resources\fglist_lang1.txt" />
-    <None Include="Resources\modifiertable.bin" />
     <None Include="Resources\tilesetlist_lang1.txt" />
     <None Include="Resources\fglist.txt" />
     <None Include="Resources\bglist.txt" />
