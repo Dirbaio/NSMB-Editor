@@ -34,6 +34,11 @@ namespace NSMBe4 {
                 OpenLevelHexEditors = new List<LevelHexEditor>();
 
                 LanguageManager.ApplyToContainer(this, "LevelChooser");
+                openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
+                importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
+                exportLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
+                openPatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
+                savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
             }
         }
 
@@ -504,7 +509,7 @@ namespace NSMBe4 {
 
         private void tilesetEditor_Click(object sender, EventArgs e)
         {
-            new TilesetEditor(ROM, 0, "Nohara").Show();
+            new TilesetChooser(ROM).Show();
         }
     }
 }

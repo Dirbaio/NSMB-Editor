@@ -50,6 +50,11 @@ LangChanged=Language changed. You will have to close and re-open the editor to s
 LZUncompWarning=This feature is dangerous!\nIt LZ Uncompresses ALL in the rom!\nUse it on a copy of your rom, because this will break the game completely.\nIt is only useful for file examination in Tahaxan.\nAre you sure you want to continue?
 DecompInNarcs=Do you want to uncompress files inside NARCS?
 
+;Filters
+ROMFilter=Nintendo DS ROMs (*.nds)|*.nds|All files (*.*)|*.*
+LevelFilter=NSMB Editor Exported Levels (*.nml)|*.nml|All files (*.*)|*.*
+PatchFilter=NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*
+
 
 
 [Patch]
@@ -242,11 +247,8 @@ OverlayFile=ID {0} loaded into {2} bytes at {1}
 InvalidFile=This is not a NSMBe4 level file. If you're sure it's a valid level file, it may be corrupted.
 Unreadable=Unreadable File
 OldVersion=This level file was created with a newer version of NSMBe4 and is no longer compatible due to format changes. It can't be used; please download an updated version.
-;"Este archivo de nivel estaba creado con una version mas nueva del editor y ya no es compatible por cambios en el formato. No se puede usar; baja una version actualizada."
 Unusable=Unusable File
-;"Archivo Inutilizable"
 Mismatch=This level file is being imported into a different level than the original.\nIt will still work (and might be your intention) but if this level is part of a hack, it will be in the wrong order.\nDo you want to import it anyway?
-;Este archivo esta importado en un nivel diferente que el original.\nTodavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\nQuieres continuar?
 
 
 
@@ -273,14 +275,6 @@ label2=Width:
 label4=Height:
 label5=Tileset:
 label6=Object Type:
-;                    addObjectButton.Text = "Añadir Objeto";
-;                    deleteObjectButton.Text = "Borrar Objeto";
-;                    objPositionBox.Text = "Posicion de Objeto";
-;                    objPickerBox.Text = "Elegir Objeto";
-;                    label2.Text = "Anchura:";
-;                    label4.Text = "Altura:";
-;                    label5.Text = "Serie de Objetos:";
-;                    label6.Text = "Tipo de Objeto:";
 
 
 
@@ -316,6 +310,14 @@ label8=Sprite Type:
 label10=Sprite Data:
 label11=X:
 label9=Y:
+
+
+
+[TilesetChooser]
+_TITLE=Tileset Chooser
+groupBox1=Choose a tileset to edit:
+editJyotyuButton=Edit Jyotyu (Tileset 0: Blocks/Pipes)
+openTilesetButton=Open
 
 
 

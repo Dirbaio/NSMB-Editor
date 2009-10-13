@@ -15,6 +15,7 @@ namespace NSMBe4
         NSMBTileset.ObjectDef obj;
         NSMBTileset tls;
         NSMBObject previewObject;
+        int tnum;
         bool couldDrawObject = true;
 
         public delegate void mustRepaintObjectsD();
@@ -57,11 +58,12 @@ namespace NSMBe4
                 mustRepaintObjects();
         }
 
-        public void load(NSMBGraphics g)
+        public void load(NSMBGraphics g, int TilesetNumber)
         {
-            this.tls = g.Tilesets[1];
+            this.tnum = TilesetNumber;
+            this.tls = g.Tilesets[tnum];
             map16Picker1.SetTileset(tls);
-            previewObject = new NSMBObject(0, 1, 0, 0, 6, 6, g);
+            previewObject = new NSMBObject(0, tnum, 0, 0, 6, 6, g);
         }
 
         private void editZone_Paint(object sender, PaintEventArgs e)

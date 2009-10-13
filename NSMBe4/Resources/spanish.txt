@@ -50,6 +50,11 @@ LangChanged=Idioma cambiado. Tendras que cerrar y abrir el editor para ver el ef
 LZUncompWarning=Este modo es peligroso!\nDescomprimira todos los archivos en el juego!\nUsarlo en una copia del ROM, porque el juego estara completamente roto.\nEl unico uso que tiene es para examinar archivos en Tahaxan.\nEstas seguro que quieres continuar?
 DecompInNarcs=Quieres descomprimir archivos dentro de los NARCs?
 
+;Filters
+ROMFilter=Juegos del Nintendo DS (*.nds)|*.nds|Todos los archivos (*.*)|*.*
+LevelFilter=Niveles exportados NSMB (*.nml)|*.nml|Todos los archivos (*.*)|*.*
+PatchFilter=Parches NSMB (*.nmp)|*.nmp|Todos los archivos (*.*)|*.*
+
 
 
 [Patch]

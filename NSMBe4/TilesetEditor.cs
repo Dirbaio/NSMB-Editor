@@ -12,28 +12,36 @@ namespace NSMBe4
     {
         NSMBTileset t;
         NSMBGraphics g;
+        int TilesetNumber;
         NitroClass ROM;
-        public TilesetEditor(NitroClass ROM, ushort TilesetID, string tilesetName)
-        {
+
+        public TilesetEditor(NitroClass ROM, ushort TilesetID, string tilesetName) {
             InitializeComponent();
-            try {
-                LanguageManager.ApplyToContainer(this, "TilesetEditor");
-                Text = string.Format(LanguageManager.Get("TilesetEditor", "_TITLE"), tilesetName);
-            } catch (Exception) {
-                // fails in the designer otherwise
-            }
+            LanguageManager.ApplyToContainer(this, "TilesetEditor");
+            Text = string.Format(LanguageManager.Get("TilesetEditor", "_TITLE"), tilesetName);
 
             this.ROM = ROM;
+
             g = new NSMBGraphics(ROM);
-            g.LoadTilesets(TilesetID);
-            t = g.Tilesets[1];
+
+            if (TilesetID == 65535) {
+                // load Jyotyu
+                g.LoadTilesets(0);
+                TilesetNumber = 0;
+            } else {
+                // load a normal tileset
+                g.LoadTilesets(TilesetID);
+                TilesetNumber = 1;
+            }
+
+            t = g.Tilesets[TilesetNumber];
 
             objectPickerControl1.Initialise(g);
-            objectPickerControl1.CurrentTileset = 1;
+            objectPickerControl1.CurrentTileset = TilesetNumber;
 
-            tilesetObjectEditor1.load(g);
+            tilesetObjectEditor1.load(g, TilesetNumber);
             map16Editor1.load(t);
-            
+
         }
 
         private void objectPickerControl1_ObjectSelected()
