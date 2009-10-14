@@ -119,6 +119,14 @@ namespace NSMBe4 {
 
         public static byte[] CompressOverlay(byte[] rawData)
         {
+            bool ending0s = true;
+            for (int i = rawData.Length - 8; i < rawData.Length; i++)
+                if (rawData[i] != 0)
+                    ending0s = false;
+
+            if (ending0s)
+                return rawData;
+
             byte[] compressed = new byte[rawData.Length + 8];
             rawData.CopyTo(compressed, 0);
             for (int i = compressed.Length - 8; i < compressed.Length; i++)

@@ -1146,7 +1146,10 @@ Nivel 5|10|1
 257=Cheep-Cheep con monedas detrás
 258=Sin usar
 259=Agua Envenenada
-260=Clavo disparo rapido gigante (abajo)
+260=Gran Clavo con pinchos desde abajo
+261=Gran Clavo con pinchos desde arriba
+262=Gran Clavo con pinchos desde izquierda
+263=Gran Clavo con pinchos desde derecha
 261=Clavo disparo rapido gigante (arriba)
 262=Clavo disparo rapido gigante (izquierda)
 263=Clavo disparo rapido gigante (derecha)
