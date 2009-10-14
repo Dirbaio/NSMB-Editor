@@ -197,7 +197,37 @@ namespace NSMBe4 {
         }
         #endregion
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            Console.Out.WriteLine(keyData);
+            if (keyData == (Keys.Control | Keys.X))
+            {
+                cut();
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.C))
+            {
+                copy();
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.V))
+            {
+                paste();
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                Level.Save();
+                return true;
+            }
+            if (keyData == (Keys.Delete))
+            {
+                delete();
+                return true;
+            }
+
+
+
             /*
             if (keyData == Keys.Left || keyData == Keys.Up || keyData == Keys.Right || keyData == Keys.Down) {
                 int XDelta = 0;

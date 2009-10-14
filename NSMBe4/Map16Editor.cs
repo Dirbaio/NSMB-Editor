@@ -66,6 +66,48 @@ namespace NSMBe4
         private void map16Picker1_TileSelected(int tile)
         {
             selectTile(tile);
+            if (Control.ModifierKeys == Keys.Alt)
+            {
+                XFlipTile(selTile);
+                repaint();
+            }
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                YFlipTile(selTile);
+                repaint();
+            }
+        }
+
+        private void XFlipTile(NSMBTileset.Map16Tile t)
+        {
+            NSMBTileset.Map16Quarter aux = t.topLeft;
+            t.topLeft = t.topRight;
+            t.topRight = aux;
+
+            t.topRight.xFlip = !t.topRight.xFlip;
+            t.topLeft.xFlip = !t.topLeft.xFlip;
+
+            aux = t.bottomLeft;
+            t.bottomLeft = t.bottomRight;
+            t.bottomRight = aux;
+
+            t.bottomRight.xFlip = !t.bottomRight.xFlip;
+            t.bottomLeft.xFlip = !t.topLeft.xFlip;
+        }
+        private void YFlipTile(NSMBTileset.Map16Tile t)
+        {
+            NSMBTileset.Map16Quarter aux = t.topLeft;
+            t.topLeft = t.bottomLeft;
+            t.bottomLeft = aux;
+
+            aux = t.topRight;
+            t.topRight = t.bottomRight;
+            t.bottomRight = aux;
+
+            t.bottomRight.yFlip = !t.bottomRight.yFlip;
+            t.bottomLeft.yFlip = !t.topLeft.yFlip;
+            t.topRight.yFlip = !t.topRight.yFlip;
+            t.topLeft.yFlip = !t.topLeft.yFlip;
         }
 
         private NSMBTileset.Map16Quarter createQuarter(int tile, bool secondPalette)

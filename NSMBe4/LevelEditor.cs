@@ -38,10 +38,10 @@ namespace NSMBe4 {
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
             deleteAllObjectsToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllObjectsToolStripMenuItem");
             deleteAllSpritesToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllSpritesToolStripMenuItem");
-            cutToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "cutToolStripMenuItem");
+/*            cutToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "cutToolStripMenuItem");
             copyToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "copyToolStripMenuItem");
             pasteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "pasteToolStripMenuItem");
-            deleteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteToolStripMenuItem");
+            deleteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteToolStripMenuItem");*/
         }
 
         private void MainForm_Load(object sender, EventArgs e) {

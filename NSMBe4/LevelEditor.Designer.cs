@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveLevelButton = new System.Windows.Forms.ToolStripButton();
@@ -46,23 +45,16 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.editTileset = new System.Windows.Forms.ToolStripButton();
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewMap16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllSpritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editTileset = new System.Windows.Forms.ToolStripButton();
             this.PanelContainer = new System.Windows.Forms.Panel();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -95,7 +87,7 @@
             this.saveLevelButton.Image = ((System.Drawing.Image)(resources.GetObject("saveLevelButton.Image")));
             this.saveLevelButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveLevelButton.Name = "saveLevelButton";
-            this.saveLevelButton.Size = new System.Drawing.Size(81, 22);
+            this.saveLevelButton.Size = new System.Drawing.Size(123, 22);
             this.saveLevelButton.Text = "<saveLevelButton>";
             this.saveLevelButton.Click += new System.EventHandler(this.saveLevelButton_Click);
             // 
@@ -104,7 +96,7 @@
             this.viewMinimapButton.Image = ((System.Drawing.Image)(resources.GetObject("viewMinimapButton.Image")));
             this.viewMinimapButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.viewMinimapButton.Name = "viewMinimapButton";
-            this.viewMinimapButton.Size = new System.Drawing.Size(103, 22);
+            this.viewMinimapButton.Size = new System.Drawing.Size(135, 22);
             this.viewMinimapButton.Text = "<viewMinimapButton>";
             this.viewMinimapButton.Click += new System.EventHandler(this.viewMinimapButton_Click);
             // 
@@ -113,7 +105,7 @@
             this.levelConfigButton.Image = ((System.Drawing.Image)(resources.GetObject("levelConfigButton.Image")));
             this.levelConfigButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.levelConfigButton.Name = "levelConfigButton";
-            this.levelConfigButton.Size = new System.Drawing.Size(131, 22);
+            this.levelConfigButton.Size = new System.Drawing.Size(128, 22);
             this.levelConfigButton.Text = "<levelConfigButton>";
             this.levelConfigButton.Click += new System.EventHandler(this.levelConfigButton_Click);
             // 
@@ -125,7 +117,7 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(47, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(94, 22);
             this.toolStripLabel1.Text = "<toolStripLabel1>";
             // 
             // editObjectsButton
@@ -188,7 +180,7 @@
             this.spriteFinder.Image = global::NSMBe4.Properties.Resources.find;
             this.spriteFinder.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.spriteFinder.Name = "spriteFinder";
-            this.spriteFinder.Size = new System.Drawing.Size(93, 22);
+            this.spriteFinder.Size = new System.Drawing.Size(100, 22);
             this.spriteFinder.Text = "<spriteFinder>";
             this.spriteFinder.Click += new System.EventHandler(this.spriteFinder_Click);
             // 
@@ -205,7 +197,7 @@
             this.zoomMenu.Image = global::NSMBe4.Properties.Resources.zoom;
             this.zoomMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomMenu.Name = "zoomMenu";
-            this.zoomMenu.Size = new System.Drawing.Size(68, 22);
+            this.zoomMenu.Size = new System.Drawing.Size(103, 22);
             this.zoomMenu.Text = "<zoomMenu>";
             this.zoomMenu.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripDropDownButton1_DropDownItemClicked);
             // 
@@ -214,44 +206,59 @@
             this.toolStripMenuItem2.Checked = true;
             this.toolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem2.Text = "100 %";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem1.Text = "85 %";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem7.Text = "75 %";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem3.Text = "66 %";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem4.Text = "50 %";
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem5.Text = "33 %";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem6.Text = "25 %";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // editTileset
+            // 
+            this.editTileset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editTileset.Image = global::NSMBe4.Properties.Resources.gfxeditor;
+            this.editTileset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editTileset.Name = "editTileset";
+            this.editTileset.Size = new System.Drawing.Size(23, 22);
+            this.editTileset.Text = "<editTileset>";
+            this.editTileset.Click += new System.EventHandler(this.editTileset_Click);
             // 
             // optionsMenu
             // 
@@ -270,97 +277,39 @@
             // smallBlockOverlaysToolStripMenuItem
             // 
             this.smallBlockOverlaysToolStripMenuItem.Name = "smallBlockOverlaysToolStripMenuItem";
-            this.smallBlockOverlaysToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.smallBlockOverlaysToolStripMenuItem.Size = new System.Drawing.Size(281, 22);
             this.smallBlockOverlaysToolStripMenuItem.Text = "<smallBlockOverlaysToolStripMenuItem>";
             this.smallBlockOverlaysToolStripMenuItem.Click += new System.EventHandler(this.smallBlockOverlaysToolStripMenuItem_Click);
             // 
             // viewMap16ToolStripMenuItem
             // 
             this.viewMap16ToolStripMenuItem.Name = "viewMap16ToolStripMenuItem";
-            this.viewMap16ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.viewMap16ToolStripMenuItem.Size = new System.Drawing.Size(281, 22);
             this.viewMap16ToolStripMenuItem.Text = "<viewMap16ToolStripMenuItem>";
-            this.viewMap16ToolStripMenuItem.Click += new System.EventHandler(this.viewMap16ToolStripMenuItem_Click);
             this.viewMap16ToolStripMenuItem.Visible = false;
+            this.viewMap16ToolStripMenuItem.Click += new System.EventHandler(this.viewMap16ToolStripMenuItem_Click);
             // 
             // deleteAllObjectsToolStripMenuItem
             // 
             this.deleteAllObjectsToolStripMenuItem.Name = "deleteAllObjectsToolStripMenuItem";
-            this.deleteAllObjectsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.deleteAllObjectsToolStripMenuItem.Size = new System.Drawing.Size(281, 22);
             this.deleteAllObjectsToolStripMenuItem.Text = "<deleteAllObjectsToolStripMenuItem>";
             this.deleteAllObjectsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllObjectsToolStripMenuItem_Click);
             // 
             // deleteAllSpritesToolStripMenuItem
             // 
             this.deleteAllSpritesToolStripMenuItem.Name = "deleteAllSpritesToolStripMenuItem";
-            this.deleteAllSpritesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.deleteAllSpritesToolStripMenuItem.Size = new System.Drawing.Size(281, 22);
             this.deleteAllSpritesToolStripMenuItem.Text = "<deleteAllSpritesToolStripMenuItem>";
             this.deleteAllSpritesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllSpritesToolStripMenuItem_Click);
             // 
-            // editTileset
-            // 
-            this.editTileset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editTileset.Image = global::NSMBe4.Properties.Resources.gfxeditor;
-            this.editTileset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editTileset.Name = "editTileset";
-            this.editTileset.Size = new System.Drawing.Size(23, 22);
-            this.editTileset.Text = "<editTileset>";
-            this.editTileset.Click += new System.EventHandler(this.editTileset_Click);
-            // 
             // PanelContainer
             // 
-            this.PanelContainer.ContextMenuStrip = this.contextMenuStrip2;
             this.PanelContainer.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelContainer.Location = new System.Drawing.Point(0, 25);
             this.PanelContainer.Name = "PanelContainer";
             this.PanelContainer.Size = new System.Drawing.Size(250, 551);
             this.PanelContainer.TabIndex = 10;
-            // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cutToolStripMenuItem,
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.deleteToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(145, 92);
-            // 
-            // cutToolStripMenuItem
-            // 
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.cutToolStripMenuItem.Text = "<cutToolStripMenuItem>";
-            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.copyToolStripMenuItem.Text = "<copyToolStripMenuItem>";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.pasteToolStripMenuItem.Text = "<pasteToolStripMenuItem>";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.deleteToolStripMenuItem.Text = "<deleteToolStripMenuItem>";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // levelEditorControl1
             // 
@@ -368,27 +317,21 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.levelEditorControl1.BackColor = System.Drawing.SystemColors.Control;
-            this.levelEditorControl1.ContextMenuStrip = this.contextMenuStrip2;
             this.levelEditorControl1.Location = new System.Drawing.Point(256, 25);
             this.levelEditorControl1.Name = "levelEditorControl1";
             this.levelEditorControl1.Size = new System.Drawing.Size(635, 551);
             this.levelEditorControl1.TabIndex = 3;
             this.levelEditorControl1.SetDirtyFlag += new NSMBe4.LevelEditorControl.SetDirtyFlagDelegate(this.levelEditorControl1_SetDirtyFlag);
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 576);
-            this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.PanelContainer);
             this.Controls.Add(this.levelEditorControl1);
             this.Controls.Add(this.toolStrip1);
+            this.KeyPreview = true;
             this.Name = "LevelEditor";
             this.Text = "NSMB Editor 4";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -396,7 +339,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelEditor_FormClosing);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -423,12 +365,6 @@
         private System.Windows.Forms.Panel PanelContainer;
         private System.Windows.Forms.ToolStripButton editViewsButton;
         private System.Windows.Forms.ToolStripButton spriteFinder;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripDropDownButton zoomMenu;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
