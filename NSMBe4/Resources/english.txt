@@ -847,8 +847,6 @@ Unused Level 5|10|1
 16=Donut lift.
 18=Turns into coins|when touched.
 19=Turns into coins|when touched.
-23=This object displays|inaccurately in the|editor.
-24=This object displays|inaccurately in the|editor.
 26=Coins activated by a P-switch.
 30=? block containing a|mushroom or flower|powerup.
 31=? block containing a starman.

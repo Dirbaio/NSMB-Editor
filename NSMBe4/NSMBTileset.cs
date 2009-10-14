@@ -384,12 +384,12 @@ namespace NSMBe4
                 if ((q.ControlByte & 4) != 0)
                 {
                     DestRect.Width = -8;
-                    DestRect.X += xi;
+                    DestRect.X += 7;
                 }
                 if ((q.ControlByte & 8) != 0)
                 {
                     DestRect.Height = -8;
-                    DestRect.Y += xi;
+                    DestRect.Y += 7;
                 }
                 GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
 #endif

@@ -117,9 +117,22 @@ namespace NSMBe4 {
             return output;
         }
 
-        public static byte[] DecompressOverlay(byte[] sourcedata) {
+        public static byte[] CompressOverlay(byte[] rawData)
+        {
+            byte[] compressed = new byte[rawData.Length + 8];
+            rawData.CopyTo(compressed, 0);
+            for (int i = compressed.Length - 8; i < compressed.Length; i++)
+                compressed[i] = 0;
+
+            return compressed;
+        }
+
+        public static byte[] DecompressOverlay(byte[] sourcedata)
+        {
             uint DataVar1, DataVar2;
+            //uint last 8-5 bytes
             DataVar1 = (uint)(sourcedata[sourcedata.Length - 8] | (sourcedata[sourcedata.Length - 7] << 8) | (sourcedata[sourcedata.Length - 6] << 16) | (sourcedata[sourcedata.Length - 5] << 24));
+            //uint last 4 bytes
             DataVar2 = (uint)(sourcedata[sourcedata.Length - 4] | (sourcedata[sourcedata.Length - 3] << 8) | (sourcedata[sourcedata.Length - 2] << 16) | (sourcedata[sourcedata.Length - 1] << 24));
 
             byte[] memory = new byte[sourcedata.Length + DataVar2];
@@ -134,13 +147,13 @@ namespace NSMBe4 {
             }
             r1 = DataVar1;
             r2 = DataVar2;
-            r2 = r0 + r2;
-            r3 = r0 - (r1 >> 0x18);
-            r1 &= 0xFFFFFF;
+            r2 = r0 + r2; //length + datavar2 -> decompressed length
+            r3 = r0 - (r1 >> 0x18); //delete the latest 3 bits??
+            r1 &= 0xFFFFFF; //save the latest 3 bits
             r1 = r0 - r1;
         a958:
-            if (r3 <= r1) {
-                goto a9B8;
+            if (r3 <= r1) { //if r1 is 0 they will be equal
+                goto a9B8; //return the memory buffer
             }
             r3 -= 1;
             r5 = memory[r3];

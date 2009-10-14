@@ -28,7 +28,15 @@ namespace NSMBe4
                 // load Jyotyu
                 g.LoadTilesets(0);
                 TilesetNumber = 0;
-            } else {
+            }
+            else if (TilesetID == 65534)
+            {
+                // load Nohara_sub
+                g.LoadTilesets(2);
+                TilesetNumber = 2;
+            }
+            else
+            {
                 // load a normal tileset
                 g.LoadTilesets(TilesetID);
                 TilesetNumber = 1;
