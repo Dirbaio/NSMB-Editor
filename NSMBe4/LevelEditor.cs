@@ -49,13 +49,7 @@ namespace NSMBe4 {
 
             // First off prepare the sprite list
             string[] spritelist = new string[324];
-            string[] rawlist;
-            if (Properties.Settings.Default.Language != 1) {
-                rawlist = Properties.Resources.spritelist.Split('\n');
-            } else {
-                rawlist = Properties.Resources.spritelist_lang1.Split('\n');
-            }
-            foreach (string sprite in rawlist) {
+            foreach (string sprite in LanguageManager.GetList("Sprites")) {
                 string trimmedsprite = sprite.Trim();
                 if (trimmedsprite == "") continue;
                 int equalPos = trimmedsprite.IndexOf('=');

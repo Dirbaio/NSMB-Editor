@@ -12,18 +12,13 @@ namespace NSMBe4 {
             this.ROM = ROM;
             InitializeComponent();
 
-            string[] LevelNames;
-            if (Properties.Settings.Default.Language != 1) {
-                LevelNames = NSMBe4.Properties.Resources.levelnames.Split('\n');
-            } else {
-                LevelNames = NSMBe4.Properties.Resources.levelnames_lang1.Split('\n');
-            }
+            List<string> LevelNames = LanguageManager.GetList("LevelNames");
 
             Levels = new List<string>();
             LevelFiles = new List<string>();
 
             string WorldID = null;
-            for (int NameIdx = 0; NameIdx < LevelNames.Length; NameIdx++) {
+            for (int NameIdx = 0; NameIdx < LevelNames.Count; NameIdx++) {
                 LevelNames[NameIdx] = LevelNames[NameIdx].Trim();
                 if (LevelNames[NameIdx] == "") continue;
                 if (LevelNames[NameIdx][0] == '-') {

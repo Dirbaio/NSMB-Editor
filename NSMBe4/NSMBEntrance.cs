@@ -65,22 +65,8 @@ namespace NSMBe4 {
         public override string ToString()
         {
  	         return String.Format("{0}: {1} ({2},{3})", Number,
-                    Properties.Settings.Default.Language != 1 ? NSMBEntrance.TypeList[Type] : NSMBEntrance.TypeList_lang1[Type],
+                    LanguageManager.GetList("EntranceTypes")[Type],
                     X, Y);
         }
-
-        public static string[] TypeList = ("Normal|Unused|Door|" +
-            "Pipe facing up|Pipe facing down|Pipe facing left|Pipe facing right|" +
-            "Unused|Ground pound (entrance only)|Sliding (entrance only)|Swimming (entrance only)|" +
-            "Unused|Unused|Unused|Unused|Unused|" +
-            "Mini pipe facing up|Mini pipe facing down|Mini pipe facing left|Mini pipe facing right|" +
-            "Jumping (entrance only)|Climbing vine (entrance only)|Unknown 1|Unknown 2|Unknown 3|Unknown 4").Split('|');
-
-        public static string[] TypeList_lang1 = ("Normal|Sin usar|Puerta|" +
-            "Tuberia (arriba)|Tuberia (abajo)|Tuberia (izquierda)|Tuberia (derecha)|" +
-            "Sin usar|Pegar al suelo (solo entrada)|Deslizandose (solo entrada)|Nadando (solo entrada)|" +
-            "Sin usar|Sin usar|Sin usar|Sin usar|Sin usar|" +
-            "Tuberia pequeña (arriba)|Tuberia pequeña (abajo)|Tuberia pequeña (izquierda)|Tuberia pequeña (derecha)|" +
-            "Saltando|Enredadera|Desconocido 1|Desconocido 2|Desconocido 3|Desconocido 4").Split('|');
     }
 }

@@ -21,7 +21,7 @@ namespace NSMBe4
             EdControl = ec;
             UpdateList();
             if (entranceTypeComboBox.Items.Count == 0)
-                entranceTypeComboBox.Items.AddRange(Properties.Settings.Default.Language != 1 ? NSMBEntrance.TypeList : NSMBEntrance.TypeList_lang1);
+                entranceTypeComboBox.Items.AddRange(LanguageManager.GetList("EntranceTypes").ToArray());
 
             deleteEntranceButton.Enabled = false;
             LanguageManager.ApplyToContainer(this, "EntranceEditor");

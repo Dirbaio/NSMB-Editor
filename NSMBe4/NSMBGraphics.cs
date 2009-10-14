@@ -179,13 +179,8 @@ namespace NSMBe4 {
             // Enable notes for the normal tileset
             Tilesets[0].UseNotes = true;
             Tilesets[0].ObjNotes = new string[Tilesets[0].Objects.Length];
-            string[] RawNotes;
-            if (Properties.Settings.Default.Language != 1) {
-                RawNotes = Properties.Resources.normal_objnotes.Split('\n');
-            } else {
-                RawNotes = Properties.Resources.normal_objnotes_lang1.Split('\n');
-            }
-            for (int NoteIdx = 0; NoteIdx < RawNotes.Length; NoteIdx++) {
+            List<string> RawNotes = LanguageManager.GetList("ObjNotes");
+            for (int NoteIdx = 0; NoteIdx < RawNotes.Count; NoteIdx++) {
                 if (RawNotes[NoteIdx] == "") continue;
 
                 int equalPos = RawNotes[NoteIdx].IndexOf('=');

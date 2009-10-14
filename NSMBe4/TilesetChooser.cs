@@ -18,19 +18,10 @@ namespace NSMBe4
 
             this.ROM = ROM;
 
-            string[] rawlist;
-            string[] parsedlist;
-
             // Add tilesets to list
-            if (Properties.Settings.Default.Language != 1) {
-                rawlist = Properties.Resources.tilesetlist.Split('\n');
-            } else {
-                rawlist = Properties.Resources.tilesetlist_lang1.Split('\n');
-            }
-
             int index = 0;
-            parsedlist = new string[76];
-            foreach (string name in rawlist) {
+            string[] parsedlist = new string[76];
+            foreach (string name in LanguageManager.GetList("Tilesets")) {
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
                 parsedlist[index] = trimmedname;

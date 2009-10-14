@@ -317,9 +317,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\levelnames.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
@@ -353,16 +350,13 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\normal_objnotes.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="nsmbe3.ico" />
     <Content Include="Resources\english.txt" />
     <Content Include="Resources\find.png" />
     <Content Include="Resources\gfxeditor.png" />
+    <Content Include="Resources\options.png" />
     <Content Include="Resources\spanish.txt" />
     <Content Include="Resources\zoom.png" />
-    <None Include="Resources\zones1.png" />
     <None Include="Resources\zones.png" />
     <None Include="Resources\paths.png" />
     <None Include="Resources\views.png" />
@@ -465,20 +459,8 @@
     <Compile Include="ViewsEditionMode.cs" />
     <None Include="Resources\pathpoint.png" />
     <None Include="Resources\sprite_invalid.png" />
-    <None Include="Resources\modifierchooser_lang1.txt" />
-    <None Include="Resources\modifierchooser.txt" />
-    <None Include="Resources\bglist_lang1.txt" />
-    <None Include="Resources\fglist_lang1.txt" />
-    <None Include="Resources\tilesetlist_lang1.txt" />
-    <None Include="Resources\fglist.txt" />
-    <None Include="Resources\bglist.txt" />
-    <None Include="Resources\tilesetlist.txt" />
     <None Include="Resources\config.png" />
-    <None Include="Resources\spritelist_lang1.txt" />
-    <None Include="Resources\normal_objnotes_lang1.txt" />
-    <None Include="Resources\levelnames_lang1.txt" />
     <None Include="Resources\entrances.png" />
-    <None Include="Resources\spritelist.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

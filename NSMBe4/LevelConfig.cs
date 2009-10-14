@@ -16,20 +16,13 @@ namespace NSMBe4 {
 
             LanguageManager.ApplyToContainer(this, "LevelConfig");
 
-            string[] rawlist;
             string[] parsedlist;
             int index;
 
             // Add tilesets to list
-            if (Properties.Settings.Default.Language != 1) {
-                rawlist = Properties.Resources.tilesetlist.Split('\n');
-            } else {
-                rawlist = Properties.Resources.tilesetlist_lang1.Split('\n');
-            }
-
             index = 0;
             parsedlist = new string[76];
-            foreach (string name in rawlist) {
+            foreach (string name in LanguageManager.GetList("Tilesets")) {
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
                 parsedlist[index] = trimmedname;
@@ -39,15 +32,9 @@ namespace NSMBe4 {
             tilesetComboBox.Items.AddRange(parsedlist);
 
             // Add foregrounds to list
-            if (Properties.Settings.Default.Language != 1) {
-                rawlist = Properties.Resources.fglist.Split('\n');
-            } else {
-                rawlist = Properties.Resources.fglist_lang1.Split('\n');
-            }
-
             index = 0;
             parsedlist = new string[77];
-            foreach (string name in rawlist) {
+            foreach (string name in LanguageManager.GetList("Foregrounds")) {
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
                 parsedlist[index] = trimmedname;
@@ -57,15 +44,9 @@ namespace NSMBe4 {
             bgTopLayerComboBox.Items.AddRange(parsedlist);
 
             // Add backgrounds
-            if (Properties.Settings.Default.Language != 1) {
-                rawlist = Properties.Resources.bglist.Split('\n');
-            } else {
-                rawlist = Properties.Resources.bglist_lang1.Split('\n');
-            }
-
             index = 0;
             parsedlist = new string[77];
-            foreach (string name in rawlist) {
+            foreach (string name in LanguageManager.GetList("Backgrounds")) {
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
                 parsedlist[index] = trimmedname;
@@ -75,29 +56,23 @@ namespace NSMBe4 {
             bgBottomLayerComboBox.Items.AddRange(parsedlist);
 
             // Load modifier lists
-            if (Properties.Settings.Default.Language != 1) {
-                rawlist = Properties.Resources.modifierchooser.Split('\n');
-            } else {
-                rawlist = Properties.Resources.modifierchooser_lang1.Split('\n');
-            }
-
             ComboBox target = null;
-            foreach (string name in rawlist) {
+            foreach (string name in LanguageManager.GetList("Modifiers")) {
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
-                if (trimmedname[0] == '[') {
+                if (trimmedname[0] == '-') {
                     switch (trimmedname) {
-                        case "[1]": target = set1ComboBox; break;
-                        case "[2]": target = set2ComboBox; break;
-                        case "[3]": target = set3ComboBox; break;
-                        case "[4]": target = set4ComboBox; break;
-                        case "[5]": target = set5ComboBox; break;
-                        case "[6]": target = set6ComboBox; break;
-                        case "[7]": target = set7ComboBox; break;
-                        case "[8]": target = set8ComboBox; break;
-                        case "[9]": target = set9ComboBox; break;
-                        case "[10]": target = set10ComboBox; break;
-                        case "[16]": target = set16ComboBox; break;
+                        case "-1": target = set1ComboBox; break;
+                        case "-2": target = set2ComboBox; break;
+                        case "-3": target = set3ComboBox; break;
+                        case "-4": target = set4ComboBox; break;
+                        case "-5": target = set5ComboBox; break;
+                        case "-6": target = set6ComboBox; break;
+                        case "-7": target = set7ComboBox; break;
+                        case "-8": target = set8ComboBox; break;
+                        case "-9": target = set9ComboBox; break;
+                        case "-10": target = set10ComboBox; break;
+                        case "-16": target = set16ComboBox; break;
                     }
                 } else {
                     target.Items.Add(trimmedname);

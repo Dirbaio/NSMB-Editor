@@ -22,6 +22,7 @@ namespace NSMBe4
             this.l = l;
             EditingViews = EdVi;
             LanguageManager.ApplyToContainer(this, "ViewEditor");
+            music.Items.AddRange(LanguageManager.GetList("Music").ToArray());
             UpdateList();
         }
 
@@ -81,7 +82,14 @@ namespace NSMBe4
                 viewID.Value = v.Number;
 
                 cameraID.Value = v.Camera;
-                music.SelectedIndex = v.Music;
+                music.SelectedIndex = 0;
+                for (int findmusic = 0; findmusic < music.Items.Count; findmusic++) {
+                    int check = int.Parse((music.Items[findmusic] as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+                    if (check == v.Music) {
+                        music.SelectedIndex = findmusic;
+                        break;
+                    }
+                }
                 unk1.Value = v.Unknown1;
                 unk2.Value = v.Unknown2;
                 unk3.Value = v.Unknown3;
@@ -121,7 +129,7 @@ namespace NSMBe4
                 return;
 
             v.Camera = (int)cameraID.Value;
-            v.Music = (int)music.SelectedIndex;
+            v.Music = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
             v.Unknown1 = (int)unk1.Value;
             v.Unknown2 = (int)unk2.Value;
             v.Unknown3 = (int)unk3.Value;

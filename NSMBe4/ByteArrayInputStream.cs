@@ -27,8 +27,7 @@ namespace NSMBe4
 
         public byte readByte()
         {
-            pos++;
-            return array[pos-1];
+            return array[pos++];
         }
 
         public void seek(int pos)

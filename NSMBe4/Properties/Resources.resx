@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tilesetlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tilesetlist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="pathpoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pathpoint.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,32 +130,14 @@
   <data name="entrances" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\entrances.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="normal_objnotes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\normal_objnotes.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="block" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\block.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fglist_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fglist_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="sprite_invalid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sprite_invalid.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="modifierchooser" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\modifierchooser.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="english" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\english.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="normal_objnotes_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\normal_objnotes_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="levelnames_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\levelnames_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="spritelist_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spritelist_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -181,26 +160,11 @@
   <data name="options" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="fglist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fglist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="tilesetlist_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tilesetlist_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="bglist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bglist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="spritelist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spritelist.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="find" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\find.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="door" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\door.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bglist_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bglist_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoom.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,23 +175,14 @@
   <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="modifierchooser_lang1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\modifierchooser_lang1.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="views" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\views.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="zones" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zones.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="levelnames" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\levelnames.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="zones1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zones1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="zones" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zones.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gfxeditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gfxeditor.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

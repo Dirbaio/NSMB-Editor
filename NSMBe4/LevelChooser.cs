@@ -46,18 +46,13 @@ namespace NSMBe4 {
         public static NitroClass ROM;
 
         private void LoadLevelNames() {
-            string[] LevelNames;
-            if (Properties.Settings.Default.Language != 1) {
-                LevelNames = NSMBe4.Properties.Resources.levelnames.Split('\n');
-            } else {
-                LevelNames = NSMBe4.Properties.Resources.levelnames_lang1.Split('\n');
-            }
+            List<string> LevelNames = LanguageManager.GetList("LevelNames");
 
             TreeNode WorldNode = null;
             string WorldID = null;
             TreeNode LevelNode;
             TreeNode AreaNode;
-            for (int NameIdx = 0; NameIdx < LevelNames.Length; NameIdx++) {
+            for (int NameIdx = 0; NameIdx < LevelNames.Count; NameIdx++) {
                 LevelNames[NameIdx] = LevelNames[NameIdx].Trim();
                 if (LevelNames[NameIdx] == "") continue;
                 if (LevelNames[NameIdx][0] == '-') {
