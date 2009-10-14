@@ -314,7 +314,11 @@ namespace NSMBe4
             for (int i = 0; i < Map16.Length; i++)
                 file.write(TileBehaviors[i]);
 
-            ROM.ReplaceFile(TileBehaviorFileID, file.getArray());
+            if (TilesetNumber == 0) {
+                NSMBDataHandler.ReplaceInlineFile(NSMBDataHandler.Data.File_Jyotyu_CHK, file.getArray());
+            } else if (TilesetNumber == 1) {
+                ROM.ReplaceFile(TileBehaviorFileID, file.getArray());
+            }
         }
 
         #endregion

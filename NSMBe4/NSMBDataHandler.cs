@@ -48,6 +48,11 @@ namespace NSMBe4 {
             }
         }
 
+        public static void SaveOverlay0() {
+            byte[] Compressed = CompressOverlay(Overlay0);
+            ROM.ReplaceFile(0, Compressed);
+        }
+
         public enum Origin {
             US = 0, EU = 1, JP = 2
         }
@@ -115,6 +120,11 @@ namespace NSMBe4 {
             byte[] output = new byte[FileSizes[(int)datatype]];
             Array.Copy(Overlay0, GetOffset(datatype), output, 0, output.Length);
             return output;
+        }
+
+        public static void ReplaceInlineFile(Data datatype, byte[] NewFile) {
+            Array.Copy(NewFile, 0, Overlay0, GetOffset(datatype), NewFile.Length);
+            SaveOverlay0();
         }
 
         public static byte[] CompressOverlay(byte[] rawData)
