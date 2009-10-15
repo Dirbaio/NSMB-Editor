@@ -10,11 +10,43 @@ namespace NSMBe4 {
         }
 
         public void LoadTilesets(ushort TilesetID) {
+            // backup
+            LoadTilesets(TilesetID, 8);
+        }
+
+        public void LoadTilesets(ushort TilesetID, int JyotyuPalOverride) {
             Tilesets = new NSMBTileset[3];
 
-            Tilesets[0] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"], ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"], ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu.bin"], ROM.FileIDs["A_J_jyotyu_hd.bin"], 65535, true, 0);
+            Console.WriteLine("JyotyuPalOverride = {0}, JyotyuPal offset = {1}...", JyotyuPalOverride, NSMBDataHandler.Overlay0[NSMBDataHandler.GetOffset(NSMBDataHandler.Data.Table_Jyotyu_NCL) + JyotyuPalOverride]);
+
+            byte JyotyuPalID = NSMBDataHandler.Overlay0[NSMBDataHandler.GetOffset(NSMBDataHandler.Data.Table_Jyotyu_NCL) + JyotyuPalOverride];
+            ushort JyotyuPalFileID = 0;
+            if (JyotyuPalID == 1)
+                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_B_ncl.bin"];
+            else if (JyotyuPalID == 2)
+                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_R_ncl.bin"];
+            else if (JyotyuPalID == 3)
+                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_W_ncl.bin"];
+            else
+                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"];
+
+            Tilesets[0] = new NSMBTileset(ROM,
+                ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"],
+                JyotyuPalFileID,
+                ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"],
+                ROM.FileIDs["A_J_jyotyu.bin"],
+                ROM.FileIDs["A_J_jyotyu_hd.bin"],
+                65535, true, 0);
+
             LoadTileset1(TilesetID);
-            Tilesets[2] = new NSMBTileset(ROM, ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"], ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"], ROM.FileIDs["d_2d_PA_I_S_nohara.bin"], ROM.FileIDs["I_S_nohara.bin"], ROM.FileIDs["I_S_nohara_hd.bin"], 65535, false, 2);
+
+            Tilesets[2] = new NSMBTileset(ROM,
+                ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"],
+                ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"],
+                ROM.FileIDs["d_2d_PA_I_S_nohara.bin"],
+                ROM.FileIDs["I_S_nohara.bin"],
+                ROM.FileIDs["I_S_nohara_hd.bin"],
+                ROM.FileIDs["NoHaRaSubUnitChangeData.bin"], false, 2);
 
             // Patch in a bunch of overrides to the normal tileset
             // Now works directly on the map16 data
@@ -240,22 +272,22 @@ namespace NSMBe4 {
 
         public void RepatchBlocks(bool type) {
             /* Question blocks */
-            for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++) {
-                Tilesets[0].Objects[BlockIdx + 30] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(BlockIdx + (type ? 89 : 73)), 0, 0xFE, 0xFF });
-            }
+            //for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++) {
+            //    Tilesets[0].Objects[BlockIdx + 30] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(BlockIdx + (type ? 89 : 73)), 0, 0xFE, 0xFF });
+            //}
 
-            Tilesets[0].Objects[90] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(type ? 103 : 87), 0, 0xFE, 0xFF });
-            Tilesets[0].Objects[91] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(type ? 104 : 88), 0, 0xFE, 0xFF });
+            //Tilesets[0].Objects[90] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(type ? 103 : 87), 0, 0xFE, 0xFF });
+            //Tilesets[0].Objects[91] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(type ? 104 : 88), 0, 0xFE, 0xFF });
 
             /* Brick blocks */
-            for (int BlockIdx = 0; BlockIdx < 9; BlockIdx++) {
-                Tilesets[0].Objects[BlockIdx + 44] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(BlockIdx + (type ? 114 : 105)), 0, 0xFE, 0xFF });
-            }
+            //for (int BlockIdx = 0; BlockIdx < 9; BlockIdx++) {
+            //    Tilesets[0].Objects[BlockIdx + 44] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(BlockIdx + (type ? 114 : 105)), 0, 0xFE, 0xFF });
+            //}
 
             /* Invisible blocks */
-            for (int BlockIdx = 0; BlockIdx < 6; BlockIdx++) {
-                Tilesets[0].Objects[BlockIdx + 70] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(BlockIdx + (type ? 129 : 123)), 0, 0xFE, 0xFF });
-            }
+            //for (int BlockIdx = 0; BlockIdx < 6; BlockIdx++) {
+            //    Tilesets[0].Objects[BlockIdx + 70] = new NSMBTileset.ObjectDef(new byte[] { 64, (byte)(BlockIdx + (type ? 129 : 123)), 0, 0xFE, 0xFF });
+            //}
         }
 
         public NitroClass ROM;

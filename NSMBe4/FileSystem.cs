@@ -178,19 +178,24 @@ namespace NSMBe4
             return NewStr.ToString();
         }
 
-        public void WriteUInt(Stream fs, uint WriteThis)
-        {
+        public void WriteUInt(Stream fs, uint WriteThis) {
             // write an unsigned int to a passed Stream
-            byte[] TempByte = new byte[4];
             uint OldVal = WriteThis;
-            TempByte[0] = (byte)(OldVal & 0xFF);
+            fs.WriteByte((byte)(OldVal & 0xFF));
             OldVal >>= 8;
-            TempByte[1] = (byte)(OldVal & 0xFF);
+            fs.WriteByte((byte)(OldVal & 0xFF));
             OldVal >>= 8;
-            TempByte[2] = (byte)(OldVal & 0xFF);
+            fs.WriteByte((byte)(OldVal & 0xFF));
             OldVal >>= 8;
-            TempByte[3] = (byte)OldVal;
-            fs.Write(TempByte, 0, 4);
+            fs.WriteByte((byte)OldVal);
+        }
+
+        public void WriteUShort(Stream fs, ushort WriteThis) {
+            // write an unsigned int to a passed Stream
+            ushort OldVal = WriteThis;
+            fs.WriteByte((byte)(OldVal & 0xFF));
+            OldVal >>= 8;
+            fs.WriteByte((byte)OldVal);
         }
     }
 }

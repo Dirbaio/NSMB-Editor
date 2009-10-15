@@ -128,6 +128,17 @@ namespace NSMBe4
             }
         }
 
+        public int ObjectDefTileOffset {
+            get {
+                if (TilesetNumber == 1)
+                    return 1;
+                else if (TilesetNumber == 2)
+                    return 4;
+                else
+                    return 0;
+            }
+        }
+
         public int Map16PaletteOffset
         {
             get
@@ -294,7 +305,7 @@ namespace NSMBe4
             {
                 tileBehaviorsFile = NSMBDataHandler.GetInlineFile(NSMBDataHandler.Data.File_Jyotyu_CHK);
             }
-            else if (TilesetNumber == 1)
+            else if (TilesetNumber == 1 || TilesetNumber == 2)
             {
                 tileBehaviorsFile = ROM.ExtractFile(TileBehaviorFileID);
             }
@@ -316,7 +327,7 @@ namespace NSMBe4
 
             if (TilesetNumber == 0) {
                 NSMBDataHandler.ReplaceInlineFile(NSMBDataHandler.Data.File_Jyotyu_CHK, file.getArray());
-            } else if (TilesetNumber == 1) {
+            } else if (TilesetNumber == 1 || TilesetNumber == 2) {
                 ROM.ReplaceFile(TileBehaviorFileID, file.getArray());
             }
         }
@@ -568,16 +579,19 @@ namespace NSMBe4
             public List<List<ObjectDefTile>> tiles;
             public int width, height; //these are useless, but I keep them
                                       //in case the game uses them.
+            private NSMBTileset t;
 
-            public ObjectDef()
+            public ObjectDef(NSMBTileset t)
             {
+                this.t = t;
                 tiles = new List<List<ObjectDefTile>>();
                 List<ObjectDefTile> row = new List<ObjectDefTile>();
                 tiles.Add(row);
             }
 
-            public ObjectDef(byte[] data)
+            public ObjectDef(byte[] data, NSMBTileset t)
             {
+                this.t = t;
                 load(new ByteArrayInputStream(data));
             }
 
@@ -588,7 +602,7 @@ namespace NSMBe4
 
                 while (true)
                 {
-                    ObjectDefTile t = new ObjectDefTile(inp);
+                    ObjectDefTile t = new ObjectDefTile(inp, this.t);
                     if (t.lineBreak)
                     {
                         tiles.Add(row);
@@ -617,6 +631,7 @@ namespace NSMBe4
         {
             public int tileID;
             public byte controlByte;
+            private NSMBTileset t;
 
             public bool emptyTile {
                 get { return tileID == -1; }
@@ -639,9 +654,10 @@ namespace NSMBe4
                 get { return lineBreak || objectEnd || slopeControl; }
             }
 
-            public ObjectDefTile() { }
-            public ObjectDefTile(ByteArrayInputStream inp)
+            public ObjectDefTile(NSMBTileset t) { this.t = t; }
+            public ObjectDefTile(ByteArrayInputStream inp, NSMBTileset t)
             {
+                this.t = t;
                 controlByte = inp.readByte();
 
                 if (!controlTile)
@@ -650,7 +666,7 @@ namespace NSMBe4
                     a = inp.readByte();
                     b = inp.readByte();
 
-                    tileID = a + (((b != 0) ? b - 1 : 0)%3 << 8);
+                    tileID = a + ((b - t.ObjectDefTileOffset) << 8);
 
                     if ((controlByte & 64) != 0) //OVERRIDES
                         tileID += 768;
@@ -673,7 +689,7 @@ namespace NSMBe4
                 {
                     outp.writeByte(controlByte);
                     outp.writeByte((byte)(tileID % 256));
-                    outp.writeByte((byte)(tileID / 256 + 1));
+                    outp.writeByte((byte)(tileID / 256 + t.ObjectDefTileOffset));
                 }
             }
         }
@@ -689,7 +705,7 @@ namespace NSMBe4
             int obj = 0;
             while (eObjIndexFile.available(4) && obj < Objects.Length)
             {
-                Objects[obj] = new ObjectDef();
+                Objects[obj] = new ObjectDef(this);
                 int offset = eObjIndexFile.readUShort();
                 Objects[obj].width = eObjIndexFile.readByte();
                 Objects[obj].height = eObjIndexFile.readByte();

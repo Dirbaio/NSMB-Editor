@@ -49,8 +49,7 @@ namespace NSMBe4 {
         }
 
         public static void SaveOverlay0() {
-            byte[] Compressed = CompressOverlay(Overlay0);
-            ROM.ReplaceFile(0, Compressed);
+            ROM.ReplaceFile(0, Overlay0);
         }
 
         public enum Origin {
@@ -74,8 +73,9 @@ namespace NSMBe4 {
             Table_TS_NCL = 11,
             Table_FG_NCL = 12,
             Table_TS_PNL = 13,
-            File_Jyotyu_CHK = 14,
-            File_Modifiers = 15
+            Table_Jyotyu_NCL = 14,
+            File_Jyotyu_CHK = 15,
+            File_Modifiers = 16
         }
 
         public static int[,] Offsets = {
@@ -93,12 +93,13 @@ namespace NSMBe4 {
                                            {0x31494, 0x30CA8, 0x30894}, //TS_NCL
                                            {0x315C4, 0x30DD8, 0x309C4}, //FG_NCL
                                            {0x316F4, 0x30F08, 0x30AF4}, //TS_PNL
+                                           {0x30CD8, 0x304E0, 0x300D8}, //Jyotyu_NCL
                                            {0x2FDA4, 0x2F5B8, 0x2F1A4}, //Jyotyu_CHK
                                            {0x2C930, 0x2BDF0, 0x2BD30}, //Modifiers
                                        };
 
         public static int[] FileSizes = {
-                                            0,0,0,0,0,0,0,0,0,0,0,0,0,0, //Don't include tables
+                                            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, //Don't include tables
                                             0x400, //Jyotyu_CHK
                                             0x288, //Modifiers
                                         };
@@ -125,24 +126,6 @@ namespace NSMBe4 {
         public static void ReplaceInlineFile(Data datatype, byte[] NewFile) {
             Array.Copy(NewFile, 0, Overlay0, GetOffset(datatype), NewFile.Length);
             SaveOverlay0();
-        }
-
-        public static byte[] CompressOverlay(byte[] rawData)
-        {
-            bool ending0s = true;
-            for (int i = rawData.Length - 8; i < rawData.Length; i++)
-                if (rawData[i] != 0)
-                    ending0s = false;
-
-            if (ending0s)
-                return rawData;
-
-            byte[] compressed = new byte[rawData.Length + 8];
-            rawData.CopyTo(compressed, 0);
-            for (int i = compressed.Length - 8; i < compressed.Length; i++)
-                compressed[i] = 0;
-
-            return compressed;
         }
 
         public static byte[] DecompressOverlay(byte[] sourcedata)

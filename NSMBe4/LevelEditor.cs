@@ -63,11 +63,12 @@ namespace NSMBe4 {
             // Therefore, I have a simple loader here which gets this info.
             byte[] LevelFile = ROM.ExtractFile(LevelFileID);
             int Block1Offset = LevelFile[0] | (LevelFile[1] << 8) | (LevelFile[2] << 16) | (LevelFile[3] << 24);
-            int Block4Offset = LevelFile[12] | (LevelFile[13] << 8) | (LevelFile[14] << 16) | (LevelFile[15] << 24);
+            int Block3Offset = LevelFile[16] | (LevelFile[17] << 8) | (LevelFile[18] << 16) | (LevelFile[19] << 24);
             byte TilesetID = LevelFile[Block1Offset + 0x0C];
+            byte BGNSCID = LevelFile[Block3Offset + 2];
 
             GFX = new NSMBGraphics(ROM);
-            GFX.LoadTilesets(TilesetID);
+            GFX.LoadTilesets(TilesetID, BGNSCID);
 
             Level = new NSMBLevel(ROM, LevelFileID, LevelBGDatFileID, GFX);
             levelEditorControl1.Initialise(GFX, Level, this);
@@ -164,7 +165,7 @@ namespace NSMBe4 {
         }
 
         private void LevelConfigForm_ReloadTileset() {
-            GFX.LoadTileset1(Level.Blocks[0][0xC]);
+            GFX.LoadTilesets(Level.Blocks[0][0xC], Level.Blocks[2][2]);
             Level.ReRenderAll();
             opc.ReRenderAll(1);
             Invalidate(true);

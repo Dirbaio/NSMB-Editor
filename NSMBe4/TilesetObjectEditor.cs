@@ -138,7 +138,7 @@ namespace NSMBe4
 
             if (Control.ModifierKeys == Keys.Control)
             {
-                NSMBTileset.ObjectDefTile nt = new NSMBTileset.ObjectDefTile();
+                NSMBTileset.ObjectDefTile nt = new NSMBTileset.ObjectDefTile(tls);
                 nt.tileID = tile;
                 insertTile(nt);
             }

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace NSMBe4 {
+    /*public class TestLister : FileLister {
+        public void DirReady(int DirID, int ParentID, string DirName, bool IsRoot) { }
+        public void FileReady(int FileID, int ParentID, string FileName) { }
+    }*/
+
     static class Program {
         /// <summary>
         /// The main entry point for the application.
@@ -23,6 +28,17 @@ namespace NSMBe4 {
             new Map16Viewer(t).Show();
 
 //            Application.Run();*/
+
+            // MORE TESTING!
+            /*System.IO.File.Delete(@"C:\C\Emulation\ROMs\NDS\NSMBJTestOverlay0Edit.nds");
+            System.IO.File.Copy(@"C:\C\Emulation\ROMs\NDS\442- New Super Mario Bros. (J)(WRG).nds", @"C:\C\Emulation\ROMs\NDS\NSMBJTestOverlay0Edit.nds");
+            NitroClass ROM = new NitroClass(@"C:\C\Emulation\ROMs\NDS\NSMBJTestOverlay0Edit.nds");
+            ROM.Load(new TestLister());
+            NSMBDataHandler.load(ROM);
+            NSMBDataHandler.SaveOverlay0();
+
+            return;*/
+
 
             if (Properties.Settings.Default.Language == 0) {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
