@@ -36,16 +36,20 @@
             this.map16Editor1 = new NSMBe4.Map16Editor();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
@@ -122,6 +126,25 @@
             this.toolStripButton1.Text = "<toolStripButton1>";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.graphicsEditor1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(828, 510);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "<tabPage3>";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // graphicsEditor1
+            // 
+            this.graphicsEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphicsEditor1.Location = new System.Drawing.Point(3, 3);
+            this.graphicsEditor1.Name = "graphicsEditor1";
+            this.graphicsEditor1.Size = new System.Drawing.Size(822, 504);
+            this.graphicsEditor1.TabIndex = 0;
+            // 
             // TilesetEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -136,6 +159,7 @@
             this.tabPage2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,5 +175,7 @@
         private TilesetObjectEditor tilesetObjectEditor1;
         private System.Windows.Forms.TabPage tabPage2;
         private Map16Editor map16Editor1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private GraphicsEditor graphicsEditor1;
     }
 }

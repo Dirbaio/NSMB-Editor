@@ -67,6 +67,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap brush {
+            get {
+                object obj = ResourceManager.GetObject("brush", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap config {
             get {
                 object obj = ResourceManager.GetObject("config", resourceCulture);
@@ -122,9 +129,23 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap eraser {
+            get {
+                object obj = ResourceManager.GetObject("eraser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap file {
             get {
                 object obj = ResourceManager.GetObject("file", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap fill {
+            get {
+                object obj = ResourceManager.GetObject("fill", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -157,6 +178,20 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap grid {
+            get {
+                object obj = ResourceManager.GetObject("grid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap line {
+            get {
+                object obj = ResourceManager.GetObject("line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap minimap {
             get {
                 object obj = ResourceManager.GetObject("minimap", resourceCulture);
@@ -181,6 +216,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap paths {
             get {
                 object obj = ResourceManager.GetObject("paths", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picker {
+            get {
+                object obj = ResourceManager.GetObject("picker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -270,6 +312,20 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap zoom {
             get {
                 object obj = ResourceManager.GetObject("zoom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap zoomactual {
+            get {
+                object obj = ResourceManager.GetObject("zoomactual", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap zoomout {
+            get {
+                object obj = ResourceManager.GetObject("zoomout", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

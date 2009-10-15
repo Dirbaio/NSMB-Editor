@@ -49,7 +49,7 @@ namespace NSMBe4
 
             tilesetObjectEditor1.load(g, TilesetNumber);
             map16Editor1.load(t);
-
+            graphicsEditor1.load(t.Palette, 256, t.RawGFXData, 256);
         }
 
         private void objectPickerControl1_ObjectSelected()

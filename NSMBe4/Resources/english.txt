@@ -175,6 +175,15 @@ _TITLE=Filesystem Browser
 
 
 
+[GraphicsEditor]
+zoomStatus={0}%
+hoverStatus=({0},{1})
+imageStatus={0}bpp image, {1}x{2}
+paletteChooserLabel=Palette:
+
+
+
+
 [GraphicsViewer]
 _TITLE=Graphics Viewer
 label1=Palette:
@@ -328,6 +337,7 @@ _TITLE=Editing Tileset - {0}
 toolStripButton1=Save Tileset
 tabPage1=Objects
 tabPage2=Map16
+tabPage3=Graphics
 
 
 

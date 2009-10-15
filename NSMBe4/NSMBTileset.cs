@@ -170,6 +170,9 @@ namespace NSMBe4
         IntPtr TilesetBufferHandle;
 #endif
 
+        public Color[] Palette;
+        public byte[] RawGFXData;
+
         private Graphics Map16Graphics;
 #if !USE_GDIPLUS
         public IntPtr Map16BufferHDC;
@@ -202,7 +205,7 @@ namespace NSMBe4
 
             // First get the palette out
             byte[] ePalFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(PalFile));
-            Color[] Palette = new Color[512];
+            Palette = new Color[512];
 
             for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
                 int ColourVal = ePalFile[PalIdx * 2] + (ePalFile[(PalIdx * 2) + 1] << 8);
@@ -218,8 +221,8 @@ namespace NSMBe4
             Palette[256] = Color.LightSlateGray;
 
             // Load graphics
-            byte[] eGFXFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(GFXFile));
-            int TileCount = eGFXFile.Length / 64;
+            RawGFXData = FileSystem.LZ77_Decompress(ROM.ExtractFile(GFXFile));
+            int TileCount = RawGFXData.Length / 64;
             TilesetBuffer = new Bitmap(TileCount * 8, 16);
 
             FilePos = 0;
@@ -227,8 +230,8 @@ namespace NSMBe4
                 int TileSrcX = TileIdx * 8;
                 for (int TileY = 0; TileY < 8; TileY++) {
                     for (int TileX = 0; TileX < 8; TileX++) {
-                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY, Palette[eGFXFile[FilePos]]);
-                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY + 8, Palette[eGFXFile[FilePos] + 256]);
+                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY, Palette[RawGFXData[FilePos]]);
+                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY + 8, Palette[RawGFXData[FilePos] + 256]);
                         FilePos++;
                     }
                 }

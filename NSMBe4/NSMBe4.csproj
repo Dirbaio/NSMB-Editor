@@ -202,6 +202,10 @@
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="GraphicsEditor.resx">
+      <DependentUpon>GraphicsEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImagePreviewer.resx">
       <DependentUpon>ImagePreviewer.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -248,6 +252,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectPickerControl.resx">
       <DependentUpon>ObjectPickerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PalettePicker.resx">
+      <DependentUpon>PalettePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PathEditor.resx">
@@ -317,22 +325,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\save.png" />
+    <None Include="Resources\Icons\save.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\minimap.png" />
+    <None Include="Resources\Icons\minimap.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\folder.png" />
+    <None Include="Resources\Icons\folder.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\folder_open.png" />
+    <None Include="Resources\Icons\folder_open.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\document.png" />
+    <None Include="Resources\Icons\document.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\exclamation.png" />
+    <None Include="Resources\Icons\exclamation.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sprite.png" />
@@ -341,25 +349,33 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\block.png" />
+    <None Include="Resources\Icons\block.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\door.png" />
+    <None Include="Resources\Icons\door.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Icons\brush.png" />
+    <Content Include="Resources\Icons\eraser.png" />
+    <Content Include="Resources\Icons\fill.png" />
+    <Content Include="Resources\Icons\grid.png" />
+    <Content Include="Resources\Icons\line.png" />
+    <Content Include="Resources\Icons\picker.png" />
+    <Content Include="Resources\Icons\zoomactual.png" />
+    <Content Include="Resources\Icons\zoomout.png" />
     <Content Include="nsmbe3.ico" />
     <Content Include="Resources\english.txt" />
-    <Content Include="Resources\find.png" />
-    <Content Include="Resources\gfxeditor.png" />
-    <Content Include="Resources\options.png" />
+    <Content Include="Resources\Icons\find.png" />
+    <Content Include="Resources\Icons\gfxeditor.png" />
+    <Content Include="Resources\Icons\options.png" />
     <Content Include="Resources\spanish.txt" />
-    <Content Include="Resources\zoom.png" />
-    <None Include="Resources\zones.png" />
-    <None Include="Resources\paths.png" />
-    <None Include="Resources\views.png" />
+    <Content Include="Resources\Icons\zoom.png" />
+    <None Include="Resources\Icons\zones.png" />
+    <None Include="Resources\Icons\paths.png" />
+    <None Include="Resources\Icons\views.png" />
     <Compile Include="ByteArrayEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -387,6 +403,12 @@
     <Compile Include="FilesystemBrowserDialog.Designer.cs">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphicsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicsEditor.Designer.cs">
+      <DependentUpon>GraphicsEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="LanguageManager.cs" />
     <Compile Include="Map16Editor.cs">
       <SubType>UserControl</SubType>
@@ -401,6 +423,12 @@
       <DependentUpon>Map16Picker.cs</DependentUpon>
     </Compile>
     <Compile Include="NSMBDataHandler.cs" />
+    <Compile Include="PalettePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PalettePicker.Designer.cs">
+      <DependentUpon>PalettePicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="PathEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -459,7 +487,7 @@
     <Compile Include="ViewsEditionMode.cs" />
     <None Include="Resources\pathpoint.png" />
     <None Include="Resources\sprite_invalid.png" />
-    <None Include="Resources\config.png" />
+    <None Include="Resources\Icons\config.png" />
     <None Include="Resources\entrances.png" />
   </ItemGroup>
   <ItemGroup>
