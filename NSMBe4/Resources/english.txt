@@ -176,7 +176,7 @@ _TITLE=Filesystem Browser
 
 
 [GraphicsEditor]
-zoomStatus={0}%
+zoomLabel={0}%
 hoverStatus=({0},{1})
 imageStatus={0}bpp image, {1}x{2}
 paletteChooserLabel=Palette:

@@ -38,8 +38,8 @@
             this.drawingBox = new System.Windows.Forms.PictureBox();
             this.paletteChooser = new System.Windows.Forms.ComboBox();
             this.paletteChooserLabel = new System.Windows.Forms.Label();
-            this.palettePicker1 = new NSMBe4.PalettePicker();
             this.imageStatus = new System.Windows.Forms.Label();
+            this.palettePicker1 = new NSMBe4.PalettePicker();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.SuspendLayout();
@@ -82,6 +82,7 @@
             this.pickerTool.Size = new System.Drawing.Size(24, 24);
             this.pickerTool.TabIndex = 5;
             this.pickerTool.UseVisualStyleBackColor = true;
+            this.pickerTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
             // lineTool
             // 
@@ -91,6 +92,7 @@
             this.lineTool.Size = new System.Drawing.Size(24, 24);
             this.lineTool.TabIndex = 4;
             this.lineTool.UseVisualStyleBackColor = true;
+            this.lineTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
             // brushTool
             // 
@@ -100,6 +102,7 @@
             this.brushTool.Size = new System.Drawing.Size(24, 24);
             this.brushTool.TabIndex = 3;
             this.brushTool.UseVisualStyleBackColor = true;
+            this.brushTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
             // showGrid
             // 
@@ -109,6 +112,7 @@
             this.showGrid.Size = new System.Drawing.Size(24, 24);
             this.showGrid.TabIndex = 8;
             this.showGrid.UseVisualStyleBackColor = true;
+            this.showGrid.Click += new System.EventHandler(this.showGrid_Click);
             // 
             // fillTool
             // 
@@ -118,6 +122,7 @@
             this.fillTool.Size = new System.Drawing.Size(24, 24);
             this.fillTool.TabIndex = 7;
             this.fillTool.UseVisualStyleBackColor = true;
+            this.fillTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
             // eraserTool
             // 
@@ -127,6 +132,7 @@
             this.eraserTool.Size = new System.Drawing.Size(24, 24);
             this.eraserTool.TabIndex = 6;
             this.eraserTool.UseVisualStyleBackColor = true;
+            this.eraserTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
             // zoomLabel
             // 
@@ -168,6 +174,8 @@
             this.drawingBox.Size = new System.Drawing.Size(100, 50);
             this.drawingBox.TabIndex = 0;
             this.drawingBox.TabStop = false;
+            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
             this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
             // 
             // paletteChooser
@@ -191,24 +199,23 @@
             this.paletteChooserLabel.Text = "<paletteChooserLabel>";
             this.paletteChooserLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // palettePicker1
-            // 
-            this.palettePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.palettePicker1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.palettePicker1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.palettePicker1.Location = new System.Drawing.Point(289, 50);
-            this.palettePicker1.Name = "palettePicker1";
-            this.palettePicker1.Size = new System.Drawing.Size(194, 194);
-            this.palettePicker1.TabIndex = 12;
-            // 
             // imageStatus
             // 
+            this.imageStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.imageStatus.Location = new System.Drawing.Point(289, 31);
             this.imageStatus.Name = "imageStatus";
             this.imageStatus.Size = new System.Drawing.Size(194, 13);
             this.imageStatus.TabIndex = 15;
             this.imageStatus.Text = "<imageStatus>";
             this.imageStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // palettePicker1
+            // 
+            this.palettePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.palettePicker1.Location = new System.Drawing.Point(289, 50);
+            this.palettePicker1.Name = "palettePicker1";
+            this.palettePicker1.Size = new System.Drawing.Size(194, 194);
+            this.palettePicker1.TabIndex = 12;
             // 
             // GraphicsEditor
             // 

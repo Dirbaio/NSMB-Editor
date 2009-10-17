@@ -29,10 +29,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Name = "PalettePicker";
             this.Size = new System.Drawing.Size(192, 192);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.PalettePicker_Paint);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PalettePicker_MouseMove);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PalettePicker_MouseDown);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PalettePicker_MouseUp);
             this.ResumeLayout(false);
 
         }
