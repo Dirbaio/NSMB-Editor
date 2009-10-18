@@ -129,6 +129,10 @@ findSpriteRadioButton=Find all instances of a specific sprite
 label2=split by:
 processButton=Search!
 
+ChooseMode=Choose a mode to search in.
+BlockInstances=-- All instances of block {0} in levels: --
+SpriteInstances=-- All instances of sprite {0} in levels: --
+
 
 
 [EntranceEditor]

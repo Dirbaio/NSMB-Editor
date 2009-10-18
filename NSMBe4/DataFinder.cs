@@ -30,7 +30,6 @@ namespace NSMBe4 {
                         Levels.Add(ParseLevel[0]);
                         LevelFiles.Add(WorldID + ParseLevel[1] + "_1.bin");
                     } else {
-                        // Create a subfolder
                         int AreaCount = int.Parse(ParseLevel[2]);
                         for (int AreaIdx = 1; AreaIdx <= AreaCount; AreaIdx++) {
                             Levels.Add(ParseLevel[0] + " area " + AreaIdx.ToString());
@@ -51,22 +50,14 @@ namespace NSMBe4 {
 
         private void processButton_Click(object sender, EventArgs e) {
             if (!findBlockRadioButton.Checked && !findSpriteRadioButton.Checked) {
-                if (Properties.Settings.Default.Language != 1) {
-                    MessageBox.Show("Choose a mode to search in.");
-                } else {
-                    MessageBox.Show("Escoger un modo para buscar.");
-                }
+                MessageBox.Show(LanguageManager.Get("DataFinder", "ChooseMode"));
                 return;
             }
 
             StringBuilder output = new StringBuilder();
 
             if (findBlockRadioButton.Checked) {
-                if (Properties.Settings.Default.Language != 1) {
-                    output.AppendLine("-- All instances of block " + blockNumberUpDown.Value.ToString() + " in levels: --");
-                } else {
-                    output.AppendLine("-- Todas las instancias de bloque " + blockNumberUpDown.Value.ToString() + " en niveles: --");
-                }
+                output.AppendLine(string.Format(LanguageManager.Get("DataFinder", "BlockInstances"), blockNumberUpDown.Value.ToString()));
 
                 int BlockToDump = (int)((blockNumberUpDown.Value - 1) * 8);
                 int SplitVal = (int)(splitCountUpDown.Value);
@@ -106,11 +97,7 @@ namespace NSMBe4 {
                     }
                 }
             } else if (findSpriteRadioButton.Checked) {
-                if (Properties.Settings.Default.Language != 1) {
-                    output.AppendLine("-- All instances of sprite " + spriteUpDown.Value.ToString() + " in levels: --");
-                } else {
-                    output.AppendLine("-- Todas las instancias de sprite " + spriteUpDown.Value.ToString() + " en niveles: --");
-                }
+                output.AppendLine(string.Format(LanguageManager.Get("DataFinder", "SpriteInstances"), spriteUpDown.Value.ToString()));
 
                 for (int LevelIdx = 0; LevelIdx < Levels.Count; LevelIdx++) {
                     byte[] CurrentLevel = ROM.ExtractFile(ROM.FileIDs[LevelFiles[LevelIdx]]);
