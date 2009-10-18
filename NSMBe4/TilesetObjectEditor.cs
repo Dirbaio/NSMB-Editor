@@ -292,6 +292,14 @@ namespace NSMBe4
         {
             map16Picker1.SetTileset(tls);
         }
+
+        private void emptyTileButton_Click(object sender, EventArgs e) {
+            if (selRow == null) return;
+
+            selRow.Insert(selRow.IndexOf(selTile) + 1, new NSMBTileset.ObjectDefTile(tls));
+            selectTile(selRow[selRow.IndexOf(selTile) + 1]);
+            repaint();
+        }
     }
 }
 

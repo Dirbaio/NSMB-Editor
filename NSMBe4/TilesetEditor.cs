@@ -49,7 +49,16 @@ namespace NSMBe4
 
             tilesetObjectEditor1.load(g, TilesetNumber);
             map16Editor1.load(t);
-            graphicsEditor1.load(t.Palette, 256, t.RawGFXData, 256);
+            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
+
+            graphicsEditor1.SaveGraphics += new GraphicsEditor.SaveGraphicsHandler(graphicsEditor1_SaveGraphics);
+        }
+
+        private void graphicsEditor1_SaveGraphics() {
+            t.ResetGraphics(graphicsEditor1.GFXData);
+            objectPickerControl1.ReRenderAll(TilesetNumber);
+            tilesetObjectEditor1.redrawThings();
+            map16Editor1.reloadTileset();
         }
 
         private void objectPickerControl1_ObjectSelected()
@@ -66,12 +75,15 @@ namespace NSMBe4
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
+            // auto save graphics, I always end up forgetting..
+            graphicsEditor1_SaveGraphics();
+
             t.save();
         }
 
         private void mustRepaintObjects()
         {
-            objectPickerControl1.ReRenderAll(1);
+            objectPickerControl1.ReRenderAll(TilesetNumber);
             tilesetObjectEditor1.redrawThings();
             map16Editor1.redrawThings();
         }

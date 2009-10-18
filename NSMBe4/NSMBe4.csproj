@@ -366,6 +366,8 @@
     <Content Include="Resources\Icons\grid.png" />
     <Content Include="Resources\Icons\line.png" />
     <Content Include="Resources\Icons\picker.png" />
+    <Content Include="Resources\Icons\redo.png" />
+    <Content Include="Resources\Icons\undo.png" />
     <Content Include="Resources\Icons\zoomactual.png" />
     <Content Include="Resources\Icons\zoomout.png" />
     <Content Include="nsmbe3.ico" />
@@ -373,6 +375,7 @@
     <Content Include="Resources\Icons\find.png" />
     <Content Include="Resources\Icons\gfxeditor.png" />
     <Content Include="Resources\Icons\options.png" />
+    <Content Include="Resources\Icons\rectangle.png" />
     <Content Include="Resources\spanish.txt" />
     <Content Include="Resources\Icons\zoom.png" />
     <None Include="Resources\Icons\zones.png" />

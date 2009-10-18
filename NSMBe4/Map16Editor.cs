@@ -142,8 +142,11 @@ namespace NSMBe4
                 if (selQuarter == null)
                     return;
 
-                if (secondPalette != ((selQuarter.ControlByte & 16) != 0))
-                    selQuarter.ControlByte ^= 16; //change byte
+                //if (secondPalette != ((selQuarter.ControlByte & 16) != 0))
+                //    selQuarter.ControlByte ^= 16; //change byte#
+                // that method doesn't always work
+                // now that we found out that palettes need to be offset by the tileset number
+                selQuarter.secondPalette = secondPalette;
 
                 selQuarter.TileNum = tile;
                 repaint();
@@ -222,6 +225,11 @@ namespace NSMBe4
         public void redrawThings()
         {
             map16Picker1.SetTileset(t);
+        }
+
+        public void reloadTileset() {
+            map16Picker1.SetTileset(t);
+            tilePicker1.SetTileset(t);
         }
 
         private void secPal_CheckedChanged(object sender, EventArgs e)

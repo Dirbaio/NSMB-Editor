@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.editJyotyuButton = new System.Windows.Forms.Button();
-            this.tilesetComboBox = new System.Windows.Forms.ComboBox();
             this.openTilesetButton = new System.Windows.Forms.Button();
+            this.tilesetComboBox = new System.Windows.Forms.ComboBox();
+            this.editJyotyuButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,15 +47,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
             // 
-            // editJyotyuButton
+            // openTilesetButton
             // 
-            this.editJyotyuButton.Location = new System.Drawing.Point(6, 20);
-            this.editJyotyuButton.Name = "editJyotyuButton";
-            this.editJyotyuButton.Size = new System.Drawing.Size(283, 23);
-            this.editJyotyuButton.TabIndex = 0;
-            this.editJyotyuButton.Text = "<editJyotyuButton>";
-            this.editJyotyuButton.UseVisualStyleBackColor = true;
-            this.editJyotyuButton.Click += new System.EventHandler(this.editJyotyuButton_Click);
+            this.openTilesetButton.Enabled = false;
+            this.openTilesetButton.Location = new System.Drawing.Point(241, 48);
+            this.openTilesetButton.Name = "openTilesetButton";
+            this.openTilesetButton.Size = new System.Drawing.Size(48, 22);
+            this.openTilesetButton.TabIndex = 2;
+            this.openTilesetButton.Text = "<openTilesetButton>";
+            this.openTilesetButton.UseVisualStyleBackColor = true;
+            this.openTilesetButton.Click += new System.EventHandler(this.openTilesetButton_Click);
             // 
             // tilesetComboBox
             // 
@@ -65,16 +66,17 @@
             this.tilesetComboBox.Name = "tilesetComboBox";
             this.tilesetComboBox.Size = new System.Drawing.Size(229, 21);
             this.tilesetComboBox.TabIndex = 1;
+            this.tilesetComboBox.SelectedIndexChanged += new System.EventHandler(this.tilesetComboBox_SelectedIndexChanged);
             // 
-            // openTilesetButton
+            // editJyotyuButton
             // 
-            this.openTilesetButton.Location = new System.Drawing.Point(241, 48);
-            this.openTilesetButton.Name = "openTilesetButton";
-            this.openTilesetButton.Size = new System.Drawing.Size(48, 22);
-            this.openTilesetButton.TabIndex = 2;
-            this.openTilesetButton.Text = "<openTilesetButton>";
-            this.openTilesetButton.UseVisualStyleBackColor = true;
-            this.openTilesetButton.Click += new System.EventHandler(this.openTilesetButton_Click);
+            this.editJyotyuButton.Location = new System.Drawing.Point(6, 20);
+            this.editJyotyuButton.Name = "editJyotyuButton";
+            this.editJyotyuButton.Size = new System.Drawing.Size(283, 23);
+            this.editJyotyuButton.TabIndex = 0;
+            this.editJyotyuButton.Text = "<editJyotyuButton>";
+            this.editJyotyuButton.UseVisualStyleBackColor = true;
+            this.editJyotyuButton.Click += new System.EventHandler(this.editJyotyuButton_Click);
             // 
             // TilesetChooser
             // 

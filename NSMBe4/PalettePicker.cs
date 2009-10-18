@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace NSMBe4 {
     public partial class PalettePicker : UserControl {
-        private Bitmap DisplayBuffer = null;
+        private Bitmap PalBuffer = null;
         private Color[] Palette;
         public int SelectedFG;
         public int SelectedBG;
@@ -34,28 +34,28 @@ namespace NSMBe4 {
 
         public void SetViewPal(int idx) {
             ViewPal = idx;
-            if (DisplayBuffer == null) {
-                DisplayBuffer = new Bitmap(16 * 12 + 2, PalSize / 16 * 12 + 2);
+            if (PalBuffer == null) {
+                PalBuffer = new Bitmap(16 * 12 + 2, PalSize / 16 * 12 + 2);
             }
 
-            Graphics g = Graphics.FromImage(DisplayBuffer);
+            Graphics g = Graphics.FromImage(PalBuffer);
             int i = ViewPal * PalSize;
 
             g.Clear(Color.Black);
 
-            for (int y = 2; y < DisplayBuffer.Height; y += 12) {
-                for (int x = 2; x < DisplayBuffer.Width; x += 12) {
+            for (int y = 2; y < PalBuffer.Height; y += 12) {
+                for (int x = 2; x < PalBuffer.Width; x += 12) {
                     g.FillRectangle(new SolidBrush(Palette[i]), x, y, 10, 10);
                     i += 1;
                 }
             }
 
-            Invalidate();
+            drawingBox.Invalidate();
         }
 
-        private void PalettePicker_Paint(object sender, PaintEventArgs e) {
-            if (DisplayBuffer != null) {
-                e.Graphics.DrawImage(DisplayBuffer, 0, 24);
+        private void drawingBox_Paint(object sender, PaintEventArgs e) {
+            if (PalBuffer != null) {
+                e.Graphics.DrawImage(PalBuffer, 0, 24);
 
                 Point FGPos = new Point(SelectedFG % 16 * 12 + 1, SelectedFG / 16 * 12 + 25);
                 e.Graphics.DrawRectangle(Pens.White, FGPos.X, FGPos.Y, 11, 11);
@@ -79,46 +79,52 @@ namespace NSMBe4 {
             }
         }
 
-        private void PalettePicker_MouseDown(object sender, MouseEventArgs e) {
+        private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right) return;
 
             if (e.Y < 24) {
                 if (e.X >= 91 && e.Y >= 4 && e.X <= 102 && e.Y <= 15) {
                     int swap = SelectedFG;
                     SelectedFG = SelectedBG;
-                    SelectedBG = SelectedFG;
-                    Invalidate();
+                    SelectedBG = swap;
+                    drawingBox.Invalidate();
                 }
             } else {
                 DragChoice = true;
-                PalettePicker_MouseMove(sender, e);
+                drawingBox_MouseMove(sender, e);
             }
         }
 
-        private void PalettePicker_MouseMove(object sender, MouseEventArgs e) {
+        private void drawingBox_MouseMove(object sender, MouseEventArgs e) {
             if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right) return;
             if (!DragChoice) return;
 
             int X = e.X, Y = e.Y;
             if (X < 0) X = 0;
-            if (X >= Width) X = Width - 1;
+            if (X >= Width - 1) X = Width - 2;
             if (Y < 24) Y = 24;
-            if (Y >= Height) Y = Height - 1;
+            if (Y >= Height - 1) Y = Height - 2;
 
-            int picked = (((Y - 24) / 12) * 16) + (X / 12);
-            //while (picked < 0) picked += 16;
-            //while (picked >= PalSize) picked -= 16;
+            X -= 1;
+            Y -= 25;
+
+            int picked = ((Y / 12) * 16) + (X / 12);
+            int old = -1;
 
             if (e.Button == MouseButtons.Left) {
+                old = SelectedFG;
                 SelectedFG = picked;
             } else {
+                old = SelectedBG;
                 SelectedBG = picked;
             }
 
-            Refresh();
+            if (old != picked) {
+                drawingBox.Invalidate();
+            }
         }
 
-        private void PalettePicker_MouseUp(object sender, MouseEventArgs e) {
+        private void drawingBox_MouseUp(object sender, MouseEventArgs e) {
             DragChoice = false;
         }
     }

@@ -40,5 +40,9 @@ namespace NSMBe4
             new TilesetEditor(ROM, (ushort)tilesetComboBox.SelectedIndex, (string)tilesetComboBox.SelectedItem).Show();
             Close();
         }
+
+        private void tilesetComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            openTilesetButton.Enabled = true;
+        }
     }
 }

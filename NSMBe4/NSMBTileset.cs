@@ -296,8 +296,30 @@ namespace NSMBe4
             saveObjects();
             saveMap16();
             saveTileBehaviors();
+
+            byte[] CompGFXData = NitroClass.LZ77_Compress(RawGFXData);
+            ROM.ReplaceFile(GFXFileID, CompGFXData);
         }
 
+        public void ResetGraphics(byte[] GFXData) {
+            RawGFXData = GFXData;
+            int TileCount = GFXData.Length / 64;
+            TilesetBuffer = new Bitmap(TileCount * 8, 16);
+
+            int FilePos = 0;
+            for (int TileIdx = 0; TileIdx < TileCount; TileIdx++) {
+                int TileSrcX = TileIdx * 8;
+                for (int TileY = 0; TileY < 8; TileY++) {
+                    for (int TileX = 0; TileX < 8; TileX++) {
+                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY, Palette[GFXData[FilePos]]);
+                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY + 8, Palette[GFXData[FilePos] + 256]);
+                        FilePos++;
+                    }
+                }
+            }
+
+            repaintAllMap16();
+        }
 
         #region Tile Behaviors
         private void loadTileBehaviors()

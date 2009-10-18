@@ -39,6 +39,10 @@
             this.paletteChooser = new System.Windows.Forms.ComboBox();
             this.paletteChooserLabel = new System.Windows.Forms.Label();
             this.imageStatus = new System.Windows.Forms.Label();
+            this.undoButton = new System.Windows.Forms.Button();
+            this.redoButton = new System.Windows.Forms.Button();
+            this.rectangleTool = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.palettePicker1 = new NSMBe4.PalettePicker();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
@@ -47,7 +51,7 @@
             // zoomIn
             // 
             this.zoomIn.Image = global::NSMBe4.Properties.Resources.zoom;
-            this.zoomIn.Location = new System.Drawing.Point(3, 3);
+            this.zoomIn.Location = new System.Drawing.Point(33, 3);
             this.zoomIn.Name = "zoomIn";
             this.zoomIn.Size = new System.Drawing.Size(24, 24);
             this.zoomIn.TabIndex = 0;
@@ -57,7 +61,7 @@
             // zoomActualSize
             // 
             this.zoomActualSize.Image = global::NSMBe4.Properties.Resources.zoomactual;
-            this.zoomActualSize.Location = new System.Drawing.Point(33, 3);
+            this.zoomActualSize.Location = new System.Drawing.Point(63, 3);
             this.zoomActualSize.Name = "zoomActualSize";
             this.zoomActualSize.Size = new System.Drawing.Size(24, 24);
             this.zoomActualSize.TabIndex = 1;
@@ -67,7 +71,7 @@
             // zoomOut
             // 
             this.zoomOut.Image = global::NSMBe4.Properties.Resources.zoomout;
-            this.zoomOut.Location = new System.Drawing.Point(63, 3);
+            this.zoomOut.Location = new System.Drawing.Point(93, 3);
             this.zoomOut.Name = "zoomOut";
             this.zoomOut.Size = new System.Drawing.Size(24, 24);
             this.zoomOut.TabIndex = 2;
@@ -77,7 +81,7 @@
             // pickerTool
             // 
             this.pickerTool.Image = global::NSMBe4.Properties.Resources.picker;
-            this.pickerTool.Location = new System.Drawing.Point(199, 3);
+            this.pickerTool.Location = new System.Drawing.Point(229, 3);
             this.pickerTool.Name = "pickerTool";
             this.pickerTool.Size = new System.Drawing.Size(24, 24);
             this.pickerTool.TabIndex = 5;
@@ -87,7 +91,7 @@
             // lineTool
             // 
             this.lineTool.Image = global::NSMBe4.Properties.Resources.line;
-            this.lineTool.Location = new System.Drawing.Point(259, 3);
+            this.lineTool.Location = new System.Drawing.Point(289, 3);
             this.lineTool.Name = "lineTool";
             this.lineTool.Size = new System.Drawing.Size(24, 24);
             this.lineTool.TabIndex = 4;
@@ -97,7 +101,7 @@
             // brushTool
             // 
             this.brushTool.Image = global::NSMBe4.Properties.Resources.brush;
-            this.brushTool.Location = new System.Drawing.Point(139, 3);
+            this.brushTool.Location = new System.Drawing.Point(169, 3);
             this.brushTool.Name = "brushTool";
             this.brushTool.Size = new System.Drawing.Size(24, 24);
             this.brushTool.TabIndex = 3;
@@ -107,7 +111,7 @@
             // showGrid
             // 
             this.showGrid.Image = global::NSMBe4.Properties.Resources.grid;
-            this.showGrid.Location = new System.Drawing.Point(93, 3);
+            this.showGrid.Location = new System.Drawing.Point(123, 3);
             this.showGrid.Name = "showGrid";
             this.showGrid.Size = new System.Drawing.Size(24, 24);
             this.showGrid.TabIndex = 8;
@@ -117,7 +121,7 @@
             // fillTool
             // 
             this.fillTool.Image = global::NSMBe4.Properties.Resources.fill;
-            this.fillTool.Location = new System.Drawing.Point(229, 3);
+            this.fillTool.Location = new System.Drawing.Point(259, 3);
             this.fillTool.Name = "fillTool";
             this.fillTool.Size = new System.Drawing.Size(24, 24);
             this.fillTool.TabIndex = 7;
@@ -127,7 +131,7 @@
             // eraserTool
             // 
             this.eraserTool.Image = global::NSMBe4.Properties.Resources.eraser;
-            this.eraserTool.Location = new System.Drawing.Point(169, 3);
+            this.eraserTool.Location = new System.Drawing.Point(199, 3);
             this.eraserTool.Name = "eraserTool";
             this.eraserTool.Size = new System.Drawing.Size(24, 24);
             this.eraserTool.TabIndex = 6;
@@ -163,7 +167,7 @@
             this.panel1.Controls.Add(this.drawingBox);
             this.panel1.Location = new System.Drawing.Point(3, 50);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 213);
+            this.panel1.Size = new System.Drawing.Size(415, 213);
             this.panel1.TabIndex = 11;
             // 
             // drawingBox
@@ -174,16 +178,18 @@
             this.drawingBox.Size = new System.Drawing.Size(100, 50);
             this.drawingBox.TabIndex = 0;
             this.drawingBox.TabStop = false;
+            this.drawingBox.MouseLeave += new System.EventHandler(this.drawingBox_MouseLeave);
             this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
             this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
             this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
+            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
             // paletteChooser
             // 
             this.paletteChooser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.paletteChooser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.paletteChooser.FormattingEnabled = true;
-            this.paletteChooser.Location = new System.Drawing.Point(435, 3);
+            this.paletteChooser.Location = new System.Drawing.Point(570, 3);
             this.paletteChooser.Name = "paletteChooser";
             this.paletteChooser.Size = new System.Drawing.Size(48, 21);
             this.paletteChooser.TabIndex = 13;
@@ -192,7 +198,7 @@
             // paletteChooserLabel
             // 
             this.paletteChooserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.paletteChooserLabel.Location = new System.Drawing.Point(357, 6);
+            this.paletteChooserLabel.Location = new System.Drawing.Point(492, 6);
             this.paletteChooserLabel.Name = "paletteChooserLabel";
             this.paletteChooserLabel.Size = new System.Drawing.Size(72, 13);
             this.paletteChooserLabel.TabIndex = 14;
@@ -202,17 +208,59 @@
             // imageStatus
             // 
             this.imageStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.imageStatus.Location = new System.Drawing.Point(289, 31);
+            this.imageStatus.Location = new System.Drawing.Point(424, 31);
             this.imageStatus.Name = "imageStatus";
             this.imageStatus.Size = new System.Drawing.Size(194, 13);
             this.imageStatus.TabIndex = 15;
             this.imageStatus.Text = "<imageStatus>";
             this.imageStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // undoButton
+            // 
+            this.undoButton.Enabled = false;
+            this.undoButton.Image = global::NSMBe4.Properties.Resources.undo;
+            this.undoButton.Location = new System.Drawing.Point(365, 3);
+            this.undoButton.Name = "undoButton";
+            this.undoButton.Size = new System.Drawing.Size(24, 24);
+            this.undoButton.TabIndex = 16;
+            this.undoButton.UseVisualStyleBackColor = true;
+            this.undoButton.Click += new System.EventHandler(this.undoButton_Click);
+            // 
+            // redoButton
+            // 
+            this.redoButton.Enabled = false;
+            this.redoButton.Image = global::NSMBe4.Properties.Resources.redo;
+            this.redoButton.Location = new System.Drawing.Point(395, 3);
+            this.redoButton.Name = "redoButton";
+            this.redoButton.Size = new System.Drawing.Size(24, 24);
+            this.redoButton.TabIndex = 17;
+            this.redoButton.UseVisualStyleBackColor = true;
+            this.redoButton.Click += new System.EventHandler(this.redoButton_Click);
+            // 
+            // rectangleTool
+            // 
+            this.rectangleTool.Image = global::NSMBe4.Properties.Resources.rectangle;
+            this.rectangleTool.Location = new System.Drawing.Point(319, 3);
+            this.rectangleTool.Name = "rectangleTool";
+            this.rectangleTool.Size = new System.Drawing.Size(24, 24);
+            this.rectangleTool.TabIndex = 18;
+            this.rectangleTool.UseVisualStyleBackColor = true;
+            this.rectangleTool.Click += new System.EventHandler(this.toolButton_Click);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Image = global::NSMBe4.Properties.Resources.save;
+            this.saveButton.Location = new System.Drawing.Point(3, 3);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(24, 24);
+            this.saveButton.TabIndex = 19;
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
             // palettePicker1
             // 
             this.palettePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.palettePicker1.Location = new System.Drawing.Point(289, 50);
+            this.palettePicker1.Location = new System.Drawing.Point(424, 50);
             this.palettePicker1.Name = "palettePicker1";
             this.palettePicker1.Size = new System.Drawing.Size(194, 194);
             this.palettePicker1.TabIndex = 12;
@@ -221,6 +269,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.rectangleTool);
+            this.Controls.Add(this.redoButton);
+            this.Controls.Add(this.undoButton);
             this.Controls.Add(this.imageStatus);
             this.Controls.Add(this.paletteChooserLabel);
             this.Controls.Add(this.paletteChooser);
@@ -238,7 +290,7 @@
             this.Controls.Add(this.zoomActualSize);
             this.Controls.Add(this.zoomIn);
             this.Name = "GraphicsEditor";
-            this.Size = new System.Drawing.Size(486, 266);
+            this.Size = new System.Drawing.Size(621, 266);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).EndInit();
             this.ResumeLayout(false);
@@ -265,5 +317,9 @@
         private System.Windows.Forms.Label paletteChooserLabel;
         private System.Windows.Forms.PictureBox drawingBox;
         private System.Windows.Forms.Label imageStatus;
+        private System.Windows.Forms.Button undoButton;
+        private System.Windows.Forms.Button redoButton;
+        private System.Windows.Forms.Button rectangleTool;
+        private System.Windows.Forms.Button saveButton;
     }
 }
