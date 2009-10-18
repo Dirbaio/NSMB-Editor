@@ -36,6 +36,12 @@ namespace NSMBe4 {
         private int HoverX = -1;
         private int HoverY = -1;
 
+        private int LastBrushX = -1;
+        private int LastBrushY = -1;
+
+        private int LastEraserX = -1;
+        private int LastEraserY = -1;
+
         private bool DrawingLine = false;
         private int DrawLineX1;
         private int DrawLineX2;
@@ -352,9 +358,14 @@ namespace NSMBe4 {
                 }
 
                 if (DrawingRect) {
-                    e.Graphics.DrawRectangle(DrawRectPen,
-                        DrawRectX1 * ZoomLevel + (ZoomLevel / 2), DrawRectY1 * ZoomLevel + (ZoomLevel / 2),
-                        (DrawRectX2 - DrawRectX1) * ZoomLevel, (DrawRectY2 - DrawRectY1) * ZoomLevel);
+                    int x1 = DrawRectX1 * ZoomLevel + (ZoomLevel / 2);
+                    int x2 = DrawRectX2 * ZoomLevel + (ZoomLevel / 2);
+                    int y1 = DrawRectY1 * ZoomLevel + (ZoomLevel / 2);
+                    int y2 = DrawRectY2 * ZoomLevel + (ZoomLevel / 2);
+                    e.Graphics.DrawLine(DrawRectPen, x1, y1, x2, y1); // top
+                    e.Graphics.DrawLine(DrawRectPen, x1, y1, x1, y2); // left
+                    e.Graphics.DrawLine(DrawRectPen, x2, y1, x2, y2); // right
+                    e.Graphics.DrawLine(DrawRectPen, x1, y2, x2, y2); // bottom
                 }
 
                 if (GridEnabled) {
@@ -466,14 +477,6 @@ namespace NSMBe4 {
         }
 
         private void HandleDraw(bool newclick, MouseEventArgs e) {
-            /*int FilterX = e.X, FilterY = e.Y;
-
-            if (FilterX < 0) FilterX = 0;
-            if (FilterX >= drawingBox.Width) FilterX = drawingBox.Width - 1;
-            if (FilterY < 0) FilterY = 0;
-            if (FilterY >= drawingBox.Height) FilterY = drawingBox.Height - 1;
-
-            Point pos = new Point(FilterX / ZoomLevel, FilterY / ZoomLevel);*/
             Point pos = new Point(e.X / ZoomLevel, e.Y / ZoomLevel);
             if (pos.X != HoverX || pos.Y != HoverY) {
                 hoverStatus.Text = string.Format(HoverStatusString, pos.X, pos.Y);
@@ -491,10 +494,10 @@ namespace NSMBe4 {
 
                 switch (Tool) {
                     case ToolType.Brush:
-                        DoBrushTool(e, pos);
+                        DoBrushTool(e, pos, newclick);
                         break;
                     case ToolType.Eraser:
-                        DoEraserTool(e, pos);
+                        DoEraserTool(e, pos, newclick);
                         break;
                     case ToolType.Picker:
                         if (newclick) DoPickTool(e, pos);
@@ -512,30 +515,48 @@ namespace NSMBe4 {
             }
         }
 
-        private void DoBrushTool(MouseEventArgs e, Point clicked) {
+        private void DoBrushTool(MouseEventArgs e, Point clicked, bool newclick) {
+            byte colour = 0;
+            if (e.Button == MouseButtons.Left) {
+                colour = (byte)palettePicker1.SelectedFG;
+            } else if (e.Button == MouseButtons.Right) {
+                colour = (byte)palettePicker1.SelectedBG;
+            } else {
+                return;
+            }
+
             byte old = GetPixel(clicked.X, clicked.Y);
 
-            if (e.Button == MouseButtons.Left) {
-                if (old != palettePicker1.SelectedFG) {
-                    SetPixel(clicked.X, clicked.Y, (byte)palettePicker1.SelectedFG);
+            if (newclick || LastBrushX == -1 || LastBrushY == -1) {
+                SetPixel(clicked.X, clicked.Y, colour);
+                drawingBox.Invalidate();
+            } else {
+                if (clicked.X != LastBrushX || clicked.Y != LastBrushY) {
+                    DrawLine(LastBrushX, LastBrushY, clicked.X, clicked.Y, colour);
                     drawingBox.Invalidate();
                 }
             }
 
-            if (e.Button == MouseButtons.Right) {
-                if (old != palettePicker1.SelectedBG) {
-                    SetPixel(clicked.X, clicked.Y, (byte)palettePicker1.SelectedBG);
-                    drawingBox.Invalidate();
-                }
-            }
+            LastBrushX = clicked.X;
+            LastBrushY = clicked.Y;
         }
 
-        private void DoEraserTool(MouseEventArgs e, Point clicked) {
+        private void DoEraserTool(MouseEventArgs e, Point clicked, bool newclick) {
             if (e.Button == MouseButtons.Left) {
-                if (GetPixel(clicked.X, clicked.Y) != 0) {
+                byte old = GetPixel(clicked.X, clicked.Y);
+
+                if (newclick || LastEraserX == -1 || LastEraserY == -1) {
                     SetPixel(clicked.X, clicked.Y, 0);
                     drawingBox.Invalidate();
+                } else {
+                    if (clicked.X != LastEraserX || clicked.Y != LastEraserY) {
+                        DrawLine(LastEraserX, LastEraserY, clicked.X, clicked.Y, 0);
+                        drawingBox.Invalidate();
+                    }
                 }
+
+                LastEraserX = clicked.X;
+                LastEraserY = clicked.Y;
             }
         }
 
@@ -632,6 +653,7 @@ namespace NSMBe4 {
             if (NewUndo == null) {
                 NewUndo = new UndoState();
                 NewUndo.Before = (byte[])GFXData.Clone();
+                Console.WriteLine("Created undo state");
             }
         }
 
@@ -640,6 +662,7 @@ namespace NSMBe4 {
                 NewUndo.After = (byte[])GFXData.Clone();
                 UndoBuffer.Push(NewUndo);
                 NewUndo = null;
+                Console.WriteLine("Committed undo state");
                 // enforce a limit.. how?
                 //if (UndoBuffer.Count > 36) ...
                 undoButton.Enabled = (UndoBuffer.Count > 0);

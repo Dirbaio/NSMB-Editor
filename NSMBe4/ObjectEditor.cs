@@ -78,6 +78,12 @@ namespace NSMBe4
             DataUpdateFlag = false;
         }
 
+        public void ReloadObjectPicker() {
+            objectPickerControl1.ReRenderAll(0);
+            objectPickerControl1.ReRenderAll(1);
+            objectPickerControl1.ReRenderAll(2);
+        }
+
         private void objXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;

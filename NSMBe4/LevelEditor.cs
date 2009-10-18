@@ -94,6 +94,8 @@ namespace NSMBe4 {
             byte TilesetID = Level.Blocks[0][0x0C];
             byte BGNSCID = Level.Blocks[2][2];
             GFX.LoadTilesets(TilesetID, BGNSCID);
+            oem.ReloadObjectPicker();
+            Level.ReRenderAll();
             Refresh();
         }
 

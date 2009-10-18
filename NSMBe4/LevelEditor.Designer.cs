@@ -48,13 +48,13 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.editTileset = new System.Windows.Forms.ToolStripButton();
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
+            this.reloadTilesets = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewMap16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllSpritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelContainer = new System.Windows.Forms.Panel();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
-            this.reloadTilesets = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -276,6 +276,13 @@
             this.optionsMenu.Size = new System.Drawing.Size(29, 20);
             this.optionsMenu.Text = "<optionsMenu>";
             // 
+            // reloadTilesets
+            // 
+            this.reloadTilesets.Name = "reloadTilesets";
+            this.reloadTilesets.Size = new System.Drawing.Size(295, 22);
+            this.reloadTilesets.Text = "<reloadTilesets>";
+            this.reloadTilesets.Click += new System.EventHandler(this.reloadTilesets_Click);
+            // 
             // smallBlockOverlaysToolStripMenuItem
             // 
             this.smallBlockOverlaysToolStripMenuItem.Name = "smallBlockOverlaysToolStripMenuItem";
@@ -324,13 +331,6 @@
             this.levelEditorControl1.Size = new System.Drawing.Size(635, 551);
             this.levelEditorControl1.TabIndex = 3;
             this.levelEditorControl1.SetDirtyFlag += new NSMBe4.LevelEditorControl.SetDirtyFlagDelegate(this.levelEditorControl1_SetDirtyFlag);
-            // 
-            // reloadTilesets
-            // 
-            this.reloadTilesets.Name = "reloadTilesets";
-            this.reloadTilesets.Size = new System.Drawing.Size(295, 22);
-            this.reloadTilesets.Text = "<reloadTilesets>";
-            this.reloadTilesets.Click += new System.EventHandler(this.reloadTilesets_Click);
             // 
             // LevelEditor
             // 

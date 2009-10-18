@@ -64,6 +64,9 @@ namespace NSMBe4
             }
         }
 
+        public void ReloadObjectPicker() {
+            oe.ReloadObjectPicker();
+        }
 
         private void UpdateSelectedBounds()
         {
