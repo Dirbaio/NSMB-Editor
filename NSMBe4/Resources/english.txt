@@ -98,6 +98,7 @@ zoomMenu=Zoom
 optionsMenu=Options
 
 ;these are submenus, they need to be added manually in LevelEditor's constructor...
+reloadTilesets=Reload Tilesets
 smallBlockOverlaysToolStripMenuItem=Use Small Block Overlays
 deleteAllObjectsToolStripMenuItem=Delete All Objects
 deleteAllSpritesToolStripMenuItem=Delete All Sprites
@@ -221,6 +222,10 @@ groupBox3=Background Bottom Layer
 tilesetPreviewButton=Preview
 bgTopLayerPreviewButton=Preview
 bgBottomLayerPreviewButton=Preview
+
+;Preview stuff
+BlankBG=This background is blank and has nothing to see.
+BrokenBG=This background doesn't work.
 
 
 

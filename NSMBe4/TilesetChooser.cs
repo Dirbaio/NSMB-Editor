@@ -38,6 +38,7 @@ namespace NSMBe4
 
         private void editNoharaSubButton_Click(object sender, EventArgs e) {
             new TilesetEditor(ROM, 65534, "Nohara SubUnit").Show();
+            Close();
         }
 
         private void openTilesetButton_Click(object sender, EventArgs e) {

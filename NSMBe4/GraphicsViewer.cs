@@ -16,6 +16,8 @@ namespace NSMBe4
         private int lastImageSize = -1;
         private Bitmap TileBuffer, buffer;
 
+        private int PreferredWidth = -1;
+
         public GraphicsViewer()
         {
             InitializeComponent();
@@ -68,6 +70,10 @@ namespace NSMBe4
         {
             this.paletteFile = tryDecompress(palette);
             RefreshPalette();
+        }
+
+        public void SetPreferredWidth(int value) {
+            PreferredWidth = value;
         }
 
         public void RefreshTileBuffer()
@@ -162,6 +168,7 @@ namespace NSMBe4
                 imageSizes.Items.Clear();
 
                 //by default we select the most square file size
+                // unless PreferredWidth is set
                 int bestImageWidth = -1;
                 int bestSizeIndex = 0;
                 int bestValue = 0;
@@ -171,11 +178,16 @@ namespace NSMBe4
                     if (imageSize % i == 0)
                     {
                         imageSizes.Items.Add(i*8 + " x " + imageSize / i*8);
-                        if (bestValue > i + imageSize / i || bestImageWidth == -1)
-                        {
-                            bestImageWidth = i;
-                            bestValue = i + imageSize / i;
-                            bestSizeIndex = imageSizes.Items.Count - 1;
+                        if (PreferredWidth == -1) {
+                            if (bestValue > i + imageSize / i || bestImageWidth == -1) {
+                                bestImageWidth = i;
+                                bestValue = i + imageSize / i;
+                                bestSizeIndex = imageSizes.Items.Count - 1;
+                            }
+                        } else {
+                            if (i * 8 == PreferredWidth) {
+                                bestSizeIndex = imageSizes.Items.Count - 1;
+                            }
                         }
                     }
                 }

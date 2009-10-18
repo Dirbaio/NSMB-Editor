@@ -350,6 +350,7 @@
             this.slopeControlButton.TabIndex = 0;
             this.slopeControlButton.Text = "<slopeControlButton>";
             this.slopeControlButton.UseVisualStyleBackColor = true;
+            this.slopeControlButton.Click += new System.EventHandler(this.slopeControlButton_Click);
             // 
             // TilesetObjectEditor
             // 

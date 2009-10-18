@@ -35,6 +35,7 @@ namespace NSMBe4 {
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
             // these need to be added manually
+            reloadTilesets.Text = LanguageManager.Get("LevelEditor", "reloadTilesets");
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
             deleteAllObjectsToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllObjectsToolStripMenuItem");
             deleteAllSpritesToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllSpritesToolStripMenuItem");
@@ -87,6 +88,13 @@ namespace NSMBe4 {
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);
             levelEditorControl1.minimap = MinimapForm;
             MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), this.Text);
+        }
+
+        private void reloadTilesets_Click(object sender, EventArgs e) {
+            byte TilesetID = Level.Blocks[0][0x0C];
+            byte BGNSCID = Level.Blocks[2][2];
+            GFX.LoadTilesets(TilesetID, BGNSCID);
+            Refresh();
         }
 
         private void viewMap16ToolStripMenuItem_Click(object sender, EventArgs e) {
