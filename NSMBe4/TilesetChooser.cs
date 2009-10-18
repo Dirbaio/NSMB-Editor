@@ -36,6 +36,10 @@ namespace NSMBe4
             Close();
         }
 
+        private void editNoharaSubButton_Click(object sender, EventArgs e) {
+            new TilesetEditor(ROM, 65534, "Nohara SubUnit").Show();
+        }
+
         private void openTilesetButton_Click(object sender, EventArgs e) {
             new TilesetEditor(ROM, (ushort)tilesetComboBox.SelectedIndex, (string)tilesetComboBox.SelectedItem).Show();
             Close();

@@ -593,10 +593,6 @@ namespace NSMBe4
             t.bottomRight = new Map16Quarter(this);
         }
 
-        public void ApplyOverride(int Target, int Override) {
-            Map16Graphics.DrawImage(OverrideBitmap, new Rectangle(Target << 4, 0, 16, 16), new Rectangle(Override << 4, 0, 16, 16), GraphicsUnit.Pixel);
-        }
-
         #endregion
         #region Objects
         public class ObjectDef

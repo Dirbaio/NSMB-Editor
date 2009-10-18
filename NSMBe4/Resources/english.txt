@@ -328,6 +328,7 @@ label9=Y:
 _TITLE=Tileset Chooser
 groupBox1=Choose a tileset to edit:
 editJyotyuButton=Edit Jyotyu (Tileset 0: Blocks/Pipes)
+editNoharaSubButton=Edit Nohara SubUnit (Tileset 2: End Castle)
 openTilesetButton=Open
 
 

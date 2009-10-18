@@ -32,17 +32,19 @@
             this.openTilesetButton = new System.Windows.Forms.Button();
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
             this.editJyotyuButton = new System.Windows.Forms.Button();
+            this.editNoharaSubButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.editNoharaSubButton);
             this.groupBox1.Controls.Add(this.openTilesetButton);
             this.groupBox1.Controls.Add(this.tilesetComboBox);
             this.groupBox1.Controls.Add(this.editJyotyuButton);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(295, 77);
+            this.groupBox1.Size = new System.Drawing.Size(295, 106);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -78,11 +80,21 @@
             this.editJyotyuButton.UseVisualStyleBackColor = true;
             this.editJyotyuButton.Click += new System.EventHandler(this.editJyotyuButton_Click);
             // 
+            // editNoharaSubButton
+            // 
+            this.editNoharaSubButton.Location = new System.Drawing.Point(6, 76);
+            this.editNoharaSubButton.Name = "editNoharaSubButton";
+            this.editNoharaSubButton.Size = new System.Drawing.Size(283, 23);
+            this.editNoharaSubButton.TabIndex = 3;
+            this.editNoharaSubButton.Text = "<editNoharaSubButton>";
+            this.editNoharaSubButton.UseVisualStyleBackColor = true;
+            this.editNoharaSubButton.Click += new System.EventHandler(this.editNoharaSubButton_Click);
+            // 
             // TilesetChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 102);
+            this.ClientSize = new System.Drawing.Size(320, 131);
             this.Controls.Add(this.groupBox1);
             this.Name = "TilesetChooser";
             this.Text = "<_TITLE>";
@@ -97,5 +109,6 @@
         private System.Windows.Forms.Button editJyotyuButton;
         private System.Windows.Forms.ComboBox tilesetComboBox;
         private System.Windows.Forms.Button openTilesetButton;
+        private System.Windows.Forms.Button editNoharaSubButton;
     }
 }
