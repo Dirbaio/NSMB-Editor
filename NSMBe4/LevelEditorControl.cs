@@ -154,25 +154,12 @@ namespace NSMBe4 {
 
 
             //RENDER OBJECTS
-#if USE_GDIPLUS
             for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
                 Rectangle ObjRect = new Rectangle(Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
                 if (ObjRect.IntersectsWith(ViewableArea)) {
                     Level.Objects[ObjIdx].Render(e.Graphics, ViewableArea.X, ViewableArea.Y, ViewableArea);
                 }
             }
-#else
-            IntPtr pTarget = e.Graphics.GetHdc();
-
-            foreach(NSMBObject o in Level.Objects)
-            {
-                Rectangle ObjRect = new Rectangle(o.X, o.Y, o.Width, o.Height);
-                if (ObjRect.IntersectsWith(ViewableBlocks))
-                    o.Render(pTarget, ViewableBlocks.X, ViewableBlocks.Y, ViewableBlocks, zoom);
-            }
-
-            e.Graphics.ReleaseHdc(pTarget);
-#endif
 
             foreach (NSMBView v in Level.Views)
                 v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);

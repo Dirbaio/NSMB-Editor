@@ -135,18 +135,6 @@ namespace NSMBe4 {
         }
 
         private void tilesetPreviewButton_Click(object sender, EventArgs e) {
-            /*int TilesetIndex = tilesetComboBox.SelectedIndex * 4;
-            ushort GFXFile = (ushort)(Properties.Resources.ts_ncg_table[TilesetIndex] | (Properties.Resources.ts_ncg_table[TilesetIndex + 1] << 8));
-            ushort PalFile = (ushort)(Properties.Resources.ts_ncl_table[TilesetIndex] | (Properties.Resources.ts_ncl_table[TilesetIndex + 1] << 8));
-
-            // Since these tables are from the US ROM, counteract it by finding an offset
-            GFXFile += (ushort)(ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"] - 235 + 131);
-            PalFile += (ushort)(ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"] - 408 + 131);
-
-            // Is this version of the ROM missing files?
-            if (!ROM.FileIDs.ContainsKey("d_2d_TEN_W_kazangake2_ncg.bin") && GFXFile > ROM.FileIDs["d_2d_TEN_W_kazangake_ncg.bin"]) {
-                GFXFile -= 2;
-            }*/
             ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(tilesetComboBox.SelectedIndex, NSMBDataHandler.Data.Table_TS_NCG);
             ushort PalFile = NSMBDataHandler.GetFileIDFromTable(tilesetComboBox.SelectedIndex, NSMBDataHandler.Data.Table_TS_NCL);
 
@@ -201,10 +189,6 @@ namespace NSMBe4 {
                 return;
             }
 
-            /*int BGIndex = bgTopLayerComboBox.SelectedIndex * 4;
-            ushort GFXFile = (ushort)((Properties.Resources.fg_ncg_table[BGIndex] | (Properties.Resources.fg_ncg_table[BGIndex + 1] << 8)) + 131);
-            ushort PalFile = (ushort)((Properties.Resources.fg_ncl_table[BGIndex] | (Properties.Resources.fg_ncl_table[BGIndex + 1] << 8)) + 131);
-            ushort LayoutFile = (ushort)((Properties.Resources.fg_nsc_table[BGIndex] | (Properties.Resources.fg_nsc_table[BGIndex + 1] << 8)) + 131);*/
             ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_FG_NCG);
             ushort PalFile = NSMBDataHandler.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_FG_NCL);
             ushort LayoutFile = NSMBDataHandler.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_FG_NSC);
@@ -213,13 +197,6 @@ namespace NSMBe4 {
                 MessageBox.Show(Properties.Settings.Default.Language != 1 ? "This background doesn't work." : "Este fondo no funciona.");
                 return;
             }
-
-            // Since these tables are from the US ROM, counteract it by finding an offset
-            //GFXFile += (ushort)(ROM.FileIDs["d_2d_I_M_free_chika2_ncg.bin"] - 273);
-            //PalFile += (ushort)(ROM.FileIDs["d_2d_I_M_free_chika2_ncl.bin"] - 453);
-            //LayoutFile += (ushort)(ROM.FileIDs["d_2d_I_M_free_chika2_nsc.bin"] - 611);
-
-            //System.Diagnostics.Debug.Print("Files: {0} {1} {2}", ROM.FileNames[GFXFile], ROM.FileNames[PalFile], ROM.FileNames[LayoutFile]);
 
             ShowBackground(GFXFile, PalFile, LayoutFile, 256);
         }
@@ -230,10 +207,6 @@ namespace NSMBe4 {
                 return;
             }
 
-            /*int BGIndex = bgBottomLayerComboBox.SelectedIndex * 4;
-            ushort GFXFile = (ushort)((Properties.Resources.bg_ncg_table[BGIndex] | (Properties.Resources.bg_ncg_table[BGIndex + 1] << 8)) + 131);
-            ushort PalFile = (ushort)((Properties.Resources.bg_ncl_table[BGIndex] | (Properties.Resources.bg_ncl_table[BGIndex + 1] << 8)) + 131);
-            ushort LayoutFile = (ushort)((Properties.Resources.bg_nsc_table[BGIndex] | (Properties.Resources.bg_nsc_table[BGIndex + 1] << 8)) + 131);*/
             ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_BG_NCG);
             ushort PalFile = NSMBDataHandler.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_BG_NCL);
             ushort LayoutFile = NSMBDataHandler.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_BG_NSC);
@@ -243,18 +216,12 @@ namespace NSMBe4 {
                 return;
             }
 
-            // Since these tables are from the US ROM, counteract it by finding an offset
-            //GFXFile += (ushort)(ROM.FileIDs["d_2d_I_M_back_chika2_ncg.bin"] - 236);
-            //PalFile += (ushort)(ROM.FileIDs["d_2d_I_M_back_chika2_ncl.bin"] - 416);
-            //LayoutFile += (ushort)(ROM.FileIDs["d_2d_I_M_back_chika2_R_nsc.bin"] - 574);
-
-            //System.Diagnostics.Debug.Print("Offsets: {0} {1} {2}", ROM.FileIDs["d_2d_I_M_back_chika2_ncg.bin"] - 236, ROM.FileIDs["d_2d_I_M_back_chika2_ncl.bin"] - 416, ROM.FileIDs["d_2d_I_M_back_chika2_R_nsc.bin"] - 574);
-            //System.Diagnostics.Debug.Print("Files: {0} {1} {2}", ROM.FileNames[GFXFile], ROM.FileNames[PalFile], ROM.FileNames[LayoutFile]);
-
             ShowBackground(GFXFile, PalFile, LayoutFile, 576);
         }
 
         private void ShowBackground(ushort GFXFile, ushort PalFile, ushort LayoutFile, int WeirdVariable) {
+            // BADLY NEEDS REWORKING!!
+
             int FilePos;
 
             // First get the palette out
@@ -295,9 +262,6 @@ namespace NSMBe4 {
             }
 
             Graphics TilesetGraphics = Graphics.FromImage(TilesetBuffer);
-            //IntPtr TilesetBufferHDC = TilesetGraphics.GetHdc();
-            //IntPtr TilesetBufferHandle = TilesetBuffer.GetHbitmap();
-            //GDIImports.SelectObject(TilesetBufferHDC, TilesetBufferHandle);
 
             // Load layout
             byte[] eLayoutFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(LayoutFile));
@@ -305,7 +269,6 @@ namespace NSMBe4 {
             Bitmap BG = new Bitmap(512, 512, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Graphics BGGraphics = Graphics.FromImage(BG);
             BGGraphics.Clear(Color.LightSlateGray);
-            //IntPtr BGHDC = BGGraphics.GetHdc();
 
             FilePos = 0;
             int TileNum;
@@ -322,19 +285,11 @@ namespace NSMBe4 {
                 DestRect = new Rectangle(SrcX, SrcY, 8, 8);
                 if ((ControlByte & 4) != 0) { DestRect.Width = -8; DestRect.X += 8; }
                 if ((ControlByte & 8) != 0) { DestRect.Height = -8; DestRect.Y += 8; }
-                //System.Diagnostics.Debug.Print(TileNum.ToString());
-                //if (TileNum != 0 || ControlByte != 0) {
-                //GDIImports.StretchBlt(BGHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
                 BGGraphics.DrawImage(TilesetBuffer, DestRect, SrcRect.X, SrcRect.Y, SrcRect.Width, SrcRect.Height, GraphicsUnit.Pixel);
-                //}
                 SrcX += 8;
                 if (SrcX >= 512) { SrcX = 0; SrcY += 8; }
                 FilePos += 2;
             }
-
-            //BGGraphics.ReleaseHdc(BGHDC);
-            //GDIImports.DeleteObject(TilesetBufferHandle);
-            //TilesetGraphics.ReleaseHdc(TilesetBufferHDC);
 
             new ImagePreviewer(BG).Show();
         }

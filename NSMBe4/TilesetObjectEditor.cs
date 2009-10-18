@@ -89,13 +89,7 @@ namespace NSMBe4
                     }
                     else if (!t.emptyTile)
                     {
-#if USE_GDIPLUS
                         g.DrawImage(tls.Map16Buffer, x, y, new Rectangle(t.tileID * 16, 0, 16, 16), GraphicsUnit.Pixel);
-#else
-                        IntPtr hdc = g.GetHdc();
-                        GDIImports.StretchBlt(hdc, x, y, 16, 16, tls.Map16BufferHDC, t.tileID * 16, 0, 16, 16, GDIImports.TernaryRasterOperations.SRCCOPY);
-                        g.ReleaseHdc(hdc);
-#endif
                         if ((t.controlByte & 1) != 0)
                             g.DrawRectangle(Pens.Red, x, y, 15, 15);
                         if ((t.controlByte & 2) != 0)
@@ -251,13 +245,7 @@ namespace NSMBe4
                 return;
 
             e.Graphics.FillRectangle(Brushes.LightSteelBlue, 0, 0, previewObject.Width * 16, previewObject.Height * 16);
-#if USE_GDIPLUS
             previewObject.RenderPlain(e.Graphics, 0, 0);
-#else
-            IntPtr hdc = e.Graphics.GetHdc();
-            previewObject.RenderPlain(hdc, 0, 0);
-            e.Graphics.ReleaseHdc(hdc);
-#endif
         }
 
         private void previewBox_MouseDown(object sender, MouseEventArgs e)

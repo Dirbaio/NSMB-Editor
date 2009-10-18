@@ -96,8 +96,6 @@ namespace NSMBe4 {
         private void DrawingArea_Paint(object sender, PaintEventArgs e) {
             if (!Ready) return;
 
-            // This works sort of weirdly since I render one half in GDI+ and the rest in GDI
-            // GDI+ part
             e.Graphics.Clear(Color.Silver);
 
             int CurrentDrawY = 2;
@@ -119,29 +117,15 @@ namespace NSMBe4 {
                 if (RealObjIdx == 256) break;
             }
 
-            // GDI part
             CurrentDrawY = 4;
             RealObjIdx = vScrollBar.Value;
 
-#if USE_GDIPLUS
             for (int ObjIdx = 0; ObjIdx < ViewableHeight; ObjIdx++) {
                 TilesetObjects[CurrentTileset][RealObjIdx].RenderPlain(e.Graphics, 4, CurrentDrawY);
                 CurrentDrawY += 54;
                 RealObjIdx++;
                 if (RealObjIdx == 256) break;
             }
-#else
-            IntPtr pTarget = e.Graphics.GetHdc();
-
-            for (int ObjIdx = 0; ObjIdx < ViewableHeight; ObjIdx++) {
-                TilesetObjects[CurrentTileset][RealObjIdx].RenderPlain(pTarget, 4, CurrentDrawY);
-                CurrentDrawY += 54;
-                RealObjIdx++;
-                if (RealObjIdx == 256) break;
-            }
-
-            e.Graphics.ReleaseHdc(pTarget);
-#endif
         }
 
         private void DrawingArea_MouseDown(object sender, MouseEventArgs e) {

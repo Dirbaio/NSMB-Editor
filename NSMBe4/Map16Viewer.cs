@@ -40,23 +40,11 @@ namespace NSMBe4 {
             Bitmap Output = new Bitmap(16 * 16, RowCount * 16);
             Graphics g = Graphics.FromImage(Output);
 
-#if USE_GDIPLUS
             for (int row = 0; row < RowCount; row++) {
                 Rectangle destRect = new Rectangle(0, row * 16, 16 * 16, 16);
                 Rectangle srcRect = new Rectangle(row * 16 * 16, 0, 16 * 16, 16);
                 g.DrawImage(tileset.Map16Buffer, destRect, srcRect, GraphicsUnit.Pixel);
             }
-#else
-            IntPtr pTarget = g.GetHdc();
-
-            for (int row = 0; row < RowCount; row++) {
-                //Rectangle destRect = new Rectangle(0, row * 16, 16 * 16, 16);
-                //Rectangle srcRect = new Rectangle(row * 16 * 16, 0, 16 * 16, 16);
-                GDIImports.BitBlt(pTarget, 0, row * 16, 256, 16, tileset.Map16BufferHDC, row * 256, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
-            }
-
-            g.ReleaseHdc(pTarget);
-#endif
 
             pictureBox1.Image = Output;
         }

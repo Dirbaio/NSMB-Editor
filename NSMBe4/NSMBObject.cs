@@ -50,8 +50,6 @@ namespace NSMBe4
             catch (Exception e) { Console.Out.WriteLine(e.StackTrace); }
         }
 
-#if USE_GDIPLUS
-
         public void Render(Graphics g, int XOffset, int YOffset, Rectangle Clip) {
             Rectangle Limits = new Rectangle(XOffset - X, YOffset - Y, Clip.Width, Clip.Height);
             Rectangle srcRect = new Rectangle();
@@ -76,36 +74,7 @@ namespace NSMBe4
                 destRect.Y = Y << 4;
             }
         }
-#else
-        public void Render(IntPtr target, int XOffset, int YOffset, Rectangle Clip, float zoom) {
-            // This is basically just RenderCachedObject from the tileset class, with some edits
-            Rectangle Limits = new Rectangle(XOffset - X, YOffset - Y, Clip.Width, Clip.Height);
-            int destX = (X - XOffset) * 16;
-            int destY = (Y - YOffset) * 16;
-            for (int CurrentX = 0; CurrentX < CachedObj.GetLength(0); CurrentX++) {
-                for (int CurrentY = 0; CurrentY < CachedObj.GetLength(1); CurrentY++) {
-                    if (CurrentX >= Limits.X && CurrentX < Limits.Right && CurrentY >= Limits.Y && CurrentY < Limits.Bottom) {
-                        if (CachedObj[CurrentX, CurrentY] >= 768 && GFX.Tilesets[Tileset].UseOverrides) {
-                            if (zoom == 1)
-                                GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].OverrideHDC, (CachedObj[CurrentX, CurrentY] - 768) * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
-                            else
-                                GDIImports.StretchBlt(target, (int)(destX * zoom), (int)(destY * zoom), (int)Math.Ceiling(16 * zoom), (int)Math.Ceiling(16 * zoom), GFX.Tilesets[Tileset].OverrideHDC, (CachedObj[CurrentX, CurrentY] - 768) * 16, 0, 16, 16, GDIImports.TernaryRasterOperations.SRCCOPY);
-                        } else {
-                            if (zoom == 1)
-                                GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].Map16BufferHDC, CachedObj[CurrentX, CurrentY] * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
-                            else
-                                GDIImports.StretchBlt(target, (int)(destX * zoom), (int)(destY * zoom), (int)Math.Ceiling(16 * zoom), (int)Math.Ceiling(16 * zoom), GFX.Tilesets[Tileset].Map16BufferHDC, CachedObj[CurrentX, CurrentY] * 16, 0, 16, 16, GDIImports.TernaryRasterOperations.SRCCOPY);
-                        }
-                    }
-                    destY += 16;
-                }
-                destX += 16;
-                destY = (Y - YOffset) * 16;
-            }
-        }
-#endif
 
-#if USE_GDIPLUS
         public void RenderPlain(Graphics g, int X, int Y) {
             // This is basically just RenderCachedObject from the tileset class, with some edits
             Rectangle srcRect = new Rectangle();
@@ -127,25 +96,5 @@ namespace NSMBe4
                 destRect.Y = Y;
             }
         }
-#else
-        public void RenderPlain(IntPtr target, int X, int Y) {
-            // This is basically just RenderCachedObject from the tileset class, with some edits
-            int destX = X;
-            int destY = Y;
-            for (int CurrentX = 0; CurrentX < CachedObj.GetLength(0); CurrentX++) {
-                for (int CurrentY = 0; CurrentY < CachedObj.GetLength(1); CurrentY++) {
-                    if (CachedObj[CurrentX, CurrentY] >= 768 && GFX.Tilesets[Tileset].UseOverrides) {
-                        GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].OverrideHDC, (CachedObj[CurrentX, CurrentY] - 768) * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
-                    } else {
-                        GDIImports.BitBlt(target, destX, destY, 16, 16, GFX.Tilesets[Tileset].Map16BufferHDC, CachedObj[CurrentX, CurrentY] * 16, 0, GDIImports.TernaryRasterOperations.SRCCOPY);
-                    }
-                    destY += 16;
-                }
-                destX += 16;
-                destY = Y;
-            }
-        }
-#endif
-
     }
 }

@@ -164,26 +164,11 @@ namespace NSMBe4
         public byte[][] TileBehaviors;
 
         public Bitmap TilesetBuffer;
-        private Graphics TilesetGraphics;
-#if !USE_GDIPLUS
-        IntPtr TilesetBufferHDC;
-        IntPtr TilesetBufferHandle;
-#endif
 
         public Color[] Palette;
         public byte[] RawGFXData;
 
         private Graphics Map16Graphics;
-#if !USE_GDIPLUS
-        public IntPtr Map16BufferHDC;
-        private IntPtr Map16BufferHandle;
-#endif
-
-#if !USE_GDIPLUS
-        private Graphics OverrideGraphics;
-        public IntPtr OverrideHDC;
-        private IntPtr OverrideHandle;
-#endif
 
         public NSMBTileset(NitroClass ROM, ushort GFXFile, ushort PalFile, ushort Map16File, ushort ObjFile, ushort ObjIndexFile, ushort TileBehaviorFile, bool OverrideFlag, int TilesetNumber)
         {
@@ -238,12 +223,6 @@ namespace NSMBe4
             }
 
 
-#if !USE_GDIPLUS
-            TilesetGraphics = Graphics.FromImage(TilesetBuffer);
-            TilesetBufferHDC = TilesetGraphics.GetHdc();
-            TilesetBufferHandle = TilesetBuffer.GetHbitmap();
-            GDIImports.SelectObject(TilesetBufferHDC, TilesetBufferHandle);
-#endif
             loadMap16();
             loadTileBehaviors();
 
@@ -262,33 +241,7 @@ namespace NSMBe4
                     Overrides[idx] = -1;
                     EditorOverrides[idx] = -1;
                 }
-
-#if !USE_GDIPLUS
-                OverrideGraphics = Graphics.FromImage(OverrideBitmap);
-                OverrideHDC = OverrideGraphics.GetHdc();
-                OverrideHandle = OverrideBitmap.GetHbitmap();
-                GDIImports.SelectObject(OverrideHDC, OverrideHandle);
-#endif
             }
-        }
-
-        ~NSMBTileset()
-        {
-#if !USE_GDIPLUS
-            try {
-                GDIImports.DeleteObject(Map16BufferHandle);
-                Map16Graphics.ReleaseHdc(Map16BufferHDC);
-                GDIImports.DeleteObject(TilesetBufferHandle);
-                TilesetGraphics.ReleaseHdc(TilesetBufferHDC);
-
-                if (UseOverrides) {
-                    GDIImports.DeleteObject(OverrideHandle);
-                    OverrideGraphics.ReleaseHdc(OverrideHDC);
-                }
-            } catch {
-            }
-
-#endif
         }
 
         public void save()
@@ -379,11 +332,6 @@ namespace NSMBe4
             Map16Buffer = new Bitmap(Map16Count * 16, 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
             Map16Graphics = Graphics.FromImage(Map16Buffer);
-#if !USE_GDIPLUS
-            Map16BufferHDC = Map16Graphics.GetHdc();
-            Map16BufferHandle = Map16Buffer.GetHbitmap();
-            GDIImports.SelectObject(Map16BufferHDC, Map16BufferHandle);
-#endif
 
 
             for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++)
@@ -411,7 +359,6 @@ namespace NSMBe4
 
             if (q.TileByte != 0 || q.ControlByte != 0)
             {
-#if USE_GDIPLUS
                 Bitmap tile = new Bitmap(8, 8);
                 Graphics g = Graphics.FromImage(tile);
                 g.DrawImage(TilesetBuffer, new Rectangle(0, 0, 8, 8), SrcRect, GraphicsUnit.Pixel);
@@ -420,19 +367,6 @@ namespace NSMBe4
                 if ((q.ControlByte & 8) != 0)
                     tile.RotateFlip(RotateFlipType.RotateNoneFlipY);
                 Map16Graphics.DrawImage(tile, DestRect, new Rectangle(0, 0, 8, 8), GraphicsUnit.Pixel);
-#else
-                if ((q.ControlByte & 4) != 0)
-                {
-                    DestRect.Width = -8;
-                    DestRect.X += 7;
-                }
-                if ((q.ControlByte & 8) != 0)
-                {
-                    DestRect.Height = -8;
-                    DestRect.Y += 7;
-                }
-                GDIImports.StretchBlt(Map16BufferHDC, DestRect.X, DestRect.Y, DestRect.Width, DestRect.Height, TilesetBufferHDC, SrcRect.X, SrcRect.Y, 8, 8, GDIImports.TernaryRasterOperations.SRCCOPY);
-#endif
             }
         }
 
