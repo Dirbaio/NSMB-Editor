@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using NSMBe4.Filesystem;
 
 namespace NSMBe4 {
 

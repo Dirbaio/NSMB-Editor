@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -65,20 +65,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByteArrayInputStream.cs" />
-    <Compile Include="EntranceEditor.cs">
+    <Compile Include="Editor\EntranceEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EntranceEditor.Designer.cs">
+    <Compile Include="Editor\EntranceEditor.Designer.cs">
       <DependentUpon>EntranceEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="EntrancesEditionMode.cs" />
-    <Compile Include="CreatePanel.cs">
+    <Compile Include="Editor\EntrancesEditionMode.cs" />
+    <Compile Include="Editor\CreatePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CreatePanel.Designer.cs">
+    <Compile Include="Editor\CreatePanel.Designer.cs">
       <DependentUpon>CreatePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditionMode.cs" />
+    <Compile Include="Editor\EditionMode.cs" />
     <Compile Include="DataFinder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,43 +97,37 @@
     <Compile Include="LevelChooser.Designer.cs">
       <DependentUpon>LevelChooser.cs</DependentUpon>
     </Compile>
-    <Compile Include="LevelConfig.cs">
+    <Compile Include="Editor\LevelConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LevelConfig.Designer.cs">
+    <Compile Include="Editor\LevelConfig.Designer.cs">
       <DependentUpon>LevelConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="LevelEditorControl.cs">
+    <Compile Include="Editor\LevelEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="LevelEditorControl.Designer.cs">
+    <Compile Include="Editor\LevelEditorControl.Designer.cs">
       <DependentUpon>LevelEditorControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="LevelEditor.cs">
+    <Compile Include="Editor\LevelEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LevelEditor.Designer.cs">
+    <Compile Include="Editor\LevelEditor.Designer.cs">
       <DependentUpon>LevelEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="LevelHexEditor.cs">
+    <Compile Include="Editor\LevelHexEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LevelHexEditor.Designer.cs">
+    <Compile Include="Editor\LevelHexEditor.Designer.cs">
       <DependentUpon>LevelHexEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="LevelMinimap.cs">
+    <Compile Include="Editor\LevelMinimap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LevelMinimap.Designer.cs">
+    <Compile Include="Editor\LevelMinimap.Designer.cs">
       <DependentUpon>LevelMinimap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Map16Viewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Map16Viewer.Designer.cs">
-      <DependentUpon>Map16Viewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NitroClass.cs" />
+    <Compile Include="Filesystem\NitroClass.cs" />
     <Compile Include="NSMBEntrance.cs" />
     <Compile Include="NSMBGraphics.cs" />
     <Compile Include="NSMBLevel.cs" />
@@ -143,10 +137,10 @@
     <Compile Include="NSMBSprite.cs" />
     <Compile Include="NSMBTileset.cs" />
     <Compile Include="NSMBView.cs" />
-    <Compile Include="ObjectEditor.cs">
+    <Compile Include="Editor\ObjectEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ObjectEditor.Designer.cs">
+    <Compile Include="Editor\ObjectEditor.Designer.cs">
       <DependentUpon>ObjectEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjectPickerControl.cs">
@@ -155,15 +149,15 @@
     <Compile Include="ObjectPickerControl.Designer.cs">
       <DependentUpon>ObjectPickerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectsEditionMode.cs" />
-    <Compile Include="PathsEditionMode.cs" />
+    <Compile Include="Editor\ObjectsEditionMode.cs" />
+    <Compile Include="Editor\PathsEditionMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ByteArrayEditor.resx">
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreatePanel.resx">
+    <EmbeddedResource Include="Editor\CreatePanel.resx">
       <DependentUpon>CreatePanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -171,23 +165,23 @@
       <DependentUpon>DataFinder.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EntranceEditor.resx">
+    <EmbeddedResource Include="Editor\EntranceEditor.resx">
       <DependentUpon>EntranceEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileHexEditor.resx">
+    <EmbeddedResource Include="Filesystem\FileHexEditor.resx">
       <DependentUpon>FileHexEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilesystemBrowser.resx">
+    <EmbeddedResource Include="Filesystem\FilesystemBrowser.resx">
       <DependentUpon>FilesystemBrowser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilesystemBrowserDialog.resx">
+    <EmbeddedResource Include="Filesystem\FilesystemBrowserDialog.resx">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GraphicsEditor.resx">
+    <EmbeddedResource Include="GraphicsEditor\GraphicsEditor.resx">
       <DependentUpon>GraphicsEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -199,39 +193,35 @@
       <DependentUpon>LevelChooser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LevelConfig.resx">
+    <EmbeddedResource Include="Editor\LevelConfig.resx">
       <DependentUpon>LevelConfig.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LevelEditorControl.resx">
+    <EmbeddedResource Include="Editor\LevelEditorControl.resx">
       <DependentUpon>LevelEditorControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LevelEditor.resx">
+    <EmbeddedResource Include="Editor\LevelEditor.resx">
       <DependentUpon>LevelEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LevelHexEditor.resx">
+    <EmbeddedResource Include="Editor\LevelHexEditor.resx">
       <DependentUpon>LevelHexEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LevelMinimap.resx">
+    <EmbeddedResource Include="Editor\LevelMinimap.resx">
       <DependentUpon>LevelMinimap.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Map16Editor.resx">
+    <EmbeddedResource Include="TilesetEditor\Map16Editor.resx">
       <DependentUpon>Map16Editor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Map16Picker.resx">
+    <EmbeddedResource Include="TilesetEditor\Map16Picker.resx">
       <DependentUpon>Map16Picker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Map16Viewer.resx">
-      <DependentUpon>Map16Viewer.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ObjectEditor.resx">
+    <EmbeddedResource Include="Editor\ObjectEditor.resx">
       <DependentUpon>ObjectEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -239,11 +229,11 @@
       <DependentUpon>ObjectPickerControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PalettePicker.resx">
+    <EmbeddedResource Include="GraphicsEditor\PalettePicker.resx">
       <DependentUpon>PalettePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PathEditor.resx">
+    <EmbeddedResource Include="Editor\PathEditor.resx">
       <DependentUpon>PathEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -260,23 +250,23 @@
       <DependentUpon>GraphicsViewer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SpriteEditor.resx">
+    <EmbeddedResource Include="Editor\SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilePicker.resx">
+    <EmbeddedResource Include="TilesetEditor\TilePicker.resx">
       <DependentUpon>TilePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilesetChooser.resx">
+    <EmbeddedResource Include="TilesetEditor\TilesetChooser.resx">
       <DependentUpon>TilesetChooser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilesetEditor.resx">
+    <EmbeddedResource Include="TilesetEditor\TilesetEditor.resx">
       <DependentUpon>TilesetEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilesetObjectEditor.resx">
+    <EmbeddedResource Include="TilesetEditor\TilesetObjectEditor.resx">
       <DependentUpon>TilesetObjectEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -284,7 +274,7 @@
       <DependentUpon>ToolsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ViewEditor.resx">
+    <EmbeddedResource Include="Editor\ViewEditor.resx">
       <DependentUpon>ViewEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -302,10 +292,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SpriteEditor.cs">
+    <Compile Include="Editor\SpriteEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SpriteEditor.Designer.cs">
+    <Compile Include="Editor\SpriteEditor.Designer.cs">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -374,56 +364,59 @@
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ByteArrayOutputStream.cs" />
-    <Compile Include="FileHexEditor.cs">
+    <Compile Include="Filesystem\File.cs" />
+    <Compile Include="Filesystem\FileChangeListener.cs" />
+    <Compile Include="Filesystem\FileReference.cs" />
+    <Compile Include="Filesystem\FileHexEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileHexEditor.Designer.cs">
+    <Compile Include="Filesystem\FileHexEditor.Designer.cs">
       <DependentUpon>FileHexEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileLister.cs" />
-    <Compile Include="FileSystem.cs" />
-    <Compile Include="FilesystemBrowser.cs">
+    <Compile Include="Filesystem\FileLister.cs" />
+    <Compile Include="Filesystem\FileSystem.cs" />
+    <Compile Include="Filesystem\FilesystemBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FilesystemBrowser.Designer.cs">
+    <Compile Include="Filesystem\FilesystemBrowser.Designer.cs">
       <DependentUpon>FilesystemBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="FilesystemBrowserDialog.cs">
+    <Compile Include="Filesystem\FilesystemBrowserDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FilesystemBrowserDialog.Designer.cs">
+    <Compile Include="Filesystem\FilesystemBrowserDialog.Designer.cs">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="GraphicsEditor.cs">
+    <Compile Include="GraphicsEditor\GraphicsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GraphicsEditor.Designer.cs">
+    <Compile Include="GraphicsEditor\GraphicsEditor.Designer.cs">
       <DependentUpon>GraphicsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="LanguageManager.cs" />
-    <Compile Include="Map16Editor.cs">
+    <Compile Include="TilesetEditor\Map16Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Map16Editor.Designer.cs">
+    <Compile Include="TilesetEditor\Map16Editor.Designer.cs">
       <DependentUpon>Map16Editor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Map16Picker.cs">
+    <Compile Include="TilesetEditor\Map16Picker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Map16Picker.Designer.cs">
+    <Compile Include="TilesetEditor\Map16Picker.Designer.cs">
       <DependentUpon>Map16Picker.cs</DependentUpon>
     </Compile>
     <Compile Include="NSMBDataHandler.cs" />
-    <Compile Include="PalettePicker.cs">
+    <Compile Include="GraphicsEditor\PalettePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PalettePicker.Designer.cs">
+    <Compile Include="GraphicsEditor\PalettePicker.Designer.cs">
       <DependentUpon>PalettePicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="PathEditor.cs">
+    <Compile Include="Editor\PathEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PathEditor.Designer.cs">
+    <Compile Include="Editor\PathEditor.Designer.cs">
       <DependentUpon>PathEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgressWindow.cs">
@@ -439,28 +432,28 @@
       <DependentUpon>GraphicsViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="SpriteData.cs" />
-    <Compile Include="TilePicker.cs">
+    <Compile Include="TilesetEditor\TilePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TilePicker.Designer.cs">
+    <Compile Include="TilesetEditor\TilePicker.Designer.cs">
       <DependentUpon>TilePicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="TilesetChooser.cs">
+    <Compile Include="TilesetEditor\TilesetChooser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TilesetChooser.Designer.cs">
+    <Compile Include="TilesetEditor\TilesetChooser.Designer.cs">
       <DependentUpon>TilesetChooser.cs</DependentUpon>
     </Compile>
-    <Compile Include="TilesetEditor.cs">
+    <Compile Include="TilesetEditor\TilesetEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TilesetEditor.Designer.cs">
+    <Compile Include="TilesetEditor\TilesetEditor.Designer.cs">
       <DependentUpon>TilesetEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="TilesetObjectEditor.cs">
+    <Compile Include="TilesetEditor\TilesetObjectEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TilesetObjectEditor.Designer.cs">
+    <Compile Include="TilesetEditor\TilesetObjectEditor.Designer.cs">
       <DependentUpon>TilesetObjectEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsForm.cs">
@@ -469,13 +462,13 @@
     <Compile Include="ToolsForm.Designer.cs">
       <DependentUpon>ToolsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewEditor.cs">
+    <Compile Include="Editor\ViewEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ViewEditor.Designer.cs">
+    <Compile Include="Editor\ViewEditor.Designer.cs">
       <DependentUpon>ViewEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewsEditionMode.cs" />
+    <Compile Include="Editor\ViewsEditionMode.cs" />
     <None Include="Resources\pathpoint.png" />
     <None Include="Resources\sprite_invalid.png" />
     <None Include="Resources\Icons\config.png" />
@@ -497,6 +490,9 @@
       <ProductName>.NET Framework 3.5</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Copy of GraphicsEditor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

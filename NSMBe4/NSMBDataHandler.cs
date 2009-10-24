@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NSMBe4.Filesystem;
 
 /**
  * This class handles internal NSMB-specific data in the ROM.

@@ -330,7 +330,7 @@ label8=Sprite Type:
 label10=Sprite Data:
 label11=X:
 label9=Y:
-
+search=Search:
 
 
 [TilesetChooser]

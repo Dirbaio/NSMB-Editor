@@ -2,19 +2,29 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using NSMBe4.Filesystem;
 
-namespace NSMBe4 {
-    public class NSMBGraphics {
-        public NSMBGraphics(NitroClass ROM) {
+namespace NSMBe4
+{
+    public class NSMBGraphics
+    {
+
+        private bool readOnly;
+
+        public NSMBGraphics(NitroClass ROM, bool readOnly)
+        {
             this.ROM = ROM;
+            this.readOnly = readOnly;
         }
+
 
         public void LoadTilesets(ushort TilesetID) {
             // backup
             LoadTilesets(TilesetID, 8);
         }
 
-        public void LoadTilesets(ushort TilesetID, int JyotyuPalOverride) {
+        public void LoadTilesets(ushort TilesetID, int JyotyuPalOverride)
+        {
             Tilesets = new NSMBTileset[3];
 
             Console.WriteLine("JyotyuPalOverride = {0}, JyotyuPal offset = {1}...", JyotyuPalOverride, NSMBDataHandler.Overlay0[NSMBDataHandler.GetOffset(NSMBDataHandler.Data.Table_Jyotyu_NCL) + JyotyuPalOverride]);
@@ -31,22 +41,22 @@ namespace NSMBe4 {
                 JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"];
 
             Tilesets[0] = new NSMBTileset(ROM,
-                ROM.FileIDs["d_2d_A_J_jyotyu_ncg.bin"],
-                JyotyuPalFileID,
-                ROM.FileIDs["d_2d_PA_A_J_jyotyu.bin"],
-                ROM.FileIDs["A_J_jyotyu.bin"],
-                ROM.FileIDs["A_J_jyotyu_hd.bin"],
-                65535, true, 0);
+                ROM.getFile("d_2d_A_J_jyotyu_ncg.bin"),
+                ROM.getFile(JyotyuPalFileID),
+                ROM.getFile("d_2d_PA_A_J_jyotyu.bin"),
+                ROM.getFile("A_J_jyotyu.bin"),
+                ROM.getFile("A_J_jyotyu_hd.bin"),
+                null, true, 0);
 
             LoadTileset1(TilesetID);
 
             Tilesets[2] = new NSMBTileset(ROM,
-                ROM.FileIDs["d_2d_I_S_tikei_nohara_ncg.bin"],
-                ROM.FileIDs["d_2d_I_S_tikei_nohara_ncl.bin"],
-                ROM.FileIDs["d_2d_PA_I_S_nohara.bin"],
-                ROM.FileIDs["I_S_nohara.bin"],
-                ROM.FileIDs["I_S_nohara_hd.bin"],
-                ROM.FileIDs["NoHaRaSubUnitChangeData.bin"], false, 2);
+                ROM.getFile("d_2d_I_S_tikei_nohara_ncg.bin"),
+                ROM.getFile("d_2d_I_S_tikei_nohara_ncl.bin"),
+                ROM.getFile("d_2d_PA_I_S_nohara.bin"),
+                ROM.getFile("I_S_nohara.bin"),
+                ROM.getFile("I_S_nohara_hd.bin"),
+                ROM.getFile("NoHaRaSubUnitChangeData.bin"), false, 2);
 
             // Patch in a bunch of overrides to the normal tileset
             // Now works directly on the map16 data
@@ -187,12 +197,12 @@ namespace NSMBe4 {
 
         public void LoadTileset1(ushort TilesetID)
         {
-            ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCG);
-            ushort PalFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCL);
-            ushort Map16File = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_PNL);
-            ushort ObjFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT);
-            ushort ObjIndexFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT_HD);
-            ushort TileBehaviorFile = NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_CHK);
+            File GFXFile =          ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCG   ));
+            File PalFile =          ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCL   ));
+            File Map16File =        ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_PNL   ));
+            File ObjFile =          ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT   ));
+            File ObjIndexFile =     ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT_HD));
+            File TileBehaviorFile = ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_CHK   ));
 
             Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, TileBehaviorFile, false, 1);
         }
@@ -215,6 +225,13 @@ namespace NSMBe4 {
             for (int BlockIdx = 0; BlockIdx < 6; BlockIdx++) {
                 Tilesets[0].EditorOverrides[BlockIdx + 176] = (short)(BlockIdx + (type ? 129 : 123));
             }
+        }
+
+        public void close()
+        {
+            Tilesets[0].close();
+            Tilesets[1].close();
+            Tilesets[2].close();
         }
 
         public NitroClass ROM;

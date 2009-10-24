@@ -59,12 +59,12 @@ namespace NSMBe4
                 for (int CurrentY = 0; CurrentY < CachedObj.GetLength(1); CurrentY++) {
                     if (CurrentX >= Limits.X && CurrentX < Limits.Right && CurrentY >= Limits.Y && CurrentY < Limits.Bottom) {
                         if (CachedObj[CurrentX, CurrentY] != -1) {
-                            if (GFX.Tilesets[Tileset].UseOverrides && GFX.Tilesets[Tileset].EditorOverrides[CachedObj[CurrentX, CurrentY]] != -1) {
+                            srcRect = new Rectangle(CachedObj[CurrentX, CurrentY] << 4, 0, 16, 16);
+                            g.DrawImage(GFX.Tilesets[Tileset].Map16Buffer, destRect, srcRect, GraphicsUnit.Pixel);
+                            if (GFX.Tilesets[Tileset].UseOverrides && GFX.Tilesets[Tileset].EditorOverrides[CachedObj[CurrentX, CurrentY]] != -1)
+                            {
                                 srcRect = new Rectangle(GFX.Tilesets[Tileset].EditorOverrides[CachedObj[CurrentX, CurrentY]] << 4, 0, 16, 16);
                                 g.DrawImage(GFX.Tilesets[Tileset].OverrideBitmap, destRect, srcRect, GraphicsUnit.Pixel);
-                            } else {
-                                srcRect = new Rectangle(CachedObj[CurrentX, CurrentY] << 4, 0, 16, 16);
-                                g.DrawImage(GFX.Tilesets[Tileset].Map16Buffer, destRect, srcRect, GraphicsUnit.Pixel);
                             }
                         }
                     }
@@ -82,12 +82,12 @@ namespace NSMBe4
             for (int CurrentX = 0; CurrentX < CachedObj.GetLength(0); CurrentX++) {
                 for (int CurrentY = 0; CurrentY < CachedObj.GetLength(1); CurrentY++) {
                     if (CachedObj[CurrentX, CurrentY] != -1) {
-                        if (GFX.Tilesets[Tileset].UseOverrides && GFX.Tilesets[Tileset].EditorOverrides[CachedObj[CurrentX, CurrentY]] != -1) {
+                        srcRect = new Rectangle(CachedObj[CurrentX, CurrentY] * 16, 0, 16, 16);
+                        g.DrawImage(GFX.Tilesets[Tileset].Map16Buffer, destRect, srcRect, GraphicsUnit.Pixel);
+                        if (GFX.Tilesets[Tileset].UseOverrides && GFX.Tilesets[Tileset].EditorOverrides[CachedObj[CurrentX, CurrentY]] != -1)
+                        {
                             srcRect = new Rectangle(GFX.Tilesets[Tileset].EditorOverrides[CachedObj[CurrentX, CurrentY]] * 16, 0, 16, 16);
                             g.DrawImage(GFX.Tilesets[Tileset].OverrideBitmap, destRect, srcRect, GraphicsUnit.Pixel);
-                        } else {
-                            srcRect = new Rectangle(CachedObj[CurrentX, CurrentY] * 16, 0, 16, 16);
-                            g.DrawImage(GFX.Tilesets[Tileset].Map16Buffer, destRect, srcRect, GraphicsUnit.Pixel);
                         }
                     }
                     destRect.Y += 16;

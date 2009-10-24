@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using NSMBe4.Filesystem;
 
 namespace NSMBe4 {
     public partial class LevelChooser : Form

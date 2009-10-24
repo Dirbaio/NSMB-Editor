@@ -35,7 +35,6 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMB
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.LevelEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.LevelHexEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.LevelMinimap.resources
-C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Map16Viewer.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ObjectEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ObjectPickerControl.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.PathEditor.resources
@@ -44,12 +43,8 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMB
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ToolsForm.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ViewEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.csproj.GenerateResource.Cache
-C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\bin\Debug\Be.Windows.Forms.HexBox.dll
-C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.FilesystemBrowser.resources
-C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.FilesystemBrowserDialog.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ProgressWindow.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.GraphicsViewer.resources
-C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.FileHexEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.TilesetEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.TilesetObjectEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Map16Picker.resources
@@ -57,3 +52,9 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMB
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Map16Editor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.TilePicker.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.ByteArrayEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\bin\Debug\spritedata.txt
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.GraphicsEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.PalettePicker.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Filesystem.FileHexEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Filesystem.FilesystemBrowser.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Filesystem.FilesystemBrowserDialog.resources

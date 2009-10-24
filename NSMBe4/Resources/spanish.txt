@@ -8,12 +8,12 @@ Warning=Aviso
 Question=Pregunta
 Completed=Terminado!
 
-UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como una version del US.
+UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como versión US.
 
 
 
 [LevelChooser]
-_TITLE=NSMB Editor 4.8
+_TITLE=New Super Mario Bros Editor 4.8
 
 tabPage1=Sistema de archivos
 tabPage2=Editor de niveles
@@ -49,11 +49,11 @@ CantImport=Tienes un editor abierto con este nivel. Cerrar el editor antes que i
 LangChangedTitle=Cambiado
 LangChanged=Idioma cambiado. Tendras que cerrar y abrir el editor para ver el efecto.
 
-LZUncompWarning=Este modo es peligroso!\nDescomprimira todos los archivos en el juego!\nUsarlo en una copia del ROM, porque el juego estara completamente roto.\nEl unico uso que tiene es para examinar archivos en Tahaxan.\nEstas seguro que quieres continuar?
+LZUncompWarning=Esta opcion es peligrosa!\nDescomprimira todos los archivos en el juego!\nUsalo en una copia del ROM, porque dejará de funcionar.\nEl unico uso que tiene es para examinar archivos en Tahaxan.\nEstas seguro que quieres continuar?
 DecompInNarcs=Quieres descomprimir archivos dentro de los NARCs?
 
 ;Filters
-ROMFilter=Juegos del Nintendo DS (*.nds)|*.nds|Todos los archivos (*.*)|*.*
+ROMFilter=Juegos de Nintendo DS (*.nds)|*.nds|Todos los archivos (*.*)|*.*
 LevelFilter=Niveles exportados NSMB (*.nml)|*.nml|Todos los archivos (*.*)|*.*
 PatchFilter=Parches NSMB (*.nmp)|*.nmp|Todos los archivos (*.*)|*.*
 
@@ -66,19 +66,19 @@ Export=Exportar Parche
 SelectROM=Elegir un ROM limpio del juego original.
 SelectLocation=Elegir un sitio para guardar el parche.
 ExportProgressTitle=Exportando parche...
-StartingPatch=Parchando empiezara ahora. Puede tardar un tiempo, pero acabara.
-ExportDiffVersions=Los dos juegos parecen que son de diferentes versiones. Estas seguro que quieres continuar?
+StartingPatch=Parchando empiezara ahora. Puede tardar un tiempo.
+ExportDiffVersions=Las dos roms parecen de versiones diferentes. Estas seguro que quieres continuar?
 ComparingFile=Comparando {0}...
 IncludedFile={0} incluido
-ExportReady=Ya esta acabado! {0} archivos incluido.
+ExportReady=Finalizado! {0} archivos incluido.
 
 ;Importing Patches
 InvalidFile=Este no es un parche de NSMB Editor 4. Si esta seguro de que es un parche valido, puede estar corrupto.
 Unreadable=Error de Archivo
 ImportProgressTitle=Aplicando parche...
-ReplacingFile=Sustitiendo {0}...
-ImportDiffVersions=The two roms seem to be different versions. The patch should work, but maybe it doesn't.
-ImportReady=Parche aplicado! {0} archivos sustituido.
+ReplacingFile=Sustituyendo {0}...
+ImportDiffVersions=Las dos roms parecen versiones diferentes. El parche debería funcionar, pero es posible que no funcione.
+ImportReady=Parche aplicado! {0} archivos sustituidos.
 
 
 
@@ -121,10 +121,10 @@ CreateSprite=Crear Sprite
 
 
 [DataFinder]
-_TITLE=Buscador de Data
-label1=Esta herramienta no es util para casi todos. Pero si estas tratando de buscar algo especifico (por ejemplo, como el data para un sprite trabaja) puedes usarlo para coger una lista de todas las vezes que esta usado - para que sepas donde mirar.
-findBlockRadioButton=Buscar todos del bloque
-findSpriteRadioButton=Buscar todos del sprite
+_TITLE=Buscador de datos
+label1=Esta herramienta no es util para todos. Pero si estas tratando de buscar algo especifico (por ejemplo, como funcionan los datos de un sprite) puedes usarlo para obtener una lista de todas las veces que esta usado - para que sepas donde mirar.
+findBlockRadioButton=Buscar todos los bloques
+findSpriteRadioButton=Buscar todos los sprites
 label2=partido en:
 processButton=Buscar!
 
@@ -141,12 +141,12 @@ label16=Camara Y:
 label17=Numero de Entrada:
 label18=Area de destino:
 label19=Entrada de destino:
-label20=ID de connexion:
+label20=ID de conexion:
 label21=Vista:
 entranceSetting128=Bloquear entrada (para tuberias y puertas)
 entranceSetting16=Usar transicion desaparicion
 entranceSetting8=Usar connexion de tuberia
-entranceSetting1=Ver en pantalla baja (solo entradas)
+entranceSetting1=Ver en pantalla inferior (solo entradas)
 
 
 
@@ -166,7 +166,7 @@ hexEdButton=Editar hex
 
 FolderStatus=Carpeta: {0} - ID {1}
 FileStatus=Posicion: {0} - Tamaño: {1} bytes - ID: {2}
-DecompressionFail=El archivo no se puede descomprimir - puede ser que no es comprimido.
+DecompressionFail=El archivo no se puede descomprimir - puede ser que no esté comprimido.
 
 
 
@@ -176,7 +176,7 @@ _TITLE=Navegador de Archivos
 
 
 [GraphicsViewer]
-_TITLE=Mirador de Graficos
+_TITLE=Visualizador de Graficos
 label1=Paleta:
 label2=Tamaños de imagen:
 use4bpp=Usar formato 4bpp
@@ -193,22 +193,22 @@ _TITLE=Configuracion del Nivel
 
 tabPage1=Opciones
 tabPage2=Graficos
-tabPage3=Surtido Sprites (1)
-tabPage4=Surtido Sprites (2)
+tabPage3=Conjuntos de Sprites (1)
+tabPage4=Conjuntos de Sprites (2)
 
-OKButton=Vale
+OKButton=Aceptar
 cancelButton=Cancelar
 
 ;Options tab
 label1=Limite de tiempo:
-label2=Entrada punto empezar:
+label2=Entrada inicial:
 label3=Entrada punto medio:
 levelWrapCheckBox=Nivel cíclico (como en 7-2 y multijugador)
 
 ;Graphics tab
 groupBox1=Serie de objetos
 groupBox2=Fondo delantero
-groupBox3=Fondo detras
+groupBox3=Fondo trasero
 tilesetPreviewButton=Probar
 bgTopLayerPreviewButton=Probar
 bgBottomLayerPreviewButton=Probar
@@ -223,17 +223,17 @@ UnsavedLevel=Este nivel tiene cambios sin guardar.\nSi cierras el editor sin gua
 
 
 [Map16Editor]
-groupBox1=Elegir teja:
-groupBox2=Opciones de teja
-groupBox3=Funcionamiento de la teja
+groupBox1=Elegir bloque
+groupBox2=Opciones de bloque
+groupBox3=Solidez
 groupBox4=Herramientas
-label1=Numero de teja
+label1=Numero de bloque
 label2=Byte de control
-label3=Byte de teja
-secPal=Paleta segunda
-xFlip=X flip
-yFlip=Y flip
-button1=Borrar tejas sin usar
+label3=Byte de bloque
+secPal=Paleta secundaria
+xFlip=Simetría horizontal
+yFlip=Simetría vertical
+button1=Borrar bloques sin usar
 
 
 
@@ -248,9 +248,9 @@ OverlayFile=ID {0} cargado con {2} bytes a posicion {1}
 [NSMBLevel]
 InvalidFile=Este no es un archivo de nivel de NSMB Editor 4. Si esta seguro de que es un nivel valido, puede estar corrupto.
 Unreadable=Error de Archivo
-OldVersion=Este archivo de nivel estaba creado con una version mas nueva del editor y ya no es compatible por cambios en el formato. No se puede usar; baja una version actualizada.
+OldVersion=Este archivo de nivel estaba creado con una version mas nueva del editor y ya no es compatible por cambios en el formato. No se puede usar: descarga la version actualizada.
 Unusable=Archivo Inutilizable
-Mismatch=Este archivo esta importado en un nivel diferente que el original.\nTodavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\nQuieres continuar?
+Mismatch=Este archivo se está importando en un nivel diferente que el original.\nTodavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\nQuieres continuar?
 
 
 
@@ -312,7 +312,7 @@ label8=Tipo de Sprite:
 label10=Datos de Sprite:
 label11=X:
 label9=Y:
-
+search:Bucar:
 
 
 [TilesetChooser]
@@ -1154,20 +1154,20 @@ Nivel 5|10|1
 265=Manos señaladoras (casa fantasma)
 266=Sin usar
 267=Sin usar
-268=Pelota que bota a Mario
+268=Bola submarina que rebota
 269=Wiggler gigante
 270=Sin usar
 271=Sin usar
-272=Nieve que cae del Árbol
+272=Nieve que cae de árbol
 273=Lanzador de bolas de nieve
-274=Sinking Snow
+274=Nieve en la que te hundes
 275=Bloque ? saltador
 276=Scroll stop?
 277=Flecha
-278=Goo de Casa de Miedo
-279=Puerta moviendo en un solo sentido
+278=Gelatina de Casa Fantasma
+279=Puerta de una dirección
 280=Sprite Desconocido (1-4 and Castles)
-281=Tubería de Floruga Jr. (7-A)
+281=Floruga Jr. en tubería (7-A)
 282=Planta
 283=Spike Bass
 284=Calabaza
