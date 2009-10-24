@@ -94,7 +94,7 @@ namespace NSMBe4 {
                                            {0x31494, 0x30CA8, 0x30894}, //TS_NCL
                                            {0x315C4, 0x30DD8, 0x309C4}, //FG_NCL
                                            {0x316F4, 0x30F08, 0x30AF4}, //TS_PNL
-                                           {0x30CD8, 0x304E0, 0x300D8}, //Jyotyu_NCL
+                                           {0x30CD8, 0x304EC, 0x300D8}, //Jyotyu_NCL
                                            {0x2FDA4, 0x2F5B8, 0x2F1A4}, //Jyotyu_CHK
                                            {0x2C930, 0x2BDF0, 0x2BD30}, //Modifiers
                                        };
