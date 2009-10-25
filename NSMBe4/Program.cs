@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace NSMBe4 {
     /*public class TestLister : FileLister {
@@ -38,6 +39,9 @@ namespace NSMBe4 {
             NSMBDataHandler.SaveOverlay0();
 
             return;*/
+
+            //AGAIN MORE TESTING! xD
+            ImageIndexer.index(new Bitmap(@"E:\DCIM\100PENTX\IMGP1000.JPG"), 256);
 
 
             if (Properties.Settings.Default.Language == 0) {

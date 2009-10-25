@@ -387,6 +387,8 @@
     <Compile Include="Filesystem\FilesystemBrowserDialog.Designer.cs">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageIndexer.cs" />
+    <Compile Include="ImageTiler.cs" />
     <Compile Include="GraphicsEditor\GraphicsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
