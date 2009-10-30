@@ -18,6 +18,9 @@ namespace NSMBe4 {
 
         private bool DragChoice = false;
 
+        public delegate void EditColourDelegate(int idx);
+        public event EditColourDelegate EditColour;
+
         public PalettePicker() {
             InitializeComponent();
         }
@@ -111,16 +114,20 @@ namespace NSMBe4 {
             int picked = ((Y / 12) * 16) + (X / 12);
             int old = -1;
 
-            if (e.Button == MouseButtons.Left) {
-                old = SelectedFG;
-                SelectedFG = picked;
+            if (ModifierKeys == Keys.Control) {
+                EditColour(picked);
             } else {
-                old = SelectedBG;
-                SelectedBG = picked;
-            }
+                if (e.Button == MouseButtons.Left) {
+                    old = SelectedFG;
+                    SelectedFG = picked;
+                } else {
+                    old = SelectedBG;
+                    SelectedBG = picked;
+                }
 
-            if (old != picked) {
-                drawingBox.Invalidate();
+                if (old != picked) {
+                    drawingBox.Invalidate();
+                }
             }
         }
 

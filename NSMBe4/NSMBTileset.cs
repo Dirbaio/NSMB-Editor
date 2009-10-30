@@ -282,6 +282,8 @@ namespace NSMBe4
 
             byte[] CompGFXData = NitroClass.LZ77_Compress(RawGFXData);
             GFXFileID.replaceFile(CompGFXData);
+
+            savePalette();
         }
 
         public void ResetGraphics(byte[] GFXData) {
@@ -302,6 +304,14 @@ namespace NSMBe4
             }
 
             repaintAllMap16();
+        }
+
+        private void savePalette() {
+            ByteArrayOutputStream file = new ByteArrayOutputStream();
+            for (int i = 0; i < 512; i++) {
+                file.writeUShort((ushort)((Palette[i].B << 7) | (Palette[i].G << 2) | (Palette[i].R >> 3)));
+            }
+            PalFileID.replaceFile(NitroClass.LZ77_Compress(file.getArray()));
         }
 
 

@@ -41,8 +41,14 @@ namespace NSMBe4 {
             return;*/
 
             //AGAIN MORE TESTING! xD
-            ImageIndexer.index(new Bitmap(@"E:\DCIM\100PENTX\IMGP1000.JPG"), 256);
-
+            /*if (System.IO.File.Exists(@"E:\DCIM\100PENTX\IMGP1000.JPG")) {
+                ImageIndexer.index(new Bitmap(@"E:\DCIM\100PENTX\IMGP1000.JPG"), 256);
+            } else if (Application.StartupPath == @"H:\Users\Jan\Documents\Visual Studio 2008\Projects\NSMBe4\NSMBe4\bin\Debug") {
+                //yeah, I copied your idea...
+                //new ImagePreviewer(ImageIndexer.index(new Bitmap(@"C:\C\dcp3\224_PANA\P1320701.JPG"), 256)).Show();
+                // well, converting a 3648x2736 10mp file is a bad idea, this is why: http://treeki.shacknet.nu/screenshots/misc/freeze.png
+                new ImagePreviewer(ImageIndexer.index(new Bitmap(@"C:\htdocs\desktop.jpg"), 256)).Show();
+            }*/
 
             if (Properties.Settings.Default.Language == 0) {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));

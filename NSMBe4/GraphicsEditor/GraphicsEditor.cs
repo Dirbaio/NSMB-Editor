@@ -61,6 +61,8 @@ namespace NSMBe4 {
         // saves a dictionary lookup every hover
         private string HoverStatusString = LanguageManager.Get("GraphicsEditor", "hoverStatus");
 
+        private ColourPicker _cp = null;
+
         public enum ToolType {
             Brush,
             Eraser,
@@ -116,6 +118,28 @@ namespace NSMBe4 {
             RenderBuffer();
             RenderZoomCache();
             drawingBox.Invalidate();
+        }
+
+        private void palettePicker1_EditColour(int idx) {
+            int RealIndex = SelectedPal * PalSize + idx;
+            Color change = Palettes[RealIndex];
+
+            if (_cp == null || _cp.IsDisposed) {
+                _cp = new ColourPicker();
+            }
+
+            _cp.R = change.R >> 3;
+            _cp.G = change.G >> 3;
+            _cp.B = change.B >> 3;
+
+            if (_cp.ShowDialog() == DialogResult.OK) {
+                Palettes[RealIndex] = Color.FromArgb(_cp.R << 3, _cp.G << 3, _cp.B << 3);
+                palettePicker1.SetViewPal(SelectedPal);
+
+                RenderBuffer();
+                RenderZoomCache();
+                drawingBox.Invalidate();
+            }
         }
 
         private int GetOffsetFromPos(int x, int y) {

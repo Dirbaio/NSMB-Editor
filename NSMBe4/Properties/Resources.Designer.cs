@@ -248,6 +248,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap selectedarrows {
+            get {
+                object obj = ResourceManager.GetObject("selectedarrows", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to ;NSMB Editor 4
         ///;Spanish Translation File
@@ -259,12 +266,12 @@ namespace NSMBe4.Properties {
         ///Question=Pregunta
         ///Completed=Terminado!
         ///
-        ///UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como una version del US.
+        ///UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como versión US.
         ///
         ///
         ///
         ///[LevelChooser]
-        ///_TITLE=NSMB Editor 4.8
+        ///_TITLE=New Super Mario Bros Editor 4.8
         ///
         ///tabPage1=Sistema de archivos
         ///tabPage2=Editor de niveles
@@ -273,7 +280,7 @@ namespace NSMBe4.Properties {
         ///;Level Editor Tab
         ///importLevelButton=Importar
         ///exportLevelButton=Exportar
-        ///hexEditLevelButton=Editar h [rest of string was truncated]&quot;;.
+        ///hexEditLevelButton= [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string spanish {
             get {

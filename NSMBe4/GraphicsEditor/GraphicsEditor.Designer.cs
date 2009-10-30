@@ -264,6 +264,7 @@
             this.palettePicker1.Name = "palettePicker1";
             this.palettePicker1.Size = new System.Drawing.Size(194, 194);
             this.palettePicker1.TabIndex = 12;
+            this.palettePicker1.EditColour += new NSMBe4.PalettePicker.EditColourDelegate(this.palettePicker1_EditColour);
             // 
             // GraphicsEditor
             // 

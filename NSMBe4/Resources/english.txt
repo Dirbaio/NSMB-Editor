@@ -121,6 +121,18 @@ CreateSprite=Create Sprite
 
 
 
+[ColourPicker]
+_TITLE=Colour Picker
+saveButton=Save
+cancelButton=Cancel
+
+Red=Red
+Green=Green
+Blue=Blue
+Preview=Preview
+
+
+
 [DataFinder]
 _TITLE=Data Finder
 label1=This tool isn't useful for most ROM hackers. But if you're trying to find something specific (how the data for a sprite works, for example) you can use it to get a list of every time it's used - so you know where to look.
