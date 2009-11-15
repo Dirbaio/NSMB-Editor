@@ -5,7 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 namespace NSMBe4 {
     public partial class LevelEditor : Form {
@@ -19,9 +20,8 @@ namespace NSMBe4 {
         public ToolsForm tools;
         private List<ToolStripButton> EditionModeButtons;
 
-        public LevelEditor(NitroClass ROM, string LevelFilename) {
+        public LevelEditor(string LevelFilename) {
             InitializeComponent();
-            this.ROM = ROM;
             this.LevelFilename = LevelFilename;
             editObjectsButton.Checked = true;
 
@@ -58,21 +58,21 @@ namespace NSMBe4 {
                 spritelist[int.Parse(trimmedsprite.Substring(0, equalPos))] = trimmedsprite.Substring(0, equalPos) + ": " + trimmedsprite.Substring(equalPos + 1);
             }
 
-            ushort LevelFileID = ROM.FileIDs[LevelFilename + ".bin"];
-            ushort LevelBGDatFileID = ROM.FileIDs[LevelFilename + "_bgdat.bin"];
+            File LevelFileID = ROM.FS.getFileByName(LevelFilename + ".bin");
+            File LevelBGDatFileID = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
 
             // There's a catch 22 here: Level loading requires graphics. Graphics loading requires level.
             // Therefore, I have a simple loader here which gets this info.
-            byte[] LevelFile = ROM.ExtractFile(LevelFileID);
+            byte[] LevelFile = LevelFileID.getContents();
             int Block1Offset = LevelFile[0] | (LevelFile[1] << 8) | (LevelFile[2] << 16) | (LevelFile[3] << 24);
             int Block3Offset = LevelFile[16] | (LevelFile[17] << 8) | (LevelFile[18] << 16) | (LevelFile[19] << 24);
             byte TilesetID = LevelFile[Block1Offset + 0x0C];
             byte BGNSCID = LevelFile[Block3Offset + 2];
 
-            GFX = new NSMBGraphics(ROM, true);
+            GFX = new NSMBGraphics();
             GFX.LoadTilesets(TilesetID, BGNSCID);
 
-            Level = new NSMBLevel(ROM, LevelFileID, LevelBGDatFileID, GFX);
+            Level = new NSMBLevel(LevelFileID, LevelBGDatFileID, GFX);
             levelEditorControl1.Initialise(GFX, Level, this);
 
             opc = new ObjectPickerControl();
@@ -104,7 +104,6 @@ namespace NSMBe4 {
         private LevelConfig LevelConfigForm;
         private NSMBLevel Level;
         private NSMBGraphics GFX;
-        private NitroClass ROM;
 
         public string LevelFilename;
 
@@ -158,7 +157,7 @@ namespace NSMBe4 {
 
         private void levelConfigButton_Click(object sender, EventArgs e) {
             if (LevelConfigForm == null || LevelConfigForm.IsDisposed) {
-                LevelConfigForm = new LevelConfig(Level, ROM);
+                LevelConfigForm = new LevelConfig(Level);
             }
             LevelConfigForm.SetDirtyFlag += new LevelConfig.SetDirtyFlagDelegate(levelEditorControl1_SetDirtyFlag);
             LevelConfigForm.ReloadTileset += new LevelConfig.ReloadTilesetDelegate(LevelConfigForm_ReloadTileset);
@@ -308,7 +307,7 @@ namespace NSMBe4 {
 
         private void editTileset_Click(object sender, EventArgs e)
         {
-            new TilesetEditor(ROM, Level.Blocks[0][0xC], "").Show();
+            new TilesetEditor(Level.Blocks[0][0xC], "").Show();
         }
     }
 }

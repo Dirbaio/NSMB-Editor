@@ -7,14 +7,12 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
-namespace NSMBe4.Filesystem
+namespace NSMBe4.DSFileSystem
 {
-    public partial class FilesystemBrowser : UserControl, FileLister
+    public partial class FilesystemBrowser : UserControl
     {
-        private Dictionary<int, TreeNode> DirHolder;
-        public NitroClass ROM;
-
         public static GraphicsViewer gv;
+        private Filesystem fs;
 
         public FilesystemBrowser()
         {
@@ -27,13 +25,34 @@ namespace NSMBe4.Filesystem
             hexEdButton.Enabled = false;
             LanguageManager.ApplyToContainer(this, "FilesystemBrowser");
 
-            DirHolder = new Dictionary<int, TreeNode>();
         }
 
-        public new void Load(NitroClass ROM)
+        public new void Load(Filesystem fs)
         {
-            this.ROM = ROM;
-            ROM.Load(this);
+            this.fs = fs;
+
+            TreeNode main = new TreeNode("Filesystem", 0, 0);
+            main.Tag = fs.mainDir;
+            loadDir(main, fs.mainDir);
+            fileTreeView.Nodes.Add(main);
+        }
+
+        private void loadDir(TreeNode node, Directory dir)
+        {
+            foreach (File f in dir.childrenFiles)
+            {
+                TreeNode fileNode = new TreeNode(f.name, 2, 2);
+                fileNode.Tag = f;
+                node.Nodes.Add(fileNode);
+            }
+
+            foreach (Directory d in dir.childrenDirs)
+            {
+                TreeNode dirNode = new TreeNode(d.name, 0, 0);
+                dirNode.Tag = d;
+                loadDir(dirNode, d);
+                node.Nodes.Add(dirNode);
+            }
         }
 
         private void fileTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -45,11 +64,10 @@ namespace NSMBe4.Filesystem
         {
             TreeNode n = fileTreeView.SelectedNode;
 
-            ushort FSObjId = Convert.ToUInt16(n.Tag);
             string StatusMsg;
-            if (FSObjId >= 61440)
+            if (n.Tag is Directory)
             {
-                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FolderStatus"), n.Text, n.Tag);
+                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FolderStatus"), n.Text, (n.Tag as Directory).id);
                 extractFileButton.Enabled = false;
                 replaceFileButton.Enabled = false;
                 compressFileButton.Enabled = false;
@@ -58,7 +76,8 @@ namespace NSMBe4.Filesystem
             }
             else
             {
-                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FileStatus"), ROM.FileOffsets[FSObjId].ToString("X"), ROM.FileSizes[FSObjId].ToString(), n.Tag);
+                File f = n.Tag as File;
+                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FileStatus"), f.fileBegin.ToString("X"), f.fileSize.ToString(), f.id);
                 extractFileButton.Enabled = true;
                 replaceFileButton.Enabled = true;
                 compressFileButton.Enabled = true;
@@ -68,29 +87,16 @@ namespace NSMBe4.Filesystem
             selectedFileInfo.Text = StatusMsg;
         }
 
-        public void DirReady(int DirID, int ParentID, string DirName, bool IsRoot)
-        {
-            if(IsRoot)
-                DirHolder[DirID] = fileTreeView.Nodes.Add(DirID.ToString(), DirName, 0, 0);
-            else
-                DirHolder[DirID] = DirHolder[ParentID].Nodes.Add(DirID.ToString(), DirName, 0, 0);
-           DirHolder[DirID].Tag = DirID.ToString();
-        }
-
-        public void FileReady(int FileID, int ParentID, string FileName)
-        {
-            DirHolder[ParentID].Nodes.Add(FileID.ToString(), FileName, 2, 2).Tag = FileID.ToString();
-        }
-
         private void extractFileButton_Click(object sender, EventArgs e)
         {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            string FileName = ROM.FileNames[FSObjID];
+            File f = fileTreeView.SelectedNode.Tag as File;
+
+            string FileName = f.name;
             extractFileDialog.FileName = FileName;
             if (extractFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string DestFileName = extractFileDialog.FileName;
-                byte[] TempFile = ROM.ExtractFile(FSObjID);
+                byte[] TempFile = f.getContents();
                 FileStream wfs = new FileStream(DestFileName, FileMode.Create, FileAccess.Write, FileShare.None);
                 wfs.Write(TempFile, 0, TempFile.GetLength(0));
                 wfs.Dispose();
@@ -99,8 +105,9 @@ namespace NSMBe4.Filesystem
 
         private void replaceFileButton_Click(object sender, EventArgs e)
         {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            string FileName = ROM.FileNames[FSObjID];
+            File f = fileTreeView.SelectedNode.Tag as File;
+
+            string FileName = f.name;
             replaceFileDialog.FileName = FileName;
             if (replaceFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -109,17 +116,18 @@ namespace NSMBe4.Filesystem
                 byte[] TempFile = new byte[rfs.Length];
                 rfs.Read(TempFile, 0, (int)rfs.Length);
                 rfs.Dispose();
-                ROM.ReplaceFile(FSObjID, TempFile);
+                f.replace(TempFile);
             }
             UpdateFileInfo();
         }
 
         private void compressFileButton_Click(object sender, EventArgs e)
         {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            byte[] RawFile = ROM.ExtractFile(FSObjID);
-            byte[] CompFile = FileSystem.LZ77_Compress(RawFile);
-            ROM.ReplaceFile(FSObjID, CompFile);
+            File f = fileTreeView.SelectedNode.Tag as File;
+
+            byte[] RawFile = f.getContents();
+            byte[] CompFile = ROM.LZ77_Compress(RawFile);
+            f.replace(CompFile);
             UpdateFileInfo();
         }
 
@@ -127,10 +135,11 @@ namespace NSMBe4.Filesystem
         {
             try
             {
-                ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-                byte[] CompFile = ROM.ExtractFile(FSObjID);
-                byte[] RawFile = FileSystem.LZ77_Decompress(CompFile);
-                ROM.ReplaceFile(FSObjID, RawFile);
+                File f = fileTreeView.SelectedNode.Tag as File;
+
+                byte[] CompFile = f.getContents();
+                byte[] RawFile = ROM.LZ77_Decompress(CompFile);
+                f.replace(RawFile);
                 UpdateFileInfo();
             }
             catch (Exception)
@@ -141,20 +150,21 @@ namespace NSMBe4.Filesystem
 
         private void fileTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            ushort FileID = Convert.ToUInt16(e.Node.Tag);
-            if (FileID >= 61440)
+            if (e.Node.Tag is Directory)
             {
                 e.Node.Expand();
                 return;
             }
+            File f = e.Node.Tag as File;
 
-            String FileName = ROM.FileNames[FileID];
+            String FileName = f.name;
+
             if(!FileName.Contains("."))
                 return;
             string ext = FileName.Substring(FileName.LastIndexOf(".")+1);
             if (ext.ToUpperInvariant() == "NARC")
             {
-                new FilesystemBrowserDialog(ROM, FileID).Show();
+                new FilesystemBrowserDialog(fs).Show();
             }
             else //send to GraphicsViewer
             {
@@ -163,7 +173,7 @@ namespace NSMBe4.Filesystem
 
                 gv.Show();
 
-                byte[] file = ROM.ExtractFile(FileID);
+                byte[] file = f.getContents();
                 if (Control.ModifierKeys == Keys.Control)
                     gv.SetPalette(file);
                 else
@@ -173,8 +183,8 @@ namespace NSMBe4.Filesystem
 
         private void hexEdButton_Click(object sender, EventArgs e)
         {
-            ushort FSObjID = Convert.ToUInt16(fileTreeView.SelectedNode.Tag);
-            new FileHexEditor(ROM, FSObjID).Show();
+            File f = fileTreeView.SelectedNode.Tag as File;
+            new FileHexEditor(f).Show();
         }
     }
 }

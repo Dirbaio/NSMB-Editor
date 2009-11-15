@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -127,7 +127,6 @@
     <Compile Include="Editor\LevelMinimap.Designer.cs">
       <DependentUpon>LevelMinimap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filesystem\NitroClass.cs" />
     <Compile Include="NSMBEntrance.cs" />
     <Compile Include="NSMBGraphics.cs" />
     <Compile Include="NSMBLevel.cs" />
@@ -157,6 +156,15 @@
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DSFileSystem\FileHexEditor.resx">
+      <DependentUpon>FileHexEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DSFileSystem\FilesystemBrowser.resx">
+      <DependentUpon>FilesystemBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DSFileSystem\FilesystemBrowserDialog.resx">
+      <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -175,18 +183,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\EntranceEditor.resx">
       <DependentUpon>EntranceEditor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Filesystem\FileHexEditor.resx">
-      <DependentUpon>FileHexEditor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Filesystem\FilesystemBrowser.resx">
-      <DependentUpon>FilesystemBrowser.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Filesystem\FilesystemBrowserDialog.resx">
-      <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\GraphicsEditor.resx">
@@ -366,6 +362,7 @@
     <None Include="Resources\Icons\zones.png" />
     <None Include="Resources\Icons\paths.png" />
     <None Include="Resources\Icons\views.png" />
+    <Compile Include="AlreadyEditingException.cs" />
     <Compile Include="ByteArrayEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -373,6 +370,31 @@
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ByteArrayOutputStream.cs" />
+    <Compile Include="DSFileSystem\ExternalFilesystemSource.cs" />
+    <Compile Include="DSFileSystem\File.cs" />
+    <Compile Include="DSFileSystem\FileHexEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSFileSystem\FileHexEditor.Designer.cs">
+      <DependentUpon>FileHexEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DSFileSystem\Filesystem.cs" />
+    <Compile Include="DSFileSystem\FilesystemBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DSFileSystem\FilesystemBrowser.Designer.cs">
+      <DependentUpon>FilesystemBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DSFileSystem\FilesystemBrowserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSFileSystem\FilesystemBrowserDialog.Designer.cs">
+      <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DSFileSystem\FilesystemSource.cs" />
+    <Compile Include="DSFileSystem\Directory.cs" />
+    <Compile Include="DSFileSystem\HeaderFile.cs" />
+    <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="GraphicsEditor\ColourPicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -384,29 +406,6 @@
     </Compile>
     <Compile Include="GraphicsEditor\ColourPickerControl.Designer.cs">
       <DependentUpon>ColourPickerControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Filesystem\File.cs" />
-    <Compile Include="Filesystem\FileChangeListener.cs" />
-    <Compile Include="Filesystem\FileReference.cs" />
-    <Compile Include="Filesystem\FileHexEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Filesystem\FileHexEditor.Designer.cs">
-      <DependentUpon>FileHexEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Filesystem\FileLister.cs" />
-    <Compile Include="Filesystem\FileSystem.cs" />
-    <Compile Include="Filesystem\FilesystemBrowser.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Filesystem\FilesystemBrowser.Designer.cs">
-      <DependentUpon>FilesystemBrowser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Filesystem\FilesystemBrowserDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Filesystem\FilesystemBrowserDialog.Designer.cs">
-      <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageIndexer.cs" />
     <Compile Include="ImageTiler.cs" />
@@ -429,7 +428,7 @@
     <Compile Include="TilesetEditor\Map16Picker.Designer.cs">
       <DependentUpon>Map16Picker.cs</DependentUpon>
     </Compile>
-    <Compile Include="NSMBDataHandler.cs" />
+    <Compile Include="ROM.cs" />
     <Compile Include="GraphicsEditor\PalettePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>

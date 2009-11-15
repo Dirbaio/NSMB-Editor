@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 /**
  * 
@@ -104,16 +105,14 @@ using NSMBe4.Filesystem;
 namespace NSMBe4
 {
    
-    public class NSMBTileset : FileChangeListener
+    public class NSMBTileset
     {
-        public NitroClass ROM;
-
-        public FileReference GFXFileID;
-        public FileReference PalFileID;
-        public FileReference Map16FileID;
-        public FileReference ObjFileID;
-        public FileReference ObjIndexFileID;
-        public FileReference TileBehaviorFileID;
+        public File GFXFile;
+        public File PalFile;
+        public File Map16File;
+        public File ObjFile;
+        public File ObjIndexFile;
+        public File TileBehaviorFile;
 
         public int TilesetNumber; // 0 for Jyotyu, 1 for Normal, 2 for SubUnit
         public int Map16TileOffset
@@ -171,19 +170,16 @@ namespace NSMBe4
 
         private Graphics Map16Graphics;
 
-        public NSMBTileset(NitroClass ROM, File GFXFile, File PalFile, File Map16File, File ObjFile, File ObjIndexFile, File TileBehaviorFile, bool OverrideFlag, int TilesetNumber)
+        public NSMBTileset(File GFXFile, File PalFile, File Map16File, File ObjFile, File ObjIndexFile, File TileBehaviorFile, bool OverrideFlag, int TilesetNumber)
         {
             int FilePos;
 
-            this.ROM = ROM;
-
-            GFXFileID = GFXFile.OpenFile(true);
-            PalFileID = PalFile.OpenFile(true);
-            Map16FileID = Map16File.OpenFile(true);
-            ObjFileID = ObjFile.OpenFile(true);
-            ObjIndexFileID = ObjIndexFile.OpenFile(true);
-            if(TileBehaviorFile != null)
-                TileBehaviorFileID = TileBehaviorFile.OpenFile(true);
+            this.GFXFile = GFXFile;
+            this.PalFile = PalFile;
+            this.Map16File = Map16File;
+            this.ObjFile = ObjFile;
+            this.ObjIndexFile = ObjIndexFile;
+            this.TileBehaviorFile = TileBehaviorFile;
 
             //Console.Out.WriteLine(ROM.FileNames[TileBehaviorFile]);
 
@@ -192,7 +188,7 @@ namespace NSMBe4
             Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
 
             // First get the palette out
-            byte[] ePalFile = FileSystem.LZ77_Decompress(PalFileID.extractFile());
+            byte[] ePalFile = ROM.LZ77_Decompress(PalFile.getContents());
             Palette = new Color[512];
 
             for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
@@ -209,7 +205,7 @@ namespace NSMBe4
             Palette[256] = Color.LightSlateGray;
 
             // Load graphics
-            RawGFXData = FileSystem.LZ77_Decompress(GFXFileID.extractFile());
+            RawGFXData = ROM.LZ77_Decompress(GFXFile.getContents());
             int TileCount = RawGFXData.Length / 64;
             TilesetBuffer = new Bitmap(TileCount * 8, 16);
 
@@ -249,13 +245,13 @@ namespace NSMBe4
 
         public void close()
         {
-            GFXFileID.close();
-            PalFileID.close();
-            Map16FileID.close();
-            ObjFileID.close();
-            ObjIndexFileID.close();
-            if(TileBehaviorFileID != null)
-                TileBehaviorFileID.close();
+            GFXFile.endEdit();
+            PalFile.endEdit();
+            Map16File.endEdit();
+            ObjFile.endEdit();
+            ObjIndexFile.endEdit();
+            if(TileBehaviorFile != null)
+                TileBehaviorFile.endEdit();
         }
 
         ~NSMBTileset()
@@ -265,13 +261,13 @@ namespace NSMBe4
 
         public void enableWrite()
         {
-            GFXFileID.enableWrite();
-            PalFileID.enableWrite();
-            Map16FileID.enableWrite();
-            ObjFileID.enableWrite();
-            ObjIndexFileID.enableWrite();
-            if (TileBehaviorFileID != null)
-                TileBehaviorFileID.enableWrite();
+            GFXFile.beginEdit();
+            PalFile.beginEdit();
+            Map16File.beginEdit();
+            ObjFile.beginEdit();
+            ObjIndexFile.beginEdit();
+            if (TileBehaviorFile != null)
+                TileBehaviorFile.beginEdit();
         }
 
         public void save()
@@ -280,8 +276,8 @@ namespace NSMBe4
             saveMap16();
             saveTileBehaviors();
 
-            byte[] CompGFXData = NitroClass.LZ77_Compress(RawGFXData);
-            GFXFileID.replaceFile(CompGFXData);
+            byte[] CompGFXData = ROM.LZ77_Compress(RawGFXData);
+            GFXFile.replace(CompGFXData);
 
             savePalette();
         }
@@ -311,7 +307,7 @@ namespace NSMBe4
             for (int i = 0; i < 512; i++) {
                 file.writeUShort((ushort)((Palette[i].B << 7) | (Palette[i].G << 2) | (Palette[i].R >> 3)));
             }
-            PalFileID.replaceFile(NitroClass.LZ77_Compress(file.getArray()));
+            PalFile.replace(ROM.LZ77_Compress(file.getArray()));
         }
 
 
@@ -322,11 +318,11 @@ namespace NSMBe4
 
             if (TilesetNumber == 0)
             {
-                tileBehaviorsFile = NSMBDataHandler.GetInlineFile(NSMBDataHandler.Data.File_Jyotyu_CHK);
+                tileBehaviorsFile = ROM.GetInlineFile(ROM.Data.File_Jyotyu_CHK);
             }
             else if (TilesetNumber == 1 || TilesetNumber == 2)
             {
-                tileBehaviorsFile = TileBehaviorFileID.extractFile();
+                tileBehaviorsFile = TileBehaviorFile.getContents();
             }
 
             if (tileBehaviorsFile != null) {
@@ -345,9 +341,9 @@ namespace NSMBe4
                 file.write(TileBehaviors[i]);
 
             if (TilesetNumber == 0) {
-                NSMBDataHandler.ReplaceInlineFile(NSMBDataHandler.Data.File_Jyotyu_CHK, file.getArray());
+                ROM.ReplaceInlineFile(ROM.Data.File_Jyotyu_CHK, file.getArray());
             } else if (TilesetNumber == 1 || TilesetNumber == 2) {
-                TileBehaviorFileID.replaceFile(file.getArray());
+                TileBehaviorFile.replace(file.getArray());
             }
         }
 
@@ -360,13 +356,13 @@ namespace NSMBe4
             foreach (Map16Tile t in Map16)
                 t.save(file);
 
-            Map16FileID.replaceFile(file.getArray());
+            Map16File.replace(file.getArray());
         }
 
         private void loadMap16()
         {
             // Load Map16
-            ByteArrayInputStream eMap16File = new ByteArrayInputStream(Map16FileID.extractFile());
+            ByteArrayInputStream eMap16File = new ByteArrayInputStream(Map16File.getContents());
             int Map16Count = eMap16File.available() / 8;
             Map16 = new Map16Tile[Map16Count];
 
@@ -693,8 +689,8 @@ namespace NSMBe4
 
         public void loadObjects()
         {
-            ByteArrayInputStream eObjIndexFile = new ByteArrayInputStream(ObjIndexFileID.extractFile());
-            ByteArrayInputStream eObjFile = new ByteArrayInputStream(ObjFileID.extractFile());
+            ByteArrayInputStream eObjIndexFile = new ByteArrayInputStream(ObjIndexFile.getContents());
+            ByteArrayInputStream eObjFile = new ByteArrayInputStream(ObjFile.getContents());
 
             Objects = new ObjectDef[256];
 
@@ -729,8 +725,8 @@ namespace NSMBe4
                 Objects[i].save(eObjFile);
             }
 
-            ObjFileID.replaceFile(eObjFile.getArray());
-            ObjIndexFileID.replaceFile(eObjIndexFile.getArray());
+            ObjFile.replace(eObjFile.getArray());
+            ObjIndexFile.replace(eObjIndexFile.getArray());
         }
 
         public int[,] RenderObject(int ObjNum, int Width, int Height)
@@ -976,7 +972,6 @@ namespace NSMBe4
             return true;
         }
         #endregion
-
         #region FileChangeListener Members
 
         public void FileChanged(File f)

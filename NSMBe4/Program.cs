@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using NSMBe4.DSFileSystem;
+
 
 namespace NSMBe4 {
     /*public class TestLister : FileLister {
@@ -35,8 +37,8 @@ namespace NSMBe4 {
             System.IO.File.Copy(@"C:\C\Emulation\ROMs\NDS\442- New Super Mario Bros. (J)(WRG).nds", @"C:\C\Emulation\ROMs\NDS\NSMBJTestOverlay0Edit.nds");
             NitroClass ROM = new NitroClass(@"C:\C\Emulation\ROMs\NDS\NSMBJTestOverlay0Edit.nds");
             ROM.Load(new TestLister());
-            NSMBDataHandler.load(ROM);
-            NSMBDataHandler.SaveOverlay0();
+            ROM.load(ROM);
+            ROM.SaveOverlay0();
 
             return;*/
 
@@ -49,7 +51,31 @@ namespace NSMBe4 {
                 // well, converting a 3648x2736 10mp file is a bad idea, this is why: http://treeki.shacknet.nu/screenshots/misc/freeze.png
                 new ImagePreviewer(ImageIndexer.index(new Bitmap(@"C:\htdocs\desktop.jpg"), 256)).Show();
             }*/
+            /*
+            string rom = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\New Super Mario Bros U orig.nds";
+            
+            NitroFilesystem fs = new NitroFilesystem(rom);
+            fs.mainDir.dumpFiles();
+             
+            
+            NitroClass c = new NitroClass(rom);
+            c.Load(null);
+            */
+            /*
+            string rom = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\New Super Mario Bros U orig.nds";
+            string romc = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\New Super Mario Bros U fstest.nds";
 
+            Console.Out.WriteLine("Copying rom...");
+            System.IO.File.Copy(rom, romc, true);
+
+            Console.Out.WriteLine("Loading FS...");
+            NitroFilesystem fs = new NitroFilesystem(romc);
+            Console.Out.WriteLine("Replacing file...");
+            fs.getFileByName("BUILDTIME").replace(new byte[5000]);
+            fs.mainDir.dumpFiles();
+
+            return;*/
+            
             if (Properties.Settings.Default.Language == 0) {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
             } else if (Properties.Settings.Default.Language == 1) {

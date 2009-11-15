@@ -21,7 +21,7 @@ namespace NSMBe4
             this.s = s;
             this.EdControl = EdControl;
 
-            SSTable = NSMBDataHandler.GetInlineFile(NSMBDataHandler.Data.File_Modifiers);
+            SSTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
             string[] spritelist = new string[324];
             foreach (string sprite in LanguageManager.GetList("Sprites"))

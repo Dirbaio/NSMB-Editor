@@ -5,19 +5,16 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NSMBe4.Filesystem;
+
 
 namespace NSMBe4
 {
     public partial class TilesetChooser : Form
     {
-        NitroClass ROM;
-        public TilesetChooser(NitroClass ROM)
+        public TilesetChooser()
         {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "TilesetChooser");
-
-            this.ROM = ROM;
 
             // Add tilesets to list
             int index = 0;
@@ -33,17 +30,17 @@ namespace NSMBe4
         }
 
         private void editJyotyuButton_Click(object sender, EventArgs e) {
-            new TilesetEditor(ROM, 65535, "Jyotyu").Show();
+            new TilesetEditor(65535, "Jyotyu").Show();
             Close();
         }
 
         private void editNoharaSubButton_Click(object sender, EventArgs e) {
-            new TilesetEditor(ROM, 65534, "Nohara SubUnit").Show();
+            new TilesetEditor(65534, "Nohara SubUnit").Show();
             Close();
         }
 
         private void openTilesetButton_Click(object sender, EventArgs e) {
-            new TilesetEditor(ROM, (ushort)tilesetComboBox.SelectedIndex, (string)tilesetComboBox.SelectedItem).Show();
+            new TilesetEditor((ushort)tilesetComboBox.SelectedIndex, (string)tilesetComboBox.SelectedItem).Show();
             Close();
         }
 

@@ -5,14 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 namespace NSMBe4 {
     public partial class LevelConfig : Form {
-        public LevelConfig(NSMBLevel Level, NitroClass ROM) {
+        public LevelConfig(NSMBLevel Level) {
             InitializeComponent();
             this.Level = Level;
-            this.ROM = ROM;
             tabControl1.SelectTab(0);
 
             LanguageManager.ApplyToContainer(this, "LevelConfig");
@@ -82,7 +82,6 @@ namespace NSMBe4 {
         }
 
         private NSMBLevel Level;
-        private NitroClass ROM;
 
         public delegate void SetDirtyFlagDelegate();
         public event SetDirtyFlagDelegate SetDirtyFlag;
@@ -136,13 +135,13 @@ namespace NSMBe4 {
         }
 
         private void tilesetPreviewButton_Click(object sender, EventArgs e) {
-            ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(tilesetComboBox.SelectedIndex, NSMBDataHandler.Data.Table_TS_NCG);
-            ushort PalFile = NSMBDataHandler.GetFileIDFromTable(tilesetComboBox.SelectedIndex, NSMBDataHandler.Data.Table_TS_NCL);
+            ushort GFXFileID = ROM.GetFileIDFromTable(tilesetComboBox.SelectedIndex, ROM.Data.Table_TS_NCG);
+            ushort PalFileID = ROM.GetFileIDFromTable(tilesetComboBox.SelectedIndex, ROM.Data.Table_TS_NCL);
 
             GraphicsViewer gv = new GraphicsViewer();
             gv.SetPreferredWidth(256);
-            gv.SetFile(ROM.ExtractFile(GFXFile));
-            gv.SetPalette(ROM.ExtractFile(PalFile));
+            gv.SetFile(ROM.FS.getFileById(GFXFileID).getContents());
+            gv.SetPalette(ROM.FS.getFileById(PalFileID).getContents());
             gv.Show();
         }
 
@@ -152,11 +151,16 @@ namespace NSMBe4 {
                 return;
             }
 
-            ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_FG_NCG);
-            ushort PalFile = NSMBDataHandler.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_FG_NCL);
-            ushort LayoutFile = NSMBDataHandler.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_FG_NSC);
+            ushort GFXFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NCG);
+            ushort PalFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NCL);
+            ushort LayoutFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NSC);
 
-            if (GFXFile >= 2088 || PalFile >= 2088 || LayoutFile >= 2088) {
+            File GFXFile = ROM.FS.getFileById(GFXFileID);
+            File PalFile = ROM.FS.getFileById(PalFileID);
+            File LayoutFile = ROM.FS.getFileById(LayoutFileID);
+
+            if (GFXFile == null || PalFile == null || LayoutFile == null)
+            {
                 MessageBox.Show(LanguageManager.Get("LevelConfig", "BrokenBG"));
                 return;
             }
@@ -170,11 +174,14 @@ namespace NSMBe4 {
                 return;
             }
 
-            ushort GFXFile = NSMBDataHandler.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_BG_NCG);
-            ushort PalFile = NSMBDataHandler.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_BG_NCL);
-            ushort LayoutFile = NSMBDataHandler.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, NSMBDataHandler.Data.Table_BG_NSC);
+            ushort GFXFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NCG);
+            ushort PalFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NCL);
+            ushort LayoutFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NSC);
+            File GFXFile = ROM.FS.getFileById(GFXFileID);
+            File PalFile = ROM.FS.getFileById(PalFileID);
+            File LayoutFile = ROM.FS.getFileById(LayoutFileID);
 
-            if (GFXFile >= 2088 || PalFile >= 2088 || LayoutFile >= 2088) {
+            if (GFXFile == null || PalFile == null || LayoutFile == null) {
                 MessageBox.Show(LanguageManager.Get("LevelConfig", "BrokenBG"));
                 return;
             }
@@ -182,11 +189,11 @@ namespace NSMBe4 {
             ShowBackground(GFXFile, PalFile, LayoutFile, 576);
         }
 
-        private void ShowBackground(ushort GFXFile, ushort PalFile, ushort LayoutFile, int TileOffset) {
+        private void ShowBackground(File GFXFile, File PalFile, File LayoutFile, int TileOffset) {
             int FilePos;
 
             // First get the palette out
-            byte[] ePalFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(PalFile));
+            byte[] ePalFile = ROM.LZ77_Decompress(PalFile.getContents());
             Color[] Palette = new Color[512];
 
             for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
@@ -201,7 +208,7 @@ namespace NSMBe4 {
             Palette[256] = Color.LightSlateGray;
 
             // Load graphics
-            byte[] eGFXFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(GFXFile));
+            byte[] eGFXFile = ROM.LZ77_Decompress(GFXFile.getContents());
             int TileCount = eGFXFile.Length / 64;
             Bitmap TilesetBuffer = new Bitmap(TileCount * 8, 16);
 
@@ -221,7 +228,7 @@ namespace NSMBe4 {
             }
 
             // Load layout
-            byte[] eLayoutFile = FileSystem.LZ77_Decompress(ROM.ExtractFile(LayoutFile));
+            byte[] eLayoutFile = ROM.LZ77_Decompress(LayoutFile.getContents());
             int LayoutCount = eLayoutFile.Length / 2;
             Bitmap BG = new Bitmap(512, 512, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Graphics BGGraphics = Graphics.FromImage(BG);

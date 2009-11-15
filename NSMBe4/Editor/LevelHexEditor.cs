@@ -6,17 +6,17 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Be.Windows.Forms;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 namespace NSMBe4 {
     public partial class LevelHexEditor : Form {
-        public LevelHexEditor(NitroClass ROM, string LevelFilename) {
+        public LevelHexEditor(string LevelFilename) {
             InitializeComponent();
-            this.ROM = ROM;
             this.LevelFilename = LevelFilename;
 
-            ushort LevelFileID = ROM.FileIDs[LevelFilename + ".bin"];
-            byte[] eLevelFile = ROM.ExtractFile(LevelFileID);
+            File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+            byte[] eLevelFile = LevelFile.getContents();
             Blocks = new byte[][] { null, null, null, null, null, null, null, null, null, null, null, null, null, null };
 
             int FilePos = 0;
@@ -37,7 +37,6 @@ namespace NSMBe4 {
             LanguageManager.ApplyToContainer(this, "LevelHexEditor");
         }
 
-        private NitroClass ROM;
         public string LevelFilename;
         private bool Dirty;
         private bool DataUpdateFlag;
@@ -79,7 +78,7 @@ namespace NSMBe4 {
             Dirty = false;
             Blocks[BlockID] = ((DynamicByteProvider)hexBox1.ByteProvider).Bytes.ToArray();
 
-            ushort LevelFileID = ROM.FileIDs[LevelFilename + ".bin"];
+            File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
             int LevelFileSize = 8 * 14;
 
             // Find out how long the file must be
@@ -90,23 +89,23 @@ namespace NSMBe4 {
             // Now allocate + save it
             int FilePos = 0;
             int CurBlockOffset = 8 * 14;
-            byte[] LevelFile = new byte[LevelFileSize];
+            byte[] LevelFileData = new byte[LevelFileSize];
 
             for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++) {
-                LevelFile[FilePos] = (byte)(CurBlockOffset & 0xFF);
-                LevelFile[FilePos + 1] = (byte)((CurBlockOffset >> 8) & 0xFF);
-                LevelFile[FilePos + 2] = (byte)((CurBlockOffset >> 16) & 0xFF);
-                LevelFile[FilePos + 3] = (byte)((CurBlockOffset >> 24) & 0xFF);
-                LevelFile[FilePos + 4] = (byte)(Blocks[BlockIdx].Length & 0xFF);
-                LevelFile[FilePos + 5] = (byte)((Blocks[BlockIdx].Length >> 8) & 0xFF);
-                LevelFile[FilePos + 6] = (byte)((Blocks[BlockIdx].Length >> 16) & 0xFF);
-                LevelFile[FilePos + 7] = (byte)((Blocks[BlockIdx].Length >> 24) & 0xFF);
+                LevelFileData[FilePos] = (byte)(CurBlockOffset & 0xFF);
+                LevelFileData[FilePos + 1] = (byte)((CurBlockOffset >> 8) & 0xFF);
+                LevelFileData[FilePos + 2] = (byte)((CurBlockOffset >> 16) & 0xFF);
+                LevelFileData[FilePos + 3] = (byte)((CurBlockOffset >> 24) & 0xFF);
+                LevelFileData[FilePos + 4] = (byte)(Blocks[BlockIdx].Length & 0xFF);
+                LevelFileData[FilePos + 5] = (byte)((Blocks[BlockIdx].Length >> 8) & 0xFF);
+                LevelFileData[FilePos + 6] = (byte)((Blocks[BlockIdx].Length >> 16) & 0xFF);
+                LevelFileData[FilePos + 7] = (byte)((Blocks[BlockIdx].Length >> 24) & 0xFF);
                 FilePos += 8;
-                Array.Copy(Blocks[BlockIdx], 0, LevelFile, CurBlockOffset, Blocks[BlockIdx].Length);
+                Array.Copy(Blocks[BlockIdx], 0, LevelFileData, CurBlockOffset, Blocks[BlockIdx].Length);
                 CurBlockOffset += Blocks[BlockIdx].Length;
             }
 
-            ROM.ReplaceFile(LevelFileID, LevelFile);
+            LevelFile.replace(LevelFileData);
         }
 
         private void blockComboBox_SelectedIndexChanged(object sender, EventArgs e) {

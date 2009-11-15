@@ -1,4 +1,4 @@
-﻿namespace NSMBe4.Filesystem
+﻿namespace NSMBe4.DSFileSystem
 {
     partial class FileHexEditor
     {

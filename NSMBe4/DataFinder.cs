@@ -5,12 +5,12 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 namespace NSMBe4 {
     public partial class DataFinder : Form {
-        public DataFinder(NitroClass ROM) {
-            this.ROM = ROM;
+        public DataFinder() {
             InitializeComponent();
 
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
@@ -40,8 +40,6 @@ namespace NSMBe4 {
                 }
             }
         }
-
-        private NitroClass ROM;
         private List<string> Levels;
         private List<string> LevelFiles;
 
@@ -64,7 +62,7 @@ namespace NSMBe4 {
                 int SplitVal = (int)(splitCountUpDown.Value);
 
                 for (int LevelIdx = 0; LevelIdx < Levels.Count; LevelIdx++) {
-                    byte[] CurrentLevel = ROM.ExtractFile(ROM.FileIDs[LevelFiles[LevelIdx]]);
+                    byte[] CurrentLevel = ROM.FS.getFileByName(LevelFiles[LevelIdx]).getContents();
                     int BlockOffset = (int)(CurrentLevel[BlockToDump] | (CurrentLevel[BlockToDump + 1] << 8) | (CurrentLevel[BlockToDump + 2] << 16) | (CurrentLevel[BlockToDump + 3] << 24));
                     int BlockSize = (int)(CurrentLevel[BlockToDump + 4] | (CurrentLevel[BlockToDump + 5] << 8) | (CurrentLevel[BlockToDump + 6] << 16) | (CurrentLevel[BlockToDump + 7] << 24));
                     if (SplitVal > 0) {
@@ -101,7 +99,7 @@ namespace NSMBe4 {
                 output.AppendLine(string.Format(LanguageManager.Get("DataFinder", "SpriteInstances"), spriteUpDown.Value.ToString()));
 
                 for (int LevelIdx = 0; LevelIdx < Levels.Count; LevelIdx++) {
-                    byte[] CurrentLevel = ROM.ExtractFile(ROM.FileIDs[LevelFiles[LevelIdx]]);
+                    byte[] CurrentLevel = ROM.FS.getFileByName(LevelFiles[LevelIdx]).getContents();
                     int SpriteOffset = CurrentLevel[0x30] | (CurrentLevel[0x31] << 8) | (CurrentLevel[0x32] << 16) | (CurrentLevel[0x33] << 24);
                     int SpriteSize = CurrentLevel[0x34] | (CurrentLevel[0x35] << 8) | (CurrentLevel[0x36] << 16) | (CurrentLevel[0x37] << 24);
                     byte[] SpriteBlock = new byte[SpriteSize];

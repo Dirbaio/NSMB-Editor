@@ -8,7 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 namespace NSMBe4 {
     public partial class LevelChooser : Form
@@ -26,9 +27,8 @@ namespace NSMBe4 {
                 editLevelButton.Enabled = false;
                 hexEditLevelButton.Enabled = false;
 
-                ROM = new NitroClass(openROMDialog.FileName);
-                filesystemBrowser1.Load(ROM);
-                NSMBDataHandler.load(ROM);
+                ROM.load(openROMDialog.FileName);
+                filesystemBrowser1.Load(ROM.FS);
 
                 LoadLevelNames();
 
@@ -43,8 +43,6 @@ namespace NSMBe4 {
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
             }
         }
-
-        public static NitroClass ROM;
 
         private void LoadLevelNames() {
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
@@ -127,7 +125,7 @@ namespace NSMBe4 {
             }
 
             // Open it
-            LevelEditor NewEditor = new LevelEditor(ROM, (string)levelTreeView.SelectedNode.Tag);
+            LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag);
             OpenEditors.Add(NewEditor);
             NewEditor.Text = EditorCaption;
             NewEditor.Show();
@@ -165,7 +163,7 @@ namespace NSMBe4 {
             }
 
             // Open it
-            LevelHexEditor NewEditor = new LevelHexEditor(ROM, (string)levelTreeView.SelectedNode.Tag);
+            LevelHexEditor NewEditor = new LevelHexEditor((string)levelTreeView.SelectedNode.Tag);
             OpenLevelHexEditors.Add(NewEditor);
             NewEditor.Text = EditorCaption;
             NewEditor.Show();
@@ -213,15 +211,15 @@ namespace NSMBe4 {
                 return;
             }
 
-            // Get the file IDs
+            // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            ushort LevelFileID = ROM.FileIDs[LevelFilename + ".bin"];
-            ushort BGFileID = ROM.FileIDs[LevelFilename + "_bgdat.bin"];
+            NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+            NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
 
             // Load it
             FileStream fs = new FileStream(importLevelDialog.FileName, FileMode.Open);
             BinaryReader br = new BinaryReader(fs);
-            NSMBLevel.ImportLevel(ROM, LevelFileID, BGFileID, br);
+            NSMBLevel.ImportLevel(LevelFile, BGFile, br);
             br.Close();
         }
 
@@ -233,15 +231,15 @@ namespace NSMBe4 {
                 return;
             }
 
-            // Get the file IDs
+            // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            ushort LevelFileID = ROM.FileIDs[LevelFilename + ".bin"];
-            ushort BGFileID = ROM.FileIDs[LevelFilename + "_bgdat.bin"];
+            NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+            NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
 
             // Load it
             FileStream fs = new FileStream(exportLevelDialog.FileName, FileMode.Create);
             BinaryWriter bw = new BinaryWriter(fs);
-            NSMBLevel.ExportLevel(ROM, LevelFileID, BGFileID, bw);
+            NSMBLevel.ExportLevel(LevelFile, BGFile, bw);
             bw.Close();
         }
 
@@ -261,7 +259,7 @@ namespace NSMBe4 {
 
         private void dataFinderButton_Click(object sender, EventArgs e) {
             if (DataFinderForm == null || DataFinderForm.IsDisposed) {
-                DataFinderForm = new DataFinder(ROM);
+                DataFinderForm = new DataFinder();
             }
 
             DataFinderForm.Show();
@@ -286,9 +284,6 @@ namespace NSMBe4 {
 
         private void patchExport_Click(object sender, EventArgs e)
         {
-            //input
-            bool onlyCourse = false;
-
             //output to show to the user
             bool differentRomsWarning = false; // tells if we have shown the warning
             int fileCount = 0;
@@ -297,8 +292,7 @@ namespace NSMBe4 {
             MessageBox.Show(LanguageManager.Get("Patch", "SelectROM"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (openROMDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            NitroClass origROM = new NitroClass(openROMDialog.FileName);
-            origROM.Load(null);
+            NitroFilesystem origROM = new NitroFilesystem(openROMDialog.FileName);
 
             //open the output patch
             MessageBox.Show(LanguageManager.Get("Patch", "SelectLocation"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -312,21 +306,18 @@ namespace NSMBe4 {
             //DO THE PATCH!!
             ProgressWindow progress = new ProgressWindow(LanguageManager.Get("Patch", "ExportProgressTitle"));
             progress.Show();
-            progress.SetMax(ROM.FileCount);
+            progress.SetMax(ROM.FS.allFiles.Count);
             int progVal = 0;
             MessageBox.Show(LanguageManager.Get("Patch", "StartingPatch"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ushort CourseDirID = ROM.DirIDs["course"];
 
-            foreach (ushort id in ROM.FileNames.Keys)
+            foreach (NSMBe4.DSFileSystem.File f in ROM.FS.allFiles)
             {
-                if (onlyCourse && ROM.FileParentIDs[id] != CourseDirID)
-                    continue;
+                Console.Out.WriteLine("Checking " + f.name);
+                progress.SetCurrentAction(string.Format(LanguageManager.Get("Patch", "ComparingFile"), f.name));
 
-                Console.Out.WriteLine("Checking " + ROM.FileNames[id]);
-                progress.SetCurrentAction(string.Format(LanguageManager.Get("Patch", "ComparingFile"), ROM.FileNames[id]));
-
+                NSMBe4.DSFileSystem.File orig = origROM.getFileByName(f.name);
                 //check same version
-                if(!differentRomsWarning && ROM.FileNames[id] != origROM.FileNames[id])
+                if(!differentRomsWarning && f.id != orig.id)
                 {
                     if (MessageBox.Show(LanguageManager.Get("Patch", "ExportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         differentRomsWarning = true;
@@ -337,20 +328,20 @@ namespace NSMBe4 {
                     }
                 }
 
-                byte[] oldFile = origROM.ExtractFile(id);
-                byte[] newFile = ROM.ExtractFile(id);
+                byte[] oldFile = orig.getContents();
+                byte[] newFile = f.getContents();
 
                 if (!arrayEqual(oldFile, newFile))
                 {
                     //include file in patch
-                    string fileName = origROM.FileNames[id];
+                    string fileName = orig.name;
                     Console.Out.WriteLine("Including: " + fileName);
                     progress.WriteLine(string.Format(LanguageManager.Get("Patch", "IncludedFile"), fileName));
                     fileCount++;
 
                     bw.Write((byte)1);
                     bw.Write(fileName);
-                    bw.Write(id);
+                    bw.Write(f.id);
                     bw.Write((uint)newFile.Length);
                     bw.Write(newFile, 0, newFile.Length);
                 }
@@ -412,7 +403,8 @@ namespace NSMBe4 {
                 string fileName = br.ReadString();
                 progress.WriteLine(string.Format(LanguageManager.Get("Patch", "ReplacingFile"), fileName));
                 ushort origFileID = br.ReadUInt16();
-                ushort fileID = ROM.FileIDs[fileName];
+                NSMBe4.DSFileSystem.File f = ROM.FS.getFileByName(fileName);
+                ushort fileID = (ushort)f.id;
 
                 uint length = br.ReadUInt32();
                 progVal += (int)length;
@@ -429,7 +421,7 @@ namespace NSMBe4 {
                 }
 
                 Console.Out.WriteLine("Replace " + fileName);
-                ROM.ReplaceFile(fileID, newFile);
+                f.replace(newFile);
                 fileCount++;
             }
             br.Close();
@@ -453,13 +445,15 @@ namespace NSMBe4 {
 
         private void NarcReplace(string NarcName, string f1, string f2)
         {
+            throw new NotImplementedException("Not implemented yet !!");
+            /*
             NitroClass NARC = new NitroClass(ROM, ROM.FileIDs[NarcName]);
             NARC.Load(null);
 
             byte[] file = ROM.ExtractFile(ROM.FileIDs[f1]);
             NARC.ReplaceFile(NARC.FileIDs[f1], file);
             file = ROM.ExtractFile(ROM.FileIDs[f2]);
-            NARC.ReplaceFile(NARC.FileIDs[f2], file);
+            NARC.ReplaceFile(NARC.FileIDs[f2], file);*/
         }
 
         private void lzUncompressAll_Click(object sender, EventArgs e)
@@ -469,9 +463,9 @@ namespace NSMBe4 {
 
             bool UncompressNARCS = MessageBox.Show(LanguageManager.Get("LevelChooser", "DecompInNarcs"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo) == DialogResult.Yes;
 
-            lzUncompress(ROM, UncompressNARCS);
+            //lzUncompress(ROM, UncompressNARCS);
         }
-
+        /*
         private void lzUncompress(NitroClass ROM, bool narcs)
         {
             foreach (ushort FileID in ROM.FileIDs.Values)
@@ -493,7 +487,7 @@ namespace NSMBe4 {
                     bool success = false;
                     try
                     {
-                        file = FileSystem.LZ77_Decompress(file);
+                        file = ROM.LZ77_Decompress(file);
                         success = true;
                     }
                     catch (Exception) { }
@@ -502,11 +496,11 @@ namespace NSMBe4 {
                         ROM.ReplaceFile(FileID, file);
                 }
             }
-        }
+        }*/
 
         private void tilesetEditor_Click(object sender, EventArgs e)
         {
-            new TilesetChooser(ROM).Show();
+            new TilesetChooser().Show();
         }
     }
 }

@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 namespace NSMBe4
 {
     public class NSMBGraphics
     {
-
-        private bool readOnly;
-
-        public NSMBGraphics(NitroClass ROM, bool readOnly)
+        public NSMBGraphics()
         {
-            this.ROM = ROM;
-            this.readOnly = readOnly;
         }
 
 
@@ -27,36 +23,36 @@ namespace NSMBe4
         {
             Tilesets = new NSMBTileset[3];
 
-            Console.WriteLine("JyotyuPalOverride = {0}, JyotyuPal offset = {1}...", JyotyuPalOverride, NSMBDataHandler.Overlay0[NSMBDataHandler.GetOffset(NSMBDataHandler.Data.Table_Jyotyu_NCL) + JyotyuPalOverride]);
+            Console.WriteLine("JyotyuPalOverride = {0}, JyotyuPal offset = {1}...", JyotyuPalOverride, ROM.Overlay0[ROM.GetOffset(ROM.Data.Table_Jyotyu_NCL) + JyotyuPalOverride]);
 
-            byte JyotyuPalID = NSMBDataHandler.Overlay0[NSMBDataHandler.GetOffset(NSMBDataHandler.Data.Table_Jyotyu_NCL) + JyotyuPalOverride];
-            ushort JyotyuPalFileID = 0;
+            byte JyotyuPalID = ROM.Overlay0[ROM.GetOffset(ROM.Data.Table_Jyotyu_NCL) + JyotyuPalOverride];
+            File JyotyuPalFile = null;
             if (JyotyuPalID == 1)
-                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_B_ncl.bin"];
+                JyotyuPalFile = ROM.FS.getFileByName("d_2d_A_J_jyotyu_B_ncl.bin");
             else if (JyotyuPalID == 2)
-                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_R_ncl.bin"];
+                JyotyuPalFile = ROM.FS.getFileByName("d_2d_A_J_jyotyu_R_ncl.bin");
             else if (JyotyuPalID == 3)
-                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_W_ncl.bin"];
+                JyotyuPalFile = ROM.FS.getFileByName("d_2d_A_J_jyotyu_W_ncl.bin");
             else
-                JyotyuPalFileID = ROM.FileIDs["d_2d_A_J_jyotyu_ncl.bin"];
+                JyotyuPalFile = ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin");
 
-            Tilesets[0] = new NSMBTileset(ROM,
-                ROM.getFile("d_2d_A_J_jyotyu_ncg.bin"),
-                ROM.getFile(JyotyuPalFileID),
-                ROM.getFile("d_2d_PA_A_J_jyotyu.bin"),
-                ROM.getFile("A_J_jyotyu.bin"),
-                ROM.getFile("A_J_jyotyu_hd.bin"),
+            Tilesets[0] = new NSMBTileset(
+                ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncg.bin"),
+                JyotyuPalFile,
+                ROM.FS.getFileByName("d_2d_PA_A_J_jyotyu.bin"),
+                ROM.FS.getFileByName("A_J_jyotyu.bin"),
+                ROM.FS.getFileByName("A_J_jyotyu_hd.bin"),
                 null, true, 0);
 
             LoadTileset1(TilesetID);
 
-            Tilesets[2] = new NSMBTileset(ROM,
-                ROM.getFile("d_2d_I_S_tikei_nohara_ncg.bin"),
-                ROM.getFile("d_2d_I_S_tikei_nohara_ncl.bin"),
-                ROM.getFile("d_2d_PA_I_S_nohara.bin"),
-                ROM.getFile("I_S_nohara.bin"),
-                ROM.getFile("I_S_nohara_hd.bin"),
-                ROM.getFile("NoHaRaSubUnitChangeData.bin"), false, 2);
+            Tilesets[2] = new NSMBTileset(
+                ROM.FS.getFileByName("d_2d_I_S_tikei_nohara_ncg.bin"),
+                ROM.FS.getFileByName("d_2d_I_S_tikei_nohara_ncl.bin"),
+                ROM.FS.getFileByName("d_2d_PA_I_S_nohara.bin"),
+                ROM.FS.getFileByName("I_S_nohara.bin"),
+                ROM.FS.getFileByName("I_S_nohara_hd.bin"),
+                ROM.FS.getFileByName("NoHaRaSubUnitChangeData.bin"), false, 2);
 
             // Patch in a bunch of overrides to the normal tileset
             // Now works directly on the map16 data
@@ -197,14 +193,14 @@ namespace NSMBe4
 
         public void LoadTileset1(ushort TilesetID)
         {
-            File GFXFile =          ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCG   ));
-            File PalFile =          ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_NCL   ));
-            File Map16File =        ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_PNL   ));
-            File ObjFile =          ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT   ));
-            File ObjIndexFile =     ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_UNT_HD));
-            File TileBehaviorFile = ROM.getFile(NSMBDataHandler.GetFileIDFromTable(TilesetID, NSMBDataHandler.Data.Table_TS_CHK   ));
+            File GFXFile =          ROM.FS.getFileById(ROM.GetFileIDFromTable(TilesetID, ROM.Data.Table_TS_NCG   ));
+            File PalFile =          ROM.FS.getFileById(ROM.GetFileIDFromTable(TilesetID, ROM.Data.Table_TS_NCL   ));
+            File Map16File =        ROM.FS.getFileById(ROM.GetFileIDFromTable(TilesetID, ROM.Data.Table_TS_PNL   ));
+            File ObjFile =          ROM.FS.getFileById(ROM.GetFileIDFromTable(TilesetID, ROM.Data.Table_TS_UNT   ));
+            File ObjIndexFile =     ROM.FS.getFileById(ROM.GetFileIDFromTable(TilesetID, ROM.Data.Table_TS_UNT_HD));
+            File TileBehaviorFile = ROM.FS.getFileById(ROM.GetFileIDFromTable(TilesetID, ROM.Data.Table_TS_CHK   ));
 
-            Tilesets[1] = new NSMBTileset(ROM, GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, TileBehaviorFile, false, 1);
+            Tilesets[1] = new NSMBTileset(GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, TileBehaviorFile, false, 1);
         }
 
         public void RepatchBlocks(bool type) {
@@ -234,7 +230,6 @@ namespace NSMBe4
             Tilesets[2].close();
         }
 
-        public NitroClass ROM;
         public NSMBTileset[] Tilesets;
 
         public static Font SmallInfoFont = new Font("Small Fonts", 7);

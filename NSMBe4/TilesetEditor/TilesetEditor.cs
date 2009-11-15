@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NSMBe4.Filesystem;
+
 
 namespace NSMBe4
 {
@@ -14,16 +14,13 @@ namespace NSMBe4
         NSMBTileset t;
         NSMBGraphics g;
         int TilesetNumber;
-        NitroClass ROM;
 
-        public TilesetEditor(NitroClass ROM, ushort TilesetID, string tilesetName) {
+        public TilesetEditor(ushort TilesetID, string tilesetName) {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "TilesetEditor");
             Text = string.Format(LanguageManager.Get("TilesetEditor", "_TITLE"), tilesetName);
 
-            this.ROM = ROM;
-
-            g = new NSMBGraphics(ROM, false);
+            g = new NSMBGraphics();
 
             if (TilesetID == 65535) {
                 // load Jyotyu

@@ -7,28 +7,27 @@ using System.Text;
 using System.Windows.Forms;
 using Be.Windows.Forms;
 
-namespace NSMBe4.Filesystem
+namespace NSMBe4.DSFileSystem
 {
     public partial class FileHexEditor : Form
     {
-        NitroClass ROM;
-        ushort FileID;
+        File f;
 
-        public FileHexEditor(NitroClass ROM, ushort FileID)
+        public FileHexEditor(File f)
         {
             InitializeComponent();
-            this.ROM = ROM;
-            this.FileID = FileID;
-            LanguageManager.ApplyToContainer(this, "FileHexEditor");
-            this.Text = string.Format(LanguageManager.Get("FileHexEditor", "_TITLE"), ROM.FileNames[FileID]);
+            this.f = f;
 
-            hexBox1.ByteProvider = new DynamicByteProvider(ROM.ExtractFile(FileID));
+            LanguageManager.ApplyToContainer(this, "FileHexEditor");
+            this.Text = string.Format(LanguageManager.Get("FileHexEditor", "_TITLE"), f.name);
+
+            hexBox1.ByteProvider = new DynamicByteProvider(f.getContents());
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
             byte[] data = ((DynamicByteProvider)hexBox1.ByteProvider).Bytes.ToArray();
-            ROM.ReplaceFile(FileID, data);
+            f.replace(data);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NSMBe4.Filesystem;
+﻿
+using NSMBe4.DSFileSystem;
 namespace NSMBe4 {
     partial class LevelChooser {
         /// <summary>
@@ -34,7 +35,7 @@ namespace NSMBe4 {
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.filesystemBrowser1 = new NSMBe4.Filesystem.FilesystemBrowser();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();

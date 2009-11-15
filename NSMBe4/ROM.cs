@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using NSMBe4.Filesystem;
+using NSMBe4.DSFileSystem;
+
 
 /**
  * This class handles internal NSMB-specific data in the ROM.
@@ -29,13 +30,17 @@ using NSMBe4.Filesystem;
  **/
 
 namespace NSMBe4 {
-    public static class NSMBDataHandler {
-        public static NitroClass ROM;
+    public static class ROM {
         public static byte[] Overlay0;
+        public static NitroFilesystem FS;
+        public static string filename;
 
-        public static void load(NitroClass ROM) {
-            NSMBDataHandler.ROM = ROM;
-            Overlay0 = DecompressOverlay(ROM.ExtractFile(0));
+        public static void load(String filename)
+        {
+            ROM.filename = filename;
+            FS = new NitroFilesystem(filename);
+
+            Overlay0 = DecompressOverlay(FS.getFileById(0).getContents());
 
             if (Overlay0[28] == 0x84) {
                 Region = Origin.US;
@@ -50,7 +55,7 @@ namespace NSMBe4 {
         }
 
         public static void SaveOverlay0() {
-            ROM.ReplaceFile(0, Overlay0);
+            FS.getFileById(0).replace(Overlay0);
         }
 
         public enum Origin {
@@ -203,6 +208,102 @@ namespace NSMBe4 {
             dest = v1 - v2;
             N = (dest & 2147483648) != 0;
             V = ((((v1 & 2147483648) != 0) && ((v2 & 2147483648) == 0) && ((dest & 2147483648) == 0)) || ((v1 & 2147483648) == 0) && ((v2 & 2147483648) != 0) && ((dest & 2147483648) != 0));
+        }
+
+        public static byte[] LZ77_Compress(byte[] source)
+        {
+            // This should really be named LZ77_FakeCompress for more accuracy
+            int DataLen = 4;
+            DataLen += source.Length;
+            DataLen += (int)Math.Ceiling((double)source.Length / 8);
+            byte[] dest = new byte[DataLen];
+
+            dest[0] = 0;
+            dest[1] = (byte)(source.Length & 0xFF);
+            dest[2] = (byte)((source.Length >> 8) & 0xFF);
+            dest[3] = (byte)((source.Length >> 16) & 0xFF);
+
+            int FilePos = 4;
+            int UntilNext = 0;
+
+            for (int SrcPos = 0; SrcPos < source.Length; SrcPos++)
+            {
+                if (UntilNext == 0)
+                {
+                    dest[FilePos] = 0;
+                    FilePos++;
+                    UntilNext = 8;
+                }
+                dest[FilePos] = source[SrcPos];
+                FilePos++;
+                UntilNext -= 1;
+            }
+
+            return dest;
+        }
+
+        /* DeLZ */
+        public static byte[] LZ77_Decompress(byte[] source)
+        {
+            /* This code converted from Elitemap */
+            int DataLen;
+            DataLen = source[1] | (source[2] << 8) | (source[3] << 8);
+            byte[] dest = new byte[DataLen];
+            int i, j, xin, xout;
+            xin = 4;
+            xout = 0;
+            int length, offset, windowOffset, data;
+            byte d;
+            while (DataLen > 0)
+            {
+                d = source[xin++];
+                if (d != 0)
+                {
+                    for (i = 0; i < 8; i++)
+                    {
+                        if ((d & 0x80) != 0)
+                        {
+                            data = ((source[xin] << 8) | source[xin + 1]);
+                            xin += 2;
+                            length = (data >> 12) + 3;
+                            offset = data & 0xFFF;
+                            windowOffset = xout - offset - 1;
+                            for (j = 0; j < length; j++)
+                            {
+                                dest[xout++] = dest[windowOffset++];
+                                DataLen--;
+                                if (DataLen == 0)
+                                {
+                                    return dest;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dest[xout++] = source[xin++];
+                            DataLen--;
+                            if (DataLen == 0)
+                            {
+                                return dest;
+                            }
+                        }
+                        d <<= 1;
+                    }
+                }
+                else
+                {
+                    for (i = 0; i < 8; i++)
+                    {
+                        dest[xout++] = source[xin++];
+                        DataLen--;
+                        if (DataLen == 0)
+                        {
+                            return dest;
+                        }
+                    }
+                }
+            }
+            return dest;
         }
     }
 }

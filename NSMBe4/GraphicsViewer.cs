@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NSMBe4.Filesystem;
+
 
 namespace NSMBe4
 {
@@ -49,7 +49,7 @@ namespace NSMBe4
         {
             try
             {
-                byte[] decomp = FileSystem.LZ77_Decompress(file);
+                byte[] decomp = ROM.LZ77_Decompress(file);
                 if (decomp.Length == 0)
                     return file;
                 return decomp;

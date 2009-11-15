@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
 using System.Windows.Forms;
-using NSMBe4.Filesystem;
-
-namespace NSMBe4 {
-
-    public class NSMBLevel {
+using NSMBe4.DSFileSystem;
 
 
-        private NitroClass ROM;
-        private ushort LevelFileID;
-        private ushort BGFileID;
+namespace NSMBe4
+{
+
+    public class NSMBLevel
+    {
+        private File LevelFile;
+        private File BGFile;
 
         public byte[][] Blocks;
         public List<NSMBObject> Objects;
@@ -23,16 +22,16 @@ namespace NSMBe4 {
 
         public bool[] ValidSprites;        
         
-        public NSMBLevel(NitroClass ROM, ushort LevelFileID, ushort BGFileID, NSMBGraphics GFX) {
-            this.ROM = ROM;
-            this.LevelFileID = LevelFileID;
-            this.BGFileID = BGFileID;
+        public NSMBLevel(File levelFile, File bgFile, NSMBGraphics GFX)
+        {
+            this.LevelFile = levelFile;
+            this.BGFile = bgFile;
 
             int FilePos;
 
             // Level loading time yay.
             // Since I don't know the format for every block, I will just load them raw.
-            byte[] eLevelFile = ROM.ExtractFile(LevelFileID);
+            byte[] eLevelFile = levelFile.getContents();
             Blocks = new byte[][] { null, null, null, null, null, null, null, null, null, null, null, null, null, null };
 
             FilePos = 0;
@@ -47,7 +46,7 @@ namespace NSMBe4 {
             }
 
             // Now objects.
-            byte[] eBGFile = ROM.ExtractFile(BGFileID);
+            byte[] eBGFile = bgFile.getContents();
 
             int ObjectCount = eBGFile.Length / 10;
             Objects = new List<NSMBObject>(ObjectCount);
@@ -217,48 +216,48 @@ namespace NSMBe4 {
             // Now allocate + save it
             FilePos = 0;
             int CurBlockOffset = 8 * 14;
-            byte[] LevelFile = new byte[LevelFileSize];
+            byte[] LevelFileData = new byte[LevelFileSize];
 
             for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++) {
-                LevelFile[FilePos] = (byte)(CurBlockOffset & 0xFF);
-                LevelFile[FilePos + 1] = (byte)((CurBlockOffset >> 8) & 0xFF);
-                LevelFile[FilePos + 2] = (byte)((CurBlockOffset >> 16) & 0xFF);
-                LevelFile[FilePos + 3] = (byte)((CurBlockOffset >> 24) & 0xFF);
-                LevelFile[FilePos + 4] = (byte)(Blocks[BlockIdx].Length & 0xFF);
-                LevelFile[FilePos + 5] = (byte)((Blocks[BlockIdx].Length >> 8) & 0xFF);
-                LevelFile[FilePos + 6] = (byte)((Blocks[BlockIdx].Length >> 16) & 0xFF);
-                LevelFile[FilePos + 7] = (byte)((Blocks[BlockIdx].Length >> 24) & 0xFF);
+                LevelFileData[FilePos] = (byte)(CurBlockOffset & 0xFF);
+                LevelFileData[FilePos + 1] = (byte)((CurBlockOffset >> 8) & 0xFF);
+                LevelFileData[FilePos + 2] = (byte)((CurBlockOffset >> 16) & 0xFF);
+                LevelFileData[FilePos + 3] = (byte)((CurBlockOffset >> 24) & 0xFF);
+                LevelFileData[FilePos + 4] = (byte)(Blocks[BlockIdx].Length & 0xFF);
+                LevelFileData[FilePos + 5] = (byte)((Blocks[BlockIdx].Length >> 8) & 0xFF);
+                LevelFileData[FilePos + 6] = (byte)((Blocks[BlockIdx].Length >> 16) & 0xFF);
+                LevelFileData[FilePos + 7] = (byte)((Blocks[BlockIdx].Length >> 24) & 0xFF);
                 FilePos += 8;
-                Array.Copy(Blocks[BlockIdx], 0, LevelFile, CurBlockOffset, Blocks[BlockIdx].Length);
+                Array.Copy(Blocks[BlockIdx], 0, LevelFileData, CurBlockOffset, Blocks[BlockIdx].Length);
                 CurBlockOffset += Blocks[BlockIdx].Length;
             }
 
-            ROM.ReplaceFile(LevelFileID, LevelFile);
+            LevelFile.replace(LevelFileData);
 
             // Next up, objects!
             FilePos = 0;
             int BGDatFileSize = (Objects.Count * 10) + 2;
-            byte[] BGDatFile = new byte[BGDatFileSize];
+            byte[] BGDatFileData = new byte[BGDatFileSize];
 
             for (int ObjIdx = 0; ObjIdx < Objects.Count; ObjIdx++) {
                 int ObjType = Objects[ObjIdx].ObjNum | (Objects[ObjIdx].Tileset << 12);
-                BGDatFile[FilePos] = (byte)(ObjType & 0xFF);
-                BGDatFile[FilePos + 1] = (byte)((ObjType >> 8) & 0xFF);
-                BGDatFile[FilePos + 2] = (byte)(Objects[ObjIdx].X & 0xFF);
-                BGDatFile[FilePos + 3] = (byte)((Objects[ObjIdx].X >> 8) & 0xFF);
-                BGDatFile[FilePos + 4] = (byte)(Objects[ObjIdx].Y & 0xFF);
-                BGDatFile[FilePos + 5] = (byte)((Objects[ObjIdx].Y >> 8) & 0xFF);
-                BGDatFile[FilePos + 6] = (byte)(Objects[ObjIdx].Width & 0xFF);
-                BGDatFile[FilePos + 7] = (byte)((Objects[ObjIdx].Width >> 8) & 0xFF);
-                BGDatFile[FilePos + 8] = (byte)(Objects[ObjIdx].Height & 0xFF);
-                BGDatFile[FilePos + 9] = (byte)((Objects[ObjIdx].Height >> 8) & 0xFF);
+                BGDatFileData[FilePos] = (byte)(ObjType & 0xFF);
+                BGDatFileData[FilePos + 1] = (byte)((ObjType >> 8) & 0xFF);
+                BGDatFileData[FilePos + 2] = (byte)(Objects[ObjIdx].X & 0xFF);
+                BGDatFileData[FilePos + 3] = (byte)((Objects[ObjIdx].X >> 8) & 0xFF);
+                BGDatFileData[FilePos + 4] = (byte)(Objects[ObjIdx].Y & 0xFF);
+                BGDatFileData[FilePos + 5] = (byte)((Objects[ObjIdx].Y >> 8) & 0xFF);
+                BGDatFileData[FilePos + 6] = (byte)(Objects[ObjIdx].Width & 0xFF);
+                BGDatFileData[FilePos + 7] = (byte)((Objects[ObjIdx].Width >> 8) & 0xFF);
+                BGDatFileData[FilePos + 8] = (byte)(Objects[ObjIdx].Height & 0xFF);
+                BGDatFileData[FilePos + 9] = (byte)((Objects[ObjIdx].Height >> 8) & 0xFF);
                 FilePos += 10;
             }
 
-            BGDatFile[FilePos] = 0xFF;
-            BGDatFile[FilePos + 1] = 0xFF;
+            BGDatFileData[FilePos] = 0xFF;
+            BGDatFileData[FilePos + 1] = 0xFF;
 
-            ROM.ReplaceFile(BGFileID, BGDatFile);
+            BGFile.replace(BGDatFileData);
         }
 
         public void ReRenderAll() {
@@ -270,7 +269,7 @@ namespace NSMBe4 {
 
         public void CalculateSpriteModifiers() {
             ValidSprites = new bool[324];
-            byte[] ModifierTable = NSMBDataHandler.GetInlineFile(NSMBDataHandler.Data.File_Modifiers);
+            byte[] ModifierTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
             for (int idx = 0; idx < 324; idx++) {
                 int ModifierOffset = ModifierTable[idx << 1];
@@ -286,7 +285,7 @@ namespace NSMBe4 {
             }
         }
 
-        public static void ImportLevel(NitroClass ROM, ushort LevelFileID, ushort BGFileID, BinaryReader br) {
+        public static void ImportLevel(File destLevelFile, File destBGFile, System.IO.BinaryReader br) {
             string Header = br.ReadString();
             if (Header != "NSMBe4 Exported Level") {
                 MessageBox.Show(
@@ -307,7 +306,7 @@ namespace NSMBe4 {
 
             ushort SavedLevelFileID = br.ReadUInt16();
             ushort SavedBGFileID = br.ReadUInt16();
-            if (SavedLevelFileID != LevelFileID) {
+            if (SavedLevelFileID != destLevelFile.id) {
                 DialogResult dr = MessageBox.Show(
                     LanguageManager.Get("NSMBLevel", "Mismatch"),
                     LanguageManager.Get("General", "Warning"),
@@ -318,25 +317,25 @@ namespace NSMBe4 {
             }
 
             int LevelFileLength = br.ReadInt32();
-            byte[] LevelFile = br.ReadBytes(LevelFileLength);
-            ROM.ReplaceFile(LevelFileID, LevelFile);
+            byte[] LevelFileData = br.ReadBytes(LevelFileLength);
+            destLevelFile.replace(LevelFileData);
 
             int BGFileLength = br.ReadInt32();
-            byte[] BGFile = br.ReadBytes(BGFileLength);
-            ROM.ReplaceFile(BGFileID, BGFile);
+            byte[] BGFileData = br.ReadBytes(BGFileLength);
+            destBGFile.replace(BGFileData);
         }
 
-        public static void ExportLevel(NitroClass ROM, ushort LevelFileID, ushort BGFileID, BinaryWriter bw) {
+        public static void ExportLevel(File srcLevelFile, File srcBGFile, System.IO.BinaryWriter bw) {
             bw.Write("NSMBe4 Exported Level");
             bw.Write((ushort)1);
-            bw.Write(LevelFileID);
-            bw.Write(BGFileID);
-            byte[] LevelFile = ROM.ExtractFile(LevelFileID);
-            bw.Write(LevelFile.Length);
-            bw.Write(LevelFile);
-            byte[] BGFile = ROM.ExtractFile(BGFileID);
-            bw.Write(BGFile.Length);
-            bw.Write(BGFile);
+            bw.Write(srcLevelFile.id);
+            bw.Write(srcBGFile.id);
+            byte[] LevelFileData = srcLevelFile.getContents();
+            bw.Write(LevelFileData.Length);
+            bw.Write(LevelFileData);
+            byte[] BGFileData = srcBGFile.getContents();
+            bw.Write(BGFileData.Length);
+            bw.Write(BGFileData);
         }
 
         public int getFreeEntranceNumber()

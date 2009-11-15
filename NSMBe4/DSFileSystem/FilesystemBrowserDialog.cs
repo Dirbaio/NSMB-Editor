@@ -6,24 +6,19 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NSMBe4.Filesystem
+namespace NSMBe4.DSFileSystem
 {
     public partial class FilesystemBrowserDialog : Form
     {
-        NitroClass parentROM, newROM;
-        ushort FileID;
+        Filesystem fs;
 
-        public FilesystemBrowserDialog(NitroClass ROM, ushort FileID)
+        public FilesystemBrowserDialog(Filesystem fs)
         {
             InitializeComponent();
-            this.parentROM = ROM;
-            this.FileID = FileID;
-
             LanguageManager.ApplyToContainer(this, "FilesystemBrowserDialog");
 
-            newROM = new NitroClass(ROM, FileID);
-
-            filesystemBrowser1.Load(newROM);
+            this.fs = fs;
+            filesystemBrowser1.Load(fs);
         }
     }
 }

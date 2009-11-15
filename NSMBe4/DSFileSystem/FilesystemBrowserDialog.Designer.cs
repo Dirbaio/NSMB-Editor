@@ -1,4 +1,4 @@
-﻿namespace NSMBe4.Filesystem
+﻿namespace NSMBe4.DSFileSystem
 {
     partial class FilesystemBrowserDialog
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.filesystemBrowser1 = new NSMBe4.Filesystem.FilesystemBrowser();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.SuspendLayout();
             // 
             // filesystemBrowser1
