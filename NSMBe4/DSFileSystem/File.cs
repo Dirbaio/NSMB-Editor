@@ -144,7 +144,7 @@ namespace NSMBe4.DSFileSystem
             }
             parent.s.Seek(pos, SeekOrigin.Begin);
         }
-
+        /*
         //This routine moves the next file to Pos
         //if its before pos
         //It moves further files if needed
@@ -186,6 +186,7 @@ namespace NSMBe4.DSFileSystem
             fileBegin = pos;
             saveOffsets();
         }
+        */
 
         public void replace(byte[] newFile)
         {
@@ -194,7 +195,8 @@ namespace NSMBe4.DSFileSystem
 
             if (newFile.Length > fileSize) //if we insert a bigger file
             {                         //it might not fit in the current place
-                File before = parent.findFreeSpace((uint)newFile.Length);
+                File before = parent.findFreeSpace(newFile.Length);
+                Console.Out.WriteLine("After " + before.name);
                 newStart = before.fileBegin + before.fileSize;
             }
 

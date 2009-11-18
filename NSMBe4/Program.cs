@@ -61,7 +61,7 @@ namespace NSMBe4 {
             NitroClass c = new NitroClass(rom);
             c.Load(null);
             */
-            /*
+            
             string rom = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\New Super Mario Bros U orig.nds";
             string romc = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\New Super Mario Bros U fstest.nds";
 
@@ -70,11 +70,14 @@ namespace NSMBe4 {
 
             Console.Out.WriteLine("Loading FS...");
             NitroFilesystem fs = new NitroFilesystem(romc);
+//            fs.dumpFilesOrdered();
             Console.Out.WriteLine("Replacing file...");
             fs.getFileByName("BUILDTIME").replace(new byte[5000]);
-            fs.mainDir.dumpFiles();
+            fs.getFileByName("vs_teresa.narc").replace(new byte[3]);
+            //            fs.mainDir.dumpFiles();
+            fs.dumpFilesOrdered();
 
-            return;*/
+            return;
             
             if (Properties.Settings.Default.Language == 0) {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));

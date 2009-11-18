@@ -312,6 +312,8 @@ namespace NSMBe4 {
 
             foreach (NSMBe4.DSFileSystem.File f in ROM.FS.allFiles)
             {
+                if (f.isSystemFile) continue;
+
                 Console.Out.WriteLine("Checking " + f.name);
                 progress.SetCurrentAction(string.Format(LanguageManager.Get("Patch", "ComparingFile"), f.name));
 
@@ -341,7 +343,7 @@ namespace NSMBe4 {
 
                     bw.Write((byte)1);
                     bw.Write(fileName);
-                    bw.Write(f.id);
+                    bw.Write((ushort)f.id);
                     bw.Write((uint)newFile.Length);
                     bw.Write(newFile, 0, newFile.Length);
                 }
@@ -349,6 +351,7 @@ namespace NSMBe4 {
             }
             bw.Write((byte)0);
             bw.Close();
+            origROM.close();
             progress.SetCurrentAction("");
             progress.WriteLine(string.Format(LanguageManager.Get("Patch", "ExportReady"), fileCount));
         }
@@ -390,12 +393,8 @@ namespace NSMBe4 {
             }
 
 
-            //shitty way to show progress: I don't know how many files, so i do it size-based...
-
             ProgressWindow progress = new ProgressWindow(LanguageManager.Get("Patch", "ImportProgressTitle"));
             progress.Show();
-            progress.SetMax((int)br.BaseStream.Length);//i don't think there are such big patches
-            int progVal = 0;
 
             byte filestartByte = br.ReadByte();
             while (filestartByte == 1)
@@ -407,8 +406,6 @@ namespace NSMBe4 {
                 ushort fileID = (ushort)f.id;
 
                 uint length = br.ReadUInt32();
-                progVal += (int)length;
-                progress.setValue(progVal);
 
                 byte[] newFile = new byte[length];
                 br.Read(newFile, 0, (int)length);
@@ -425,9 +422,6 @@ namespace NSMBe4 {
                 fileCount++;
             }
             br.Close();
-            progress.setValue(0);
-            progress.SetMax(100);
-            progress.setValue(100);
             MessageBox.Show(string.Format(LanguageManager.Get("Patch", "ImportReady"), fileCount), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             progress.Close();
         }
