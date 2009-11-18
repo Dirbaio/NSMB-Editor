@@ -328,8 +328,8 @@ namespace NSMBe4
         public static void ExportLevel(File srcLevelFile, File srcBGFile, System.IO.BinaryWriter bw) {
             bw.Write("NSMBe4 Exported Level");
             bw.Write((ushort)1);
-            bw.Write(srcLevelFile.id);
-            bw.Write(srcBGFile.id);
+            bw.Write((ushort)srcLevelFile.id);
+            bw.Write((ushort)srcBGFile.id);
             byte[] LevelFileData = srcLevelFile.getContents();
             bw.Write(LevelFileData.Length);
             bw.Write(LevelFileData);

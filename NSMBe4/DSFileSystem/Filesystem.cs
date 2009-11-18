@@ -84,6 +84,28 @@ namespace NSMBe4.DSFileSystem
                 return allFiles[allFiles.Count - 1]; //just add the file at the very end 
         }
 
+        //yeah, i'm tired of looking through the dump myself ;)
+        public bool findErrors()
+        {
+            allFiles.Sort();
+            bool res = false;
+            for (int i = 0; i < allFiles.Count - 1; i++)
+            {
+                int firstEnd = (int)allFiles[i].fileBegin + (int)allFiles[i].fileSize - 1;
+                int secondStart = (int)allFiles[i + 1].fileBegin;
+
+                if (firstEnd >= secondStart)
+                {
+                    Console.Out.WriteLine("ERROR: FILES OVERLAP:");
+                    allFiles[i].dumpFile(2);
+                    allFiles[i + 1].dumpFile(2);
+                    res = true;
+                }
+            }
+
+            return res;
+        }
+
         public void close()
         {
             source.close();

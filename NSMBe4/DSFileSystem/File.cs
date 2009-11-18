@@ -190,13 +190,13 @@ namespace NSMBe4.DSFileSystem
 
         public void replace(byte[] newFile)
         {
-            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
+//            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             uint newStart = fileBegin;
 
             if (newFile.Length > fileSize) //if we insert a bigger file
             {                         //it might not fit in the current place
                 File before = parent.findFreeSpace(newFile.Length);
-                Console.Out.WriteLine("After " + before.name);
+//                Console.Out.WriteLine("After " + before.name);
                 newStart = before.fileBegin + before.fileSize;
             }
 
@@ -213,6 +213,8 @@ namespace NSMBe4.DSFileSystem
         public int CompareTo(object obj)
         {
             File f = obj as File;
+            if (fileBegin == f.fileBegin)
+                return fileSize.CompareTo(f.fileSize);
             return fileBegin.CompareTo(f.fileBegin);
         }
 

@@ -143,7 +143,12 @@ namespace NSMBe4
         {
             get
             {
-                return TilesetNumber * 2;
+                if (TilesetNumber == 0)
+                    return 0;
+                if (TilesetNumber == 1)
+                    return 2;
+                else
+                    return 6;
             }
         }
 
