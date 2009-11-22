@@ -107,6 +107,16 @@ namespace NSMBe4.DSFileSystem
         {
             File f = fileTreeView.SelectedNode.Tag as File;
 
+            try
+            {
+                f.beginEdit();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                return;
+            }                
+                
             string FileName = f.name;
             replaceFileDialog.FileName = FileName;
             if (replaceFileDialog.ShowDialog() == DialogResult.OK)
@@ -119,16 +129,27 @@ namespace NSMBe4.DSFileSystem
                 f.replace(TempFile);
             }
             UpdateFileInfo();
+            f.endEdit();
         }
 
         private void compressFileButton_Click(object sender, EventArgs e)
         {
             File f = fileTreeView.SelectedNode.Tag as File;
 
+            try
+            {
+                f.beginEdit();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                return;
+            }     
             byte[] RawFile = f.getContents();
             byte[] CompFile = ROM.LZ77_Compress(RawFile);
             f.replace(CompFile);
             UpdateFileInfo();
+            f.endEdit();
         }
 
         private void decompressFileButton_Click(object sender, EventArgs e)
@@ -137,10 +158,20 @@ namespace NSMBe4.DSFileSystem
             {
                 File f = fileTreeView.SelectedNode.Tag as File;
 
+                try
+                {
+                    f.beginEdit();
+                }
+                catch (AlreadyEditingException)
+                {
+                    MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                    return;
+                }     
                 byte[] CompFile = f.getContents();
                 byte[] RawFile = ROM.LZ77_Decompress(CompFile);
                 f.replace(RawFile);
                 UpdateFileInfo();
+                f.endEdit();
             }
             catch (Exception)
             {
@@ -184,7 +215,16 @@ namespace NSMBe4.DSFileSystem
         private void hexEdButton_Click(object sender, EventArgs e)
         {
             File f = fileTreeView.SelectedNode.Tag as File;
-            new FileHexEditor(f).Show();
+
+            try
+            {
+                new FileHexEditor(f).Show();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                return;
+            }     
         }
     }
 }

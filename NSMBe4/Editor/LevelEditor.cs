@@ -115,7 +115,7 @@ namespace NSMBe4 {
         {
             if (SelectedPanel == np) return;
 
-            if(SelectedPanel != null)
+            if (SelectedPanel != null)
                 SelectedPanel.Parent = null;
             np.Size = PanelContainer.Size;
             np.Location = new Point(0, 0);
@@ -125,28 +125,20 @@ namespace NSMBe4 {
                 SelectedPanel.Parent = PanelContainer;
         }
 
-        public bool ForceClose() {
-            if (Dirty) {
-                DialogResult dr;
-                dr = MessageBox.Show(LanguageManager.Get("LevelEditor", "UnsavedLevel"), "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                if (dr == DialogResult.Yes) {
-                    Level.Save();
-                } else if (dr == DialogResult.Cancel) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         private void saveLevelButton_Click(object sender, EventArgs e) {
             Dirty = false;
             Level.Save();
         }
 
         private void LevelEditor_FormClosing(object sender, FormClosingEventArgs e) {
-            if (ForceClose()) {
-             //   e.Cancel = true;
+            if (Dirty) {
+                DialogResult dr;
+                dr = MessageBox.Show(LanguageManager.Get("LevelEditor", "UnsavedLevel"), "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                if (dr == DialogResult.Yes) {
+                    Level.Save();
+                } else if (dr == DialogResult.Cancel) {
+                    e.Cancel = true;
+                }
             }
         }
 
@@ -187,6 +179,7 @@ namespace NSMBe4 {
             if (tools != null)
                 tools.Close();
             GFX.close();
+            Level.close();
         }
 
         private void levelEditorControl1_SetDirtyFlag() {
@@ -307,7 +300,14 @@ namespace NSMBe4 {
 
         private void editTileset_Click(object sender, EventArgs e)
         {
-            new TilesetEditor(Level.Blocks[0][0xC], "").Show();
+            try
+            {
+                new TilesetEditor(Level.Blocks[0][0xC], "").Show();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "Tileset"));
+            }
         }
     }
 }

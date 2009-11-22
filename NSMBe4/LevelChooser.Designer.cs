@@ -42,7 +42,6 @@ namespace NSMBe4 {
             this.languageListBox = new System.Windows.Forms.ListBox();
             this.changeLanguageButton = new System.Windows.Forms.Button();
             this.tilesetEditor = new System.Windows.Forms.Button();
-            this.lzUncompressAll = new System.Windows.Forms.Button();
             this.mpPatch = new System.Windows.Forms.Button();
             this.patchImport = new System.Windows.Forms.Button();
             this.patchExport = new System.Windows.Forms.Button();
@@ -168,7 +167,6 @@ namespace NSMBe4 {
             // 
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.tilesetEditor);
-            this.tabPage3.Controls.Add(this.lzUncompressAll);
             this.tabPage3.Controls.Add(this.mpPatch);
             this.tabPage3.Controls.Add(this.patchImport);
             this.tabPage3.Controls.Add(this.patchExport);
@@ -232,7 +230,7 @@ namespace NSMBe4 {
             // 
             this.tilesetEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tilesetEditor.Location = new System.Drawing.Point(258, 151);
+            this.tilesetEditor.Location = new System.Drawing.Point(258, 122);
             this.tilesetEditor.Name = "tilesetEditor";
             this.tilesetEditor.Size = new System.Drawing.Size(218, 23);
             this.tilesetEditor.TabIndex = 3;
@@ -240,22 +238,11 @@ namespace NSMBe4 {
             this.tilesetEditor.UseVisualStyleBackColor = true;
             this.tilesetEditor.Click += new System.EventHandler(this.tilesetEditor_Click);
             // 
-            // lzUncompressAll
-            // 
-            this.lzUncompressAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.lzUncompressAll.Location = new System.Drawing.Point(258, 122);
-            this.lzUncompressAll.Name = "lzUncompressAll";
-            this.lzUncompressAll.Size = new System.Drawing.Size(218, 23);
-            this.lzUncompressAll.TabIndex = 3;
-            this.lzUncompressAll.Text = "<lzUncompressAll>";
-            this.lzUncompressAll.UseVisualStyleBackColor = true;
-            this.lzUncompressAll.Click += new System.EventHandler(this.lzUncompressAll_Click);
-            // 
             // mpPatch
             // 
             this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch.Enabled = false;
             this.mpPatch.Location = new System.Drawing.Point(258, 93);
             this.mpPatch.Name = "mpPatch";
             this.mpPatch.Size = new System.Drawing.Size(218, 23);
@@ -338,7 +325,6 @@ namespace NSMBe4 {
             this.Name = "LevelChooser";
             this.Text = "<_TITLE>";
             this.Load += new System.EventHandler(this.LevelChooser_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelChooser_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -375,7 +361,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.OpenFileDialog openPatchDialog;
         private FilesystemBrowser filesystemBrowser1;
         private System.Windows.Forms.Button mpPatch;
-        private System.Windows.Forms.Button lzUncompressAll;
         private System.Windows.Forms.Button tilesetEditor;
     }
 }

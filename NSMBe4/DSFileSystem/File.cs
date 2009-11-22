@@ -190,6 +190,9 @@ namespace NSMBe4.DSFileSystem
 
         public void replace(byte[] newFile)
         {
+            if (!beingEdited)
+                throw new Exception("NOT EDITING FILE " + name);
+
 //            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             uint newStart = fileBegin;
 
@@ -228,6 +231,10 @@ namespace NSMBe4.DSFileSystem
 
         public void endEdit()
         {
+            /*
+            if (!beingEdited)
+                throw new Exception("NOT EDITING FILE " + name);*/
+
             beingEdited = false;
         }
     }

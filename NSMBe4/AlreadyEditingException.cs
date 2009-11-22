@@ -7,7 +7,7 @@ namespace NSMBe4
 {
     public class AlreadyEditingException : Exception
     {
-        private File f;
+        public File f;
         public AlreadyEditingException(File f)
         {
             this.f = f;

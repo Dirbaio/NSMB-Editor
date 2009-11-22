@@ -10,7 +10,10 @@ Completed=Completed!
 
 UnknownRegion=The region of the ROM can't be identified.\nThe editor will treat it as a US release.
 
-
+[Errors]
+Tileset=This tileset is already being edited.
+Level=This level is already being edited.
+File=This file is already being edited.
 
 [LevelChooser]
 _TITLE=NSMB Editor 4.8
@@ -79,7 +82,7 @@ ImportProgressTitle=Importing Patch...
 ReplacingFile=Replacing {0}...
 ImportDiffVersions=The two roms seem to be different versions. The patch should work, but maybe it doesn't.
 ImportReady=Patch applied succesfully. {0} files replaced.
-
+Error=Error applying patch because some of the files to replace were already being edited. Please close them and try again.
 
 
 [LevelEditor]

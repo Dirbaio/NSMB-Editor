@@ -9,13 +9,19 @@ using Be.Windows.Forms;
 using NSMBe4.DSFileSystem;
 
 
-namespace NSMBe4 {
-    public partial class LevelHexEditor : Form {
-        public LevelHexEditor(string LevelFilename) {
+namespace NSMBe4 
+{
+    public partial class LevelHexEditor : Form
+    {
+        File LevelFile;
+
+        public LevelHexEditor(string LevelFilename)
+        {
             InitializeComponent();
             this.LevelFilename = LevelFilename;
 
-            File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+            LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+            LevelFile.beginEdit();
             byte[] eLevelFile = LevelFile.getContents();
             Blocks = new byte[][] { null, null, null, null, null, null, null, null, null, null, null, null, null, null };
 
@@ -78,7 +84,6 @@ namespace NSMBe4 {
             Dirty = false;
             Blocks[BlockID] = ((DynamicByteProvider)hexBox1.ByteProvider).Bytes.ToArray();
 
-            File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
             int LevelFileSize = 8 * 14;
 
             // Find out how long the file must be
@@ -121,6 +126,11 @@ namespace NSMBe4 {
 
         private void saveBlockButton_Click(object sender, EventArgs e) {
             Save();
+        }
+
+        private void LevelHexEditor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LevelFile.endEdit();
         }
     }
 }

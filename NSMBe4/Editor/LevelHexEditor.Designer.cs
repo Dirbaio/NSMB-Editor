@@ -50,7 +50,7 @@
             this.saveBlockButton.Image = global::NSMBe4.Properties.Resources.save;
             this.saveBlockButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveBlockButton.Name = "saveBlockButton";
-            this.saveBlockButton.Size = new System.Drawing.Size(131, 22);
+            this.saveBlockButton.Size = new System.Drawing.Size(122, 22);
             this.saveBlockButton.Text = "<saveBlockButton>";
             this.saveBlockButton.Click += new System.EventHandler(this.saveBlockButton_Click);
             // 
@@ -62,7 +62,7 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(102, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(94, 22);
             this.toolStripLabel1.Text = "<toolStripLabel1>";
             // 
             // blockComboBox
@@ -109,6 +109,7 @@
             this.Name = "LevelHexEditor";
             this.Text = "LevelHexEditor";
             this.Load += new System.EventHandler(this.LevelHexEditor_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelHexEditor_FormClosed);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

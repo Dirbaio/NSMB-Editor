@@ -32,9 +32,6 @@ namespace NSMBe4 {
 
                 LoadLevelNames();
 
-                OpenEditors = new List<LevelEditor>();
-                OpenLevelHexEditors = new List<LevelHexEditor>();
-
                 LanguageManager.ApplyToContainer(this, "LevelChooser");
                 openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
                 importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
@@ -93,28 +90,8 @@ namespace NSMBe4 {
             }
         }
 
-        private void editLevelButton_Click(object sender, EventArgs e) {
-            if (levelTreeView.SelectedNode == null) return;
-
-            // Make sure this level isn't already open
-            if (OpenEditors.Count > 0) {
-                foreach (LevelEditor le in OpenEditors) {
-                    if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        le.Show();
-                        return;
-                    }
-                }
-            }
-
-            if (OpenLevelHexEditors.Count > 0) {
-                foreach (LevelHexEditor le in OpenLevelHexEditors) {
-                    if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        MessageBox.Show(LanguageManager.Get("LevelChooser", "AlreadyHexEditing"), "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                }
-            }
-
+        private void editLevelButton_Click(object sender, EventArgs e)
+        {
             // Make a caption
             string EditorCaption = LanguageManager.Get("General", "EditingSomething") + " ";
 
@@ -125,34 +102,21 @@ namespace NSMBe4 {
             }
 
             // Open it
-            LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag);
-            OpenEditors.Add(NewEditor);
-            NewEditor.Text = EditorCaption;
-            NewEditor.Show();
+            try
+            {
+                LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag);
+                NewEditor.Text = EditorCaption;
+                NewEditor.Show();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "Level"));
+            }                
         }
 
         private void hexEditLevelButton_Click(object sender, EventArgs e) {
             if (levelTreeView.SelectedNode == null) return;
 
-            // Make sure this level isn't already open
-            if (OpenEditors.Count > 0) {
-                foreach (LevelEditor le in OpenEditors) {
-                    if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        MessageBox.Show(LanguageManager.Get("LevelChooser", "AlreadyNormalEditing"), "NSMB Editor 4", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                }
-            }
-
-            if (OpenLevelHexEditors.Count > 0) {
-                foreach (LevelHexEditor le in OpenLevelHexEditors) {
-                    if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        le.Show();
-                        return;
-                    }
-                }
-            }
-
             // Make a caption
             string EditorCaption = LanguageManager.Get("General", "EditingSomething") + " ";
 
@@ -163,24 +127,16 @@ namespace NSMBe4 {
             }
 
             // Open it
-            LevelHexEditor NewEditor = new LevelHexEditor((string)levelTreeView.SelectedNode.Tag);
-            OpenLevelHexEditors.Add(NewEditor);
-            NewEditor.Text = EditorCaption;
-            NewEditor.Show();
-        }
-
-        private List<LevelEditor> OpenEditors;
-        private List<LevelHexEditor> OpenLevelHexEditors;
-
-        private void LevelChooser_FormClosing(object sender, FormClosingEventArgs e) {
-            if (OpenEditors != null && OpenEditors.Count > 0) {
-                foreach (LevelEditor le in OpenEditors) {
-                    if (!le.IsDisposed && le.ForceClose()) {
-                        e.Cancel = true;
-                        return;
-                    }
-                }
+            try
+            {
+                LevelHexEditor NewEditor = new LevelHexEditor((string)levelTreeView.SelectedNode.Tag);
+                NewEditor.Text = EditorCaption;
+                NewEditor.Show();
             }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "Level"));
+            }                
         }
 
         private void levelTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
@@ -192,19 +148,6 @@ namespace NSMBe4 {
 
         private void importLevelButton_Click(object sender, EventArgs e) {
             if (levelTreeView.SelectedNode == null) return;
-
-            // Make sure this level isn't already open
-            if (OpenEditors.Count > 0) {
-                foreach (LevelEditor le in OpenEditors) {
-                    if (!le.IsDisposed && le.LevelFilename == (string)levelTreeView.SelectedNode.Tag) {
-                        MessageBox.Show(
-                            LanguageManager.Get("LevelChooser", "CantImport"),
-                            LanguageManager.Get("LevelChooser", "CantImportTitle"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-            }
 
             // Figure out what file to import
             if (importLevelDialog.ShowDialog() == DialogResult.Cancel) {
@@ -397,29 +340,38 @@ namespace NSMBe4 {
             progress.Show();
 
             byte filestartByte = br.ReadByte();
-            while (filestartByte == 1)
+            try
             {
-                string fileName = br.ReadString();
-                progress.WriteLine(string.Format(LanguageManager.Get("Patch", "ReplacingFile"), fileName));
-                ushort origFileID = br.ReadUInt16();
-                NSMBe4.DSFileSystem.File f = ROM.FS.getFileByName(fileName);
-                ushort fileID = (ushort)f.id;
-
-                uint length = br.ReadUInt32();
-
-                byte[] newFile = new byte[length];
-                br.Read(newFile, 0, (int)length);
-                filestartByte = br.ReadByte();
-
-                if (!differentRomsWarning && origFileID != fileID)
+                while (filestartByte == 1)
                 {
-                    MessageBox.Show(LanguageManager.Get("Patch", "ImportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    differentRomsWarning = true;
-                }
+                    string fileName = br.ReadString();
+                    progress.WriteLine(string.Format(LanguageManager.Get("Patch", "ReplacingFile"), fileName));
+                    ushort origFileID = br.ReadUInt16();
+                    NSMBe4.DSFileSystem.File f = ROM.FS.getFileByName(fileName);
+                    ushort fileID = (ushort)f.id;
 
-                Console.Out.WriteLine("Replace " + fileName);
-                f.replace(newFile);
-                fileCount++;
+                    uint length = br.ReadUInt32();
+
+                    byte[] newFile = new byte[length];
+                    br.Read(newFile, 0, (int)length);
+                    filestartByte = br.ReadByte();
+
+                    if (!differentRomsWarning && origFileID != fileID)
+                    {
+                        MessageBox.Show(LanguageManager.Get("Patch", "ImportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        differentRomsWarning = true;
+                    }
+
+                    Console.Out.WriteLine("Replace " + fileName);
+                    f.beginEdit();
+                    f.replace(newFile);
+                    f.endEdit();
+                    fileCount++;
+                }
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(string.Format(LanguageManager.Get("Patch", "Error"), fileCount), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             br.Close();
             MessageBox.Show(string.Format(LanguageManager.Get("Patch", "ImportReady"), fileCount), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -449,48 +401,6 @@ namespace NSMBe4 {
             file = ROM.ExtractFile(ROM.FileIDs[f2]);
             NARC.ReplaceFile(NARC.FileIDs[f2], file);*/
         }
-
-        private void lzUncompressAll_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(LanguageManager.Get("LevelChooser", "LZUncompWarning"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
-                return;
-
-            bool UncompressNARCS = MessageBox.Show(LanguageManager.Get("LevelChooser", "DecompInNarcs"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo) == DialogResult.Yes;
-
-            //lzUncompress(ROM, UncompressNARCS);
-        }
-        /*
-        private void lzUncompress(NitroClass ROM, bool narcs)
-        {
-            foreach (ushort FileID in ROM.FileIDs.Values)
-            {
-                Console.Out.WriteLine("Uncompressing " + ROM.FileNames[FileID]);
-
-                if (ROM.FileNames[FileID].EndsWith("narc") || ROM.FileNames[FileID].EndsWith("NARC"))
-                {
-                    if (narcs)
-                    {
-                        NitroClass narc = new NitroClass(ROM, FileID);
-                        narc.Load(null);
-                        lzUncompress(narc, narcs);
-                    }
-                }
-                else
-                {
-                    byte[] file = ROM.ExtractFile(FileID);
-                    bool success = false;
-                    try
-                    {
-                        file = ROM.LZ77_Decompress(file);
-                        success = true;
-                    }
-                    catch (Exception) { }
-
-                    if (success)
-                        ROM.ReplaceFile(FileID, file);
-                }
-            }
-        }*/
 
         private void tilesetEditor_Click(object sender, EventArgs e)
         {

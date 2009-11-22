@@ -30,17 +30,38 @@ namespace NSMBe4
         }
 
         private void editJyotyuButton_Click(object sender, EventArgs e) {
-            new TilesetEditor(65535, "Jyotyu").Show();
+            try
+            {
+                new TilesetEditor(65535, "Jyotyu").Show();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "Tileset"));
+            }
             Close();
         }
 
         private void editNoharaSubButton_Click(object sender, EventArgs e) {
-            new TilesetEditor(65534, "Nohara SubUnit").Show();
+            try
+            {
+                new TilesetEditor(65534, "Nohara SubUnit").Show();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "Tileset"));
+            }
             Close();
         }
 
         private void openTilesetButton_Click(object sender, EventArgs e) {
-            new TilesetEditor((ushort)tilesetComboBox.SelectedIndex, (string)tilesetComboBox.SelectedItem).Show();
+            try
+            {
+                new TilesetEditor((ushort)tilesetComboBox.SelectedIndex, (string)tilesetComboBox.SelectedItem).Show();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "Tileset"));
+            }
             Close();
         }
 

@@ -17,6 +17,7 @@ namespace NSMBe4.DSFileSystem
         {
             InitializeComponent();
             this.f = f;
+            f.beginEdit();
 
             LanguageManager.ApplyToContainer(this, "FileHexEditor");
             this.Text = string.Format(LanguageManager.Get("FileHexEditor", "_TITLE"), f.name);
@@ -28,6 +29,11 @@ namespace NSMBe4.DSFileSystem
         {
             byte[] data = ((DynamicByteProvider)hexBox1.ByteProvider).Bytes.ToArray();
             f.replace(data);
+        }
+
+        private void FileHexEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            f.endEdit();
         }
     }
 }

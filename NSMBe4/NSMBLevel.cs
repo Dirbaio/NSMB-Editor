@@ -26,6 +26,8 @@ namespace NSMBe4
         {
             this.LevelFile = levelFile;
             this.BGFile = bgFile;
+            levelFile.beginEdit();
+            bgFile.beginEdit();
 
             int FilePos;
 
@@ -127,6 +129,12 @@ namespace NSMBe4
 
 
             CalculateSpriteModifiers();
+        }
+
+        public void close()
+        {
+            BGFile.endEdit();
+            LevelFile.endEdit();
         }
 
         public void Save() {
@@ -286,6 +294,27 @@ namespace NSMBe4
         }
 
         public static void ImportLevel(File destLevelFile, File destBGFile, System.IO.BinaryReader br) {
+            try
+            {
+                destLevelFile.beginEdit();
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "Level"));
+                return;
+            }
+
+            try
+            {
+                destBGFile.beginEdit();
+            }
+            catch (AlreadyEditingException)
+            {
+                destLevelFile.endEdit();
+                MessageBox.Show(LanguageManager.Get("Errors", "Level"));
+                return;
+            }                
+
             string Header = br.ReadString();
             if (Header != "NSMBe4 Exported Level") {
                 MessageBox.Show(
@@ -319,10 +348,12 @@ namespace NSMBe4
             int LevelFileLength = br.ReadInt32();
             byte[] LevelFileData = br.ReadBytes(LevelFileLength);
             destLevelFile.replace(LevelFileData);
+            destLevelFile.endEdit();
 
             int BGFileLength = br.ReadInt32();
             byte[] BGFileData = br.ReadBytes(BGFileLength);
             destBGFile.replace(BGFileData);
+            destBGFile.endEdit();
         }
 
         public static void ExportLevel(File srcLevelFile, File srcBGFile, System.IO.BinaryWriter bw) {

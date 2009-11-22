@@ -10,7 +10,10 @@ Completed=Terminado!
 
 UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como versión US.
 
-
+[Errors]
+Tileset=Esta serie de objetos ya se esta editando.
+Level=Este nivel ya esta siendo editado.
+File=Este archivo ya esta siendo editado.
 
 [LevelChooser]
 _TITLE=New Super Mario Bros Editor 4.8
@@ -63,14 +66,14 @@ PatchFilter=Parches NSMB (*.nmp)|*.nmp|Todos los archivos (*.*)|*.*
 
 ;Exporting Patches
 Export=Exportar Parche
-SelectROM=Elegir un ROM limpio del juego original.
+SelectROM=Elegir un ROM original del juego.
 SelectLocation=Elegir un sitio para guardar el parche.
 ExportProgressTitle=Exportando parche...
-StartingPatch=Parchando empiezara ahora. Puede tardar un tiempo.
+StartingPatch=Parcheado empezara ahora. Puede tardar un tiempo.
 ExportDiffVersions=Las dos roms parecen de versiones diferentes. Estas seguro que quieres continuar?
 ComparingFile=Comparando {0}...
 IncludedFile={0} incluido
-ExportReady=Finalizado! {0} archivos incluido.
+ExportReady=Finalizado! {0} archivos incluidos.
 
 ;Importing Patches
 InvalidFile=Este no es un parche de NSMB Editor 4. Si esta seguro de que es un parche valido, puede estar corrupto.
@@ -79,6 +82,7 @@ ImportProgressTitle=Aplicando parche...
 ReplacingFile=Sustituyendo {0}...
 ImportDiffVersions=Las dos roms parecen versiones diferentes. El parche debería funcionar, pero es posible que no funcione.
 ImportReady=Parche aplicado! {0} archivos sustituidos.
+Error=Error al aplicar el parche. Algun archivo ya se esta editando. Cierra todos los editores y prueba otra vez.
 
 
 
