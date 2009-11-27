@@ -176,6 +176,8 @@ namespace NSMBe4 {
 
             foreach (NSMBPath p in Level.Paths)
                 p.Render(e.Graphics, false);
+            foreach (NSMBPath p in Level.ProgressPaths)
+                p.Render(e.Graphics, false);
 
             if (mode != null)
                 mode.RenderSelection(e.Graphics);

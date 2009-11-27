@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using NSMBe4.DSFileSystem;
-
+using System.Drawing.Imaging;
 
 /**
  * 
@@ -67,9 +67,8 @@ using NSMBe4.DSFileSystem;
  * The first slope control byte defines the direction of slope:
  * 
  *  & with 1 -> Go left
- *  & with 2 -> Go Down
+ *  & with 2 -> Upside-down slope
  *   
- * (The last three are only used at the ghost house tileset)
  * 
  * The slope format is:
  * 
@@ -84,21 +83,41 @@ using NSMBe4.DSFileSystem;
  * |_|       |_|        |__|
  * 
  * The first corner must be placed on a corner of the object, on the opposite
- * side of the direction.
+ * side of the direction (if slope goes right, start is at left), and at the 
+ * bottom, or at the top if its an upside-down slope.
  * 
  * Optional: Then follows a 0x85 slope control, then another block of tiles 
- * that has to be placed under the previous blocks, or OVER if the slope goes down.
+ * that has to be placed under the previous blocks, or OVER if its an upside-down slope.
  * 
  * If the slope goes right the blocks have to be left-aligned:
  *  _
- * |_|__
- * |____|
+ * |_|__  main block
+ * |____| sub (0x85) block
  * 
  * If the slope goes left the blocks have to be right-aligned:
  *     _
  *  __|_|
  * |____|
  * 
+ * EXAMPLE: Slope going up right with 1x1 main block and 2x1 sub block in a 6x5 obj
+ *        _ _
+ *      _|_|_|
+ *    _|_|___|
+ *  _|_|___|
+ * |_|___| 
+ * 
+ * NOTE: This info is not complete. This works for all the slopes used in-game, but
+ * there are some unused bits that change their behavior:
+ * 
+ * -0x04 control byte in 0x85 slope block: All slopes that have the 0x85 block have
+ * all its tiles with an 0x04 control byte. IF ITS NOT SET, then the 0x85 block is 
+ * used to fill all the area below (or over if its upside down???) the slope. Not
+ * sure how does it behave if the 0x85 block has multiple tiles.
+ * Probably the Nintendo Guys thought it was best to have it like that, and then
+ * realized that it caused the triangle below the slope to be unusable (filled) 
+ * and then created a new mode.
+ * 
+ * Not sure if there's more like this...
  **/
 
 
@@ -177,8 +196,6 @@ namespace NSMBe4
 
         public NSMBTileset(File GFXFile, File PalFile, File Map16File, File ObjFile, File ObjIndexFile, File TileBehaviorFile, bool OverrideFlag, int TilesetNumber)
         {
-            int FilePos;
-
             this.GFXFile = GFXFile;
             this.PalFile = PalFile;
             this.Map16File = Map16File;
@@ -210,22 +227,7 @@ namespace NSMBe4
             Palette[256] = Color.LightSlateGray;
 
             // Load graphics
-            RawGFXData = ROM.LZ77_Decompress(GFXFile.getContents());
-            int TileCount = RawGFXData.Length / 64;
-            TilesetBuffer = new Bitmap(TileCount * 8, 16);
-
-            FilePos = 0;
-            for (int TileIdx = 0; TileIdx < TileCount; TileIdx++) {
-                int TileSrcX = TileIdx * 8;
-                for (int TileY = 0; TileY < 8; TileY++) {
-                    for (int TileX = 0; TileX < 8; TileX++) {
-                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY, Palette[RawGFXData[FilePos]]);
-                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY + 8, Palette[RawGFXData[FilePos] + 256]);
-                        FilePos++;
-                    }
-                }
-            }
-
+            SetGraphics(ROM.LZ77_Decompress(GFXFile.getContents()));
 
             loadMap16();
             loadTileBehaviors();
@@ -287,7 +289,8 @@ namespace NSMBe4
             savePalette();
         }
 
-        public void ResetGraphics(byte[] GFXData) {
+        public void SetGraphics(byte[] GFXData)
+        {
             RawGFXData = GFXData;
             int TileCount = GFXData.Length / 64;
             TilesetBuffer = new Bitmap(TileCount * 8, 16);
@@ -303,14 +306,28 @@ namespace NSMBe4
                     }
                 }
             }
+        }
 
+        public void ResetGraphics(byte[] d)
+        {
+            SetGraphics(d);
             repaintAllMap16();
         }
 
         private void savePalette() {
             ByteArrayOutputStream file = new ByteArrayOutputStream();
-            for (int i = 0; i < 512; i++) {
-                file.writeUShort((ushort)((Palette[i].B << 7) | (Palette[i].G << 2) | (Palette[i].R >> 3)));
+            for (int i = 0; i < 512; i++)
+            {
+                byte r = (byte)(Palette[i].R >> 3);
+                byte g = (byte)(Palette[i].G >> 3);
+                byte b = (byte)(Palette[i].B >> 3);
+
+                ushort val = 0;
+
+                val |= r;
+                val |= (ushort)(g << 5);
+                val |= (ushort)(b << 10);
+                file.writeUShort(val);
             }
             PalFile.replace(ROM.LZ77_Compress(file.getArray()));
         }
@@ -386,7 +403,8 @@ namespace NSMBe4
 
         public void repaintAllMap16()
         {
-            Map16Graphics.Clear(Color.LightSlateGray);
+            if(Map16Graphics != null)
+                Map16Graphics.Clear(Color.LightSlateGray);
             for (int Map16Idx = 0; Map16Idx < Map16.Length; Map16Idx++)
                 RenderMap16Tile(Map16Idx);
         }
@@ -982,6 +1000,115 @@ namespace NSMBe4
         public void FileChanged(File f)
         {
             throw new NotImplementedException();
+        }
+
+        #endregion
+        #region Import / Export GFX
+        public void ExportGFX(string filename)
+        {
+            int tileCount = TilesetBuffer.Width / 8;
+            int[] tilesUsed = new int[tileCount];
+
+            foreach (Map16Tile t in Map16)
+                checkMap16UsedTiles(t, tilesUsed);
+
+            Bitmap b = new Bitmap(256, tileCount / (256 / 8) * 8);
+            for (int i = 0; i < tileCount; i++)
+            {
+                if (tilesUsed[i] == 0) continue;
+
+                int tx = (i % 32) * 8;
+                int ty = (int)(i / 32) * 8;
+                int palOffs = 0;
+                if(tilesUsed[i] == 2) palOffs = 256;
+
+                for (int x = 0; x < 8; x++)
+                    for (int y = 0; y < 8; y++)
+                    {
+                        byte color = RawGFXData[i * 64 + y * 8 + x];
+                        Color col = Palette[palOffs + color];
+                        if (color == 0)
+                            col = Color.Transparent;
+                        b.SetPixel(tx + x, ty + y, col);
+                    }
+            }
+            b.Save(filename, ImageFormat.Png);
+            b.Dispose();
+        }
+
+        public void ImportGFX(string filename, bool newInSecondPal)
+        {
+
+            int tileCount = TilesetBuffer.Width / 8;
+            int[] tilesUsed = new int[tileCount];
+
+            foreach (Map16Tile t in Map16)
+                checkMap16UsedTiles(t, tilesUsed);
+
+            Bitmap img = new Bitmap(filename, true);
+//            new ImagePreviewer(img).Show();
+
+            Bitmap a = new Bitmap(tileCount*8, 8);
+            Graphics ga = Graphics.FromImage(a);
+            ga.Clear(Color.Transparent);
+
+            Bitmap b = new Bitmap(tileCount*8, 8);
+            Graphics gb = Graphics.FromImage(b);
+            gb.Clear(Color.Transparent);
+
+            for (int i = 0; i < tileCount; i++)
+            {
+                int tx = (i % 32) * 8;
+                int ty = (int)(i / 32) * 8;
+
+                Graphics dest = ga;
+                if (newInSecondPal)   dest = gb;
+                if (tilesUsed[i] == 1) dest = ga;
+                if (tilesUsed[i] == 2) dest = gb;
+                
+                dest.DrawImage(img, new Rectangle(i * 8, 0, 8, 8), tx, ty, 8, 8, GraphicsUnit.Pixel);
+            }
+
+            ImageIndexer ia = new ImageIndexer(a);
+            ImageIndexer ib = new ImageIndexer(b);
+            Array.Copy(ia.palette, 1, Palette, 1, 255);
+            Array.Copy(ib.palette, 1, Palette, 257, 255);
+//            Array.Copy(ia.palettedImage, RawGFXData, RawGFXData.Length);
+            
+            for (int i = 0; i < tileCount; i++)
+            {
+                int tx = (i % 32) * 8;
+                int ty = (int)(i / 32) * 8;
+
+                ImageIndexer src = ia;
+                if (newInSecondPal) src = ib;
+                if (tilesUsed[i] == 1) src = ia;
+                if (tilesUsed[i] == 2) src = ib;
+
+                Array.Copy(src.palettedImage, i * 64, RawGFXData, i * 64, 64);
+            }
+
+            img.Dispose();
+            ResetGraphics(RawGFXData);
+        }
+
+        private void checkMap16UsedTiles(Map16Tile t, int[] tilesUsed)
+        {
+            checkMap16UsedQuarter(t.topLeft, tilesUsed);
+            checkMap16UsedQuarter(t.topRight, tilesUsed);
+            checkMap16UsedQuarter(t.bottomLeft, tilesUsed);
+            checkMap16UsedQuarter(t.bottomRight, tilesUsed);
+        }
+
+        private void checkMap16UsedQuarter(Map16Quarter q, int[] tilesUsed)
+        {
+            if (q.TileNum < 0) return;
+            if (q.TileNum >= tilesUsed.Length) return;
+
+            if (q.secondPalette)
+                tilesUsed[q.TileNum] |= 2;
+            else
+                tilesUsed[q.TileNum] |= 1;
         }
 
         #endregion

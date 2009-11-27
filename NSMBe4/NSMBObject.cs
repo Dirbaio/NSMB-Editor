@@ -43,6 +43,9 @@ namespace NSMBe4
         }
 
         public void UpdateObjCache() {
+            if (GFX == null)
+                return;
+
             try
             {
                 CachedObj = GFX.Tilesets[Tileset].RenderObject(ObjNum, Width, Height);

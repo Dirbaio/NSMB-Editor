@@ -12,7 +12,6 @@ namespace NSMBe4 {
     public partial class DataFinder : Form {
         public DataFinder() {
             InitializeComponent();
-
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
 
             Levels = new List<string>();
@@ -29,15 +28,29 @@ namespace NSMBe4 {
                     string[] ParseLevel = LevelNames[NameIdx].Split('|');
                     if (ParseLevel[2] == "1") {
                         Levels.Add(ParseLevel[0]);
-                        LevelFiles.Add(WorldID + ParseLevel[1] + "_1.bin");
+                        LevelFiles.Add(WorldID + ParseLevel[1] + "_1");
                     } else {
                         int AreaCount = int.Parse(ParseLevel[2]);
                         for (int AreaIdx = 1; AreaIdx <= AreaCount; AreaIdx++) {
                             Levels.Add(ParseLevel[0] + " area " + AreaIdx.ToString());
-                            LevelFiles.Add(WorldID + ParseLevel[1] + "_" + AreaIdx.ToString() + ".bin");
+                            LevelFiles.Add(WorldID + ParseLevel[1] + "_" + AreaIdx.ToString());
                         }
                     }
                 }
+            }
+
+            //now pad the level names to the same size to get the data aligned !!!
+            int longestName = 0;
+            foreach (string s in Levels)
+            {
+                if (s.Length > longestName)
+                    longestName = s.Length;
+            }
+            for (int i = 0; i < Levels.Count; i++)
+            {
+                int pad = longestName - Levels[i].Length;
+                for (int j = 0; j < pad; j++)
+                    Levels[i] += " ";
             }
         }
         private List<string> Levels;
@@ -54,72 +67,144 @@ namespace NSMBe4 {
             }
 
             StringBuilder output = new StringBuilder();
-
-            if (findBlockRadioButton.Checked) {
+            if (findBlockRadioButton.Checked)
                 output.AppendLine(string.Format(LanguageManager.Get("DataFinder", "BlockInstances"), blockNumberUpDown.Value.ToString()));
-
-                int BlockToDump = (int)((blockNumberUpDown.Value - 1) * 8);
-                int SplitVal = (int)(splitCountUpDown.Value);
-
-                for (int LevelIdx = 0; LevelIdx < Levels.Count; LevelIdx++) {
-                    byte[] CurrentLevel = ROM.FS.getFileByName(LevelFiles[LevelIdx]).getContents();
-                    int BlockOffset = (int)(CurrentLevel[BlockToDump] | (CurrentLevel[BlockToDump + 1] << 8) | (CurrentLevel[BlockToDump + 2] << 16) | (CurrentLevel[BlockToDump + 3] << 24));
-                    int BlockSize = (int)(CurrentLevel[BlockToDump + 4] | (CurrentLevel[BlockToDump + 5] << 8) | (CurrentLevel[BlockToDump + 6] << 16) | (CurrentLevel[BlockToDump + 7] << 24));
-                    if (SplitVal > 0) {
-                        int SplitCount = (int)Math.Ceiling((double)BlockSize / SplitVal);
-                        int SplitOffset = 0;
-                        //System.Diagnostics.Debug.Print("BlockSize: " + BlockSize.ToString());
-                        //System.Diagnostics.Debug.Print("SplitVal: " + SplitVal.ToString());
-                        //System.Diagnostics.Debug.Print("SplitCount: " + SplitCount.ToString());
-                        for (int SplitIdx = 0; SplitIdx < SplitCount; SplitIdx++) {
-                            if (labellingTypeCheckBox.Checked) {
-                                output.Append(LevelFiles[LevelIdx]);
-                            } else {
-                                output.Append(Levels[LevelIdx]);
-                            }
-                            output.Append(": ");
-                            //System.Diagnostics.Debug.Print("Printing: BlockOffset = {0:D}, SplitOffset = {1:D}, BlockSize = {2:D}, start = {3:D}, end = {4:D}", BlockOffset, SplitOffset, BlockSize, BlockOffset + SplitOffset, BlockOffset + Math.Min(SplitVal, BlockSize));
-                            PrintByteArray(output, CurrentLevel, BlockOffset + SplitOffset, BlockOffset + Math.Min(SplitOffset + SplitVal, BlockSize));
-                            SplitOffset += SplitVal;
-                            output.Append("\r\n");
-                        }
-                        output.Append("\r\n");
-                    } else {
-                        if (labellingTypeCheckBox.Checked) {
-                            output.Append(LevelFiles[LevelIdx]);
-                        } else {
-                            output.Append(Levels[LevelIdx]);
-                        }
-                        output.Append(": ");
-                        PrintByteArray(output, CurrentLevel, BlockOffset, BlockOffset + BlockSize);
-                        output.Append("\r\n");
-                    }
-                }
-            } else if (findSpriteRadioButton.Checked) {
+            else
                 output.AppendLine(string.Format(LanguageManager.Get("DataFinder", "SpriteInstances"), spriteUpDown.Value.ToString()));
 
-                for (int LevelIdx = 0; LevelIdx < Levels.Count; LevelIdx++) {
-                    byte[] CurrentLevel = ROM.FS.getFileByName(LevelFiles[LevelIdx]).getContents();
-                    int SpriteOffset = CurrentLevel[0x30] | (CurrentLevel[0x31] << 8) | (CurrentLevel[0x32] << 16) | (CurrentLevel[0x33] << 24);
-                    int SpriteSize = CurrentLevel[0x34] | (CurrentLevel[0x35] << 8) | (CurrentLevel[0x36] << 16) | (CurrentLevel[0x37] << 24);
-                    byte[] SpriteBlock = new byte[SpriteSize];
-                    Array.Copy(CurrentLevel, SpriteOffset, SpriteBlock, 0, SpriteSize);
+            if (findBlockRadioButton.Checked)
+                initDataComparer((int)(splitCountUpDown.Value));
+            else
+                initDataComparer(6);
 
-                    int SpriteCount = (SpriteSize - 4) / 12;
-                    int FilePos = 0;
-                    for (int SpriteIdx = 0; SpriteIdx < SpriteCount; SpriteIdx++) {
-                        int SpriteType = SpriteBlock[FilePos] | (SpriteBlock[FilePos + 1] << 8);
-                        if (SpriteType == spriteUpDown.Value) {
-                            if (labellingTypeCheckBox.Checked) {
-                                output.Append(LevelFiles[LevelIdx]);
-                            } else {
-                                output.Append(Levels[LevelIdx]);
-                            }
-                            output.Append(": ");
-                            PrintByteArray(output, SpriteBlock, FilePos + 6, FilePos + 12);
-                            output.Append("\r\n");
+            for (int i = 0; i < Levels.Count; i++)
+            {
+                File levelFile = ROM.FS.getFileByName(LevelFiles[i] + ".bin");
+                File bgFile = ROM.FS.getFileByName(LevelFiles[i] + "_bgdat.bin");
+                NSMBLevel l = new NSMBLevel(levelFile, bgFile, null);
+
+                string n = Levels[i];
+                if (labellingTypeCheckBox.Checked)
+                    n = LevelFiles[i];
+                n += ": ";
+
+                if (findBlockRadioButton.Checked)
+                {
+                    output.Append(n);
+                    int b = (int)(blockNumberUpDown.Value - 1);
+                    int s = (int)(splitCountUpDown.Value);
+
+                    if (s == 0)
+                        PrintByteArray(output, l.Blocks[b], 0, l.Blocks[b].Length, n);
+                    else
+                    {
+                        for (int j = 0; j < l.Blocks[b].Length; j += s)
+                        {
+                            if (j != 0)
+                                for (int k = 0; k < n.Length; k++)
+                                    output.Append(" ");
+                                
+                            if(j+s < l.Blocks[b].Length)
+                                PrintByteArray(output, l.Blocks[b], j, j+s, n);
+                            else
+                                PrintByteArray(output, l.Blocks[b], j, l.Blocks[b].Length, n);
                         }
-                        FilePos += 12;
+                    }
+                }
+                else
+                {
+                    bool printSpace = false;
+                    foreach (NSMBSprite s in l.Sprites)
+                    {
+                        if (s.Type == spriteUpDown.Value)
+                        {
+                            if (printSpace)
+                                for (int k = 0; k < n.Length; k++)
+                                    output.Append(" ");
+                            else
+                                output.Append(n);
+
+                            printSpace = true;
+                            PrintByteArray(output, s.Data, 0, 6, n);
+                        }
+                    }
+                }
+
+                l.close();
+            }
+
+            if (data != null)
+            {
+                output.Append("\r\n");
+                output.Append("\r\n");
+
+                for (int i = 0; i < data.Length; i++)
+                    output.Append(String.Format("{0:00} ", i));
+                output.Append("\r\n");
+
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (data[i].Keys.Count == 1)
+                        output.Append(String.Format("{0:X2}", data[i].Keys.GetEnumerator().Current));
+                    else
+                        output.Append("__");
+                    output.Append(" ");
+                }
+                output.Append("\r\n");
+                output.Append("\r\n");
+
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (data[i].Keys.Count != 1)
+                    {
+                        output.Append("========================= " + i + ":\r\n");
+
+                        int bestCount = -1;
+                        int bestVal = -1;
+                        foreach (byte b in data[i].Keys)
+                        {
+                            if (data[i][b].Count > bestCount)
+                            {
+                                bestCount = data[i][b].Count;
+                                bestVal = b;
+                            }
+                        }
+
+                        bool hideMostUsed = false;
+                        int mostUsed = bestVal;
+                        int mostUsedCount = bestCount;
+                        bestCount = -1;
+                        bestVal = -1;
+                        foreach (byte b in data[i].Keys)
+                        {
+                            if (data[i][b].Count > bestCount && b != mostUsed)
+                            {
+                                bestCount = data[i][b].Count;
+                                bestVal = b;
+                            }
+                        }
+                        if (mostUsedCount > bestCount * 2)
+                            hideMostUsed = true;
+
+                        foreach (byte b in data[i].Keys)
+                        {
+                            output.Append(String.Format("{0:X2}", b));
+                            output.Append(": ");
+                            if (hideMostUsed && b == mostUsed)
+                                output.Append(" All Other Levels\r\n");
+                            else
+                            {
+                                bool writeSpace = false;
+                                foreach (string s in data[i][b])
+                                {
+                                    if (writeSpace)
+                                        output.Append("    ");
+
+                                    writeSpace = true;
+                                    output.Append(s + "\r\n");
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -127,13 +212,44 @@ namespace NSMBe4 {
             outputTextBox.Text = output.ToString();
         }
 
-        private void PrintByteArray(StringBuilder sb, byte[] array, int start, int end) {
+        private void PrintByteArray(StringBuilder sb, byte[] array, int start, int end, string name)
+        {
             bool space = false;
-            for (int idx = start; idx < end; idx++) {
-                sb.Append(String.Format("{0:X2}", array[idx]));
+            for (int i = start; i < end; i++) {
+                sb.Append(String.Format("{0:X2}", array[i]));
                 if (space) sb.Append(' ');
                 space = !space;
+                registerByte(i - start, name, array[i]);
             }
+            sb.Append("\r\n");
+        }
+
+
+        private Dictionary<byte, List<string>>[] data;
+
+        private void registerByte(int pos, string name, byte val)
+        {
+            if (data == null) return;
+            if (pos < 0) return;
+            if (pos >= data.Length) return;
+
+            if (!data[pos].ContainsKey(val))
+                data[pos][val] = new List<string>();
+
+            data[pos][val].Add(name);
+        }
+
+        private void initDataComparer(int size)
+        {
+            if(size == 0)
+            {
+                data = null;
+                return;
+            }
+
+            data = new Dictionary<byte, List<string>>[size];
+            for (int i = 0; i < size; i++)
+                data[i] = new Dictionary<byte, List<string>>();
         }
     }
 }

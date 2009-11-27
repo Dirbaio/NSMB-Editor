@@ -86,8 +86,19 @@ namespace NSMBe4 {
             }
             fs.dumpFilesOrdered();
 
-            return;*/
+            return;*//*
             
+            string rom = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\nsmb tstest.nds";
+            ROM.load(rom);
+
+            NSMBGraphics g = new NSMBGraphics();
+            g.LoadTilesets(0);
+            g.Tilesets[1].ImportGFX(@"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\caca.png");
+            g.Tilesets[1].enableWrite();
+            g.Tilesets[1].save();
+            ROM.close();
+           */
+
             if (Properties.Settings.Default.Language == 0) {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
             } else if (Properties.Settings.Default.Language == 1) {

@@ -34,6 +34,9 @@ namespace NSMBe4
             selRow = null;
             groupBox1.Visible = false;
             obj = tls.Objects[num];
+            if (obj.tiles.Count == 0)
+                obj.tiles.Add(new List<NSMBTileset.ObjectDefTile>());
+
             DataUpdateFlag = true;
             objWidth.Value = obj.width;
             objHeight.Value = obj.height;

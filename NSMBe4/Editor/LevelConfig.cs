@@ -17,44 +17,10 @@ namespace NSMBe4 {
 
             LanguageManager.ApplyToContainer(this, "LevelConfig");
 
-            string[] parsedlist;
-            int index;
-
-            // Add tilesets to list
-            index = 0;
-            parsedlist = new string[76];
-            foreach (string name in LanguageManager.GetList("Tilesets")) {
-                string trimmedname = name.Trim();
-                if (trimmedname == "") continue;
-                parsedlist[index] = trimmedname;
-                index += 1;
-            }
-
-            tilesetComboBox.Items.AddRange(parsedlist);
-
-            // Add foregrounds to list
-            index = 0;
-            parsedlist = new string[77];
-            foreach (string name in LanguageManager.GetList("Foregrounds")) {
-                string trimmedname = name.Trim();
-                if (trimmedname == "") continue;
-                parsedlist[index] = trimmedname;
-                index += 1;
-            }
-
-            bgTopLayerComboBox.Items.AddRange(parsedlist);
-
-            // Add backgrounds
-            index = 0;
-            parsedlist = new string[77];
-            foreach (string name in LanguageManager.GetList("Backgrounds")) {
-                string trimmedname = name.Trim();
-                if (trimmedname == "") continue;
-                parsedlist[index] = trimmedname;
-                index += 1;
-            }
-
-            bgBottomLayerComboBox.Items.AddRange(parsedlist);
+            // Load lists
+            loadList("Foregrounds", bgTopLayerComboBox);
+            loadList("Backgrounds", bgBottomLayerComboBox);
+            loadList("Tilesets", tilesetComboBox);
 
             // Load modifier lists
             ComboBox target = null;
@@ -92,11 +58,25 @@ namespace NSMBe4 {
         public delegate void RefreshMainWindowDelegate();
         public event RefreshMainWindowDelegate RefreshMainWindow;
 
+        private void loadList(string name, ComboBox dest)
+        {
+            dest.Items.Clear();
+            foreach (string s in LanguageManager.GetList(name))
+            {
+                string ss = s.Trim();
+                if (ss == "") continue;
+                dest.Items.Add(ss);
+            }
+        }
+
         public void LoadSettings() {
             startEntranceUpDown.Value = Level.Blocks[0][0];
             midwayEntranceUpDown.Value = Level.Blocks[0][1];
             timeLimitUpDown.Value = Level.Blocks[0][4] | (Level.Blocks[0][5] << 8);
+            soundSetUpDown.Value = Level.Blocks[0][26];
             levelWrapCheckBox.Checked = ((Level.Blocks[0][2] & 0x20) != 0);
+            forceMiniCheckBox.Checked = ((Level.Blocks[0][2] & 0x01) != 0);
+            miniMarioPhysicsCheckBox.Checked = ((Level.Blocks[0][2] & 0x02) != 0);
 
             tilesetComboBox.SelectedIndex = Level.Blocks[0][0xC];
             int FGIndex = Level.Blocks[0][0x12];
@@ -134,6 +114,7 @@ namespace NSMBe4 {
 
         }
 
+        #region Previews
         private void tilesetPreviewButton_Click(object sender, EventArgs e) {
             ushort GFXFileID = ROM.GetFileIDFromTable(tilesetComboBox.SelectedIndex, ROM.Data.Table_TS_NCG);
             ushort PalFileID = ROM.GetFileIDFromTable(tilesetComboBox.SelectedIndex, ROM.Data.Table_TS_NCL);
@@ -265,18 +246,24 @@ namespace NSMBe4 {
 
             new ImagePreviewer(BG).Show();
         }
+        #endregion
 
         private void OKButton_Click(object sender, EventArgs e) {
             Level.Blocks[0][0] = (byte)startEntranceUpDown.Value;
             Level.Blocks[0][1] = (byte)midwayEntranceUpDown.Value;
             Level.Blocks[0][4] = (byte)((int)timeLimitUpDown.Value & 255);
             Level.Blocks[0][5] = (byte)((int)timeLimitUpDown.Value >> 8);
+            Level.Blocks[0][26] = (byte)((int)soundSetUpDown.Value & 255);
 
-            if (levelWrapCheckBox.Checked) {
-                Level.Blocks[0][2] = (byte)(Level.Blocks[0][2] | 32);
-            } else {
-                Level.Blocks[0][2] = (byte)(Level.Blocks[0][2] & 223);
-            }
+            byte settingsByte = 0x00;
+
+            if (levelWrapCheckBox.Checked)
+                settingsByte |= 0x20;
+            if (forceMiniCheckBox.Checked)
+                settingsByte |= 0x01;
+            if (miniMarioPhysicsCheckBox.Checked)
+                settingsByte |= 0x02;
+            Level.Blocks[0][2] = settingsByte;
 
             int oldTileset = Level.Blocks[0][0xC];
 

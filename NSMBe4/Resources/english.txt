@@ -93,6 +93,7 @@ toolStripLabel1=Editing:
 editObjectsButton=Objects/Sprites
 editEntrancesButton=Entrances
 editPathsButton=Paths
+editProgressButton=Progress Paths (bottom screen)
 editViewsButton=Views
 editZonesButton=Zones
 spriteFinder=Sprite Finder
@@ -224,6 +225,7 @@ tabPage1=Options
 tabPage2=Graphics
 tabPage3=Sprite Sets (1)
 tabPage4=Sprite Sets (2)
+tabPage5=Sound Sets
 
 OKButton=OK
 cancelButton=Cancel
@@ -233,6 +235,8 @@ label1=Time limit:
 label2=Start entrance:
 label3=Midway entrance:
 levelWrapCheckBox=Level wraps around on left/right
+forceMiniCheckBox=Force Mini Mario at level start
+miniMarioPhysicsCheckBox=Force Mini Mario Physics Always (weird/beta)
 
 ;Graphics tab
 groupBox1=Tileset
@@ -246,6 +250,8 @@ bgBottomLayerPreviewButton=Preview
 BlankBG=This background is blank and has nothing to see.
 BrokenBG=This background doesn't work.
 
+;sound sets
+label15=Sound Set:
 
 
 [LevelHexEditor]
@@ -1325,4 +1331,3 @@ Unused Level 5|10|1
 73: Underground (yellow)
 74: Bonus room
 75: Grassland
-

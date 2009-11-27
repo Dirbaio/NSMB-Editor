@@ -94,6 +94,7 @@ toolStripLabel1=Edicion de:
 editObjectsButton=Objetos/Sprites
 editEntrancesButton=Entradas
 editPathsButton=Rutas
+editProgressButton=Rutas de progreso (pantalla de abajo)
 editViewsButton=Vistas
 editZonesButton=Zonas
 spriteFinder=Buscar Sprites
@@ -199,6 +200,7 @@ tabPage1=Opciones
 tabPage2=Graficos
 tabPage3=Conjuntos de Sprites (1)
 tabPage4=Conjuntos de Sprites (2)
+tabPage5=Conjunto de Sonidos
 
 OKButton=Aceptar
 cancelButton=Cancelar
@@ -208,6 +210,8 @@ label1=Limite de tiempo:
 label2=Entrada inicial:
 label3=Entrada punto medio:
 levelWrapCheckBox=Nivel cíclico (como en 7-2 y multijugador)
+forceMiniCheckBox=Forzar Mini Mario al inicio del nivel
+miniMarioPhysicsCheckBox=Forzar fisca de Mini Mario (raro/beta)
 
 ;Graphics tab
 groupBox1=Serie de objetos
@@ -217,6 +221,9 @@ tilesetPreviewButton=Probar
 bgTopLayerPreviewButton=Probar
 bgBottomLayerPreviewButton=Probar
 
+
+;sound sets
+label15=Sonidos:
 
 
 [LevelHexEditor]

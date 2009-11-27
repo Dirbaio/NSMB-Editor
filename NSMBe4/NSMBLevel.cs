@@ -18,7 +18,7 @@ namespace NSMBe4
         public List<NSMBSprite> Sprites;
         public List<NSMBEntrance> Entrances;
         public List<NSMBView> Views, Zones;
-        public List<NSMBPath> Paths;
+        public List<NSMBPath> Paths, ProgressPaths;
 
         public bool[] ValidSprites;        
         
@@ -127,6 +127,15 @@ namespace NSMBe4
                 Paths.Add(NSMBPath.read(PathBlock, PathNodeBlock));
             }
 
+            PathBlock = new ByteArrayInputStream(Blocks[9]);
+            PathNodeBlock = new ByteArrayInputStream(Blocks[11]);
+
+            ProgressPaths = new List<NSMBPath>();
+            while (!PathBlock.end())
+            {
+                ProgressPaths.Add(NSMBPath.read(PathBlock, PathNodeBlock));
+            }
+
 
             CalculateSpriteModifiers();
         }
@@ -199,14 +208,24 @@ namespace NSMBe4
             Blocks[10] = block11.getArray(); //save streams
             Blocks[12] = block13.getArray();
 
+            // Save ProgressPaths
+
+            ByteArrayOutputStream block10 = new ByteArrayOutputStream();
+            ByteArrayOutputStream block12 = new ByteArrayOutputStream();
+            foreach (NSMBPath p in ProgressPaths)
+                p.write(block10, block12);
+
+            Blocks[9] = block10.getArray(); //save streams
+            Blocks[11] = block12.getArray();
+
             // Save Views
 
             ByteArrayOutputStream Block8 = new ByteArrayOutputStream();
             foreach (NSMBView v in Views)
                 v.write(Block8);
-            // Save Views
             Blocks[7] = Block8.getArray();
 
+            //save Zones
             ByteArrayOutputStream Block9 = new ByteArrayOutputStream();
             foreach (NSMBView v in Zones)
                 v.writeZone(Block9);

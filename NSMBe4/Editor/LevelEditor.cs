@@ -13,7 +13,7 @@ namespace NSMBe4 {
 
         public ObjectsEditionMode oem;
         public EntrancesEditionMode eem;
-        public PathsEditionMode pem;
+        public PathsEditionMode pem, ppem;
         public ViewsEditionMode vem, zem;
         public ObjectPickerControl opc;
 
@@ -31,6 +31,7 @@ namespace NSMBe4 {
             EditionModeButtons.Add(editObjectsButton);
             EditionModeButtons.Add(editEntrancesButton);
             EditionModeButtons.Add(editPathsButton);
+            EditionModeButtons.Add(editProgressButton);
             EditionModeButtons.Add(editViewsButton);
             EditionModeButtons.Add(editZonesButton);
 
@@ -79,7 +80,8 @@ namespace NSMBe4 {
             opc.Initialise(GFX);
             oem = new ObjectsEditionMode(Level, levelEditorControl1, opc);
             eem = new EntrancesEditionMode(Level, levelEditorControl1);
-            pem = new PathsEditionMode(Level, levelEditorControl1);
+            pem = new PathsEditionMode(Level, levelEditorControl1, Level.Paths);
+            ppem = new PathsEditionMode(Level, levelEditorControl1, Level.ProgressPaths);
             vem = new ViewsEditionMode(Level, levelEditorControl1, true);
             zem = new ViewsEditionMode(Level, levelEditorControl1, false);
 
@@ -217,6 +219,12 @@ namespace NSMBe4 {
             levelEditorControl1.SetEditionMode(pem);
             uncheckModeButtons();
             editPathsButton.Checked = true;
+        }
+        private void editProgressButton_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.SetEditionMode(ppem);
+            uncheckModeButtons();
+            editProgressButton.Checked = true;
         }
 
         private void editViewsButton_Click(object sender, EventArgs e)

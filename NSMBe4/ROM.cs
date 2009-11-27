@@ -54,6 +54,11 @@ namespace NSMBe4 {
             }
         }
 
+        public static void close()
+        {
+            FS.close();
+        }
+
         public static void SaveOverlay0() {
             FS.getFileById(0).replace(Overlay0);
         }

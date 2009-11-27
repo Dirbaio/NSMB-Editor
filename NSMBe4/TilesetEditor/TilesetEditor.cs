@@ -91,5 +91,23 @@ namespace NSMBe4
         {
             g.close();
         }
+
+        private void selectFileButton_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.ShowDialog(this);
+            filenameTextBox.Text = saveFileDialog1.FileName;
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            t.ExportGFX(filenameTextBox.Text);
+        }
+
+        private void importButton_Click(object sender, EventArgs e)
+        {
+            t.ImportGFX(filenameTextBox.Text, palette2RadioButton.Checked);
+            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
+            mustRepaintObjects();
+        }
     }
 }

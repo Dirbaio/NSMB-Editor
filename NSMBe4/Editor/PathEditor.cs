@@ -14,9 +14,11 @@ namespace NSMBe4
         private NSMBPath p;
         private NSMBPathPoint n;
         private bool DataUpdateFlag = false;
+        List<NSMBPath> l;
 
-        public PathEditor(LevelEditorControl EdControl)
+        public PathEditor(LevelEditorControl EdControl, List<NSMBPath> l)
         {
+            this.l = l;
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "PathEditor");
             this.EdControl = EdControl;
@@ -27,7 +29,7 @@ namespace NSMBe4
         {
             DataUpdateFlag = true;
             pathsList.Items.Clear();
-            pathsList.Items.AddRange(EdControl.Level.Paths.ToArray());
+            pathsList.Items.AddRange(l.ToArray());
             pathsList.SelectedItem = p;
             DataUpdateFlag = false;
         }
@@ -130,7 +132,7 @@ namespace NSMBe4
             npp.Y = va.Y * 16;
             np.points.Add(npp);
 
-            EdControl.Level.Paths.Add(np);
+            l.Add(np);
             UpdateList();
             EdControl.SelectObject(npp);
         }
@@ -140,7 +142,7 @@ namespace NSMBe4
             if (p == null)
                 return;
 
-            EdControl.Level.Paths.Remove(p);
+            l.Remove(p);
             UpdateList();
             EdControl.SelectObject(null);
             EdControl.repaint();

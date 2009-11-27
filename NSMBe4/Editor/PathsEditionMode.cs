@@ -14,11 +14,13 @@ namespace NSMBe4
         bool CloneMode;
 
         PathEditor pe;
+        List<NSMBPath> l;
 
-        public PathsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
+        public PathsEditionMode(NSMBLevel Level, LevelEditorControl EdControl, List<NSMBPath> l)
             : base(Level, EdControl)
         {
-            pe = new PathEditor(EdControl);
+            this.l = l;
+            pe = new PathEditor(EdControl, l);
             pe.setNode(null, null);
         }
 
@@ -26,7 +28,7 @@ namespace NSMBe4
         {
             p = null;
             n = null;
-            foreach (NSMBPath pp in Level.Paths)
+            foreach (NSMBPath pp in l)
             {
                 foreach (NSMBPathPoint nn in pp.points)
                 {
@@ -53,7 +55,7 @@ namespace NSMBe4
                 if (p.points.Count > 1)
                     p.points.Remove(n);
                 else
-                    Level.Paths.Remove(p);
+                    l.Remove(p);
 
                 SetDirtyFlag();
                 n = null;
@@ -147,7 +149,7 @@ namespace NSMBe4
             UpdatePanel();
             if (p == null) return;
 
-            if (!Level.Paths.Contains(p) || !p.points.Contains(n))
+            if (!l.Contains(p) || !p.points.Contains(n))
             {
                 p = null;
                 n = null;

@@ -9,22 +9,13 @@ namespace NSMBe4
     {
         private List<Box> boxes;
         private Dictionary<Color, int> freqTable;
-        private Dictionary<Color, int> paletteTable;
-        private Color[] palette;
+        private Dictionary<Color, byte> paletteTable;
+        public Color[] palette;
+        public byte[] palettedImage;
 
-        private Bitmap b;
-        private int paletteSize;
-        public static Bitmap index(Bitmap b, int paletteSize)
+        public ImageIndexer(Bitmap b)
         {
-            ImageIndexer i = new ImageIndexer();
-            i.b = b;
-            i.paletteSize = paletteSize;
-            return i.start();
-        }
-
-        private Bitmap start()
-        {
-            new ImagePreviewer(b).Show();
+            int paletteCount = 256;
             //COMPUTE FREQUENCY TABLE
 
             freqTable = new Dictionary<Color,int>();
@@ -32,6 +23,8 @@ namespace NSMBe4
                 for (int y = 0; y < b.Height; y++)
                 {
                     Color c = b.GetPixel(x, y);
+                    if (c == Color.Transparent) continue;
+
                     if (freqTable.ContainsKey(c))
                         freqTable[c]++;
                     else
@@ -43,50 +36,65 @@ namespace NSMBe4
             boxes = new List<Box>();
             boxes.Add(startBox);
 
-            while (boxes.Count < paletteSize)
+            while (boxes.Count < paletteCount-1)
             {
                 Box bo = getDominantBox();
+                if (bo == null)
+                    break;
+
                 split(bo);
             }
 
             //NOW CREATE THE PALETTE COLORS
-            palette = new Color[boxes.Count];
-            for (int i = 0; i < boxes.Count; i++)
+            palette = new Color[paletteCount];
+            for (int i = 1; i < paletteCount; i++)
             {
-                palette[i] = boxes[i].center();
-                Console.Out.WriteLine(i + ": " + boxes[i] + ": "+ palette[i]);
+                if (i > boxes.Count)
+                    palette[i] = Color.Fuchsia;
+                else
+                    palette[i] = boxes[i-1].center();
+//                Console.Out.WriteLine(i + ": " + boxes[i] + ": "+ palette[i]);
             }
 
-            paletteTable = new Dictionary<Color, int>();
+            palette[0] = Color.Transparent;
+
+            paletteTable = new Dictionary<Color, byte>();
             //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES
             foreach (Color c in freqTable.Keys)
             {
                 paletteTable[c] = closest(c);
             }
+            paletteTable[Color.Transparent] = 0;
 
-            //NOW PALETTE THE IMAGE
-            Bitmap res = new Bitmap(b.Width, b.Height);
-            for (int x = 0; x < b.Width; x++)
-                for (int y = 0; y < b.Height; y++)
-                {
-                    res.SetPixel(x, y, palette[paletteTable[b.GetPixel(x, y)]]);
-                }
+            //NOW INDEX THE IMAGE
 
-            new ImagePreviewer(res).Show();
-            return res;
+            palettedImage = new byte[b.Width * b.Height];
+            int tileCount = b.Width * b.Height / 64;
+            int tileWidth = b.Width / 8;
+
+            for (int t = 0; t < tileCount; t++)
+                for (int y = 0; y < 8; y++)
+                    for (int x = 0; x < 8; x++)
+                    {
+                        int tx = (t % tileWidth) * 8;
+                        int ty = (int)(t / tileWidth) * 8;
+                        
+                        palettedImage[t * 64 + y * 8 + x] =
+                            paletteTable[b.GetPixel(tx + x, ty + y)];
+                    }
         }
 
-        private int closest(Color c)
+        private byte closest(Color c)
         {
-            int best = 0;
+            byte best = 0;
             ushort bestDif = colorDifference(c, palette[0]);
-            for (int i = 1; i < palette.Length; i++)
+            for (int i = 0; i < palette.Length; i++)
             {
                 ushort dif = colorDifference(c, palette[i]);
                 if (dif < bestDif)
                 {
                     bestDif = dif;
-                    best = i;
+                    best = (byte)i;
                 }
             }
             return best;
@@ -105,18 +113,21 @@ namespace NSMBe4
                 }
             values.Sort();
 
+            if (values.Count == 0)
+                Console.Out.WriteLine("iijiji");
+
             byte m = median(values, total);
             if (m == values[0].b)
                 m++;
 
-            Console.Out.Write("Split: " + b + " ");
+//            Console.Out.Write("Split: " + b + " ");
             Box nb = new Box(b);
             nb.setDimMax(dim, (byte)(m-1));
             b.setDimMin(dim, m);
             boxes.Add(shrinkBox(nb));
             boxes.Remove(b);
             boxes.Add(shrinkBox(b));
-            Console.Out.WriteLine(b + " " + nb);
+//            Console.Out.WriteLine(b + " " + nb);
         }
 
         private byte median(List<byteint> values, int total)
@@ -175,13 +186,13 @@ namespace NSMBe4
 
         private Box getDominantBox()
         {
-            Box best = boxes[0];
-            int bestDim = best.dominantDimension();
+            Box best = null;
+            int bestDim = 0;
 
             foreach (Box b in boxes)
             {
                 int dim = b.dominantDimension();
-                if (dim > bestDim)
+                if ((dim > bestDim || best == null) && b.canSplit(freqTable))
                 {
                     bestDim = dim;
                     best = b;
@@ -266,7 +277,7 @@ namespace NSMBe4
 
             public int dominantDimension()
             {
-                int res = 0;
+                int res = -1;
                 if (r2 - r1 > res) res = r2 - r1;
                 if (g2 - g1 > res) res = g2 - g1;
                 if (b2 - b1 > res) res = b2 - b1;
@@ -308,6 +319,22 @@ namespace NSMBe4
                     g2 = a;
                 else
                     b2 = a;
+            }
+
+            public bool canSplit(Dictionary<Color, int> freqTable)
+            {
+                if (r1 == r2 && g1 == g2 && b1 == b2) return false;
+
+                int count = 0;
+                foreach (Color c in freqTable.Keys)
+                {
+                    if (inside(c))
+                        count++;
+
+                    if (count <= 2)
+                        return true;
+                }
+                return false;
             }
 
             public Color center()
