@@ -59,8 +59,12 @@ namespace NSMBe4 {
             FS.close();
         }
 
-        public static void SaveOverlay0() {
-            FS.getFileById(0).replace(Overlay0);
+        public static void SaveOverlay0()
+        {
+            File ov = FS.getFileById(0);
+            ov.beginEdit(FS);
+            ov.replace(Overlay0, FS);
+            ov.endEdit(FS);
         }
 
         public enum Origin {

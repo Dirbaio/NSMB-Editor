@@ -21,7 +21,7 @@ namespace NSMBe4
             this.LevelFilename = LevelFilename;
 
             LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
-            LevelFile.beginEdit();
+            LevelFile.beginEdit(this);
             byte[] eLevelFile = LevelFile.getContents();
             Blocks = new byte[][] { null, null, null, null, null, null, null, null, null, null, null, null, null, null };
 
@@ -110,7 +110,7 @@ namespace NSMBe4
                 CurBlockOffset += Blocks[BlockIdx].Length;
             }
 
-            LevelFile.replace(LevelFileData);
+            LevelFile.replace(LevelFileData, this);
         }
 
         private void blockComboBox_SelectedIndexChanged(object sender, EventArgs e) {
@@ -130,7 +130,7 @@ namespace NSMBe4
 
         private void LevelHexEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
-            LevelFile.endEdit();
+            LevelFile.endEdit(this);
         }
     }
 }

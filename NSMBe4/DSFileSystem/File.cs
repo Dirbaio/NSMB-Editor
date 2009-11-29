@@ -34,7 +34,11 @@ namespace NSMBe4.DSFileSystem
 
         private Filesystem parent;
 
-        public Boolean beingEdited;
+        private Object editedBy = null;
+        public Boolean beingEdited
+        {
+            get { return editedBy != null; }
+        }
 
         public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, uint alBeg, uint alEnd)
         {
@@ -188,10 +192,13 @@ namespace NSMBe4.DSFileSystem
         }
         */
 
-        public void replace(byte[] newFile)
+        public void replace(byte[] newFile, object editor)
         {
-            //if (!beingEdited)
-            //    throw new Exception("NOT EDITING FILE " + name);
+            if (!beingEdited)
+                throw new Exception("NOT EDITING FILE " + name);
+
+            if(editor != editedBy)
+                throw new Exception("NOT CORRECT EDITOR" + name);
 
 //            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             uint newStart = fileBegin;
@@ -221,21 +228,22 @@ namespace NSMBe4.DSFileSystem
             return fileBegin.CompareTo(f.fileBegin);
         }
 
-        public void beginEdit()
+        public void beginEdit(Object editor)
         {
             if (beingEdited)
                 throw new AlreadyEditingException(this);
             else
-                beingEdited = true;
+                editedBy = editor;
         }
 
-        public void endEdit()
+        public void endEdit(Object editor)
         {
-            /*
             if (!beingEdited)
-                throw new Exception("NOT EDITING FILE " + name);*/
+                throw new Exception("NOT EDITING FILE " + name);
+            if (editor != editedBy)
+                throw new Exception("NOT CORRECT EDITOR" + name);
 
-            beingEdited = false;
+            editedBy = null;
         }
     }
 }

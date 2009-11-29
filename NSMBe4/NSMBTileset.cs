@@ -126,6 +126,8 @@ namespace NSMBe4
    
     public class NSMBTileset
     {
+        private bool editing = false;
+
         public File GFXFile;
         public File PalFile;
         public File Map16File;
@@ -252,29 +254,36 @@ namespace NSMBe4
 
         public void close()
         {
-            GFXFile.endEdit();
-            PalFile.endEdit();
-            Map16File.endEdit();
-            ObjFile.endEdit();
-            ObjIndexFile.endEdit();
+            if (!editing)
+                return;
+            editing = false;
+
+            GFXFile.endEdit(this);
+            PalFile.endEdit(this);
+            Map16File.endEdit(this);
+            ObjFile.endEdit(this);
+            ObjIndexFile.endEdit(this);
             if(TileBehaviorFile != null)
-                TileBehaviorFile.endEdit();
+                TileBehaviorFile.endEdit(this);
         }
 
         ~NSMBTileset()
         {
-            close();
+            if(editing)
+                close();
         }
 
         public void enableWrite()
         {
-            GFXFile.beginEdit();
-            PalFile.beginEdit();
-            Map16File.beginEdit();
-            ObjFile.beginEdit();
-            ObjIndexFile.beginEdit();
+            editing = true;
+
+            GFXFile.beginEdit(this);
+            PalFile.beginEdit(this);
+            Map16File.beginEdit(this);
+            ObjFile.beginEdit(this);
+            ObjIndexFile.beginEdit(this);
             if (TileBehaviorFile != null)
-                TileBehaviorFile.beginEdit();
+                TileBehaviorFile.beginEdit(this);
         }
 
         public void save()
@@ -284,7 +293,7 @@ namespace NSMBe4
             saveTileBehaviors();
 
             byte[] CompGFXData = ROM.LZ77_Compress(RawGFXData);
-            GFXFile.replace(CompGFXData);
+            GFXFile.replace(CompGFXData, this);
 
             savePalette();
         }
@@ -329,7 +338,7 @@ namespace NSMBe4
                 val |= (ushort)(b << 10);
                 file.writeUShort(val);
             }
-            PalFile.replace(ROM.LZ77_Compress(file.getArray()));
+            PalFile.replace(ROM.LZ77_Compress(file.getArray()), this);
         }
 
 
@@ -365,7 +374,7 @@ namespace NSMBe4
             if (TilesetNumber == 0) {
                 ROM.ReplaceInlineFile(ROM.Data.File_Jyotyu_CHK, file.getArray());
             } else if (TilesetNumber == 1 || TilesetNumber == 2) {
-                TileBehaviorFile.replace(file.getArray());
+                TileBehaviorFile.replace(file.getArray(), this);
             }
         }
 
@@ -378,7 +387,7 @@ namespace NSMBe4
             foreach (Map16Tile t in Map16)
                 t.save(file);
 
-            Map16File.replace(file.getArray());
+            Map16File.replace(file.getArray(), this);
         }
 
         private void loadMap16()
@@ -748,8 +757,8 @@ namespace NSMBe4
                 Objects[i].save(eObjFile);
             }
 
-            ObjFile.replace(eObjFile.getArray());
-            ObjIndexFile.replace(eObjIndexFile.getArray());
+            ObjFile.replace(eObjFile.getArray(), this);
+            ObjIndexFile.replace(eObjIndexFile.getArray(), this);
         }
 
         public int[,] RenderObject(int ObjNum, int Width, int Height)

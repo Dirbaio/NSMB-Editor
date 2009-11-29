@@ -165,7 +165,7 @@ label19=Destination Entrance:
 label20=Connected Pipe ID:
 label21=View:
 entranceSetting128=Exit only (pipes and doors only)
-entranceSetting16=Use fading screen transition
+entrancSpeSetting16=Use fading screen transition
 entranceSetting8=Connected pipe
 entranceSetting1=Display on lower screen (entrances only)
 
@@ -369,7 +369,7 @@ toolStripButton1=Save Tileset
 tabPage1=Objects
 tabPage2=Map16
 tabPage3=Graphics
-
+tabPage4=Import / Export GFX
 
 
 [TilesetObjectEditor]
@@ -969,10 +969,10 @@ Unused Level 5|10|1
 39=Boss Activator
 40=Unused
 41=Bowser Battle P-Switch
-42=Chain Chomp
+42=Chain Chomp / Log
 43=Chain Chomp without log
 44=Unused / Nothing
-45=Make brick contain coin
+45=Invisible coin brick
 46=Spiked Ball (102) Activator?
 47=Lakithunder
 48=Bubbles From Tube
@@ -1058,7 +1058,7 @@ Unused Level 5|10|1
 128=Warp Zone Pipe Cannon
 129=Boss Battle Key
 130=Jumping Cheep Cheep
-131=Checkpoint Vertical Level
+131=Midway Point (vertical levels)
 132=Midway Point
 133=Unused
 134=Unused
@@ -1094,8 +1094,8 @@ Unused Level 5|10|1
 164=Unused
 165=Unused
 166=Unused
-167=Brick with ? Switch
-168=Unknown Sprite (5-1-2)
+167=Chained activators
+168=Activate activator on events
 169=Unused
 170=Unused
 171=Unused
@@ -1116,7 +1116,7 @@ Unused Level 5|10|1
 186=Paragoomba
 187=Manual Control Platform
 188=Unused
-189=Create pipe cannon
+189=Pipe cannon
 190=Unused
 191=Hanging Bouncing ? Block
 192=Unused

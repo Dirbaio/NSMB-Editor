@@ -109,7 +109,7 @@ namespace NSMBe4.DSFileSystem
 
             try
             {
-                f.beginEdit();
+                f.beginEdit(this);
             }
             catch (AlreadyEditingException)
             {
@@ -126,10 +126,10 @@ namespace NSMBe4.DSFileSystem
                 byte[] TempFile = new byte[rfs.Length];
                 rfs.Read(TempFile, 0, (int)rfs.Length);
                 rfs.Dispose();
-                f.replace(TempFile);
+                f.replace(TempFile, this);
             }
             UpdateFileInfo();
-            f.endEdit();
+            f.endEdit(this);
         }
 
         private void compressFileButton_Click(object sender, EventArgs e)
@@ -138,7 +138,7 @@ namespace NSMBe4.DSFileSystem
 
             try
             {
-                f.beginEdit();
+                f.beginEdit(this);
             }
             catch (AlreadyEditingException)
             {
@@ -147,9 +147,9 @@ namespace NSMBe4.DSFileSystem
             }     
             byte[] RawFile = f.getContents();
             byte[] CompFile = ROM.LZ77_Compress(RawFile);
-            f.replace(CompFile);
+            f.replace(CompFile, this );
             UpdateFileInfo();
-            f.endEdit();
+            f.endEdit(this);
         }
 
         private void decompressFileButton_Click(object sender, EventArgs e)
@@ -160,7 +160,7 @@ namespace NSMBe4.DSFileSystem
 
                 try
                 {
-                    f.beginEdit();
+                    f.beginEdit(this);
                 }
                 catch (AlreadyEditingException)
                 {
@@ -169,9 +169,9 @@ namespace NSMBe4.DSFileSystem
                 }     
                 byte[] CompFile = f.getContents();
                 byte[] RawFile = ROM.LZ77_Decompress(CompFile);
-                f.replace(RawFile);
+                f.replace(RawFile, this);
                 UpdateFileInfo();
-                f.endEdit();
+                f.endEdit(this);
             }
             catch (Exception)
             {

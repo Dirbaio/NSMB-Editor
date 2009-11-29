@@ -243,7 +243,7 @@ namespace NSMBe4 {
         }
 
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (MessageBox.Show(LanguageManager.Get("LevelChooser", "ConfirmDelObjects"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
+            if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelObjects"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
                 return;
             }
 
@@ -255,7 +255,7 @@ namespace NSMBe4 {
         }
 
         private void deleteAllSpritesToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (MessageBox.Show(LanguageManager.Get("LevelChooser", "ConfirmDelSprites"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
+            if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelSprites"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
                 return;
             }
 

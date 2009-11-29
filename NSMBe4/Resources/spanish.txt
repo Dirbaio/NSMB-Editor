@@ -85,7 +85,6 @@ ImportReady=Parche aplicado! {0} archivos sustituidos.
 Error=Error al aplicar el parche. Algun archivo ya se esta editando. Cierra todos los editores y prueba otra vez.
 
 
-
 [LevelEditor]
 saveLevelButton=Guardar Nivel
 viewMinimapButton=Ver Mapa
@@ -103,6 +102,7 @@ zoomMenu=Zoom
 optionsMenu=Opciones
 
 ;these are submenus, they need to be added manually in LevelEditor's constructor...
+reloadTilesets=Actualizar series de objetos
 smallBlockOverlaysToolStripMenuItem=Ver contenidos de bloque en pequeño
 deleteAllObjectsToolStripMenuItem=Borrar todos los objetos
 deleteAllSpritesToolStripMenuItem=Borrar todos los sprites
@@ -125,13 +125,29 @@ CreateSprite=Crear Sprite
 
 
 
+[ColourPicker]
+_TITLE=Seleccionar color
+saveButton=Guardar
+cancelButton=Cancelar
+
+Red=Rojo
+Green=Verde
+Blue=Azul
+Preview=Vista previa
+
+
+
 [DataFinder]
 _TITLE=Buscador de datos
 label1=Esta herramienta no es util para todos. Pero si estas tratando de buscar algo especifico (por ejemplo, como funcionan los datos de un sprite) puedes usarlo para obtener una lista de todas las veces que esta usado - para que sepas donde mirar.
 findBlockRadioButton=Buscar todos los bloques
 findSpriteRadioButton=Buscar todos los sprites
-label2=partido en:
+label2=partir por:
 processButton=Buscar!
+
+ChooseMode=Escoge un modo para buscar.
+BlockInstances=-- Todas las apariciones del bloque {0}: --
+SpriteInstances=-- Todas las apariciones del sprite {0}: --
 
 
 
@@ -150,7 +166,7 @@ label20=ID de conexion:
 label21=Vista:
 entranceSetting128=Bloquear entrada (para tuberias y puertas)
 entranceSetting16=Usar transicion desaparicion
-entranceSetting8=Usar connexion de tuberia
+entranceSetting8=Usar conexion de tuberia
 entranceSetting1=Ver en pantalla inferior (solo entradas)
 
 
@@ -162,12 +178,12 @@ saveButton=Guardar
 
 
 [FilesystemBrowser]
-label1=Info seleccion:
+label1=Info de la seleccion:
 extractFileButton=Extraer
 replaceFileButton=Sustituir
 compressFileButton=Comprimir LZ
 decompressFileButton=Descomprimir LZ
-hexEdButton=Editar hex
+hexEdButton=Editar en hex
 
 FolderStatus=Carpeta: {0} - ID {1}
 FileStatus=Posicion: {0} - Tamaño: {1} bytes - ID: {2}
@@ -180,6 +196,15 @@ _TITLE=Navegador de Archivos
 
 
 
+[GraphicsEditor]
+zoomLabel={0}%
+hoverStatus=({0},{1})
+imageStatus=imagen {0}bpp, {1}x{2}
+paletteChooserLabel=Paleta:
+
+
+
+
 [GraphicsViewer]
 _TITLE=Visualizador de Graficos
 label1=Paleta:
@@ -189,7 +214,7 @@ use4bpp=Usar formato 4bpp
 
 
 [ImagePreviewer]
-_TITLE=Ver Imagen
+_TITLE=Vista previa
 
 
 
@@ -221,6 +246,9 @@ tilesetPreviewButton=Probar
 bgTopLayerPreviewButton=Probar
 bgBottomLayerPreviewButton=Probar
 
+;Preview stuff
+BlankBG=Este fondo está vacío y no hay nada que ver!
+BrokenBG=Este fondo se ha estropeado ;)
 
 ;sound sets
 label15=Sonidos:
@@ -236,7 +264,7 @@ UnsavedLevel=Este nivel tiene cambios sin guardar.\nSi cierras el editor sin gua
 [Map16Editor]
 groupBox1=Elegir bloque
 groupBox2=Opciones de bloque
-groupBox3=Solidez
+groupBox3=Tipo de bloque
 groupBox4=Herramientas
 label1=Numero de bloque
 label2=Byte de control
@@ -258,7 +286,7 @@ OverlayFile=ID {0} cargado con {2} bytes a posicion {1}
 
 [NSMBLevel]
 InvalidFile=Este no es un archivo de nivel de NSMB Editor 4. Si esta seguro de que es un nivel valido, puede estar corrupto.
-Unreadable=Error de Archivo
+Unreadable=No se puede leer el archivo
 OldVersion=Este archivo de nivel estaba creado con una version mas nueva del editor y ya no es compatible por cambios en el formato. No se puede usar: descarga la version actualizada.
 Unusable=Archivo Inutilizable
 Mismatch=Este archivo se está importando en un nivel diferente que el original.\nTodavia funcionará (y puede ser tu intencion) pero si este nivel es parte de un hack, estara en orden incorrecto.\nQuieres continuar?
@@ -329,7 +357,8 @@ search:Bucar:
 [TilesetChooser]
 _TITLE=Editar Objetos
 groupBox1=Elegir una serie de objetos para modificar:
-editJyotyuButton=Modificar Jyotyu (Serie 0: Bloques/Tuberias)
+editJyotyuButton=Editar Jyotyu (Serie 0: Bloques/Tuberias)
+editNoharaSubButton=Editar Nohara SubUnit (Serie 2: Castillo del final)
 openTilesetButton=Abrir
 
 
@@ -339,7 +368,8 @@ _TITLE=Edicion de Serie de Objetos - {0}
 toolStripButton1=Guardar Objetos
 tabPage1=Objetos
 tabPage2=Map16
-
+tabPage3=Graficos
+tapPage4=Importar / Exportar graficos
 
 
 [TilesetObjectEditor]
@@ -373,7 +403,7 @@ SpriteCount=Sprite {0} aparece {1} veces en este nivel.
 DeletedSprites={0} sprites borrados.
 ReplacedSprites={0} sprites sustituidos.
 NoSprites=No hay sprites en el nivel.
-NotFound=No podias encontrar este sprite.
+NotFound=No se ha encontrado ningun sprite.
 
 
 
@@ -397,7 +427,7 @@ label7=ID Ruta de Progreso:
 
 
 [LIST_Backgrounds]
-0: Cesped (colinas naranja y nubes)
+0: Cesped (colinas naranjas y nubes)
 1: Castillo
 2: Desierto (cielo azul, piramides)
 3: Bajo tierra
@@ -486,7 +516,7 @@ Tuberia (abajo)
 Tuberia (izquierda)
 Tuberia (derecha)
 Sin usar
-Pegar al suelo (solo entrada)
+Aporreando el suelo (solo entrada)
 Deslizandose (solo entrada)
 Nadando (solo entrada)
 Sin usar
@@ -494,12 +524,12 @@ Sin usar
 Sin usar
 Sin usar
 Sin usar
-Tuberia pequeña (arriba)
-Tuberia pequeña (abajo)
-Tuberia pequeña (izquierda)
-Tuberia pequeña (derecha)
-Saltando
-Enredadera
+Mini Tuberia (arriba)
+Mini Tuberia (abajo)
+Mini Tuberia (izquierda)
+Mini Tuberia (derecha)
+Saltando (solo entrada
+Enredadera (solo entrada
 Desconocido 1
 Desconocido 2
 Desconocido 3
@@ -658,7 +688,7 @@ Castillo M6|11|2
 Mundo 6-A|07|2
 Mundo 6-B|08|1
 Cañon sin usar (M6 a M8)|12|1
--Mundo 7 (secret)|G
+-Mundo 7 (secreto)|G
 Mundo 7-1|01|1
 Casa de Miedo M7|09|3
 Mundo 7-2|02|2
@@ -683,7 +713,7 @@ Mundo 8-7|07|1
 Mundo 8-8|08|2
 Torre Segunda M8|10|2
 Castillo Final M8|12|3
--Casas de Champiñon|I
+-Casas Champiñon|I
 Casa Champiñon 1|01|1
 Casa Champiñon 2|02|1
 Casa Champiñon 3|03|1
@@ -706,29 +736,29 @@ Nivel 5|10|1
 [LIST_Modifiers]
 -1
 0: Ninguno
-1: Generador de enemigos (287)
+1: Generador de enemigos en tubo (287)
 2: Enemigos del desierto (136,204)
 3: Enemigos castillo (36,53,56,193,194)
-4: Enemigos bajo agua (31,96,185,211,213,257)
+4: Enemigos acuaticos (31,96,185,211,213,257)
 5: Piedras cayendo (254)
 6: Swooper (94)
 7: Bowser Jr. (220)
 -2
 0: Ninguno
-1: Floro Piraña en tuberias (23,24,25,26)
+1: Flor Piraña en tuberias (23,24,25,26)
 2: Wiggler (90)
-3: Whomp y Koopa Pared (64,180)
+3: Whomp y Koopa de reja (64,180)
 4: Bicho agua (116)
 5: Snailicorn (89)
 6: Sprites sin usar (214,215,216,221)
 7: Crow (250,271)
-9: Activador de jefe (y llave) (29,39,129,140)
+9: Activador de jefe, Llave (29,39,129,140)
 -3
 0: Ninguno
 1: Hermanos Martillo/Fuego/etc (59,157,158,209)
 2: Chomp cadenas (42,43)
 3: Spike Bass (258,283)
-4: Tuberia hinchazon (245)
+4: Tubería que explota (245)
 5: Nube (323)
 -4
 0: Ninguno
@@ -762,32 +792,32 @@ Nivel 5|10|1
 3: Plataformas que mueven (78,119,126,127,187,249)
 4: Otras plataformas, cañon warpzone (75,77,128)
 5: Champiñones (162,174,203,238,239,242,244,267)
-6: Goo de Casa de Miedo (206)
+6: Gelatina de Casa Fantasma (206)
 -8
 0: Ninguno
 1: Rueda moviendo (99,176,177,178,179,246,282)
-2: Tierra hinchazon, plataformas (134,141,147,233)
+2: Tierra hinchable, plataformas (134,141,147,233)
 3: Cuerda caminable (142,146,191,232)
 4: Sin usar (125,175)
 5: Paredes, formas rotacion (70,82,86,97,112,223,224,236)
 6: Lanzallamas, pelota clavos en cadena (114,118,303)
 -9
 0: Ninguno
-1: Plataforma escala (76)
+1: Plataforma poleas (76)
 2: Cuerda (173)
 3: Broozer (237)
-4: Bloques verde moviendo (299)
-5: Pelota que bota a Mario (268)
+4: Bloques verdes moviles (299)
+5: Bola acuatica que rebota (268)
 6: Bloque expansible (201,289)
 7: Sin usar (188)
 -10
 0: Ninguno
 1: Sprites de nieve (272,274)
-2: Flecha, puerta moviendo en un solo sentido (277,279)
-3: Sprites de Casa de Miedo 2 (256,278,292,300)
+2: Flecha, puerta 1 sentido (277,279)
+3: Sprites de Casa Fantasma 2 (256,278,292,300)
 4: Wiggler Gigante (269)
-5: Clavo disparo (260,261,262,263,304,307,308,309)
-6: Pelota clavos (46,102,115)
+5: Pincho que se dispara (260,261,262,263,304,307,308,309)
+6: Bolas con pinchos (46,102,115)
 8: Casa champiñon (301,302)
 -16
 0: Ninguno
@@ -855,7 +885,7 @@ Nivel 5|10|1
 9=Puerta. Este objeto no funciona|sin una entrada|correspondiente.
 10=Bandera|de NSMB beta.
 11=Planta.
-16=Donut lift.
+16=Plataforma que cae
 18=Cambia a monedas|cuando tocado.
 19=Cambia a monedas|cuando tocado.
 26=Monedas activadas por|un P-switch.
@@ -924,7 +954,7 @@ Nivel 5|10|1
 24=Flor Carnívora en tuberia (abajo)
 25=Flor Carnívora en tuberia (derecha)
 26=Flor Carnívora en tuberia (izquierda)
-27=Lanzador de Bala Bill
+27=Cañón de Bala Bill
 28=Bob Omb
 29=Princesa Peach
 30=Tanque Monty
@@ -939,11 +969,11 @@ Nivel 5|10|1
 39=Activador de Jefe Final
 40=Sin usar
 41=Interruptor de Bowser
-42=Cadena-Chomp
-43=Sin usar
+42=Cadena-Chomp / Tronco
+43=Cadena-Chomp sin tronco
 44=Sin usar
 45=Bloque invisible con moneda
-46=Activador de bola con pinchos(102)
+46=Activador de bola con pinchos (102)
 47=Jefe Lakitu
 48=Burbujas desde tubería
 49=Burbujas hacia abajo desde tubería
@@ -957,23 +987,23 @@ Nivel 5|10|1
 57=Moneda (en burbuja si en el agua)
 58=Bowser cayendo del techo
 59=Hermano Martillo
-60=Sin usar
-61=Sin usar
-62=Sin usar
+60=Sin usar / Nada
+61=Sin usar / Nada
+62=Bowser sin usar
 63=Bowsitos (Bowser huesitos)
 64=Whomp
 65=Cheep Skipper
 66=P-Switch
 67=Desconocido, usado en 1-A
-68=Plataforma deslizante en vertical
-69=Plataforma deslizante en horizontal
-70=Sin usar
+68=Plataforma movil en vertical
+69=Plataforma movil en horizontal
+70=Tronco giratorio sin usar
 71=Bloque de piedra vertical movil
 72=Bloque de piedra movil
 73=Plataforma oscilante colgando
 74=Rocas inclinadas
 75=Plataforma balanza
-76=Plataforma escala
+76=Plataforma poleas
 77=Plataforma cayendo
 78=Plataforma que se mueve al tocarla
 79=Triple plataforma giratoria
@@ -1018,10 +1048,10 @@ Nivel 5|10|1
 118=Lanzallamas
 119=Plataforma pendulo
 120=Flor Carnivora
-121=Sin usar
+121=Sin usar / Nada
 122=Flor Carnivora Gigante
 123=Flor Carnivora que lanza fuego
-124=Sin usar
+124=Flor Carnivora Gigante que lanza fuego
 125=Sin usar
 126=Plataforma puente levadizo
 127=Plataforma giratoria gigante
@@ -1038,13 +1068,13 @@ Nivel 5|10|1
 138=Sin usar
 139=Sin usar
 140=Sin usar
-141=Tierra que se levanta/hunde
+141=Tierra hinchable
 142=Cuerda caminable
 143=Sin usar
-144=Bloque ? puntiagudo giratorio
-145=Bloque ? puntiagudo giratorio
+144=Bloque ? con pinchos giratorio
+145=Bloque ? con pinchos giratorio
 146=Plataforma que se gira si la golpeas
-147=Plataforma estilo Mario Bros
+147=Plataforma golpeable desde abajo
 148=Goomba
 149=Koopa Troopa
 150=Koopa Paratroopa
@@ -1052,7 +1082,7 @@ Nivel 5|10|1
 152=Bloque interruptor
 153=Sin usar
 154=Sin usar
-155=Teletransporte a otro nivel...
+155=Teletransporte a otro nivel
 156=Sin usar
 157=Hermano Fuego
 158=Hermano Boomerang
@@ -1064,20 +1094,20 @@ Nivel 5|10|1
 164=Sin usar
 165=Sin usar
 166=Sin usar
-167=Bloque ladrillo con interruptor-?
-168=Sprite Desconocido (5-1-2)
+167=Encadenar activadores
+168=Activar activador segun eventos
 169=Sin usar
 170=Sin usar
 171=Sin usar
 172=Sin usar
 173=Cuerda
-174=Moving Mushroom
+174=Seta movil
 175=Sin usar
 176=Sin usar
 177=Sin usar
 178=Sin usar
 179=Sin usar
-180=Koopa en Valla
+180=Koopa en Reja
 181=Sin usar
 182=Sin usar
 183=Lakitu
@@ -1086,9 +1116,9 @@ Nivel 5|10|1
 186=Paragoomba
 187=Plataforma controlable por Mario
 188=Sin usar
-189=Crear cañon tuberia
+189=Tuberia cañon
 190=Sin usar
-191=Bloque ? en cadena
+191=Bloque ? colgado rebotando
 192=Sin usar
 193=Huesitos Gigante
 194=Thwomp gigante
@@ -1101,13 +1131,13 @@ Nivel 5|10|1
 201=Sin usar
 202=Sin usar
 203=Sin usar
-204=Serpiente de fuego?
+204=Serpiente de fuego
 205=Flame Chomp
-206=Goo moviendo de Casa de Miedo
+206=Gelatina ondulada de Casa Fantasma
 207=Cheep Cheep Gigante
 208=Sin usar
 209=Gran Hermano Martillo
-210=Estrella Combate Vs.
+210=Estrella Batalla Vs.
 211=Blooper
 212=Sin usar
 213=Blooper con miniblooper alrededor
@@ -1143,12 +1173,12 @@ Nivel 5|10|1
 243=Roof Spiny
 244=Champiñon botar
 245=Tuberia hinchazon
-246=Barril rotacion
+246=Barril giratorio
 247=Generador de tiburones?
-248=Boo Kirby
+248=Boo Globo
 249=Plataforma de saltar en las paredes
 250=Crow
-251=Giant Eel
+251=Morena gigante
 252=Cañón de Balas Banzai (enormes)
 253=Sin usar
 254=Kab-omb
@@ -1175,7 +1205,7 @@ Nivel 5|10|1
 275=Bloque ? saltador
 276=Scroll stop?
 277=Flecha
-278=Gelatina de Casa Fantasma
+278=Gelatina de Casa Fantasma golpeable
 279=Puerta de una dirección
 280=Sprite Desconocido (1-4 and Castles)
 281=Floruga Jr. en tubería (7-A)
@@ -1184,7 +1214,7 @@ Nivel 5|10|1
 284=Calabaza
 285=Scuttle Bug Cayendo
 286=Activador de eventos continuo
-287=Tubería generadora de enemigos
+287=Generador de enemigos en tuberia
 288=Sin usar
 289=Bloque expansible
 290=Bloque ? volando
@@ -1194,9 +1224,9 @@ Nivel 5|10|1
 294=Scroll Stop Downward??
 295=Momia Pokey (jefe)
 296=Sin usar
-297=Bloque de piedra moviendo
-298=Bloque de piedra moviendo
-299=Bloques verde moviendo
+297=Bloque de piedra movil
+298=Bloque de piedra movil
+299=Bloques verdes moviles
 300=Plataforma fantasma moviendo
 301=Toadsworth
 302=Bloque de Casa Champiñón

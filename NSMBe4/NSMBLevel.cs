@@ -26,8 +26,8 @@ namespace NSMBe4
         {
             this.LevelFile = levelFile;
             this.BGFile = bgFile;
-            levelFile.beginEdit();
-            bgFile.beginEdit();
+            levelFile.beginEdit(this);
+            bgFile.beginEdit(this);
 
             int FilePos;
 
@@ -142,8 +142,8 @@ namespace NSMBe4
 
         public void close()
         {
-            BGFile.endEdit();
-            LevelFile.endEdit();
+            BGFile.endEdit(this);
+            LevelFile.endEdit(this);
         }
 
         public void Save() {
@@ -259,7 +259,7 @@ namespace NSMBe4
                 CurBlockOffset += Blocks[BlockIdx].Length;
             }
 
-            LevelFile.replace(LevelFileData);
+            LevelFile.replace(LevelFileData, this);
 
             // Next up, objects!
             FilePos = 0;
@@ -284,7 +284,7 @@ namespace NSMBe4
             BGDatFileData[FilePos] = 0xFF;
             BGDatFileData[FilePos + 1] = 0xFF;
 
-            BGFile.replace(BGDatFileData);
+            BGFile.replace(BGDatFileData, this);
         }
 
         public void ReRenderAll() {
@@ -315,7 +315,7 @@ namespace NSMBe4
         public static void ImportLevel(File destLevelFile, File destBGFile, System.IO.BinaryReader br) {
             try
             {
-                destLevelFile.beginEdit();
+                destLevelFile.beginEdit(br);
             }
             catch (AlreadyEditingException)
             {
@@ -325,11 +325,11 @@ namespace NSMBe4
 
             try
             {
-                destBGFile.beginEdit();
+                destBGFile.beginEdit(br);
             }
             catch (AlreadyEditingException)
             {
-                destLevelFile.endEdit();
+                destLevelFile.endEdit(br);
                 MessageBox.Show(LanguageManager.Get("Errors", "Level"));
                 return;
             }                
@@ -366,13 +366,13 @@ namespace NSMBe4
 
             int LevelFileLength = br.ReadInt32();
             byte[] LevelFileData = br.ReadBytes(LevelFileLength);
-            destLevelFile.replace(LevelFileData);
-            destLevelFile.endEdit();
+            destLevelFile.replace(LevelFileData, br);
+            destLevelFile.endEdit(br);
 
             int BGFileLength = br.ReadInt32();
             byte[] BGFileData = br.ReadBytes(BGFileLength);
-            destBGFile.replace(BGFileData);
-            destBGFile.endEdit();
+            destBGFile.replace(BGFileData, br);
+            destBGFile.endEdit(br);
         }
 
         public static void ExportLevel(File srcLevelFile, File srcBGFile, System.IO.BinaryWriter bw) {

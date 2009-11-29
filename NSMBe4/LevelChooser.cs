@@ -363,9 +363,9 @@ namespace NSMBe4 {
                     }
 
                     Console.Out.WriteLine("Replace " + fileName);
-                    f.beginEdit();
-                    f.replace(newFile);
-                    f.endEdit();
+                    f.beginEdit(this);
+                    f.replace(newFile, this);
+                    f.endEdit(this);
                     fileCount++;
                 }
             }
