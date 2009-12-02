@@ -1047,7 +1047,6 @@ namespace NSMBe4
 
         public void ImportGFX(string filename, bool newInSecondPal)
         {
-
             int tileCount = TilesetBuffer.Width / 8;
             int[] tilesUsed = new int[tileCount];
 

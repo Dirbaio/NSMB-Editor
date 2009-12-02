@@ -1,5 +1,5 @@
 Treeki's editor para New Super Mario Bros
-Version 4.8 - publicado 4 de Septiembre 2009
+Version 5.0 - publicado 29 de Noviembre de 2009
 http://jul.rustedlogic.net/thread.php?id=5814
 ----------
 Gracias por haber bajado mi nuevo editor.
@@ -42,11 +42,15 @@ v4.7 - 29 de Junio 2009:
 - Data para algunos objetos actualizados.
 - Puedes cambiar el tamaño de un objeto si tienes la tecla Shift pulsada.
 - Puedes hacer una copia de un objeto si tienes la tecla Ctrl pulsada.
-v4.8 - 4 de Septiembre 2009:
+v5 - 29 de Noviembre 2009:
 - Ya puedes bajar el codigo del editor; gracias a Dirbaio para casi todas las cosas en esta version!
 - Vistas se pueden cambiar.
 - Rutas se pueden cambiar.
-- Otros cambios menores.
+- Rutas de progreso se pueden cambiar.
+- Las Zonas de accion de sprites se pueden editar.
+- Editor de Rutas de Objetos, con edicion de objetos, map16, graficos y importar desde png
+- Nuevo codigo de manejar archivos. Ahora mucho mas rapido
+- Muchos cambios menores... Prueba el editor y descubrelos...
 
 ----------
 Preguntas:
@@ -81,14 +85,16 @@ Cambie el tamaño del nivel; ¿por qué no puedo entrar en la parte nueva?
 - Rutas estan usadas para algunas cosas en el juego - la camara que mueve automaticamente, algunos enemigos como "Dorrie" (el dinosaurio del Mundo 4), el tren de bloques y tuberias conectadas.
   Para editarlas: Todas las rutas deberian de tener un punto o mas. Pulsa el boton Ctrl y haz clic en un punto y mueve el raton para añadir un punto nuevo. Pulsa el boton Shift cuando mueves un punto para que se quede entre 8 pixels. Pulsa el boton Alt y haz clic en un punto para borrar el punto.
 
-¿Hay trucos que puedo usar para editar niveles mas pronto?
+¿Hay trucos que puedo usar para editar niveles mas rapido?
 - Pulsa el boton Ctrl y mueve un objeto, sprite o entrada para hacer una copia de el. Puedes mover la parte del nivel en la pantalla pronto pulsando el boton derecho en el raton y moviendolo.
 
 ¡No lo puedo ejecutar!
 - Mira para ver si tienes el Microsoft .NET Framework 2.0 instalado. (Si estas en Vista, ya lo deberias tener.) Si no, baja esto: http://www.microsoft.com/downloads/details.aspx?displaylang=en&FamilyID=0856eacb-4362-4b0d-8edd-aab15c5e04f5
 
 No tengo Windows; ¿puedo usarlo?
-- Desde la versión 4.4, trabaja en Mono: http://www.mono-project.com/Main_Page
+- Desde la versión 4.4, funciona en Mono: http://www.mono-project.com/Main_Page
+En linux basado en Debian, puedes instalar mono así:
+sudo apt-get install mono
 
 ¿Donde bajo un ROM de NSMB?
 - http://www.google.es
@@ -101,8 +107,8 @@ Mi pregunta no esta aqui..
 Creditos:
 
 Treeki- Diseño y codigo
-Blackhole89- Codigo para dibujar objetos
 Dirbaio- Codigo para editar vistas, rutas y otras cosas
+Blackhole89- Codigo para dibujar objetos original
 Piranhaplant- Lista de sprites en ingles
 Madman200, Tanks- Informacion en el data de sprites
 Master01- Lista de sprites en español

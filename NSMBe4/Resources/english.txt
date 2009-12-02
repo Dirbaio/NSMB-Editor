@@ -16,7 +16,7 @@ Level=This level is already being edited.
 File=This file is already being edited.
 
 [LevelChooser]
-_TITLE=NSMB Editor 4.8
+_TITLE=NSMB Editor 5.0 - by Treeki and Dirbaio
 
 tabPage1=File Browser
 tabPage2=Level Editor
@@ -370,6 +370,13 @@ tabPage1=Objects
 tabPage2=Map16
 tabPage3=Graphics
 tabPage4=Import / Export GFX
+filenameLabel=PNG file:
+selectFileButton=Browse...
+importButton=Import
+exportButton=Export
+newTilesGroupBox=Insert new tiles in:
+palette1RadioButton=Palette 1
+palette2RadioButton=Palette 2
 
 
 [TilesetObjectEditor]

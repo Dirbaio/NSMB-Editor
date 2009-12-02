@@ -1,5 +1,5 @@
 Treeki's New Super Mario Bros editor
-Version 4.8 - released 4th September 2009
+Version 5.0 - released 29th November 2009
 http://jul.rustedlogic.net/thread.php?id=5814
 ----------
 Thanks for downloading my new editor.
@@ -39,11 +39,13 @@ v4.7 - 29th June 2009:
 - Object definitions updated.
 - Dragging an object with the Shift key held will now allow you to resize it.
 - Clicking and/or dragging an object with the Ctrl key held will create an exact clone of it.
-v4.8 - 4th September 2009:
+v5.0 - 29th November 2009:
 - Editor now open-source; thanks to Dirbaio for almost all the additions in this release!
-- Views are now editable.
-- Paths are now editable.
+- Views and Zones are now editable.
+- Paths and Progress Paths are now editable.
 - Some interface updates.
+- New code to handle files, a lot faster and safer
+- Lots of minor changes... Try the editor and see them!...
 
 ----------
 FAQ:
@@ -87,6 +89,8 @@ A: Check to make sure you have the .NET Framework 2.0 installed. (If you're on V
 
 Q: I don't have Windows, can I use it?
 A: As from version 4.4, it works on Mono: http://www.mono-project.com/Main_Page
+In Debian-based Linux, you can install mono by typing this into a terminal:
+sudo apt-get install mono
 
 Q: Where do I get a NSMB ROM?
 A: http://www.google.com
@@ -99,8 +103,8 @@ A: The official forum for this editor is here: http://jul.rustedlogic.net/forum.
 Credits:
 
 Treeki- Main coding and design
+Dirbaio- View editing, path editing, lots of other contributions
 Blackhole89- Object parsing/rendering code
-Dirbaio- View editing, path editing, other contributions
 Piranhaplant- Sprite list
 Master01 - Spanish translation for the sprite list
 Treeki, Piranhaplant, Madman200- Sprite data list

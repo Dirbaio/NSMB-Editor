@@ -1,4 +1,4 @@
-﻿;NSMB Editor 4
+﻿;NSMB Editor 5
 ;Spanish Translation File
 ;Created by Treeki; 12 Oct 2009
 
@@ -16,7 +16,7 @@ Level=Este nivel ya esta siendo editado.
 File=Este archivo ya esta siendo editado.
 
 [LevelChooser]
-_TITLE=New Super Mario Bros Editor 4.8
+_TITLE=NSMB Editor 5.0 - por Treeki y Dirbaio
 
 tabPage1=Sistema de archivos
 tabPage2=Editor de niveles
@@ -369,21 +369,27 @@ toolStripButton1=Guardar Objetos
 tabPage1=Objetos
 tabPage2=Map16
 tabPage3=Graficos
-tapPage4=Importar / Exportar graficos
-
+tabPage4=Importar / Exportar graficos
+filenameLabel=Archivo PNG:
+selectFileButton=Explorar...
+importButton=Importar
+exportButton=Exportar
+newTilesGroupBox=Insertar bloques nuevos en:
+palette1RadioButton=Paleta 1
+palette2RadioButton=Paleta 2
 
 [TilesetObjectEditor]
 label5=Editor de Objetos
 groupBox2=Opciones de objeto
 label7=Altura
 label6=Anchura
-groupBox1=Opciones de teja
-label1=Numero de Teja Map16
+groupBox1=Opciones de bloque
+label1=Numero de bloque Map16
 label2=Byte de Control
-label3=Preestreno de Objeto:
-label4=Tejas Map16:
-slopeControlButton=Crear Cuesta
-emptyTileButton=Teja Vacia
+label3=Vista previa de Objeto:
+label4=Bloques Map16:
+slopeControlButton=Crear Control de Pendiente
+emptyTileButton=Bloque vacío
 newLineButton=Nueva Linea
 
 
