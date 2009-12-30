@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using NSMBe4.DSFileSystem;
+using System.IO;
 
 
 namespace NSMBe4 {
@@ -98,6 +99,56 @@ namespace NSMBe4 {
             g.Tilesets[1].save();
             ROM.close();
            */
+            /*
+            string path = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\";
+            string file = path + "Copia de Hard Super Dario Bros.nds";
+
+            NitroFilesystem fs = new NitroFilesystem(file);
+            List<DSFileSystem.File> filesToMove = new List<NSMBe4.DSFileSystem.File>();
+            foreach (DSFileSystem.File f in fs.allFiles)
+            {
+                if (f.fileBegin > 0x1Fe800 && f.fileBegin < 0x1Fe800 + 0x0386A0 && f.fileBegin != 0)
+                {
+                    filesToMove.Add(f);
+                }
+            }
+
+            foreach (DSFileSystem.File f in filesToMove)
+            {
+                Console.Out.WriteLine("Moving " + f.name);
+                f.moveTo(fs.getFilesystemEnd());
+            }
+
+            fs.close();
+
+            FileStream s = new FileStream(file, FileMode.Open, FileAccess.ReadWrite);
+
+            Bitmap b = new Bitmap(path + "hsdbintroa.png");
+            byte[] data = compressImage(b);
+            uint imgoffs = 0x1Fe800 + 0x0286A0 + 0x1000;
+            Console.Out.WriteLine("Inserting image at 0x"+imgoffs.ToString("X")+
+                ", Size: 0x" + data.Length.ToString("X") + " bytes");
+            s.Seek(imgoffs, SeekOrigin.Begin);
+            s.Write(data, 0, data.Length);
+
+            byte[] header = new byte[0x15E];
+            s.Seek(0, SeekOrigin.Begin);
+            s.Read(header, 0, 0x15E);
+
+            ushort crc16 = ROM.CalcCRC16(header);
+            s.Seek(0x15e, SeekOrigin.Begin);
+            s.WriteByte((byte)(crc16 & 0xff));
+            s.WriteByte((byte)(crc16 >> 8));
+            s.Close();
+            return;
+
+
+             */
+
+            /*
+            Bitmap b = new Bitmap("C:\\image.png");
+            new ImageTiler(b);
+           */
 
             if (Properties.Settings.Default.Language == 0) {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
@@ -106,6 +157,46 @@ namespace NSMBe4 {
             }
 
             Application.Run(new LevelChooser());
+        }
+
+        public static byte[] compressImage(Bitmap b)
+        {
+            ByteArrayOutputStream img = new ByteArrayOutputStream();
+            bool first = true;
+            ushort currVal = 0, currCount = 0;
+            for (int y = 0; y < b.Height; y++)
+                for (int x = 0; x < b.Width; x++)
+                {
+                    ushort val = NSMBTileset.toRGB15(b.GetPixel(x, y));
+                    if ((val == currVal && !first) || currCount == 0xFFFF)
+                    {
+                        currCount++;
+                    }
+                    else
+                    {
+                        if (!first)
+                        {
+                            if (currCount == 1)
+                                img.writeUShort(currVal);
+                            else
+                            {
+                                img.writeUShort((ushort)(currVal | (ushort)0x8000));
+                                img.writeUShort(currCount);
+                            }
+                        }
+                        currVal = val;
+                        currCount = 1;
+                    }
+                    first = false;
+                }
+            if (currCount == 1)
+                img.writeUShort(currVal);
+            else
+            {
+                img.writeUShort((ushort)(currVal | (ushort)0x8000));
+                img.writeUShort(currCount);
+            }
+            return img.getArray();
         }
     }
 }

@@ -394,6 +394,7 @@
     <Compile Include="DSFileSystem\FilesystemSource.cs" />
     <Compile Include="DSFileSystem\Directory.cs" />
     <Compile Include="DSFileSystem\HeaderFile.cs" />
+    <Compile Include="DSFileSystem\NarcFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="GraphicsEditor\ColourPicker.cs">
       <SubType>Form</SubType>

@@ -323,22 +323,34 @@ namespace NSMBe4
             repaintAllMap16();
         }
 
-        private void savePalette() {
+        public static ushort toRGB15(Color c)
+        {
+            byte r = (byte)(c.R >> 3);
+            byte g = (byte)(c.G >> 3);
+            byte b = (byte)(c.B >> 3);
+
+            ushort val = 0;
+
+            val |= r;
+            val |= (ushort)(g << 5);
+            val |= (ushort)(b << 10);
+            return val;
+        }
+
+        public static byte[] paletteToRawData(Color[] pal)
+        {
             ByteArrayOutputStream file = new ByteArrayOutputStream();
-            for (int i = 0; i < 512; i++)
+            for (int i = 0; i < pal.Length; i++)
             {
-                byte r = (byte)(Palette[i].R >> 3);
-                byte g = (byte)(Palette[i].G >> 3);
-                byte b = (byte)(Palette[i].B >> 3);
-
-                ushort val = 0;
-
-                val |= r;
-                val |= (ushort)(g << 5);
-                val |= (ushort)(b << 10);
-                file.writeUShort(val);
+                file.writeUShort(toRGB15(pal[i]));
             }
-            PalFile.replace(ROM.LZ77_Compress(file.getArray()), this);
+            return file.getArray();
+        }
+
+        private void savePalette()
+        {
+            byte[] data = paletteToRawData(Palette);
+            PalFile.replace(ROM.LZ77_Compress(data), this);
         }
 
 

@@ -7,8 +7,9 @@ namespace NSMBe4.DSFileSystem
 {
     public class NitroFilesystem : Filesystem
     {
-        private File headerFile, fatFile, fntFile, arm7binFile, arm9binFile, arm7ovFile, arm9ovFile;
-        
+        public File fatFile, fntFile, arm7binFile, arm9binFile, arm7ovFile, arm9ovFile;
+        public HeaderFile headerFile;
+
         public NitroFilesystem(String n) : base(new ExternalFilesystemSource(n))
         {
             load();
@@ -18,7 +19,7 @@ namespace NSMBe4.DSFileSystem
         {
             mainDir = new Directory(this, null, true, "FILESYSTEM", -100);
             addDir(mainDir);
-            headerFile = new File(this, mainDir, true, -1, "__NDS ROM HEADER", 0, 0x15D);
+            headerFile = new HeaderFile(this, mainDir);
             fntFile    = new File(this, mainDir, true, -2, "__NDS ROM FNT", headerFile, 0x40, 0x44, true);
             fatFile = new File(this, mainDir, true, -3, "__NDS ROM FAT", headerFile, 0x48, 0x4C, true);
             arm9ovFile = new File(this, mainDir, true, -4, "__NDS ROM ARM9 OVT", headerFile, 0x50, 0x54, true);
@@ -111,6 +112,29 @@ namespace NSMBe4.DSFileSystem
             File f = new File(this, parent, false, fileID, fileName, fatFile, beginOffs, endOffs);
             parent.childrenFiles.Add(f);
             addFile(f);
+        }
+
+        public override void fileMoved(File f)
+        {
+            uint end = getFilesystemEnd();
+            headerFile.setUintAt(0x80, end);
+            headerFile.UpdateCRC16();
+        }
+
+        public void disableOverlay0Compression()
+        {
+            // THIS DISABLES COMPRESSION!!
+            // setting 0x1F in the overlay table to 02 is what causes the game
+            // to bypass it - I'm not sure if the RAM size needs to be written
+            // as well, but I do it anyway just in case.. ~Treeki
+
+            arm9ovFile.setUintAt(8, getFileById(0).fileSize);
+            arm9ovFile.setByteAt(0x1F, 2);
+        }
+
+        public bool isOverlay0Compressed()
+        {
+            return arm9ovFile.getByteAt(0x1F) != 0x02;
         }
     }
 }

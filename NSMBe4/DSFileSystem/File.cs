@@ -28,11 +28,12 @@ namespace NSMBe4.DSFileSystem
         private File endFile;
         private uint endOffset;
         private bool endIsSize; //means that the end offset is the size of the file
+        protected bool fixedFile; //means that the file cant be moved nor changed size
 
         public uint fileBegin;
         public uint fileSize;
 
-        private Filesystem parent;
+        protected Filesystem parent;
 
         private Object editedBy = null;
         public Boolean beingEdited
@@ -96,19 +97,6 @@ namespace NSMBe4.DSFileSystem
             Console.Out.WriteLine("[" + id + "] " + name + ", at " + fileBegin.ToString("X") + ", size: " + fileSize);
         }
 
-        public uint getUintAt(uint offset)
-        {
-            long pos = parent.s.Position;
-            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
-
-            uint res = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                res |= (uint)parent.s.ReadByte() << 8 * i;
-            }
-            parent.s.Seek(pos, SeekOrigin.Begin);
-            return res;
-        }
 
         private void refreshOffsets()
         {
@@ -137,6 +125,20 @@ namespace NSMBe4.DSFileSystem
                     endFile.setUintAt(endOffset, fileBegin + fileSize);
         }
 
+        public uint getUintAt(uint offset)
+        {
+            long pos = parent.s.Position;
+            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
+
+            uint res = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                res |= (uint)parent.s.ReadByte() << 8 * i;
+            }
+            parent.s.Seek(pos, SeekOrigin.Begin);
+            return res;
+        }
+
         public void setUintAt(uint offset, uint val)
         {
             long pos = parent.s.Position;
@@ -148,6 +150,51 @@ namespace NSMBe4.DSFileSystem
             }
             parent.s.Seek(pos, SeekOrigin.Begin);
         }
+
+        public ushort getUshortAt(uint offset)
+        {
+            long pos = parent.s.Position;
+            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
+
+            ushort res = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                res |= (ushort) (parent.s.ReadByte() << 8 * i);
+            }
+            parent.s.Seek(pos, SeekOrigin.Begin);
+            return res;
+        }
+
+
+        public void setUshortAt(uint offset, ushort val)
+        {
+            long pos = parent.s.Position;
+            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
+            for (int i = 0; i < 2; i++)
+            {
+                parent.s.WriteByte((byte)(val & 0xFF));
+                val >>= 8;
+            }
+            parent.s.Seek(pos, SeekOrigin.Begin);
+        }
+
+        public byte getByteAt(uint offs)
+        {
+            long pos = parent.s.Position;
+            parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
+            byte res = (byte)parent.s.ReadByte();
+            parent.s.Seek(pos, SeekOrigin.Begin);
+            return res;
+        }
+
+        public void setByteAt(uint offs, byte val)
+        {
+            long pos = parent.s.Position;
+            parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
+            parent.s.WriteByte(val);
+            parent.s.Seek(pos, SeekOrigin.Begin);
+        }
+
         /*
         //This routine moves the next file to Pos
         //if its before pos
@@ -198,7 +245,10 @@ namespace NSMBe4.DSFileSystem
                 throw new Exception("NOT EDITING FILE " + name);
 
             if(editor != editedBy)
-                throw new Exception("NOT CORRECT EDITOR" + name);
+                throw new Exception("NOT CORRECT EDITOR " + name);
+
+            if(newFile.Length != fileSize && fixedFile)
+                throw new Exception("TRYING TO RESIZE FIXED FILE: " + name);
 
 //            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             uint newStart = fileBegin;
@@ -217,6 +267,16 @@ namespace NSMBe4.DSFileSystem
             //update ending pos
             fileBegin = newStart;
             fileSize = (uint)newFile.Length;
+            saveOffsets();
+            parent.fileMoved(this);
+        }
+
+        public void moveTo(uint newOffs)
+        {
+            byte[] data = getContents();
+            parent.s.Seek(newOffs, SeekOrigin.Begin);
+            parent.s.Write(data, 0, data.Length);
+            fileBegin = newOffs;
             saveOffsets();
         }
 
@@ -245,5 +305,7 @@ namespace NSMBe4.DSFileSystem
 
             editedBy = null;
         }
+
+        public virtual void fileModified() { }
     }
 }

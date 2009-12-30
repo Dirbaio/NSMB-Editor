@@ -119,5 +119,17 @@ namespace NSMBe4.DSFileSystem
                 Console.Out.WriteLine(f.name + " " + f.fileBegin.ToString("X") + " - " + (f.fileBegin + f.fileSize - 1).ToString("X"));
             }
         }
+
+        public virtual void fileMoved(File f)
+        {
+        }
+
+        public uint getFilesystemEnd()
+        {
+            allFiles.Sort();
+            File lastFile = allFiles[allFiles.Count - 1];
+            uint end = lastFile.fileBegin + lastFile.fileSize; //well, 1 byte doesnt matter
+            return end;
+        }
     }
 }

@@ -26,66 +26,72 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label13 = new System.Windows.Forms.Label();
-            this.set6ComboBox = new System.Windows.Forms.ComboBox();
-            this.set7ComboBox = new System.Windows.Forms.ComboBox();
-            this.set8ComboBox = new System.Windows.Forms.ComboBox();
-            this.set9ComboBox = new System.Windows.Forms.ComboBox();
-            this.set10ComboBox = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.set16ComboBox = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.set16ComboBox = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.set10ComboBox = new System.Windows.Forms.ComboBox();
+            this.set9ComboBox = new System.Windows.Forms.ComboBox();
+            this.set8ComboBox = new System.Windows.Forms.ComboBox();
+            this.set7ComboBox = new System.Windows.Forms.ComboBox();
+            this.set6ComboBox = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.set1ComboBox = new System.Windows.Forms.ComboBox();
-            this.set2ComboBox = new System.Windows.Forms.ComboBox();
-            this.set3ComboBox = new System.Windows.Forms.ComboBox();
-            this.set4ComboBox = new System.Windows.Forms.ComboBox();
-            this.set5ComboBox = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.set5ComboBox = new System.Windows.Forms.ComboBox();
+            this.set4ComboBox = new System.Windows.Forms.ComboBox();
+            this.set3ComboBox = new System.Windows.Forms.ComboBox();
+            this.set2ComboBox = new System.Windows.Forms.ComboBox();
+            this.set1ComboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.bgBottomLayerComboBox = new System.Windows.Forms.ComboBox();
-            this.bgBottomLayerPreviewButton = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.bgTopLayerComboBox = new System.Windows.Forms.ComboBox();
-            this.bgTopLayerPreviewButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tilesetComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetPreviewButton = new System.Windows.Forms.Button();
+            this.tilesetComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.bgTopLayerPreviewButton = new System.Windows.Forms.Button();
+            this.bgTopLayerComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.bgBottomLayerPreviewButton = new System.Windows.Forms.Button();
+            this.bgBottomLayerComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.miniMarioPhysicsCheckBox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timeLimitUpDown = new System.Windows.Forms.NumericUpDown();
+            this.startEntranceUpDown = new System.Windows.Forms.NumericUpDown();
             this.levelWrapCheckBox = new System.Windows.Forms.CheckBox();
             this.forceMiniCheckBox = new System.Windows.Forms.CheckBox();
-            this.startEntranceUpDown = new System.Windows.Forms.NumericUpDown();
-            this.timeLimitUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.miniMarioPhysicsCheckBox = new System.Windows.Forms.CheckBox();
             this.midwayEntranceUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.soundSetUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.bgTopLayerExportButton = new System.Windows.Forms.Button();
+            this.bgTopLayerImportButton = new System.Windows.Forms.Button();
+            this.bgBottomLayerExportButton = new System.Windows.Forms.Button();
+            this.bgBottomLayerImportButton = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.startEntranceUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeLimitUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startEntranceUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.midwayEntranceUpDown)).BeginInit();
-            this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.soundSetUpDown)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -133,105 +139,14 @@
             this.tabPage4.Text = "<tabPage4>";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // label14
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 9);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(16, 13);
-            this.label13.TabIndex = 10;
-            this.label13.Text = "6:";
-            // 
-            // set6ComboBox
-            // 
-            this.set6ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set6ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set6ComboBox.FormattingEnabled = true;
-            this.set6ComboBox.Location = new System.Drawing.Point(28, 6);
-            this.set6ComboBox.Name = "set6ComboBox";
-            this.set6ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set6ComboBox.TabIndex = 11;
-            // 
-            // set7ComboBox
-            // 
-            this.set7ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set7ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set7ComboBox.FormattingEnabled = true;
-            this.set7ComboBox.Location = new System.Drawing.Point(28, 33);
-            this.set7ComboBox.Name = "set7ComboBox";
-            this.set7ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set7ComboBox.TabIndex = 12;
-            // 
-            // set8ComboBox
-            // 
-            this.set8ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set8ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set8ComboBox.FormattingEnabled = true;
-            this.set8ComboBox.Location = new System.Drawing.Point(28, 60);
-            this.set8ComboBox.Name = "set8ComboBox";
-            this.set8ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set8ComboBox.TabIndex = 13;
-            // 
-            // set9ComboBox
-            // 
-            this.set9ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set9ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set9ComboBox.FormattingEnabled = true;
-            this.set9ComboBox.Location = new System.Drawing.Point(28, 87);
-            this.set9ComboBox.Name = "set9ComboBox";
-            this.set9ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set9ComboBox.TabIndex = 14;
-            // 
-            // set10ComboBox
-            // 
-            this.set10ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set10ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set10ComboBox.FormattingEnabled = true;
-            this.set10ComboBox.Location = new System.Drawing.Point(28, 114);
-            this.set10ComboBox.Name = "set10ComboBox";
-            this.set10ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set10ComboBox.TabIndex = 15;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 36);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(16, 13);
-            this.label12.TabIndex = 16;
-            this.label12.Text = "7:";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 63);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(16, 13);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "8:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 90);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(16, 13);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "9:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 117);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(22, 13);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "10:";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 144);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(22, 13);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "16:";
             // 
             // set16ComboBox
             // 
@@ -244,14 +159,105 @@
             this.set16ComboBox.Size = new System.Drawing.Size(369, 21);
             this.set16ComboBox.TabIndex = 20;
             // 
-            // label14
+            // label9
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 144);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(22, 13);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "16:";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 117);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(22, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "10:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 90);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(16, 13);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "9:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 63);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(16, 13);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "8:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 36);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(16, 13);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "7:";
+            // 
+            // set10ComboBox
+            // 
+            this.set10ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set10ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set10ComboBox.FormattingEnabled = true;
+            this.set10ComboBox.Location = new System.Drawing.Point(28, 114);
+            this.set10ComboBox.Name = "set10ComboBox";
+            this.set10ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set10ComboBox.TabIndex = 15;
+            // 
+            // set9ComboBox
+            // 
+            this.set9ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set9ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set9ComboBox.FormattingEnabled = true;
+            this.set9ComboBox.Location = new System.Drawing.Point(28, 87);
+            this.set9ComboBox.Name = "set9ComboBox";
+            this.set9ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set9ComboBox.TabIndex = 14;
+            // 
+            // set8ComboBox
+            // 
+            this.set8ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set8ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set8ComboBox.FormattingEnabled = true;
+            this.set8ComboBox.Location = new System.Drawing.Point(28, 60);
+            this.set8ComboBox.Name = "set8ComboBox";
+            this.set8ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set8ComboBox.TabIndex = 13;
+            // 
+            // set7ComboBox
+            // 
+            this.set7ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set7ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set7ComboBox.FormattingEnabled = true;
+            this.set7ComboBox.Location = new System.Drawing.Point(28, 33);
+            this.set7ComboBox.Name = "set7ComboBox";
+            this.set7ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set7ComboBox.TabIndex = 12;
+            // 
+            // set6ComboBox
+            // 
+            this.set6ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set6ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set6ComboBox.FormattingEnabled = true;
+            this.set6ComboBox.Location = new System.Drawing.Point(28, 6);
+            this.set6ComboBox.Name = "set6ComboBox";
+            this.set6ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set6ComboBox.TabIndex = 11;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(16, 13);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "6:";
             // 
             // tabPage3
             // 
@@ -273,58 +279,41 @@
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // label8
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(16, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "1:";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 117);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(16, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "5:";
             // 
-            // set1ComboBox
+            // label7
             // 
-            this.set1ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set1ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set1ComboBox.FormattingEnabled = true;
-            this.set1ComboBox.Location = new System.Drawing.Point(28, 6);
-            this.set1ComboBox.Name = "set1ComboBox";
-            this.set1ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set1ComboBox.TabIndex = 1;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 90);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(16, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "4:";
             // 
-            // set2ComboBox
+            // label6
             // 
-            this.set2ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set2ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set2ComboBox.FormattingEnabled = true;
-            this.set2ComboBox.Location = new System.Drawing.Point(28, 33);
-            this.set2ComboBox.Name = "set2ComboBox";
-            this.set2ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set2ComboBox.TabIndex = 2;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(16, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "3:";
             // 
-            // set3ComboBox
+            // label5
             // 
-            this.set3ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set3ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set3ComboBox.FormattingEnabled = true;
-            this.set3ComboBox.Location = new System.Drawing.Point(28, 60);
-            this.set3ComboBox.Name = "set3ComboBox";
-            this.set3ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set3ComboBox.TabIndex = 3;
-            // 
-            // set4ComboBox
-            // 
-            this.set4ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.set4ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.set4ComboBox.FormattingEnabled = true;
-            this.set4ComboBox.Location = new System.Drawing.Point(28, 87);
-            this.set4ComboBox.Name = "set4ComboBox";
-            this.set4ComboBox.Size = new System.Drawing.Size(369, 21);
-            this.set4ComboBox.TabIndex = 4;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(16, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "2:";
             // 
             // set5ComboBox
             // 
@@ -337,41 +326,58 @@
             this.set5ComboBox.Size = new System.Drawing.Size(369, 21);
             this.set5ComboBox.TabIndex = 5;
             // 
-            // label5
+            // set4ComboBox
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 36);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "2:";
+            this.set4ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set4ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set4ComboBox.FormattingEnabled = true;
+            this.set4ComboBox.Location = new System.Drawing.Point(28, 87);
+            this.set4ComboBox.Name = "set4ComboBox";
+            this.set4ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set4ComboBox.TabIndex = 4;
             // 
-            // label6
+            // set3ComboBox
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 63);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(16, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "3:";
+            this.set3ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set3ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set3ComboBox.FormattingEnabled = true;
+            this.set3ComboBox.Location = new System.Drawing.Point(28, 60);
+            this.set3ComboBox.Name = "set3ComboBox";
+            this.set3ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set3ComboBox.TabIndex = 3;
             // 
-            // label7
+            // set2ComboBox
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 90);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(16, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "4:";
+            this.set2ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set2ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set2ComboBox.FormattingEnabled = true;
+            this.set2ComboBox.Location = new System.Drawing.Point(28, 33);
+            this.set2ComboBox.Name = "set2ComboBox";
+            this.set2ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set2ComboBox.TabIndex = 2;
             // 
-            // label8
+            // set1ComboBox
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 117);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(16, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "5:";
+            this.set1ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set1ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.set1ComboBox.FormattingEnabled = true;
+            this.set1ComboBox.Location = new System.Drawing.Point(28, 6);
+            this.set1ComboBox.Name = "set1ComboBox";
+            this.set1ComboBox.Size = new System.Drawing.Size(369, 21);
+            this.set1ComboBox.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(16, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "1:";
             // 
             // tabPage2
             // 
@@ -386,76 +392,6 @@
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.bgBottomLayerPreviewButton);
-            this.groupBox3.Controls.Add(this.bgBottomLayerComboBox);
-            this.groupBox3.Location = new System.Drawing.Point(6, 110);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(391, 46);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "<groupBox3>";
-            // 
-            // bgBottomLayerComboBox
-            // 
-            this.bgBottomLayerComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgBottomLayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.bgBottomLayerComboBox.FormattingEnabled = true;
-            this.bgBottomLayerComboBox.Location = new System.Drawing.Point(6, 19);
-            this.bgBottomLayerComboBox.Name = "bgBottomLayerComboBox";
-            this.bgBottomLayerComboBox.Size = new System.Drawing.Size(298, 21);
-            this.bgBottomLayerComboBox.TabIndex = 0;
-            // 
-            // bgBottomLayerPreviewButton
-            // 
-            this.bgBottomLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgBottomLayerPreviewButton.Location = new System.Drawing.Point(310, 18);
-            this.bgBottomLayerPreviewButton.Name = "bgBottomLayerPreviewButton";
-            this.bgBottomLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
-            this.bgBottomLayerPreviewButton.TabIndex = 1;
-            this.bgBottomLayerPreviewButton.Text = "<bgBottomLayerPreviewButton>";
-            this.bgBottomLayerPreviewButton.UseVisualStyleBackColor = true;
-            this.bgBottomLayerPreviewButton.Click += new System.EventHandler(this.bgBottomLayerPreviewButton_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.bgTopLayerPreviewButton);
-            this.groupBox2.Controls.Add(this.bgTopLayerComboBox);
-            this.groupBox2.Location = new System.Drawing.Point(6, 58);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(391, 46);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "<groupBox2>";
-            // 
-            // bgTopLayerComboBox
-            // 
-            this.bgTopLayerComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgTopLayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.bgTopLayerComboBox.FormattingEnabled = true;
-            this.bgTopLayerComboBox.Location = new System.Drawing.Point(6, 19);
-            this.bgTopLayerComboBox.Name = "bgTopLayerComboBox";
-            this.bgTopLayerComboBox.Size = new System.Drawing.Size(298, 21);
-            this.bgTopLayerComboBox.TabIndex = 0;
-            // 
-            // bgTopLayerPreviewButton
-            // 
-            this.bgTopLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgTopLayerPreviewButton.Location = new System.Drawing.Point(310, 19);
-            this.bgTopLayerPreviewButton.Name = "bgTopLayerPreviewButton";
-            this.bgTopLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
-            this.bgTopLayerPreviewButton.TabIndex = 1;
-            this.bgTopLayerPreviewButton.Text = "<bgTopLayerPreviewButton>";
-            this.bgTopLayerPreviewButton.UseVisualStyleBackColor = true;
-            this.bgTopLayerPreviewButton.Click += new System.EventHandler(this.bgTopLayerPreviewButton_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -469,6 +405,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
             // 
+            // tilesetPreviewButton
+            // 
+            this.tilesetPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tilesetPreviewButton.Location = new System.Drawing.Point(310, 19);
+            this.tilesetPreviewButton.Name = "tilesetPreviewButton";
+            this.tilesetPreviewButton.Size = new System.Drawing.Size(75, 21);
+            this.tilesetPreviewButton.TabIndex = 1;
+            this.tilesetPreviewButton.Text = "<tilesetPreviewButton>";
+            this.tilesetPreviewButton.UseVisualStyleBackColor = true;
+            this.tilesetPreviewButton.Click += new System.EventHandler(this.tilesetPreviewButton_Click);
+            // 
             // tilesetComboBox
             // 
             this.tilesetComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -480,16 +427,79 @@
             this.tilesetComboBox.Size = new System.Drawing.Size(298, 21);
             this.tilesetComboBox.TabIndex = 0;
             // 
-            // tilesetPreviewButton
+            // groupBox2
             // 
-            this.tilesetPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tilesetPreviewButton.Location = new System.Drawing.Point(310, 19);
-            this.tilesetPreviewButton.Name = "tilesetPreviewButton";
-            this.tilesetPreviewButton.Size = new System.Drawing.Size(75, 21);
-            this.tilesetPreviewButton.TabIndex = 1;
-            this.tilesetPreviewButton.Text = "<tilesetPreviewButton>";
-            this.tilesetPreviewButton.UseVisualStyleBackColor = true;
-            this.tilesetPreviewButton.Click += new System.EventHandler(this.tilesetPreviewButton_Click);
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.bgTopLayerImportButton);
+            this.groupBox2.Controls.Add(this.bgTopLayerExportButton);
+            this.groupBox2.Controls.Add(this.bgTopLayerPreviewButton);
+            this.groupBox2.Controls.Add(this.bgTopLayerComboBox);
+            this.groupBox2.Location = new System.Drawing.Point(6, 58);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(391, 73);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "<groupBox2>";
+            // 
+            // bgTopLayerPreviewButton
+            // 
+            this.bgTopLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgTopLayerPreviewButton.Location = new System.Drawing.Point(6, 46);
+            this.bgTopLayerPreviewButton.Name = "bgTopLayerPreviewButton";
+            this.bgTopLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
+            this.bgTopLayerPreviewButton.TabIndex = 1;
+            this.bgTopLayerPreviewButton.Text = "<bgTopLayerPreviewButton>";
+            this.bgTopLayerPreviewButton.UseVisualStyleBackColor = true;
+            this.bgTopLayerPreviewButton.Click += new System.EventHandler(this.bgTopLayerPreviewButton_Click);
+            // 
+            // bgTopLayerComboBox
+            // 
+            this.bgTopLayerComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgTopLayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bgTopLayerComboBox.FormattingEnabled = true;
+            this.bgTopLayerComboBox.Location = new System.Drawing.Point(6, 19);
+            this.bgTopLayerComboBox.Name = "bgTopLayerComboBox";
+            this.bgTopLayerComboBox.Size = new System.Drawing.Size(379, 21);
+            this.bgTopLayerComboBox.TabIndex = 0;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.bgBottomLayerImportButton);
+            this.groupBox3.Controls.Add(this.bgBottomLayerExportButton);
+            this.groupBox3.Controls.Add(this.bgBottomLayerPreviewButton);
+            this.groupBox3.Controls.Add(this.bgBottomLayerComboBox);
+            this.groupBox3.Location = new System.Drawing.Point(6, 137);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(391, 72);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "<groupBox3>";
+            // 
+            // bgBottomLayerPreviewButton
+            // 
+            this.bgBottomLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgBottomLayerPreviewButton.Location = new System.Drawing.Point(6, 45);
+            this.bgBottomLayerPreviewButton.Name = "bgBottomLayerPreviewButton";
+            this.bgBottomLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
+            this.bgBottomLayerPreviewButton.TabIndex = 1;
+            this.bgBottomLayerPreviewButton.Text = "<bgBottomLayerPreviewButton>";
+            this.bgBottomLayerPreviewButton.UseVisualStyleBackColor = true;
+            this.bgBottomLayerPreviewButton.Click += new System.EventHandler(this.bgBottomLayerPreviewButton_Click);
+            // 
+            // bgBottomLayerComboBox
+            // 
+            this.bgBottomLayerComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgBottomLayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bgBottomLayerComboBox.FormattingEnabled = true;
+            this.bgBottomLayerComboBox.Location = new System.Drawing.Point(6, 19);
+            this.bgBottomLayerComboBox.Name = "bgBottomLayerComboBox";
+            this.bgBottomLayerComboBox.Size = new System.Drawing.Size(379, 21);
+            this.bgBottomLayerComboBox.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -533,16 +543,51 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(397, 218);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // miniMarioPhysicsCheckBox
+            // label2
             // 
-            this.miniMarioPhysicsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.miniMarioPhysicsCheckBox.AutoSize = true;
-            this.miniMarioPhysicsCheckBox.Location = new System.Drawing.Point(201, 153);
-            this.miniMarioPhysicsCheckBox.Name = "miniMarioPhysicsCheckBox";
-            this.miniMarioPhysicsCheckBox.Size = new System.Drawing.Size(110, 17);
-            this.miniMarioPhysicsCheckBox.TabIndex = 6;
-            this.miniMarioPhysicsCheckBox.Text = "mini mario physics";
-            this.miniMarioPhysicsCheckBox.UseVisualStyleBackColor = true;
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(148, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "<label2>";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(148, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "<label1>";
+            // 
+            // timeLimitUpDown
+            // 
+            this.timeLimitUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeLimitUpDown.Location = new System.Drawing.Point(201, 3);
+            this.timeLimitUpDown.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.timeLimitUpDown.Name = "timeLimitUpDown";
+            this.timeLimitUpDown.Size = new System.Drawing.Size(193, 20);
+            this.timeLimitUpDown.TabIndex = 0;
+            // 
+            // startEntranceUpDown
+            // 
+            this.startEntranceUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.startEntranceUpDown.Location = new System.Drawing.Point(201, 29);
+            this.startEntranceUpDown.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.startEntranceUpDown.Name = "startEntranceUpDown";
+            this.startEntranceUpDown.Size = new System.Drawing.Size(193, 20);
+            this.startEntranceUpDown.TabIndex = 4;
             // 
             // levelWrapCheckBox
             // 
@@ -566,41 +611,16 @@
             this.forceMiniCheckBox.Text = "force mini mario";
             this.forceMiniCheckBox.UseVisualStyleBackColor = true;
             // 
-            // startEntranceUpDown
+            // miniMarioPhysicsCheckBox
             // 
-            this.startEntranceUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.startEntranceUpDown.Location = new System.Drawing.Point(201, 29);
-            this.startEntranceUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.startEntranceUpDown.Name = "startEntranceUpDown";
-            this.startEntranceUpDown.Size = new System.Drawing.Size(193, 20);
-            this.startEntranceUpDown.TabIndex = 4;
-            // 
-            // timeLimitUpDown
-            // 
-            this.timeLimitUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeLimitUpDown.Location = new System.Drawing.Point(201, 3);
-            this.timeLimitUpDown.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.timeLimitUpDown.Name = "timeLimitUpDown";
-            this.timeLimitUpDown.Size = new System.Drawing.Size(193, 20);
-            this.timeLimitUpDown.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(148, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "<label1>";
+            this.miniMarioPhysicsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.miniMarioPhysicsCheckBox.AutoSize = true;
+            this.miniMarioPhysicsCheckBox.Location = new System.Drawing.Point(201, 153);
+            this.miniMarioPhysicsCheckBox.Name = "miniMarioPhysicsCheckBox";
+            this.miniMarioPhysicsCheckBox.Size = new System.Drawing.Size(110, 17);
+            this.miniMarioPhysicsCheckBox.TabIndex = 6;
+            this.miniMarioPhysicsCheckBox.Text = "mini mario physics";
+            this.miniMarioPhysicsCheckBox.UseVisualStyleBackColor = true;
             // 
             // midwayEntranceUpDown
             // 
@@ -615,15 +635,19 @@
             this.midwayEntranceUpDown.Size = new System.Drawing.Size(193, 20);
             this.midwayEntranceUpDown.TabIndex = 5;
             // 
-            // label2
+            // soundSetUpDown
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(148, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "<label2>";
+            this.soundSetUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.soundSetUpDown.Hexadecimal = true;
+            this.soundSetUpDown.Location = new System.Drawing.Point(201, 81);
+            this.soundSetUpDown.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.soundSetUpDown.Name = "soundSetUpDown";
+            this.soundSetUpDown.Size = new System.Drawing.Size(193, 20);
+            this.soundSetUpDown.TabIndex = 5;
             // 
             // label3
             // 
@@ -634,6 +658,16 @@
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "<label3>";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(148, 84);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(47, 13);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "<label3>";
             // 
             // tabControl1
             // 
@@ -650,29 +684,58 @@
             this.tabControl1.Size = new System.Drawing.Size(411, 250);
             this.tabControl1.TabIndex = 6;
             // 
-            // soundSetUpDown
+            // bgTopLayerExportButton
             // 
-            this.soundSetUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.soundSetUpDown.Hexadecimal = true;
-            this.soundSetUpDown.Location = new System.Drawing.Point(201, 81);
-            this.soundSetUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.soundSetUpDown.Name = "soundSetUpDown";
-            this.soundSetUpDown.Size = new System.Drawing.Size(193, 20);
-            this.soundSetUpDown.TabIndex = 5;
+            this.bgTopLayerExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgTopLayerExportButton.Location = new System.Drawing.Point(87, 46);
+            this.bgTopLayerExportButton.Name = "bgTopLayerExportButton";
+            this.bgTopLayerExportButton.Size = new System.Drawing.Size(75, 21);
+            this.bgTopLayerExportButton.TabIndex = 1;
+            this.bgTopLayerExportButton.Text = "<bgTopLayerExportButton>";
+            this.bgTopLayerExportButton.UseVisualStyleBackColor = true;
+            this.bgTopLayerExportButton.Click += new System.EventHandler(this.bgTopLayerExportButton_Click);
             // 
-            // label15
+            // bgTopLayerImportButton
             // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(148, 84);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(47, 13);
-            this.label15.TabIndex = 3;
-            this.label15.Text = "<label3>";
+            this.bgTopLayerImportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgTopLayerImportButton.Location = new System.Drawing.Point(168, 46);
+            this.bgTopLayerImportButton.Name = "bgTopLayerImportButton";
+            this.bgTopLayerImportButton.Size = new System.Drawing.Size(75, 21);
+            this.bgTopLayerImportButton.TabIndex = 1;
+            this.bgTopLayerImportButton.Text = "<bgTopLayerImportButton>";
+            this.bgTopLayerImportButton.UseVisualStyleBackColor = true;
+            this.bgTopLayerImportButton.Click += new System.EventHandler(this.bgTopLayerPreviewButton_Click);
+            // 
+            // bgBottomLayerExportButton
+            // 
+            this.bgBottomLayerExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgBottomLayerExportButton.Location = new System.Drawing.Point(87, 45);
+            this.bgBottomLayerExportButton.Name = "bgBottomLayerExportButton";
+            this.bgBottomLayerExportButton.Size = new System.Drawing.Size(75, 21);
+            this.bgBottomLayerExportButton.TabIndex = 1;
+            this.bgBottomLayerExportButton.Text = "<bgBottomLayerExportButton>";
+            this.bgBottomLayerExportButton.UseVisualStyleBackColor = true;
+            this.bgBottomLayerExportButton.Click += new System.EventHandler(this.bgBottomLayerExportButton_Click);
+            // 
+            // bgBottomLayerImportButton
+            // 
+            this.bgBottomLayerImportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgBottomLayerImportButton.Location = new System.Drawing.Point(168, 45);
+            this.bgBottomLayerImportButton.Name = "bgBottomLayerImportButton";
+            this.bgBottomLayerImportButton.Size = new System.Drawing.Size(75, 21);
+            this.bgBottomLayerImportButton.TabIndex = 1;
+            this.bgBottomLayerImportButton.Text = "<bgBottomLayerImportButton>";
+            this.bgBottomLayerImportButton.UseVisualStyleBackColor = true;
+            this.bgBottomLayerImportButton.Click += new System.EventHandler(this.bgBottomLayerImportButton_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "PNG images|*.png|All files|*.*";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "PNG images|*.png|All files|*.*";
             // 
             // LevelConfig
             // 
@@ -694,17 +757,17 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.startEntranceUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeLimitUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startEntranceUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.midwayEntranceUpDown)).EndInit();
-            this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.soundSetUpDown)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -761,5 +824,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Button bgTopLayerExportButton;
+        private System.Windows.Forms.Button bgTopLayerImportButton;
+        private System.Windows.Forms.Button bgBottomLayerImportButton;
+        private System.Windows.Forms.Button bgBottomLayerExportButton;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
