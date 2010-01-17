@@ -51,6 +51,10 @@ v5 - 29 de Noviembre 2009:
 - Editor de Rutas de Objetos, con edicion de objetos, map16, graficos y importar desde png
 - Nuevo codigo de manejar archivos. Ahora mucho mas rapido
 - Muchos cambios menores... Prueba el editor y descubrelos...
+v5.1 - 15 de enero de 2010
+- Edicion de serie de objetos 0
+- Importar fondos personalizados
+- Compatibilidad con TTDS (y posiblemente otras tarjetas flash)
 
 ----------
 Preguntas:
@@ -100,14 +104,14 @@ sudo apt-get install mono
 - http://www.google.es
 
 Mi pregunta no esta aqui..
-- Hay un foro en Ingles para el editor aqui: http://jul.rustedlogic.net/forum.php?id=11 - Si puedes escribir en Ingles, puedes enviar tus preguntas aqui.
+- Hay un foro en Ingles para el editor aqui: http://jul.rustedlogic.net/forum.php?id=11 - Si puedes escribir en Ingles, puedes poner tus preguntas aqui.
 
 
 ----------
 Creditos:
 
-Treeki- Diseño y codigo
-Dirbaio- Codigo para editar vistas, rutas y otras cosas
+Treeki- Diseño y codigo original
+Dirbaio- Programador actual. Codigo para editar vistas, rutas, series de objetos, fondos y otras cosas
 Blackhole89- Codigo para dibujar objetos original
 Piranhaplant- Lista de sprites en ingles
 Madman200, Tanks- Informacion en el data de sprites

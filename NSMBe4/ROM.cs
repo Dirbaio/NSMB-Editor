@@ -134,6 +134,19 @@ namespace NSMBe4 {
             return (ushort)((Overlay0[off] | (Overlay0[off + 1] << 8)) + GetOffset(Data.Number_FileOffset));
         }
 
+        public static void SetFileIDFromTable(int id, Data datatype, ushort fid)
+        {
+            SetFileIDFromTable(id, GetOffset(datatype), fid);
+        }
+
+        public static void SetFileIDFromTable(int id, int tableoffset, ushort fid)
+        {
+            int off = tableoffset + (id << 2);
+            fid -= (ushort) GetOffset(Data.Number_FileOffset);
+            Overlay0[off] = (byte)(fid & 0xFF);
+            Overlay0[off + 1] = (byte)(fid >> 8);
+        }
+
         public static int GetOffset(Data datatype) {
             return Offsets[(int)datatype, (int)Region];
         }

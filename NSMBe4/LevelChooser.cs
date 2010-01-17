@@ -348,25 +348,28 @@ namespace NSMBe4 {
                     progress.WriteLine(string.Format(LanguageManager.Get("Patch", "ReplacingFile"), fileName));
                     ushort origFileID = br.ReadUInt16();
                     NSMBe4.DSFileSystem.File f = ROM.FS.getFileByName(fileName);
-                    ushort fileID = (ushort)f.id;
-
                     uint length = br.ReadUInt32();
 
                     byte[] newFile = new byte[length];
                     br.Read(newFile, 0, (int)length);
                     filestartByte = br.ReadByte();
 
-                    if (!differentRomsWarning && origFileID != fileID)
+                    if (f != null)
                     {
-                        MessageBox.Show(LanguageManager.Get("Patch", "ImportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        differentRomsWarning = true;
-                    }
+                        ushort fileID = (ushort)f.id;
 
-                    Console.Out.WriteLine("Replace " + fileName);
-                    f.beginEdit(this);
-                    f.replace(newFile, this);
-                    f.endEdit(this);
-                    fileCount++;
+                        if (!differentRomsWarning && origFileID != fileID)
+                        {
+                            MessageBox.Show(LanguageManager.Get("Patch", "ImportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            differentRomsWarning = true;
+                        }
+
+                        Console.Out.WriteLine("Replace " + fileName);
+                        f.beginEdit(this);
+                        f.replace(newFile, this);
+                        f.endEdit(this);
+                        fileCount++;
+                    }
                 }
             }
             catch (AlreadyEditingException)

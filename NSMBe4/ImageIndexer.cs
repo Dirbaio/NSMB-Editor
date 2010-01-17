@@ -12,10 +12,15 @@ namespace NSMBe4
         private Dictionary<Color, byte> paletteTable;
         public Color[] palette;
         public byte[] palettedImage;
+        public byte[,] palettedRawImage;
 
         public ImageIndexer(Bitmap b)
+            : this(b, 256)
         {
-            int paletteCount = 256;
+        }
+
+        public ImageIndexer(Bitmap b, int paletteCount)
+        {
             //COMPUTE FREQUENCY TABLE
 
             freqTable = new Dictionary<Color,int>();
@@ -24,6 +29,7 @@ namespace NSMBe4
                 {
                     Color c = b.GetPixel(x, y);
                     if (c == Color.Transparent) continue;
+                    c = Color.FromArgb(c.R, c.G, c.B);
 
                     if (freqTable.ContainsKey(c))
                         freqTable[c]++;
@@ -62,7 +68,7 @@ namespace NSMBe4
             //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES
             foreach (Color c in freqTable.Keys)
             {
-                paletteTable[c] = closest(c);
+                paletteTable[c] = closest(c, palette);
             }
             paletteTable[Color.Transparent] = 0;
 
@@ -82,9 +88,17 @@ namespace NSMBe4
                         palettedImage[t * 64 + y * 8 + x] =
                             paletteTable[b.GetPixel(tx + x, ty + y)];
                     }
+
+            palettedRawImage = new byte[b.Width, b.Height];
+            for(int x = 0; x < b.Width; x++)
+                for (int y = 0; y < b.Height; y++)
+                {
+                    palettedRawImage[x, y] =
+                        paletteTable[b.GetPixel(x, y)];
+                }
         }
 
-        private byte closest(Color c)
+        public static byte closest(Color c, Color[] palette)
         {
             byte best = 0;
             ushort bestDif = colorDifference(c, palette[0]);
@@ -219,7 +233,7 @@ namespace NSMBe4
             return r;
         }
 
-        private ushort colorDifference(Color a, Color b)
+        public static ushort colorDifference(Color a, Color b)
         {
             if (a.A != b.A) return ushort.MaxValue;
 

@@ -58,12 +58,7 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMB
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Filesystem.FileHexEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Filesystem.FilesystemBrowser.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor-svn\NSMBe4\obj\Debug\NSMBe4.Filesystem.FilesystemBrowserDialog.resources
-C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\NSMBe4.exe.config
-C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.exe
-C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.pdb
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\spritedata.txt
-C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\NSMBe4.exe
-C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\NSMBe4.pdb
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.ByteArrayEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.ColourPicker.resources
@@ -99,3 +94,9 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.c
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.DSFileSystem.FileHexEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.DSFileSystem.FilesystemBrowser.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.DSFileSystem.FilesystemBrowserDialog.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\NSMBe5.exe.config
+C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\NSMBe5.exe
+C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\NSMBe5.pdb
+C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe5.exe
+C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe5.pdb
+C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.NSBMD.TextureEditor.resources

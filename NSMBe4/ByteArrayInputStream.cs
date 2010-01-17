@@ -7,13 +7,18 @@ namespace NSMBe4
     public class ByteArrayInputStream
     {
         private byte[] array;
-        private int pos = 0;
-        private Stack<int> savedPositions = new Stack<int>();
+        private uint pos = 0, origin = 0;
+        private Stack<uint> savedPositions = new Stack<uint>();
 
         public ByteArrayInputStream(byte[] array)
         {
             this.array = array;
             pos = 0;
+        }
+
+        public void setOrigin(uint o)
+        {
+            this.origin = o;
         }
 
         public void savePos()
@@ -26,19 +31,19 @@ namespace NSMBe4
             pos = savedPositions.Pop();
         }
 
-        public int available()
+        public uint available()
         {
-            return array.Length - pos;
+            return (uint)(array.Length - pos - origin);
         }
 
         public bool available(int len)
         {
-            return pos + len <= array.Length;
+            return available() >= len;
         }
 
         public byte readByte()
         {
-            return array[pos++];
+            return array[origin+pos++];
         }
 
         public void dumpAsciiData()
@@ -51,12 +56,27 @@ namespace NSMBe4
             }
         }
 
-        public void seek(int pos)
+        public void write(byte[] data)
+        {
+            Array.Copy(data, 0, array, pos + origin, data.Length);
+            pos += (uint) data.Length;
+        }
+
+        public void writeByte(byte b)
+        {
+            array[origin + pos++] = b;
+        }
+
+        public void seek(uint pos)
         {
             this.pos = pos;
         }
+        public void seek(int pos)
+        {
+            this.pos = (uint)pos;
+        }
 
-        public void skip(int bytes)
+        public void skip(uint bytes)
         {
             pos += bytes;
         }
@@ -64,7 +84,7 @@ namespace NSMBe4
         public ushort readUShort()
         {
             pos+=2;
-            return (ushort)(array[pos-2] | array[pos - 1] << 8);
+            return (ushort)(array[pos-2+origin] | array[pos - 1+origin] << 8);
         }
 
         public uint readUInt()
@@ -78,13 +98,13 @@ namespace NSMBe4
         }
         public void read(byte[] dest)
         {
-            Array.Copy(array, pos, dest, 0, dest.Length);
-            pos += dest.Length;
+            Array.Copy(array, pos+origin, dest, 0, dest.Length);
+            pos += (uint)(dest.Length);
         }
 
         public bool end()
         {
-            return pos >= array.Length;
+            return pos + origin >= array.Length;
         }
 
         public string ReadString(int l)

@@ -47,6 +47,8 @@ namespace NSMBe4
 
         private byte[] tryDecompress(byte[] file)
         {
+            return file;
+
             try
             {
                 byte[] decomp = ROM.LZ77_Decompress(file);
@@ -82,9 +84,9 @@ namespace NSMBe4
             Console.Out.WriteLine("rtb");
             if (file == null)
                 return;
-
+            /*
             if (palette.Length < paletteSize)
-                return;
+                return;*/
             Console.Out.WriteLine("rtb2");
 
             // Load graphics
@@ -104,11 +106,11 @@ namespace NSMBe4
                     {
                         if (use4bpp.Checked)
                         {
-                            TileBuffer.SetPixel(i * 8 + TileX * 2+1, TileY, palette[file[FilePos] / 16 + (int)paletteNum.Value * paletteSize]);
-                            TileBuffer.SetPixel(i * 8 + TileX * 2, TileY, palette[file[FilePos] % 16 + (int)paletteNum.Value * paletteSize]);
+                            TileBuffer.SetPixel(i * 8 + TileX * 2+1, TileY, gpalette(file[FilePos] / 16 + (int)paletteNum.Value * paletteSize));
+                            TileBuffer.SetPixel(i * 8 + TileX * 2, TileY, gpalette(file[FilePos] % 16 + (int)paletteNum.Value * paletteSize));
                         }
                         else
-                            TileBuffer.SetPixel(i * 8 + TileX, TileY, palette[file[FilePos] + (int)paletteNum.Value * paletteSize]);
+                            TileBuffer.SetPixel(i * 8 + TileX, TileY, gpalette(file[FilePos] + (int)paletteNum.Value * paletteSize));
                         FilePos++;
                     }
                 }
@@ -117,6 +119,13 @@ namespace NSMBe4
             viewport.Image = TileBuffer;
             RefreshImageSizes();
             RefreshImage();
+        }
+
+        private Color gpalette(int n)
+        {
+            if (n >= palette.Length)
+                return Color.Pink;
+            return palette[n];
         }
 
         private void RefreshImage()

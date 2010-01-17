@@ -16,7 +16,7 @@ Level=Este nivel ya esta siendo editado.
 File=Este archivo ya esta siendo editado.
 
 [LevelChooser]
-_TITLE=NSMB Editor 5.0 - por Treeki y Dirbaio
+_TITLE=NSMB Editor 5.1 - por Treeki y Dirbaio
 
 tabPage1=Sistema de archivos
 tabPage2=Editor de niveles
@@ -223,9 +223,7 @@ _TITLE=Configuracion del Nivel
 
 tabPage1=Opciones
 tabPage2=Graficos
-tabPage3=Conjuntos de Sprites (1)
-tabPage4=Conjuntos de Sprites (2)
-tabPage5=Conjunto de Sonidos
+tabPage3=Conjuntos de Sprites
 
 OKButton=Aceptar
 cancelButton=Cancelar
@@ -242,16 +240,23 @@ miniMarioPhysicsCheckBox=Forzar fisca de Mini Mario (raro/beta)
 groupBox1=Serie de objetos
 groupBox2=Fondo delantero
 groupBox3=Fondo trasero
-tilesetPreviewButton=Probar
-bgTopLayerPreviewButton=Probar
-bgBottomLayerPreviewButton=Probar
+tilesetPreviewButton=Vista previa
+bgTopLayerPreviewButton=Vista previa
+bgTopLayerImportButton=Importar
+bgTopLayerExportButton=Exportar
+bgTopLayerFileButton=Archivo:
+bgBottomLayerPreviewButton=Vista previa
+bgBottomLayerImportButton=Importar
+bgBottomLayerExportButton=Exportar
+bgBottomLayerFileButton=Archivo
+label16=Los fondos pierden calidad al importar. Algunos tienen efectos especiales que no se pueden desactivar. El boton "Archivo" sirve para crear nuevos fondos. Escribe un ID de archivo en el cuadro de texto y clicalo para que el fondo se guarde en los archivos ID, ID+1, ID+2. De esta manera puedes reusar archivos de los minijuegos (carpeta "archive").
 
 ;Preview stuff
 BlankBG=Este fondo está vacío y no hay nada que ver!
-BrokenBG=Este fondo se ha estropeado ;)
+BrokenBG=Este fondo está vacío. Puedes usar el boton "archivo" para reusarlo y importar algo.
 
 ;sound sets
-label15=Sonidos:
+label15=Conjunto de sonidos (hex):
 
 
 [LevelHexEditor]

@@ -137,10 +137,10 @@ namespace NSMBe4
                 if (tiles[t] != null)
                 {
                     newTileNums[t] = nt;
-                    nt++;
                     for (int x = 0; x < 8; x++)
                         for (int y = 0; y < 8; y++)
-                            tileBuffer.SetPixel(x + t * 8, y, tiles[t].data[x, y]);
+                            tileBuffer.SetPixel(x + nt * 8, y, tiles[t].data[x, y]);
+                    nt++;
                 }
             }
 

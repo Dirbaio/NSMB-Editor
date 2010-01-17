@@ -216,11 +216,7 @@ namespace NSMBe4
             Palette = new Color[512];
 
             for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
-                int ColourVal = ePalFile[PalIdx * 2] + (ePalFile[(PalIdx * 2) + 1] << 8);
-                int cR = (ColourVal & 31) * 8;
-                int cG = ((ColourVal >> 5) & 31) * 8;
-                int cB = ((ColourVal >> 10) & 31) * 8;
-                Palette[PalIdx] = Color.FromArgb(cR, cG, cB);
+                Palette[PalIdx] = fromRGB15((ushort)(ePalFile[PalIdx * 2] + (ePalFile[(PalIdx * 2) + 1] << 8)));
             }
 
             //Palette[0] = Color.Fuchsia;
@@ -337,6 +333,14 @@ namespace NSMBe4
             return val;
         }
 
+        public static Color fromRGB15(ushort c)
+        {
+            int cR = (c & 31) * 8;
+            int cG = ((c >> 5) & 31) * 8;
+            int cB = ((c >> 10) & 31) * 8;
+            return Color.FromArgb(cR, cG, cB);
+        }
+
         public static byte[] paletteToRawData(Color[] pal)
         {
             ByteArrayOutputStream file = new ByteArrayOutputStream();
@@ -406,7 +410,7 @@ namespace NSMBe4
         {
             // Load Map16
             ByteArrayInputStream eMap16File = new ByteArrayInputStream(Map16File.getContents());
-            int Map16Count = eMap16File.available() / 8;
+            int Map16Count = (int)eMap16File.available() / 8;
             Map16 = new Map16Tile[Map16Count];
 
             Map16Buffer = new Bitmap(Map16Count * 16, 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);

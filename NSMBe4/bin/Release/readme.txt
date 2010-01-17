@@ -46,6 +46,10 @@ v5.0 - 29th November 2009:
 - Some interface updates.
 - New code to handle files, a lot faster and safer
 - Lots of minor changes... Try the editor and see them!...
+v5.1 - 15th January 2010
+- Jyotju editing.
+- Bg importing (including ability to create new bgs, not replace)
+- TTDS (and possibly other flashcarts) compatibility added.
 
 ----------
 FAQ:
@@ -103,7 +107,7 @@ A: The official forum for this editor is here: http://jul.rustedlogic.net/forum.
 Credits:
 
 Treeki- Main coding and design
-Dirbaio- View editing, path editing, lots of other contributions
+Dirbaio- Current coder. View editing, path editing, tileset editing, bg importing, lots of other contributions
 Blackhole89- Object parsing/rendering code
 Piranhaplant- Sprite list
 Master01 - Spanish translation for the sprite list

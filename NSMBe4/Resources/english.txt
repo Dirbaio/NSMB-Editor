@@ -16,7 +16,7 @@ Level=This level is already being edited.
 File=This file is already being edited.
 
 [LevelChooser]
-_TITLE=NSMB Editor 5.0 - by Treeki and Dirbaio
+_TITLE=NSMB Editor 5.1 - by Treeki and Dirbaio
 
 tabPage1=File Browser
 tabPage2=Level Editor
@@ -223,9 +223,7 @@ _TITLE=Level Configuration
 
 tabPage1=Options
 tabPage2=Graphics
-tabPage3=Sprite Sets (1)
-tabPage4=Sprite Sets (2)
-tabPage5=Sound Sets
+tabPage3=Sprite Sets
 
 OKButton=OK
 cancelButton=Cancel
@@ -244,14 +242,20 @@ groupBox2=Background Top Layer
 groupBox3=Background Bottom Layer
 tilesetPreviewButton=Preview
 bgTopLayerPreviewButton=Preview
+bgTopLayerImportButton=Import
+bgTopLayerExportButton=Export
+bgTopLayerFileButton=Change File:
 bgBottomLayerPreviewButton=Preview
-
+bgBottomLayerImportButton=Import
+bgBottomLayerExportButton=Export
+bgBottomLayerFileButton=Change File:
+label16=Bgs loose quality when imported. Note that some have special effects (moving clouds, animated fire) that cannot be disabled (yet). The "Change File" button is used to create new bgs. Enter a file ID in the check box and click it. After that, the selected BG will use id, id+1, id+2 files. You can reuse minigame files (archive folder).
 ;Preview stuff
 BlankBG=This background is blank and has nothing to see.
-BrokenBG=This background doesn't work.
+BrokenBG=This background doesn't work. You can use the "Change File" button to reuse it and import something in it.
 
 ;sound sets
-label15=Sound Set:
+label15=Sound Set (hex):
 
 
 [LevelHexEditor]

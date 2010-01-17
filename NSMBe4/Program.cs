@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using NSMBe4.DSFileSystem;
 using System.IO;
+using NSMBe4.NSBMD;
 
 
 namespace NSMBe4 {
@@ -149,6 +150,14 @@ namespace NSMBe4 {
             Bitmap b = new Bitmap("C:\\image.png");
             new ImageTiler(b);
            */
+            /*
+            string path = @"C:\Documents and Settings\admin\Escritorio\no$gba_debug\SLOT\";
+            string file = path + "Copia de Hard Super Dario Bros.nds";
+
+            NitroFilesystem fs = new NitroFilesystem(file);
+            new TextureEditor(fs.getFileByName("I_kinoko_ashib2u.nsbtx")).Show();
+
+             */
 
             if (Properties.Settings.Default.Language == 0) {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));

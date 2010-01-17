@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using NSMBe4.NSBMD;
 
 namespace NSMBe4.DSFileSystem
 {
@@ -193,22 +194,28 @@ namespace NSMBe4.DSFileSystem
             if(!FileName.Contains("."))
                 return;
             string ext = FileName.Substring(FileName.LastIndexOf(".")+1);
-            if (ext.ToUpperInvariant() == "NARC")
+            ext = ext.ToUpperInvariant();
+            switch (ext)
             {
-                new FilesystemBrowserDialog(fs).Show();
-            }
-            else //send to GraphicsViewer
-            {
-                if (gv == null || gv.IsDisposed)
-                    gv = new GraphicsViewer();
+                case "NSBTX":
+                case "NSBMD":
+                    new TextureEditor(f).Show();
+                    break;
+                case "NARC":
+                    new FilesystemBrowserDialog(fs).Show();
+                    break;
+                default:
+                    if (gv == null || gv.IsDisposed)
+                        gv = new GraphicsViewer();
 
-                gv.Show();
+                    gv.Show();
 
-                byte[] file = f.getContents();
-                if (Control.ModifierKeys == Keys.Control)
-                    gv.SetPalette(file);
-                else
-                    gv.SetFile(file);
+                    byte[] file = f.getContents();
+                    if (Control.ModifierKeys == Keys.Control)
+                        gv.SetPalette(file);
+                    else
+                        gv.SetFile(file);
+                    break;
             }
         }
 
