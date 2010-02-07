@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace NSMBe4
 {
@@ -42,7 +43,7 @@ namespace NSMBe4
             boxes = new List<Box>();
             boxes.Add(startBox);
 
-            while (boxes.Count < paletteCount-1)
+            while (boxes.Count < paletteCount - 1)
             {
                 Box bo = getDominantBox();
                 if (bo == null)
@@ -50,6 +51,7 @@ namespace NSMBe4
 
                 split(bo);
             }
+
 
             //NOW CREATE THE PALETTE COLORS
             palette = new Color[paletteCount];
@@ -66,10 +68,14 @@ namespace NSMBe4
 
             paletteTable = new Dictionary<Color, byte>();
             //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES
-            foreach (Color c in freqTable.Keys)
-            {
-                paletteTable[c] = closest(c, palette);
-            }
+            for (int x = 0; x < b.Width; x++)
+                for (int y = 0; y < b.Height; y++)
+                {
+                    Color c = b.GetPixel(x, y);
+                    if (c == Color.Transparent) continue;
+                    paletteTable[c] = closest(c, palette);
+                }
+
             paletteTable[Color.Transparent] = 0;
 
             //NOW INDEX THE IMAGE

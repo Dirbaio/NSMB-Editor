@@ -225,10 +225,6 @@ namespace NSMBe4
         public void redrawThings()
         {
             map16Picker1.SetTileset(t);
-        }
-
-        public void reloadTileset() {
-            map16Picker1.SetTileset(t);
             tilePicker1.SetTileset(t);
         }
 

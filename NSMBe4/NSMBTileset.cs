@@ -495,6 +495,18 @@ namespace NSMBe4
                 bottomLeft.save(outp);
                 bottomRight.save(outp);
             }
+
+            public void makeEmpty()
+            {
+                topLeft.ControlByte = 0;
+                topLeft.TileByte = 0;
+                topRight.ControlByte = 0;
+                topRight.TileByte = 0;
+                bottomLeft.ControlByte = 0;
+                bottomLeft.TileByte = 0;
+                bottomRight.ControlByte = 0;
+                bottomRight.TileByte = 0;
+            }
         }
 
         public class Map16Quarter

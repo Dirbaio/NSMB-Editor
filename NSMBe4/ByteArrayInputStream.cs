@@ -81,6 +81,17 @@ namespace NSMBe4
             pos += bytes;
         }
 
+        public void skipback(uint bytes)
+        {
+            pos -= bytes;
+        }
+
+
+        public uint getPos()
+        {
+            return pos;
+        }
+
         public ushort readUShort()
         {
             pos+=2;
@@ -96,6 +107,7 @@ namespace NSMBe4
             }
             return res;
         }
+
         public void read(byte[] dest)
         {
             Array.Copy(array, pos+origin, dest, 0, dest.Length);
@@ -118,7 +130,7 @@ namespace NSMBe4
             for (int i = 0; i < l; i++)
                 NewStr.Append((char)arr[i]);
 
-            return NewStr.ToString();
+            return NewStr.ToString().Trim();
         }
     }
 }

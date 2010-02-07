@@ -35,7 +35,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;USE_GDIPLUS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -43,7 +43,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;USE_GDIPLUS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -340,6 +340,7 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cross-script.png" />
     <Content Include="Resources\Icons\brush.png" />
     <Content Include="Resources\Icons\eraser.png" />
     <Content Include="Resources\Icons\fill.png" />
@@ -357,6 +358,8 @@
     <Content Include="Resources\Icons\options.png" />
     <Content Include="Resources\Icons\rectangle.png" />
     <None Include="Resources\selectedarrows.png" />
+    <None Include="Resources\image--arrow.png" />
+    <None Include="Resources\image--plus.png" />
     <Content Include="Resources\spanish.txt" />
     <Content Include="Resources\Icons\zoom.png" />
     <Content Include="spritedata.txt">
@@ -373,8 +376,10 @@
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ByteArrayOutputStream.cs" />
+    <Compile Include="DSFileSystem\BannerFile.cs" />
     <Compile Include="DSFileSystem\ExternalFilesystemSource.cs" />
     <Compile Include="DSFileSystem\File.cs" />
+    <Compile Include="DSFileSystem\FileFilesystemSource.cs" />
     <Compile Include="DSFileSystem\FileHexEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -399,6 +404,7 @@
     <Compile Include="DSFileSystem\HeaderFile.cs" />
     <Compile Include="DSFileSystem\NarcFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
+    <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />
     <Compile Include="GraphicsEditor\ColourPicker.cs">
       <SubType>Form</SubType>
     </Compile>

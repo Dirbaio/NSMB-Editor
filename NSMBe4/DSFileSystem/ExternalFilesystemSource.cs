@@ -31,5 +31,10 @@ namespace NSMBe4.DSFileSystem
         {
             s.Close();
         }
+
+        public override string getDescription()
+        {
+            return fileName;
+        }
     }
 }

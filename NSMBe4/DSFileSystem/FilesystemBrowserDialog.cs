@@ -20,5 +20,10 @@ namespace NSMBe4.DSFileSystem
             this.fs = fs;
             filesystemBrowser1.Load(fs);
         }
+
+        private void FilesystemBrowserDialog_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            fs.close();
+        }
     }
 }

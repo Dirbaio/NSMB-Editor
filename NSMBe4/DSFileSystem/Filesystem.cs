@@ -17,6 +17,7 @@ namespace NSMBe4.DSFileSystem
         public Stream s;
         public Directory mainDir;
         protected File freeSpaceDelimiter;
+        public uint fileDataOffset = 0;
 
         protected Filesystem(FilesystemSource fs)
         {
@@ -46,6 +47,7 @@ namespace NSMBe4.DSFileSystem
             filesById.Add(f.id, f);
 //            filesByName.Add(f.name, f);
         }
+
 
         protected void addDir(Directory d)
         {
@@ -111,6 +113,11 @@ namespace NSMBe4.DSFileSystem
             source.close();
         }
 
+        public void save()
+        {
+            source.save();
+        }
+
         public void dumpFilesOrdered()
         {
             allFiles.Sort();
@@ -130,6 +137,18 @@ namespace NSMBe4.DSFileSystem
             File lastFile = allFiles[allFiles.Count - 1];
             uint end = lastFile.fileBegin + lastFile.fileSize; //well, 1 byte doesnt matter
             return end;
+        }
+
+
+
+        public uint readUInt(Stream s)
+        {
+            uint res = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                res |= (uint)s.ReadByte() << 8 * i;
+            }
+            return res;
         }
     }
 }

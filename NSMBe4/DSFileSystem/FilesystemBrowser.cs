@@ -32,7 +32,7 @@ namespace NSMBe4.DSFileSystem
         {
             this.fs = fs;
 
-            TreeNode main = new TreeNode("Filesystem", 0, 0);
+            TreeNode main = new TreeNode(fs.mainDir.name, 0, 0);
             main.Tag = fs.mainDir;
             loadDir(main, fs.mainDir);
             fileTreeView.Nodes.Add(main);
@@ -199,10 +199,18 @@ namespace NSMBe4.DSFileSystem
             {
                 case "NSBTX":
                 case "NSBMD":
-                    new TextureEditor(f).Show();
+                    try
+                    {
+                        new TextureEditor(f).Show();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    
                     break;
                 case "NARC":
-                    new FilesystemBrowserDialog(fs).Show();
+                    new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
                     break;
                 default:
                     if (gv == null || gv.IsDisposed)

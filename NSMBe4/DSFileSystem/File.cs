@@ -23,11 +23,11 @@ namespace NSMBe4.DSFileSystem
         //these are the offsets within the alloc file where the offsets
         //of this file are found.
 
-        private File beginFile;
-        private uint beginOffset;
-        private File endFile;
-        private uint endOffset;
-        private bool endIsSize; //means that the end offset is the size of the file
+        protected File beginFile;
+        protected uint beginOffset;
+        protected File endFile;
+        protected uint endOffset;
+        protected bool endIsSize; //means that the end offset is the size of the file
         protected bool fixedFile; //means that the file cant be moved nor changed size
 
         public uint fileBegin;
@@ -98,10 +98,10 @@ namespace NSMBe4.DSFileSystem
         }
 
 
-        private void refreshOffsets()
+        protected void refreshOffsets()
         {
             if (beginFile != null)
-                fileBegin = beginFile.getUintAt(beginOffset);
+                fileBegin = beginFile.getUintAt(beginOffset) + parent.fileDataOffset;
 
             if (endFile != null)
             {
@@ -109,20 +109,20 @@ namespace NSMBe4.DSFileSystem
                 if (endIsSize)
                     fileSize = end;
                 else
-                    fileSize = end - fileBegin;
+                    fileSize = end + parent.fileDataOffset - fileBegin;
             }
         }
 
         private void saveOffsets()
         {
             if (beginFile != null)
-                beginFile.setUintAt(beginOffset, fileBegin);
+                beginFile.setUintAt(beginOffset, fileBegin - parent.fileDataOffset);
 
             if (endFile != null)
                 if (endIsSize)
                     endFile.setUintAt(endOffset, fileSize);
                 else
-                    endFile.setUintAt(endOffset, fileBegin + fileSize);
+                    endFile.setUintAt(endOffset, fileBegin + fileSize - parent.fileDataOffset);
         }
 
         public uint getUintAt(uint offset)

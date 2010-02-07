@@ -12,5 +12,6 @@ namespace NSMBe4.DSFileSystem
         public abstract Stream load();
         public abstract void save();
         public abstract void close();
+        public abstract string getDescription();
     }
 }

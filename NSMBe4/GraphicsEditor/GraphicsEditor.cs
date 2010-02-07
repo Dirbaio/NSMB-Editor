@@ -97,14 +97,15 @@ namespace NSMBe4 {
                 paletteChooserLabel.Visible = false;
                 paletteChooser.Visible = false;
                 SelectedPal = 0;
-                RenderBuffer();
             } else {
+                paletteChooser.Items.Clear();
                 for (int i = 0; i < palettePicker1.PalCount; i++) {
                     paletteChooser.Items.Add(i.ToString());
                 }
                 paletteChooser.SelectedIndex = 0;
             }
 
+            RenderBuffer();
             SetZoomLevel(1);
         }
 

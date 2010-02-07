@@ -235,7 +235,7 @@ namespace NSMBe4 {
             MessageBox.Show(LanguageManager.Get("Patch", "SelectROM"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (openROMDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            NitroFilesystem origROM = new NitroFilesystem(openROMDialog.FileName);
+            NitroROMFilesystem origROM = new NitroROMFilesystem(openROMDialog.FileName);
 
             //open the output patch
             MessageBox.Show(LanguageManager.Get("Patch", "SelectLocation"), LanguageManager.Get("Patch", "Export"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -394,20 +394,25 @@ namespace NSMBe4 {
 
         private void NarcReplace(string NarcName, string f1, string f2)
         {
-            throw new NotImplementedException("Not implemented yet !!");
-            /*
-            NitroClass NARC = new NitroClass(ROM, ROM.FileIDs[NarcName]);
-            NARC.Load(null);
+            NarcFilesystem fs = new NarcFilesystem(ROM.FS.getFileByName(NarcName));
 
-            byte[] file = ROM.ExtractFile(ROM.FileIDs[f1]);
-            NARC.ReplaceFile(NARC.FileIDs[f1], file);
-            file = ROM.ExtractFile(ROM.FileIDs[f2]);
-            NARC.ReplaceFile(NARC.FileIDs[f2], file);*/
+            NSMBe4.DSFileSystem.File f = fs.getFileByName(f1);
+            f.beginEdit(this);
+            f.replace(ROM.FS.getFileByName(f1).getContents(), this);
+            f.endEdit(this);
+
+            f = fs.getFileByName(f2);
+            f.beginEdit(this);
+            f.replace(ROM.FS.getFileByName(f2).getContents(), this);
+            f.endEdit(this);
+
+            fs.close();
         }
 
         private void tilesetEditor_Click(object sender, EventArgs e)
         {
             new TilesetChooser().Show();
         }
+
     }
 }

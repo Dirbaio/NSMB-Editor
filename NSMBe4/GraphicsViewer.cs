@@ -47,8 +47,6 @@ namespace NSMBe4
 
         private byte[] tryDecompress(byte[] file)
         {
-            return file;
-
             try
             {
                 byte[] decomp = ROM.LZ77_Decompress(file);

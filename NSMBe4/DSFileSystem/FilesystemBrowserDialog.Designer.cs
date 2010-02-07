@@ -47,6 +47,7 @@
             this.Controls.Add(this.filesystemBrowser1);
             this.Name = "FilesystemBrowserDialog";
             this.Text = "_TITLE";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FilesystemBrowserDialog_FormClosed);
             this.ResumeLayout(false);
 
         }

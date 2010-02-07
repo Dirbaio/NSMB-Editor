@@ -271,16 +271,22 @@ namespace NSMBe4 {
             Level.Blocks[3][4] = (byte)tilesetComboBox.SelectedIndex; // ncl
 
             int FGIndex = bgTopLayerComboBox.SelectedIndex;
-            if (FGIndex == bgTopLayerComboBox.Items.Count - 1) FGIndex = 255;
+            if (FGIndex == bgTopLayerComboBox.Items.Count - 1) FGIndex = 0xFFFF;
             Level.Blocks[0][0x12] = (byte)FGIndex; // ncg
+            Level.Blocks[0][0x13] = (byte)(FGIndex>>8); // ncg
             Level.Blocks[4][4] = (byte)FGIndex; // ncl
+            Level.Blocks[4][5] = (byte)(FGIndex >> 8); // ncg
             Level.Blocks[4][2] = (byte)FGIndex; // nsc
+            Level.Blocks[4][3] = (byte)(FGIndex >> 8); // ncg
 
             int BGIndex = bgBottomLayerComboBox.SelectedIndex;
-            if (BGIndex == bgBottomLayerComboBox.Items.Count - 1) BGIndex = 255;
+            if (BGIndex == bgBottomLayerComboBox.Items.Count - 1) BGIndex = 0xFFFF;
             Level.Blocks[0][6] = (byte)BGIndex; // ncg
+            Level.Blocks[0][7] = (byte)(BGIndex >> 8); // ncg
             Level.Blocks[2][4] = (byte)BGIndex; // ncl
+            Level.Blocks[2][5] = (byte)(BGIndex >> 8); // ncg
             Level.Blocks[2][2] = (byte)BGIndex; // nsc
+            Level.Blocks[2][3] = (byte)(BGIndex >> 8); // ncg
 
             if (oldTileset != Level.Blocks[0][0xC]) {
                 ReloadTileset();

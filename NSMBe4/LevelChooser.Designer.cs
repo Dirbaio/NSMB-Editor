@@ -242,7 +242,6 @@ namespace NSMBe4 {
             // 
             this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.mpPatch.Enabled = false;
             this.mpPatch.Location = new System.Drawing.Point(258, 93);
             this.mpPatch.Name = "mpPatch";
             this.mpPatch.Size = new System.Drawing.Size(218, 23);

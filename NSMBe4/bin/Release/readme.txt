@@ -47,7 +47,7 @@ v5.0 - 29th November 2009:
 - New code to handle files, a lot faster and safer
 - Lots of minor changes... Try the editor and see them!...
 v5.1 - 15th January 2010
-- Jyotju editing.
+- Jyotyu editing.
 - Bg importing (including ability to create new bgs, not replace)
 - TTDS (and possibly other flashcarts) compatibility added.
 

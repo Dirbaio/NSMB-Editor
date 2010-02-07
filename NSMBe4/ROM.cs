@@ -32,13 +32,13 @@ using NSMBe4.DSFileSystem;
 namespace NSMBe4 {
     public static class ROM {
         public static byte[] Overlay0;
-        public static NitroFilesystem FS;
+        public static NitroROMFilesystem FS;
         public static string filename;
 
         public static void load(String filename)
         {
             ROM.filename = filename;
-            FS = new NitroFilesystem(filename);
+            FS = new NitroROMFilesystem(filename);
 
             Overlay0 = FS.getFileById(0).getContents();
             if (FS.isOverlay0Compressed())

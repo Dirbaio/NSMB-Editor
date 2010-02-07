@@ -238,7 +238,7 @@ namespace NSMBe4
             return (wa * a + wb * b) / (wa + wb);
         }
 
-        private static Color colorMean(Color a, Color b, int wa, int wb)
+        public static Color colorMean(Color a, Color b, int wa, int wb)
         {
             if (a.A == 0) return b;
             if (b.A == 0) return a;
