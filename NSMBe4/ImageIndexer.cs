@@ -247,11 +247,24 @@ namespace NSMBe4
             res += (a.R - b.R) * (a.R - b.R) / 40;
             res += (a.G - b.G) * (a.G - b.G) / 40;
             res += (a.B - b.B) * (a.B - b.B) / 40;
-            
-            if(res > ushort.MaxValue)
+
+            if (res > ushort.MaxValue)
                 return ushort.MaxValue;
 
-            return (ushort) res;
+            return (ushort)res;
+        }
+
+        public static ushort colorDifferenceWithoutAlpha(Color a, Color b)
+        {
+            int res = 0;
+            res += (a.R - b.R) * (a.R - b.R) / 40;
+            res += (a.G - b.G) * (a.G - b.G) / 40;
+            res += (a.B - b.B) * (a.B - b.B) / 40;
+
+            if (res > ushort.MaxValue)
+                return ushort.MaxValue;
+
+            return (ushort)res;
         }
 
         private class Box

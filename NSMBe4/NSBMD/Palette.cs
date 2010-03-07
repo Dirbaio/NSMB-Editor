@@ -70,11 +70,11 @@ namespace NSMBe4.NSBMD
         public int getClosestColor(Color c, int palNum, int palSize)
         {
             int bestInd = 0;
-            ushort bestDif = ImageIndexer.colorDifference(pal[0], c);
+            ushort bestDif = ImageIndexer.colorDifferenceWithoutAlpha(pal[0], c);
 
             for(int i = palNum; i < palNum + palSize; i++)
             {
-                ushort d = ImageIndexer.colorDifference(pal[i], c);
+                ushort d = ImageIndexer.colorDifferenceWithoutAlpha(pal[i], c);
                 if (d < bestDif)
                 {
                     bestDif = d;

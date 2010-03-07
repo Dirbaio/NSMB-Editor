@@ -28,18 +28,19 @@ using System.Drawing.Imaging;
  *  - 2-byte per tile.
  *  
  * Object index file:
- *  - 4 bytes per object
  *  - Defines offsets in the Object file
- *  - Offset as ushort
- *  - Width and Height as 2 bytes. 
- *    These are inaccurate, and my implementation doesn't use them
+ *  - 4 bytes per object
+ *    - Offset as ushort
+ *    - Width and Height as 2 bytes. 
+ *      These are unused by the game, and are inaccurate for slopes,
+ *      so my implementation doesn't use them
  *  
  * Object file:
  *  - Data for each object.
  *  
  * 0xFF - End of object
  * 0xFE - New Line
- * & 0x80 - Slope Control Byte
+ * 0x8x - Slope Control Byte
  * Else, its the beginning of a tile:
  *   Control Byte
  *   Map16 tile number as ushort
@@ -110,12 +111,15 @@ using System.Drawing.Imaging;
  * there are some unused bits that change their behavior:
  * 
  * -0x04 control byte in 0x85 slope block: All slopes that have the 0x85 block have
- * all its tiles with an 0x04 control byte. IF ITS NOT SET, then the 0x85 block is 
- * used to fill all the area below (or over if its upside down???) the slope. Not
+ * all its tiles with an 0x04 control byte. 
+ * 
+ * IF ITS NOT SET, then the 0x85 block is used to fill all the area below 
+ * (or over if its upside down???) the slope. Not
  * sure how does it behave if the 0x85 block has multiple tiles.
  * Probably the Nintendo Guys thought it was best to have it like that, and then
  * realized that it caused the triangle below the slope to be unusable (filled) 
  * and then created a new mode.
+ * NOTE: The editor doesn't implement this.
  * 
  * Not sure if there's more like this...
  **/
@@ -1031,14 +1035,6 @@ namespace NSMBe4
             if (Objects[objNum] == null) return false;
             return true;
         }
-        #endregion
-        #region FileChangeListener Members
-
-        public void FileChanged(File f)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
         #region Import / Export GFX
         public void ExportGFX(string filename)

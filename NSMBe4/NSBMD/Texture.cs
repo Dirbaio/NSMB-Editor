@@ -15,10 +15,12 @@ namespace NSMBe4.NSBMD
         public string name;
         public bool needsPal = true;
         public uint f5DataOffset;
-
-	    static byte[] bpps = new byte[] { 0, 8, 2, 4, 8, 2, 8, 16 };
-        static byte[] mask = new byte[] { 0, 0xFF, 3, 7, 0xFF, 3, 0xFF, 0x0 };
-        static byte[] cmsk = new byte[] { 0, 0x1F, 3, 7, 0xFF, 3, 0x08, 0x0 };
+        public int palSize;
+        //                                  0  1     2  3  4     5    6     7
+	    static byte[] bpps =   new byte[] { 0, 8,    2, 4, 8,    0,   8,    16  };
+        static byte[] mask =   new byte[] { 0, 0xFF, 3, 7, 0xFF, 0,   0xFF, 0x0 };
+        static byte[] cmsk =   new byte[] { 0, 0x1F, 3, 7, 0xFF, 0,   0x08, 0x0 };
+        static int[] palSizes = new int[] { 0, 32,   4, 8, 256,  256, 8,    256 }; 
         NSBTX parent;
 
         public Texture(NSBTX p, bool color0, int width, int height, int format, uint offset, string name)
@@ -32,6 +34,7 @@ namespace NSMBe4.NSBMD
             this.name = name;
 
             bpp = bpps[format];
+            palSize = palSizes[format];
             size = (uint)(width * height * bpp / 8);
         }
 
@@ -101,6 +104,7 @@ namespace NSMBe4.NSBMD
                             bi = parent.str.readByte();
                             bit = 0;
                         }
+
                         int col = (int)(bi & mask[format] << bit) >> bit;
                         Color color = p.getColor(col&cmsk[format] + palnum);
                         int alpha = 255;
@@ -126,26 +130,37 @@ namespace NSMBe4.NSBMD
             byte bit = 0;
             byte currByte = 0;
 
-         
-            for (int y = 0; y < height; y++)
-                for (int x = 0; x < width; x++)
-                {
-                    Color c = b.GetPixel(x+ox, y+oy);
-                    byte col = 0;
-                    if(c != Color.Transparent)
-                        col = (byte)p.getClosestColor(c, palnum, palsize);
+            if (format == 5)
+            {
+            }
 
-                    currByte |= (byte)(col << bit);
-                    bit += bpp;
+            else
+            {
 
-                    if (bit == 8)
+                for (int y = 0; y < height; y++)
+                    for (int x = 0; x < width; x++)
                     {
-                        parent.str.writeByte(currByte);
-                        currByte = 0;
-                        bit = 0;
-                    }
-                }
+                        Color c = b.GetPixel(x + ox, y + oy);
+                        byte col = 0;
+                        if (c != Color.Transparent)
+                            col = (byte)p.getClosestColor(c, palnum, palsize);
+                        byte alpha = c.A;
+                        if (format == 1)
+                            col |= (byte)((alpha / 32) << 5);
+                        if (format == 6)
+                            col |= (byte)((alpha / 8) << 3);
 
+                        currByte |= (byte)(col << bit);
+                        bit += bpp;
+
+                        if (bit == 8)
+                        {
+                            parent.str.writeByte(currByte);
+                            currByte = 0;
+                            bit = 0;
+                        }
+                    }
+            }
             parent.save();
         }
 

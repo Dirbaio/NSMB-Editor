@@ -68,7 +68,7 @@ namespace NSMBe4.NSBMD
 
             refreshImage();
             if(selectedTexture().usesPalette())
-                paletteSize.Value = 1 << selectedTexture().bpp;
+                paletteSize.Value = selectedTexture().palSize;
         }
 
         private void paletteListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,6 +123,7 @@ namespace NSMBe4.NSBMD
             {
                 ImageIndexer ii = new ImageIndexer(b, (int)paletteSize.Value);
                 Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), (int)paletteSize.Value);
+                selectedPalette().save();
             }
             selectedTexture().replace(b, 0, 0, selectedPalette(), calcPalOffset(), (int)paletteSize.Value);
             b.Dispose();
