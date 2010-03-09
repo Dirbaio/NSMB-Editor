@@ -100,3 +100,6 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Debug\NSMBe5.p
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe5.exe
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe5.pdb
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Debug\NSMBe4.NSBMD.TextureEditor.resources
+C:\Documents and Settings\Cheryl\My Documents\Visual Studio 2008\Projects\NSMBe\nsmb-editor\NSMBe4\bin\Debug\NSMBe5.exe.config
+C:\Documents and Settings\Cheryl\My Documents\Visual Studio 2008\Projects\NSMBe\nsmb-editor\NSMBe4\obj\Debug\NSMBe5.exe
+C:\Documents and Settings\Cheryl\My Documents\Visual Studio 2008\Projects\NSMBe\nsmb-editor\NSMBe4\obj\Debug\NSMBe5.pdb
