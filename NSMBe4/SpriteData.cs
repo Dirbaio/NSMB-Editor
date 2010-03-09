@@ -86,8 +86,12 @@ namespace NSMBe4
             res.display = com;
             if (res.display == "list")
                 res.values = ReadStringList(sr);
-            
-            res.vs = ReadValueSourceFromStream(sr);
+
+            if (res.display == "label") {
+                res.vs = new SpriteDataValueSource();
+                res.vs.byteNum = -1;
+            } else
+                res.vs = ReadValueSourceFromStream(sr);
             return res;
         }
 
@@ -227,7 +231,7 @@ namespace NSMBe4
                     data[byteNum] &= mask;
                     data[byteNum] |= (byte) b;
                 }
-                else
+                else if(byteNum >= 0 && byteNum <= 5)
                     data[byteNum] = (byte) b;
             }
 
@@ -295,16 +299,13 @@ namespace NSMBe4
                 {
                     Control c = CreateControlFor(v);
                     c.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    if (c is CheckBox)
+                    if (c is CheckBox ||  c is Label)
                     {
                         this.Controls.Add(c, 0, row);
                         this.SetColumnSpan(c, 2);
                     }
-                    else 
+                    else {
                         this.Controls.Add(c, 1, row);
-
-                    if (v.display != "checkbox")
-                    {
                         Label l = new Label();
                         l.Text = v.name;
                         l.Anchor = AnchorStyles.Left;
@@ -312,7 +313,6 @@ namespace NSMBe4
                         l.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         this.Controls.Add(l, 0, row);
                     }
-
                     row++;
                     controls.Add(v.vs, c);
                 }
@@ -344,6 +344,23 @@ namespace NSMBe4
                     
                     return c;
                 }
+                else if (v.display == "label")
+                {
+                    Label c = new Label();
+                    c.Text = v.name;
+                    return c;
+                }
+                else if (v.display == "binary")
+                {
+                    BinaryEdit c = new BinaryEdit();
+                    if (v.vs.type == ValueSourceType.NIBBLE) {
+                        c.CheckBoxCount = 4;
+                    } else
+                        c.CheckBoxCount = 8;
+                    c.value = v.vs.getValue(sdata);
+                    c.ValueChanged += new EventHandler(saveData);
+                    return c;
+                }
                 else
                 {
                     NumericUpDown c = new NumericUpDown();
@@ -365,7 +382,10 @@ namespace NSMBe4
                         val = (int)(controls[s] as ComboBox).SelectedIndex;
                     else if (controls[s] is CheckBox)
                         val = (controls[s] as CheckBox).Checked ? 1 : 0;
-
+                    else if (controls[s] is RadioButton)
+                        val = (controls[s] as RadioButton).Checked ? 1 : 0;
+                    else if (controls[s] is BinaryEdit)
+                        val = (controls[s] as BinaryEdit).value;
                     s.setValue(val, sdata);
                 }
 
