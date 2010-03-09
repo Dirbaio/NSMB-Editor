@@ -27,6 +27,7 @@ importLevelButton=Importar
 exportLevelButton=Exportar
 hexEditLevelButton=Editar hex
 editLevelButton=Editar nivel
+loadROMButton=Cargar ROM
 
 ;File Browser Tab
 ;These aren't located here, check FilesystemBrowser
@@ -725,10 +726,10 @@ Mundo 8-8|08|2
 Torre Segunda M8|10|2
 Castillo Final M8|12|3
 -Casas Champiñon|I
-Casa Champiñon 1|01|1
-Casa Champiñon 2|02|1
-Casa Champiñon 3|03|1
-Casa Champiñon 4|04|1
+1-Up Juego de Bonificación|01|1
+Item Juego de Bonificación|02|1
+Setas Mega Juego de Bonificación|03|1
+de fondo de Pantalla Inferior Selector|04|1
 -Mario vs. Luigi|J
 SMB 1-1|01|1
 Bajo Tierra|02|1

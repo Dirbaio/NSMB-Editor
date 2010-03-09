@@ -152,6 +152,9 @@
     <Compile Include="Editor\PathsEditionMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BinaryEdit.resx">
+      <DependentUpon>BinaryEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ByteArrayEditor.resx">
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -369,6 +372,12 @@
     <None Include="Resources\Icons\paths.png" />
     <None Include="Resources\Icons\views.png" />
     <Compile Include="AlreadyEditingException.cs" />
+    <Compile Include="BinaryEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BinaryEdit.Designer.cs">
+      <DependentUpon>BinaryEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="ByteArrayEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

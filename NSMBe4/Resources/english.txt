@@ -27,6 +27,7 @@ importLevelButton=Import Level
 exportLevelButton=Export Level
 hexEditLevelButton=Hex Edit
 editLevelButton=Edit Level
+loadROMButton=Load ROM
 
 ;File Browser Tab
 ;These aren't located here, check FilesystemBrowser
@@ -726,10 +727,10 @@ World 8-8|08|2
 W8 Tower 2|10|2
 W8 Final Castle|12|3
 -Toad Houses|I
-Bonus Game 1|01|1
-Bonus Game 2|02|1
-Bonus Game 3|03|1
-Bonus Game 4|04|1
+1-Up Bonus Game|01|1
+Item Bonus Game|02|1
+Mega Mushroom Bonus Game|03|1
+Selector de Fondo de la Pantalla|04|1
 -Mario vs. Luigi|J
 SMB 1-1|01|1
 Underground|02|1

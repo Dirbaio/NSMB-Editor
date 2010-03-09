@@ -29,6 +29,7 @@ namespace NSMBe4 {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelChooser));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.loadROMButton = new System.Windows.Forms.Button();
             this.hexEditLevelButton = new System.Windows.Forms.Button();
             this.exportLevelButton = new System.Windows.Forms.Button();
             this.importLevelButton = new System.Windows.Forms.Button();
@@ -75,6 +76,7 @@ namespace NSMBe4 {
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.loadROMButton);
             this.tabPage2.Controls.Add(this.hexEditLevelButton);
             this.tabPage2.Controls.Add(this.exportLevelButton);
             this.tabPage2.Controls.Add(this.importLevelButton);
@@ -87,6 +89,16 @@ namespace NSMBe4 {
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // loadROMButton
+            // 
+            this.loadROMButton.Location = new System.Drawing.Point(247, 293);
+            this.loadROMButton.Name = "loadROMButton";
+            this.loadROMButton.Size = new System.Drawing.Size(76, 23);
+            this.loadROMButton.TabIndex = 5;
+            this.loadROMButton.Text = "<loadROM>";
+            this.loadROMButton.UseVisualStyleBackColor = true;
+            this.loadROMButton.Click += new System.EventHandler(this.loadROMButton_Click);
             // 
             // hexEditLevelButton
             // 
@@ -361,5 +373,6 @@ namespace NSMBe4 {
         private FilesystemBrowser filesystemBrowser1;
         private System.Windows.Forms.Button mpPatch;
         private System.Windows.Forms.Button tilesetEditor;
+        private System.Windows.Forms.Button loadROMButton;
     }
 }

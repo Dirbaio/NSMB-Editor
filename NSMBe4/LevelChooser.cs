@@ -19,6 +19,7 @@ namespace NSMBe4 {
         }
 
         private void LevelChooser_Load(object sender, EventArgs e) {
+            openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
             if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
                 Application.Exit();
             } else {
@@ -33,11 +34,11 @@ namespace NSMBe4 {
                 LoadLevelNames();
 
                 LanguageManager.ApplyToContainer(this, "LevelChooser");
-                openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
                 importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
                 exportLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
                 openPatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
+                this.Activate();
             }
         }
 
@@ -73,6 +74,28 @@ namespace NSMBe4 {
                         }
                     }
                 }
+            }
+        }
+
+        private void loadROMButton_Click(object sender, EventArgs e)
+        {
+            openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
+            if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
+                Application.Exit();
+            }
+            else {
+                importLevelButton.Enabled = false;
+                exportLevelButton.Enabled = false;
+                editLevelButton.Enabled = false;
+                hexEditLevelButton.Enabled = false;
+
+                ROM.close();
+                ROM.load(openROMDialog.FileName);
+                filesystemBrowser1 = new FilesystemBrowser();
+                filesystemBrowser1.Load(ROM.FS);
+
+                levelTreeView.Nodes.Clear();
+                LoadLevelNames();
             }
         }
 
