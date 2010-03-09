@@ -15,6 +15,9 @@ namespace NSMBe4
         private bool DataUpdateFlag = false;
         private byte[] SSTable;
 
+        private string[] allSprites = new string[324];
+        private List<int> curSprites = new List<int>();
+
         public SpriteEditor(NSMBSprite s, LevelEditorControl EdControl)
         {
             InitializeComponent();
@@ -33,6 +36,9 @@ namespace NSMBe4
             }
 
             spriteListBox.Items.AddRange(spritelist);
+            spriteListBox.Items.CopyTo(allSprites, 0);
+            for (int l = 0; l <= 323; l++)
+                curSprites.Add(l);
 
             UpdateInfo();
 
@@ -93,7 +99,7 @@ namespace NSMBe4
                 SpriteData[3], SpriteData[4], SpriteData[5]);
             spriteDataTextBox.BackColor = SystemColors.Window;
 
-            spriteListBox.SelectedIndex = s.Type;
+            spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
 
         }
         private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
@@ -117,7 +123,7 @@ namespace NSMBe4
             if (DataUpdateFlag) return;
             s.Type = (int)spriteTypeUpDown.Value;
             DataUpdateFlag = true;
-            spriteListBox.SelectedIndex = s.Type;
+            spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
             DataUpdateFlag = false;
             UpdateDataEditor();
             EdControl.Invalidate(true);
@@ -127,14 +133,16 @@ namespace NSMBe4
         private void spriteListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            s.Type = (int)spriteListBox.SelectedIndex;
-            DataUpdateFlag = true;
-            spriteTypeUpDown.Value = s.Type;
-            DataUpdateFlag = false;
-            UpdateDataEditor();
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
-
+            if (spriteListBox.SelectedIndex > -1 && curSprites[spriteListBox.SelectedIndex] != s.Type)
+            {
+                s.Type = curSprites[spriteListBox.SelectedIndex];
+                DataUpdateFlag = true;
+                spriteTypeUpDown.Value = s.Type;
+                DataUpdateFlag = false;
+                UpdateDataEditor();
+                EdControl.Invalidate(true);
+                EdControl.FireSetDirtyFlag();
+            }
         }
 
         private void addSpriteButton_Click(object sender, EventArgs e)
@@ -169,29 +177,29 @@ namespace NSMBe4
             e.DrawBackground();
             //Brush UseBrush;
             Color UseColour;
+            if (spriteListBox.Items.Count > 0) {
+                if (EdControl.Level.ValidSprites[curSprites[e.Index]])
+                {
+                    //UseBrush = Brushes.Black;
+                    UseColour = e.ForeColor;
+                }
+                else
+                {
+                    //UseBrush = Brushes.DarkRed;
+                    UseColour = Color.DarkRed;
+                }
 
-            if (EdControl.Level.ValidSprites[e.Index])
-            {
-                //UseBrush = Brushes.Black;
-                UseColour = e.ForeColor;
+                //e.Graphics.DrawString((string)spriteListBox.Items[e.Index], spriteListBox.Font, UseBrush, e.Bounds);
+                TextRenderer.DrawText(e.Graphics, (string)spriteListBox.Items[e.Index], spriteListBox.Font, e.Bounds, UseColour, e.BackColor, TextFormatFlags.Left);
+
+                int SSNumber = SSTable[curSprites[e.Index] << 1];
+                int SSValue = SSTable[(curSprites[e.Index] << 1) + 1];
+                string txt = (SSNumber + 1) + "-" + SSValue;
+                if (SSValue == 0)
+                    txt = "-";
+
+                TextRenderer.DrawText(e.Graphics, txt, spriteListBox.Font, new Rectangle(e.Bounds.X +e.Bounds.Width - 30, e.Bounds.Y, 30, e.Bounds.Height), UseColour, e.BackColor, TextFormatFlags.Right);
             }
-            else
-            {
-                //UseBrush = Brushes.DarkRed;
-                UseColour = Color.DarkRed;
-            }
-
-            //e.Graphics.DrawString((string)spriteListBox.Items[e.Index], spriteListBox.Font, UseBrush, e.Bounds);
-            TextRenderer.DrawText(e.Graphics, (string)spriteListBox.Items[e.Index], spriteListBox.Font, e.Bounds, UseColour, e.BackColor, TextFormatFlags.Left);
-
-            int SSNumber = SSTable[e.Index << 1];
-            int SSValue = SSTable[(e.Index << 1) + 1];
-            string txt = (SSNumber + 1) + "-" + SSValue;
-            if (SSValue == 0)
-                txt = "-";
-
-            TextRenderer.DrawText(e.Graphics, txt, spriteListBox.Font, new Rectangle(e.Bounds.X +e.Bounds.Width - 30, e.Bounds.Y, 30, e.Bounds.Height), UseColour, e.BackColor, TextFormatFlags.Right);
-
             e.DrawFocusRectangle();
         }
 
@@ -224,23 +232,21 @@ namespace NSMBe4
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            bool found = false;
-            foreach (string s in spriteListBox.Items)
-            {
-                if (s.ToLowerInvariant().Contains(searchBox.Text.ToLowerInvariant()))
-                {
-                    spriteListBox.SelectedItem = s;
-                    found = true;
-                    break;
-                }
+            curSprites.Clear();
+            for (int l = 0; l < allSprites.Length; l++) {
+                if (allSprites[l].ToLowerInvariant().Contains(searchBox.Text.ToLowerInvariant()))
+                    curSprites.Add(l);
             }
-
-            if(found)
+            spriteListBox.Items.Clear();
+            List<string> items = new List<string>();
+            for (int l = 0; l < curSprites.Count; l++)
+                items.Add(allSprites[curSprites[l]]);
+            spriteListBox.Items.AddRange(items.ToArray());
+            spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
+            if (curSprites.Count > 0)
                 searchBox.BackColor = SystemColors.Window;
             else
                 searchBox.BackColor = Color.Coral;
-
         }
-
     }
 }
