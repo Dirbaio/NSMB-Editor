@@ -167,7 +167,7 @@ namespace NSMBe4 {
                 v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
             
             foreach(NSMBSprite s in Level.Sprites)
-                if(ViewableBlocks.Contains(s.X, s.Y))
+                if(ViewablePixels.IntersectsWith(s.getRect()))
                     s.Render(e.Graphics);
 
             foreach(NSMBEntrance n in Level.Entrances)

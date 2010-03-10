@@ -92,7 +92,8 @@ namespace NSMBe4 {
             // 
             // loadROMButton
             // 
-            this.loadROMButton.Location = new System.Drawing.Point(247, 293);
+            this.loadROMButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadROMButton.Location = new System.Drawing.Point(400, 293);
             this.loadROMButton.Name = "loadROMButton";
             this.loadROMButton.Size = new System.Drawing.Size(76, 23);
             this.loadROMButton.TabIndex = 5;
@@ -103,7 +104,7 @@ namespace NSMBe4 {
             // hexEditLevelButton
             // 
             this.hexEditLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.hexEditLevelButton.Location = new System.Drawing.Point(329, 293);
+            this.hexEditLevelButton.Location = new System.Drawing.Point(247, 293);
             this.hexEditLevelButton.Name = "hexEditLevelButton";
             this.hexEditLevelButton.Size = new System.Drawing.Size(66, 23);
             this.hexEditLevelButton.TabIndex = 4;
@@ -136,7 +137,7 @@ namespace NSMBe4 {
             // editLevelButton
             // 
             this.editLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editLevelButton.Location = new System.Drawing.Point(401, 293);
+            this.editLevelButton.Location = new System.Drawing.Point(319, 293);
             this.editLevelButton.Name = "editLevelButton";
             this.editLevelButton.Size = new System.Drawing.Size(75, 23);
             this.editLevelButton.TabIndex = 1;

@@ -353,9 +353,9 @@ namespace NSMBe4
                 else if (v.display == "binary")
                 {
                     BinaryEdit c = new BinaryEdit();
-                    if (v.vs.type == ValueSourceType.NIBBLE) {
+                    if (v.vs.type == ValueSourceType.NIBBLE)
                         c.CheckBoxCount = 4;
-                    } else
+                    else
                         c.CheckBoxCount = 8;
                     c.value = v.vs.getValue(sdata);
                     c.ValueChanged += new EventHandler(saveData);
@@ -388,8 +388,8 @@ namespace NSMBe4
                         val = (controls[s] as BinaryEdit).value;
                     s.setValue(val, sdata);
                 }
-
                 EdControl.FireSetDirtyFlag();
+                EdControl.Invalidate(true);
             }
         }
     }

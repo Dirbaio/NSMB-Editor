@@ -59,7 +59,7 @@ namespace NSMBe4
                 if (SelectedObject is NSMBSprite)
                 {
                     NSMBSprite o = SelectedObject as NSMBSprite;
-                    g.DrawRectangle(Pens.White, o.X * 16, o.Y * 16, 16, 16);
+                    g.DrawRectangle(Pens.White, o.getRect());
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace NSMBe4
             }
 
             foreach (NSMBSprite s in Level.Sprites)
-                if (SelectionRectangle.Contains(s.X, s.Y))
+                if (SelectionRectangle.IntersectsWith(s.getRectB()))
                     SelectedObjects.Add(s);
 
             if (firstOnly && SelectedObjects.Count > 1)
@@ -153,8 +153,10 @@ namespace NSMBe4
                 if (so is NSMBSprite)
                 {
                     NSMBSprite s = so as NSMBSprite;
-                    if (x == s.X && y == s.Y)
-                        return true;
+                    Rectangle r = s.getRectB();
+                    if (x >= r.X && y < s.Y + r.Width)
+                        if (y >= r.Y && y < r.Y + r.Height)
+                            return true;
                 }
             }
 

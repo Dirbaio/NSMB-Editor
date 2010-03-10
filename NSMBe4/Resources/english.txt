@@ -730,7 +730,7 @@ W8 Final Castle|12|3
 1-Up Bonus Game|01|1
 Item Bonus Game|02|1
 Mega Mushroom Bonus Game|03|1
-Selector de Fondo de la Pantalla|04|1
+Bottom Screen Background Chooser|04|1
 -Mario vs. Luigi|J
 SMB 1-1|01|1
 Underground|02|1

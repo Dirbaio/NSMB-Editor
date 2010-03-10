@@ -729,7 +729,7 @@ Castillo Final M8|12|3
 1-Up Juego de Bonificación|01|1
 Item Juego de Bonificación|02|1
 Setas Mega Juego de Bonificación|03|1
-de fondo de Pantalla Inferior Selector|04|1
+Selector de Fondo de la Pantalla|04|1
 -Mario vs. Luigi|J
 SMB 1-1|01|1
 Bajo Tierra|02|1
