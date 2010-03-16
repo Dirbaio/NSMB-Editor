@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+*   This file is part of NSMB Editor 5.
+*
+*   NSMB Editor 5 is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   NSMB Editor 5 is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with NSMB Editor 5.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,6 +57,24 @@ namespace NSMBe4 {
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 this.Activate();
             }
+
+            List<string> spriteNames = LanguageManager.GetList("Sprites");
+            
+            for (int i = 0; i < 370; i++)
+            {
+                Console.Out.Write(i + ": ");
+                for (int j = 0; j <= 323; j++)
+                {
+                    int offs = ROM.GetOffset(ROM.Data.Table_Sprite_CLASSID) + j*2;
+                    int classid = ROM.Overlay0[offs] | ROM.Overlay0[offs + 1] << 8;
+                    if (classid == i)
+                        Console.Out.Write(spriteNames[j]);
+                    if (classid == 325)
+                        spriteNames[j] = j + "=Nothing";
+                }
+                Console.Out.WriteLine();
+            }
+
         }
 
         private void LoadLevelNames() {

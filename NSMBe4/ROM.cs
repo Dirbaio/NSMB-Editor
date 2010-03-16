@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+*   This file is part of NSMB Editor 5.
+*
+*   NSMB Editor 5 is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   NSMB Editor 5 is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with NSMB Editor 5.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using NSMBe4.DSFileSystem;
@@ -96,7 +113,8 @@ namespace NSMBe4 {
             Table_TS_PNL = 13,
             Table_Jyotyu_NCL = 14,
             File_Jyotyu_CHK = 15,
-            File_Modifiers = 16
+            File_Modifiers = 16,
+            Table_Sprite_CLASSID = 17,
         }
 
         public static int[,] Offsets = {
@@ -117,6 +135,7 @@ namespace NSMBe4 {
                                            {0x30CD8, 0x304EC, 0x300D8, 0x30198}, //Jyotyu_NCL
                                            {0x2FDA4, 0x2F5B8, 0x2F1A4, 0x2FC74}, //Jyotyu_CHK
                                            {0x2C930, 0x2BDF0, 0x2BD30, 0x2BDF0}, //Modifiers
+                                           {0x29BD8, 0x00000, 0x00000, 0x00000}, //Sprite Class IDs
                                        };
 
         public static int[] FileSizes = {

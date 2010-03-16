@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+*   This file is part of NSMB Editor 5.
+*
+*   NSMB Editor 5 is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   NSMB Editor 5 is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with NSMB Editor 5.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -22,6 +39,17 @@ namespace NSMBe4.NSBMD
         static byte[] cmsk =   new byte[] { 0, 0x1F, 3, 7, 0xFF, 0,   0x08, 0x0 };
         static int[] palSizes = new int[] { 0, 32,   4, 8, 256,  256, 8,    256 }; 
         NSBTX parent;
+
+        static string[] formatNames = {
+                                          "Error?",
+                                          "A3I5 Translucent Texture",
+                                          "4-Color Palette Texture", 
+                                          "16-Color Palette Texture", 
+                                          "256-Color Palette Texture",
+                                          "4x4-Texel Compressed Texture",
+                                          "A5I3 Translucent Texture",
+                                          "Direct Color Texture"
+                                      };
 
         public Texture(NSBTX p, bool color0, int width, int height, int format, uint offset, string name)
         {
