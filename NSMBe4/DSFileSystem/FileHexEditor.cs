@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Be.Windows.Forms;
+using System.Globalization;
 
 namespace NSMBe4.DSFileSystem
 {
@@ -51,6 +52,13 @@ namespace NSMBe4.DSFileSystem
         private void FileHexEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             f.endEdit(this);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            uint offset = uint.Parse(toolStripTextBox1.Text, NumberStyles.HexNumber);
+            hexBox1.Select(offset, 1);
+
         }
     }
 }

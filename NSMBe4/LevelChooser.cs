@@ -62,7 +62,7 @@ namespace NSMBe4 {
             
             for (int i = 0; i < 370; i++)
             {
-                Console.Out.Write(i + ": ");
+                Console.Out.Write(i.ToString("X2") + ": ");
                 for (int j = 0; j <= 323; j++)
                 {
                     int offs = ROM.GetOffset(ROM.Data.Table_Sprite_CLASSID) + j*2;
