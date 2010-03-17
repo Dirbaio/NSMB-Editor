@@ -58,18 +58,11 @@ namespace NSMBe4 {
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
             deleteAllObjectsToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllObjectsToolStripMenuItem");
             deleteAllSpritesToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllSpritesToolStripMenuItem");
-/*            cutToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "cutToolStripMenuItem");
-            copyToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "copyToolStripMenuItem");
-            pasteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "pasteToolStripMenuItem");
-            deleteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteToolStripMenuItem");*/
-        }
-
-        private void MainForm_Load(object sender, EventArgs e) {
-            //ToolStripManager.RenderMode = ToolStripManagerRenderMode.System;
 
             // First off prepare the sprite list
             string[] spritelist = new string[324];
-            foreach (string sprite in LanguageManager.GetList("Sprites")) {
+            foreach (string sprite in LanguageManager.GetList("Sprites"))
+            {
                 string trimmedsprite = sprite.Trim();
                 if (trimmedsprite == "") continue;
                 int equalPos = trimmedsprite.IndexOf('=');
@@ -91,6 +84,7 @@ namespace NSMBe4 {
             GFX.LoadTilesets(TilesetID, BGNSCID);
 
             Level = new NSMBLevel(LevelFileID, LevelBGDatFileID, GFX);
+            Level.enableWrite();
             levelEditorControl1.Initialise(GFX, Level, this);
 
             opc = new ObjectPickerControl();

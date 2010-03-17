@@ -187,7 +187,8 @@ namespace NSMBe4 {
             new ImagePreviewer(RenderBackground(GFXFile, PalFile, LayoutFile, 576)).Show();
         }
 
-        private Bitmap RenderBackground(File GFXFile, File PalFile, File LayoutFile, int TileOffset) {
+        private Bitmap RenderBackground(File GFXFile, File PalFile, File LayoutFile, int TileOffset)
+        {
             int FilePos;
 
             // First get the palette out
@@ -386,7 +387,7 @@ namespace NSMBe4 {
             
             saveFileDialog1.ShowDialog();
             string filename = saveFileDialog1.FileName;
-            RenderBackground(GFXFile, PalFile, LayoutFile, 256).Save(filename);
+            RenderBackground(GFXFile, PalFile, LayoutFile, 576).Save(filename);
         }
 
         private void bgBottomLayerImportButton_Click(object sender, EventArgs e)

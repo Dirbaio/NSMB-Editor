@@ -37,14 +37,14 @@ namespace NSMBe4
         public List<NSMBView> Views, Zones;
         public List<NSMBPath> Paths, ProgressPaths;
 
-        public bool[] ValidSprites;        
-        
+        public bool[] ValidSprites;
+
+        private bool editing = false;
+
         public NSMBLevel(File levelFile, File bgFile, NSMBGraphics GFX)
         {
             this.LevelFile = levelFile;
             this.BGFile = bgFile;
-            levelFile.beginEdit(this);
-            bgFile.beginEdit(this);
 
             int FilePos;
 
@@ -167,10 +167,33 @@ namespace NSMBe4
             CalculateSpriteModifiers();
         }
 
+        public void enableWrite()
+        {
+            try
+            {
+                BGFile.beginEdit(this);
+                LevelFile.beginEdit(this);
+            }
+            catch (AlreadyEditingException ex)
+            {
+                if (BGFile.beingEditedBy(this))
+                    BGFile.endEdit(this);
+                if (LevelFile.beingEditedBy(this))
+                    LevelFile.endEdit(this);
+
+                throw ex;
+            }
+
+            editing = true;
+        }
+
         public void close()
         {
-            BGFile.endEdit(this);
-            LevelFile.endEdit(this);
+            if (editing)
+            {
+                BGFile.endEdit(this);
+                LevelFile.endEdit(this);
+            }
         }
 
         public void Save() {

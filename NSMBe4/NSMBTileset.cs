@@ -292,15 +292,35 @@ namespace NSMBe4
 
         public void enableWrite()
         {
-            editing = true;
 
-            GFXFile.beginEdit(this);
-            PalFile.beginEdit(this);
-            Map16File.beginEdit(this);
-            ObjFile.beginEdit(this);
-            ObjIndexFile.beginEdit(this);
-            if (TileBehaviorFile != null)
-                TileBehaviorFile.beginEdit(this);
+            try
+            {
+                GFXFile.beginEdit(this);
+                PalFile.beginEdit(this);
+                Map16File.beginEdit(this);
+                ObjFile.beginEdit(this);
+                ObjIndexFile.beginEdit(this);
+                if (TileBehaviorFile != null)
+                    TileBehaviorFile.beginEdit(this);
+            }
+            catch (AlreadyEditingException ex)
+            {
+                if (GFXFile.beingEditedBy(this))
+                    GFXFile.endEdit(this);
+                if (PalFile.beingEditedBy(this))
+                    PalFile.endEdit(this);
+                if (Map16File.beingEditedBy(this))
+                    Map16File.endEdit(this);
+                if (ObjFile.beingEditedBy(this))
+                    ObjFile.endEdit(this);
+                if (ObjIndexFile.beingEditedBy(this))
+                    ObjIndexFile.endEdit(this);
+                if(TileBehaviorFile != null)
+                    if (TileBehaviorFile.beingEditedBy(this))
+                        TileBehaviorFile.endEdit(this);
+                throw ex;
+            }
+            editing = true;
         }
 
         public void save()

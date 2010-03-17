@@ -31,6 +31,7 @@ UnknownRegion=The region of the ROM can't be identified.\nThe editor will treat 
 Tileset=This tileset is already being edited.
 Level=This level is already being edited.
 File=This file is already being edited.
+NoLZHeader=This file doesn't have a "LZ77" ascii header
 
 [LevelChooser]
 _TITLE=NSMB Editor 5.1 - by Treeki and Dirbaio
@@ -201,6 +202,8 @@ extractFileButton=Extract File
 replaceFileButton=Replace File
 compressFileButton=LZ Compress
 decompressFileButton=LZ Decompress
+compressWithHeaderButton=LZ Compress with header
+decompressWithHeaderButton=LZ Decompress with header
 hexEdButton=Hex Edit
 
 FolderStatus=Directory: {0} - ID {1}

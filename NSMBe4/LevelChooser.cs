@@ -57,7 +57,7 @@ namespace NSMBe4 {
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 this.Activate();
             }
-
+            /*
             List<string> spriteNames = LanguageManager.GetList("Sprites");
             
             for (int i = 0; i < 370; i++)
@@ -73,7 +73,7 @@ namespace NSMBe4 {
                         spriteNames[j] = j + "=Nothing";
                 }
                 Console.Out.WriteLine();
-            }
+            }*/
 
         }
 

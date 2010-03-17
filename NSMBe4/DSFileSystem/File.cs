@@ -323,6 +323,10 @@ namespace NSMBe4.DSFileSystem
             editedBy = null;
         }
 
+        public bool beingEditedBy(Object ed)
+        {
+            return ed == editedBy;
+        }
         public virtual void fileModified() { }
     }
 }

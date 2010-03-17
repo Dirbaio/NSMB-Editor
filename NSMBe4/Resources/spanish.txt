@@ -29,6 +29,7 @@ UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara com
 Tileset=Esta serie de objetos ya se esta editando.
 Level=Este nivel ya esta siendo editado.
 File=Este archivo ya esta siendo editado.
+NoLZHeader=Este archivo no tiene un header ascii "LZ77"
 
 [LevelChooser]
 _TITLE=NSMB Editor 5.1 - por Treeki y Dirbaio
@@ -199,6 +200,8 @@ extractFileButton=Extraer
 replaceFileButton=Sustituir
 compressFileButton=Comprimir LZ
 decompressFileButton=Descomprimir LZ
+compressWithHeaderButton=Comprimir LZ con header
+decompressWithHeaderButton=Descomprimir LZ con header
 hexEdButton=Editar en hex
 
 FolderStatus=Carpeta: {0} - ID {1}

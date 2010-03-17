@@ -162,19 +162,19 @@ namespace NSMBe4.DSFileSystem
             {
                 MessageBox.Show(LanguageManager.Get("Errors", "File"));
                 return;
-            }     
+            }
             byte[] RawFile = f.getContents();
             byte[] CompFile = ROM.LZ77_Compress(RawFile);
-            f.replace(CompFile, this );
+            f.replace(CompFile, this);
             UpdateFileInfo();
             f.endEdit(this);
         }
 
         private void decompressFileButton_Click(object sender, EventArgs e)
         {
+            File f = fileTreeView.SelectedNode.Tag as File;
             try
             {
-                File f = fileTreeView.SelectedNode.Tag as File;
 
                 try
                 {
@@ -184,7 +184,7 @@ namespace NSMBe4.DSFileSystem
                 {
                     MessageBox.Show(LanguageManager.Get("Errors", "File"));
                     return;
-                }     
+                }
                 byte[] CompFile = f.getContents();
                 byte[] RawFile = ROM.LZ77_Decompress(CompFile);
                 f.replace(RawFile, this);
@@ -194,6 +194,71 @@ namespace NSMBe4.DSFileSystem
             catch (Exception)
             {
                 MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "DecompressionFail"));
+                if (f.beingEditedBy(this))
+                    f.endEdit(this);
+            }
+        }
+
+        private void compressWithHeaderButton_Click(object sender, EventArgs e)
+        {
+            File f = fileTreeView.SelectedNode.Tag as File;
+
+            try
+            {
+                f.beginEdit(this);
+            }
+            catch (AlreadyEditingException)
+            {
+                MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                return;
+            }
+
+            byte[] RawFile = f.getContents();
+            byte[] CompFile = ROM.LZ77_Compress(RawFile);
+
+            byte[] CompFileWithHeader = new byte[CompFile.Length + 4];
+            Array.Copy(CompFile, 0, CompFileWithHeader, 4, CompFile.Length);
+            f.replace(CompFileWithHeader, this);
+            f.setUintAt(0, 0x37375A4C); 
+            UpdateFileInfo();
+            f.endEdit(this);
+        }
+
+        private void decompressWithHeaderButton_Click(object sender, EventArgs e)
+        {
+            File f = fileTreeView.SelectedNode.Tag as File;
+            try
+            {
+
+                try
+                {
+                    f.beginEdit(this);
+                }
+                catch (AlreadyEditingException)
+                {
+                    MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                    return;
+                }
+
+                if (f.getUintAt(0) != 0x37375A4C)
+                {
+                    MessageBox.Show(LanguageManager.Get("Errors", "NoLZHeader"));
+                    return;
+                }
+
+                byte[] CompFile = f.getContents();
+                byte[] CompFileWithoutHeader = new byte[CompFile.Length - 4];
+                Array.Copy(CompFile, 4, CompFileWithoutHeader, 0, CompFileWithoutHeader.Length);
+                byte[] RawFile = ROM.LZ77_Decompress(CompFileWithoutHeader);
+                f.replace(RawFile, this);
+                UpdateFileInfo();
+                f.endEdit(this);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "DecompressionFail"));
+                if (f.beingEditedBy(this))
+                    f.endEdit(this);
             }
         }
 
