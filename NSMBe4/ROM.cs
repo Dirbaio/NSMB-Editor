@@ -294,7 +294,7 @@ namespace NSMBe4 {
         {
             /* This code converted from Elitemap */
             int DataLen;
-            DataLen = source[1] | (source[2] << 8) | (source[3] << 8);
+            DataLen = source[1] | (source[2] << 8) | (source[3] << 16);
             byte[] dest = new byte[DataLen];
             int i, j, xin, xout;
             xin = 4;
