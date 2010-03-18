@@ -113,6 +113,8 @@ editPathsButton=Rutas
 editProgressButton=Rutas de progreso (pantalla de abajo)
 editViewsButton=Vistas
 editZonesButton=Zonas
+undoButton=Deshacer
+redoButton=Rehacer
 spriteFinder=Buscar Sprites
 editTileset=Editar Graficos
 zoomMenu=Zoom
@@ -181,6 +183,7 @@ label18=Area de destino:
 label19=Entrada de destino:
 label20=ID de conexion:
 label21=Vista:
+type=Tipo
 entranceSetting128=Bloquear entrada (para tuberias y puertas)
 entranceSetting16=Usar transicion desaparicion
 entranceSetting8=Usar conexion de tuberia
@@ -444,8 +447,8 @@ label8=X:
 label11=Y:
 label10=Anchura:
 label9=Altura:
-label12=ID:
 groupBox1=Opciones de vista
+label12=ID:
 label1=Camara ID:
 label6=Musica:
 label2=Desconocido 1:
@@ -1362,3 +1365,37 @@ Nivel 5|10|1
 74: Sala bonus
 75: Cesped
 
+[LIST_UndoActions]
+
+Agregar Objeto
+Eliminar Objeto
+Calibrar Objeto
+Mueve Objeto
+Cambiar Objeto Tipo
+Agregar Sprite
+Eliminar Sprite
+Mueve Sprite
+Cambiar Sprite Datos
+Cambiar Sprite Tipo
+Agregar {0} Objectos/Sprites
+Eliminar {0} Objectos/Sprites
+Mueve {0} Objectos/Sprites
+Agregar Entrada
+Eliminar Entrada
+Mueve Entrada
+Cambiar Entrada Propiedad '{0}'
+Agregar Ruta
+Eliminar Ruta
+Agregar Ruta Nodo
+Eliminar Ruta Nodo
+Cambiar Ruta Datos
+Agregar Vista
+Eliminar Vista
+Calibrar Vista
+Mueve Vista
+Cambiar Vista Propiedad '{0}'
+Agregar Zonas
+Eliminar Zonas
+Calibrar Zonas
+Mueve Zonas
+Cambiar Zonas ID

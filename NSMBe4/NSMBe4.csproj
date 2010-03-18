@@ -449,6 +449,10 @@
     <None Include="Resources\Sprite Images\StoneBlockTopLeft.PNG" />
     <None Include="Resources\Sprite Images\StoneBlockTopRight.PNG" />
     <None Include="Resources\Sprite Images\TubeBubbles.PNG" />
+    <None Include="Resources\Sprite Images\Swooper.PNG" />
+    <None Include="Resources\Sprite Images\SwooperLarge.PNG" />
+    <None Include="Resources\Sprite Images\StarGate.PNG" />
+    <None Include="Resources\Sprite Images\OneWayDoor.PNG" />
     <Content Include="spritedata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -498,6 +502,7 @@
     <Compile Include="DSFileSystem\NarcFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />
+    <Compile Include="Editor\UndoManager.cs" />
     <Compile Include="GraphicsEditor\ColourPicker.cs">
       <SubType>Form</SubType>
     </Compile>

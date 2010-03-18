@@ -44,6 +44,7 @@ namespace NSMBe4
             EdControl.SelectObject(no);
 
             EdControl.Invalidate(true);
+            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddObject, no, null);
             EdControl.FireSetDirtyFlag();
         }
 
@@ -60,6 +61,7 @@ namespace NSMBe4
             EdControl.SelectObject(ns);
 
             EdControl.Invalidate(true);
+            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddSprite, ns, null);
             EdControl.FireSetDirtyFlag();
         }
     }

@@ -52,6 +52,10 @@ namespace NSMBe4
             nv.Height = 12 * 16;
             nv.Width = 16 * 16;
             nv.isZone = !EditingViews;
+            if (nv.isZone)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddZone, nv, null);
+            else
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddView, nv, null);
 
             l.Add(nv);
             EdControl.FireSetDirtyFlag();
@@ -61,6 +65,10 @@ namespace NSMBe4
 
         private void deleteViewButton_Click(object sender, EventArgs e)
         {
+            if (v.isZone)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveZone, v, EdControl.Level.Zones.IndexOf(v));
+            else
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveView, v, EdControl.Level.Views.IndexOf(v));
             l.Remove(v);
             EdControl.SelectObject(null);
             EdControl.FireSetDirtyFlag();
@@ -128,6 +136,23 @@ namespace NSMBe4
         {
             if (v == null || DataUpdateFlag)
                 return;
+            if ((int)xPos.Value != v.X || (int)yPos.Value != v.Y) {
+                if (v.isZone)
+                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveZone, v, new Rectangle(v.X, v.Y, (int)xPos.Value, (int)yPos.Value));
+                else
+                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveView, v, new Rectangle(v.X, v.Y, (int)xPos.Value, (int)yPos.Value));
+            } else if ((int)width.Value != v.Width || (int)height.Value != v.Height) {
+                if (v.isZone)
+                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeZone, v, new Rectangle(v.Width, v.Height, (int)width.Value, (int)height.Value));
+                else
+                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeView, v, new Rectangle(v.Width, v.Height, (int)width.Value, (int)height.Value));
+            } else if ((int)viewID.Value != v.Number) {
+                if (v.isZone)
+                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeZoneID, v, new Point(v.Number, (int)viewID.Value));
+                else
+                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.Number, (int)viewID.Value, 0, 0));
+            }
+
 
             v.X = (int)xPos.Value;
             v.Y = (int)yPos.Value;
@@ -144,13 +169,27 @@ namespace NSMBe4
         {
             if (v == null || DataUpdateFlag)
                 return;
-
+            if (v.Camera != (int)cameraID.Value)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.Camera, (int)cameraID.Value, 1, 0));
             v.Camera = (int)cameraID.Value;
-            v.Music = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            int newMusic = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            if (v.Music != newMusic)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.Music, newMusic, 2, 0));
+            v.Music = newMusic;
+            if (v.Unknown1 != (int)unk1.Value)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.Unknown1, (int)unk1.Value, 3, 0));
             v.Unknown1 = (int)unk1.Value;
+            if (v.Unknown2 != (int)unk2.Value)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.Unknown2, (int)unk2.Value, 4, 0));
             v.Unknown2 = (int)unk2.Value;
+            if (v.Unknown3 != (int)unk3.Value)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.Unknown3, (int)unk3.Value, 5, 0));
             v.Unknown3 = (int)unk3.Value;
+            if (v.Lighting != (int)light.Value)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.Lighting, (int)light.Value, 6, 0));
             v.Lighting = (int)light.Value;
+            if (v.FlagpoleID != (int)progressID.Value)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeViewData, v, new Rectangle(v.FlagpoleID, (int)progressID.Value, 7, 0));
             v.FlagpoleID = (int)progressID.Value;
             EdControl.FireSetDirtyFlag();
         }

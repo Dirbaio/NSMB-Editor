@@ -81,6 +81,7 @@ namespace NSMBe4
             if (CloneMode)
             {
                 e = new NSMBEntrance(e);
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddEntrance, e, null);
                 Level.Entrances.Add(e);
                 e.Number = Level.getFreeEntranceNumber();
                 EdControl.repaint();
@@ -96,20 +97,22 @@ namespace NSMBe4
 
             bool moved = false;
 
+            int nx = e.X, ny = e.Y;
+
             if (DragStartX/step != x/step)
             {
-                e.X += (x / step - DragStartX / step) * step;
-                if (e.X < 0)
-                    e.X = 0;
+                nx += (x / step - DragStartX / step) * step;
+                if (nx < 0)
+                    nx = 0;
 
                 DragStartX = x;
                 moved = true;
             }
             if (DragStartY / step != y / step)
             {
-                e.Y += (y / step - DragStartY / step) * step;
-                if (e.Y < 0)
-                    e.Y = 0;
+                ny += (y / step - DragStartY / step) * step;
+                if (ny < 0)
+                    ny = 0;
 
                 DragStartY = y;
                 moved = true;
@@ -117,8 +120,11 @@ namespace NSMBe4
 
             if (moved)
             {
-                e.X = e.X - e.X % step;
-                e.Y = e.Y - e.Y % step;
+                nx = nx - nx % step;
+                ny = ny - ny % step;
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveEntrance, e, new Rectangle(e.X, e.Y, nx, ny));
+                e.X = nx;
+                e.Y = ny;
                 EdControl.repaint();
                 UpdatePanel();
                 SetDirtyFlag();
@@ -131,11 +137,17 @@ namespace NSMBe4
                 SelectObject(null);
 
             SetPanel(ed);
+            ed.UpdateList();
         }
 
         private void UpdatePanel()
         {
             ed.SetEntrance(e);
+        }
+
+        public override void MouseUp()
+        {
+            EdControl.editor.undoMngr.merge = false;
         }
     }
 }

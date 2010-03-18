@@ -78,9 +78,8 @@ namespace NSMBe4 {
                         x -= 8; y -= 16;
                         width = 32; height = 32;
                     }
-                    if (Data[2] / 0x10 > 0) {
+                    if (Data[2] / 0x10 > 0)
                         x += 8;
-                    }
                     break;
                 case 34:
                     x -= 7; y -= 26;
@@ -119,9 +118,8 @@ namespace NSMBe4 {
                     width = 21;
                     break;
                 case 66:
-                    if (Data[2] % 0x10 != 1) {
+                    if (Data[2] % 0x10 != 1)
                         y -= 2;
-                    }
                     height = 18;
                     break;
                 case 68:
@@ -135,6 +133,14 @@ namespace NSMBe4 {
                     x -= 24; y -= 10;
                     width = 16 * (Data[2] % 0x10) + 48;
                     height = 16 * Math.Max(Data[2] / 0x10, Data[3] % 0x10) + 18;
+                    break;
+                case 94:
+                    if (Data[2] > 0) {
+                        x -= 6; y -= 16;
+                        width = 26; height = 37;
+                    } else {
+                        height = 18;
+                    }
                     break;
                 case 95:
                     x -= 6;
@@ -174,6 +180,7 @@ namespace NSMBe4 {
                     width = 63; height = 58;
                     break;
                 case 117:
+                    x -= 12; y -= 8;
                     width = 44; height = 23;
                     break;
                 case 120:
@@ -187,6 +194,9 @@ namespace NSMBe4 {
                 case 136:
                     width = 18; height = 16 * (Data[2] + 2) + 7;
                     y -= height - 16;
+                    break;
+                case 146:
+                    width = 32; height = 8;
                     break;
                 case 147:
                     x -= Data[2] * 8 + 6;
@@ -237,9 +247,11 @@ namespace NSMBe4 {
                     width = 27; height = 23;
                     break;
                 case 207:
+                    x -= 20; y -= 32;
                     width = 63; height = 52;
                     break;
                 case 211:
+                    y -= 16;
                     width = 26; height = 32;
                     break;
                 case 220:
@@ -289,6 +301,21 @@ namespace NSMBe4 {
                     break;
                 case 277:
                     width = 32; height = 32;
+                    break;
+                case 279:
+                    if (Data[2] == 0 || Data[2] == 1) {
+                        y -= 39;
+                        width = 16; height = 39;
+                    } else if (Data[2] == 2 || Data[2] == 3) {
+                        y += 16;
+                        width = 16; height = 39;
+                    } else if (Data[2] == 4 || Data[2] == 5) {
+                        x += 16;
+                        width = 39; height = 16;
+                    } else if (Data[2] == 6 || Data[2] == 7) {
+                        x -= 39;
+                        width = 39; height = 16;
+                    }
                     break;
                 case 284:
                     y -= 2;
@@ -362,11 +389,10 @@ namespace NSMBe4 {
                     g.DrawImage(Properties.Resources.CheepCheep, RenderX, RenderY, 21, 16);
                     break;
                 case 32:
-                    if (Data[5] == 0x10) {
+                    if (Data[5] == 0x10)
                         img = Properties.Resources.EndingFlagRed;
-                    } else {
+                    else
                         img = Properties.Resources.EndingFlag;
-                    }
                     g.DrawImage(img, RenderX - 29, RenderY - 119, 27, 24);
                     break;
                 case 33:
@@ -374,12 +400,10 @@ namespace NSMBe4 {
                         img = Properties.Resources.SpringGiant;
                         RenderY -= 16;
                         RenderX -= 8;
-                    } else {
+                    } else
                         img = Properties.Resources.Spring;
-                    }
-                    if (Data[2] / 0x10 > 0) {
+                    if (Data[2] / 0x10 > 0)
                         RenderX += 8;
-                    }
                     g.DrawImage(img, RenderX, RenderY, img.Width, img.Height);
                     break;
                 case 34:
@@ -420,11 +444,10 @@ namespace NSMBe4 {
                     break;
                 case 66:
                     img = Properties.Resources.PSwitch;
-                    if (Data[2] % 0x10 == 1) {
-                        img.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    } else {
+                    if (Data[2] % 0x10 == 1)
+                        img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    else
                         RenderY -= 2;
-                    }
                     g.DrawImage(img, RenderX, RenderY, 16, 18);
                     break;
                 case 68:
@@ -448,12 +471,18 @@ namespace NSMBe4 {
                     g.DrawLine(rope, RenderX + 9, RenderY - 8, RenderX2 + 1, RenderY - 8);
                     int RenderY2 = RenderY + 16 * (Data[2] / 0x10) - 8;
                     int RenderY3 = RenderY + 16 * (Data[3] % 0x10) - 8;
-                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX2 - 14, RenderY3, 48, 16);
-                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX - 24, RenderY2, 48, 16);
                     g.DrawLine(Pens.White, RenderX - 1, RenderY, RenderX - 1, RenderY2 - 1);
                     g.DrawLine(rope, RenderX, RenderY + 1, RenderX, RenderY2 - 1);
                     g.DrawLine(Pens.White, RenderX2 + 9, RenderY + 3, RenderX2 + 9, RenderY3 - 1);
                     g.DrawLine(rope, RenderX2 + 10, RenderY + 1, RenderX2 + 10, RenderY3 - 1);
+                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX2 - 14, RenderY3, 48, 16);
+                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX - 24, RenderY2, 48, 16);
+                    break;
+                case 94:
+                    if (Data[2] > 0)
+                        g.DrawImage(Properties.Resources.SwooperLarge, RenderX - 6, RenderY - 16, 26, 37);
+                    else
+                        g.DrawImage(Properties.Resources.Swooper, RenderX, RenderY, 16, 18);
                     break;
                 case 95:
                     g.DrawImage(Properties.Resources.SpinBoard, RenderX - 6, RenderY, 26, 26);
@@ -466,20 +495,18 @@ namespace NSMBe4 {
                     break;
                 case 107:
                     img = Properties.Resources.QSwitch;
-                    if (Data[2] == 1) {
-                        img.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    } else {
+                    if (Data[2] == 1)
+                        img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    else
                         RenderY -= 2;
-                    }
                     g.DrawImage(img, RenderX, RenderY, 16, 18);
                     break;
                 case 108:
                     img = Properties.Resources.RedSwitch;
-                    if (Data[2] == 1) {
-                        img.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    } else {
+                    if (Data[2] == 1)
+                        img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    else
                         RenderY -= 2;
-                    }
                     g.DrawImage(img, RenderX, RenderY, 16, 18);
                     break;
                 case 109:
@@ -497,7 +524,7 @@ namespace NSMBe4 {
                     g.DrawImage(Properties.Resources.SpikeBallLarge, RenderX, RenderY - 42, 63, 58);
                     break;
                 case 117:
-                    g.DrawImage(Properties.Resources.FlyingBlock, RenderX, RenderY, 44, 23);
+                    g.DrawImage(Properties.Resources.FlyingBlock, RenderX - 12, RenderY - 8, 44, 23);
                     break;
                 case 120:
                     g.DrawImage(Properties.Resources.PiranhaplantGround, RenderX, RenderY + 3, 33, 29);
@@ -513,6 +540,9 @@ namespace NSMBe4 {
                     }
                     g.DrawImage(Properties.Resources.PokeyHead, RenderX, RenderY - 9, 18, 25);
                     break;
+                case 146:
+                    g.DrawImage(Properties.Resources.StarGate, RenderX, RenderY, 32, 8);
+                    break;
                 case 147:
                     RenderX -= Data[2] * 8 + 6;
                     g.DrawImage(Properties.Resources.BumpPlatformLeft, RenderX, RenderY, 14, 10);
@@ -521,9 +551,8 @@ namespace NSMBe4 {
                         g.DrawImage(Properties.Resources.BumpPlatformSection, RenderX, RenderY, 16, 10);
                         RenderX += 16;
                     }
-                    if (Data[2] > 0) {
+                    if (Data[2] > 0)
                         g.DrawImage(Properties.Resources.BumpPlatformRight, RenderX, RenderY, 14, 10);
-                    }
                     break;
                 case 148:
                     g.DrawImage(Properties.Resources.Goomba, RenderX, RenderY - 2, 16, 18);
@@ -584,11 +613,10 @@ namespace NSMBe4 {
                     g.DrawImage(img, RenderX, RenderY, 32, 24);
                     break;
                 case 180:
-                    if (Data[2] % 0x10 == 1) {
+                    if (Data[2] % 0x10 == 1)
                         img = Properties.Resources.FenceKoopaRed;
-                    } else {
+                    else
                         img = Properties.Resources.FenceKoopaGreen;
-                    }
                     g.DrawImage(img, RenderX, RenderY, 18, 26);
                     break;
                 case 183:
@@ -607,15 +635,14 @@ namespace NSMBe4 {
                     g.DrawImage(Properties.Resources.JumpingFlame, RenderX, RenderY - 7, 27, 23);
                     break;
                 case 207:
-                    if (Data[2] == 0) {
+                    if (Data[2] == 0)
                         img = Properties.Resources.CheepCheepGiant;
-                    } else {
+                    else
                         img = Properties.Resources.CheepCheepGiantGreen;
-                    }
-                    g.DrawImage(img, RenderX, RenderY, 63, 52);
+                    g.DrawImage(img, RenderX - 20, RenderY - 32, 63, 52);
                     break;
                 case 211:
-                    g.DrawImage(Properties.Resources.Blooper, RenderX, RenderY, 26, 32);
+                    g.DrawImage(Properties.Resources.Blooper, RenderX, RenderY - 16, 26, 32);
                     break;
                 case 220:
                     g.DrawImage(Properties.Resources.BowserJr, RenderX, RenderY - 25, 31, 41);
@@ -667,12 +694,10 @@ namespace NSMBe4 {
                     break;
                 case 277:
                     int direction = Data[5] % 8;
-                    if (direction == 0 || direction == 2 || direction == 4 || direction == 6) {
+                    if (direction == 0 || direction == 2 || direction == 4 || direction == 6)
                         img = Properties.Resources.Arrow;
-                    }
-                    else {
+                    else
                         img = Properties.Resources.ArrowRotate45;
-                    }
                     if (direction == 2 || direction == 3)
                         img.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     if (direction == 4 || direction == 5)
@@ -680,6 +705,26 @@ namespace NSMBe4 {
                     if (direction == 6 || direction == 7)
                         img.RotateFlip(RotateFlipType.Rotate270FlipNone);
                     g.DrawImage(img, RenderX, RenderY, 32, 32);
+                    break;
+                case 279:
+                    img = Properties.Resources.OneWayDoor;
+                    if (Data[2] == 0 || Data[2] == 1) {
+                        img.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                        RenderY -= 39;
+                    } else if (Data[2] == 2 || Data[2] == 3) {
+                        RenderY += 16;
+                    } else if (Data[2] == 4 || Data[2] == 5) {
+                        img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        RenderX += 16;
+                    } else if (Data[2] == 6 || Data[2] == 7) {
+                        img.RotateFlip(RotateFlipType.Rotate270FlipX);
+                        RenderX -= 39;
+                    }
+                    if (Data[2] == 0 || Data[2] == 2)
+                        img.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                    else if (Data[2] == 4 || Data[2] == 6)
+                        img.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    g.DrawImage(img, RenderX, RenderY, img.Width, img.Height);
                     break;
                 case 284:
                     g.DrawImage(Properties.Resources.Pumpkin, RenderX, RenderY - 2, 18, 18);

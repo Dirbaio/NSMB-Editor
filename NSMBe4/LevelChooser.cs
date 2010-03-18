@@ -31,6 +31,8 @@ using NSMBe4.DSFileSystem;
 namespace NSMBe4 {
     public partial class LevelChooser : Form
     {
+        private List<LevelEditor> editors;
+
         public LevelChooser() {
             InitializeComponent();
         }
@@ -40,6 +42,8 @@ namespace NSMBe4 {
             if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
                 Application.Exit();
             } else {
+                editors = new List<LevelEditor>();
+
                 importLevelButton.Enabled = false;
                 exportLevelButton.Enabled = false;
                 editLevelButton.Enabled = false;
@@ -76,6 +80,7 @@ namespace NSMBe4 {
             }*/
 
         }
+
 
         private void LoadLevelNames() {
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
@@ -116,21 +121,19 @@ namespace NSMBe4 {
         {
             openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
             if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
-                Application.Exit();
+                return;
             }
             else {
-                importLevelButton.Enabled = false;
-                exportLevelButton.Enabled = false;
-                editLevelButton.Enabled = false;
-                hexEditLevelButton.Enabled = false;
-
+                for (int l = editors.Count - 1; l >= 0; l--)
+                {
+                    if (l < editors.Count - 1)
+                        return;
+                    editors[l].Close();
+                }
                 ROM.close();
                 ROM.load(openROMDialog.FileName);
                 filesystemBrowser1 = new FilesystemBrowser();
                 filesystemBrowser1.Load(ROM.FS);
-
-                levelTreeView.Nodes.Clear();
-                LoadLevelNames();
             }
         }
 
@@ -163,6 +166,8 @@ namespace NSMBe4 {
             try
             {
                 LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag);
+                editors.Add(NewEditor);
+                NewEditor.FormClosed += new FormClosedEventHandler(editorClosing);
                 NewEditor.Text = EditorCaption;
                 NewEditor.Show();
             }
@@ -170,6 +175,11 @@ namespace NSMBe4 {
             {
                 MessageBox.Show(LanguageManager.Get("Errors", "Level"));
             }                
+        }
+
+        private void editorClosing(object sender, FormClosedEventArgs e)
+        {
+            editors.Remove(sender as LevelEditor);
         }
 
         private void hexEditLevelButton_Click(object sender, EventArgs e) {
@@ -198,7 +208,7 @@ namespace NSMBe4 {
         }
 
         private void levelTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
-            if (e.Node.Tag != null) {
+            if (e.Node.Tag != null && editLevelButton.Enabled == true) {
                 editLevelButton_Click(null, null);
             }
         }

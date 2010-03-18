@@ -226,6 +226,16 @@ namespace NSMBe4 {
                 Level.Save();
                 return true;
             }
+            if (keyData == (Keys.Control | Keys.Z))
+            {
+                editor.undoMngr.UndoLast();
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.Y))
+            {
+                editor.undoMngr.RedoLast();
+                return true;
+            }
             if (keyData == (Keys.Delete))
             {
                 delete();

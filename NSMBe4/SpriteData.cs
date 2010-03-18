@@ -102,7 +102,7 @@ namespace NSMBe4
             res.name = val;
             res.display = com;
             if (res.display == "list")
-                res.values = ReadStringList(sr);
+                setList(sr, res);
 
             if (res.display == "label") {
                 res.vs = new SpriteDataValueSource();
@@ -160,26 +160,40 @@ namespace NSMBe4
             return null;
         }
 
-        private static string[] ReadStringList(StreamReader sr)
+        private static void setList(StreamReader sr, SpriteDataValue sdv)
         {
-            List<string> res = new List<string>();
-            String s = ReadLine(sr);
+            List<int> ints = new List<int>();
+            List<string> strings = new List<string>();
             int start = LineNum;
+            int count = 0;
+            String s = ReadLine(sr);
+            String[] s2 = s.Split(' ');
             while (s != "end list")
             {
                 if (s == null)
-                    throw new Exception("Error: List not terminated. Started at line: "+start);
-                res.Add(s);
+                    throw new Exception("Error: List not terminated. Started at line: " + start);
+                if (s2.Length >= 3 && s2[s2.Length - 2] == "=") {
+                    ints.Add(int.Parse(s2[s2.Length - 1]));
+                    strings.Add(s.Substring(0, s.IndexOf(" = ")));
+                } else {
+                    ints.Add(count);
+                    strings.Add(s);
+                }
+
                 s = ReadLine(sr);
+                s2 = s.Split(' ');
+                count++;
             }
-            return res.ToArray();
+            sdv.values = ints.ToArray();
+            sdv.strings = strings.ToArray();
         }
 
         public class SpriteDataValue
         {
             public string name;
             public string display;
-            public string[] values;
+            public int[] values;
+            public string[] strings;
             public SpriteDataValueSource vs;
         }
 
@@ -290,11 +304,11 @@ namespace NSMBe4
         {
             Dictionary<SpriteDataValueSource, Control> controls = new Dictionary<SpriteDataValueSource, Control>();
 
-            byte[] sdata;
+            NSMBSprite s;
             SpriteData sd;
             LevelEditorControl EdControl;
 
-            public SpriteDataEditor(byte[] sdata, SpriteData sd, LevelEditorControl EdControl)
+            public SpriteDataEditor(NSMBSprite s, SpriteData sd, LevelEditorControl EdControl)
             {
                 this.ColumnCount = 2;
                 this.RowCount = sd.values.Count;
@@ -306,7 +320,7 @@ namespace NSMBe4
                 foreach (RowStyle cs in this.RowStyles)
                     cs.SizeType = SizeType.AutoSize;
 
-                this.sdata = sdata;
+                this.s = s;
                 this.sd = sd;
                 this.Dock = DockStyle.Fill;
                 this.EdControl = EdControl;
@@ -340,7 +354,7 @@ namespace NSMBe4
                 if (v.display == "checkbox")
                 {
                     CheckBox c = new CheckBox();
-                    c.Checked = v.vs.getValue(sdata) == 1;
+                    c.Checked = v.vs.getValue(s.Data) == 1;
                     c.Text = v.name;
                     c.CheckedChanged += new EventHandler(saveData);
                     return c;
@@ -349,10 +363,10 @@ namespace NSMBe4
                 {
                     ComboBox c = new ComboBox();
                     c.DropDownStyle = ComboBoxStyle.DropDownList;
-                    c.Items.AddRange(v.values);
+                    c.Items.AddRange(v.strings);
                     try
                     {
-                        c.SelectedIndex = v.vs.getValue(sdata);
+                        c.SelectedIndex = Array.IndexOf(v.values, v.vs.getValue(s.Data));
                     }
                     catch (ArgumentOutOfRangeException) { } //just in case
                     c.SelectedIndexChanged += new EventHandler(saveData);
@@ -374,7 +388,7 @@ namespace NSMBe4
                         c.CheckBoxCount = 4;
                     else
                         c.CheckBoxCount = 8;
-                    c.value = v.vs.getValue(sdata);
+                    c.value = v.vs.getValue(s.Data);
                     c.ValueChanged += new EventHandler(saveData);
                     return c;
                 }
@@ -383,27 +397,43 @@ namespace NSMBe4
                     NumericUpDown c = new NumericUpDown();
                     c.Minimum = v.vs.getMin();
                     c.Maximum = v.vs.getMax();
+                    c.Value = v.vs.getValue(s.Data);
                     c.ValueChanged += new EventHandler(saveData);
-                    c.Value = v.vs.getValue(sdata);
                     return c;
                 }
             }
             public void saveData(object sender, EventArgs e)
             {
-                foreach(SpriteDataValueSource s in controls.Keys)
+                byte[] orig = s.Data.Clone() as byte[];
+                int index = 0;
+                foreach(SpriteDataValueSource sv in controls.Keys)
                 {
                     int val = 0;
-                    if (controls[s] is NumericUpDown)
-                        val = (int)(controls[s] as NumericUpDown).Value;
-                    else if (controls[s] is ComboBox)
-                        val = (int)(controls[s] as ComboBox).SelectedIndex;
-                    else if (controls[s] is CheckBox)
-                        val = (controls[s] as CheckBox).Checked ? 1 : 0;
-                    else if (controls[s] is RadioButton)
-                        val = (controls[s] as RadioButton).Checked ? 1 : 0;
-                    else if (controls[s] is BinaryEdit)
-                        val = (controls[s] as BinaryEdit).value;
-                    s.setValue(val, sdata);
+                    if (controls[sv] is NumericUpDown)
+                        val = (int)(controls[sv] as NumericUpDown).Value;
+                    else if (controls[sv] is ComboBox) {
+                        int se = (controls[sv] as ComboBox).SelectedIndex;
+                        if (se == -1)
+                            val = 0;
+                        else
+                            val = sd.values[index].values[(controls[sv] as ComboBox).SelectedIndex];
+                    }
+                    else if (controls[sv] is CheckBox)
+                        val = (controls[sv] as CheckBox).Checked ? 1 : 0;
+                    else if (controls[sv] is RadioButton)
+                        val = (controls[sv] as RadioButton).Checked ? 1 : 0;
+                    else if (controls[sv] is BinaryEdit)
+                        val = (controls[sv] as BinaryEdit).value;
+                    sv.setValue(val, s.Data);
+                    index++;
+                }
+                if (sender != null) {
+                    byte[][] datas = new byte[2][];
+                    datas[0] = new byte[6];
+                    datas[1] = new byte[6];
+                    Array.Copy(orig, datas[0], 6);
+                    Array.Copy(s.Data.Clone() as byte[], datas[1], 6);
+                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeSpriteData, s, datas);
                 }
                 EdControl.FireSetDirtyFlag();
                 EdControl.Invalidate(true);

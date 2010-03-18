@@ -524,6 +524,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap OneWayDoor {
+            get {
+                object obj = ResourceManager.GetObject("OneWayDoor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap options {
             get {
                 object obj = ResourceManager.GetObject("options", resourceCulture);
@@ -805,6 +812,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap StarGate {
+            get {
+                object obj = ResourceManager.GetObject("StarGate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap StoneBlockBottom {
             get {
                 object obj = ResourceManager.GetObject("StoneBlockBottom", resourceCulture);
@@ -892,6 +906,20 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap StoneBlockTopRight {
             get {
                 object obj = ResourceManager.GetObject("StoneBlockTopRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Swooper {
+            get {
+                object obj = ResourceManager.GetObject("Swooper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SwooperLarge {
+            get {
+                object obj = ResourceManager.GetObject("SwooperLarge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

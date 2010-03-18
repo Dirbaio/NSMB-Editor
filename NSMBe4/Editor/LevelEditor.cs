@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using NSMBe4.DSFileSystem;
+using NSMBe4.Editor;
 
 
 namespace NSMBe4 {
@@ -36,6 +37,8 @@ namespace NSMBe4 {
 
         public ToolsForm tools;
         private List<ToolStripButton> EditionModeButtons;
+
+        public UndoManager undoMngr;
 
         public LevelEditor(string LevelFilename) {
             InitializeComponent();
@@ -58,6 +61,13 @@ namespace NSMBe4 {
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
             deleteAllObjectsToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllObjectsToolStripMenuItem");
             deleteAllSpritesToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllSpritesToolStripMenuItem");
+
+            cutToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "cutToolStripMenuItem");
+            copyToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "copyToolStripMenuItem");
+            pasteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "pasteToolStripMenuItem");
+            deleteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteToolStripMenuItem");
+            undoMngr = new UndoManager(undoButton, redoButton, levelEditorControl1);
+        }
 
             // First off prepare the sprite list
             string[] spritelist = new string[324];
@@ -258,6 +268,10 @@ namespace NSMBe4 {
                 return;
             }
 
+            int[] zIndex = new int[Level.Objects.Count];
+            for (int l = 0; l < Level.Objects.Count; l++)
+                zIndex[l] = l;
+            undoMngr.PerformAction(UndoType.RemoveMultiple, Level.Objects.ToArray(), zIndex);
             Level.Objects.Clear();
             if (levelEditorControl1.mode != null)
                 levelEditorControl1.mode.Refresh();
@@ -270,6 +284,10 @@ namespace NSMBe4 {
                 return;
             }
 
+            int[] zIndex = new int[Level.Sprites.Count];
+            for (int l = 0; l < Level.Sprites.Count; l++)
+                zIndex[l] = l;
+            undoMngr.PerformAction(UndoType.RemoveMultiple, Level.Sprites.ToArray(), zIndex);
             Level.Sprites.Clear();
             if(levelEditorControl1.mode != null)
                 levelEditorControl1.mode.Refresh();

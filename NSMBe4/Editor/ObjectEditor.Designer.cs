@@ -39,7 +39,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.objHeightUpDown = new System.Windows.Forms.NumericUpDown();
             this.objYPosUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.objPickerBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
@@ -48,6 +47,7 @@
             this.objTileset0Button = new System.Windows.Forms.RadioButton();
             this.objTileset1Button = new System.Windows.Forms.RadioButton();
             this.objTileset2Button = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.objPositionBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objXPosUpDown)).BeginInit();
@@ -86,7 +86,7 @@
             this.objPositionBox.Controls.Add(this.tableLayoutPanel1);
             this.objPositionBox.Location = new System.Drawing.Point(3, 32);
             this.objPositionBox.Name = "objPositionBox";
-            this.objPositionBox.Size = new System.Drawing.Size(272, 69);
+            this.objPositionBox.Size = new System.Drawing.Size(272, 94);
             this.objPositionBox.TabIndex = 9;
             this.objPositionBox.TabStop = false;
             this.objPositionBox.Text = "<objPositionBox>";
@@ -94,10 +94,10 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.8595F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.68595F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.91863F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.83183F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.71379F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.53576F));
             this.tableLayoutPanel1.Controls.Add(this.objXPosUpDown, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.objWidthUpDown, 3, 0);
@@ -109,10 +109,11 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(266, 50);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(266, 75);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // objXPosUpDown
@@ -221,25 +222,15 @@
             this.objYPosUpDown.TabIndex = 7;
             this.objYPosUpDown.ValueChanged += new System.EventHandler(this.objYPosUpDown_ValueChanged);
             // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "<label1>";
-            // 
             // objPickerBox
             // 
             this.objPickerBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.objPickerBox.Controls.Add(this.tableLayoutPanel2);
-            this.objPickerBox.Location = new System.Drawing.Point(6, 104);
+            this.objPickerBox.Location = new System.Drawing.Point(6, 129);
             this.objPickerBox.Name = "objPickerBox";
-            this.objPickerBox.Size = new System.Drawing.Size(272, 316);
+            this.objPickerBox.Size = new System.Drawing.Size(272, 291);
             this.objPickerBox.TabIndex = 10;
             this.objPickerBox.TabStop = false;
             this.objPickerBox.Text = "<objPickerBox>";
@@ -335,6 +326,16 @@
             this.objTileset2Button.UseVisualStyleBackColor = true;
             this.objTileset2Button.Click += new System.EventHandler(this.objTileset2Button_Click);
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "<label1>";
+            // 
             // ObjectEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -373,7 +374,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown objHeightUpDown;
         private System.Windows.Forms.NumericUpDown objYPosUpDown;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox objPickerBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label5;
@@ -382,6 +382,7 @@
         private System.Windows.Forms.RadioButton objTileset0Button;
         private System.Windows.Forms.RadioButton objTileset1Button;
         private System.Windows.Forms.RadioButton objTileset2Button;
+        private System.Windows.Forms.Label label1;
 
     }
 }

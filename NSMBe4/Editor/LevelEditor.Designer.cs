@@ -37,6 +37,9 @@
             this.editViewsButton = new System.Windows.Forms.ToolStripButton();
             this.editZonesButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.undoButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.redoButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.spriteFinder = new System.Windows.Forms.ToolStripButton();
             this.zoomMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +77,9 @@
             this.editViewsButton,
             this.editZonesButton,
             this.toolStripSeparator2,
+            this.undoButton,
+            this.redoButton,
+            this.toolStripSeparator4,
             this.spriteFinder,
             this.zoomMenu,
             this.toolStripSeparator3,
@@ -187,6 +193,31 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // undoButton
+            // 
+            this.undoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.undoButton.Enabled = false;
+            this.undoButton.Image = global::NSMBe4.Properties.Resources.undo;
+            this.undoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.undoButton.Name = "undoButton";
+            this.undoButton.Size = new System.Drawing.Size(32, 22);
+            this.undoButton.Text = "<undo>";
+            // 
+            // redoButton
+            // 
+            this.redoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.redoButton.Enabled = false;
+            this.redoButton.Image = global::NSMBe4.Properties.Resources.redo;
+            this.redoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redoButton.Name = "redoButton";
+            this.redoButton.Size = new System.Drawing.Size(32, 22);
+            this.redoButton.Text = "<undo>";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // spriteFinder
             // 
@@ -397,6 +428,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem reloadTilesets;
         private System.Windows.Forms.ToolStripButton editProgressButton;
+        private System.Windows.Forms.ToolStripSplitButton undoButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSplitButton redoButton;
     }
 }
 

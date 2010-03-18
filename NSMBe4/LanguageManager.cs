@@ -82,6 +82,20 @@ namespace NSMBe4 {
             return string.Format("<ERROR {0}:{1}>", Area, Key);
         }
 
+        public static string Get(string Area, int Number)
+        {
+            if (Contents == null) return "<NOT LOADED>";
+
+            if (Contents.ContainsKey(Area))
+            {
+                string[] keys = new string[Contents[Area].Keys.Count];
+                Contents[Area].Keys.CopyTo(keys, 0);
+                return (Contents[Area][keys[Number]]);
+            }
+
+            return string.Format("<ERROR {0}:{1}>", Area, Number);
+        }
+
         public static List<string> GetList(string Name) {
             if (Lists == null) return new List<string>(new string[] { "<NOT LOADED>" });
 

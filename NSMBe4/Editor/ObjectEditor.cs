@@ -60,6 +60,8 @@ namespace NSMBe4
 
         private void SetTileset(int T)
         {
+            if (T != o.Tileset)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeObjectType, o, new Rectangle(o.Tileset, o.ObjNum, T, o.ObjNum));
             o.Tileset = T;
             o.UpdateObjCache();
             objectPickerControl1.CurrentTileset = T;
@@ -104,6 +106,8 @@ namespace NSMBe4
         private void objXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
+            if ((int)objXPosUpDown.Value != o.X)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveObject, o, new Rectangle(o.X, o.Y, (int)objXPosUpDown.Value, o.Y));
             o.X = (int)objXPosUpDown.Value;
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
@@ -112,6 +116,8 @@ namespace NSMBe4
         private void objYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
+            if ((int)objYPosUpDown.Value != o.Y)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveObject, o, new Rectangle(o.X, o.Y, o.X, (int)objYPosUpDown.Value));
             o.Y = (int)objYPosUpDown.Value;
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
@@ -120,6 +126,8 @@ namespace NSMBe4
         private void objWidthUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
+            if ((int)objWidthUpDown.Value != o.Width)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeObject, o, new Rectangle(o.Width, o.Height, (int)objWidthUpDown.Value, o.Height));
             o.Width = (int)objWidthUpDown.Value;
             o.UpdateObjCache();
             EdControl.Invalidate(true);
@@ -129,6 +137,8 @@ namespace NSMBe4
         private void objHeightUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
+            if ((int)objHeightUpDown.Value != o.Height)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeObject, o, new Rectangle(o.Width, o.Height, o.Width, (int)objHeightUpDown.Value));
             o.Height = (int)objHeightUpDown.Value;
             o.UpdateObjCache();
             EdControl.Invalidate(true);
@@ -153,6 +163,8 @@ namespace NSMBe4
         private void objTypeUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
+            if ((int)objTypeUpDown.Value != o.ObjNum)
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeObjectType, o, new Rectangle(o.Tileset, o.ObjNum, o.Tileset, (int)objTypeUpDown.Value));
             o.ObjNum = (int)objTypeUpDown.Value;
             o.UpdateObjCache();
             objectPickerControl1.SelectedObject = (int)objTypeUpDown.Value;
@@ -182,11 +194,13 @@ namespace NSMBe4
             EdControl.SelectObject(no);
 
             EdControl.Invalidate(true);
+            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddObject, no, null);
             EdControl.FireSetDirtyFlag();
         }
 
         private void deleteObjectButton_Click(object sender, EventArgs e)
         {
+            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveObject, o, EdControl.Level.Objects.IndexOf(o));
             EdControl.Level.Objects.Remove(o);
             EdControl.SelectObject(null);
 

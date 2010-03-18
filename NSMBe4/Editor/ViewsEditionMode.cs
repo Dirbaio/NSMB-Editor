@@ -71,6 +71,7 @@ namespace NSMBe4
             if (CloneMode)
             {
                 v = new NSMBView(v);
+                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddView, v, null);
                 v.Number = EdControl.Level.getFreeViewNumber(l);
                 l.Add(v);
                 CloneMode = false;
@@ -100,19 +101,30 @@ namespace NSMBe4
 
             if (moved)
             {
-                if (ResizeMode)
-                {
-                    v.Width += xi;
-                    v.Height += yi;
-                    v.Width = v.Width - v.Width % step;
-                    v.Height = v.Height - v.Height % step;
+                int nx, ny;
+                if (ResizeMode) {
+                    nx = v.Width; ny = v.Height;
+                } else {
+                    nx = v.X; ny = v.Y;
                 }
-                else
-                {
-                    v.X += xi;
-                    v.Y += yi;
-                    v.X = v.X - v.X % step;
-                    v.Y = v.Y - v.Y % step;
+                nx += xi;
+                ny += yi;
+                nx = nx - nx % step;
+                ny = ny - ny % step;
+                if (ResizeMode) {
+                    if (v.isZone)
+                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeZone, v, new Rectangle(v.Width, v.Height, nx, ny));
+                    else
+                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeView, v, new Rectangle(v.Width, v.Height, nx, ny));
+                    v.Width = nx;
+                    v.Height = ny;
+                } else {
+                    if (v.isZone)
+                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveZone, v, new Rectangle(v.X, v.Y, nx, ny));
+                    else
+                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveView, v, new Rectangle(v.X, v.Y, nx, ny));
+                    v.X = nx;
+                    v.Y = ny;
                 }
                 if (v.X < 0) v.X = 0;
                 if (v.Y < 0) v.Y = 0;
@@ -155,12 +167,18 @@ namespace NSMBe4
                 SelectObject(null);
 
             SetPanel(ve);
+            ve.UpdateList();
             UpdatePanel();
         }
 
         private void UpdatePanel()
         {
             ve.SetView(v);
+        }
+
+        public override void MouseUp()
+        {
+            EdControl.editor.undoMngr.merge = false;
         }
     }
 }

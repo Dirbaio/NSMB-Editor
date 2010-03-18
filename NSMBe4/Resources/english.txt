@@ -115,6 +115,8 @@ editPathsButton=Paths
 editProgressButton=Progress Paths (bottom screen)
 editViewsButton=Views
 editZonesButton=Zones
+undoButton=Undo
+redoButton=Redo
 spriteFinder=Sprite Finder
 editTileset=Edit Tileset
 zoomMenu=Zoom
@@ -183,8 +185,9 @@ label18=Destination Area:
 label19=Destination Entrance:
 label20=Connected Pipe ID:
 label21=View:
+type=Type
 entranceSetting128=Exit only (pipes and doors only)
-entrancSpeSetting16=Use fading screen transition
+entranceSetting16=Use fading screen transition
 entranceSetting8=Connected pipe
 entranceSetting1=Display on lower screen (entrances only)
 
@@ -447,8 +450,8 @@ label8=X:
 label11=Y:
 label10=Width:
 label9=Height:
-label12=ID:
 groupBox1=View settings
+label12=ID:
 label1=Camera ID:
 label6=Music:
 label2=Unknown 1:
@@ -1199,7 +1202,7 @@ Unused Level 5|10|1
 236=Spinning Square Platform
 237=Broozer
 238=Purple Tilt Mushroom
-239=Raising/Lowering Mushroom
+239=Rising/Lowering Mushroom
 240=Unused
 241=Rotating Bullet Bill Cannon
 242=Expand/Contract Mushroom
@@ -1364,3 +1367,38 @@ Unused Level 5|10|1
 73: Underground (yellow)
 74: Bonus room
 75: Grassland
+
+[LIST_UndoActions]
+
+Add Object
+Remove Object
+Size Object
+Move Object
+Change Object Type
+Add Sprite
+Remove Sprite
+Move Sprite
+Change Sprite Data
+Change Sprite Type
+Add {0} Objects/Sprites
+Remove {0} Objects/Sprites
+Move {0} Objects/Sprites
+Add Entrance
+Remove Entrance
+Move Entrance
+Change Entrance Property '{0}'
+Add Path
+Remove Path
+Add Path Node
+Remove Path Node
+Change Path Data
+Add View
+Remove View
+Size View
+Move View
+Change View Property '{0}'
+Add Zone
+Remove Zone
+Size Zone
+Move Zone
+Change Zone ID
