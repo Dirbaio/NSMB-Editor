@@ -124,10 +124,10 @@ namespace NSMBe4
         public static byte closest(Color c, Color[] palette)
         {
             byte best = 0;
-            ushort bestDif = colorDifference(c, palette[0]);
+            float bestDif = colorDifference(c, palette[0]);
             for (int i = 0; i < palette.Length; i++)
             {
-                ushort dif = colorDifference(c, palette[i]);
+                float dif = colorDifference(c, palette[i]);
                 if (dif < bestDif)
                 {
                     bestDif = dif;
@@ -256,7 +256,7 @@ namespace NSMBe4
             return r;
         }
 
-        public static ushort colorDifference(Color a, Color b)
+        public static float colorDifference(Color a, Color b)
         {
             if (a.A != b.A) return ushort.MaxValue;
 
@@ -265,21 +265,21 @@ namespace NSMBe4
             res += (a.G - b.G) * (a.G - b.G) / 40;
             res += (a.B - b.B) * (a.B - b.B) / 40;
 
-            if (res > ushort.MaxValue)
-                return ushort.MaxValue;
+            if (res > float.MaxValue)
+                return float.MaxValue;
 
             return (ushort)res;
         }
 
-        public static ushort colorDifferenceWithoutAlpha(Color a, Color b)
+        public static float colorDifferenceWithoutAlpha(Color a, Color b)
         {
             int res = 0;
             res += (a.R - b.R) * (a.R - b.R) / 40;
             res += (a.G - b.G) * (a.G - b.G) / 40;
             res += (a.B - b.B) * (a.B - b.B) / 40;
 
-            if (res > ushort.MaxValue)
-                return ushort.MaxValue;
+            if (res > float.MaxValue)
+                return float.MaxValue;
 
             return (ushort)res;
         }

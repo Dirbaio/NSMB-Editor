@@ -43,13 +43,23 @@ namespace NSMBe4.DSFileSystem
 
             arm9ovFile = new File(this, mainDir, true, -4, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
             arm7ovFile = new File(this, mainDir, true, -5, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
+            arm9binFile = new File(this, mainDir, true, -6, "arm9.bin", headerFile, 0x20, 0x2C, true);
+            arm9binFile.alignment = 0x1000;
+            arm9binFile.canChangeOffset = false;
+            arm7binFile = new File(this, mainDir, true, -7, "arm7.bin", headerFile, 0x30, 0x3C, true);
+            arm7binFile.alignment = 0x200; //Not sure what should be used here...
             bannerFile = new BannerFile(this, mainDir, headerFile);
+            bannerFile.alignment = 0x200; //Not sure what should be used here...
             addFile(headerFile);
             mainDir.childrenFiles.Add(headerFile);
             addFile(arm9ovFile);
             mainDir.childrenFiles.Add(arm9ovFile);
             addFile(arm7ovFile);
             mainDir.childrenFiles.Add(arm7ovFile);
+            addFile(arm9binFile);
+            mainDir.childrenFiles.Add(arm9binFile);
+            addFile(arm7binFile);
+            mainDir.childrenFiles.Add(arm7binFile);
             addFile(bannerFile);
             mainDir.childrenFiles.Add(bannerFile);
             loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile);
@@ -75,7 +85,7 @@ namespace NSMBe4.DSFileSystem
                 ushort fileID = tbl.readUShort();
                 tbl.skip(6); //unused 0's
 
-                loadFile(string.Format(LanguageManager.Get("NitroClass", "OverlayFile"), ovId, ramAddr.ToString("X"), ramSize.ToString("X")), fileID, dir);
+                loadFile(string.Format(LanguageManager.Get("NitroClass", "OverlayFile"), ovId, ramAddr.ToString("X"), ramSize.ToString("X")), fileID, dir).isSystemFile = true;
             }
         }
 

@@ -524,6 +524,7 @@
       <DependentUpon>GraphicsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="LanguageManager.cs" />
+    <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
     <Compile Include="NSBMD\Palette.cs" />
     <Compile Include="NSBMD\Texture.cs" />

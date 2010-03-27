@@ -24,9 +24,8 @@ namespace NSMBe4.DSFileSystem
 {
     public class File : IComparable
     {
-        private bool isSystemFileP;
-        public bool isSystemFile {get{return isSystemFileP;}}
-
+        public bool isSystemFile;
+        
         private string nameP;
         public string name { get { return nameP; } }
 
@@ -50,6 +49,9 @@ namespace NSMBe4.DSFileSystem
         public uint fileBegin;
         public uint fileSize;
 
+        public uint alignment = 4; // word align by default
+        public bool canChangeOffset = true; //false for arm9 and 7 bins
+
         protected Filesystem parent;
 
         private Object editedBy = null;
@@ -62,7 +64,7 @@ namespace NSMBe4.DSFileSystem
         {
             this.parent = parent;
             this.parentDirP = parentDir;
-            this.isSystemFileP = systemFile;
+            this.isSystemFile = systemFile;
             this.idP = id;
             this.nameP = name;
             this.beginFile = alFile;
@@ -76,7 +78,7 @@ namespace NSMBe4.DSFileSystem
         {
             this.parent = parent;
             this.parentDirP = parentDir;
-            this.isSystemFileP = systemFile;
+            this.isSystemFile = systemFile;
             this.idP = id;
             this.nameP = name;
             this.beginFile = alFile;
@@ -91,7 +93,7 @@ namespace NSMBe4.DSFileSystem
         {
             this.parent = parent;
             this.parentDirP = parentDir;
-            this.isSystemFileP = systemFile;
+            this.isSystemFile = systemFile;
             this.idP = id;
             this.nameP = name;
             this.fileBegin = alBeg;
@@ -115,7 +117,7 @@ namespace NSMBe4.DSFileSystem
         }
 
 
-        protected void refreshOffsets()
+        public void refreshOffsets()
         {
             if (beginFile != null)
                 fileBegin = beginFile.getUintAt(beginOffset) + parent.fileDataOffset;
@@ -130,7 +132,7 @@ namespace NSMBe4.DSFileSystem
             }
         }
 
-        private void saveOffsets()
+        public void saveOffsets()
         {
             if (beginFile != null)
                 beginFile.setUintAt(beginOffset, fileBegin - parent.fileDataOffset);
@@ -272,11 +274,24 @@ namespace NSMBe4.DSFileSystem
 
             if (newFile.Length > fileSize) //if we insert a bigger file
             {                         //it might not fit in the current place
-                File before = parent.findFreeSpace(newFile.Length);
-//                Console.Out.WriteLine("After " + before.name);
-                newStart = before.fileBegin + before.fileSize;
+                if (canChangeOffset)
+                {
+                    File before = parent.findFreeSpace(newFile.Length, alignment);
+                    //                Console.Out.WriteLine("After " + before.name);
+                    newStart = before.fileBegin + before.fileSize;
+                    if (newStart % alignment != 0)
+                        newStart += alignment - newStart % alignment;
+                }
+                else
+                {
+                    parent.allFiles.Sort();
+                    File nextFile = parent.allFiles[parent.allFiles.IndexOf(this) + 1];
+                    parent.moveAllFilesForward(nextFile, fileBegin + (uint) newFile.Length);
+                }
             }
 
+            if (newStart % alignment != 0)
+                Console.Out.Write("Warning: File is not being aligned: " + nameP + ", at " + newStart.ToString("X"));
             //write the file
             parent.s.Seek(newStart, SeekOrigin.Begin);
             parent.s.Write(newFile, 0, newFile.Length);
@@ -290,6 +305,8 @@ namespace NSMBe4.DSFileSystem
 
         public void moveTo(uint newOffs)
         {
+            if (newOffs % alignment != 0)
+                Console.Out.Write("Warning: File is not being aligned: " + nameP + ", at " + newOffs.ToString("X"));
             byte[] data = getContents();
             parent.s.Seek(newOffs, SeekOrigin.Begin);
             parent.s.Write(data, 0, data.Length);

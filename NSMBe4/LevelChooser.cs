@@ -78,7 +78,7 @@ namespace NSMBe4 {
                 }
                 Console.Out.WriteLine();
             }*/
-
+//            ROM.FS.dumpFilesOrdered();
         }
 
 
@@ -311,6 +311,7 @@ namespace NSMBe4 {
                 return;
 
             FileStream fs = new FileStream(savePatchDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            
             BinaryWriter bw = new BinaryWriter(fs);
             bw.Write("NSMBe4 Exported Patch");
 
@@ -431,11 +432,13 @@ namespace NSMBe4 {
                             MessageBox.Show(LanguageManager.Get("Patch", "ImportDiffVersions"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             differentRomsWarning = true;
                         }
-
-                        Console.Out.WriteLine("Replace " + fileName);
-                        f.beginEdit(this);
-                        f.replace(newFile, this);
-                        f.endEdit(this);
+                        if (!f.isSystemFile)
+                        {
+                            Console.Out.WriteLine("Replace " + fileName);
+                            f.beginEdit(this);
+                            f.replace(newFile, this);
+                            f.endEdit(this);
+                        }
                         fileCount++;
                     }
                 }
@@ -446,7 +449,7 @@ namespace NSMBe4 {
             }
             br.Close();
             MessageBox.Show(string.Format(LanguageManager.Get("Patch", "ImportReady"), fileCount), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-            progress.Close();
+//            progress.Close();
         }
 
         private void mpPatch_Click(object sender, EventArgs e)
@@ -480,6 +483,31 @@ namespace NSMBe4 {
         private void tilesetEditor_Click(object sender, EventArgs e)
         {
             new TilesetChooser().Show();
+        }
+
+        private void decompArm9Bin_Click(object sender, EventArgs e)
+        {
+            NSMBe4.DSFileSystem.File arm9 = ROM.FS.arm9binFile;
+            arm9.beginEdit(this);
+
+            uint decompressionOffs = arm9.getUintAt(0xB5C);
+            decompressionOffs -= 0x02000000;
+            uint compDatSize = arm9.getUintAt(decompressionOffs - 8) & 0xFFFFFF;
+            uint compDatOffs = decompressionOffs - compDatSize;
+            Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
+            Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
+
+            byte[] data = arm9.getContents();
+            byte[] compData = new byte[compDatSize];
+            Array.Copy(data, compDatOffs, compData, 0, compDatSize);
+            byte[] decompData = ROM.DecompressOverlay(compData);
+            byte[] newData = new byte[data.Length - compData.Length + decompData.Length];
+            Array.Copy(data, newData, data.Length);
+            Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
+
+            arm9.replace(newData, this);
+            arm9.setUintAt(0xB5C, 0); // NUKE THE COMPRESSION!!! :P
+            arm9.endEdit(this);
         }
 
     }

@@ -42,6 +42,7 @@ namespace NSMBe4 {
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
             this.changeLanguageButton = new System.Windows.Forms.Button();
+            this.decompArm9Bin = new System.Windows.Forms.Button();
             this.tilesetEditor = new System.Windows.Forms.Button();
             this.mpPatch = new System.Windows.Forms.Button();
             this.patchImport = new System.Windows.Forms.Button();
@@ -179,6 +180,7 @@ namespace NSMBe4 {
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.groupBox1);
+            this.tabPage3.Controls.Add(this.decompArm9Bin);
             this.tabPage3.Controls.Add(this.tilesetEditor);
             this.tabPage3.Controls.Add(this.mpPatch);
             this.tabPage3.Controls.Add(this.patchImport);
@@ -238,6 +240,18 @@ namespace NSMBe4 {
             this.changeLanguageButton.Text = "<changeLanguageButton>";
             this.changeLanguageButton.UseVisualStyleBackColor = true;
             this.changeLanguageButton.Click += new System.EventHandler(this.changeLanguageButton_Click);
+            // 
+            // decompArm9Bin
+            // 
+            this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.decompArm9Bin.Location = new System.Drawing.Point(258, 151);
+            this.decompArm9Bin.Name = "decompArm9Bin";
+            this.decompArm9Bin.Size = new System.Drawing.Size(218, 23);
+            this.decompArm9Bin.TabIndex = 3;
+            this.decompArm9Bin.Text = "decomp arm9 bin";
+            this.decompArm9Bin.UseVisualStyleBackColor = true;
+            this.decompArm9Bin.Click += new System.EventHandler(this.decompArm9Bin_Click);
             // 
             // tilesetEditor
             // 
@@ -375,5 +389,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button mpPatch;
         private System.Windows.Forms.Button tilesetEditor;
         private System.Windows.Forms.Button loadROMButton;
+        private System.Windows.Forms.Button decompArm9Bin;
     }
 }

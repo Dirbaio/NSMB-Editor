@@ -74,7 +74,7 @@ namespace NSMBe4.DSFileSystem
         }
 
         //Tries to find LEN bytes of continuous unused space AFTER the freeSpaceDelimiter (usually fat or fnt)
-        public File findFreeSpace(int len)
+        public File findFreeSpace(int len, uint align)
         {
             allFiles.Sort(); //sort by offset
 
@@ -83,12 +83,17 @@ namespace NSMBe4.DSFileSystem
 
             for (int i = allFiles.IndexOf(freeSpaceDelimiter); i < allFiles.Count - 1; i++)
             {
-                int spBegin = (int)allFiles[i].fileBegin + (int)allFiles[i].fileSize; //- 1 + 1;
-                int spEnd = (int)allFiles[i + 1].fileBegin - 1;
-                int spSize = spEnd - spBegin + 1;
+                uint spBegin = (uint)allFiles[i].fileBegin + (uint)allFiles[i].fileSize; //- 1 + 1;
+                if (spBegin % align != 0)
+                    spBegin += align - spBegin % align;
+
+                uint spEnd = (uint)allFiles[i + 1].fileBegin - 1;
+                if (spEnd % align != 0)
+                    spEnd -= spEnd % align;
+                uint spSize = spEnd - spBegin + 1;
                 if (spSize >= len)
                 {
-                    int spLeft = len - spSize;
+                    int spLeft = (int)len - (int)spSize;
                     if (spLeft < bestSpaceLeft)
                     {
                         bestSpaceLeft = spLeft;
@@ -166,6 +171,51 @@ namespace NSMBe4.DSFileSystem
                 res |= (uint)s.ReadByte() << 8 * i;
             }
             return res;
+        }
+
+
+        public void moveAllFilesForward(File first, uint firstOffs)
+        {
+            allFiles.Sort();
+            Console.Out.WriteLine("Moving file " + first.name);
+            Console.Out.WriteLine("Into " + firstOffs.ToString("X"));
+
+
+            uint firstStart = first.fileBegin;
+            int diff = (int)firstOffs - (int)firstStart;
+            Console.Out.WriteLine("DIFF " + diff.ToString("X"));
+            if (diff < 0)
+                //throw new Exception("DOSADJODJOSAJD");
+                return;
+
+            //WARNING: I assume all the aligns are powers of 2
+            uint maxAlign = 4;
+            for(int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
+            {
+                if(allFiles[i].alignment > maxAlign)
+                    maxAlign = allFiles[i].alignment;
+            }
+
+            //To preserve the alignment of all the moved files
+            if(diff % maxAlign != 0)
+                diff += (int)(maxAlign - diff % maxAlign);
+
+
+            uint fsEnd = getFilesystemEnd();
+            int toCopy = (int)fsEnd - (int)firstStart;
+            byte[] data = new byte[toCopy];
+
+            s.Seek(firstStart, SeekOrigin.Begin);
+            s.Read(data, 0, toCopy);
+            s.Seek(firstStart + diff, SeekOrigin.Begin);
+            s.Write(data, 0, toCopy);
+
+            for (int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
+                allFiles[i].fileBegin += (uint)diff;
+            for (int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
+                allFiles[i].saveOffsets();
+
+
         }
     }
 }
