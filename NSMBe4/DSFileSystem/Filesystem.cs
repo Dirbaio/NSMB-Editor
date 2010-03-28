@@ -34,7 +34,7 @@ namespace NSMBe4.DSFileSystem
         public Stream s;
         public Directory mainDir;
         protected File freeSpaceDelimiter;
-        public uint fileDataOffset = 0;
+        public int fileDataOffset = 0;
 
         protected Filesystem(FilesystemSource fs)
         {
@@ -74,7 +74,7 @@ namespace NSMBe4.DSFileSystem
         }
 
         //Tries to find LEN bytes of continuous unused space AFTER the freeSpaceDelimiter (usually fat or fnt)
-        public File findFreeSpace(int len, uint align)
+        public File findFreeSpace(int len, int align)
         {
             allFiles.Sort(); //sort by offset
 
@@ -83,17 +83,17 @@ namespace NSMBe4.DSFileSystem
 
             for (int i = allFiles.IndexOf(freeSpaceDelimiter); i < allFiles.Count - 1; i++)
             {
-                uint spBegin = (uint)allFiles[i].fileBegin + (uint)allFiles[i].fileSize; //- 1 + 1;
+                int spBegin = allFiles[i].fileBegin + allFiles[i].fileSize; //- 1 + 1;
                 if (spBegin % align != 0)
                     spBegin += align - spBegin % align;
 
-                uint spEnd = (uint)allFiles[i + 1].fileBegin - 1;
+                int spEnd = allFiles[i + 1].fileBegin - 1;
                 if (spEnd % align != 0)
                     spEnd -= spEnd % align;
-                uint spSize = spEnd - spBegin + 1;
+                int spSize = spEnd - spBegin + 1;
                 if (spSize >= len)
                 {
-                    int spLeft = (int)len - (int)spSize;
+                    int spLeft = len - spSize;
                     if (spLeft < bestSpaceLeft)
                     {
                         bestSpaceLeft = spLeft;
@@ -115,8 +115,8 @@ namespace NSMBe4.DSFileSystem
             bool res = false;
             for (int i = 0; i < allFiles.Count - 1; i++)
             {
-                int firstEnd = (int)allFiles[i].fileBegin + (int)allFiles[i].fileSize - 1;
-                int secondStart = (int)allFiles[i + 1].fileBegin;
+                int firstEnd = allFiles[i].fileBegin + allFiles[i].fileSize - 1;
+                int secondStart = allFiles[i + 1].fileBegin;
 
                 if (firstEnd >= secondStart)
                 {
@@ -153,11 +153,11 @@ namespace NSMBe4.DSFileSystem
         {
         }
 
-        public uint getFilesystemEnd()
+        public int getFilesystemEnd()
         {
             allFiles.Sort();
             File lastFile = allFiles[allFiles.Count - 1];
-            uint end = lastFile.fileBegin + lastFile.fileSize; //well, 1 byte doesnt matter
+            int end = lastFile.fileBegin + lastFile.fileSize; //well, 1 byte doesnt matter
             return end;
         }
 
@@ -174,14 +174,14 @@ namespace NSMBe4.DSFileSystem
         }
 
 
-        public void moveAllFilesForward(File first, uint firstOffs)
+        public void moveAllFilesForward(File first, int firstOffs)
         {
             allFiles.Sort();
             Console.Out.WriteLine("Moving file " + first.name);
             Console.Out.WriteLine("Into " + firstOffs.ToString("X"));
 
 
-            uint firstStart = first.fileBegin;
+            int firstStart = first.fileBegin;
             int diff = (int)firstOffs - (int)firstStart;
             Console.Out.WriteLine("DIFF " + diff.ToString("X"));
             if (diff < 0)
@@ -189,7 +189,7 @@ namespace NSMBe4.DSFileSystem
                 return;
 
             //WARNING: I assume all the aligns are powers of 2
-            uint maxAlign = 4;
+            int maxAlign = 4;
             for(int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
             {
                 if(allFiles[i].alignment > maxAlign)
@@ -201,7 +201,7 @@ namespace NSMBe4.DSFileSystem
                 diff += (int)(maxAlign - diff % maxAlign);
 
 
-            uint fsEnd = getFilesystemEnd();
+            int fsEnd = getFilesystemEnd();
             int toCopy = (int)fsEnd - (int)firstStart;
             byte[] data = new byte[toCopy];
 
@@ -211,7 +211,7 @@ namespace NSMBe4.DSFileSystem
             s.Write(data, 0, toCopy);
 
             for (int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
-                allFiles[i].fileBegin += (uint)diff;
+                allFiles[i].fileBegin += diff;
             for (int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
                 allFiles[i].saveOffsets();
 

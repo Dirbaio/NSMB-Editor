@@ -490,24 +490,27 @@ namespace NSMBe4 {
             NSMBe4.DSFileSystem.File arm9 = ROM.FS.arm9binFile;
             arm9.beginEdit(this);
 
-            uint decompressionOffs = arm9.getUintAt(0xB5C);
-            decompressionOffs -= 0x02000000;
-            uint compDatSize = arm9.getUintAt(decompressionOffs - 8) & 0xFFFFFF;
-            uint compDatOffs = decompressionOffs - compDatSize;
-            Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
-            Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
+            int decompressionOffs = (int) arm9.getUintAt(0xB5C);
+            if (decompressionOffs != 0)
+            {
+                decompressionOffs -= 0x02000000;
+                int compDatSize = (int)(arm9.getUintAt(decompressionOffs - 8) & 0xFFFFFF);
+                int compDatOffs = decompressionOffs - compDatSize;
+                Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
+                Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
 
-            byte[] data = arm9.getContents();
-            byte[] compData = new byte[compDatSize];
-            Array.Copy(data, compDatOffs, compData, 0, compDatSize);
-            byte[] decompData = ROM.DecompressOverlay(compData);
-            byte[] newData = new byte[data.Length - compData.Length + decompData.Length];
-            Array.Copy(data, newData, data.Length);
-            Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
+                byte[] data = arm9.getContents();
+                byte[] compData = new byte[compDatSize];
+                Array.Copy(data, compDatOffs, compData, 0, compDatSize);
+                byte[] decompData = ROM.DecompressOverlay(compData);
+                byte[] newData = new byte[data.Length - compData.Length + decompData.Length];
+                Array.Copy(data, newData, data.Length);
+                Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
 
-            arm9.replace(newData, this);
-            arm9.setUintAt(0xB5C, 0); // NUKE THE COMPRESSION!!! :P
-            arm9.endEdit(this);
+                arm9.replace(newData, this);
+                arm9.setUintAt(0xB5C, 0); // NUKE THE COMPRESSION!!! :P
+                arm9.endEdit(this);
+            }
         }
 
     }

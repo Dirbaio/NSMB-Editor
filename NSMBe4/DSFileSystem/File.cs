@@ -40,16 +40,16 @@ namespace NSMBe4.DSFileSystem
         //of this file are found.
 
         protected File beginFile;
-        protected uint beginOffset;
+        protected int beginOffset;
         protected File endFile;
-        protected uint endOffset;
+        protected int endOffset;
         protected bool endIsSize; //means that the end offset is the size of the file
         protected bool fixedFile; //means that the file cant be moved nor changed size
 
-        public uint fileBegin;
-        public uint fileSize;
+        public int fileBegin;
+        public int fileSize;
 
-        public uint alignment = 4; // word align by default
+        public int alignment = 4; // word align by default
         public bool canChangeOffset = true; //false for arm9 and 7 bins
 
         protected Filesystem parent;
@@ -60,7 +60,7 @@ namespace NSMBe4.DSFileSystem
             get { return editedBy != null; }
         }
 
-        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, uint alBeg, uint alEnd)
+        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, int alBeg, int alEnd)
         {
             this.parent = parent;
             this.parentDirP = parentDir;
@@ -74,7 +74,7 @@ namespace NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, uint alBeg, uint alEnd, bool endsize)
+        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, int alBeg, int alEnd, bool endsize)
         {
             this.parent = parent;
             this.parentDirP = parentDir;
@@ -89,7 +89,7 @@ namespace NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, uint alBeg, uint alSize)
+        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, int alBeg, int alSize)
         {
             this.parent = parent;
             this.parentDirP = parentDir;
@@ -120,15 +120,15 @@ namespace NSMBe4.DSFileSystem
         public void refreshOffsets()
         {
             if (beginFile != null)
-                fileBegin = beginFile.getUintAt(beginOffset) + parent.fileDataOffset;
+                fileBegin = (int)beginFile.getUintAt(beginOffset) + parent.fileDataOffset;
 
             if (endFile != null)
             {
-                uint end = endFile.getUintAt(endOffset);
+                int end = (int)endFile.getUintAt(endOffset);
                 if (endIsSize)
-                    fileSize = end;
+                    fileSize = (int)end;
                 else
-                    fileSize = end + parent.fileDataOffset - fileBegin;
+                    fileSize = (int)end + parent.fileDataOffset - fileBegin;
             }
         }
 
@@ -144,7 +144,7 @@ namespace NSMBe4.DSFileSystem
                     endFile.setUintAt(endOffset, fileBegin + fileSize - parent.fileDataOffset);
         }
 
-        public uint getUintAt(uint offset)
+        public uint getUintAt(int offset)
         {
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
@@ -158,7 +158,7 @@ namespace NSMBe4.DSFileSystem
             return res;
         }
 
-        public void setUintAt(uint offset, uint val)
+        public void setUintAt(int offset, uint val)
         {
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
@@ -170,7 +170,7 @@ namespace NSMBe4.DSFileSystem
             parent.s.Seek(pos, SeekOrigin.Begin);
         }
 
-        public ushort getUshortAt(uint offset)
+        public ushort getUshortAt(int offset)
         {
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
@@ -185,7 +185,7 @@ namespace NSMBe4.DSFileSystem
         }
 
 
-        public void setUshortAt(uint offset, ushort val)
+        public void setUshortAt(int offset, ushort val)
         {
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
@@ -197,7 +197,7 @@ namespace NSMBe4.DSFileSystem
             parent.s.Seek(pos, SeekOrigin.Begin);
         }
 
-        public byte getByteAt(uint offs)
+        public byte getByteAt(int offs)
         {
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
@@ -206,7 +206,7 @@ namespace NSMBe4.DSFileSystem
             return res;
         }
 
-        public void setByteAt(uint offs, byte val)
+        public void setByteAt(int offs, byte val)
         {
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
@@ -270,7 +270,7 @@ namespace NSMBe4.DSFileSystem
                 throw new Exception("TRYING TO RESIZE FIXED FILE: " + name);
 
 //            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
-            uint newStart = fileBegin;
+            int newStart = fileBegin;
 
             if (newFile.Length > fileSize) //if we insert a bigger file
             {                         //it might not fit in the current place
@@ -286,7 +286,7 @@ namespace NSMBe4.DSFileSystem
                 {
                     parent.allFiles.Sort();
                     File nextFile = parent.allFiles[parent.allFiles.IndexOf(this) + 1];
-                    parent.moveAllFilesForward(nextFile, fileBegin + (uint) newFile.Length);
+                    parent.moveAllFilesForward(nextFile, fileBegin +  newFile.Length);
                 }
             }
 
@@ -298,12 +298,12 @@ namespace NSMBe4.DSFileSystem
 
             //update ending pos
             fileBegin = newStart;
-            fileSize = (uint)newFile.Length;
+            fileSize = newFile.Length;
             saveOffsets();
             parent.fileMoved(this);
         }
 
-        public void moveTo(uint newOffs)
+        public void moveTo(int newOffs)
         {
             if (newOffs % alignment != 0)
                 Console.Out.Write("Warning: File is not being aligned: " + nameP + ", at " + newOffs.ToString("X"));

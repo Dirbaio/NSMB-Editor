@@ -123,3 +123,4 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\bin\Release\NSMBe5
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe5.exe
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe5.pdb
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe4.NSBMD.TextureEditor.resources
+C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe4.BinaryEdit.resources

@@ -25,8 +25,8 @@ namespace NSMBe4.DSFileSystem
     class NarcFilesystem : NitroFilesystem
     {
 
-        public uint fntOffset, fntSize;
-        public uint fatOffset, fatSize;
+        public int fntOffset, fntSize;
+        public int fatOffset, fatSize;
 
         public NarcFilesystem(File f)
             : base(new FileFilesystemSource(f))
@@ -39,10 +39,10 @@ namespace NSMBe4.DSFileSystem
             //I have to do some tricky offset calculations here ...
             fatOffset= 0x1C;
             s.Seek(0x18, SeekOrigin.Begin); //number of files
-            fatSize = readUInt(s) * 8;
+            fatSize = (int)readUInt(s) * 8;
 
             s.Seek(fatSize + fatOffset + 4, SeekOrigin.Begin); //size of FNTB
-            fntSize = readUInt(s) - 8; //do not include header
+            fntSize = (int)readUInt(s) - 8; //do not include header
             fntOffset = fatSize + fatOffset + 8;
 
             fileDataOffset = fntSize + fntOffset + 8;

@@ -88,8 +88,8 @@ namespace NSMBe4.DSFileSystem
 
         protected File loadFile(string fileName, int fileID, Directory parent)
         {
-            uint beginOffs = (uint)fileID * 8;
-            uint endOffs = (uint)fileID * 8 + 4;
+            int beginOffs = fileID * 8;
+            int endOffs = fileID * 8 + 4;
             File f = new File(this, parent, false, fileID, fileName, fatFile, beginOffs, endOffs);
             parent.childrenFiles.Add(f);
             addFile(f);
