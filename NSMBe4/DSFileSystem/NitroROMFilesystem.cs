@@ -91,7 +91,7 @@ namespace NSMBe4.DSFileSystem
 
         public override void fileMoved(File f)
         {
-            uint end = getFilesystemEnd();
+            uint end = (uint)getFilesystemEnd();
             headerFile.setUintAt(0x80, end);
             headerFile.UpdateCRC16();
         }
@@ -103,7 +103,7 @@ namespace NSMBe4.DSFileSystem
             // to bypass it - I'm not sure if the RAM size needs to be written
             // as well, but I do it anyway just in case.. ~Treeki
 
-            arm9ovFile.setUintAt(8, getFileById(0).fileSize);
+            arm9ovFile.setUintAt(8, (uint) getFileById(0).fileSize);
             arm9ovFile.setByteAt(0x1F, 2);
         }
 

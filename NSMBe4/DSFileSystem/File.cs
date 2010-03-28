@@ -135,13 +135,13 @@ namespace NSMBe4.DSFileSystem
         public void saveOffsets()
         {
             if (beginFile != null)
-                beginFile.setUintAt(beginOffset, fileBegin - parent.fileDataOffset);
+                beginFile.setUintAt(beginOffset, (uint)(fileBegin - parent.fileDataOffset));
 
             if (endFile != null)
                 if (endIsSize)
-                    endFile.setUintAt(endOffset, fileSize);
+                    endFile.setUintAt(endOffset, (uint)fileSize);
                 else
-                    endFile.setUintAt(endOffset, fileBegin + fileSize - parent.fileDataOffset);
+                    endFile.setUintAt(endOffset, (uint)(fileBegin + fileSize - parent.fileDataOffset));
         }
 
         public uint getUintAt(int offset)
