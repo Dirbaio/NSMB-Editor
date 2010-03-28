@@ -62,15 +62,12 @@ namespace NSMBe4 {
             deleteAllObjectsToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllObjectsToolStripMenuItem");
             deleteAllSpritesToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllSpritesToolStripMenuItem");
 
-            cutToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "cutToolStripMenuItem");
-            copyToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "copyToolStripMenuItem");
-            pasteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "pasteToolStripMenuItem");
-            deleteToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteToolStripMenuItem");
             undoMngr = new UndoManager(undoButton, redoButton, levelEditorControl1);
-        }
+
 
             // First off prepare the sprite list
             string[] spritelist = new string[324];
+
             foreach (string sprite in LanguageManager.GetList("Sprites"))
             {
                 string trimmedsprite = sprite.Trim();

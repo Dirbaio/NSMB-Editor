@@ -358,7 +358,7 @@ value number Unknown
 2
 value checkbox Flip upside down
 3.2
-value checkbox Allow to hit multiple times
+value checkbox Allow multiple hits
 4.2
 value number Unknown
 5
@@ -424,22 +424,10 @@ value number Speed (small amt)
 value number Speed (large amt)
 5.1
 value list Starting Position
-Bottom going right
-unused
-unused
-unused
-Right side
-unused
-unused
-unused
-Bottom going left
-unused
-unused
-unused
-unused
-unused
-unused
-Left side
+Bottom going right = 0
+Right side = 4
+Bottom going left = 8
+Left side = 15
 end list
 5.2
 value number Size
