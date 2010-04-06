@@ -55,7 +55,8 @@ changeLanguageButton=Cambiar
 dataFinderButton=Buscar Data
 patchExport=Exportar Parche
 patchImport=Importar Parche
-mpPatch=Parchar Mario vs Luigi
+mpPatch=Parchar Mario vs Luigi (Mapa)
+mpPatch2=Parchar Mario vs Luigi (Tex + BG)
 lzUncompressAll=Descomprimir Todo (en LZ)
 tilesetEditor=Editar Objetos
 

@@ -57,7 +57,8 @@ changeLanguageButton=Change
 dataFinderButton=Data Finder
 patchExport=Export Patch
 patchImport=Import Patch
-mpPatch=Multiplayer NARC Patch
+mpPatch=Multiplayer NARC Patch (Map)
+mpPatch2=Multiplayer NARC Patch (Tex + BG)
 lzUncompressAll=LZ Uncompress Everything
 tilesetEditor=Tileset Editor
 
@@ -390,7 +391,7 @@ editNoharaSubButton=Edit Nohara SubUnit (Tileset 2: End Castle)
 openTilesetButton=Open
 
 [BgImport]
-importing=Importing Backgound. Please Wait...
+importing=Importing Background. Please Wait...
 
 [TilesetEditor]
 _TITLE=Editing Tileset - {0}

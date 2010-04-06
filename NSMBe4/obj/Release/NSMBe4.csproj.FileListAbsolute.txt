@@ -124,3 +124,47 @@ C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe5
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe5.pdb
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe4.NSBMD.TextureEditor.resources
 C:\Documents and Settings\admin\Escritorio\nsmb-editor\NSMBe4\obj\Release\NSMBe4.BinaryEdit.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\bin\Release\NSMBe5.exe.config
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe5.exe
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe5.pdb
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\bin\Release\spritedata.txt
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\bin\Release\NSMBe5.exe
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\bin\Release\NSMBe5.pdb
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\bin\Release\Be.Windows.Forms.HexBox.dll
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.BinaryEdit.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ByteArrayEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.DSFileSystem.FileHexEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.DSFileSystem.FilesystemBrowser.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.DSFileSystem.FilesystemBrowserDialog.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ColourPicker.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ColourPickerControl.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.CreatePanel.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.DataFinder.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.EntranceEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.GraphicsEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ImagePreviewer.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.LevelChooser.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.LevelConfig.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.LevelEditorControl.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.LevelEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.LevelHexEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.LevelMinimap.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.NSBMD.TextureEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.Map16Editor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.Map16Picker.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ObjectEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ObjectPickerControl.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.PalettePicker.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.PathEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ProgressWindow.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.Properties.Resources.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.GraphicsViewer.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.SpriteEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.TilePicker.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.TilesetChooser.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.TilesetEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.TilesetObjectEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ToolsForm.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.ViewEditor.resources
+C:\Users\Quentin\Desktop\NSMBe5.1b\Source\nsmb-editor-read-only (r83)\NSMBe4\obj\Release\NSMBe4.csproj.GenerateResource.Cache

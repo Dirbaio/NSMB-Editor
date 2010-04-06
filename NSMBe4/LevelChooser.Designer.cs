@@ -36,8 +36,8 @@ namespace NSMBe4 {
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.mpPatch2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
@@ -54,6 +54,7 @@ namespace NSMBe4 {
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -169,16 +170,9 @@ namespace NSMBe4 {
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // filesystemBrowser1
-            // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(476, 316);
-            this.filesystemBrowser1.TabIndex = 0;
-            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.mpPatch2);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.decompArm9Bin);
             this.tabPage3.Controls.Add(this.tilesetEditor);
@@ -193,6 +187,18 @@ namespace NSMBe4 {
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // mpPatch2
+            // 
+            this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch2.Location = new System.Drawing.Point(258, 122);
+            this.mpPatch2.Name = "mpPatch2";
+            this.mpPatch2.Size = new System.Drawing.Size(218, 23);
+            this.mpPatch2.TabIndex = 5;
+            this.mpPatch2.Text = "<mpPatch2>";
+            this.mpPatch2.UseVisualStyleBackColor = true;
+            this.mpPatch2.Click += new System.EventHandler(this.mpPatch2_Click);
             // 
             // groupBox1
             // 
@@ -245,7 +251,7 @@ namespace NSMBe4 {
             // 
             this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.decompArm9Bin.Location = new System.Drawing.Point(258, 151);
+            this.decompArm9Bin.Location = new System.Drawing.Point(258, 180);
             this.decompArm9Bin.Name = "decompArm9Bin";
             this.decompArm9Bin.Size = new System.Drawing.Size(218, 23);
             this.decompArm9Bin.TabIndex = 3;
@@ -257,7 +263,7 @@ namespace NSMBe4 {
             // 
             this.tilesetEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tilesetEditor.Location = new System.Drawing.Point(258, 122);
+            this.tilesetEditor.Location = new System.Drawing.Point(258, 151);
             this.tilesetEditor.Name = "tilesetEditor";
             this.tilesetEditor.Size = new System.Drawing.Size(218, 23);
             this.tilesetEditor.TabIndex = 3;
@@ -341,6 +347,14 @@ namespace NSMBe4 {
             // 
             this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
             // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(476, 316);
+            this.filesystemBrowser1.TabIndex = 0;
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -390,5 +404,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button tilesetEditor;
         private System.Windows.Forms.Button loadROMButton;
         private System.Windows.Forms.Button decompArm9Bin;
+        private System.Windows.Forms.Button mpPatch2;
     }
 }

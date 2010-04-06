@@ -463,19 +463,74 @@ namespace NSMBe4 {
             MessageBox.Show(LanguageManager.Get("General", "Completed"));
         }
 
+        private void mpPatch2_Click(object sender, EventArgs e)
+        {
+
+            NarcReplace("Dat_Field.narc", "I_M_nohara.bin", "I_M_nohara_hd.bin");
+            NarcReplace("Dat_Field.narc", "NoHaRaMainUnitChangeData.bin", "d_2d_I_M_back_nohara_VS_UR_nsc.bin");
+            NarcReplace("Dat_Field.narc", "d_2d_I_M_back_nohara_VS_ncg.bin", "d_2d_I_M_back_nohara_VS_ncl.bin");
+            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_nohara_VS_UR_nsc.bin", "d_2d_I_M_free_nohara_VS_ncg.bin");
+            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_nohara_VS_ncl.bin", "");
+            NarcReplace("Dat_Field.narc", "d_2d_I_M_tikei_nohara_ncg.bin", "d_2d_I_M_tikei_nohara_ncl.bin");
+            NarcReplace("Dat_Field.narc", "d_2d_PA_I_M_nohara.bin", "");
+
+            NarcReplace("Dat_Basement.narc", "I_M_chika3.bin", "I_M_chika3_hd.bin");
+            NarcReplace("Dat_Basement.narc", "ChiKa3MainUnitChangeData.bin", "d_2d_I_M_back_chika3_R_nsc.bin");
+            NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_ncg.bin", "d_2d_I_M_back_chika3_ncl.bin");
+            NarcReplace("Dat_Basement.narc", "d_2d_I_M_tikei_chika3_ncg.bin", "d_2d_I_M_tikei_chika3_ncl.bin");
+            NarcReplace("Dat_Basement.narc", "d_2d_PA_I_M_chika3.bin", "");
+
+            NarcReplace("Dat_Ice.narc", "I_M_setsugen2.bin", "I_M_setsugen2_hd.bin");
+            NarcReplace("Dat_Ice.narc", "SeTsuGeN2MainUnitChangeData.bin", "d_2d_I_M_back_setsugen2_UR_nsc.bin");
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_back_setsugen2_ncg.bin", "d_2d_I_M_back_setsugen2_ncl.bin");
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_UR_nsc.bin", "d_2d_I_M_free_setsugen2_ncg.bin");
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_ncl.bin", "");
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_tikei_setsugen2_ncg.bin", "d_2d_I_M_tikei_setsugen2_ncl.bin");
+            NarcReplace("Dat_Ice.narc", "d_2d_PA_I_M_setsugen2.bin", "");
+
+            NarcReplace("Dat_Pipe.narc", "W_M_dokansoto.bin", "W_M_dokansoto_hd.bin");
+            NarcReplace("Dat_Pipe.narc", "DoKaNSoToMainUnitChangeData.bin", "d_2d_W_M_back_dokansoto_R_nsc.bin");
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_back_dokansoto_ncg.bin", "d_2d_W_M_back_dokansoto_ncl.bin");
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_free_dokansoto_R_nsc.bin", "d_2d_W_M_free_dokansoto_ncg.bin");
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_free_dokansoto_ncl.bin", "");
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_tikei_dokansoto_ncg.bin", "d_2d_W_M_tikei_dokansoto_ncl.bin");
+            NarcReplace("Dat_Pipe.narc", "d_2d_PA_W_M_dokansoto.bin", "");
+
+            NarcReplace("Dat_Fort.narc", "I_M_yakata.bin", "I_M_yakata_hd.bin");
+            NarcReplace("Dat_Fort.narc", "YaKaTaMainUnitChangeData.bin", "d_2d_I_M_back_yakata_UR_nsc.bin");
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_back_yakata_ncg.bin", "d_2d_I_M_back_yakata_ncl.bin");
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_UR_nsc.bin", "d_2d_I_M_free_yakata_ncg.bin");
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_ncl.bin", "");
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_tikei_yakata_ncg.bin", "d_2d_I_M_tikei_yakata_ncl.bin");
+            NarcReplace("Dat_Fort.narc", "d_2d_PA_I_M_yakata.bin", "d_2d_TEN_I_yakata_ncg.bin");
+
+            MessageBox.Show(LanguageManager.Get("General", "Completed"));
+        }
+
         private void NarcReplace(string NarcName, string f1, string f2)
         {
             NarcFilesystem fs = new NarcFilesystem(ROM.FS.getFileByName(NarcName));
 
             NSMBe4.DSFileSystem.File f = fs.getFileByName(f1);
+            if (f == null)
+            {
+                MessageBox.Show(f2);
+            }
             f.beginEdit(this);
             f.replace(ROM.FS.getFileByName(f1).getContents(), this);
             f.endEdit(this);
 
-            f = fs.getFileByName(f2);
-            f.beginEdit(this);
-            f.replace(ROM.FS.getFileByName(f2).getContents(), this);
-            f.endEdit(this);
+            if (f2 != "")
+            {
+                f = fs.getFileByName(f2);
+                if (f == null)
+                {
+                    MessageBox.Show(f2);
+                }
+                f.beginEdit(this);
+                f.replace(ROM.FS.getFileByName(f2).getContents(), this);
+                f.endEdit(this);
+            }
 
             fs.close();
         }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -344,6 +344,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cross-script.png" />
+    <Content Include="Resources\french.txt" />
     <Content Include="Resources\Icons\brush.png" />
     <Content Include="Resources\Icons\eraser.png" />
     <Content Include="Resources\Icons\fill.png" />
