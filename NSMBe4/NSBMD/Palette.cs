@@ -91,6 +91,7 @@ namespace NSMBe4.NSBMD
 
             for(int i = palNum; i < palNum + palSize; i++)
             {
+                if (i >= pal.Length) break;
                 float d = ImageIndexer.colorDifferenceWithoutAlpha(pal[i], c);
                 if (d < bestDif)
                 {

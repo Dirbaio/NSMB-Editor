@@ -145,7 +145,8 @@ namespace NSMBe4
 
             StringBuilder NewStr = new StringBuilder(l);
             for (int i = 0; i < l; i++)
-                NewStr.Append((char)arr[i]);
+                if(arr[i] != 0)
+                    NewStr.Append((char)arr[i]);
 
             return NewStr.ToString().Trim();
         }

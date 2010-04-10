@@ -138,8 +138,11 @@ namespace NSMBe4.NSBMD
 
             if (selectedTexture().needsPal)
             {
-                ImageIndexer ii = new ImageIndexer(b, (int)paletteSize.Value);
-                Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), (int)paletteSize.Value);
+                int ps = (int)paletteSize.Value;
+                if (ps > selectedPalette().colorCount)
+                    ps = selectedPalette().colorCount;
+                ImageIndexer ii = new ImageIndexer(b, ps, false);
+                Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), ii.palette.Length);
                 selectedPalette().save();
             }
             selectedTexture().replace(b, 0, 0, selectedPalette(), calcPalOffset(), (int)paletteSize.Value);
@@ -190,7 +193,7 @@ namespace NSMBe4.NSBMD
             Graphics gr = Graphics.FromImage(b3);
             gr.Clear(Color.Transparent);
             gr.DrawImage(b, 0, 0);
-            ImageIndexer ii = new ImageIndexer(b3, selectedPalette().colorCount);
+            ImageIndexer ii = new ImageIndexer(b3, selectedPalette().colorCount, false);
             Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), (int)paletteSize.Value);
             b3.Dispose();
 

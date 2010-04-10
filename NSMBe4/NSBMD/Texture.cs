@@ -37,7 +37,7 @@ namespace NSMBe4.NSBMD
 	    static byte[] bpps =   new byte[] { 0, 8,    2, 4, 8,    0,   8,    16  };
         static byte[] mask =   new byte[] { 0, 0xFF, 3, 7, 0xFF, 0,   0xFF, 0x0 };
         static byte[] cmsk =   new byte[] { 0, 0x1F, 3, 7, 0xFF, 0,   0x08, 0x0 };
-        static int[] palSizes = new int[] { 0, 32,   4, 8, 256,  256, 8,    256 }; 
+        static int[] palSizes = new int[] { 0, 32,   4, 8, 256,  0,   8,    0   }; 
         NSBTX parent;
 
         static string[] formatNames = {
@@ -48,7 +48,7 @@ namespace NSMBe4.NSBMD
                                           "256-Color Palette Texture",
                                           "4x4-Texel Compressed Texture",
                                           "A5I3 Translucent Texture",
-                                          "Direct Color Texture"
+                                          "Direct Color Texture (UNSUPPORTED)"
                                       };
 
         public Texture(NSBTX p, bool color0, int width, int height, int format, uint offset, string name)
@@ -63,6 +63,9 @@ namespace NSMBe4.NSBMD
 
             bpp = bpps[format];
             palSize = palSizes[format];
+            if (palSize == 0)
+                needsPal = false;
+
             size = (uint)(width * height * bpp / 8);
         }
 
@@ -160,8 +163,15 @@ namespace NSMBe4.NSBMD
 
             if (format == 5)
             {
-            }
+                ImageTexeler it = new ImageTexeler(b, (int)p.colorCount / 4);
+                parent.str.seek(offset);
+                parent.str.write(it.texdata);
+                parent.str.seek(f5DataOffset);
+                parent.str.write(it.f5data);
 
+                p.pal = it.finalPalette;
+                p.save();
+            }
             else
             {
 

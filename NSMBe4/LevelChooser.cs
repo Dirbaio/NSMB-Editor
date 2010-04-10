@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using NSMBe4.DSFileSystem;
+using NSMBe4.NSBMD;
 
 
 namespace NSMBe4 {
@@ -60,6 +61,8 @@ namespace NSMBe4 {
                 openPatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 this.Activate();
+
+                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
             }
             /*
             List<string> spriteNames = LanguageManager.GetList("Sprites");

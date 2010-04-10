@@ -15,6 +15,9 @@ namespace NSMBe4.NSBMD
         int[,] paletteNumbers;
         float[,] paletteDiffs;
 
+        public byte[] f5data, texdata;
+        public Color[] finalPalette;
+
         public ImageTexeler(Bitmap img, int paletteMaxNum)
         {
             this.img = img;
@@ -35,24 +38,38 @@ namespace NSMBe4.NSBMD
                     texelGfx.DrawImage(img, new Rectangle(0, 0, 4, 4),
                         new Rectangle(x * 4, y * 4, 4, 4), GraphicsUnit.Pixel);
 
-                    ImageIndexer ii = new ImageIndexer(texel, 4);
+                    ImageIndexer ii = new ImageIndexer(texel, 4, true);
                     palettes[palNum] = ii.palette;
                     paletteNumbers[x, y] = palNum;
                     paletteCounts[palNum] = 1;
-                    calcPaletteDiffs(palNum);
+                    int similar = calcPaletteDiffs(palNum);
+                    if (similar != -1)
+                    {
+                        paletteCounts[palNum] = 0;
+                        paletteCounts[similar]++;
+                        paletteNumbers[x, y] = similar;
+                    }
+
                     palNum++;
                 }
 
             while (countUsedPalettes() > paletteMaxNum)
             {
+                Console.Out.WriteLine(countUsedPalettes());
                 int besta = -1;
                 int bestb = -1;
                 float bestDif = float.MaxValue;
 
-                for(int i = 0; i < palettes.Length; i++)
+
+                //Find the two most similar palettes
+                for (int i = 0; i < palettes.Length; i++)
+                {
+                    if (paletteCounts[i] == 0) continue;
                     for (int j = 0; j < palettes.Length; j++)
                     {
                         if (i == j) continue;
+                        if (paletteCounts[j] == 0) continue;
+
                         if (paletteDiffs[i, j] < bestDif)
                         {
                             bestDif = paletteDiffs[i, j];
@@ -60,17 +77,106 @@ namespace NSMBe4.NSBMD
                             bestb = i;
                         }
                     }
+                }
 
+                //Merge the Palettes!!!
+                palettes[besta] = palMerge(palettes[besta], palettes[bestb]);
+                calcPaletteDiffs(besta);
+                paletteCounts[besta] += paletteCounts[bestb];
+                paletteCounts[bestb] = 0;
+
+                for (int x = 0; x < tx; x++)
+                    for (int y = 0; y < ty; y++)
+                        if (paletteNumbers[x, y] == bestb)
+                            paletteNumbers[x, y] = besta;
             }
+
+            
+
+            //CREATE THE FINAL PAL
+            int currNum = 0;
+            finalPalette = new Color[paletteMaxNum*4];
+            int[] newPalNums = new int[palettes.Length];
+            for(int i = 0; i < palettes.Length; i++)
+            {
+                if(paletteCounts[i] != 0)
+                {
+                    transparentToTheEnd(palettes[i]);
+                    newPalNums[i] = currNum;
+                    Array.Copy(palettes[i], 0, finalPalette, currNum*4, 4);
+                    currNum++;
+                }
+            }
+
+            ByteArrayOutputStream texDat = new ByteArrayOutputStream();
+            ByteArrayOutputStream f5Dat = new ByteArrayOutputStream();
+            for (int y = 0; y < ty; y++)
+                for (int x = 0; x < tx; x++)
+                {
+                    //WRITE THE IMAGE DATA
+                    for (int yy = 0; yy < 4; yy++)
+                    {
+                        byte b = 0;
+                        byte pow = 1;
+                        for (int xx = 0; xx < 4; xx++)
+                        {
+                            Color coll = img.GetPixel(x*4+xx, y*4+yy);
+                            byte col = (byte)ImageIndexer.closest(coll, 
+                                palettes[paletteNumbers[x, y]]);
+
+                            b |= (byte)(pow * col);
+                            pow *= 4;
+                        }
+                        texDat.writeByte(b);
+                    }
+
+
+                    //WRITE THE FORMAT-5 SPECIFIC DATA
+                    //Todo: Now wasting all the Color 0's of all the palettes!!
+                    ushort dat = (ushort)(newPalNums[paletteNumbers[x, y]] * 2);
+                    if(palettes[paletteNumbers[x, y]][3] != Color.Transparent)
+                        dat |= 2 << 14;
+                    f5Dat.writeUShort(dat);
+                }
+
+            f5data = f5Dat.getArray();
+            texdata = texDat.getArray();
+
         }
 
-        public void calcPaletteDiffs(int pal)
+        private void transparentToTheEnd(Color[] pal)
         {
+            bool transpFound = false;
+            for (int i = 0; i < pal.Length; i++)
+            {
+                if (pal[i] == Color.Transparent)
+                {
+                    pal[i] = pal[pal.Length - 1];
+                    transpFound = true;
+                }
+            }
+
+            if (transpFound)
+                pal[pal.Length - 1] = Color.Transparent;
+        }
+
+        public int calcPaletteDiffs(int pal)
+        {
+            int mostSimilar = -1;
+            float bestDiff = int.MaxValue;
             for (int i = 0; i < palettes.Length; i++)
             {
                 if (paletteCounts[i] != 0)
-                    paletteDiffs[pal, i] = palDif(palettes[pal], palettes[i]);
+                    paletteDiffs[pal, i] = paletteDiffs[i, pal] = 
+                        palDif(palettes[pal], palettes[i]);
+                if (paletteDiffs[pal, i] < bestDiff)
+                {
+                    bestDiff = paletteDiffs[pal, i];
+                    mostSimilar = i;
+                }
             }
+            Console.Out.WriteLine(bestDiff);
+            return -1;
         }
 
         public int countUsedPalettes()
@@ -93,12 +199,33 @@ namespace NSMBe4.NSBMD
             float dif = 0;
             for (int i = 0; i < a.Length; i++)
             {
-                int ind = getClosestColor(a[i], b);
+                int ind = getClosestColorWithAlpha(a[i], b);
                 Color c = b[ind];
                 dif += ImageIndexer.colorDifference(c, a[i]);
             }
 
             return dif;
+        }
+
+        public Color[] palMerge(Color[] a, Color[] b)
+        {
+            return a; //FIXME!!!!
+
+            /*
+            //Very ugly hack here. I put the 8 colors in a bitmap
+            //and let ImageIndexer find me a good 4-color palette :P
+
+            Bitmap bi = new Bitmap(8, 1);
+            for (int i = 0; i < 4; i++)
+            {
+                bi.SetPixel(i, 0, a[i]);
+                bi.SetPixel(i+4, 0, b[i]);
+            }
+
+            ImageIndexer ii = new ImageIndexer(bi);
+            return ii.palette;*/
+
+            //Haha, it was too slow :)
         }
 
         public int getClosestColor(Color c, Color[] pal)
@@ -109,6 +236,23 @@ namespace NSMBe4.NSBMD
             for (int i = 0; i < pal.Length; i++)
             {
                 float d = ImageIndexer.colorDifferenceWithoutAlpha(pal[i], c);
+                if (d < bestDif)
+                {
+                    bestDif = d;
+                    bestInd = i;
+                }
+            }
+
+            return bestInd;
+        }
+        public int getClosestColorWithAlpha(Color c, Color[] pal)
+        {
+            int bestInd = 0;
+            float bestDif = ImageIndexer.colorDifference(pal[0], c);
+
+            for (int i = 0; i < pal.Length; i++)
+            {
+                float d = ImageIndexer.colorDifference(pal[i], c);
                 if (d < bestDif)
                 {
                     bestDif = d;

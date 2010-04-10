@@ -32,21 +32,33 @@ namespace NSMBe4
         public byte[] palettedImage;
         public byte[,] palettedRawImage;
 
-        public ImageIndexer(Bitmap b)
-            : this(b, 256)
+        public ImageIndexer(Bitmap b, bool checkForAlpha)
+            : this(b, 256, checkForAlpha)
         {
         }
 
-        public ImageIndexer(Bitmap b, int paletteCount)
+        public ImageIndexer(Bitmap b)
+            : this(b, 256, false)
+        {
+        }
+
+        public ImageIndexer(Bitmap b, int paletteCount, bool checkForAlpha)
         {
             //COMPUTE FREQUENCY TABLE
+
+            bool useAlpha = !checkForAlpha;
 
             freqTable = new Dictionary<Color,int>();
             for(int x = 0; x < b.Width; x++)
                 for (int y = 0; y < b.Height; y++)
                 {
                     Color c = b.GetPixel(x, y);
-                    if (c == Color.Transparent) continue;
+                    if (c == Color.Transparent)
+                    {
+                        useAlpha = true;
+                        continue;
+                    }
+
                     c = Color.FromArgb(c.R, c.G, c.B);
 
                     if (freqTable.ContainsKey(c))
@@ -60,7 +72,7 @@ namespace NSMBe4
             boxes = new List<Box>();
             boxes.Add(startBox);
 
-            while (boxes.Count < paletteCount - 1)
+            while (boxes.Count < (useAlpha ? paletteCount - 1 : paletteCount))
             {
                 Box bo = getDominantBox();
                 if (bo == null)
@@ -72,16 +84,17 @@ namespace NSMBe4
 
             //NOW CREATE THE PALETTE COLORS
             palette = new Color[paletteCount];
-            for (int i = 1; i < paletteCount; i++)
+            for (int i = useAlpha?1:0; i < paletteCount; i++)
             {
-                if (i > boxes.Count)
+                if ((useAlpha?i:i+1) > boxes.Count)
                     palette[i] = Color.Fuchsia;
                 else
-                    palette[i] = boxes[i-1].center();
+                    palette[i] = boxes[useAlpha?i-1:i].center();
 //                Console.Out.WriteLine(i + ": " + boxes[i] + ": "+ palette[i]);
             }
 
-            palette[0] = Color.Transparent;
+            if(useAlpha)
+                palette[0] = Color.Transparent;
 
             paletteTable = new Dictionary<Color, byte>();
             //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES

@@ -60,6 +60,13 @@ namespace NSMBe4
             writeByte((byte)u);
             writeByte((byte)(u >> 8));
         }
+        public void writeUInt(ushort u)
+        {
+            writeByte((byte)u);
+            writeByte((byte)(u >> 8));
+            writeByte((byte)(u >> 16));
+            writeByte((byte)(u >> 24));
+        }
 
         private void grow()
         {
