@@ -56,9 +56,9 @@ namespace NSMBe4.DSFileSystem
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            uint offset = uint.Parse(toolStripTextBox1.Text, NumberStyles.HexNumber);
-            hexBox1.Select(offset, 1);
-
+            uint offset;
+            if (uint.TryParse(toolStripTextBox1.Text, NumberStyles.HexNumber, new CultureInfo("en-US"), out offset))
+                hexBox1.Select(offset, 1);
         }
     }
 }

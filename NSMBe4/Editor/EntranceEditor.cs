@@ -82,7 +82,7 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             if ((int)entranceXPosUpDown.Value != en.X)
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveEntrance, en, new Rectangle(en.X, en.Y, (int)entranceXPosUpDown.Value, en.Y));
+                EdControl.UndoManager.PerformAction(UndoType.MoveEntrance, en, new Rectangle(en.X, en.Y, (int)entranceXPosUpDown.Value, en.Y));
 
             en.X = (int)entranceXPosUpDown.Value;
 
@@ -95,7 +95,7 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             if ((int)entranceYPosUpDown.Value != en.Y)
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveEntrance, en, new Rectangle(en.X, en.Y, en.X, (int)entranceYPosUpDown.Value));
+                EdControl.UndoManager.PerformAction(UndoType.MoveEntrance, en, new Rectangle(en.X, en.Y, en.X, (int)entranceYPosUpDown.Value));
             en.Y = (int)entranceYPosUpDown.Value;
 
             EdControl.Invalidate(true);
@@ -106,7 +106,7 @@ namespace NSMBe4
         private void entranceTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.Type, entranceTypeComboBox.SelectedIndex, 7, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.Type, entranceTypeComboBox.SelectedIndex, 7, 0));
             en.Type = entranceTypeComboBox.SelectedIndex;
 
             EdControl.Invalidate(true);
@@ -117,7 +117,7 @@ namespace NSMBe4
         private void entranceCameraXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.CameraX, (int)entranceCameraXPosUpDown.Value, 0, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.CameraX, (int)entranceCameraXPosUpDown.Value, 0, 0));
             en.CameraX = (int)entranceCameraXPosUpDown.Value;
 
             EdControl.FireSetDirtyFlag();
@@ -126,7 +126,7 @@ namespace NSMBe4
         private void entranceCameraYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.CameraY, (int)entranceCameraYPosUpDown.Value, 1, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.CameraY, (int)entranceCameraYPosUpDown.Value, 1, 0));
             en.CameraY = (int)entranceCameraYPosUpDown.Value;
             EdControl.FireSetDirtyFlag();
         }
@@ -134,7 +134,7 @@ namespace NSMBe4
         private void entranceNumberUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.Number, (int)entranceNumberUpDown.Value, 2, 0)); 
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.Number, (int)entranceNumberUpDown.Value, 2, 0)); 
             en.Number = (int)entranceNumberUpDown.Value;
             UpdateItem();
 
@@ -144,7 +144,7 @@ namespace NSMBe4
         private void entranceDestAreaUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.DestArea, (int)entranceDestAreaUpDown.Value, 3, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.DestArea, (int)entranceDestAreaUpDown.Value, 3, 0));
             en.DestArea = (int)entranceDestAreaUpDown.Value;
             EdControl.FireSetDirtyFlag();
         }
@@ -152,7 +152,7 @@ namespace NSMBe4
         private void entranceDestEntranceUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.DestEntrance, (int)entranceDestEntranceUpDown.Value, 4, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.DestEntrance, (int)entranceDestEntranceUpDown.Value, 4, 0));
             en.DestEntrance = (int)entranceDestEntranceUpDown.Value;
             EdControl.FireSetDirtyFlag();
         }
@@ -160,7 +160,7 @@ namespace NSMBe4
         private void entrancePipeIDUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.ConnectedPipeID, (int)entrancePipeIDUpDown.Value, 5, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.ConnectedPipeID, (int)entrancePipeIDUpDown.Value, 5, 0));
             en.ConnectedPipeID = (int)entrancePipeIDUpDown.Value;
             EdControl.FireSetDirtyFlag();
         }
@@ -168,7 +168,7 @@ namespace NSMBe4
         private void entranceViewUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(en.EntryView, (int)entranceViewUpDown.Value, 6, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(en.EntryView, (int)entranceViewUpDown.Value, 6, 0));
             en.EntryView = (int)entranceViewUpDown.Value;
             EdControl.FireSetDirtyFlag();
         }
@@ -181,7 +181,7 @@ namespace NSMBe4
                 en.Settings |= 128;
             else
                 en.Settings &= 127;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 0));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 0));
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
         }
@@ -194,7 +194,7 @@ namespace NSMBe4
                 en.Settings |= 16;
             else
                 en.Settings &= 239;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 1));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 1));
             EdControl.FireSetDirtyFlag();
         }
 
@@ -206,7 +206,7 @@ namespace NSMBe4
                 en.Settings |= 8;
             else
                 en.Settings &= 247;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 2));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 2));
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
         }
@@ -219,7 +219,7 @@ namespace NSMBe4
                 en.Settings |= 1;
             else
                 en.Settings &= 254;
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 3));
+            EdControl.UndoManager.PerformAction(UndoType.ChangeEntranceData, en, new Rectangle(pval, en.Settings, 8, 3));
             EdControl.FireSetDirtyFlag();
         }
 
@@ -228,7 +228,7 @@ namespace NSMBe4
             Rectangle ViewableArea = EdControl.ViewableArea;
 
             NSMBEntrance ne = new NSMBEntrance();
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddEntrance, ne, null);
+            EdControl.UndoManager.PerformAction(UndoType.AddEntrance, ne, null);
             ne.X = ViewableArea.X * 16;
             ne.Y = ViewableArea.Y * 16;
             ne.Number = EdControl.Level.getFreeEntranceNumber();
@@ -245,7 +245,7 @@ namespace NSMBe4
 
         private void deleteEntranceButton_Click(object sender, EventArgs e)
         {
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveEntrance, en, EdControl.Level.Entrances.IndexOf(en));
+            EdControl.UndoManager.PerformAction(UndoType.RemoveEntrance, en, EdControl.Level.Entrances.IndexOf(en));
             EdControl.Level.Entrances.Remove(en);
             entranceListBox.Items.Remove(en);
             entranceListBox.SelectedIndex = -1;

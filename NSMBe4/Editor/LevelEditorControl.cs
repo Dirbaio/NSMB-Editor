@@ -24,6 +24,12 @@ namespace NSMBe4 {
 
         private float zoom = 1;
         public LevelMinimap minimap;
+        public UndoManager UndoManager;
+
+        public void LoadUndoManager(ToolStripSplitButton Undo, ToolStripSplitButton Redo)
+        {
+            UndoManager = new UndoManager(Undo, Redo, this);
+        }
 
         public LevelEditorControl() {
             InitializeComponent();
@@ -127,6 +133,7 @@ namespace NSMBe4 {
         public NSMBLevel Level;
         private bool Ready;
 
+        [Serializable]
         public enum ObjectType {
             Object,
             Sprite,
@@ -178,15 +185,15 @@ namespace NSMBe4 {
                 }
             }
 
+            foreach(NSMBSprite s in Level.Sprites)
+                if(ViewablePixels.IntersectsWith(s.getRect()))
+                    s.Render(e.Graphics);
+
             foreach (NSMBView v in Level.Views)
                 v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
             foreach (NSMBView v in Level.Zones)
                 v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
             
-            foreach(NSMBSprite s in Level.Sprites)
-                if(ViewablePixels.IntersectsWith(s.getRect()))
-                    s.Render(e.Graphics);
-
             foreach(NSMBEntrance n in Level.Entrances)
                 if(ViewablePixels.Contains(n.X, n.Y))
                     n.Render(e.Graphics);
@@ -228,12 +235,12 @@ namespace NSMBe4 {
             }
             if (keyData == (Keys.Control | Keys.Z))
             {
-                editor.undoMngr.UndoLast();
+                UndoManager.UndoLast();
                 return true;
             }
             if (keyData == (Keys.Control | Keys.Y))
             {
-                editor.undoMngr.RedoLast();
+                UndoManager.RedoLast();
                 return true;
             }
             if (keyData == (Keys.Delete))
@@ -369,8 +376,10 @@ namespace NSMBe4 {
 
         public void paste()
         {
-            SetEditionMode(ClipboardOriginMode);
-            mode.paste(Clipboard);
+            if (Clipboard != null){
+                SetEditionMode(ClipboardOriginMode);
+                mode.paste(Clipboard);
+            }
         }
 
         public void delete()

@@ -24,7 +24,6 @@ using NSMBe4.DSFileSystem;
 
 namespace NSMBe4
 {
-
     public class NSMBLevel
     {
         private File LevelFile;

@@ -20,7 +20,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace NSMBe4 {
+namespace NSMBe4
+{
     public class NSMBPathPoint {
         public int X;
         public int Y;

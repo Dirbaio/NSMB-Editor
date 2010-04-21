@@ -20,7 +20,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace NSMBe4 {
+namespace NSMBe4
+{
     public class NSMBSprite {
         public int X;
         public int Y;
@@ -117,6 +118,10 @@ namespace NSMBe4 {
                 case 55:
                     width = 21;
                     break;
+                case 59:
+                    y -= 18;
+                    width = 18; height = 34;
+                    break;
                 case 66:
                     if (Data[2] % 0x10 != 1)
                         y -= 2;
@@ -133,6 +138,14 @@ namespace NSMBe4 {
                     x -= 24; y -= 10;
                     width = 16 * (Data[2] % 0x10) + 48;
                     height = 16 * Math.Max(Data[2] / 0x10, Data[3] % 0x10) + 18;
+                    break;
+                case 82:
+                    x -= 24; y -= 8;
+                    width = 64; height = 32;
+                    break;
+                case 86:
+                    x -= 14; y -= 6;
+                    width = 44; height = 39;
                     break;
                 case 94:
                     if (Data[2] > 0) {
@@ -187,6 +200,10 @@ namespace NSMBe4 {
                     y += 3;
                     width = 33; height = 29;
                     break;
+                case 127:
+                    x -= 144; y -= 104;
+                    width = 288; height = 208;
+                    break;
                 case 131:
                 case 132:
                     width = 22; height = 33;
@@ -215,6 +232,8 @@ namespace NSMBe4 {
                     y -= 16;
                     width = 19; height = 32;
                     break;
+                //case 152:
+                //    Switch blocks don't need to be modified
                 case 155:
                     width = 16 * (Data[3] % 0x10 + 1); height = 16 * (Data[2] / 0x10 + 1);
                     break;
@@ -285,6 +304,12 @@ namespace NSMBe4 {
                             break;
                     }
                     width = 32; height = 32;
+                    break;
+                case 236:
+                    x -= 16; y -= 16;
+                    if (Data[5] / 0x10 > 0)
+                        y += 8;
+                    width = 48; height = 48;
                     break;
                 case 244:
                     switch (Data[2] / 0x10)
@@ -442,6 +467,9 @@ namespace NSMBe4 {
                 case 55:
                     g.DrawImage(Properties.Resources.BulletBill, RenderX, RenderY, 21, 16);
                     break;
+                case 59:
+                    g.DrawImage(Properties.Resources.HammerBro, RenderX, RenderY - 18, 18, 34);
+                    break;
                 case 66:
                     img = Properties.Resources.PSwitch;
                     if (Data[2] % 0x10 == 1)
@@ -477,6 +505,12 @@ namespace NSMBe4 {
                     g.DrawLine(rope, RenderX2 + 10, RenderY + 1, RenderX2 + 10, RenderY3 - 1);
                     g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX2 - 14, RenderY3, 48, 16);
                     g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX - 24, RenderY2, 48, 16);
+                    break;
+                case 82:
+                    g.DrawImage(Properties.Resources.SpinningRectanglePlatform, RenderX - 24, RenderY - 8, 64, 32);
+                    break;
+                case 86:
+                    g.DrawImage(Properties.Resources.SpinningTrianglePlatform, RenderX - 14, RenderY - 6, 44, 39);
                     break;
                 case 94:
                     if (Data[2] > 0)
@@ -528,6 +562,9 @@ namespace NSMBe4 {
                     break;
                 case 120:
                     g.DrawImage(Properties.Resources.PiranhaplantGround, RenderX, RenderY + 3, 33, 29);
+                    break;
+                case 127:
+                    g.DrawImage(Properties.Resources.GiantSpinningPlatform, RenderX - 144, RenderY - 104, 288, 208);
                     break;
                 case 131:
                 case 132:
@@ -586,9 +623,17 @@ namespace NSMBe4 {
                     }
                     g.DrawImage(img, RenderX, RenderY - 16, 19, 32);
                     break;
+                case 152:
+                    g.DrawImage(Properties.Resources.SwitchBlock, RenderX, RenderY, 16, 16);
+                    break;
                 case 155:
-                    g.DrawRectangle(Pens.Black, RenderX, RenderY, 16 * (Data[3] % 0x10 + 1), 16 * (Data[2] / 0x10 + 1));
-                    g.DrawString("Warp", NSMBGraphics.SmallInfoFont, Brushes.Black, RenderX, RenderY);
+                    Rectangle rect = this.getRect();
+                    rect.Offset(1, 1);
+                    g.DrawRectangle(Pens.Black, rect);
+                    rect.Offset(-1, -1);
+                    g.DrawRectangle(Pens.White, rect);
+                    g.DrawString("Warp", NSMBGraphics.SmallInfoFont, Brushes.Black, RenderX + 1, RenderY + 1);
+                    g.DrawString("Warp", NSMBGraphics.SmallInfoFont, Brushes.White, RenderX, RenderY);
                     break;
                 case 162:
                     RenderY += 24;
@@ -674,6 +719,11 @@ namespace NSMBe4 {
                             break;
                     }
                     g.DrawImage(Properties.Resources.StarCoin, RenderX, RenderY, 32, 32);
+                    break;
+                case 236:
+                    if (Data[5] / 0x10 > 0)
+                        RenderY += 8;
+                    g.DrawImage(Properties.Resources.SpinningSquarePlatform, RenderX - 16, RenderY - 16, 48, 48);
                     break;
                 case 244:
                     switch (Data[2] / 0x10) {

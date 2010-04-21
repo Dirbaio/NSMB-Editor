@@ -123,7 +123,7 @@ namespace NSMBe4
         private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if ((int)spriteXPosUpDown.Value != s.X)
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, (int)spriteXPosUpDown.Value, s.Y));
+                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, (int)spriteXPosUpDown.Value, s.Y));
             if (DataUpdateFlag) return;
             s.X = (int)spriteXPosUpDown.Value;
             EdControl.Invalidate(true);
@@ -133,7 +133,7 @@ namespace NSMBe4
         private void spriteYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if ((int)spriteYPosUpDown.Value != s.Y)
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X, (int)spriteYPosUpDown.Value));
+                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X, (int)spriteYPosUpDown.Value));
             if (DataUpdateFlag) return;
             s.Y = (int)spriteYPosUpDown.Value;
             EdControl.Invalidate(true);
@@ -143,7 +143,7 @@ namespace NSMBe4
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
         {
             if ((int)spriteTypeUpDown.Value != s.Type)
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeSpriteType, s, new Point(s.Type, (int)spriteTypeUpDown.Value));
+                EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteType, s, new Point(s.Type, (int)spriteTypeUpDown.Value));
             if (DataUpdateFlag) return;
             s.Type = (int)spriteTypeUpDown.Value;
             DataUpdateFlag = true;
@@ -173,7 +173,7 @@ namespace NSMBe4
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBSprite ns = new NSMBSprite(EdControl.Level);
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddSprite, ns, null);
+            EdControl.UndoManager.PerformAction(UndoType.AddSprite, ns, null);
             ns.X = ViewableArea.X;
             ns.Y = ViewableArea.Y;
             ns.Type = 0;
@@ -189,7 +189,7 @@ namespace NSMBe4
 
         private void deleteSpriteButton_Click(object sender, EventArgs e)
         {
-            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveSprite, s, EdControl.Level.Sprites.IndexOf(s));
+            EdControl.UndoManager.PerformAction(UndoType.RemoveSprite, s, EdControl.Level.Sprites.IndexOf(s));
             EdControl.Level.Sprites.Remove(s);
             EdControl.SelectObject(null);
 
@@ -249,15 +249,13 @@ namespace NSMBe4
                     datas[1] = new byte[6];
                     Array.Copy(s.Data.Clone() as byte[], datas[0], 6);
                     Array.Copy(data.Clone() as byte[], datas[1], 6);
-                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeSpriteData, s, datas);
+                    EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteData, s, datas);
                 }
                 s.Data = data;
                 spriteDataTextBox.BackColor = SystemColors.Window;
             }
             else
-            {
                 spriteDataTextBox.BackColor = Color.Coral;
-            }
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
         }

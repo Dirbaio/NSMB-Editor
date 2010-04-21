@@ -41,6 +41,8 @@ namespace NSMBe4.DSFileSystem
             compressFileButton.Enabled = false;
             decompressFileButton.Enabled = false;
             hexEdButton.Enabled = false;
+            compressWithHeaderButton.Enabled = false;
+            decompressWithHeaderButton.Enabled = false;
             LanguageManager.ApplyToContainer(this, "FilesystemBrowser");
 
         }
@@ -91,6 +93,8 @@ namespace NSMBe4.DSFileSystem
                 compressFileButton.Enabled = false;
                 decompressFileButton.Enabled = false;
                 hexEdButton.Enabled = false;
+                compressWithHeaderButton.Enabled = false;
+                decompressWithHeaderButton.Enabled = false;
             }
             else
             {
@@ -101,6 +105,8 @@ namespace NSMBe4.DSFileSystem
                 compressFileButton.Enabled = true;
                 decompressFileButton.Enabled = true;
                 hexEdButton.Enabled = true;
+                compressWithHeaderButton.Enabled = true;
+                decompressWithHeaderButton.Enabled = true;
             }
             selectedFileInfo.Text = StatusMsg;
         }
@@ -201,27 +207,27 @@ namespace NSMBe4.DSFileSystem
 
         private void compressWithHeaderButton_Click(object sender, EventArgs e)
         {
-            File f = fileTreeView.SelectedNode.Tag as File;
+                File f = fileTreeView.SelectedNode.Tag as File;
 
-            try
-            {
-                f.beginEdit(this);
-            }
-            catch (AlreadyEditingException)
-            {
-                MessageBox.Show(LanguageManager.Get("Errors", "File"));
-                return;
-            }
+                try
+                {
+                    f.beginEdit(this);
+                }
+                catch (AlreadyEditingException)
+                {
+                    MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                    return;
+                }
 
-            byte[] RawFile = f.getContents();
-            byte[] CompFile = ROM.LZ77_Compress(RawFile);
+                byte[] RawFile = f.getContents();
+                byte[] CompFile = ROM.LZ77_Compress(RawFile);
 
-            byte[] CompFileWithHeader = new byte[CompFile.Length + 4];
-            Array.Copy(CompFile, 0, CompFileWithHeader, 4, CompFile.Length);
-            f.replace(CompFileWithHeader, this);
-            f.setUintAt(0, 0x37375A4C); 
-            UpdateFileInfo();
-            f.endEdit(this);
+                byte[] CompFileWithHeader = new byte[CompFile.Length + 4];
+                Array.Copy(CompFile, 0, CompFileWithHeader, 4, CompFile.Length);
+                f.replace(CompFileWithHeader, this);
+                f.setUintAt(0, 0x37375A4C);
+                UpdateFileInfo();
+                f.endEdit(this);
         }
 
         private void decompressWithHeaderButton_Click(object sender, EventArgs e)

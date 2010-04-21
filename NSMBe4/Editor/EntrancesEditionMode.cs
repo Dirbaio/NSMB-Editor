@@ -25,7 +25,6 @@ namespace NSMBe4
 {
     public class EntrancesEditionMode:EditionMode
     {
-
         NSMBEntrance e = null;
         EntranceEditor ed;
         int step = 1;
@@ -81,7 +80,7 @@ namespace NSMBe4
             if (CloneMode)
             {
                 e = new NSMBEntrance(e);
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddEntrance, e, null);
+                EdControl.UndoManager.PerformAction(UndoType.AddEntrance, e, null);
                 Level.Entrances.Add(e);
                 e.Number = Level.getFreeEntranceNumber();
                 EdControl.repaint();
@@ -122,7 +121,7 @@ namespace NSMBe4
             {
                 nx = nx - nx % step;
                 ny = ny - ny % step;
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveEntrance, e, new Rectangle(e.X, e.Y, nx, ny));
+                EdControl.UndoManager.PerformAction(UndoType.MoveEntrance, e, new Rectangle(e.X, e.Y, nx, ny));
                 e.X = nx;
                 e.Y = ny;
                 EdControl.repaint();
@@ -147,7 +146,12 @@ namespace NSMBe4
 
         public override void MouseUp()
         {
-            EdControl.editor.undoMngr.merge = false;
+            EdControl.UndoManager.merge = false;
+        }
+
+        public override object copy()
+        {
+            return new NSMBEntrance(this.e);
         }
     }
 }

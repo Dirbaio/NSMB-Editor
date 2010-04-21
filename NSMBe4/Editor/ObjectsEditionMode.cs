@@ -240,11 +240,11 @@ namespace NSMBe4
                     List<object> newObjects = CloneList(SelectedObjects);
                     if (newObjects.Count == 1) {
                         if (newObjects[0] is NSMBObject)
-                            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddObject, newObjects[0], null);
+                            EdControl.UndoManager.PerformAction(UndoType.AddObject, newObjects[0], null);
                         else
-                            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddSprite, newObjects[0], null);
+                            EdControl.UndoManager.PerformAction(UndoType.AddSprite, newObjects[0], null);
                     } else {
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddMultiple, newObjects.ToArray(), null);
+                        EdControl.UndoManager.PerformAction(UndoType.AddMultiple, newObjects.ToArray(), null);
                     }
                     CloneMode = false;
                     ResizeMode = false;
@@ -276,7 +276,7 @@ namespace NSMBe4
                         if (SelectedObject is NSMBObject)
                         {
                             NSMBObject o = SelectedObject as NSMBObject;
-                            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeObject, o, new Rectangle(o.Width, o.Height, o.Width + XDelta, o.Height + XDelta));
+                            EdControl.UndoManager.PerformAction(UndoType.SizeObject, o, new Rectangle(o.Width, o.Height, o.Width + XDelta, o.Height + XDelta));
                             o.Width += XDelta;
                             o.Height += YDelta;
                             if(o.Width < 1)
@@ -301,13 +301,13 @@ namespace NSMBe4
                     if (SelectedObjects.Count == 1) {
                         if (SelectedObjects[0] is NSMBObject) {
                             NSMBObject o = SelectedObjects[0] as NSMBObject;
-                            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveObject, o, new Rectangle(o.X, o.Y, o.X + XDelta, o.Y + YDelta));
+                            EdControl.UndoManager.PerformAction(UndoType.MoveObject, o, new Rectangle(o.X, o.Y, o.X + XDelta, o.Y + YDelta));
                         } else {
                             NSMBSprite s = SelectedObjects[0] as NSMBSprite;
-                            EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X + XDelta, s.Y + YDelta));
+                            EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X + XDelta, s.Y + YDelta));
                         } 
                     } else {
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveMultiple, SelectedObjects.ToArray(), new Point(XDelta, YDelta));
+                        EdControl.UndoManager.PerformAction(UndoType.MoveMultiple, SelectedObjects.ToArray(), new Point(XDelta, YDelta));
                     }
                     foreach(object SelectedObject in SelectedObjects)
                     {
@@ -344,7 +344,7 @@ namespace NSMBe4
         public override void MouseUp()
         {
             SelectMode = false;
-            EdControl.editor.undoMngr.merge = false;
+            EdControl.UndoManager.merge = false;
             EdControl.repaint();
         }
 
@@ -386,9 +386,9 @@ namespace NSMBe4
 
             if (SelectedObjects.Count == 1) {
                 if (SelectedObjects[0] is NSMBObject)
-                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveObject, SelectedObjects[0], Level.Objects.IndexOf(SelectedObjects[0] as NSMBObject));
+                    EdControl.UndoManager.PerformAction(UndoType.RemoveObject, SelectedObjects[0], Level.Objects.IndexOf(SelectedObjects[0] as NSMBObject));
                 else
-                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveSprite, SelectedObjects[0], Level.Sprites.IndexOf(SelectedObjects[0] as NSMBSprite));
+                    EdControl.UndoManager.PerformAction(UndoType.RemoveSprite, SelectedObjects[0], Level.Sprites.IndexOf(SelectedObjects[0] as NSMBSprite));
             } else {
                 int[] zIndex = new int[SelectedObjects.Count];
                 object item;
@@ -399,7 +399,7 @@ namespace NSMBe4
                     else
                         zIndex[l] = Level.Sprites.IndexOf(item as NSMBSprite);
                 }
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.RemoveMultiple, SelectedObjects.ToArray(), zIndex);
+                EdControl.UndoManager.PerformAction(UndoType.RemoveMultiple, SelectedObjects.ToArray(), zIndex);
             }
 
             foreach (object oo in SelectedObjects)
@@ -488,11 +488,11 @@ namespace NSMBe4
 
                 if (SelectedObjects.Count == 1) {
                     if (SelectedObjects[0] is NSMBObject)
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddObject, SelectedObjects[0], null);
+                        EdControl.UndoManager.PerformAction(UndoType.AddObject, SelectedObjects[0], null);
                     else
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddSprite, SelectedObjects[0], null);
+                        EdControl.UndoManager.PerformAction(UndoType.AddSprite, SelectedObjects[0], null);
                 } else {
-                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddMultiple, SelectedObjects.ToArray(), null);
+                    EdControl.UndoManager.PerformAction(UndoType.AddMultiple, SelectedObjects.ToArray(), null);
                 }
 
                 UpdateSelectedBounds();

@@ -71,7 +71,7 @@ namespace NSMBe4
             if (CloneMode)
             {
                 v = new NSMBView(v);
-                EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.AddView, v, null);
+                EdControl.UndoManager.PerformAction(UndoType.AddView, v, null);
                 v.Number = EdControl.Level.getFreeViewNumber(l);
                 l.Add(v);
                 CloneMode = false;
@@ -113,16 +113,16 @@ namespace NSMBe4
                 ny = ny - ny % step;
                 if (ResizeMode) {
                     if (v.isZone)
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeZone, v, new Rectangle(v.Width, v.Height, nx, ny));
+                        EdControl.UndoManager.PerformAction(UndoType.SizeZone, v, new Rectangle(v.Width, v.Height, nx, ny));
                     else
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.SizeView, v, new Rectangle(v.Width, v.Height, nx, ny));
+                        EdControl.UndoManager.PerformAction(UndoType.SizeView, v, new Rectangle(v.Width, v.Height, nx, ny));
                     v.Width = nx;
                     v.Height = ny;
                 } else {
                     if (v.isZone)
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveZone, v, new Rectangle(v.X, v.Y, nx, ny));
+                        EdControl.UndoManager.PerformAction(UndoType.MoveZone, v, new Rectangle(v.X, v.Y, nx, ny));
                     else
-                        EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.MoveView, v, new Rectangle(v.X, v.Y, nx, ny));
+                        EdControl.UndoManager.PerformAction(UndoType.MoveView, v, new Rectangle(v.X, v.Y, nx, ny));
                     v.X = nx;
                     v.Y = ny;
                 }
@@ -178,7 +178,7 @@ namespace NSMBe4
 
         public override void MouseUp()
         {
-            EdControl.editor.undoMngr.merge = false;
+            EdControl.UndoManager.merge = false;
         }
     }
 }

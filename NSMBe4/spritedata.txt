@@ -973,7 +973,7 @@ value checkbox Unknown Flag
 end sprite
 
 sprite 249
-value checkbox Thick
+value number Width
 3.2
 value number Height
 4.2

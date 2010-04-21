@@ -23,7 +23,6 @@ namespace NSMBe4
 {
 	public class ByteArrayOutputStream
 	{
-
         //implements an unbonded array to store unlimited data.
         //writes in amortized constant time.
 

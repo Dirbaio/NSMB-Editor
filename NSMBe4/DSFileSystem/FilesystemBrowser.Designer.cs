@@ -155,9 +155,9 @@
             // compressWithHeaderButton
             // 
             this.compressWithHeaderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.compressWithHeaderButton.Location = new System.Drawing.Point(244, 289);
+            this.compressWithHeaderButton.Location = new System.Drawing.Point(151, 289);
             this.compressWithHeaderButton.Name = "compressWithHeaderButton";
-            this.compressWithHeaderButton.Size = new System.Drawing.Size(121, 23);
+            this.compressWithHeaderButton.Size = new System.Drawing.Size(170, 23);
             this.compressWithHeaderButton.TabIndex = 11;
             this.compressWithHeaderButton.Text = "<compressFileButton>";
             this.compressWithHeaderButton.UseVisualStyleBackColor = true;
@@ -166,9 +166,9 @@
             // decompressWithHeaderButton
             // 
             this.decompressWithHeaderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.decompressWithHeaderButton.Location = new System.Drawing.Point(371, 289);
+            this.decompressWithHeaderButton.Location = new System.Drawing.Point(327, 289);
             this.decompressWithHeaderButton.Name = "decompressWithHeaderButton";
-            this.decompressWithHeaderButton.Size = new System.Drawing.Size(135, 23);
+            this.decompressWithHeaderButton.Size = new System.Drawing.Size(179, 23);
             this.decompressWithHeaderButton.TabIndex = 12;
             this.decompressWithHeaderButton.Text = "<decompressFileButton>";
             this.decompressWithHeaderButton.UseVisualStyleBackColor = true;

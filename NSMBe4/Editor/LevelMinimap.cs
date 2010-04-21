@@ -45,9 +45,8 @@ namespace NSMBe4 {
                 e.Graphics.FillRectangle(Brushes.White, Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
             }
 
-            for (int SpriteIdx = 0; SpriteIdx < Level.Sprites.Count; SpriteIdx++) {
-                e.Graphics.FillRectangle(Brushes.Chartreuse, Level.Sprites[SpriteIdx].X, Level.Sprites[SpriteIdx].Y, 1, 1);
-            }
+            for (int SpriteIdx = 0; SpriteIdx < Level.Sprites.Count; SpriteIdx++)
+                e.Graphics.FillRectangle(Brushes.Chartreuse, Level.Sprites[SpriteIdx].getRectB());
             foreach (NSMBView v in Level.Views)
                 e.Graphics.DrawRectangle(Pens.LightSteelBlue, v.X / 16, v.Y / 16, v.Width / 16, v.Height / 16);
             foreach (NSMBView v in Level.Zones)

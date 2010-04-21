@@ -433,7 +433,7 @@ namespace NSMBe4
                     datas[1] = new byte[6];
                     Array.Copy(orig, datas[0], 6);
                     Array.Copy(s.Data.Clone() as byte[], datas[1], 6);
-                    EdControl.editor.undoMngr.PerformAction(NSMBe4.Editor.UndoType.ChangeSpriteData, s, datas);
+                    EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteData, s, datas);
                 }
                 EdControl.FireSetDirtyFlag();
                 EdControl.Invalidate(true);

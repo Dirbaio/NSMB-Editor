@@ -257,28 +257,19 @@ namespace NSMBe4.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ;NSMB Editor 4
+        ///   Looks up a localized string similar to ;NSMB Editor 5
         ///;English Translation File
         ///;Created by Treeki; 12 Oct 2009
-        ///
-        ///[General]
-        ///EditingSomething=Editing
-        ///Warning=Warning
-        ///Question=Question
-        ///Completed=Completed!
-        ///
-        ///UnknownRegion=The region of the ROM can&apos;t be identified.\nThe editor will treat it as a US release.
-        ///
-        ///[Errors]
-        ///Tileset=This tileset is already being edited.
-        ///Level=This level is already being edited.
-        ///File=This file is already being edited.
-        ///
-        ///[LevelChooser]
-        ///_TITLE=NSMB Editor 5.1 - by Treeki and Dirbaio
-        ///
-        ///tabPage1=File Browser
-        ///ta [rest of string was truncated]&quot;;.
+        ///;
+        ///;   This file is part of NSMB Editor 5.
+        ///;
+        ///;   NSMB Editor 5 is free software: you can redistribute it and/or modify
+        ///;   it under the terms of the GNU General Public License as published by
+        ///;   the Free Software Foundation, either version 3 of the License, or
+        ///;   (at your option) any later version.
+        ///;
+        ///;   NSMB Editor 5 is distributed in the hope that it will be useful,
+        ///;   but WITHOUT ANY WARRANTY; without even the implied  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string english {
             get {
@@ -391,6 +382,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap GiantSpinningPlatform {
+            get {
+                object obj = ResourceManager.GetObject("GiantSpinningPlatform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Goomba {
             get {
                 object obj = ResourceManager.GetObject("Goomba", resourceCulture);
@@ -401,6 +399,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap grid {
             get {
                 object obj = ResourceManager.GetObject("grid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap HammerBro {
+            get {
+                object obj = ResourceManager.GetObject("HammerBro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -724,24 +729,16 @@ namespace NSMBe4.Properties {
         ///   Looks up a localized string similar to ;NSMB Editor 5
         ///;Spanish Translation File
         ///;Created by Treeki; 12 Oct 2009
-        ///
-        ///[General]
-        ///EditingSomething=Edicion de
-        ///Warning=Aviso
-        ///Question=Pregunta
-        ///Completed=Terminado!
-        ///
-        ///UnknownRegion=No se puede determinar la version del ROM.\nEl editor lo usara como versión US.
-        ///
-        ///[Errors]
-        ///Tileset=Esta serie de objetos ya se esta editando.
-        ///Level=Este nivel ya esta siendo editado.
-        ///File=Este archivo ya esta siendo editado.
-        ///
-        ///[LevelChooser]
-        ///_TITLE=NSMB Editor 5.1 - por Treeki y Dirbaio
-        ///
-        ///tabPage1=Sistema de archi [rest of string was truncated]&quot;;.
+        ///;
+        ///;   This file is part of NSMB Editor 5.
+        ///;
+        ///;   NSMB Editor 5 is free software: you can redistribute it and/or modify
+        ///;   it under the terms of the GNU General Public License as published by
+        ///;   the Free Software Foundation, either version 3 of the License, or
+        ///;   (at your option) any later version.
+        ///;
+        ///;   NSMB Editor 5 is distributed in the hope that it will be useful,
+        ///;   but WITHOUT ANY WARRANTY; without even the implied  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string spanish {
             get {
@@ -766,6 +763,27 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap SpinBoard {
             get {
                 object obj = ResourceManager.GetObject("SpinBoard", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SpinningRectanglePlatform {
+            get {
+                object obj = ResourceManager.GetObject("SpinningRectanglePlatform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SpinningSquarePlatform {
+            get {
+                object obj = ResourceManager.GetObject("SpinningSquarePlatform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SpinningTrianglePlatform {
+            get {
+                object obj = ResourceManager.GetObject("SpinningTrianglePlatform", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -906,6 +924,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap StoneBlockTopRight {
             get {
                 object obj = ResourceManager.GetObject("StoneBlockTopRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SwitchBlock {
+            get {
+                object obj = ResourceManager.GetObject("SwitchBlock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
