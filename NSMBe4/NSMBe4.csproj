@@ -460,6 +460,8 @@
     <None Include="Resources\Sprite Images\SpinningRectanglePlatform.PNG" />
     <None Include="Resources\Sprite Images\SpinningSquarePlatform.PNG" />
     <None Include="Resources\Sprite Images\SpinningTrianglePlatform.PNG" />
+    <None Include="Resources\Sprite Images\WallJumpPlatformBlock.PNG" />
+    <None Include="Resources\Sprite Images\LineAttachment.PNG" />
     <Content Include="spritedata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -75,6 +75,11 @@ namespace NSMBe4
             UpdateList();
         }
 
+        public void delete()
+        {
+            deleteViewButton.PerformClick();
+        }
+
         public void UpdateList()
         {
             viewsList.Items.Clear();

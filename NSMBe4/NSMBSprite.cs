@@ -324,6 +324,11 @@ namespace NSMBe4
                     x -= 40;
                     width = 96; height = 16 * (Data[2] % 0x10 + 2);
                     break;
+                case 249:
+                    x -= Data[2] % 0x10 * 8 + 24; y += 5;
+                    width = Data[2] % 0x10 * 16 + 64;
+                    height = Data[3] / 0x10 * 16 + 83;
+                    break;
                 case 277:
                     width = 32; height = 32;
                     break;
@@ -741,6 +746,21 @@ namespace NSMBe4
                         g.DrawImage(Properties.Resources.BouncingMushroomStalk, RenderX, RenderY, 10, 16);
                         RenderY += 16;
                     }
+                    break;
+                case 249:
+                    RenderX -= Data[2] % 0x10 * 8 + 24;
+                    RenderY += Data[3] / 0x10 * 16 + 88;
+                    int XOff = Data[2] % 0x10 * 16 + 48;
+                    for (int l = 0; l < Data[3] / 0x10 + 4; l++) {
+                        RenderY -= 16;
+                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX + XOff, RenderY, 16, 16);
+                    }
+                    for (int l = 0; l < Data[2] % 0x10 + 2; l++){
+                        RenderX += 16;
+                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX, RenderY, 16, 16);
+                    }
+                    g.DrawImage(Properties.Resources.LineAttachment, X * 16 - 3, Y * 16 + 5, 22, 22);
                     break;
                 case 277:
                     int direction = Data[5] % 8;

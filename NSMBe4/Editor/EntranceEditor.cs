@@ -256,6 +256,11 @@ namespace NSMBe4
             EdControl.FireSetDirtyFlag();
         }
 
+        public void delete()
+        {
+            deleteEntranceButton.PerformClick();
+        }
+
         public void SetEntrance(NSMBEntrance ne)
         {
             this.en = ne;

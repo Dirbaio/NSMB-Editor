@@ -80,7 +80,7 @@ namespace NSMBe4
             }
 
             int step = 1;
-            if (Control.ModifierKeys == Keys.Alt)
+            if ((Control.ModifierKeys & Keys.Alt) != 0)
                 step = 8;
 
             bool moved = false;
@@ -179,6 +179,37 @@ namespace NSMBe4
         public override void MouseUp()
         {
             EdControl.UndoManager.merge = false;
+        }
+
+        public override object copy()
+        {
+            return new NSMBView(v);
+        }
+
+        public override void paste(object contents)
+        {
+            if (contents is NSMBView)
+            {
+                NSMBView newV = contents as NSMBView;
+                if (newV.isZone)
+                {
+                    newV.Number = Level.getFreeViewNumber(Level.Zones);
+                    Level.Zones.Add(newV);
+                    EdControl.UndoManager.PerformAction(UndoType.AddZone, newV, null);
+                } else {
+                    newV.Number = Level.getFreeViewNumber(Level.Views);
+                    Level.Views.Add(newV);
+                    EdControl.UndoManager.PerformAction(UndoType.AddView, newV, null);
+                }
+                SelectObject(newV);
+                ve.SetView(newV);
+                EdControl.repaint();
+            }
+        }
+
+        public override void DeleteObject()
+        {
+            ve.delete();
         }
     }
 }

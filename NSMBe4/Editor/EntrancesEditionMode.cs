@@ -127,6 +127,7 @@ namespace NSMBe4
                 EdControl.repaint();
                 UpdatePanel();
                 SetDirtyFlag();
+                Refresh();
             }
         }
 
@@ -152,6 +153,27 @@ namespace NSMBe4
         public override object copy()
         {
             return new NSMBEntrance(this.e);
+        }
+
+        public override void paste(object contents)
+        {
+            if (contents is NSMBEntrance)
+            {
+                NSMBEntrance newE = contents as NSMBEntrance;
+                newE.X = (EdControl.ViewableArea.Left * 16 + EdControl.ViewableArea.Right * 16) / 2;
+                newE.Y = (EdControl.ViewableArea.Top * 16 + EdControl.ViewableArea.Bottom * 16) / 2;
+                newE.Number = Level.getFreeEntranceNumber();
+                Level.Entrances.Add(newE);
+                SelectObject(newE);
+                ed.SetEntrance(newE);
+                EdControl.UndoManager.PerformAction(UndoType.AddEntrance, newE, null);
+                EdControl.repaint();
+            }
+        }
+
+        public override void DeleteObject()
+        {
+            ed.delete();
         }
     }
 }

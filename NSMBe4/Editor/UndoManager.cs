@@ -88,15 +88,15 @@ namespace NSMBe4
 
         private void onUndoLast(object sender, EventArgs e)
         {
-            UndoLast();
+            UndoLast(false);
         }
 
-        public void UndoLast()
+        public void UndoLast(bool multiple)
         {
             if (undoPos > -1 && undoPos < Entries.Count) {
                 undo.DropDownItems.RemoveAt(0);
                 ToolStripMenuItem item = Entries[undoPos].AddToDropDown(redo.DropDownItems);
-                Entries[undoPos++].DoAction(false);
+                Entries[undoPos++].DoAction(false, multiple);
                 item.MouseEnter += new EventHandler(updateActCount);
                 item.Click += new EventHandler(onRedoActions);
                 if (undoPos == Entries.Count)
@@ -113,19 +113,19 @@ namespace NSMBe4
         public void UndoActions(int count)
         {
             for (int l = 0; l < count; l++) {
-                UndoLast();
+                UndoLast(l < count - 1);
             }
         }
 
         private void onRedoLast(object sender, EventArgs e)
         {
-            RedoLast();
+            RedoLast(false);
         }
 
-        public void RedoLast()
+        public void RedoLast(bool multiple)
         {
             if (undoPos > 0 && undoPos <= Entries.Count ) {
-                Entries[--undoPos].DoAction(true);
+                Entries[--undoPos].DoAction(true, multiple);
                 redo.DropDownItems.RemoveAt(0);
                 ToolStripMenuItem item = Entries[undoPos].AddToDropDown(undo.DropDownItems);
                 item.MouseEnter += new EventHandler(updateActCount);
@@ -144,7 +144,7 @@ namespace NSMBe4
         public void RedoActions(int count)
         {
             for (int l = 0; l < count; l++) {
-                RedoLast();
+                RedoLast(l < count - 1);
             }
         }
 
@@ -170,7 +170,7 @@ namespace NSMBe4
             this.EdControl = editor;
         }
 
-        public void DoAction(bool redo)
+        public void DoAction(bool redo, bool multiple)
         {
             NSMBObject o = null; if (param1 is NSMBObject) o = param1 as NSMBObject;
             NSMBSprite s = null; if (param1 is NSMBSprite) s = param1 as NSMBSprite;
@@ -464,10 +464,12 @@ namespace NSMBe4
                         v.Number = pt.X;
                         break;
             }
-            EdControl.mode.Refresh();
-            if (EdControl.Level.Objects.Contains(o) || EdControl.Level.Sprites.Contains(s) || EdControl.Level.Entrances.Contains(e) || EdControl.Level.Views.Contains(v) || EdControl.Level.Zones.Contains(v))
-                EdControl.mode.SelectObject(param1);
-            EdControl.Invalidate(true);
+            if (!multiple) {
+                EdControl.mode.Refresh();
+                if (EdControl.Level.Objects.Contains(o) || EdControl.Level.Sprites.Contains(s) || EdControl.Level.Entrances.Contains(e) || EdControl.Level.Views.Contains(v) || EdControl.Level.Zones.Contains(v))
+                    EdControl.mode.SelectObject(param1);
+                EdControl.Invalidate(true);
+            }
         }
 
         public ToolStripMenuItem AddToDropDown(ToolStripItemCollection DropDown)

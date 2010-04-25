@@ -23,9 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.vScrollBar = new System.Windows.Forms.VScrollBar();
             this.hScrollBar = new System.Windows.Forms.HScrollBar();
             this.DrawingArea = new System.Windows.Forms.PictureBox();
+            this.dragTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DrawingArea)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +71,11 @@
             this.DrawingArea.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingArea_Paint);
             this.DrawingArea.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseUp);
             // 
+            // dragTimer
+            // 
+            this.dragTimer.Interval = 25;
+            this.dragTimer.Tick += new System.EventHandler(this.dragTimer_Tick);
+            // 
             // LevelEditorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -90,5 +97,6 @@
         private System.Windows.Forms.VScrollBar vScrollBar;
         private System.Windows.Forms.HScrollBar hScrollBar;
         private System.Windows.Forms.PictureBox DrawingArea;
+        private System.Windows.Forms.Timer dragTimer;
     }
 }

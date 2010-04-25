@@ -23,13 +23,9 @@ namespace NSMBe4 {
     public partial class LevelEditorControl : UserControl {
 
         private float zoom = 1;
+        private bool drag = false;
         public LevelMinimap minimap;
         public UndoManager UndoManager;
-
-        public void LoadUndoManager(ToolStripSplitButton Undo, ToolStripSplitButton Redo)
-        {
-            UndoManager = new UndoManager(Undo, Redo, this);
-        }
 
         public LevelEditorControl() {
             InitializeComponent();
@@ -38,6 +34,12 @@ namespace NSMBe4 {
             vScrollBar.Visible = false;
             MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
             DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+            dragTimer.Start();
+        }
+
+        public void LoadUndoManager(ToolStripSplitButton Undo, ToolStripSplitButton Redo)
+        {
+            UndoManager = new UndoManager(Undo, Redo, this);
         }
 
         public void SetZoom(float nZoom)
@@ -133,7 +135,6 @@ namespace NSMBe4 {
         public NSMBLevel Level;
         private bool Ready;
 
-        [Serializable]
         public enum ObjectType {
             Object,
             Sprite,
@@ -235,12 +236,12 @@ namespace NSMBe4 {
             }
             if (keyData == (Keys.Control | Keys.Z))
             {
-                UndoManager.UndoLast();
+                UndoManager.UndoLast(false);
                 return true;
             }
             if (keyData == (Keys.Control | Keys.Y))
             {
-                UndoManager.RedoLast();
+                UndoManager.RedoLast(false);
                 return true;
             }
             if (keyData == (Keys.Delete))
@@ -290,6 +291,8 @@ namespace NSMBe4 {
                     DragStartY = e.Y;
                     return;
                 }
+                if (e.Button == MouseButtons.Left)
+                    drag = true;
 
                 if (mode != null)
                     mode.MouseDown((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y/zoom) + vScrollBar.Value * 16);
@@ -297,10 +300,11 @@ namespace NSMBe4 {
         }
 
         private void DrawingArea_MouseMove(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left && Ready && mode != null)
+            if (e.Button == MouseButtons.Left && Ready && mode != null) {
                 mode.MouseDrag((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y / zoom) + vScrollBar.Value * 16);
+            }
 
-            int DragSpeed = (int)Math.Ceiling(8*zoom);
+            int DragSpeed = (int)Math.Ceiling(16 * zoom);
 
             if (e.Button == MouseButtons.Right) {
                 int NewX = e.X;
@@ -318,6 +322,7 @@ namespace NSMBe4 {
                     ScrollEditor(NewPosition);
                 }
             }
+
         }
 
         public void EnsurePosVisible(int X, int Y) {
@@ -379,6 +384,7 @@ namespace NSMBe4 {
             if (Clipboard != null){
                 SetEditionMode(ClipboardOriginMode);
                 mode.paste(Clipboard);
+                mode.Refresh();
             }
         }
 
@@ -389,7 +395,25 @@ namespace NSMBe4 {
 
         private void DrawingArea_MouseUp(object sender, MouseEventArgs e)
         {
+            drag = false;
             mode.MouseUp();
+        }
+
+        private void dragTimer_Tick(object sender, EventArgs e)
+        {
+            Point mousePos = this.PointToClient(MousePosition);
+            if (MouseButtons == MouseButtons.Left && drag)
+            {
+                if (mousePos.X < 0 && hScrollBar.Value > 0)
+                    hScrollBar.Value -= 1;
+                if (mousePos.X > DrawingArea.Width && hScrollBar.Value < hScrollBar.Maximum)
+                    hScrollBar.Value += 1;
+                if (mousePos.Y < 0 && vScrollBar.Value > 0)
+                    vScrollBar.Value -= 1;
+                if (mousePos.Y > DrawingArea.Height && vScrollBar.Value < vScrollBar.Maximum)
+                    vScrollBar.Value += 1;
+                mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value * 16, (int)(mousePos.Y / zoom) + vScrollBar.Value * 16);
+            }
         }
     }
 }

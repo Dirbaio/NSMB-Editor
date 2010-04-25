@@ -466,6 +466,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap LineAttachment {
+            get {
+                object obj = ResourceManager.GetObject("LineAttachment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap MidpointFlag {
             get {
                 object obj = ResourceManager.GetObject("MidpointFlag", resourceCulture);
@@ -973,6 +980,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap views {
             get {
                 object obj = ResourceManager.GetObject("views", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap WallJumpPlatformBlock {
+            get {
+                object obj = ResourceManager.GetObject("WallJumpPlatformBlock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
