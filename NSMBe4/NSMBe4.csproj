@@ -347,6 +347,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cross-script.png" />
+    <None Include="Resources\cross-script-bright.png" />
     <Content Include="Resources\french.txt" />
     <Content Include="Resources\Icons\brush.png" />
     <Content Include="Resources\Icons\eraser.png" />
@@ -465,6 +466,15 @@
     <None Include="Resources\Sprite Images\SpinningTrianglePlatform.PNG" />
     <None Include="Resources\Sprite Images\WallJumpPlatformBlock.PNG" />
     <None Include="Resources\Sprite Images\LineAttachment.PNG" />
+    <None Include="Resources\Sprite Images\Barrel.PNG" />
+    <None Include="Resources\Sprite Images\WaterBug.PNG" />
+    <None Include="Resources\Sprite Images\Spinning3PointedPlatform.PNG" />
+    <None Include="Resources\Sprite Images\MiniGoomba.PNG" />
+    <None Include="Resources\Sprite Images\SpikeBass.PNG" />
+    <None Include="Resources\Sprite Images\HangingScuttleBug.PNG" />
+    <None Include="Resources\Sprite Images\Dorrie.PNG" />
+    <None Include="Resources\Sprite Images\PurpleMushroomEdge.PNG" />
+    <None Include="Resources\Sprite Images\PurpleMushroomSection.PNG" />
     <Content Include="spritedata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -75,10 +75,8 @@ end sprite
 
 sprite 37
 value list Speed
-Regular
-Regular
-Regular
-Faster
+Regular = 0
+Faster = 3
 end list
 4.2
 end sprite
@@ -559,15 +557,9 @@ value number Destination area
 value number Dest. entrance
 3.2
 value list Warp mode
-0: Normal
-1: Only when Mario climbs a vine
-2: Unused
-3: Unused
-4: Unused
-5: Unused
-6: Unused
-7: Unused
-8: Do Fading Screen Transition
+Normal = 0
+When Climbing Vine = 1
+Fade Screen = 8
 end list
 5.2
 value checkbox Can enter as Mega Mario
@@ -810,25 +802,9 @@ value number Height to Rise
 4
 value checkbox Visible
 5.1
-value list Brightness
-1: Very Bright
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16: Very Dark
-end list
+value number Brightness
 5.2
+value label 0 is brightest; 15 is darkest
 value checkbox Rising/Falling Waves
 6
 end sprite

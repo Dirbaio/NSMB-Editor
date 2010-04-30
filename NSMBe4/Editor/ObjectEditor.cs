@@ -51,7 +51,7 @@ namespace NSMBe4
             | System.Windows.Forms.AnchorStyles.Right)));
             this.objectPickerControl1.Location = new System.Drawing.Point(3, 70);
             this.objectPickerControl1.Name = "objectPickerControl1";
-            this.objectPickerControl1.Size = new System.Drawing.Size(266, 240);
+            this.objectPickerControl1.Size = new System.Drawing.Size(objPickerBox.Width - 6, objPickerBox.Height - 70);
             this.objectPickerControl1.TabIndex = 1;
             this.objectPickerControl1.ObjectSelected += new NSMBe4.ObjectPickerControl.ObjectSelectedDelegate(this.objectPickerControl1_ObjectSelected);
             this.objPickerBox.Controls.Add(this.objectPickerControl1);

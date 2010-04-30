@@ -203,7 +203,7 @@ namespace NSMBe4
             e.DrawBackground();
             //Brush UseBrush;
             Color UseColour;
-            if (spriteListBox.Items.Count > 0) {
+            if (spriteListBox.Items.Count > 0 && e.Index > -1) {
                 if (EdControl.Level.ValidSprites[curSprites[e.Index]])
                 {
                     //UseBrush = Brushes.Black;
@@ -278,5 +278,21 @@ namespace NSMBe4
             else
                 searchBox.BackColor = Color.Coral;
         }
+
+        private void clearSearch_MouseEnter(object sender, EventArgs e)
+        {
+            clearSearch.Image = Properties.Resources.cross_script_bright;
+        }
+
+        private void clearSearch_MouseLeave(object sender, EventArgs e)
+        {
+            clearSearch.Image = Properties.Resources.cross_script;
+        }
+
+        private void clearSearch_Click(object sender, EventArgs e)
+        {
+            searchBox.Text = "";
+        }
+
     }
 }

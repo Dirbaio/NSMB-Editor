@@ -38,12 +38,14 @@ namespace NSMBe4 {
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.padarm7bin = new System.Windows.Forms.Button();
+            this.decompArm9Bin = new System.Windows.Forms.Button();
             this.mpPatch2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
             this.changeLanguageButton = new System.Windows.Forms.Button();
-            this.decompArm9Bin = new System.Windows.Forms.Button();
             this.tilesetEditor = new System.Windows.Forms.Button();
             this.mpPatch = new System.Windows.Forms.Button();
             this.patchImport = new System.Windows.Forms.Button();
@@ -55,14 +57,12 @@ namespace NSMBe4 {
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.padarm7bin = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -199,6 +199,43 @@ namespace NSMBe4 {
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.padarm7bin);
+            this.groupBox2.Controls.Add(this.decompArm9Bin);
+            this.groupBox2.Location = new System.Drawing.Point(258, 180);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(218, 136);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // padarm7bin
+            // 
+            this.padarm7bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.padarm7bin.Location = new System.Drawing.Point(6, 48);
+            this.padarm7bin.Name = "padarm7bin";
+            this.padarm7bin.Size = new System.Drawing.Size(206, 23);
+            this.padarm7bin.TabIndex = 3;
+            this.padarm7bin.Text = "pad arm7 bin";
+            this.padarm7bin.UseVisualStyleBackColor = true;
+            this.padarm7bin.Click += new System.EventHandler(this.padarm7bin_Click);
+            // 
+            // decompArm9Bin
+            // 
+            this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.decompArm9Bin.Location = new System.Drawing.Point(6, 19);
+            this.decompArm9Bin.Name = "decompArm9Bin";
+            this.decompArm9Bin.Size = new System.Drawing.Size(206, 23);
+            this.decompArm9Bin.TabIndex = 3;
+            this.decompArm9Bin.Text = "decomp arm9 bin";
+            this.decompArm9Bin.UseVisualStyleBackColor = true;
+            this.decompArm9Bin.Click += new System.EventHandler(this.decompArm9Bin_Click);
+            // 
             // mpPatch2
             // 
             this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -257,18 +294,6 @@ namespace NSMBe4 {
             this.changeLanguageButton.Text = "<changeLanguageButton>";
             this.changeLanguageButton.UseVisualStyleBackColor = true;
             this.changeLanguageButton.Click += new System.EventHandler(this.changeLanguageButton_Click);
-            // 
-            // decompArm9Bin
-            // 
-            this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.decompArm9Bin.Location = new System.Drawing.Point(6, 19);
-            this.decompArm9Bin.Name = "decompArm9Bin";
-            this.decompArm9Bin.Size = new System.Drawing.Size(206, 23);
-            this.decompArm9Bin.TabIndex = 3;
-            this.decompArm9Bin.Text = "decomp arm9 bin";
-            this.decompArm9Bin.UseVisualStyleBackColor = true;
-            this.decompArm9Bin.Click += new System.EventHandler(this.decompArm9Bin_Click);
             // 
             // tilesetEditor
             // 
@@ -358,29 +383,6 @@ namespace NSMBe4 {
             // 
             this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.padarm7bin);
-            this.groupBox2.Controls.Add(this.decompArm9Bin);
-            this.groupBox2.Location = new System.Drawing.Point(258, 180);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(218, 117);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
-            // 
-            // padarm7bin
-            // 
-            this.padarm7bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.padarm7bin.Location = new System.Drawing.Point(6, 48);
-            this.padarm7bin.Name = "padarm7bin";
-            this.padarm7bin.Size = new System.Drawing.Size(206, 23);
-            this.padarm7bin.TabIndex = 3;
-            this.padarm7bin.Text = "pad arm7 bin";
-            this.padarm7bin.UseVisualStyleBackColor = true;
-            this.padarm7bin.Click += new System.EventHandler(this.padarm7bin_Click);
-            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,9 +397,9 @@ namespace NSMBe4 {
             this.tabPage2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

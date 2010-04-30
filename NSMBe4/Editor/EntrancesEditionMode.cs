@@ -160,8 +160,9 @@ namespace NSMBe4
             if (contents is NSMBEntrance)
             {
                 NSMBEntrance newE = contents as NSMBEntrance;
-                newE.X = (EdControl.ViewableArea.Left * 16 + EdControl.ViewableArea.Right * 16) / 2;
-                newE.Y = (EdControl.ViewableArea.Top * 16 + EdControl.ViewableArea.Bottom * 16) / 2;
+                Rectangle viewableRect = EdControl.ViewableArea;
+                newE.X = (viewableRect.Left * 16 + viewableRect.Right * 16) / 2;
+                newE.Y = (viewableRect.Top * 16 + viewableRect.Bottom * 16) / 2;
                 newE.Number = Level.getFreeEntranceNumber();
                 Level.Entrances.Add(newE);
                 SelectObject(newE);

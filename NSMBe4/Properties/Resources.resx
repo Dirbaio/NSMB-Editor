@@ -520,4 +520,34 @@
   <data name="WallJumpPlatformBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite Images\WallJumpPlatformBlock.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Barrel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Barrel.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Spinning3PointedPlatform" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Spinning3PointedPlatform.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WaterBug" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\WaterBug.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MiniGoomba" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\MiniGoomba.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SpikeBass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\SpikeBass.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cross_script_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cross-script-bright.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dorrie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Dorrie.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HangingScuttleBug" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\HangingScuttleBug.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PurpleMushroomEdge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PurpleMushroomEdge.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PurpleMushroomSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PurpleMushroomSection.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

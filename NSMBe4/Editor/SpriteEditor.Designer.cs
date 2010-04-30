@@ -45,6 +45,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.rawSpriteData = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.clearSearch = new System.Windows.Forms.PictureBox();
             this.search = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.spriteTypeUpDown)).BeginInit();
@@ -55,6 +56,7 @@
             this.panel1.SuspendLayout();
             this.rawSpriteData.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.clearSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // spriteListBox
@@ -256,6 +258,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.clearSearch);
             this.panel2.Controls.Add(this.search);
             this.panel2.Controls.Add(this.searchBox);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -264,11 +267,24 @@
             this.panel2.Size = new System.Drawing.Size(289, 27);
             this.panel2.TabIndex = 30;
             // 
+            // clearSearch
+            // 
+            this.clearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearSearch.Image = global::NSMBe4.Properties.Resources.cross_script;
+            this.clearSearch.Location = new System.Drawing.Point(268, 6);
+            this.clearSearch.Name = "clearSearch";
+            this.clearSearch.Size = new System.Drawing.Size(16, 16);
+            this.clearSearch.TabIndex = 26;
+            this.clearSearch.TabStop = false;
+            this.clearSearch.MouseLeave += new System.EventHandler(this.clearSearch_MouseLeave);
+            this.clearSearch.Click += new System.EventHandler(this.clearSearch_Click);
+            this.clearSearch.MouseEnter += new System.EventHandler(this.clearSearch_MouseEnter);
+            // 
             // search
             // 
             this.search.Location = new System.Drawing.Point(3, 3);
             this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(96, 18);
+            this.search.Size = new System.Drawing.Size(85, 18);
             this.search.TabIndex = 25;
             this.search.Text = "<search>";
             this.search.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -278,9 +294,9 @@
             this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchBox.Location = new System.Drawing.Point(105, 3);
+            this.searchBox.Location = new System.Drawing.Point(94, 3);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(181, 20);
+            this.searchBox.Size = new System.Drawing.Size(168, 20);
             this.searchBox.TabIndex = 0;
             this.searchBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -306,6 +322,7 @@
             this.rawSpriteData.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.clearSearch)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,6 +349,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label search;
+        private System.Windows.Forms.PictureBox clearSearch;
 
     }
 }

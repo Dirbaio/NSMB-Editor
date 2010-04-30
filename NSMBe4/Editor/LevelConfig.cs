@@ -319,7 +319,7 @@ namespace NSMBe4 {
             int[] checkthese_idx = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15 };
 
             for (int CheckIdx = 0; CheckIdx < checkthese.Length; CheckIdx++) {
-                string Item = (string)(checkthese[CheckIdx].Items[checkthese[CheckIdx].SelectedIndex]);
+                string Item = (string)(checkthese[CheckIdx].Items[Math.Max(0, checkthese[CheckIdx].SelectedIndex)]);
                 int cpos = Item.IndexOf(':');
                 int modifierval = int.Parse(Item.Substring(0, cpos));
                 Level.Blocks[13][checkthese_idx[CheckIdx]] = (byte)modifierval;
