@@ -152,6 +152,9 @@
     <Compile Include="Editor\PathsEditionMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ArmPatcher.resx">
+      <DependentUpon>ArmPatcher.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BinaryEdit.resx">
       <DependentUpon>BinaryEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -469,6 +472,12 @@
     <None Include="Resources\Icons\paths.png" />
     <None Include="Resources\Icons\views.png" />
     <Compile Include="AlreadyEditingException.cs" />
+    <Compile Include="ArmPatcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArmPatcher.Designer.cs">
+      <DependentUpon>ArmPatcher.cs</DependentUpon>
+    </Compile>
     <Compile Include="BinaryEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -511,6 +520,7 @@
     <Compile Include="DSFileSystem\NarcFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />
+    <Compile Include="DSFileSystem\OverlayFile.cs" />
     <Compile Include="Editor\UndoManager.cs" />
     <Compile Include="GraphicsEditor\ColourPicker.cs">
       <SubType>Form</SubType>

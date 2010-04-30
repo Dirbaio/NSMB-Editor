@@ -26,7 +26,7 @@ namespace NSMBe4.DSFileSystem
     {
         public bool isSystemFile;
         
-        private string nameP;
+        protected string nameP;
         public string name { get { return nameP; } }
 
         private int idP;

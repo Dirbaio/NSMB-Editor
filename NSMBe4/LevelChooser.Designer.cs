@@ -36,6 +36,7 @@ namespace NSMBe4 {
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.mpPatch2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -54,12 +55,14 @@ namespace NSMBe4 {
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
-            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.padarm7bin = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -170,11 +173,19 @@ namespace NSMBe4 {
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(476, 316);
+            this.filesystemBrowser1.TabIndex = 0;
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.mpPatch2);
             this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Controls.Add(this.decompArm9Bin);
             this.tabPage3.Controls.Add(this.tilesetEditor);
             this.tabPage3.Controls.Add(this.mpPatch);
             this.tabPage3.Controls.Add(this.patchImport);
@@ -251,9 +262,9 @@ namespace NSMBe4 {
             // 
             this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.decompArm9Bin.Location = new System.Drawing.Point(258, 180);
+            this.decompArm9Bin.Location = new System.Drawing.Point(6, 19);
             this.decompArm9Bin.Name = "decompArm9Bin";
-            this.decompArm9Bin.Size = new System.Drawing.Size(218, 23);
+            this.decompArm9Bin.Size = new System.Drawing.Size(206, 23);
             this.decompArm9Bin.TabIndex = 3;
             this.decompArm9Bin.Text = "decomp arm9 bin";
             this.decompArm9Bin.UseVisualStyleBackColor = true;
@@ -347,13 +358,28 @@ namespace NSMBe4 {
             // 
             this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
             // 
-            // filesystemBrowser1
+            // groupBox2
             // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(476, 316);
-            this.filesystemBrowser1.TabIndex = 0;
+            this.groupBox2.Controls.Add(this.padarm7bin);
+            this.groupBox2.Controls.Add(this.decompArm9Bin);
+            this.groupBox2.Location = new System.Drawing.Point(258, 180);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(218, 117);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // padarm7bin
+            // 
+            this.padarm7bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.padarm7bin.Location = new System.Drawing.Point(6, 48);
+            this.padarm7bin.Name = "padarm7bin";
+            this.padarm7bin.Size = new System.Drawing.Size(206, 23);
+            this.padarm7bin.TabIndex = 3;
+            this.padarm7bin.Text = "pad arm7 bin";
+            this.padarm7bin.UseVisualStyleBackColor = true;
+            this.padarm7bin.Click += new System.EventHandler(this.padarm7bin_Click);
             // 
             // LevelChooser
             // 
@@ -371,6 +397,7 @@ namespace NSMBe4 {
             this.tabPage3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -405,5 +432,7 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button loadROMButton;
         private System.Windows.Forms.Button decompArm9Bin;
         private System.Windows.Forms.Button mpPatch2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button padarm7bin;
     }
 }

@@ -26,6 +26,7 @@ namespace NSMBe4.DSFileSystem
     {
         public File arm7binFile, arm9binFile, arm7ovFile, arm9ovFile, bannerFile;
         public HeaderFile headerFile;
+        public OverlayFile[] arm7ovs, arm9ovs;
 
         public NitroROMFilesystem(String n)
             : base(new ExternalFilesystemSource(n))
@@ -62,18 +63,20 @@ namespace NSMBe4.DSFileSystem
             mainDir.childrenFiles.Add(arm7binFile);
             addFile(bannerFile);
             mainDir.childrenFiles.Add(bannerFile);
-            loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile);
-            loadOvTable("ARM9 Overlay Table", -98, mainDir, arm9ovFile);
+            loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile, out arm7ovs);
+            loadOvTable("ARM9 Overlay Table", -98, mainDir, arm9ovFile, out arm9ovs);
         }
 
-        private void loadOvTable(String dirName, int id, Directory parent, File table)
+        private void loadOvTable(String dirName, int id, Directory parent, File table, out OverlayFile[] arr)
         {
             Directory dir = new Directory(this, parent, true, dirName, id);
             addDir(dir);
             parent.childrenDirs.Add(dir);
 
             ByteArrayInputStream tbl = new ByteArrayInputStream(table.getContents());
+            arr = new OverlayFile[tbl.available() / 32];
 
+            int i = 0;
             while (tbl.available(32))
             {
                 uint ovId = tbl.readUInt();
@@ -85,8 +88,24 @@ namespace NSMBe4.DSFileSystem
                 ushort fileID = tbl.readUShort();
                 tbl.skip(6); //unused 0's
 
-                loadFile(string.Format(LanguageManager.Get("NitroClass", "OverlayFile"), ovId, ramAddr.ToString("X"), ramSize.ToString("X")), fileID, dir).isSystemFile = true;
+                OverlayFile f = loadOvFile(fileID, dir, table, tbl.getPos());
+                f.isSystemFile = true;
+                arr[i] = f;
+
+                i++;
+
             }
+        }
+
+        protected OverlayFile loadOvFile(int fileID, Directory parent, File ovTableFile, uint ovTblOffs)
+        {
+            int beginOffs = fileID * 8;
+            int endOffs = fileID * 8 + 4;
+            OverlayFile f = new OverlayFile(this, parent, fileID, fatFile, beginOffs, endOffs,ovTableFile, ovTblOffs);
+            parent.childrenFiles.Add(f);
+            addFile(f);
+            return f;
+
         }
 
         public override void fileMoved(File f)
@@ -111,5 +130,169 @@ namespace NSMBe4.DSFileSystem
         {
             return arm9ovFile.getByteAt(0x1F) != 0x02;
         }
+
+        public bool isArm9BinaryCompressed()
+        {
+            int codeTableOffs = (int)(arm9binFile.getUintAt(0x90C) - 0x02000000u);
+            int decompressionOffs = (int)arm9binFile.getUintAt(codeTableOffs + 0x14);
+
+            return decompressionOffs != 0;
+        }
+
+        public void expandArm9Binary()
+        {
+            arm9binFile.beginEdit(this);
+
+            int codeTableOffs = (int)(arm9binFile.getUintAt(0x90C) - 0x02000000u);
+            int decompressionOffs = (int)arm9binFile.getUintAt(codeTableOffs + 0x14);
+
+            if (decompressionOffs != 0)
+            {
+                decompressionOffs -= 0x02000000;
+                int compDatSize = (int)(arm9binFile.getUintAt(decompressionOffs - 8) & 0xFFFFFF);
+                int compDatOffs = decompressionOffs - compDatSize;
+                Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
+                Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
+
+                byte[] data = arm9binFile.getContents();
+                byte[] compData = new byte[compDatSize];
+                Array.Copy(data, compDatOffs, compData, 0, compDatSize);
+                byte[] decompData = ROM.DecompressOverlay(compData);
+                byte[] newData = new byte[data.Length - compData.Length + decompData.Length];
+                Array.Copy(data, newData, data.Length);
+                Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
+
+                arm9binFile.replace(newData, this);
+                arm9binFile.setUintAt(codeTableOffs + 0x14, 0);
+            }
+            arm9binFile.endEdit(this);
+        }
+
+        #region Patching the arm9
+
+        public void writeToRamAddr(int ramAddr, uint val)
+        {
+            File f;
+            int offs;
+            ramAddr2File(ramAddr, out f, out offs);
+            f.setUintAt(offs, val);
+        }
+
+        public uint readFromRamAddr(int ramAddr)
+        {
+            File f;
+            int offs;
+            ramAddr2File(ramAddr, out f, out offs);
+            return f.getUintAt(offs);
+        }
+
+        public void ramAddr2File(int ramAddr, out File file, out int offset)
+        {
+            File arm9 = arm9binFile;
+            File header = headerFile;
+
+            int codeTableOffs = (int)(arm9.getUintAt(0x90C) - 0x02000000u);
+            int decompressionOffs = (int)arm9.getUintAt(codeTableOffs + 0x14);
+
+            if (decompressionOffs != 0)
+                throw new Exception("Need to decompress arm9 bin first");
+            
+            int copyTableBegin = (int)(arm9.getUintAt(codeTableOffs + 0x00) - 0x02000000u);
+            int copyTableEnd = (int)(arm9.getUintAt(codeTableOffs + 0x04) - 0x02000000u);
+            uint dataBegin = (uint)(arm9.getUintAt(codeTableOffs + 0x08) - 0x02000000u);
+
+            List<Region> regions = new List<Region>();
+            while(copyTableBegin != copyTableEnd)
+            {
+                uint start = arm9.getUintAt(copyTableBegin);
+                copyTableBegin += 4;
+                uint size = arm9.getUintAt(copyTableBegin);
+                copyTableBegin += 4;
+                uint bsssize = arm9.getUintAt(copyTableBegin);
+                copyTableBegin += 4;
+                //start += dataBegin;
+                //end += dataBegin;
+                
+                regions.Add(new Region(start, size, arm9binFile, dataBegin, "ARM9 bin"));
+                dataBegin += size;
+            }
+
+
+            foreach(OverlayFile f in arm9ovs)
+            {
+                regions.Add(new Region(f.ramAddr, f.ramSize, arm9ovFile, 0, "ARM9 ov " + f.ovId));
+            }
+
+
+            File fi = null;
+            int fileOffs = -1;
+
+            foreach (Region r in regions)
+            {
+                fileOffs = r.ramOffs2FileOffs((uint)ramAddr);
+                if (fileOffs != -1)
+                {
+                    fi = r.f;
+                    break;
+                }
+            }
+
+            file = fi;
+            offset = fileOffs;
+
+            if (fi == null)
+            {
+                Console.Out.WriteLine("Couldnt find");
+            }
+            else
+            {
+                Console.Out.WriteLine(fi.name);
+                Console.Out.WriteLine(fileOffs.ToString("X"));
+            }
+        }
+
+        new class Region : IComparable
+        {
+            public uint ramBegin, ramSize, fileOffs;
+            public File f;
+            public String desc;
+
+            public Region(uint ramBegin, uint ramSize, File f, uint fileOffs, String desc)
+            {
+                this.ramBegin = ramBegin;
+                this.ramSize = ramSize;
+                this.f = f;
+                this.fileOffs = fileOffs;
+                this.desc = desc;
+            }
+
+            public int ramOffs2FileOffs(uint ramAddr)
+            {
+                if(ramAddr < ramBegin)
+                    return -1;
+
+                if(ramAddr >= ramBegin + ramSize)
+                    return -1;
+
+                return (int)(ramAddr - ramBegin + fileOffs);
+            }
+
+            public void print()
+            {/*
+                Console.Out.Write(begin.ToString("X8"));
+                Console.Out.Write(" - ");
+                Console.Out.Write(end.ToString("X8"));
+                Console.Out.WriteLine(": "+desc);*/
+            }
+
+            public int CompareTo(object obj)
+            {
+                Region f = obj as Region;
+                if (ramBegin == f.ramBegin)
+                    return ramSize.CompareTo(f.ramSize);
+                return ramBegin.CompareTo(f.ramBegin);                
+            }
+        }
+        #endregion
     }
 }

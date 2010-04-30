@@ -62,7 +62,7 @@ namespace NSMBe4 {
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 this.Activate();
 
-                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
+//                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
             }
             /*
             List<string> spriteNames = LanguageManager.GetList("Sprites");
@@ -548,7 +548,9 @@ namespace NSMBe4 {
             NSMBe4.DSFileSystem.File arm9 = ROM.FS.arm9binFile;
             arm9.beginEdit(this);
 
-            int decompressionOffs = (int) arm9.getUintAt(0xB5C);
+            int codeTableOffs = (int)(arm9.getUintAt(0x90C) - 0x02000000u);
+            int decompressionOffs = (int)arm9.getUintAt(codeTableOffs + 0x14);
+
             if (decompressionOffs != 0)
             {
                 decompressionOffs -= 0x02000000;
@@ -566,10 +568,15 @@ namespace NSMBe4 {
                 Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
 
                 arm9.replace(newData, this);
-                arm9.setUintAt(0xB5C, 0); // NUKE THE COMPRESSION!!! :P
+                arm9.setUintAt(codeTableOffs + 0x14, 0); // NUKE THE COMPRESSION!!! :P
                 arm9.endEdit(this);
             }
         }
 
+        private void padarm7bin_Click(object sender, EventArgs e)
+        {
+            //ROM.FS.writeToRamAddr(0x01ff8f20, 0x00);
+            new ArmPatcher(ROM.romfile);
+        }
     }
 }

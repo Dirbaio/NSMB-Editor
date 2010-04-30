@@ -51,15 +51,16 @@ namespace NSMBe4 {
         public static byte[] Overlay0;
         public static NitroROMFilesystem FS;
         public static string filename;
+        public static System.IO.FileInfo romfile;
 
         public static void load(String filename)
         {
             ROM.filename = filename;
             FS = new NitroROMFilesystem(filename);
+            romfile = new System.IO.FileInfo(filename);
 
-            Overlay0 = FS.getFileById(0).getContents();
-            if (FS.isOverlay0Compressed())
-                Overlay0 = DecompressOverlay(Overlay0);
+            LoadOverlay0();
+
             if (Overlay0[28] == 0x84) {
                 Region = Origin.US;
             } else if (Overlay0[28] == 0x64) {
@@ -83,11 +84,18 @@ namespace NSMBe4 {
 
         public static void SaveOverlay0()
         {
-            File ov = FS.getFileById(0);
+            OverlayFile ov = FS.arm9ovs[0];
+            ov.decompress();
             ov.beginEdit(FS);
             ov.replace(Overlay0, FS);
             ov.endEdit(FS);
-            FS.disableOverlay0Compression();
+        }
+
+        public static void LoadOverlay0()
+        {
+            OverlayFile ov = FS.arm9ovs[0];
+            ov.decompress();
+            Overlay0 = ov.getContents();
         }
 
         public enum Origin {
@@ -389,7 +397,8 @@ namespace NSMBe4 {
         };
 
         // from ndstool
-        public static ushort CalcCRC16(byte[] data) {
+        public static ushort CalcCRC16(byte[] data)
+        {
             ushort crc = 0xFFFF;
 
             for (int i = 0; i < data.Length; i++) {
