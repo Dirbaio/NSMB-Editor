@@ -63,7 +63,7 @@ namespace NSMBe4
         public void SelectObjects(object[] o)
         {
             SelectedObjects.Clear();
-            if (!(o == null))
+            if (o != null)
                 SelectedObjects.AddRange(o);
             UpdatePanel();
         }
@@ -357,6 +357,7 @@ namespace NSMBe4
                 {
                     se.SetSprite(SelectedObject as NSMBSprite);
                     SetPanel(se);
+                    se.RefreshDataEditor();
                 }
                 else if (SelectedObject is NSMBObject)
                 {
@@ -418,6 +419,7 @@ namespace NSMBe4
 
             SelectedObjects.Clear();
 
+            SetPanel(cp);
             EdControl.repaint();
             EdControl.FireSetDirtyFlag();
 

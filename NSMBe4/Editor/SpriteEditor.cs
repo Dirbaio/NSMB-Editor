@@ -102,6 +102,12 @@ namespace NSMBe4
             }
         }
 
+        public void RefreshDataEditor()
+        {
+            if (sed != null)
+                sed.UpdateData();
+        }
+
         public void UpdateInfo()
         {
             if (s == null) return;
@@ -122,9 +128,9 @@ namespace NSMBe4
         }
         private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if ((int)spriteXPosUpDown.Value != s.X)
-                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, (int)spriteXPosUpDown.Value, s.Y));
             if (DataUpdateFlag) return;
+            if (s.X != (int)spriteXPosUpDown.Value)
+                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, (int)spriteXPosUpDown.Value, s.Y));
             s.X = (int)spriteXPosUpDown.Value;
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
@@ -132,9 +138,9 @@ namespace NSMBe4
 
         private void spriteYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if ((int)spriteYPosUpDown.Value != s.Y)
-                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X, (int)spriteYPosUpDown.Value));
             if (DataUpdateFlag) return;
+            if (s.Y != (int)spriteYPosUpDown.Value)
+                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X, (int)spriteYPosUpDown.Value));
             s.Y = (int)spriteYPosUpDown.Value;
             EdControl.Invalidate(true);
             EdControl.FireSetDirtyFlag();
@@ -142,9 +148,9 @@ namespace NSMBe4
 
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if ((int)spriteTypeUpDown.Value != s.Type)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteType, s, new Point(s.Type, (int)spriteTypeUpDown.Value));
             if (DataUpdateFlag) return;
+            if (s.Type != (int)spriteTypeUpDown.Value)
+                EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteType, s, new Point(s.Type, (int)spriteTypeUpDown.Value));
             s.Type = (int)spriteTypeUpDown.Value;
             DataUpdateFlag = true;
             spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);

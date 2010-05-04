@@ -65,6 +65,7 @@ namespace NSMBe4
             DataUpdateFlag = true;
             UpdateItem();
             deletePath.Enabled = p != null;
+            clonePath.Enabled = deletePath.Enabled;
 
             groupBox1.Visible = p != null;
             if (p != null)
@@ -90,13 +91,25 @@ namespace NSMBe4
             if (DataUpdateFlag) return;
             if (n == null)
                 return;
-
-            n.Unknown1 = (ushort)unk1.Value;
-            n.Unknown2 = (ushort)unk2.Value;
-            n.Unknown3 = (ushort)unk3.Value;
-            n.Unknown4 = (ushort)unk4.Value;
-            n.Unknown5 = (ushort)unk5.Value;
-            n.Unknown6 = (ushort)unk6.Value;
+            ushort[] values = { (ushort)unk1.Value, (ushort)unk2.Value, (ushort)unk3.Value, (ushort)unk4.Value, (ushort)unk5.Value, (ushort)unk6.Value };
+            if (n.Unknown1 != values[0])
+                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown1, values[0], 0, 0));
+            if (n.Unknown2 != values[1])
+                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown2, values[1], 1, 0));
+            if (n.Unknown3 != values[2])
+                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown3, values[2], 2, 0));
+            if (n.Unknown4 != values[3])
+                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown4, values[3], 3, 0));
+            if (n.Unknown5 != values[4])
+                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown5, values[4], 4, 0));
+            if (n.Unknown6 != values[5])
+                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown6, values[5], 5, 0));
+            n.Unknown1 = values[0];
+            n.Unknown2 = values[1];
+            n.Unknown3 = values[2];
+            n.Unknown4 = values[3];
+            n.Unknown5 = values[4];
+            n.Unknown6 = values[5];
 
             EdControl.FireSetDirtyFlag();
         }
@@ -105,6 +118,8 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             if (n == null) return;
+
+            EdControl.UndoManager.PerformAction(UndoType.MovePathNode, n, new Rectangle(n.X, n.Y, (ushort)nodeX.Value, (ushort)nodeY.Value));
 
             n.X = (ushort)nodeX.Value;
             n.Y = (ushort)nodeY.Value;
@@ -118,6 +133,8 @@ namespace NSMBe4
             if (DataUpdateFlag) return;
             if (p == null)
                 return;
+
+            EdControl.UndoManager.PerformAction(UndoType.ChangePathID, p, new Point(p.id, (ushort)pathID.Value));
 
             p.id = (ushort) pathID.Value;
 
@@ -148,6 +165,7 @@ namespace NSMBe4
             npp.X = va.X * 16;
             npp.Y = va.Y * 16;
             np.points.Add(npp);
+            EdControl.UndoManager.PerformAction(UndoType.AddPath, np, null);
 
             l.Add(np);
             UpdateList();
@@ -158,11 +176,21 @@ namespace NSMBe4
         {
             if (p == null)
                 return;
+            EdControl.UndoManager.PerformAction(UndoType.RemovePath, p, null);
 
             l.Remove(p);
             UpdateList();
             EdControl.SelectObject(null);
             EdControl.repaint();
+        }
+
+        private void clonePath_Click(object sender, EventArgs e)
+        {
+            NSMBPath np = new NSMBPath(p);
+            l.Add(np);
+            setNode(np, np.points[0]);
+            EdControl.UndoManager.PerformAction(UndoType.AddPath, np, null);
+            UpdateList();
         }
     }
 }

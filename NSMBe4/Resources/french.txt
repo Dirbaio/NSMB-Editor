@@ -360,15 +360,15 @@ label1=ID du chemin :
 groupBox1=Paramètres du chemin
 groupBox2=Paramètres du noeud
 label2=X :
+label5=Y :
 label3=Inconnu 1 :
 label4=Inconnu 2 :
-label5=Y :
 label6=Inconnu 4 :
 label7=Inconnu 5 :
 label8=Inconnu 6 :
 label9=Inconnu 3 :
 label10=X :
-
+clonePath=Cloner
 
 
 [SpriteEditor]
@@ -1390,8 +1390,10 @@ Change Entrance Property '{0}'
 Add Path
 Remove Path
 Add Path Node
+Move Path Node
 Remove Path Node
-Change Path Data
+Change Path ID
+Change Path Node Property '{0}'
 Add View
 Remove View
 Size View

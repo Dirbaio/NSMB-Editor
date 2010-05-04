@@ -360,15 +360,15 @@ label1=Numero de Ruta:
 groupBox1=Opciones de ruta:
 groupBox2=Opciones de punto:
 label2=X:
+label5=Y:
 label3=Desconocido 1:
 label4=Desconocido 2:
-label5=Y:
 label6=Desconocido 4:
 label7=Desconocido 5:
 label8=Desconocido 6:
 label9=Desconocido 3:
 label10=X:
-
+clonePath=Clonar
 
 
 [SpriteEditor]
@@ -1389,7 +1389,9 @@ Agregar Ruta
 Eliminar Ruta
 Agregar Ruta Nodo
 Eliminar Ruta Nodo
-Cambiar Ruta Datos
+Mueve Ruta Nodo
+Cambiar Ruta ID
+Cambiar Ruta Nodo Propiedad '{0}'
 Agregar Vista
 Eliminar Vista
 Calibrar Vista

@@ -214,7 +214,7 @@ namespace NSMBe4
                 {
                     return split1.getValue(data) * 16 + split2.getValue(data);
                 }
-                else
+                else if (byteNum > -1)
                 {
                     int b = data[byteNum];
                     if (type == ValueSourceType.NIBBLE)
@@ -236,6 +236,7 @@ namespace NSMBe4
                     b+=plus;
                     return b;
                 }
+                return 0;
             }
 
             public void setValue(int b, byte[] data)
@@ -307,9 +308,11 @@ namespace NSMBe4
             NSMBSprite s;
             SpriteData sd;
             LevelEditorControl EdControl;
+            public bool updating = false;
 
             public SpriteDataEditor(NSMBSprite s, SpriteData sd, LevelEditorControl EdControl)
             {
+                updating = true;
                 this.ColumnCount = 2;
                 this.RowCount = sd.values.Count;
                 this.AutoSize = true;
@@ -330,7 +333,7 @@ namespace NSMBe4
                 {
                     Control c = CreateControlFor(v);
                     c.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    if (c is CheckBox ||  c is Label)
+                    if (c is CheckBox || c is Label)
                     {
                         this.Controls.Add(c, 0, row);
                         this.SetColumnSpan(c, 2);
@@ -347,6 +350,15 @@ namespace NSMBe4
                     row++;
                     controls.Add(v.vs, c);
                 }
+                updating = false;
+            }
+
+            public void UpdateData()
+            {
+                updating = true;
+                foreach (SpriteDataValue v in sd.values)
+                    updateValue(v);
+                updating = false;
             }
 
             private Control CreateControlFor(SpriteDataValue v)
@@ -369,9 +381,9 @@ namespace NSMBe4
                         c.SelectedIndex = Array.IndexOf(v.values, v.vs.getValue(s.Data));
                     }
                     catch (ArgumentOutOfRangeException) { } //just in case
-                    c.SelectedIndexChanged += new EventHandler(saveData);
+                    //c.SelectedIndexChanged += new EventHandler(saveData);
                     c.SelectionChangeCommitted += new EventHandler(saveData);
-                    c.DropDownClosed += new EventHandler(saveData);
+                    //c.DropDownClosed += new EventHandler(saveData);
                     
                     return c;
                 }
@@ -402,6 +414,20 @@ namespace NSMBe4
                     return c;
                 }
             }
+
+            public void updateValue(SpriteDataValue v)
+            {
+                Control c = controls[v.vs];
+                int value = v.vs.getValue(s.Data);
+                if (c is CheckBox)
+                    (c as CheckBox).Checked = value == 1;
+                if (c is ComboBox)
+                    (c as ComboBox).SelectedIndex = Array.IndexOf(v.values, value);
+                if (c is BinaryEdit)
+                    (c as BinaryEdit).value = value;
+                if (c is NumericUpDown)
+                    (c as NumericUpDown).Value = value;
+            }
             public void saveData(object sender, EventArgs e)
             {
                 byte[] orig = s.Data.Clone() as byte[];
@@ -420,14 +446,12 @@ namespace NSMBe4
                     }
                     else if (controls[sv] is CheckBox)
                         val = (controls[sv] as CheckBox).Checked ? 1 : 0;
-                    else if (controls[sv] is RadioButton)
-                        val = (controls[sv] as RadioButton).Checked ? 1 : 0;
                     else if (controls[sv] is BinaryEdit)
                         val = (controls[sv] as BinaryEdit).value;
                     sv.setValue(val, s.Data);
                     index++;
                 }
-                if (sender != null) {
+                if (!updating && sender != null) {
                     byte[][] datas = new byte[2][];
                     datas[0] = new byte[6];
                     datas[1] = new byte[6];

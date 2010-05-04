@@ -35,6 +35,17 @@ namespace NSMBe4
 
         }
 
+        public NSMBPath(NSMBPath path)
+        {
+            this.id = path.id;
+            NSMBPathPoint newpt;
+            foreach (NSMBPathPoint pt in path.points) {
+                newpt = new NSMBPathPoint(pt);
+                newpt.parent = this;
+                this.points.Add(newpt);
+            }
+        }
+
         public void write(ByteArrayOutputStream outp, ByteArrayOutputStream outn)
         {
             outp.writeUShort((ushort)id);
@@ -93,6 +104,22 @@ namespace NSMBe4
                 p.Render(g, pe, num);
                 num++;
             }
+        }
+
+        public int getMinX()
+        {
+            int min = int.MaxValue;
+            foreach (NSMBPathPoint n in points)
+                min = Math.Min(min, n.X);
+            return min;
+        }
+
+        public int getMinY()
+        {
+            int min = int.MaxValue;
+            foreach (NSMBPathPoint n in points)
+                min = Math.Min(min, n.Y);
+            return min;
         }
 
         public override string ToString()

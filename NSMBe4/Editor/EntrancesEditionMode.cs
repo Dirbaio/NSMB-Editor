@@ -138,6 +138,7 @@ namespace NSMBe4
 
             SetPanel(ed);
             ed.UpdateList();
+            ed.UpdateInfo();
         }
 
         private void UpdatePanel()

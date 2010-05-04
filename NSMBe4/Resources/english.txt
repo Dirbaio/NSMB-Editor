@@ -361,15 +361,15 @@ label1=Path ID:
 groupBox1=Path settings
 groupBox2=Node settings
 label2=X:
+label5=Y:
 label3=Unknown 1:
 label4=Unknown 2:
-label5=Y:
 label6=Unknown 4:
 label7=Unknown 5:
 label8=Unknown 6:
 label9=Unknown 3:
 label10=X:
-
+clonePath=Clone
 
 
 [SpriteEditor]
@@ -1392,7 +1392,9 @@ Add Path
 Remove Path
 Add Path Node
 Remove Path Node
-Change Path Data
+Move Path Node
+Change Path ID
+Change Path Node Property '{0}'
 Add View
 Remove View
 Size View

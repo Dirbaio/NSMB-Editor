@@ -303,7 +303,6 @@ namespace NSMBe4 {
             if (e.Button == MouseButtons.Left && Ready && mode != null) {
                 mode.MouseDrag((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y / zoom) + vScrollBar.Value * 16);
             }
-            dragTimer_Tick(null, null);
             int DragSpeed = (int)Math.Ceiling(16 * zoom);
 
             if (e.Button == MouseButtons.Right) {

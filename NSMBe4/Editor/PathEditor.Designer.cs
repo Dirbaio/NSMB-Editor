@@ -56,6 +56,7 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.clonePath = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pathID)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -76,7 +77,7 @@
             // addPath
             // 
             this.addPath.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.addPath.Location = new System.Drawing.Point(45, 185);
+            this.addPath.Location = new System.Drawing.Point(6, 185);
             this.addPath.Name = "addPath";
             this.addPath.Size = new System.Drawing.Size(75, 21);
             this.addPath.TabIndex = 0;
@@ -87,7 +88,7 @@
             // deletePath
             // 
             this.deletePath.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.deletePath.Location = new System.Drawing.Point(126, 185);
+            this.deletePath.Location = new System.Drawing.Point(87, 185);
             this.deletePath.Name = "deletePath";
             this.deletePath.Size = new System.Drawing.Size(75, 21);
             this.deletePath.TabIndex = 0;
@@ -117,7 +118,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "<label1>";
             // 
@@ -214,7 +215,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 13);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "<label2>";
             // 
@@ -238,7 +239,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "<label3>";
             // 
@@ -248,7 +249,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 84);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.Size = new System.Drawing.Size(47, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "<label4>";
             // 
@@ -258,7 +259,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 32);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(17, 13);
+            this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "<label5>";
             // 
@@ -268,7 +269,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 136);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.Size = new System.Drawing.Size(47, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "<label6>";
             // 
@@ -278,7 +279,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 162);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 13);
+            this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 0;
             this.label7.Text = "<label7>";
             // 
@@ -288,7 +289,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(3, 189);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.Size = new System.Drawing.Size(47, 13);
             this.label8.TabIndex = 0;
             this.label8.Text = "<label8>";
             // 
@@ -298,7 +299,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(3, 110);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(65, 13);
+            this.label9.Size = new System.Drawing.Size(47, 13);
             this.label9.TabIndex = 0;
             this.label9.Text = "<label9>";
             // 
@@ -418,7 +419,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(3, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(17, 13);
+            this.label10.Size = new System.Drawing.Size(53, 13);
             this.label10.TabIndex = 0;
             this.label10.Text = "<label10>";
             // 
@@ -429,10 +430,22 @@
             this.numericUpDown6.Size = new System.Drawing.Size(53, 20);
             this.numericUpDown6.TabIndex = 1;
             // 
+            // clonePath
+            // 
+            this.clonePath.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.clonePath.Location = new System.Drawing.Point(169, 185);
+            this.clonePath.Name = "clonePath";
+            this.clonePath.Size = new System.Drawing.Size(72, 21);
+            this.clonePath.TabIndex = 5;
+            this.clonePath.Text = "<clonePath>";
+            this.clonePath.UseVisualStyleBackColor = true;
+            this.clonePath.Click += new System.EventHandler(this.clonePath_Click);
+            // 
             // PathEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.clonePath);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.addPath);
             this.Controls.Add(this.groupBox1);
@@ -492,5 +505,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.Button clonePath;
     }
 }

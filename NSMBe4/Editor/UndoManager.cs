@@ -51,15 +51,16 @@ namespace NSMBe4
 
         public void PerformAction(UndoType undotype, object param1, object param2)
         {
-            if (merge && undoPos > -1 && undoPos < Entries.Count && undotype == Entries[undoPos].undotype) {
-                if (Array.IndexOf(combineActions, undotype) > -1)
-                    Entries[undoPos].param2 = new Rectangle(((Rectangle)Entries[undoPos].param2).Location, ((Rectangle)param2).Size);
-                else if (undotype == UndoType.MoveMultiple) {
+            if (undotype == UndoType.ChangeSpriteData)
+                undotype = UndoType.ChangeSpriteData;
+            if (merge && undoPos > -1 && undoPos < Entries.Count && Array.IndexOf(combineActions, undotype) > -1 && undotype == Entries[undoPos].undotype) {
+                if (undotype == UndoType.MoveMultiple) {
                     Point pt = (Point)Entries[undoPos].param2;
                     pt.X += ((Point)param2).X;
                     pt.Y += ((Point)param2).Y;
                     Entries[undoPos].param2 = pt;
-                }
+                } else
+                    Entries[undoPos].param2 = new Rectangle(((Rectangle)Entries[undoPos].param2).Location, ((Rectangle)param2).Size);
             } else {
                 if (Entries.Count > 0)
                     Entries.Insert(undoPos, new UndoEntry(undotype, param1, param2, EdControl));
@@ -83,8 +84,8 @@ namespace NSMBe4
             }
         }
 
-        private UndoType[] combineActions = { UndoType.MoveObject, UndoType.MoveSprite, UndoType.MoveEntrance, UndoType.MoveView, UndoType.MoveZone,
-                                              UndoType.SizeObject, UndoType.SizeView, UndoType.SizeZone};
+        private UndoType[] combineActions = { UndoType.MoveObject, UndoType.MoveSprite, UndoType.MoveMultiple, UndoType.MoveEntrance, UndoType.MoveView,
+                                              UndoType.MoveZone,UndoType.SizeObject, UndoType.SizeView, UndoType.SizeZone, UndoType.MovePathNode};
 
         private void onUndoLast(object sender, EventArgs e)
         {
@@ -151,7 +152,7 @@ namespace NSMBe4
         private void updateActCount(object sender, EventArgs e)
         {
             ToolStripMenuItem item = sender as ToolStripMenuItem;
-            actionCount = (item.OwnerItem as ToolStripSplitButton).DropDownItems.IndexOf(item)+ 1;
+            actionCount = (item.OwnerItem as ToolStripSplitButton).DropDownItems.IndexOf(item) + 1;
         }
     }
 
@@ -462,12 +463,78 @@ namespace NSMBe4
                         v.Number = pt.Y;
                     else
                         v.Number = pt.X;
-                        break;
+                    break;
+                case UndoType.AddPath:
+                    if (redo)
+                        EdControl.Level.Paths.Add(p);
+                    else
+                        EdControl.Level.Paths.Remove(p);
+                    break;
+                case UndoType.RemovePath:
+                    if (redo)
+                        EdControl.Level.Paths.Remove(p);
+                    else
+                        EdControl.Level.Paths.Add(p);
+                    break;
+                case UndoType.AddPathNode:
+                    if (redo)
+                        if (n.parent.points.Count == 0)
+                            n.parent.points.Add(n);
+                        else
+                            n.parent.points.Insert(num, n);
+                    else
+                        n.parent.points.Remove(n);
+                    break;
+                case UndoType.RemovePathNode:
+                    if (redo)
+                        n.parent.points.Remove(n);
+                    else {
+                        if (n.parent.points.Count == 0)
+                            n.parent.points.Add(n);
+                        else
+                            n.parent.points.Insert(num, n);
+                    }
+                    break;
+                case UndoType.MovePathNode:
+                    if (redo) {
+                        n.X = rect.Width;
+                        n.Y = rect.Height;
+                    } else {
+                        n.X = rect.X;
+                        n.Y = rect.Y;
+                    }
+                    break;
+                case UndoType.ChangePathID:
+                    if (redo)
+                        p.id = pt.Y;
+                    else
+                        p.id = pt.X;
+                    break;
+                case UndoType.ChangePathNodeData:
+                    switch (rect.Width){
+                        case 0:
+                            updateUShrt(ref n.Unknown1, redo, rect.X, rect.Y); break;
+                        case 1:
+                            updateUShrt(ref n.Unknown2, redo, rect.X, rect.Y); break;
+                        case 2:
+                            updateUShrt(ref n.Unknown3, redo, rect.X, rect.Y); break;
+                        case 3:
+                            updateUShrt(ref n.Unknown4, redo, rect.X, rect.Y); break;
+                        case 4:
+                            updateUShrt(ref n.Unknown5, redo, rect.X, rect.Y); break;
+                        case 5:
+                            updateUShrt(ref n.Unknown6, redo, rect.X, rect.Y); break;
+                    }
+                    break;
             }
             if (!multiple) {
                 EdControl.mode.Refresh();
-                if (EdControl.Level.Objects.Contains(o) || EdControl.Level.Sprites.Contains(s) || EdControl.Level.Entrances.Contains(e) || EdControl.Level.Views.Contains(v) || EdControl.Level.Zones.Contains(v))
-                    EdControl.mode.SelectObject(param1);
+                if (EdControl.Level.Objects.Contains(o) || EdControl.Level.Sprites.Contains(s) || EdControl.Level.Entrances.Contains(e) || 
+                    EdControl.Level.Views.Contains(v) || EdControl.Level.Zones.Contains(v) || EdControl.Level.Paths.Contains(p))
+                    if (n == null || n != null && EdControl.Level.Paths.Contains(n.parent))
+                        EdControl.mode.SelectObject(param1);
+                if (EdControl.mode is ObjectsEditionMode && objs != null && (EdControl.Level.Objects.Contains(objs[0] as NSMBObject) || EdControl.Level.Sprites.Contains(objs[0] as NSMBSprite)))
+                    (EdControl.mode as ObjectsEditionMode).SelectObjects(objs);
                 EdControl.Invalidate(true);
             }
         }
@@ -481,6 +548,8 @@ namespace NSMBe4
                 text = string.Format(text, LanguageManager.Get("EntranceEditor", ((Rectangle)param2).Width + ((Rectangle)param2).Height + 5).Replace(":", ""));
             if (undotype == UndoType.ChangeViewData)
                 text = string.Format(text, LanguageManager.Get("ViewEditor", ((Rectangle)param2).Width + 7).Replace(":", ""));
+            if (undotype == UndoType.ChangePathNodeData)
+                text = string.Format(text, LanguageManager.Get("PathEditor", ((Rectangle)param2).Width + 7).Replace(":", ""));
             ToolStripMenuItem item = new ToolStripMenuItem(text);
             if (DropDown.Count > 0)
                 DropDown.Insert(0, item);
@@ -494,6 +563,13 @@ namespace NSMBe4
                 Prop = redoval;
             else
                 Prop = undoval;
+        }
+
+        private void updateUShrt(ref ushort Prop, bool redo, int undoval, int redoval) {
+            if (redo)
+                Prop = (ushort)redoval;
+            else
+                Prop = (ushort)undoval;
         }
     }
 
@@ -524,7 +600,9 @@ namespace NSMBe4
         RemovePath,
         AddPathNode,
         RemovePathNode,
-        ChangePathData,
+        MovePathNode,
+        ChangePathID,
+        ChangePathNodeData,
 
         AddView,
         RemoveView,
