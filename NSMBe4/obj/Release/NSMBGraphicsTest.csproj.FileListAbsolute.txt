@@ -1,9 +1,0 @@
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\bin\Release\NSMBGraphicsTest.exe
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\bin\Release\NSMBGraphicsTest.pdb
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\obj\Release\ResolveAssemblyReference.cache
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\obj\Release\NSMBGraphicsTest.LevelEditorControl.resources
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\obj\Release\NSMBGraphicsTest.MainForm.resources
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\obj\Release\NSMBGraphicsTest.Properties.Resources.resources
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\obj\Release\NSMBGraphicsTest.csproj.GenerateResource.Cache
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\obj\Release\NSMBGraphicsTest.exe
-C:\Documents and Settings\Jan\My Documents\Visual Studio 2008\Projects\NSMBGraphicsTest\NSMBGraphicsTest\obj\Release\NSMBGraphicsTest.pdb

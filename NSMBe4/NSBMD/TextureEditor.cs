@@ -194,7 +194,10 @@ namespace NSMBe4.NSBMD
             gr.Clear(Color.Transparent);
             gr.DrawImage(b, 0, 0);
             ImageIndexer ii = new ImageIndexer(b3, selectedPalette().colorCount, false);
-            Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), (int)paletteSize.Value);
+            int palSize = (int)paletteSize.Value;
+            if (palSize > selectedPalette().pal.Length)
+                palSize = selectedPalette().pal.Length;
+            Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), palSize);
             b3.Dispose();
 
             int xx = 0;

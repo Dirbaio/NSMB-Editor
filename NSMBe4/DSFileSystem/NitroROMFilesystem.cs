@@ -88,7 +88,7 @@ namespace NSMBe4.DSFileSystem
                 ushort fileID = tbl.readUShort();
                 tbl.skip(6); //unused 0's
 
-                OverlayFile f = loadOvFile(fileID, dir, table, tbl.getPos());
+                OverlayFile f = loadOvFile(fileID, dir, table, tbl.getPos() - 0x20);
                 f.isSystemFile = true;
                 arr[i] = f;
 
@@ -202,6 +202,9 @@ namespace NSMBe4.DSFileSystem
             uint dataBegin = (uint)(arm9.getUintAt(codeTableOffs + 0x08) - 0x02000000u);
 
             List<Region> regions = new List<Region>();
+
+            regions.Add(new Region(0x02000800, dataBegin - 0x800, arm9binFile, 0x800, "initializer"));
+
             while(copyTableBegin != copyTableEnd)
             {
                 uint start = arm9.getUintAt(copyTableBegin);

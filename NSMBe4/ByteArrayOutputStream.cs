@@ -59,7 +59,7 @@ namespace NSMBe4
             writeByte((byte)u);
             writeByte((byte)(u >> 8));
         }
-        public void writeUInt(ushort u)
+        public void writeUInt(uint u)
         {
             writeByte((byte)u);
             writeByte((byte)(u >> 8));

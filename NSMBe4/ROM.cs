@@ -104,7 +104,7 @@ namespace NSMBe4 {
 
         public static Origin Region = Origin.US;
 
-        public enum Data : int {
+        public enum Data : int {//
             Number_FileOffset = 0,
             Table_TS_UNT_HD = 1,
             Table_TS_UNT = 2,
