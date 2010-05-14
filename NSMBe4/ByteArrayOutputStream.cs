@@ -66,6 +66,23 @@ namespace NSMBe4
             writeByte((byte)(u >> 16));
             writeByte((byte)(u >> 24));
         }
+        public void writeLong(long u)
+        {
+            writeByte((byte)u);
+            writeByte((byte)(u >> 8));
+            writeByte((byte)(u >> 16));
+            writeByte((byte)(u >> 24));
+            writeByte((byte)(u >> 32));
+            writeByte((byte)(u >> 40));
+            writeByte((byte)(u >> 48));
+            writeByte((byte)(u >> 56));
+        }
+
+        public void align(int m)
+        {
+            while (pos % m != 0)
+                writeByte(0);
+        }
 
         private void grow()
         {

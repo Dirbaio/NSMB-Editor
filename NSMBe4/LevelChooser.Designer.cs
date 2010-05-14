@@ -36,7 +36,6 @@ namespace NSMBe4 {
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.padarm7bin = new System.Windows.Forms.Button();
@@ -57,6 +56,10 @@ namespace NSMBe4 {
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
+            this.parseFileListBtn = new System.Windows.Forms.Button();
+            this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
+            this.encryptFAT = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -173,14 +176,6 @@ namespace NSMBe4 {
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // filesystemBrowser1
-            // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(476, 316);
-            this.filesystemBrowser1.TabIndex = 0;
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.groupBox2);
@@ -203,6 +198,8 @@ namespace NSMBe4 {
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.encryptFAT);
+            this.groupBox2.Controls.Add(this.parseFileListBtn);
             this.groupBox2.Controls.Add(this.padarm7bin);
             this.groupBox2.Controls.Add(this.decompArm9Bin);
             this.groupBox2.Location = new System.Drawing.Point(258, 180);
@@ -383,6 +380,42 @@ namespace NSMBe4 {
             // 
             this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
             // 
+            // parseFileListBtn
+            // 
+            this.parseFileListBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.parseFileListBtn.Location = new System.Drawing.Point(6, 77);
+            this.parseFileListBtn.Name = "parseFileListBtn";
+            this.parseFileListBtn.Size = new System.Drawing.Size(206, 23);
+            this.parseFileListBtn.TabIndex = 3;
+            this.parseFileListBtn.Text = "parse read list";
+            this.parseFileListBtn.UseVisualStyleBackColor = true;
+            this.parseFileListBtn.Click += new System.EventHandler(this.parseFileListBtn_Click);
+            // 
+            // openTextFileDialog
+            // 
+            this.openTextFileDialog.Filter = "Text Files|*.txt|All files|*.*";
+            // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(476, 316);
+            this.filesystemBrowser1.TabIndex = 0;
+            // 
+            // encryptFAT
+            // 
+            this.encryptFAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.encryptFAT.Location = new System.Drawing.Point(6, 106);
+            this.encryptFAT.Name = "encryptFAT";
+            this.encryptFAT.Size = new System.Drawing.Size(206, 23);
+            this.encryptFAT.TabIndex = 3;
+            this.encryptFAT.Text = "cryptFat";
+            this.encryptFAT.UseVisualStyleBackColor = true;
+            this.encryptFAT.Click += new System.EventHandler(this.encryptFAT_Click);
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,5 +469,8 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button mpPatch2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button padarm7bin;
+        private System.Windows.Forms.Button parseFileListBtn;
+        private System.Windows.Forms.OpenFileDialog openTextFileDialog;
+        private System.Windows.Forms.Button encryptFAT;
     }
 }

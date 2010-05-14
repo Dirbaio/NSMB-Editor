@@ -24,7 +24,8 @@ namespace NSMBe4.DSFileSystem
 {
     public class NitroROMFilesystem : NitroFilesystem
     {
-        public File arm7binFile, arm9binFile, arm7ovFile, arm9ovFile, bannerFile;
+        public File arm7binFile, arm7ovFile, arm9ovFile, bannerFile;
+        public Arm9BinFile arm9binFile;
         public HeaderFile headerFile;
         public OverlayFile[] arm7ovs, arm9ovs;
 
@@ -37,17 +38,17 @@ namespace NSMBe4.DSFileSystem
         {
             headerFile = new HeaderFile(this, mainDir);
 
-            fntFile = new File(this, mainDir, true, -2, "fnt.bin", headerFile, 0x40, 0x44, true);
-            fatFile = new File(this, mainDir, true, -3, "fat.bin", headerFile, 0x48, 0x4C, true);
+            fntFile = new File(this, mainDir, true, -1, "fnt.bin", headerFile, 0x40, 0x44, true);
+            fatFile = new File(this, mainDir, true, -1, "fat.bin", headerFile, 0x48, 0x4C, true);
 
             base.load();
 
-            arm9ovFile = new File(this, mainDir, true, -4, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
-            arm7ovFile = new File(this, mainDir, true, -5, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
-            arm9binFile = new File(this, mainDir, true, -6, "arm9.bin", headerFile, 0x20, 0x2C, true);
+            arm9ovFile = new File(this, mainDir, true, -1, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
+            arm7ovFile = new File(this, mainDir, true, -1, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
+            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
             arm9binFile.alignment = 0x1000;
             arm9binFile.canChangeOffset = false;
-            arm7binFile = new File(this, mainDir, true, -7, "arm7.bin", headerFile, 0x30, 0x3C, true);
+            arm7binFile = new File(this, mainDir, true, -1, "arm7.bin", headerFile, 0x30, 0x3C, true);
             arm7binFile.alignment = 0x200; //Not sure what should be used here...
             bannerFile = new BannerFile(this, mainDir, headerFile);
             bannerFile.alignment = 0x200; //Not sure what should be used here...
@@ -115,63 +116,17 @@ namespace NSMBe4.DSFileSystem
             headerFile.UpdateCRC16();
         }
 
-        public void disableOverlay0Compression()
-        {
-            // THIS DISABLES COMPRESSION!!
-            // setting 0x1F in the overlay table to 02 is what causes the game
-            // to bypass it - I'm not sure if the RAM size needs to be written
-            // as well, but I do it anyway just in case.. ~Treeki
-
-            arm9ovFile.setUintAt(8, (uint) getFileById(0).fileSize);
-            arm9ovFile.setByteAt(0x1F, 2);
-        }
-
-        public bool isOverlay0Compressed()
-        {
-            return arm9ovFile.getByteAt(0x1F) != 0x02;
-        }
-
-        public bool isArm9BinaryCompressed()
-        {
-            int codeTableOffs = (int)(arm9binFile.getUintAt(0x90C) - 0x02000000u);
-            int decompressionOffs = (int)arm9binFile.getUintAt(codeTableOffs + 0x14);
-
-            return decompressionOffs != 0;
-        }
-
-        public void expandArm9Binary()
-        {
-            arm9binFile.beginEdit(this);
-
-            int codeTableOffs = (int)(arm9binFile.getUintAt(0x90C) - 0x02000000u);
-            int decompressionOffs = (int)arm9binFile.getUintAt(codeTableOffs + 0x14);
-
-            if (decompressionOffs != 0)
-            {
-                decompressionOffs -= 0x02000000;
-                int compDatSize = (int)(arm9binFile.getUintAt(decompressionOffs - 8) & 0xFFFFFF);
-                int compDatOffs = decompressionOffs - compDatSize;
-                Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
-                Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
-
-                byte[] data = arm9binFile.getContents();
-                byte[] compData = new byte[compDatSize];
-                Array.Copy(data, compDatOffs, compData, 0, compDatSize);
-                byte[] decompData = ROM.DecompressOverlay(compData);
-                byte[] newData = new byte[data.Length - compData.Length + decompData.Length];
-                Array.Copy(data, newData, data.Length);
-                Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
-
-                arm9binFile.replace(newData, this);
-                arm9binFile.setUintAt(codeTableOffs + 0x14, 0);
-            }
-            arm9binFile.endEdit(this);
-        }
-
-        #region Patching the arm9
+        #region Patching ARM9
 
         public void writeToRamAddr(int ramAddr, uint val)
         {
+            foreach (Arm9BinSection s in arm9binFile.sections)
+                if(s.isAddrIn(ramAddr))
+                    {
+                    s.writeTo(ramAddr, val);
+                    return;
+                }
+
             File f;
             int offs;
             ramAddr2File(ramAddr, out f, out offs);
@@ -180,6 +135,10 @@ namespace NSMBe4.DSFileSystem
 
         public uint readFromRamAddr(int ramAddr)
         {
+            foreach (Arm9BinSection s in arm9binFile.sections)
+                if(s.isAddrIn(ramAddr))
+                    return s.readFrom(ramAddr);
+            
             File f;
             int offs;
             ramAddr2File(ramAddr, out f, out offs);
@@ -188,44 +147,13 @@ namespace NSMBe4.DSFileSystem
 
         public void ramAddr2File(int ramAddr, out File file, out int offset)
         {
-            File arm9 = arm9binFile;
             File header = headerFile;
-
-            int codeTableOffs = (int)(arm9.getUintAt(0x90C) - 0x02000000u);
-            int decompressionOffs = (int)arm9.getUintAt(codeTableOffs + 0x14);
-
-            if (decompressionOffs != 0)
-                throw new Exception("Need to decompress arm9 bin first");
-            
-            int copyTableBegin = (int)(arm9.getUintAt(codeTableOffs + 0x00) - 0x02000000u);
-            int copyTableEnd = (int)(arm9.getUintAt(codeTableOffs + 0x04) - 0x02000000u);
-            uint dataBegin = (uint)(arm9.getUintAt(codeTableOffs + 0x08) - 0x02000000u);
-
             List<Region> regions = new List<Region>();
-
-            regions.Add(new Region(0x02000800, dataBegin - 0x800, arm9binFile, 0x800, "initializer"));
-
-            while(copyTableBegin != copyTableEnd)
-            {
-                uint start = arm9.getUintAt(copyTableBegin);
-                copyTableBegin += 4;
-                uint size = arm9.getUintAt(copyTableBegin);
-                copyTableBegin += 4;
-                uint bsssize = arm9.getUintAt(copyTableBegin);
-                copyTableBegin += 4;
-                //start += dataBegin;
-                //end += dataBegin;
-                
-                regions.Add(new Region(start, size, arm9binFile, dataBegin, "ARM9 bin"));
-                dataBegin += size;
-            }
-
 
             foreach(OverlayFile f in arm9ovs)
             {
                 regions.Add(new Region(f.ramAddr, f.ramSize, arm9ovFile, 0, "ARM9 ov " + f.ovId));
             }
-
 
             File fi = null;
             int fileOffs = -1;

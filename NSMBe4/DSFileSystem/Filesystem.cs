@@ -36,6 +36,8 @@ namespace NSMBe4.DSFileSystem
         protected File freeSpaceDelimiter;
         public int fileDataOffset = 0;
 
+        public FilesystemBrowser viewer;
+
         protected Filesystem(FilesystemSource fs)
         {
             this.source = fs;
@@ -61,7 +63,8 @@ namespace NSMBe4.DSFileSystem
         protected void addFile(File f)
         {
             allFiles.Add(f);
-            filesById.Add(f.id, f);
+            if(f.id != -1)
+                filesById.Add(f.id, f);
 //            filesByName.Add(f.name, f);
         }
 
@@ -69,7 +72,8 @@ namespace NSMBe4.DSFileSystem
         protected void addDir(Directory d)
         {
             allDirs.Add(d);
-            dirsById.Add(d.id, d);
+            if(d.id != -1)
+               dirsById.Add(d.id, d);
 //            dirsByName.Add(d.name, d);
         }
 
@@ -214,8 +218,12 @@ namespace NSMBe4.DSFileSystem
                 allFiles[i].fileBegin += diff;
             for (int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
                 allFiles[i].saveOffsets();
+        }
 
-
+        public void filesystemModified()
+        {
+            if (viewer != null && !viewer.IsDisposed)
+                viewer.Load(this);
         }
     }
 }

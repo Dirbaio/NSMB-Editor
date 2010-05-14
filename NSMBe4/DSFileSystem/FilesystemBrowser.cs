@@ -50,10 +50,11 @@ namespace NSMBe4.DSFileSystem
         public new void Load(Filesystem fs)
         {
             this.fs = fs;
-
+            fs.viewer = this;
             TreeNode main = new TreeNode(fs.mainDir.name, 0, 0);
             main.Tag = fs.mainDir;
             loadDir(main, fs.mainDir);
+            fileTreeView.Nodes.Clear();
             fileTreeView.Nodes.Add(main);
         }
 

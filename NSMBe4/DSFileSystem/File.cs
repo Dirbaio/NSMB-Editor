@@ -29,10 +29,10 @@ namespace NSMBe4.DSFileSystem
         protected string nameP;
         public string name { get { return nameP; } }
 
-        private int idP;
+        protected int idP;
         public int id { get { return idP; } }
 
-        private Directory parentDirP;
+        protected Directory parentDirP;
         public Directory parentDir { get { return parentDirP; } }
 
         //if allocationFile is not null,
@@ -52,14 +52,22 @@ namespace NSMBe4.DSFileSystem
         public int alignment = 4; // word align by default
         public bool canChangeOffset = true; //false for arm9 and 7 bins
 
-        protected Filesystem parent;
+        public Filesystem parent;
 
-        private Object editedBy = null;
+        protected Object editedBy = null;
         public Boolean beingEdited
         {
             get { return editedBy != null; }
         }
 
+        public File(Filesystem parent, Directory parentDir, string name)
+        {
+            this.parent = parent;
+            this.parentDirP = parentDir;
+            this.nameP = name;
+            this.isSystemFile = true;
+        }
+    
         public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, int alBeg, int alEnd)
         {
             this.parent = parent;
@@ -117,7 +125,7 @@ namespace NSMBe4.DSFileSystem
         }
 
 
-        public void refreshOffsets()
+        public virtual void refreshOffsets()
         {
             if (beginFile != null)
                 fileBegin = (int)beginFile.getUintAt(beginOffset) + parent.fileDataOffset;
@@ -132,7 +140,7 @@ namespace NSMBe4.DSFileSystem
             }
         }
 
-        public void saveOffsets()
+        public virtual void saveOffsets()
         {
             if (beginFile != null)
                 beginFile.setUintAt(beginOffset, (uint)(fileBegin - parent.fileDataOffset));
@@ -214,50 +222,6 @@ namespace NSMBe4.DSFileSystem
             parent.s.Seek(pos, SeekOrigin.Begin);
         }
 
-        /*
-        //This routine moves the next file to Pos
-        //if its before pos
-        //It moves further files if needed
-        //This ensures that the space from this file
-        //to Pos-1 (included) is unused
-        private void ensureFreeSpaceUntil(uint pos)
-        {
-            File nextFile = null;
-            uint nextFileStart = uint.MaxValue;
-            uint start = fileBegin;
-
-            foreach (File f in parent.allFiles)
-            {
-                uint fstart = f.fileBegin;
-                if (fstart > start) //if the file is after this one
-                    if (fstart < nextFileStart)
-                    {
-                        nextFile = f;
-                        nextFileStart = fstart;
-                    }
-            }
-
-            // check how much we'll have to move it
-            int diff = (int)pos - (int)nextFileStart;
-            if (diff > 0)
-            {
-                nextFile.moveTo(pos);
-            }
-        }
-
-        public void moveTo(uint pos)
-        {
-//            Console.Out.WriteLine("Moving: [" + id + "] " + name);
-            ensureFreeSpaceUntil(pos + fileSize);
-            byte[] file = getContents();
-            parent.s.Seek(pos, SeekOrigin.Begin);
-            parent.s.Write(file, 0, file.Length);
-
-            fileBegin = pos;
-            saveOffsets();
-        }
-        */
-
         public void replace(byte[] newFile, object editor)
         {
             if (!beingEdited)
@@ -322,7 +286,7 @@ namespace NSMBe4.DSFileSystem
             return fileBegin.CompareTo(f.fileBegin);
         }
 
-        public void beginEdit(Object editor)
+        public virtual void beginEdit(Object editor)
         {
             if (beingEdited)
                 throw new AlreadyEditingException(this);
@@ -330,7 +294,7 @@ namespace NSMBe4.DSFileSystem
                 editedBy = editor;
         }
 
-        public void endEdit(Object editor)
+        public virtual void endEdit(Object editor)
         {
             if (!beingEdited)
                 throw new Exception("NOT EDITING FILE " + name);
@@ -344,6 +308,11 @@ namespace NSMBe4.DSFileSystem
         {
             return ed == editedBy;
         }
-        public virtual void fileModified() { }
+
+
+        public bool isAddrInFile(int addr)
+        {
+            return addr >= fileBegin && addr < fileBegin + fileSize;
+        }
     }
 }

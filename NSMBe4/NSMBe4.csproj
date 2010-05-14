@@ -51,9 +51,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Be.Windows.Forms.HexBox, Version=1.3.0.21615, Culture=neutral, PublicKeyToken=e0e5adf0ebc99863, processorArchitecture=MSIL">
+    <Reference Include="Be.Windows.Forms.HexBox, Version=1.4.1.20144, Culture=neutral, PublicKeyToken=e0e5adf0ebc99863, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Be.Windows.Forms.HexBox.dll</HintPath>
+      <HintPath>.\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -501,6 +501,8 @@
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ByteArrayOutputStream.cs" />
+    <Compile Include="DSFileSystem\Arm9BinFile.cs" />
+    <Compile Include="DSFileSystem\Arm9BinSection.cs" />
     <Compile Include="DSFileSystem\BannerFile.cs" />
     <Compile Include="DSFileSystem\ExternalFilesystemSource.cs" />
     <Compile Include="DSFileSystem\File.cs" />
@@ -527,6 +529,7 @@
     <Compile Include="DSFileSystem\FilesystemSource.cs" />
     <Compile Include="DSFileSystem\Directory.cs" />
     <Compile Include="DSFileSystem\HeaderFile.cs" />
+    <Compile Include="DSFileSystem\InlineFile.cs" />
     <Compile Include="DSFileSystem\NarcFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />

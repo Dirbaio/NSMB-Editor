@@ -8,11 +8,14 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Security;
+using NSMBe4.DSFileSystem;
 
 namespace NSMBe4
 {
     public partial class ArmPatcher : Form
     {
+        const int ArenaLoOffs = 0x02065F10; //FIXME: SUPPORT MORE REGIONS OR AUTODETECT
+
         System.IO.FileInfo romf;
         System.IO.DirectoryInfo romdir;
         public ArmPatcher(System.IO.FileInfo romFile)
@@ -26,13 +29,13 @@ namespace NSMBe4
         private void ArmPatcher_Load(object sender, EventArgs e)
         {
             undoPatches();
+            Console.Out.WriteLine("Patching");
 
-            int arm7binRamAddr = (int)ROM.FS.headerFile.getUintAt(0x38);
-            arm7binRamAddr += ROM.FS.arm7binFile.fileSize;
+            int codeAddr = (int)ROM.FS.readFromRamAddr(ArenaLoOffs);
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd";
-            info.Arguments = "/C make CODEADDR=0x"+arm7binRamAddr.ToString("X8") + " && pause";
+            info.Arguments = "/C make CODEADDR=0x"+codeAddr.ToString("X8") + " && pause";
             info.CreateNoWindow = false;
             info.UseShellExecute = false;
             info.WorkingDirectory = romdir.FullName;
@@ -44,12 +47,11 @@ namespace NSMBe4
             {
                 FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
                 FileStream fs = f.OpenRead();
-                int hookAddr = arm7binRamAddr + (int)fs.Length;
-                byte[] data = ROM.FS.arm7binFile.getContents();
-                byte[] newdata = new byte[data.Length + fs.Length];
-                Array.Copy(data, newdata, data.Length);
-                fs.Read(newdata, data.Length, (int)fs.Length);
 
+                byte[] newdata = new byte[fs.Length];
+                fs.Read(newdata, 0, (int)fs.Length);
+
+                int hookAddr = codeAddr + (int)fs.Length;
                 fs.Close();
 
                 
@@ -111,18 +113,21 @@ namespace NSMBe4
                 }
 
                 TextWriter tw = new StreamWriter(romdir.FullName + "/romchanges.bak");
-                tw.WriteLine(ROM.FS.arm7binFile.fileSize.ToString("X8"));
+                tw.WriteLine(ROM.FS.arm9binFile.sections.Count.ToString("X8"));
+                tw.WriteLine(codeAddr.ToString("X8"));
                 foreach (Replacement r in reps)
                 {
+                    hooks.align(4);
                     uint opcode = ROM.FS.readFromRamAddr((int)r.oldRamAddr);
                     ROM.FS.writeToRamAddr((int)r.oldRamAddr, makeBranchOpcode(r.oldRamAddr, r.hookRamAddr, r.type != PatchType.funcReplacement));
                     tw.WriteLine(r.oldRamAddr.ToString("X8") + " " + opcode.ToString("X8"));
                 }
                 tw.Close();
 
-                ROM.FS.arm7binFile.beginEdit(this);
-                ROM.FS.arm7binFile.replace(hooks.getArray(), this);
-                ROM.FS.arm7binFile.endEdit(this);
+                hooks.align(4);
+                ROM.FS.writeToRamAddr(ArenaLoOffs, (uint)(codeAddr + hooks.getPos()));
+                ROM.FS.arm9binFile.sections.Add(new Arm9BinSection(hooks.getArray(), codeAddr, 0));
+                ROM.FS.arm9binFile.saveSections();
             }
         }
 
@@ -135,13 +140,13 @@ namespace NSMBe4
             StreamReader s = f.OpenText();
 
             string l = s.ReadLine();
-            uint arm7offs = uint.Parse(l, System.Globalization.NumberStyles.HexNumber);
-            ROM.FS.arm7binFile.beginEdit(this);
-            byte[] data = ROM.FS.arm7binFile.getContents();
-            byte[] newdata = new byte[arm7offs];
-            Array.Copy(data, newdata, arm7offs);
-            ROM.FS.arm7binFile.replace(newdata, this);
-            ROM.FS.arm7binFile.endEdit(this);
+            int sectionCount = int.Parse(l, System.Globalization.NumberStyles.HexNumber);
+            l = s.ReadLine();
+            uint arenaLo = uint.Parse(l, System.Globalization.NumberStyles.HexNumber);
+            ROM.FS.writeToRamAddr(ArenaLoOffs, arenaLo);
+            int currSectionCount = ROM.FS.arm9binFile.sections.Count;
+            if (currSectionCount > sectionCount)
+                ROM.FS.arm9binFile.sections.RemoveRange(sectionCount, currSectionCount - sectionCount);
 
             while (!s.EndOfStream)
             {

@@ -125,6 +125,16 @@ namespace NSMBe4
             return res;
         }
 
+        public long readLong()
+        {
+            long res = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                res |= (long)readByte() << 8 * i;
+            }
+            return res;
+        }
+
         public void read(byte[] dest)
         {
             Array.Copy(array, pos+origin, dest, 0, dest.Length);

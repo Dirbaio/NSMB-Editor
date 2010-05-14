@@ -545,38 +545,102 @@ namespace NSMBe4 {
 
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
-            NSMBe4.DSFileSystem.File arm9 = ROM.FS.arm9binFile;
-            arm9.beginEdit(this);
-
-            int codeTableOffs = (int)(arm9.getUintAt(0x90C) - 0x02000000u);
-            int decompressionOffs = (int)arm9.getUintAt(codeTableOffs + 0x14);
-
-            if (decompressionOffs != 0)
-            {
-                decompressionOffs -= 0x02000000;
-                int compDatSize = (int)(arm9.getUintAt(decompressionOffs - 8) & 0xFFFFFF);
-                int compDatOffs = decompressionOffs - compDatSize;
-                Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
-                Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
-
-                byte[] data = arm9.getContents();
-                byte[] compData = new byte[compDatSize];
-                Array.Copy(data, compDatOffs, compData, 0, compDatSize);
-                byte[] decompData = ROM.DecompressOverlay(compData);
-                byte[] newData = new byte[data.Length - compData.Length + decompData.Length];
-                Array.Copy(data, newData, data.Length);
-                Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
-
-                arm9.replace(newData, this);
-                arm9.setUintAt(codeTableOffs + 0x14, 0); // NUKE THE COMPRESSION!!! :P
-                arm9.endEdit(this);
-            }
+            ROM.FS.arm9binFile.decompress();
         }
 
         private void padarm7bin_Click(object sender, EventArgs e)
         {
             //ROM.FS.writeToRamAddr(0x01ff8f20, 0x00);
             new ArmPatcher(ROM.romfile);
+        }
+
+        private void parseFileListBtn_Click(object sender, EventArgs e)
+        {
+            if (openTextFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            StreamReader sr = new StreamReader(openTextFileDialog.OpenFile());
+            StreamWriter sw = new StreamWriter(openTextFileDialog.FileName + ".parsed.txt");
+            while (!sr.EndOfStream)
+            {
+                string l = sr.ReadLine();
+
+                string addrs, sizs;
+
+                if (l.Length == 22)
+                {
+                    addrs = l.Substring(5, 8);
+                    sizs = l.Substring(14, 8);
+                }
+                else if (l.Length == 22 + 8 * 2 + 2)
+                {
+                    addrs = l.Substring(5 + 18, 8);
+                    sizs = l.Substring(14 + 18, 8);
+                }
+                else
+                {
+                    sw.WriteLine(l);
+                    continue;
+                }
+
+                int addr = int.Parse(addrs, System.Globalization.NumberStyles.HexNumber);
+                int siz = int.Parse(sizs, System.Globalization.NumberStyles.HexNumber);
+
+                NSMBe4.DSFileSystem.File found = null;
+                foreach (NSMBe4.DSFileSystem.File f in ROM.FS.allFiles)
+                {
+                    if (f.isAddrInFile(addr))
+                        found = f;
+                }
+
+                sw.Write(l + " ");
+                int fileoffs = addr - found.fileBegin;
+                if (fileoffs == 0 && siz == found.fileSize)
+                    //        12345678 
+                    sw.Write("ALL      ");
+                else
+                    sw.Write(fileoffs.ToString("X8")+" ");
+                sw.Write(found.name);
+                sw.WriteLine();
+            }
+
+            sw.Close();
+            sr.Close();
+        }
+
+        private void encryptFAT_Click(object sender, EventArgs e)
+        {
+            ByteArrayInputStream i = new ByteArrayInputStream(
+                ROM.FS.fatFile.getContents());
+            ByteArrayOutputStream o = new ByteArrayOutputStream();
+
+            while (i.available(4))
+            {
+                o.writeUInt(i.readUInt() ^ 0x2313413F);
+            }
+            /*
+            while (i.available(8))
+            {
+                long dat = i.readLong();
+                long n = i.getPos();
+            	dat ^= n;
+                long r = n;
+                r *= 0x20229846520937L;
+                r ^= 0x12034871092587L;
+                n += 0x2341;
+                r ^= n * 0x21938981f1f813L;
+                dat ^= n;
+                r += n;
+                r *= 0x20229846520937L;
+                r ^= 0x12034871092587L;
+                r ^= n * 0x2354102349391223L;
+                dat ^= r;
+                o.writeLong(dat);
+            }*/
+
+            ROM.FS.fatFile.beginEdit(this);
+            ROM.FS.fatFile.replace(o.getArray(), this);
+            ROM.FS.fatFile.endEdit(this);
         }
     }
 }
