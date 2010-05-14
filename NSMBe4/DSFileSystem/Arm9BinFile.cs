@@ -37,7 +37,7 @@ namespace NSMBe4.DSFileSystem
             int copyTableEnd = (int)(getUintAt(codeSettingsOffs + 0x04) - 0x02000000u);
             int dataBegin = (int)(getUintAt(codeSettingsOffs + 0x08) - 0x02000000u);
 
-            newSection(0x02000800, dataBegin, 0x0, 0);
+            newSection(0x02000000, dataBegin, 0x0, 0);
 
             while (copyTableBegin != copyTableEnd)
             {

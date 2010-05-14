@@ -120,9 +120,12 @@ namespace NSMBe4.DSFileSystem
 
         public void writeToRamAddr(int ramAddr, uint val)
         {
+            Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}", ramAddr, val));
+
             foreach (Arm9BinSection s in arm9binFile.sections)
                 if(s.isAddrIn(ramAddr))
-                    {
+                {
+                    Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
                     s.writeTo(ramAddr, val);
                     return;
                 }

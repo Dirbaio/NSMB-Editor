@@ -613,15 +613,10 @@ namespace NSMBe4 {
             ByteArrayInputStream i = new ByteArrayInputStream(
                 ROM.FS.fatFile.getContents());
             ByteArrayOutputStream o = new ByteArrayOutputStream();
-
-            while (i.available(4))
-            {
-                o.writeUInt(i.readUInt() ^ 0x2313413F);
-            }
-            /*
+            
             while (i.available(8))
             {
-                long dat = i.readLong();
+                long dat = i.readLong();/*
                 long n = i.getPos();
             	dat ^= n;
                 long r = n;
@@ -633,10 +628,10 @@ namespace NSMBe4 {
                 r += n;
                 r *= 0x20229846520937L;
                 r ^= 0x12034871092587L;
-                r ^= n * 0x2354102349391223L;
-                dat ^= r;
+                r ^= n * 0x2354102349391223L;*/
+                dat ^= 0x2354102349391223L * (i.getPos() + 1);
                 o.writeLong(dat);
-            }*/
+            }
 
             ROM.FS.fatFile.beginEdit(this);
             ROM.FS.fatFile.replace(o.getArray(), this);

@@ -95,6 +95,10 @@ namespace NSMBe4
                 }
                 s.Close();
 
+                foreach (Replacement r in reps)
+                {
+                }
+
                 ByteArrayOutputStream hooks = new ByteArrayOutputStream();
                 hooks.write(newdata);
                 foreach (Replacement r in reps)
@@ -117,6 +121,7 @@ namespace NSMBe4
                 tw.WriteLine(codeAddr.ToString("X8"));
                 foreach (Replacement r in reps)
                 {
+                    Console.Out.WriteLine(String.Format("{0:X8} {1:X8} {2:X8}", r.oldRamAddr, r.hookRamAddr, r.newRamAddr));
                     hooks.align(4);
                     uint opcode = ROM.FS.readFromRamAddr((int)r.oldRamAddr);
                     ROM.FS.writeToRamAddr((int)r.oldRamAddr, makeBranchOpcode(r.oldRamAddr, r.hookRamAddr, r.type != PatchType.funcReplacement));
