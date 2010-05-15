@@ -372,7 +372,6 @@
             this.levelEditorControl1.Name = "levelEditorControl1";
             this.levelEditorControl1.Size = new System.Drawing.Size(635, 551);
             this.levelEditorControl1.TabIndex = 3;
-            this.levelEditorControl1.SetDirtyFlag += new NSMBe4.LevelEditorControl.SetDirtyFlagDelegate(this.levelEditorControl1_SetDirtyFlag);
             // 
             // LevelEditor
             // 

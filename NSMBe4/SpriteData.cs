@@ -430,7 +430,7 @@ namespace NSMBe4
             }
             public void saveData(object sender, EventArgs e)
             {
-                byte[] orig = s.Data.Clone() as byte[];
+                byte[] d = s.Data.Clone() as byte[];
                 int index = 0;
                 foreach(SpriteDataValueSource sv in controls.Keys)
                 {
@@ -448,19 +448,11 @@ namespace NSMBe4
                         val = (controls[sv] as CheckBox).Checked ? 1 : 0;
                     else if (controls[sv] is BinaryEdit)
                         val = (controls[sv] as BinaryEdit).value;
-                    sv.setValue(val, s.Data);
+                    sv.setValue(val, d);
                     index++;
                 }
-                if (!updating && sender != null) {
-                    byte[][] datas = new byte[2][];
-                    datas[0] = new byte[6];
-                    datas[1] = new byte[6];
-                    Array.Copy(orig, datas[0], 6);
-                    Array.Copy(s.Data.Clone() as byte[], datas[1], 6);
-                    EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteData, s, datas);
-                }
-                EdControl.FireSetDirtyFlag();
-                EdControl.Invalidate(true);
+                if (!updating && sender != null)
+                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(s, d));
             }
         }
     }

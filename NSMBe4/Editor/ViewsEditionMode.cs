@@ -26,8 +26,8 @@ namespace NSMBe4
     public class ViewsEditionMode:EditionMode
     {
         private NSMBView v;
-        private int DragStartX, DragStartY;
-        private bool ResizeMode, CloneMode;
+        private int DragXOff, DragYOff;
+        private bool ResizeMode, CloneMode, EdVi;
         private ViewEditor ve;
 
         private List<NSMBView> l;
@@ -35,6 +35,7 @@ namespace NSMBe4
         public ViewsEditionMode(NSMBLevel Level, LevelEditorControl EdControl, bool EdVi)
             : base(Level, EdControl)
         {
+            this.EdVi = EdVi;
             if (EdVi)
                 l = Level.Views;
             else
@@ -58,9 +59,13 @@ namespace NSMBe4
 
             ResizeMode = Control.ModifierKeys == Keys.Shift;
             CloneMode = Control.ModifierKeys == Keys.Control;
-            DragStartX = x;
-            DragStartY = y;
-            
+            if (ResizeMode) {
+                DragXOff = (v.X + v.Width) - x;
+                DragYOff = (v.Y + v.Height) - y;
+            } else {
+                DragXOff = x - v.X;
+                DragYOff = y - v.Y;
+            }
         }
 
         public override void MouseDrag(int x, int y)
@@ -71,77 +76,24 @@ namespace NSMBe4
             if (CloneMode)
             {
                 v = new NSMBView(v);
-                EdControl.UndoManager.PerformAction(UndoType.AddView, v, null);
-                v.Number = EdControl.Level.getFreeViewNumber(l);
-                l.Add(v);
+                EdControl.UndoManager.Do(new AddViewAction(v));
                 CloneMode = false;
-                UpdatePanel();
-                ve.UpdateList();
             }
 
             int step = 1;
             if ((Control.ModifierKeys & Keys.Alt) != 0)
                 step = 8;
-
-            bool moved = false;
-            int xi = 0, yi = 0;
-
-            if (DragStartX / step != x / step)
-            {
-                xi = (x / step - DragStartX / step) * step;
-                DragStartX = x;
-                moved = true;
-            }
-            if (DragStartY / step != y / step)
-            {
-                yi = (y / step - DragStartY / step) * step;
-                DragStartY = y;
-                moved = true;
-            }
-
-            if (moved)
-            {
-                int nx, ny;
-                if (ResizeMode) {
-                    nx = v.Width; ny = v.Height;
-                } else {
-                    nx = v.X; ny = v.Y;
-                }
-                nx += xi;
-                ny += yi;
-                nx = nx - nx % step;
-                ny = ny - ny % step;
-                if (ResizeMode) {
-                    if (v.isZone)
-                        EdControl.UndoManager.PerformAction(UndoType.SizeZone, v, new Rectangle(v.Width, v.Height, nx, ny));
-                    else
-                        EdControl.UndoManager.PerformAction(UndoType.SizeView, v, new Rectangle(v.Width, v.Height, nx, ny));
-                    v.Width = nx;
-                    v.Height = ny;
-                } else {
-                    if (v.isZone)
-                        EdControl.UndoManager.PerformAction(UndoType.MoveZone, v, new Rectangle(v.X, v.Y, nx, ny));
-                    else
-                        EdControl.UndoManager.PerformAction(UndoType.MoveView, v, new Rectangle(v.X, v.Y, nx, ny));
-                    v.X = nx;
-                    v.Y = ny;
-                }
-                if (v.X < 0) v.X = 0;
-                if (v.Y < 0) v.Y = 0;
-                if (v.isZone)
-                {
-                    if (v.Width < 16) v.Width = 16;
-                    if (v.Height < 16) v.Height = 16;
-                }
-                else
-                {
-                    if (v.Width < 16 * 16) v.Width = 16 * 16;
-                    if (v.Height < 12 * 16) v.Height = 12 * 16;
-                }
-                EdControl.repaint();
-                UpdatePanel();
-                SetDirtyFlag();
-                UpdatePanel();
+            int nx, ny;
+            if (ResizeMode) {
+                nx = Math.Max(16 * 16, (x + DragXOff - v.X) / step * step);
+                ny = Math.Max(12 * 16, (y + DragYOff - v.Y) / step * step);
+                if (v.Width != nx || v.Height != ny)
+                    EdControl.UndoManager.Do(new SizeViewAction(v, nx, ny));
+            } else {
+                nx = Math.Max(0, (x - DragXOff) / step * step);
+                ny = Math.Max(0, (y - DragYOff) / step * step);
+                if (v.X != nx || v.Y != ny)
+                    EdControl.UndoManager.Do(new MoveViewAction(v, nx, ny));
             }
         }
 
@@ -155,7 +107,10 @@ namespace NSMBe4
         {
             if (o is NSMBView || o == null)
             {
-                v = o as NSMBView;
+                if (o != null && (o as NSMBView).isZone != EdVi)
+                    v = o as NSMBView;
+                if (o == null)
+                    v = null;
                 EdControl.repaint();
                 UpdatePanel();
             }
@@ -192,18 +147,10 @@ namespace NSMBe4
             {
                 NSMBView newV = contents as NSMBView;
                 if (newV.isZone)
-                {
                     newV.Number = Level.getFreeViewNumber(Level.Zones);
-                    Level.Zones.Add(newV);
-                    EdControl.UndoManager.PerformAction(UndoType.AddZone, newV, null);
-                } else {
+                else
                     newV.Number = Level.getFreeViewNumber(Level.Views);
-                    Level.Views.Add(newV);
-                    EdControl.UndoManager.PerformAction(UndoType.AddView, newV, null);
-                }
-                SelectObject(newV);
-                ve.SetView(newV);
-                EdControl.repaint();
+                EdControl.UndoManager.Do(new AddViewAction(newV));
             }
         }
 

@@ -34,7 +34,7 @@ namespace NSMBe4 {
             vScrollBar.Visible = false;
             MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
             DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
-            dragTimer.Start();
+            //dragTimer.Start();
         }
 
         public void LoadUndoManager(ToolStripSplitButton Undo, ToolStripSplitButton Redo)
@@ -146,13 +146,6 @@ namespace NSMBe4 {
 
         private int DragStartX;
         private int DragStartY;
-
-        public delegate void SetDirtyFlagDelegate();
-        public event SetDirtyFlagDelegate SetDirtyFlag;
-        public void FireSetDirtyFlag()
-        {
-            SetDirtyFlag();
-        }
 
         #region Rendering
 
@@ -413,6 +406,11 @@ namespace NSMBe4 {
                     vScrollBar.Value += 1;
                 mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value * 16, (int)(mousePos.Y / zoom) + vScrollBar.Value * 16);
             }
+        }
+
+        public string[] getSpriteNames()
+        {
+            return editor.oem.getSpriteNames();
         }
     }
 }

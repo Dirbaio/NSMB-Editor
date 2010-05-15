@@ -27,8 +27,7 @@ namespace NSMBe4
     {
         NSMBEntrance e = null;
         EntranceEditor ed;
-        int step = 1;
-        int DragStartX, DragStartY;
+        int DragXOff, DragYOff;
         bool CloneMode;
 
         public EntrancesEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
@@ -67,8 +66,8 @@ namespace NSMBe4
 
             if (e == null) return;
 
-            DragStartX = x;
-            DragStartY = y;
+            DragXOff = x - e.X;
+            DragYOff = y - e.Y;
 
             CloneMode = Control.ModifierKeys == Keys.Control;
         }
@@ -80,55 +79,20 @@ namespace NSMBe4
             if (CloneMode)
             {
                 e = new NSMBEntrance(e);
-                EdControl.UndoManager.PerformAction(UndoType.AddEntrance, e, null);
-                Level.Entrances.Add(e);
                 e.Number = Level.getFreeEntranceNumber();
-                EdControl.repaint();
-                EdControl.FireSetDirtyFlag();
-                ed.UpdateList();
+                EdControl.UndoManager.Do(new AddEntranceAction(e));
                 UpdatePanel();
                 CloneMode = false;
             }
 
-            step = 1;
+            int step = 1;
             if (Control.ModifierKeys == Keys.Shift)
                 step = 8;
 
-            bool moved = false;
-
-            int nx = e.X, ny = e.Y;
-
-            if (DragStartX/step != x/step)
-            {
-                nx += (x / step - DragStartX / step) * step;
-                if (nx < 0)
-                    nx = 0;
-
-                DragStartX = x;
-                moved = true;
-            }
-            if (DragStartY / step != y / step)
-            {
-                ny += (y / step - DragStartY / step) * step;
-                if (ny < 0)
-                    ny = 0;
-
-                DragStartY = y;
-                moved = true;
-            }
-
-            if (moved)
-            {
-                nx = nx - nx % step;
-                ny = ny - ny % step;
-                EdControl.UndoManager.PerformAction(UndoType.MoveEntrance, e, new Rectangle(e.X, e.Y, nx, ny));
-                e.X = nx;
-                e.Y = ny;
-                EdControl.repaint();
-                UpdatePanel();
-                SetDirtyFlag();
-                Refresh();
-            }
+            int nx = Math.Max(0, (x - DragXOff) / step * step);
+            int ny = Math.Max(0, (y - DragYOff) / step * step);
+            if (e.X != nx || e.Y != ny)
+                EdControl.UndoManager.Do(new MoveEntranceAction(e, nx, ny));
         }
 
         public override void Refresh()
@@ -165,11 +129,7 @@ namespace NSMBe4
                 newE.X = (viewableRect.Left * 16 + viewableRect.Right * 16) / 2;
                 newE.Y = (viewableRect.Top * 16 + viewableRect.Bottom * 16) / 2;
                 newE.Number = Level.getFreeEntranceNumber();
-                Level.Entrances.Add(newE);
-                SelectObject(newE);
-                ed.SetEntrance(newE);
-                EdControl.UndoManager.PerformAction(UndoType.AddEntrance, newE, null);
-                EdControl.repaint();
+                EdControl.UndoManager.Do(new AddEntranceAction(newE));
             }
         }
 

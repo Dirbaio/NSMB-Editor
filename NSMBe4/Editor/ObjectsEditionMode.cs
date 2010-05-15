@@ -26,7 +26,10 @@ namespace NSMBe4
     public class ObjectsEditionMode:EditionMode
     {
         bool ResizeMode, CloneMode, SelectMode;
+        public bool RefreshDataEd;
         int DragStartX, DragStartY;
+        int DragXOff, DragYOff;
+        object CurObj;
 
         int minBoundX, minBoundY; //the top left corner of the selected objects
 
@@ -49,14 +52,16 @@ namespace NSMBe4
 
         public override void SelectObject(Object o)
         {
-            if (o is NSMBSprite || o is NSMBObject)
+            if ((o is NSMBSprite || o is NSMBObject) && (!SelectedObjects.Contains(o) || SelectedObjects.Count != 1))
             {
                 SelectedObjects.Clear();
                 SelectedObjects.Add(o);
+                RefreshDataEd = false;
             }
             if (o == null)
+            {
                 SelectedObjects.Clear();
-
+            }
             UpdatePanel();
         }
 
@@ -121,7 +126,6 @@ namespace NSMBe4
         private void findSelectedObjects(int selXE, int selYE, bool firstOnly)
         {
             SelectedObjects.Clear();
-
             int xs = DragStartX < selXE ? DragStartX:selXE;
             int xb = DragStartX > selXE ? DragStartX:selXE;
             int ys = DragStartY < selYE ? DragStartY:selYE;
@@ -163,6 +167,20 @@ namespace NSMBe4
             EdControl.repaint();
         }
 
+        private object GetFirst(int x, int y)
+        {
+            for (int l = Level.Sprites.Count - 1; l >= 0; l--)
+                if (Level.Sprites[l].getRectB().Contains(x, y))
+                    return Level.Sprites[l];
+            NSMBObject o;
+            for (int l = Level.Objects.Count - 1; l >= 0; l--) {
+                o = Level.Objects[l];
+                if (o.X <= x && o.Y <= y && o.X + o.Width > x && o.Y + o.Height > y)
+                    return o;
+            }
+            return null;
+        }
+
         private bool isInSelection(int x, int y)
         {
 
@@ -190,7 +208,6 @@ namespace NSMBe4
 
         public override void MouseDown(int x, int y)
         {
-
             int xb = x / 16;
             int yb = y / 16;
             lx = xb;
@@ -201,16 +218,29 @@ namespace NSMBe4
             if (!isInSelection(xb, yb) || SelectedObjects.Count == 1)
             {
                 // Select an object
+                NSMBSprite pSelectedSprite = null;
+                if (SelectedObjects.Count == 1 && SelectedObjects[0] is NSMBSprite)
+                    pSelectedSprite = SelectedObjects[0] as NSMBSprite;
                 findSelectedObjects(xb, yb, true);
+                if (SelectedObjects.Count == 1 && SelectedObjects[0] is NSMBSprite)
+                    RefreshDataEd = SelectedObjects[0] == pSelectedSprite;
                 SelectMode = SelectedObjects.Count == 0;
             }
-
             if (!SelectMode)
             {
                 //look if we are in resize mode...
                 ResizeMode = Control.ModifierKeys == Keys.Shift;
                 CloneMode = Control.ModifierKeys == Keys.Control;
                 SelectMode = false;
+            }
+            CurObj = GetFirst(xb, yb);
+            if (ResizeMode && SelectedObjects.Count == 1 && SelectedObjects[0] is NSMBObject) {
+                NSMBObject o = SelectedObjects[0] as NSMBObject;
+                DragXOff = (o.X + o.Width) * 16 - x;
+                DragYOff = (o.Y + o.Height) * 16 - y;
+            } else {
+                DragXOff = x - GetX(CurObj) * 16 - 8;
+                DragYOff = y - GetY(CurObj) * 16 - 8;
             }
             EdControl.repaint();
             UpdatePanel();
@@ -240,34 +270,15 @@ namespace NSMBe4
                     List<object> newObjects = CloneList(SelectedObjects);
                     if (newObjects.Count == 1) {
                         if (newObjects[0] is NSMBObject)
-                            EdControl.UndoManager.PerformAction(UndoType.AddObject, newObjects[0], null);
+                            EdControl.UndoManager.Do(new AddObjectAction(newObjects[0] as NSMBObject));
                         else
-                            EdControl.UndoManager.PerformAction(UndoType.AddSprite, newObjects[0], null);
-                    } else {
-                        EdControl.UndoManager.PerformAction(UndoType.AddMultiple, newObjects.ToArray(), null);
-                    }
+                            EdControl.UndoManager.Do(new AddSpriteAction(newObjects[0] as NSMBSprite));
+                    } else
+                        EdControl.UndoManager.Do(new AddMultipleAction(newObjects.ToArray()));
                     CloneMode = false;
                     ResizeMode = false;
                     SelectedObjects = newObjects;
                 }
-
-                int XDelta = 0;
-                int YDelta = 0;
-
-                if (DragStartX != NewX)
-                {
-                    XDelta = NewX - DragStartX;
-                    DragStartX = NewX;
-                }
-                if (DragStartY != NewY)
-                {
-                    YDelta = NewY - DragStartY;
-                    DragStartY = NewY;
-                }
-
-                if (XDelta == 0 && YDelta == 0)
-                    return;
-
                 if (ResizeMode)
                 {
                     if (SelectedObjects.Count == 1)
@@ -276,68 +287,31 @@ namespace NSMBe4
                         if (SelectedObject is NSMBObject)
                         {
                             NSMBObject o = SelectedObject as NSMBObject;
-                            EdControl.UndoManager.PerformAction(UndoType.SizeObject, o, new Rectangle(o.Width, o.Height, o.Width + XDelta, o.Height + XDelta));
-                            o.Width += XDelta;
-                            o.Height += YDelta;
-                            if(o.Width < 1)
-                                o.Width = 1;
-                            if(o.Height < 1)
-                                o.Height = 1;
-                            o.UpdateObjCache();
+                            int nx = Math.Max(1, (x + DragXOff - o.X * 16) / 16);
+                            int ny = Math.Max(1, (y + DragYOff - o.Y * 16) / 16);
+                            EdControl.UndoManager.Do(new SizeObjectAction(o, nx, ny));
                         }
                     }
                 }
                 else
                 {
-
-                    if (minBoundX + XDelta < 0)
-                        XDelta = -minBoundX;
-                    if (minBoundY + YDelta < 0)
-                        YDelta = -minBoundY;
-
-                    minBoundX += XDelta;
-                    minBoundY += YDelta;
-                    // Move Objects
-                    if (SelectedObjects.Count == 1) {
+                    int nx = Math.Max(0, (x - DragXOff) / 16);
+                    int ny = Math.Max(0, (y - DragYOff) / 16);
+                    if (SelectedObjects.Count == 1)
+                    {
                         if (SelectedObjects[0] is NSMBObject) {
                             NSMBObject o = SelectedObjects[0] as NSMBObject;
-                            EdControl.UndoManager.PerformAction(UndoType.MoveObject, o, new Rectangle(o.X, o.Y, o.X + XDelta, o.Y + YDelta));
+                            if (o.X != nx || o.Y != ny)
+                                EdControl.UndoManager.Do(new MoveObjectAction(o, nx, ny));
                         } else {
                             NSMBSprite s = SelectedObjects[0] as NSMBSprite;
-                            EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X + XDelta, s.Y + YDelta));
-                        } 
-                    } else {
-                        EdControl.UndoManager.PerformAction(UndoType.MoveMultiple, SelectedObjects.ToArray(), new Point(XDelta, YDelta));
-                    }
-                    foreach(object SelectedObject in SelectedObjects)
-                    {
-                        if (SelectedObject is NSMBSprite)
-                        {
-                            NSMBSprite s = SelectedObject as NSMBSprite;
-                            s.X += XDelta;
-                            s.Y += YDelta;
-                            if (s.X < 0)
-                                s.X = 0;
-                            if (s.Y < 0)
-                                s.Y = 0;
+                            if (s.X != nx || s.Y != ny)
+                                EdControl.UndoManager.Do(new MoveSpriteAction(s, nx, ny));
                         }
-                        else
-                        {
-                            NSMBObject o = SelectedObject as NSMBObject;
-                            o.X += XDelta;
-                            o.Y += YDelta;
-                            if (o.X < 0)
-                                o.X = 0;
-                            if (o.Y < 0)
-                                o.Y = 0;     
-                        }
-                    }
+                    } else
+                        if (GetX(CurObj) != nx || GetY(CurObj) != ny)
+                            EdControl.UndoManager.Do(new MoveMultipleAction(SelectedObjects.ToArray(), CurObj, nx, ny));
                 }
-
-                EdControl.repaint();
-                UpdatePanel();
-                if (XDelta != 0 || YDelta != 0)
-                    EdControl.FireSetDirtyFlag();
             }
         }
 
@@ -355,9 +329,14 @@ namespace NSMBe4
                 object SelectedObject = SelectedObjects[0];
                 if (SelectedObject is NSMBSprite)
                 {
-                    se.SetSprite(SelectedObject as NSMBSprite);
+                    NSMBSprite s = SelectedObject as NSMBSprite;
+                    NSMBSprite ps = se.s;
+                    se.SetSprite(s);
                     SetPanel(se);
-                    se.RefreshDataEditor();
+                    if (RefreshDataEd)
+                        se.RefreshDataEditor();
+                    else
+                        se.UpdateDataEditor();
                 }
                 else if (SelectedObject is NSMBObject)
                 {
@@ -375,7 +354,11 @@ namespace NSMBe4
         public override void Refresh()
         {
             SelectObject(null);
-            UpdatePanel();
+        }
+
+        public void RefreshDataEditor()
+        {
+            se.RefreshDataEditor();
         }
 
         public override void DeleteObject()
@@ -387,42 +370,11 @@ namespace NSMBe4
 
             if (SelectedObjects.Count == 1) {
                 if (SelectedObjects[0] is NSMBObject)
-                    EdControl.UndoManager.PerformAction(UndoType.RemoveObject, SelectedObjects[0], Level.Objects.IndexOf(SelectedObjects[0] as NSMBObject));
+                    EdControl.UndoManager.Do(new RemoveObjectAction(SelectedObjects[0] as NSMBObject));
                 else
-                    EdControl.UndoManager.PerformAction(UndoType.RemoveSprite, SelectedObjects[0], Level.Sprites.IndexOf(SelectedObjects[0] as NSMBSprite));
-            } else {
-                int[] zIndex = new int[SelectedObjects.Count];
-                object item;
-                for (int l = 0; l < SelectedObjects.Count; l++) {
-                    item = SelectedObjects[l];
-                    if (item is NSMBObject)
-                        zIndex[l] = Level.Objects.IndexOf(item as NSMBObject);
-                    else
-                        zIndex[l] = Level.Sprites.IndexOf(item as NSMBSprite);
-                }
-                EdControl.UndoManager.PerformAction(UndoType.RemoveMultiple, SelectedObjects.ToArray(), zIndex);
-            }
-
-            foreach (object oo in SelectedObjects)
-            {
-                if (oo is NSMBObject)
-                {
-                    NSMBObject o = oo as NSMBObject;
-                    Level.Objects.Remove(o);
-                }
-                if (oo is NSMBSprite)
-                {
-                    NSMBSprite o = oo as NSMBSprite;
-                    Level.Sprites.Remove(o);
-                }
-            }
-
-            SelectedObjects.Clear();
-
-            SetPanel(cp);
-            EdControl.repaint();
-            EdControl.FireSetDirtyFlag();
-
+                    EdControl.UndoManager.Do(new RemoveSpriteAction(SelectedObjects[0] as NSMBSprite));
+            } else
+                EdControl.UndoManager.Do(new RemoveMultipleAction(SelectedObjects.ToArray()));
         }
         public override object copy()
         {
@@ -443,7 +395,7 @@ namespace NSMBe4
                 if ((contents as List<object>).Count == 0)
                     return;
 
-                SelectedObjects = CloneList(contents as List<object>);
+                EdControl.UndoManager.Perform(new AddMultipleAction(CloneList(contents as List<object>).ToArray()));
                 
                 //now place the new objects on the topleft corner
 
@@ -471,39 +423,20 @@ namespace NSMBe4
                 Rectangle va = EdControl.ViewableArea;
                 int XOffs = va.X - XMin; //Offset to move all the objects
                 int YOffs = va.Y - YMin; //so they are on the topleft corner
-
-                foreach (object oo in SelectedObjects)
-                {
-                    if (oo is NSMBObject)
-                    {
-                        NSMBObject o = oo as NSMBObject;
-                        o.X += XOffs;
-                        o.Y += YOffs;
-                    }
-                    if (oo is NSMBSprite)
-                    {
-                        NSMBSprite o = oo as NSMBSprite;
-                        o.X += XOffs;
-                        o.Y += YOffs;
-                    }
-                }
+                EdControl.UndoManager.Perform(new MoveMultipleAction(SelectedObjects.ToArray(), XOffs, YOffs));
 
                 if (SelectedObjects.Count == 1) {
                     if (SelectedObjects[0] is NSMBObject)
-                        EdControl.UndoManager.PerformAction(UndoType.AddObject, SelectedObjects[0], null);
+                        EdControl.UndoManager.Do(new AddObjectAction(SelectedObjects[0] as NSMBObject));
                     else
-                        EdControl.UndoManager.PerformAction(UndoType.AddSprite, SelectedObjects[0], null);
-                } else {
-                    EdControl.UndoManager.PerformAction(UndoType.AddMultiple, SelectedObjects.ToArray(), null);
-                }
-
+                        EdControl.UndoManager.Do(new AddSpriteAction(SelectedObjects[0] as NSMBSprite));
+                } else
+                    EdControl.UndoManager.Do(new AddMultipleAction(SelectedObjects.ToArray()));
                 UpdateSelectedBounds();
-                EdControl.repaint();
-                EdControl.FireSetDirtyFlag();
             }
         }
 
-        //creates a clone of a list and adds it to the level
+        //creates a clone of a list
 
         private List<object> CloneList(List<object> Objects)
         {
@@ -511,22 +444,34 @@ namespace NSMBe4
             foreach (object SelectedObject in Objects)
             {
                 if (SelectedObject is NSMBObject)
-                {
-                    NSMBObject o = SelectedObject as NSMBObject;
-                    o = new NSMBObject(o);
-                    Level.Objects.Add(o);
-                    newObjects.Add(o);
-                }
+                    newObjects.Add(new NSMBObject(SelectedObject as NSMBObject));
                 else if (SelectedObject is NSMBSprite)
-                {
-                    NSMBSprite s = SelectedObject as NSMBSprite;
-                    s = new NSMBSprite(s);
-                    Level.Sprites.Add(s);
-                    newObjects.Add(s);
-                }
+                    newObjects.Add(new NSMBSprite(SelectedObject as NSMBSprite));
             }
 
             return newObjects;
+        }
+
+        public string[] getSpriteNames()
+        {
+            return se.allSprites;
+        }
+
+        private int GetX(object obj)
+        {
+            if (obj is NSMBObject)
+                return (obj as NSMBObject).X;
+            if (obj is NSMBSprite)
+                return (obj as NSMBSprite).X;
+            return -1;
+        }
+        private int GetY(object obj)
+        {
+            if (obj is NSMBObject)
+                return (obj as NSMBObject).Y;
+            if (obj is NSMBSprite)
+                return (obj as NSMBSprite).Y;
+            return -1;
         }
     }
 }

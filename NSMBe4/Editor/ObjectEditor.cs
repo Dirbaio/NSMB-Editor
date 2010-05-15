@@ -61,13 +61,9 @@ namespace NSMBe4
         private void SetTileset(int T)
         {
             if (T != o.Tileset)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeObjectType, o, new Rectangle(o.Tileset, o.ObjNum, T, o.ObjNum));
-            o.Tileset = T;
-            o.UpdateObjCache();
+                EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, T, o.ObjNum));
             objectPickerControl1.CurrentTileset = T;
             objectPickerControl1.Invalidate(true);
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
         }
         public void SetObject(NSMBObject no)
         {
@@ -107,42 +103,28 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             if ((int)objXPosUpDown.Value != o.X)
-                EdControl.UndoManager.PerformAction(UndoType.MoveObject, o, new Rectangle(o.X, o.Y, (int)objXPosUpDown.Value, o.Y));
-            o.X = (int)objXPosUpDown.Value;
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new MoveObjectAction(o, (int)objXPosUpDown.Value, o.Y));
         }
 
         private void objYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
             if ((int)objYPosUpDown.Value != o.Y)
-                EdControl.UndoManager.PerformAction(UndoType.MoveObject, o, new Rectangle(o.X, o.Y, o.X, (int)objYPosUpDown.Value));
-            o.Y = (int)objYPosUpDown.Value;
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new MoveObjectAction(o, o.X, (int)objYPosUpDown.Value));
         }
 
         private void objWidthUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
             if ((int)objWidthUpDown.Value != o.Width)
-                EdControl.UndoManager.PerformAction(UndoType.SizeObject, o, new Rectangle(o.Width, o.Height, (int)objWidthUpDown.Value, o.Height));
-            o.Width = (int)objWidthUpDown.Value;
-            o.UpdateObjCache();
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new SizeObjectAction(o, (int)objWidthUpDown.Value, o.Height));
         }
 
         private void objHeightUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
             if ((int)objHeightUpDown.Value != o.Height)
-                EdControl.UndoManager.PerformAction(UndoType.SizeObject, o, new Rectangle(o.Width, o.Height, o.Width, (int)objHeightUpDown.Value));
-            o.Height = (int)objHeightUpDown.Value;
-            o.UpdateObjCache();
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new SizeObjectAction(o, o.Width, (int)objHeightUpDown.Value));
         }
 
         private void objTileset0Button_Click(object sender, EventArgs e)
@@ -164,48 +146,30 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             if ((int)objTypeUpDown.Value != o.ObjNum)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeObjectType, o, new Rectangle(o.Tileset, o.ObjNum, o.Tileset, (int)objTypeUpDown.Value));
-            o.ObjNum = (int)objTypeUpDown.Value;
-            o.UpdateObjCache();
+                EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, o.Tileset, (int)objTypeUpDown.Value));
             objectPickerControl1.SelectedObject = (int)objTypeUpDown.Value;
             objectPickerControl1.EnsureObjVisible((int)objTypeUpDown.Value);
             objectPickerControl1.Invalidate(true);
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
         }
 
         private void objectPickerControl1_ObjectSelected()
         {
             DataUpdateFlag = true;
             objTypeUpDown.Value = objectPickerControl1.SelectedObject;
-            o.ObjNum = objectPickerControl1.SelectedObject;
-            o.UpdateObjCache();
+            EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, o.Tileset, objectPickerControl1.SelectedObject));
             DataUpdateFlag = false;
-
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
         }
 
         private void addObjectButton_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBObject no = new NSMBObject(10, 0, ViewableArea.X, ViewableArea.Y, 1, 1, EdControl.GFX);
-            EdControl.Level.Objects.Add(no);
-            EdControl.SelectObject(no);
-
-            EdControl.Invalidate(true);
-            EdControl.UndoManager.PerformAction(UndoType.AddObject, no, null);
-            EdControl.FireSetDirtyFlag();
+            EdControl.UndoManager.Do(new AddObjectAction(no));
         }
 
         private void deleteObjectButton_Click(object sender, EventArgs e)
         {
-            EdControl.UndoManager.PerformAction(UndoType.RemoveObject, o, EdControl.Level.Objects.IndexOf(o));
-            EdControl.Level.Objects.Remove(o);
-            EdControl.SelectObject(null);
-
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+            EdControl.UndoManager.Do(new RemoveObjectAction(o));
         }
     }
 }

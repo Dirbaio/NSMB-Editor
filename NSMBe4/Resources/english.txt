@@ -435,6 +435,8 @@ spriteDelete=Delete All
 groupBox1=Replace Sprite Number
 label2=New Sprite Number
 spriteReplaceAll=Replace All
+preview=Preview
+label4=New Sprite Name
 
 SpriteCount=Sprite {0} appears {1} times in this level.
 DeletedSprites={0} sprites deleted.
@@ -1379,8 +1381,8 @@ Change Object Type
 Add Sprite
 Remove Sprite
 Move Sprite
-Change Sprite Data
 Change Sprite Type
+Change Sprite Data
 Add {0} Objects/Sprites
 Remove {0} Objects/Sprites
 Move {0} Objects/Sprites
@@ -1390,10 +1392,11 @@ Move Entrance
 Change Entrance Property '{0}'
 Add Path
 Remove Path
+Move Path
+Change Path ID
 Add Path Node
 Remove Path Node
 Move Path Node
-Change Path ID
 Change Path Node Property '{0}'
 Add View
 Remove View

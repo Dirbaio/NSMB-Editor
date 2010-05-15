@@ -88,56 +88,31 @@ namespace NSMBe4
 
         private void data_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if (n == null)
-                return;
-            ushort[] values = { (ushort)unk1.Value, (ushort)unk2.Value, (ushort)unk3.Value, (ushort)unk4.Value, (ushort)unk5.Value, (ushort)unk6.Value };
-            if (n.Unknown1 != values[0])
-                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown1, values[0], 0, 0));
-            if (n.Unknown2 != values[1])
-                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown2, values[1], 1, 0));
-            if (n.Unknown3 != values[2])
-                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown3, values[2], 2, 0));
-            if (n.Unknown4 != values[3])
-                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown4, values[3], 3, 0));
-            if (n.Unknown5 != values[4])
-                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown5, values[4], 4, 0));
-            if (n.Unknown6 != values[5])
-                EdControl.UndoManager.PerformAction(UndoType.ChangePathNodeData, n, new Rectangle(n.Unknown6, values[5], 5, 0));
-            n.Unknown1 = values[0];
-            n.Unknown2 = values[1];
-            n.Unknown3 = values[2];
-            n.Unknown4 = values[3];
-            n.Unknown5 = values[4];
-            n.Unknown6 = values[5];
-
-            EdControl.FireSetDirtyFlag();
+            if (DataUpdateFlag || n == null) return;
+            if (n.Unknown1 != (int)unk1.Value)
+                EdControl.UndoManager.Do(new ChangePathNodeData(n, 0, (int)unk1.Value));
+            if (n.Unknown2 != (int)unk2.Value)
+                EdControl.UndoManager.Do(new ChangePathNodeData(n, 1, (int)unk2.Value));
+            if (n.Unknown3 != (int)unk3.Value)
+                EdControl.UndoManager.Do(new ChangePathNodeData(n, 2, (int)unk3.Value));
+            if (n.Unknown4 != (int)unk4.Value)
+                EdControl.UndoManager.Do(new ChangePathNodeData(n, 3, (int)unk4.Value));
+            if (n.Unknown5 != (int)unk5.Value)
+                EdControl.UndoManager.Do(new ChangePathNodeData(n, 4, (int)unk5.Value));
+            if (n.Unknown6 != (int)unk6.Value)
+                EdControl.UndoManager.Do(new ChangePathNodeData(n, 5, (int)unk6.Value));
         }
 
         private void position_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if (n == null) return;
-
-            EdControl.UndoManager.PerformAction(UndoType.MovePathNode, n, new Rectangle(n.X, n.Y, (ushort)nodeX.Value, (ushort)nodeY.Value));
-
-            n.X = (ushort)nodeX.Value;
-            n.Y = (ushort)nodeY.Value;
-
-            EdControl.repaint();
-            EdControl.FireSetDirtyFlag();
+            if (DataUpdateFlag || n == null) return;
+            EdControl.UndoManager.Do(new MovePathNodeAction(n, (int)nodeX.Value, (int)nodeY.Value));
         }
 
         private void pathID_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if (p == null)
-                return;
-
-            EdControl.UndoManager.PerformAction(UndoType.ChangePathID, p, new Point(p.id, (ushort)pathID.Value));
-
-            p.id = (ushort) pathID.Value;
-
+            if (DataUpdateFlag || n == null) return;
+            EdControl.UndoManager.Do(new ChangePathIDAction(p, (int)pathID.Value));
             UpdateItem();
         }
 
@@ -165,32 +140,19 @@ namespace NSMBe4
             npp.X = va.X * 16;
             npp.Y = va.Y * 16;
             np.points.Add(npp);
-            EdControl.UndoManager.PerformAction(UndoType.AddPath, np, null);
-
-            l.Add(np);
-            UpdateList();
-            EdControl.SelectObject(npp);
+            EdControl.UndoManager.Do(new AddPathAction(np));
         }
 
         private void deletePath_Click(object sender, EventArgs e)
         {
-            if (p == null)
-                return;
-            EdControl.UndoManager.PerformAction(UndoType.RemovePath, p, null);
-
-            l.Remove(p);
-            UpdateList();
-            EdControl.SelectObject(null);
-            EdControl.repaint();
+            if (p == null) return;
+            EdControl.UndoManager.Do(new RemovePathAction(p));
         }
 
         private void clonePath_Click(object sender, EventArgs e)
         {
             NSMBPath np = new NSMBPath(p);
-            l.Add(np);
-            setNode(np, np.points[0]);
-            EdControl.UndoManager.PerformAction(UndoType.AddPath, np, null);
-            UpdateList();
+            EdControl.UndoManager.Do(new AddPathAction(np));
         }
     }
 }

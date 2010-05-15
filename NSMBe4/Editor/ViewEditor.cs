@@ -52,27 +52,12 @@ namespace NSMBe4
             nv.Height = 12 * 16;
             nv.Width = 16 * 16;
             nv.isZone = !EditingViews;
-            if (nv.isZone)
-                EdControl.UndoManager.PerformAction(UndoType.AddZone, nv, null);
-            else
-                EdControl.UndoManager.PerformAction(UndoType.AddView, nv, null);
-
-            l.Add(nv);
-            EdControl.FireSetDirtyFlag();
-            EdControl.SelectObject(nv);
-            UpdateList();
+            EdControl.UndoManager.Do(new AddViewAction(nv));
         }
 
         private void deleteViewButton_Click(object sender, EventArgs e)
         {
-            if (v.isZone)
-                EdControl.UndoManager.PerformAction(UndoType.RemoveZone, v, EdControl.Level.Zones.IndexOf(v));
-            else
-                EdControl.UndoManager.PerformAction(UndoType.RemoveView, v, EdControl.Level.Views.IndexOf(v));
-            l.Remove(v);
-            EdControl.SelectObject(null);
-            EdControl.FireSetDirtyFlag();
-            UpdateList();
+            EdControl.UndoManager.Do(new RemoveViewAction(v));
         }
 
         public void delete()
@@ -101,6 +86,7 @@ namespace NSMBe4
         public void UpdateInfo()
         {
             DataUpdateFlag = true;
+            UpdateList();
             viewsList.SelectedItem = v;
 
             if (v != null)
@@ -141,32 +127,12 @@ namespace NSMBe4
         {
             if (v == null || DataUpdateFlag)
                 return;
-            if ((int)xPos.Value != v.X || (int)yPos.Value != v.Y) {
-                if (v.isZone)
-                    EdControl.UndoManager.PerformAction(UndoType.MoveZone, v, new Rectangle(v.X, v.Y, (int)xPos.Value, (int)yPos.Value));
-                else
-                    EdControl.UndoManager.PerformAction(UndoType.MoveView, v, new Rectangle(v.X, v.Y, (int)xPos.Value, (int)yPos.Value));
-            } else if ((int)width.Value != v.Width || (int)height.Value != v.Height) {
-                if (v.isZone)
-                    EdControl.UndoManager.PerformAction(UndoType.SizeZone, v, new Rectangle(v.Width, v.Height, (int)width.Value, (int)height.Value));
-                else
-                    EdControl.UndoManager.PerformAction(UndoType.SizeView, v, new Rectangle(v.Width, v.Height, (int)width.Value, (int)height.Value));
-            } else if ((int)viewID.Value != v.Number) {
-                if (v.isZone)
-                    EdControl.UndoManager.PerformAction(UndoType.ChangeZoneID, v, new Point(v.Number, (int)viewID.Value));
-                else
-                    EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.Number, (int)viewID.Value, 0, 0));
-            }
-
-
-            v.X = (int)xPos.Value;
-            v.Y = (int)yPos.Value;
-            v.Width = (int)width.Value;
-            v.Height = (int)height.Value;
-            v.Number = (int)viewID.Value;
-            EdControl.FireSetDirtyFlag();
-            EdControl.repaint();
-
+            if ((int)xPos.Value != v.X || (int)yPos.Value != v.Y)
+                EdControl.UndoManager.Do(new MoveViewAction(v, (int)xPos.Value, (int)yPos.Value));
+            else if ((int)width.Value != v.Width || (int)height.Value != v.Height)
+                EdControl.UndoManager.Do(new SizeViewAction(v, (int)width.Value, (int)height.Value));
+            else if ((int)viewID.Value != v.Number)
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 0, (int)viewID.Value));
             UpdateItem();
         }
 
@@ -175,28 +141,21 @@ namespace NSMBe4
             if (v == null || DataUpdateFlag)
                 return;
             if (v.Camera != (int)cameraID.Value)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.Camera, (int)cameraID.Value, 1, 0));
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 1, (int)cameraID.Value));
             v.Camera = (int)cameraID.Value;
             int newMusic = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
             if (v.Music != newMusic)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.Music, newMusic, 2, 0));
-            v.Music = newMusic;
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 2, newMusic));
             if (v.Unknown1 != (int)unk1.Value)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.Unknown1, (int)unk1.Value, 3, 0));
-            v.Unknown1 = (int)unk1.Value;
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 3, (int)unk1.Value));
             if (v.Unknown2 != (int)unk2.Value)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.Unknown2, (int)unk2.Value, 4, 0));
-            v.Unknown2 = (int)unk2.Value;
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 4, (int)unk2.Value));
             if (v.Unknown3 != (int)unk3.Value)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.Unknown3, (int)unk3.Value, 5, 0));
-            v.Unknown3 = (int)unk3.Value;
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 5, (int)unk3.Value));
             if (v.Lighting != (int)light.Value)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.Lighting, (int)light.Value, 6, 0));
-            v.Lighting = (int)light.Value;
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 6, (int)light.Value));
             if (v.FlagpoleID != (int)progressID.Value)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeViewData, v, new Rectangle(v.FlagpoleID, (int)progressID.Value, 7, 0));
-            v.FlagpoleID = (int)progressID.Value;
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 7, (int)progressID.Value));
         }
 
         private void viewsList_SelectedIndexChanged(object sender, EventArgs e) {

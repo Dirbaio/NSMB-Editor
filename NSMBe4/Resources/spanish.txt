@@ -432,6 +432,8 @@ spriteDelete=Borrar Todos
 groupBox1=Sustituir Numero de Sprite
 label2=Numero de Sprite Nuevo
 spriteReplaceAll=Sustituir Todos
+preview=Preestrenar
+label4=Nuevo nombre de Sprite
 
 SpriteCount=Sprite {0} aparece {1} veces en este nivel.
 DeletedSprites={0} sprites borrados.
@@ -1376,8 +1378,8 @@ Cambiar Objeto Tipo
 Agregar Sprite
 Eliminar Sprite
 Mueve Sprite
-Cambiar Sprite Datos
 Cambiar Sprite Tipo
+Cambiar Sprite Datos
 Agregar {0} Objectos/Sprites
 Eliminar {0} Objectos/Sprites
 Mueve {0} Objectos/Sprites
@@ -1387,10 +1389,11 @@ Mueve Entrada
 Cambiar Entrada Propiedad '{0}'
 Agregar Ruta
 Eliminar Ruta
+Mueve Ruta
+Cambiar Ruta ID
 Agregar Ruta Nodo
 Eliminar Ruta Nodo
 Mueve Ruta Nodo
-Cambiar Ruta ID
 Cambiar Ruta Nodo Propiedad '{0}'
 Agregar Vista
 Eliminar Vista

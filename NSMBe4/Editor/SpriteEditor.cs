@@ -27,13 +27,13 @@ namespace NSMBe4
 {
     public partial class SpriteEditor : UserControl
     {
-        private NSMBSprite s;
+        public NSMBSprite s;
         private LevelEditorControl EdControl;
         private bool DataUpdateFlag = false;
         private byte[] SSTable;
         private bool updating = false;
 
-        private string[] allSprites = new string[324];
+        public string[] allSprites = new string[324];
         private List<int> curSprites = new List<int>();
 
         public SpriteEditor(NSMBSprite s, LevelEditorControl EdControl)
@@ -130,77 +130,44 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             if (s.X != (int)spriteXPosUpDown.Value)
-                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, (int)spriteXPosUpDown.Value, s.Y));
-            s.X = (int)spriteXPosUpDown.Value;
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new MoveSpriteAction(s, (int)spriteXPosUpDown.Value, s.Y));
         }
 
         private void spriteYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
             if (s.Y != (int)spriteYPosUpDown.Value)
-                EdControl.UndoManager.PerformAction(UndoType.MoveSprite, s, new Rectangle(s.X, s.Y, s.X, (int)spriteYPosUpDown.Value));
-            s.Y = (int)spriteYPosUpDown.Value;
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new MoveSpriteAction(s, s.X, (int)spriteYPosUpDown.Value));
         }
 
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
             if (s.Type != (int)spriteTypeUpDown.Value)
-                EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteType, s, new Point(s.Type, (int)spriteTypeUpDown.Value));
-            s.Type = (int)spriteTypeUpDown.Value;
-            DataUpdateFlag = true;
-            spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
-            DataUpdateFlag = false;
-            UpdateDataEditor();
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+                EdControl.UndoManager.Do(new ChangeSpriteTypeAction(s, (int)spriteTypeUpDown.Value));
         }
 
         private void spriteListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
             if (spriteListBox.SelectedIndex > -1 && curSprites[spriteListBox.SelectedIndex] != s.Type)
-            {
                 spriteTypeUpDown.Value = curSprites[spriteListBox.SelectedIndex];
-                s.Type = (int)spriteTypeUpDown.Value;
-                DataUpdateFlag = true;
-                DataUpdateFlag = false;
-                UpdateDataEditor();
-                EdControl.Invalidate(true);
-                EdControl.FireSetDirtyFlag();
-            }
         }
 
         private void addSpriteButton_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBSprite ns = new NSMBSprite(EdControl.Level);
-            EdControl.UndoManager.PerformAction(UndoType.AddSprite, ns, null);
             ns.X = ViewableArea.X;
             ns.Y = ViewableArea.Y;
             ns.Type = 0;
             ns.Data = new byte[6];
-
-            EdControl.Level.Sprites.Add(ns);
-            EdControl.SelectObject(ns);
-
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
-
+            EdControl.UndoManager.Do(new AddSpriteAction(ns));
         }
 
         private void deleteSpriteButton_Click(object sender, EventArgs e)
         {
-            EdControl.UndoManager.PerformAction(UndoType.RemoveSprite, s, EdControl.Level.Sprites.IndexOf(s));
-            EdControl.Level.Sprites.Remove(s);
-            EdControl.SelectObject(null);
-
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
+            EdControl.UndoManager.Do(new RemoveSpriteAction(s));
         }
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -249,21 +216,12 @@ namespace NSMBe4
                 byte[] data = new byte[6];
                 for (int hexidx = 0; hexidx < 6; hexidx++)
                     data[hexidx] = byte.Parse(parseit.Substring(hexidx*2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                if (!updating) {
-                    byte[][] datas = new byte[2][];
-                    datas[0] = new byte[6];
-                    datas[1] = new byte[6];
-                    Array.Copy(s.Data.Clone() as byte[], datas[0], 6);
-                    Array.Copy(data.Clone() as byte[], datas[1], 6);
-                    EdControl.UndoManager.PerformAction(UndoType.ChangeSpriteData, s, datas);
-                }
-                s.Data = data;
+                if (!updating)
+                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(s, data));
                 spriteDataTextBox.BackColor = SystemColors.Window;
             }
             else
                 spriteDataTextBox.BackColor = Color.Coral;
-            EdControl.Invalidate(true);
-            EdControl.FireSetDirtyFlag();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

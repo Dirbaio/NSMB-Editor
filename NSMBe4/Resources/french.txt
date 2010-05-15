@@ -1,5 +1,5 @@
 ﻿;NSMB Editor 5
-;English Translation File
+;French Translation File
 ;Created by Treeki; 12 Oct 2009
 ;
 ;   This file is part of NSMB Editor 5.
@@ -434,6 +434,8 @@ spriteDelete=Tout supprimer
 groupBox1=Remplacer le numéro du sprite
 label2=Nouveau numéro de sprite
 spriteReplaceAll=Remplacer tout
+preview=Avant-première
+label4=Nouveau nom de sprite
 
 SpriteCount=Ls sprite {0} apparait {1} fois dans ce niveau.
 DeletedSprites={0} sprites effacés.
@@ -1378,8 +1380,8 @@ Change Object Type
 Add Sprite
 Remove Sprite
 Move Sprite
-Change Sprite Data
 Change Sprite Type
+Change Sprite Data
 Add {0} Objects/Sprites
 Remove {0} Objects/Sprites
 Move {0} Objects/Sprites
@@ -1389,10 +1391,11 @@ Move Entrance
 Change Entrance Property '{0}'
 Add Path
 Remove Path
+Move Path
+Change Path ID
 Add Path Node
 Move Path Node
 Remove Path Node
-Change Path ID
 Change Path Node Property '{0}'
 Add View
 Remove View

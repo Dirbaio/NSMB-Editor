@@ -27,7 +27,7 @@ namespace NSMBe4
     {
         NSMBPath p;
         NSMBPathPoint n;
-        int DragStartX, DragStartY;
+        int DragXOff, DragYOff;
         bool CloneMode;
 
         PathEditor pe;
@@ -64,19 +64,15 @@ namespace NSMBe4
             if (n == null)
                 return;
 
-            DragStartX = x;
-            DragStartY = y;
+            DragXOff = x - n.X;
+            DragYOff = y - n.Y;
             CloneMode = Control.ModifierKeys == Keys.Control;
             if (Control.ModifierKeys == Keys.Alt) //can't make an empty path!
             {
-                if (p.points.Count > 1) {
-                    EdControl.UndoManager.PerformAction(UndoType.RemovePathNode, n, p.points.IndexOf(n));
-                    p.points.Remove(n);
-                } else {
-                    EdControl.UndoManager.PerformAction(UndoType.RemovePath, p, null);
-                    l.Remove(p);
-                }
-                SetDirtyFlag();
+                if (p.points.Count > 1)
+                    EdControl.UndoManager.Do(new RemovePathNodeAction(n));
+                else
+                    EdControl.UndoManager.Do(new RemovePathAction(p));
                 n = null;
                 p = null;
             }
@@ -93,66 +89,26 @@ namespace NSMBe4
             {
                 int ind = p.points.IndexOf(n);
                 n = new NSMBPathPoint(n);
-                p.points.Insert(ind + 1, n);
-                EdControl.UndoManager.PerformAction(UndoType.AddPathNode, n, ind + 1);
+                EdControl.UndoManager.Do(new AddPathNodeAction(n, ind + 1));
                 CloneMode = false;
             }
 
             int step = 1;
             if ((Control.ModifierKeys & Keys.Shift) > 0)
                 step = 8;
-
-            int startIndex = p.points.IndexOf(n);
-            int endIndex = startIndex;
-            if ((Control.ModifierKeys & (Keys.Control | Keys.Alt)) >= (Keys.Control | Keys.Alt)) {
-                startIndex = 0;
-                endIndex = p.points.Count - 1;
+            bool MovePath = (Control.ModifierKeys & (Keys.Control | Keys.Alt)) >= (Keys.Control | Keys.Alt);
+            int minx = 0, miny = 0;
+            if (MovePath) {
+                minx = n.X - p.getMinX();
+                miny = n.Y - p.getMinY();
             }
-            bool anymoved = false;
-            int minX = p.getMinX();
-            int minY = p.getMinY();
-            int XDelta = (x / step - DragStartX / step) * step;
-            int YDelta = (y / step - DragStartY / step) * step;
-            if (minX + XDelta < 0)
-                XDelta = -minX;
-            if (minY + YDelta < 0)
-                YDelta = -minY;
-            for (int i = startIndex; i <= endIndex; i++)
-            {
-                NSMBPathPoint cn = p.points[i];
-                bool moved = false;
-                if (DragStartX / step != x / step)
-                {
-                    cn.X += XDelta;
-                    if (cn.X < 0)
-                        cn.X = 0;
-                    anymoved = true;
-                    moved = true;
-                }
-                if (DragStartY / step != y / step)
-                {
-                    cn.Y += YDelta;
-                    if (cn.Y < 0)
-                        cn.Y = 0;
-                    anymoved = true;
-                    moved = true;
-                }
-
-                if (moved)
-                {
-                    int PrevX = cn.X, PrevY = cn.Y;
-                    cn.X = cn.X - cn.X % step;
-                    cn.Y = cn.Y - cn.Y % step;
-                    EdControl.UndoManager.PerformAction(UndoType.MovePathNode, cn, new Rectangle(PrevX, PrevY, cn.X, cn.Y));
-                }
-            }
-            if (anymoved)
-            {
-                DragStartX = x;
-                DragStartY = y;
-                EdControl.repaint();
-                UpdatePanel();
-                SetDirtyFlag();
+            int nx = Math.Max(minx, (x - DragXOff) / step * step);
+            int ny = Math.Max(miny, (y - DragYOff) / step * step);
+            if (n.X != nx || n.Y != ny) {
+                if (MovePath) {
+                    EdControl.UndoManager.Do(new MovePathAction(n, nx, ny));
+                } else
+                    EdControl.UndoManager.Do(new MovePathNodeAction(n, nx, ny));
             }
         }
 
@@ -214,18 +170,10 @@ namespace NSMBe4
 
         public override void DeleteObject()
         {
-            
-            if (p != null && p.points.Count > 1) {
-                EdControl.UndoManager.PerformAction(UndoType.RemovePathNode, n, n.parent.points.IndexOf(n));
-                p.points.Remove(n);
-            }
-            if (p != null && p.points.Count == 1) {
-                EdControl.UndoManager.PerformAction(UndoType.RemovePath, p, null);
-                l.Remove(p);
-            }
-            SelectObject(null);
-            Refresh();
-            EdControl.repaint();
+            if (p != null && p.points.Count > 1)
+                EdControl.UndoManager.Do(new RemovePathNodeAction(n));
+            else
+                EdControl.UndoManager.Do(new RemovePathAction(p));
         }
 
         public override object copy()
@@ -238,10 +186,7 @@ namespace NSMBe4
         public override void paste(object contents)
         {
             if (contents is NSMBPathPoint)
-                p.points.Add(contents as NSMBPathPoint);
-            EdControl.UndoManager.PerformAction(UndoType.AddPathNode, contents, null);
-            EdControl.repaint();
-                
+                EdControl.UndoManager.Do(new AddPathNodeAction(contents as NSMBPathPoint, p.points.IndexOf(n) + 1));
         }
     }
 }

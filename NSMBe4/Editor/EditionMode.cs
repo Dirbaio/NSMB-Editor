@@ -34,12 +34,6 @@ namespace NSMBe4
             this.EdControl = EdControl;
         }
 
-
-        public void SetDirtyFlag()
-        {
-            EdControl.FireSetDirtyFlag();
-        }
-
         public void SetPanel(UserControl p)
         {
             EdControl.editor.SetPanel(p);

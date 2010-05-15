@@ -123,8 +123,6 @@ namespace NSMBe4 {
 
         public string LevelFilename;
 
-        private bool Dirty;
-
         private UserControl SelectedPanel;
 
         public void SetPanel(UserControl np)
@@ -142,12 +140,12 @@ namespace NSMBe4 {
         }
 
         private void saveLevelButton_Click(object sender, EventArgs e) {
-            Dirty = false;
+            levelEditorControl1.UndoManager.Clean();
             Level.Save();
         }
 
         private void LevelEditor_FormClosing(object sender, FormClosingEventArgs e) {
-            if (Dirty) {
+            if (levelEditorControl1.UndoManager.dirty) {
                 DialogResult dr;
                 dr = MessageBox.Show(LanguageManager.Get("LevelEditor", "UnsavedLevel"), "NSMB Editor 4", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                 if (dr == DialogResult.Yes) {
@@ -167,7 +165,6 @@ namespace NSMBe4 {
             if (LevelConfigForm == null || LevelConfigForm.IsDisposed) {
                 LevelConfigForm = new LevelConfig(Level);
             }
-            LevelConfigForm.SetDirtyFlag += new LevelConfig.SetDirtyFlagDelegate(levelEditorControl1_SetDirtyFlag);
             LevelConfigForm.ReloadTileset += new LevelConfig.ReloadTilesetDelegate(LevelConfigForm_ReloadTileset);
             LevelConfigForm.RefreshMainWindow += new LevelConfig.RefreshMainWindowDelegate(LevelConfigForm_RefreshMainWindow);
             LevelConfigForm.LoadSettings();
@@ -196,10 +193,6 @@ namespace NSMBe4 {
                 tools.Close();
             GFX.close();
             Level.close();
-        }
-
-        private void levelEditorControl1_SetDirtyFlag() {
-            Dirty = true;
         }
 
         private void smallBlockOverlaysToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -257,40 +250,27 @@ namespace NSMBe4 {
         }
 
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (Level.Objects.Count == 0)
+                return;
             if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelObjects"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
                 return;
             }
-
-            int[] zIndex = new int[Level.Objects.Count];
-            for (int l = 0; l < Level.Objects.Count; l++)
-                zIndex[l] = l;
-            levelEditorControl1.UndoManager.PerformAction(UndoType.RemoveMultiple, Level.Objects.ToArray(), zIndex);
-            Level.Objects.Clear();
-            if (levelEditorControl1.mode != null)
-                levelEditorControl1.mode.Refresh();
-            levelEditorControl1.Invalidate(true);
-            Dirty = true;
+            levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Objects.ToArray()));
         }
 
         private void deleteAllSpritesToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (Level.Sprites.Count == 0)
+                return;
             if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelSprites"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
                 return;
             }
-
-            int[] zIndex = new int[Level.Sprites.Count];
-            for (int l = 0; l < Level.Sprites.Count; l++)
-                zIndex[l] = l;
-            levelEditorControl1.UndoManager.PerformAction(UndoType.RemoveMultiple, Level.Sprites.ToArray(), zIndex);
-            Level.Sprites.Clear();
-            if(levelEditorControl1.mode != null)
-                levelEditorControl1.mode.Refresh();
-            levelEditorControl1.Invalidate(true);
-            Dirty = true;
+            levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Sprites.ToArray()));
         }
 
         private void spriteFinder_Click(object sender, EventArgs e)
         {
             tools.Show();
+            tools.BringToFront();
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
