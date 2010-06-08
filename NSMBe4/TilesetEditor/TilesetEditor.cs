@@ -132,5 +132,22 @@ namespace NSMBe4
             t.ImportGFX(openFileDialog1.FileName, false);
             mustRepaintObjects();
         }
+
+        private void exportTilesetButton_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog2.ShowDialog() != DialogResult.OK)
+                return;
+
+            t.exportTileset(saveFileDialog2.FileName);
+        }
+
+        private void importTilesetButton_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog2.ShowDialog() != DialogResult.OK)
+                return;
+
+            t.importTileset(openFileDialog2.FileName);
+            mustRepaintObjects();
+        }
     }
 }

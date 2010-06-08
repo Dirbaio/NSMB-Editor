@@ -36,10 +36,10 @@
             this.vScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.vScrollBar.LargeChange = 4;
-            this.vScrollBar.Location = new System.Drawing.Point(308, 0);
+            this.vScrollBar.Location = new System.Drawing.Point(429, 0);
             this.vScrollBar.Maximum = 1024;
             this.vScrollBar.Name = "vScrollBar";
-            this.vScrollBar.Size = new System.Drawing.Size(15, 225);
+            this.vScrollBar.Size = new System.Drawing.Size(15, 351);
             this.vScrollBar.TabIndex = 0;
             this.vScrollBar.ValueChanged += new System.EventHandler(this.vScrollBar_ValueChanged);
             // 
@@ -48,10 +48,10 @@
             this.hScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.hScrollBar.LargeChange = 4;
-            this.hScrollBar.Location = new System.Drawing.Point(0, 225);
+            this.hScrollBar.Location = new System.Drawing.Point(0, 351);
             this.hScrollBar.Maximum = 512;
             this.hScrollBar.Name = "hScrollBar";
-            this.hScrollBar.Size = new System.Drawing.Size(308, 15);
+            this.hScrollBar.Size = new System.Drawing.Size(429, 15);
             this.hScrollBar.TabIndex = 1;
             this.hScrollBar.ValueChanged += new System.EventHandler(this.hScrollBar_ValueChanged);
             // 
@@ -63,7 +63,7 @@
             this.DrawingArea.BackColor = System.Drawing.Color.LightSlateGray;
             this.DrawingArea.Location = new System.Drawing.Point(0, 0);
             this.DrawingArea.Name = "DrawingArea";
-            this.DrawingArea.Size = new System.Drawing.Size(308, 225);
+            this.DrawingArea.Size = new System.Drawing.Size(429, 351);
             this.DrawingArea.TabIndex = 2;
             this.DrawingArea.TabStop = false;
             this.DrawingArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseMove);
@@ -80,12 +80,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Controls.Add(this.DrawingArea);
             this.Controls.Add(this.hScrollBar);
             this.Controls.Add(this.vScrollBar);
             this.Name = "LevelEditorControl";
-            this.Size = new System.Drawing.Size(323, 240);
+            this.Size = new System.Drawing.Size(444, 366);
             this.Resize += new System.EventHandler(this.LevelEditorControl_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.DrawingArea)).EndInit();
             this.ResumeLayout(false);

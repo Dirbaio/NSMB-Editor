@@ -314,5 +314,24 @@ namespace NSMBe4.DSFileSystem
         {
             return addr >= fileBegin && addr < fileBegin + fileSize;
         }
+
+        private List<InlineFile> inlineEditors;
+
+        public void beginEditInline(InlineFile f)
+        {
+            if (inlineEditors.Count == 0)
+                beginEdit(this);
+
+            inlineEditors.Add(f);
+        }
+
+        public void endEditInline(InlineFile f)
+        {
+            if (!inlineEditors.Contains(f))
+                throw new Exception("ERROR: INLINE FILE");
+            inlineEditors.Remove(f);
+            if (inlineEditors.Count == 0)
+                endEdit(this);
+        }
     }
 }

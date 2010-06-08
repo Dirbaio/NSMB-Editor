@@ -278,16 +278,10 @@ namespace NSMBe4.DSFileSystem
             }
             File f = e.Node.Tag as File;
 
-            String FileName = f.name;
+            String filename = f.name;
+            filename = filename.ToLowerInvariant();
 
-            if(!FileName.Contains("."))
-                return;
-            string ext = FileName.Substring(FileName.LastIndexOf(".")+1);
-            ext = ext.ToUpperInvariant();
-            switch (ext)
-            {
-                case "NSBTX":
-                case "NSBMD":
+            if(filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
                     try
                     {
                         new TextureEditor(f).Show();
@@ -297,12 +291,20 @@ namespace NSMBe4.DSFileSystem
                         MessageBox.Show(ex.Message);
                     }
                     
-                    break;
-                case "NARC":
+            else if(filename.EndsWith(".narc"))
                     new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
-                    break;
-                default:
-                    if (gv == null || gv.IsDisposed)
+            else if(filename.EndsWith("_ncl.bin"))
+            {
+                LevelChooser.showImgMgr();
+                LevelChooser.imgMgr.m.addPalette(new FilePalette(f));
+            }
+            else if(filename.EndsWith("_ncg.bin"))
+            {
+                LevelChooser.showImgMgr();
+                LevelChooser.imgMgr.m.addImage(new Image2D(f, 256, false));
+            }
+            /*
+            if (gv == null || gv.IsDisposed)
                         gv = new GraphicsViewer();
 
                     gv.Show();
@@ -313,7 +315,7 @@ namespace NSMBe4.DSFileSystem
                     else
                         gv.SetFile(file);
                     break;
-            }
+            }*/
         }
 
         private void hexEdButton_Click(object sender, EventArgs e)

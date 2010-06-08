@@ -171,11 +171,11 @@
     <EmbeddedResource Include="DSFileSystem\FilesystemBrowserDialog.resx">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GraphicsEditor\ColourPicker.resx">
+    <EmbeddedResource Include="GraphicEditing\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GraphicsEditor\ColourPickerControl.resx">
+    <EmbeddedResource Include="GraphicEditing\ColourPickerControl.resx">
       <DependentUpon>ColourPickerControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -191,9 +191,15 @@
       <DependentUpon>EntranceEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GraphicsEditor\GraphicsEditor.resx">
+    <EmbeddedResource Include="GraphicEditing\GraphicsEditor.resx">
       <DependentUpon>GraphicsEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphicEditing\ImageManager.resx">
+      <DependentUpon>ImageManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphicEditing\ImageManagerWindow.resx">
+      <DependentUpon>ImageManagerWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImagePreviewer.resx">
       <DependentUpon>ImagePreviewer.cs</DependentUpon>
@@ -242,7 +248,7 @@
       <DependentUpon>ObjectPickerControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GraphicsEditor\PalettePicker.resx">
+    <EmbeddedResource Include="GraphicEditing\PalettePicker.resx">
       <DependentUpon>PalettePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -535,24 +541,41 @@
     <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />
     <Compile Include="DSFileSystem\OverlayFile.cs" />
     <Compile Include="Editor\UndoManager.cs" />
-    <Compile Include="GraphicsEditor\ColourPicker.cs">
+    <Compile Include="GraphicEditing\Image2D.cs" />
+    <Compile Include="GraphicEditing\ImageManagerWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GraphicsEditor\ColourPicker.Designer.cs">
+    <Compile Include="GraphicEditing\ImageManagerWindow.Designer.cs">
+      <DependentUpon>ImageManagerWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraphicEditing\Palette.cs" />
+    <Compile Include="GraphicEditing\ColourPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphicEditing\ColourPicker.Designer.cs">
       <DependentUpon>ColourPicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="GraphicsEditor\ColourPickerControl.cs">
+    <Compile Include="GraphicEditing\ColourPickerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GraphicsEditor\ColourPickerControl.Designer.cs">
+    <Compile Include="GraphicEditing\ColourPickerControl.Designer.cs">
       <DependentUpon>ColourPickerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraphicEditing\FilePalette.cs" />
+    <Compile Include="GraphicEditing\PalettedImage.cs" />
+    <Compile Include="GraphicEditing\PixelPalettedImage.cs" />
+    <Compile Include="GraphicEditing\ImageManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicEditing\ImageManager.Designer.cs">
+      <DependentUpon>ImageManager.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageIndexer.cs" />
     <Compile Include="ImageTiler.cs" />
-    <Compile Include="GraphicsEditor\GraphicsEditor.cs">
+    <Compile Include="GraphicEditing\GraphicsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GraphicsEditor\GraphicsEditor.Designer.cs">
+    <Compile Include="GraphicEditing\GraphicsEditor.Designer.cs">
       <DependentUpon>GraphicsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="LanguageManager.cs" />
@@ -579,10 +602,10 @@
       <DependentUpon>Map16Picker.cs</DependentUpon>
     </Compile>
     <Compile Include="ROM.cs" />
-    <Compile Include="GraphicsEditor\PalettePicker.cs">
+    <Compile Include="GraphicEditing\PalettePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GraphicsEditor\PalettePicker.Designer.cs">
+    <Compile Include="GraphicEditing\PalettePicker.Designer.cs">
       <DependentUpon>PalettePicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\PathEditor.cs">

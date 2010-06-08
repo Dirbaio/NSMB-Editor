@@ -11,7 +11,7 @@ namespace NSMBe4.DSFileSystem
         private File parentFile;
 
         public InlineFile(File parent, int offs, int len, string name, Directory parentDir)
-            :base(parent.parent, parentDir, name)
+            :base(parent.parent, parentDir, parent.name+" - "+name)
         {
             parentFile = parent;
             inlineOffs = offs;
@@ -23,13 +23,13 @@ namespace NSMBe4.DSFileSystem
 
         public override void beginEdit(object editor)
         {
-            parentFile.beginEdit(editor);
+            parentFile.beginEditInline(this);
             base.beginEdit(editor);
         }
 
         public override void endEdit(object editor)
         {
-            parentFile.endEdit(editor);
+            parentFile.endEditInline(this);
             base.endEdit(editor);
         }
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TilesetEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tilesetObjectEditor1 = new NSMBe4.TilesetObjectEditor();
@@ -38,13 +39,18 @@
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.deleteAllButton = new System.Windows.Forms.ToolStripButton();
-            this.importButton = new System.Windows.Forms.ToolStripButton();
-            this.exportButton = new System.Windows.Forms.ToolStripButton();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteAllButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportButton = new System.Windows.Forms.ToolStripButton();
+            this.importButton = new System.Windows.Forms.ToolStripButton();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportTilesetButton = new System.Windows.Forms.ToolStripButton();
+            this.importTilesetButton = new System.Windows.Forms.ToolStripButton();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -72,7 +78,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(637, 442);
+            this.tabPage1.Size = new System.Drawing.Size(828, 510);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             // 
@@ -120,7 +126,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(637, 442);
+            this.tabPage3.Size = new System.Drawing.Size(828, 510);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -141,7 +147,10 @@
             this.deleteAllButton,
             this.toolStripSeparator2,
             this.exportButton,
-            this.importButton});
+            this.importButton,
+            this.toolStripSeparator3,
+            this.exportTilesetButton,
+            this.importTilesetButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(836, 25);
@@ -157,6 +166,11 @@
             this.toolStripButton1.Text = "<toolStripButton1>";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // deleteAllButton
             // 
             this.deleteAllButton.Image = global::NSMBe4.Properties.Resources.cross_script;
@@ -166,14 +180,10 @@
             this.deleteAllButton.Text = "Del All";
             this.deleteAllButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
-            // importButton
+            // toolStripSeparator2
             // 
-            this.importButton.Image = global::NSMBe4.Properties.Resources.image__plus;
-            this.importButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(63, 22);
-            this.importButton.Text = "Import";
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // exportButton
             // 
@@ -184,23 +194,53 @@
             this.exportButton.Text = "Export";
             this.exportButton.Click += new System.EventHandler(this.exportButton_Click_1);
             // 
+            // importButton
+            // 
+            this.importButton.Image = global::NSMBe4.Properties.Resources.image__plus;
+            this.importButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(63, 22);
+            this.importButton.Text = "Import";
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.Filter = "PNG|*.png";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "PNG|*.png";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // exportTilesetButton
+            // 
+            this.exportTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("exportTilesetButton.Image")));
+            this.exportTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportTilesetButton.Name = "exportTilesetButton";
+            this.exportTilesetButton.Size = new System.Drawing.Size(94, 22);
+            this.exportTilesetButton.Text = "export tileset";
+            this.exportTilesetButton.Click += new System.EventHandler(this.exportTilesetButton_Click);
+            // 
+            // importTilesetButton
+            // 
+            this.importTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("importTilesetButton.Image")));
+            this.importTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.importTilesetButton.Name = "importTilesetButton";
+            this.importTilesetButton.Size = new System.Drawing.Size(97, 22);
+            this.importTilesetButton.Text = "import tileset";
+            this.importTilesetButton.Click += new System.EventHandler(this.importTilesetButton_Click);
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.Filter = "NSMB Tilesets|*.nmt";
+            // 
+            // saveFileDialog2
+            // 
+            this.saveFileDialog2.Filter = "NSMB Tilesets|*.nmt";
             // 
             // TilesetEditor
             // 
@@ -242,5 +282,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton exportTilesetButton;
+        private System.Windows.Forms.ToolStripButton importTilesetButton;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog2;
     }
 }

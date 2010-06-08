@@ -33,6 +33,14 @@ namespace NSMBe4 {
     public partial class LevelChooser : Form
     {
         private List<LevelEditor> editors;
+        public static ImageManagerWindow imgMgr;
+        public static void showImgMgr()
+        {
+            if (imgMgr == null || imgMgr.IsDisposed)
+                imgMgr = new ImageManagerWindow();
+
+            imgMgr.Show();
+        }
 
         public LevelChooser() {
             InitializeComponent();
@@ -636,6 +644,25 @@ namespace NSMBe4 {
             ROM.FS.fatFile.beginEdit(this);
             ROM.FS.fatFile.replace(o.getArray(), this);
             ROM.FS.fatFile.endEdit(this);
+        }
+
+        private void overlaySearchButton_Click(object sender, EventArgs e)
+        {
+            uint ramAddr = ArmPatcher.parseUHex(ramAddrBox.Text);
+            uint ramVal = ArmPatcher.parseUHex(valueBox.Text);
+
+            bool found = false;
+            foreach (OverlayFile f in ROM.FS.arm9ovs)
+                if (f.ramAddr <= ramAddr && f.ramAddr + f.ramSize > ramAddr)
+                    if (f.getUintAt((int)(ramAddr - f.ramAddr)) == ramVal)
+                    {
+                        MessageBox.Show("Found Overlay ID: " + f.ovId.ToString("X2"));
+                        found = true;
+                    }
+
+            if (!found)
+                MessageBox.Show("NOT FOUND");
+
         }
     }
 }

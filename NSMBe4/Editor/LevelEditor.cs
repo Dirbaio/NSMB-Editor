@@ -319,5 +319,26 @@ namespace NSMBe4 {
                 MessageBox.Show(LanguageManager.Get("Errors", "Tileset"));
             }
         }
+
+        private void setBgImageButton_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() != DialogResult.OK)
+                return;
+
+            removeBgButton_Click(null, null);
+            Image i = Image.FromFile(openFileDialog1.FileName, false);
+            levelEditorControl1.bgImage = i;
+            levelEditorControl1.repaint();
+        }
+
+        private void removeBgButton_Click(object sender, EventArgs e)
+        {
+            if (levelEditorControl1.bgImage != null)
+            {
+                levelEditorControl1.bgImage.Dispose();
+                levelEditorControl1.bgImage = null;
+            }
+            levelEditorControl1.repaint();
+        }
     }
 }

@@ -102,7 +102,9 @@ namespace NSMBe4
                 for (int y = 0; y < b.Height; y++)
                 {
                     Color c = b.GetPixel(x, y);
-                    if (c == Color.Transparent) continue;
+                    if (c.A == 0) continue;
+                        
+                    c = Color.FromArgb(c.R, c.G, c.B);
                     paletteTable[c] = closest(c, palette);
                 }
 
@@ -120,23 +122,37 @@ namespace NSMBe4
                     {
                         int tx = (t % tileWidth) * 8;
                         int ty = (int)(t / tileWidth) * 8;
-                        
-                        palettedImage[t * 64 + y * 8 + x] =
-                            paletteTable[b.GetPixel(tx + x, ty + y)];
+                        Color c = b.GetPixel(tx + x, ty + y);
+                        if (c.A != 0)
+                        {
+                            c = Color.FromArgb(c.R, c.G, c.B);
+
+                            palettedImage[t * 64 + y * 8 + x] =
+                                paletteTable[c];
+                        }
+                        else
+                            palettedImage[t * 64 + y * 8 + x] = 0;
                     }
 
             palettedRawImage = new byte[b.Width, b.Height];
             for(int x = 0; x < b.Width; x++)
                 for (int y = 0; y < b.Height; y++)
                 {
-                    palettedRawImage[x, y] =
-                        paletteTable[b.GetPixel(x, y)];
+                    Color c = b.GetPixel(x, y);
+                    if (c.A != 0)
+                    {
+                        c = Color.FromArgb(c.R, c.G, c.B);
+                        palettedRawImage[x, y] =
+                            paletteTable[c];
+                    }
+                    else
+                        palettedRawImage[x, y] = 0;
                 }
         }
 
         public static byte closest(Color c, Color[] palette)
         {
-            byte best = 0;
+            int best = 0;
             float bestDif = colorDifference(c, palette[0]);
             for (int i = 0; i < palette.Length; i++)
             {
@@ -144,10 +160,12 @@ namespace NSMBe4
                 if (dif < bestDif)
                 {
                     bestDif = dif;
-                    best = (byte)i;
+                    best = i;
                 }
             }
-            return best;
+            if (best >= 256)
+                Console.Out.WriteLine("GRAAH");
+            return (byte)best;
         }
 
         private void split(Box b)
@@ -271,9 +289,9 @@ namespace NSMBe4
 
         public static float colorDifference(Color a, Color b)
         {
-            if (a.A != b.A) return ushort.MaxValue;
+            if (a.A != b.A) return float.MaxValue;
 
-            int res = 0;
+            float res = 0;
             res += (a.R - b.R) * (a.R - b.R) / 40;
             res += (a.G - b.G) * (a.G - b.G) / 40;
             res += (a.B - b.B) * (a.B - b.B) / 40;
@@ -281,7 +299,7 @@ namespace NSMBe4
             if (res > float.MaxValue)
                 return float.MaxValue;
 
-            return (ushort)res;
+            return res;
         }
 
         public static float colorDifferenceWithoutAlpha(Color a, Color b)
@@ -394,7 +412,7 @@ namespace NSMBe4
                     if (inside(c))
                         count++;
 
-                    if (count <= 2)
+                    if (count >= 2)
                         return true;
                 }
                 return false;

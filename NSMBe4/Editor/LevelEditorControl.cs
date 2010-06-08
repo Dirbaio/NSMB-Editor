@@ -26,6 +26,7 @@ namespace NSMBe4 {
         private bool drag = false;
         public LevelMinimap minimap;
         public UndoManager UndoManager;
+        public Image bgImage;
 
         public LevelEditorControl() {
             InitializeComponent();
@@ -142,6 +143,7 @@ namespace NSMBe4 {
             Path
         }
 
+
         public EditionMode mode = null;
 
         private int DragStartX;
@@ -164,7 +166,10 @@ namespace NSMBe4 {
 
             e.Graphics.ScaleTransform(zoom, zoom);
             e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
-            
+
+            if (bgImage != null)
+                e.Graphics.DrawImageUnscaled(bgImage, 0, 0);
+
             //RENDER PANNING BLOCKS GRID
             for(int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width+ViewableBlocks.X)/16; x++)
                 for (int y = ViewableBlocks.Y / 16; y <= (ViewableBlocks.Height + ViewableBlocks.Y) / 16; y++)
@@ -275,13 +280,16 @@ namespace NSMBe4 {
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        bool scrollingDrag = false;
+
         private void DrawingArea_MouseDown(object sender, MouseEventArgs e) {
             if (Ready)
             {
-                if (e.Button == MouseButtons.Right)
+                if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left && Control.ModifierKeys == Keys.Alt)
                 {
                     DragStartX = e.X;
                     DragStartY = e.Y;
+                    scrollingDrag = true;
                     return;
                 }
                 if (e.Button == MouseButtons.Left)
@@ -293,17 +301,16 @@ namespace NSMBe4 {
         }
 
         private void DrawingArea_MouseMove(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left && Ready && mode != null) {
-                mode.MouseDrag((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y / zoom) + vScrollBar.Value * 16);
-            }
             int DragSpeed = (int)Math.Ceiling(16 * zoom);
 
-            if (e.Button == MouseButtons.Right) {
+            if (scrollingDrag)
+            {
                 int NewX = e.X;
                 int NewY = e.Y;
                 int XDelta = (NewX - DragStartX) / DragSpeed;
                 int YDelta = (NewY - DragStartY) / DragSpeed;
-                if (XDelta != 0 || YDelta != 0) {
+                if (XDelta != 0 || YDelta != 0)
+                {
                     Point NewPosition = new Point(ViewableArea.X - XDelta, ViewableArea.Y - YDelta);
                     if (NewPosition.X < 0) NewPosition.X = 0;
                     if (NewPosition.X > hScrollBar.Maximum) NewPosition.X = hScrollBar.Maximum;
@@ -313,7 +320,11 @@ namespace NSMBe4 {
                     DragStartY += (YDelta * DragSpeed);
                     ScrollEditor(NewPosition);
                 }
+            } 
+            else if (e.Button == MouseButtons.Left && Ready && mode != null) {
+                mode.MouseDrag((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y / zoom) + vScrollBar.Value * 16);
             }
+
 
         }
 
@@ -387,6 +398,7 @@ namespace NSMBe4 {
 
         private void DrawingArea_MouseUp(object sender, MouseEventArgs e)
         {
+            scrollingDrag = false;
             drag = false;
             mode.MouseUp();
         }

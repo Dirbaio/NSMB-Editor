@@ -446,10 +446,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.clonePath);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.addPath);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.deletePath);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pathsList);
             this.Name = "PathEditor";
             this.Size = new System.Drawing.Size(250, 509);

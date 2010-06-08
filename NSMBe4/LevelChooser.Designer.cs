@@ -38,6 +38,8 @@ namespace NSMBe4 {
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.encryptFAT = new System.Windows.Forms.Button();
+            this.parseFileListBtn = new System.Windows.Forms.Button();
             this.padarm7bin = new System.Windows.Forms.Button();
             this.decompArm9Bin = new System.Windows.Forms.Button();
             this.mpPatch2 = new System.Windows.Forms.Button();
@@ -56,16 +58,22 @@ namespace NSMBe4 {
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
-            this.parseFileListBtn = new System.Windows.Forms.Button();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
-            this.encryptFAT = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ramAddrBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.valueBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.overlaySearchButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -79,7 +87,7 @@ namespace NSMBe4 {
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(490, 348);
+            this.tabControl1.Size = new System.Drawing.Size(490, 401);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
@@ -178,6 +186,7 @@ namespace NSMBe4 {
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.mpPatch2);
             this.tabPage3.Controls.Add(this.groupBox1);
@@ -189,7 +198,7 @@ namespace NSMBe4 {
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(482, 322);
+            this.tabPage3.Size = new System.Drawing.Size(482, 375);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -208,6 +217,30 @@ namespace NSMBe4 {
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
+            // 
+            // encryptFAT
+            // 
+            this.encryptFAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.encryptFAT.Location = new System.Drawing.Point(6, 106);
+            this.encryptFAT.Name = "encryptFAT";
+            this.encryptFAT.Size = new System.Drawing.Size(206, 23);
+            this.encryptFAT.TabIndex = 3;
+            this.encryptFAT.Text = "cryptFat";
+            this.encryptFAT.UseVisualStyleBackColor = true;
+            this.encryptFAT.Click += new System.EventHandler(this.encryptFAT_Click);
+            // 
+            // parseFileListBtn
+            // 
+            this.parseFileListBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.parseFileListBtn.Location = new System.Drawing.Point(6, 77);
+            this.parseFileListBtn.Name = "parseFileListBtn";
+            this.parseFileListBtn.Size = new System.Drawing.Size(206, 23);
+            this.parseFileListBtn.TabIndex = 3;
+            this.parseFileListBtn.Text = "parse read list";
+            this.parseFileListBtn.UseVisualStyleBackColor = true;
+            this.parseFileListBtn.Click += new System.EventHandler(this.parseFileListBtn_Click);
             // 
             // padarm7bin
             // 
@@ -254,7 +287,7 @@ namespace NSMBe4 {
             this.groupBox1.Controls.Add(this.changeLanguageButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 310);
+            this.groupBox1.Size = new System.Drawing.Size(246, 183);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -380,18 +413,6 @@ namespace NSMBe4 {
             // 
             this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
             // 
-            // parseFileListBtn
-            // 
-            this.parseFileListBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.parseFileListBtn.Location = new System.Drawing.Point(6, 77);
-            this.parseFileListBtn.Name = "parseFileListBtn";
-            this.parseFileListBtn.Size = new System.Drawing.Size(206, 23);
-            this.parseFileListBtn.TabIndex = 3;
-            this.parseFileListBtn.Text = "parse read list";
-            this.parseFileListBtn.UseVisualStyleBackColor = true;
-            this.parseFileListBtn.Click += new System.EventHandler(this.parseFileListBtn_Click);
-            // 
             // openTextFileDialog
             // 
             this.openTextFileDialog.Filter = "Text Files|*.txt|All files|*.*";
@@ -404,23 +425,79 @@ namespace NSMBe4 {
             this.filesystemBrowser1.Size = new System.Drawing.Size(476, 316);
             this.filesystemBrowser1.TabIndex = 0;
             // 
-            // encryptFAT
+            // groupBox3
             // 
-            this.encryptFAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox3.Controls.Add(this.overlaySearchButton);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.valueBox);
+            this.groupBox3.Controls.Add(this.ramAddrBox);
+            this.groupBox3.Location = new System.Drawing.Point(6, 195);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(246, 100);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
+            // ramAddrBox
+            // 
+            this.ramAddrBox.Location = new System.Drawing.Point(50, 19);
+            this.ramAddrBox.Name = "ramAddrBox";
+            this.ramAddrBox.Size = new System.Drawing.Size(190, 20);
+            this.ramAddrBox.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "label1";
+            // 
+            // valueBox
+            // 
+            this.valueBox.Location = new System.Drawing.Point(50, 45);
+            this.valueBox.Name = "valueBox";
+            this.valueBox.Size = new System.Drawing.Size(190, 20);
+            this.valueBox.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "label1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "label1";
+            // 
+            // overlaySearchButton
+            // 
+            this.overlaySearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.encryptFAT.Location = new System.Drawing.Point(6, 106);
-            this.encryptFAT.Name = "encryptFAT";
-            this.encryptFAT.Size = new System.Drawing.Size(206, 23);
-            this.encryptFAT.TabIndex = 3;
-            this.encryptFAT.Text = "cryptFat";
-            this.encryptFAT.UseVisualStyleBackColor = true;
-            this.encryptFAT.Click += new System.EventHandler(this.encryptFAT_Click);
+            this.overlaySearchButton.Location = new System.Drawing.Point(12, 71);
+            this.overlaySearchButton.Name = "overlaySearchButton";
+            this.overlaySearchButton.Size = new System.Drawing.Size(206, 23);
+            this.overlaySearchButton.TabIndex = 3;
+            this.overlaySearchButton.Text = "search";
+            this.overlaySearchButton.UseVisualStyleBackColor = true;
+            this.overlaySearchButton.Click += new System.EventHandler(this.overlaySearchButton_Click);
             // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 372);
+            this.ClientSize = new System.Drawing.Size(515, 425);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelChooser";
@@ -433,6 +510,8 @@ namespace NSMBe4 {
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -472,5 +551,12 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button parseFileListBtn;
         private System.Windows.Forms.OpenFileDialog openTextFileDialog;
         private System.Windows.Forms.Button encryptFAT;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button overlaySearchButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox valueBox;
+        private System.Windows.Forms.TextBox ramAddrBox;
     }
 }

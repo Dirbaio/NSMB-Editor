@@ -46,6 +46,7 @@ namespace NSMBe4.DSFileSystem
             staticInitStart = ovTableFile.getUintAt((int)ovTableOffs + 0x10);
             staticInitEnd = ovTableFile.getUintAt((int)ovTableOffs + 0x14);
 
+            nameP = String.Format("{0:X8} - {1:X8}, OV {2}, FILE {3}", ramAddr, ramAddr + ramSize - 1, ovId, id);
         }
 
         public void decompress()

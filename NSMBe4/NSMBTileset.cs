@@ -22,6 +22,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using NSMBe4.DSFileSystem;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
 
 /**
  * 
@@ -216,6 +217,7 @@ namespace NSMBe4
         public byte[] RawGFXData;
 
         private Graphics Map16Graphics;
+        private bool overrideFlag;
 
         public NSMBTileset(File GFXFile, File PalFile, File Map16File, File ObjFile, File ObjIndexFile, File TileBehaviorFile, bool OverrideFlag, int TilesetNumber)
         {
@@ -229,6 +231,12 @@ namespace NSMBe4
             //Console.Out.WriteLine(ROM.FileNames[TileBehaviorFile]);
 
             this.TilesetNumber = TilesetNumber;
+            this.overrideFlag = OverrideFlag;
+            load();
+        }
+
+        public void load()
+        {
 
             Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
 
@@ -236,7 +244,8 @@ namespace NSMBe4
             byte[] ePalFile = ROM.LZ77_Decompress(PalFile.getContents());
             Palette = new Color[512];
 
-            for (int PalIdx = 0; PalIdx < 512; PalIdx++) {
+            for (int PalIdx = 0; PalIdx < 512; PalIdx++)
+            {
                 Palette[PalIdx] = fromRGB15((ushort)(ePalFile[PalIdx * 2] + (ePalFile[(PalIdx * 2) + 1] << 8)));
             }
 
@@ -255,14 +264,16 @@ namespace NSMBe4
             loadObjects();
 
             // Finally, load overrides
-            if (OverrideFlag) {
+            if (overrideFlag)
+            {
                 UseOverrides = true;
                 OverrideBitmap = Properties.Resources.tileoverrides;
 
                 Overrides = new short[Map16.Length];
                 EditorOverrides = new short[Map16.Length];
 
-                for (int idx = 0; idx < Map16.Length; idx++) {
+                for (int idx = 0; idx < Map16.Length; idx++)
+                {
                     Overrides[idx] = -1;
                     EditorOverrides[idx] = -1;
                 }
@@ -1085,8 +1096,6 @@ namespace NSMBe4
             Bitmap b = new Bitmap(256, tileCount / (256 / 8) * 8);
             for (int i = 0; i < tileCount; i++)
             {
-                if (tilesUsed[i] == 0) continue;
-
                 int tx = (i % 32) * 8;
                 int ty = (int)(i / 32) * 8;
                 int palOffs = 0;
@@ -1181,5 +1190,62 @@ namespace NSMBe4
         }
 
         #endregion
+
+        public void exportTileset(string filename)
+        {
+            save();
+
+            System.IO.BinaryWriter bw = new System.IO.BinaryWriter(
+                new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write));
+            bw.Write("NSMBe Exported Tileset");
+            writeFileContents(PalFile, bw);
+            writeFileContents(GFXFile, bw);
+            writeFileContents(Map16File, bw);
+            writeFileContents(ObjFile, bw);
+            writeFileContents(ObjIndexFile, bw);
+            if (TileBehaviorFile != null)
+                writeFileContents(TileBehaviorFile, bw);
+        }
+
+        private void writeFileContents(File f, System.IO.BinaryWriter bw)
+        {
+            bw.Write((int)f.fileSize);
+            bw.Write(f.getContents());
+        }
+
+        public void importTileset(string filename)
+        {
+            save();
+
+            System.IO.BinaryReader br = new System.IO.BinaryReader(
+                new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read));
+            string header = br.ReadString();
+            if (header != "NSMBe Exported Tileset")
+            {
+                MessageBox.Show(
+                    LanguageManager.Get("NSMBLevel", "InvalidFile"),
+                    LanguageManager.Get("NSMBLevel", "Unreadable"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            readFileContents(PalFile, br);
+            readFileContents(GFXFile, br);
+            readFileContents(Map16File, br);
+            readFileContents(ObjFile, br);
+            readFileContents(ObjIndexFile, br);
+            if (TileBehaviorFile != null)
+                readFileContents(TileBehaviorFile, br);
+
+            load();
+        }
+
+        void readFileContents(File f, System.IO.BinaryReader br)
+        {
+            int len = br.ReadInt32();
+            byte[] data = new byte[len];
+            br.Read(data, 0, len);
+            f.replace(data, this);
+        }
     }
 }
