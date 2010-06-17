@@ -122,138 +122,57 @@ namespace NSMBe4.DSFileSystem
         {
             Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}", ramAddr, val));
 
-            foreach (Arm9BinSection s in arm9binFile.sections)
-                if(s.isAddrIn(ramAddr))
-                {
-                    Console.Out.WriteLine(String.Format("WRITETO section: {0:X8}", s.ramAddr));
-                    s.writeTo(ramAddr, val);
-                    return;
-                }
-
-            File f = null;
-            int offs = -1;
-            if (ovId == -1)
-            {
-                ramAddr2File(ramAddr, out f, out offs);
-            }
-            else
+            if (ovId != -1)
             {
                 foreach (OverlayFile of in arm9ovs)
                     if (of.ovId == ovId)
                     {
-                        f = of;
-                        offs = (int)(ramAddr - of.ramAddr);
+                        of.setUintAt((int)(ramAddr - of.ramAddr), val);
+                        return;
                     }
+
+                throw new Exception("ERROR: WRONG OVERLAY");
             }
 
-            if (offs < 0 || offs >= f.fileSize)
-                throw new Exception("ERROR: WRONG FILE");
-            Console.Out.WriteLine(String.Format("WRITETO FILE: {0} {1:X8}", f.name, offs));
-            f.setUintAt(offs, val);
+            foreach (Arm9BinSection s in arm9binFile.sections)
+                if (s.isAddrIn(ramAddr))
+                {
+                    s.writeTo(ramAddr, val);
+                    return;
+                }
+
+            foreach (OverlayFile f in arm9ovs)
+                if (f.ramAddr <= ramAddr && f.ramAddr + f.ramSize > ramAddr)
+                {
+                    f.setUintAt((int)(ramAddr - f.ramAddr), val);
+                    return;
+                }
+
+            throw new Exception("ERROR: WRONG FILE");
         }
 
         public uint readFromRamAddr(int ramAddr, int ovId)
         {
             Console.Out.WriteLine(String.Format("READFROM {0:X8}", ramAddr));
-            foreach (Arm9BinSection s in arm9binFile.sections)
-                if (s.isAddrIn(ramAddr))
-                {
-                    Console.Out.WriteLine(String.Format("READFROM section: {0:X8}", s.ramAddr));
-                    return s.readFrom(ramAddr);
-                }
 
-
-            File f = null;
-            int offs = -1;
-            if (ovId == -1)
-            {
-                ramAddr2File(ramAddr, out f, out offs);
-            }
-            else
+            if (ovId != -1)
             {
                 foreach (OverlayFile of in arm9ovs)
                     if (of.ovId == ovId)
-                    {
-                        f = of;
-                        offs = (int)(ramAddr - of.ramAddr);
-                    }
+                        return of.getUintAt((int)(ramAddr - of.ramAddr));
+
+                throw new Exception("ERROR: WRONG OVERLAY");
             }
 
-            if (offs < 0 || offs >= f.fileSize)
-                throw new Exception("ERROR: WRONG FILE");
+            foreach (Arm9BinSection s in arm9binFile.sections)
+                if (s.isAddrIn(ramAddr))
+                    return s.readFrom(ramAddr);
 
-            Console.Out.WriteLine(String.Format("READFROM FILE: {0} {1:X8}", f.name, offs));
-            return f.getUintAt(offs);
-        }
+            foreach (OverlayFile f in arm9ovs)
+                if (f.ramAddr <= ramAddr && f.ramAddr + f.ramSize > ramAddr)
+                    return f.getUintAt((int)(ramAddr - f.ramAddr));
 
-        public void ramAddr2File(int ramAddr, out File file, out int offset)
-        {
-            File header = headerFile;
-            List<Region> regions = new List<Region>();
-
-            foreach(OverlayFile f in arm9ovs)
-            {
-                regions.Add(new Region(f.ramAddr, f.ramSize, f, 0, "ARM9 ov " + f.ovId));
-            }
-
-            File fi = null;
-            int fileOffs = -1;
-
-            foreach (Region r in regions)
-            {
-                fileOffs = r.ramOffs2FileOffs((uint)ramAddr);
-                if (fileOffs != -1)
-                {
-                    fi = r.f;
-                    break;
-                }
-            }
-
-            file = fi;
-            offset = fileOffs;
-        }
-
-        new class Region : IComparable
-        {
-            public uint ramBegin, ramSize, fileOffs;
-            public File f;
-            public String desc;
-
-            public Region(uint ramBegin, uint ramSize, File f, uint fileOffs, String desc)
-            {
-                this.ramBegin = ramBegin;
-                this.ramSize = ramSize;
-                this.f = f;
-                this.fileOffs = fileOffs;
-                this.desc = desc;
-            }
-
-            public int ramOffs2FileOffs(uint ramAddr)
-            {
-                if(ramAddr < ramBegin)
-                    return -1;
-
-                if(ramAddr >= ramBegin + ramSize)
-                    return -1;
-
-                return (int)(ramAddr - ramBegin + fileOffs);
-            }
-
-            public void print()
-            {/*
-                Console.Out.Write(begin.ToString("X8"));
-                Console.Out.Write(" - ");
-                Console.Out.Write(end.ToString("X8"));
-                Console.Out.WriteLine(": "+desc);*/
-            }
-
-            public int CompareTo(object obj)
-            {
-                Region f = obj as Region;
-                if (ramBegin == f.ramBegin)
-                    return ramSize.CompareTo(f.ramSize);
-                return ramBegin.CompareTo(f.ramBegin);                
-            }
+            throw new Exception("ERROR: WRONG FILE");
         }
         #endregion
     }

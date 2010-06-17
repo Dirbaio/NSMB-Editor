@@ -14,7 +14,7 @@ namespace NSMBe4
 {
     public partial class ArmPatcher : Form
     {
-        const int ArenaLoOffs = 0x02065F10; //FIXME: SUPPORT MORE REGIONS OR AUTODETECT
+        int ArenaLoOffs = 0x02065F10; //FIXME: SUPPORT MORE REGIONS OR AUTODETECT
 
         System.IO.FileInfo romf;
         System.IO.DirectoryInfo romdir;
@@ -26,16 +26,26 @@ namespace NSMBe4
             this.Show();
         }
 
+        private void loadArenaLoOffsFile()
+        {
+            Console.Out.WriteLine("UNDOING PATCHES...");
+            FileInfo f = new FileInfo(romdir.FullName + "/arenaoffs.txt");
+            StreamReader s = f.OpenText();
+            string l = s.ReadLine();
+            ArenaLoOffs = int.Parse(l, System.Globalization.NumberStyles.HexNumber);
+        }
+
         private void ArmPatcher_Load(object sender, EventArgs e)
         {
             undoPatches();
             Console.Out.WriteLine("Patching");
+            loadArenaLoOffsFile();
 
             int codeAddr = (int)ROM.FS.readFromRamAddr(ArenaLoOffs, -1);
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd";
-            info.Arguments = "/C make CODEADDR=0x"+codeAddr.ToString("X8") + " && pause";
+            info.Arguments = "/C make CODEADDR=0x"+codeAddr.ToString("X8") + " || pause";
             info.CreateNoWindow = false;
             info.UseShellExecute = false;
             info.WorkingDirectory = romdir.FullName;
@@ -46,6 +56,8 @@ namespace NSMBe4
             if (p.ExitCode == 0)
             {
                 FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
+                if (!f.Exists) return;
+
                 FileStream fs = f.OpenRead();
 
                 byte[] newdata = new byte[fs.Length];
@@ -119,7 +131,7 @@ namespace NSMBe4
                     hooks.align(4);
                     uint opcode = ROM.FS.readFromRamAddr((int)r.oldRamAddr, r.ovId);
                     ROM.FS.writeToRamAddr((int)r.oldRamAddr, makeBranchOpcode(r.oldRamAddr, r.hookRamAddr, r.type != PatchType.funcReplacement), r.ovId);
-                    tw.WriteLine(r.oldRamAddr.ToString("X8") + " " + opcode.ToString("X8"));
+                    tw.WriteLine(r.oldRamAddr.ToString("X8") + " " + opcode.ToString("X8") + " -1");
                 }
                 tw.Close();
 
@@ -133,6 +145,8 @@ namespace NSMBe4
             Console.Out.WriteLine();
             Console.Out.WriteLine();
             Console.Out.WriteLine();
+
+            Close();
         }
 
         public static uint parseUHex(string s)
@@ -169,7 +183,7 @@ namespace NSMBe4
                 string[] ll = l.Split(new char[] { ' ' });
                 int addr = int.Parse(ll[0], System.Globalization.NumberStyles.HexNumber);
                 uint val = uint.Parse(ll[1], System.Globalization.NumberStyles.HexNumber);
-                int ovId = int.Parse(ll[1]);
+                int ovId = int.Parse(ll[2]);
 
                 ROM.FS.writeToRamAddr(addr, val, ovId);
             }

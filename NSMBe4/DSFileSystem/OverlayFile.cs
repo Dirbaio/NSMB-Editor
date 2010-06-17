@@ -61,5 +61,11 @@ namespace NSMBe4.DSFileSystem
                 isCompressed = false;
             }
         }
+
+        public override void enableEdition()
+        {
+            decompress();
+            base.enableEdition();
+        }
     }
 }

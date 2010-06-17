@@ -79,10 +79,12 @@ namespace NSMBe4.DSFileSystem
                 o.writeUInt((uint)s.len);
                 o.writeUInt((uint)s.bssSize);
             }
-            o.writeUInt((uint)nullSection.ramAddr);
-            o.writeUInt((uint)nullSection.len);
-            o.writeUInt((uint)nullSection.bssSize);
-
+            if (nullSection != null)
+            {
+                o.writeUInt((uint)nullSection.ramAddr);
+                o.writeUInt((uint)nullSection.len);
+                o.writeUInt((uint)nullSection.bssSize);
+            }
             replace(o.getArray(), this);
 
             setUintAt(codeSettingsOffs + 0x00, (uint)pos + 0x02000000);

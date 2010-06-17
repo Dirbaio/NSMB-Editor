@@ -154,6 +154,7 @@ namespace NSMBe4.DSFileSystem
 
         public uint getUintAt(int offset)
         {
+            enableEdition();
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
 
@@ -168,6 +169,7 @@ namespace NSMBe4.DSFileSystem
 
         public void setUintAt(int offset, uint val)
         {
+            enableEdition();
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
             for (int i = 0; i < 4; i++)
@@ -180,6 +182,7 @@ namespace NSMBe4.DSFileSystem
 
         public ushort getUshortAt(int offset)
         {
+            enableEdition();
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
 
@@ -195,6 +198,7 @@ namespace NSMBe4.DSFileSystem
 
         public void setUshortAt(int offset, ushort val)
         {
+            enableEdition();
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
             for (int i = 0; i < 2; i++)
@@ -207,6 +211,7 @@ namespace NSMBe4.DSFileSystem
 
         public byte getByteAt(int offs)
         {
+            enableEdition();
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
             byte res = (byte)parent.s.ReadByte();
@@ -235,7 +240,6 @@ namespace NSMBe4.DSFileSystem
 
 //            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             int newStart = fileBegin;
-
             if (newFile.Length > fileSize) //if we insert a bigger file
             {                         //it might not fit in the current place
                 if (canChangeOffset)
@@ -333,5 +337,10 @@ namespace NSMBe4.DSFileSystem
             if (inlineEditors.Count == 0)
                 endEdit(this);
         }
+
+        //Intended for compressed files like overlays.
+        //Must decompress the file so it's editable and still playable.
+        public virtual void enableEdition() { } 
+
     }
 }

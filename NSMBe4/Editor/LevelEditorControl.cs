@@ -22,6 +22,9 @@ using System.Windows.Forms;
 namespace NSMBe4 {
     public partial class LevelEditorControl : UserControl {
 
+        //FIXME
+        public void FireSetDirtyFlag() { }
+
         private float zoom = 1;
         private bool drag = false;
         public LevelMinimap minimap;
