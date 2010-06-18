@@ -26,9 +26,12 @@ using NSMBe4.DSFileSystem;
 
 
 namespace NSMBe4 {
-    public partial class LevelConfig : Form {
-        public LevelConfig(NSMBLevel Level) {
+    public partial class LevelConfig : Form
+    {
+        public LevelConfig(NSMBLevel Level)
+        {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             this.Level = Level;
             tabControl1.SelectTab(0);
 
@@ -65,9 +68,6 @@ namespace NSMBe4 {
         }
 
         private NSMBLevel Level;
-
-        public delegate void SetDirtyFlagDelegate();
-        public event SetDirtyFlagDelegate SetDirtyFlag;
 
         public delegate void ReloadTilesetDelegate();
         public event ReloadTilesetDelegate ReloadTileset;
@@ -327,7 +327,6 @@ namespace NSMBe4 {
 
             Level.CalculateSpriteModifiers();
 
-            SetDirtyFlag();
             RefreshMainWindow();
             Close();
         }

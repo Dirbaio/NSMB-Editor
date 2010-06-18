@@ -27,6 +27,7 @@ namespace NSMBe4 {
     public partial class ImagePreviewer : Form {
         public ImagePreviewer(Image image) {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             this.Size = image.Size;
             Console.Out.WriteLine("Width: " + image.Width + ", Height: " + image.Height);
             this.Width += 20;

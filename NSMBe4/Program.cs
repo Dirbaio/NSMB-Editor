@@ -182,7 +182,7 @@ namespace NSMBe4 {
                 LanguageManager.Load(Properties.Resources.spanish.Split('\n'));
             }
 
-            Application.Run(new LevelChooser());
+            Application.Run(new MdiParentForm());
         }
 
         public static byte[] compressImage(Bitmap b)

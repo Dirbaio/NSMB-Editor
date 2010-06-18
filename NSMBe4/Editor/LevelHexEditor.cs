@@ -35,6 +35,7 @@ namespace NSMBe4
         public LevelHexEditor(string LevelFilename)
         {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             this.LevelFilename = LevelFilename;
 
             LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");

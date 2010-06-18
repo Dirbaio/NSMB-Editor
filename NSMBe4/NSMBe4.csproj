@@ -171,6 +171,9 @@
     <EmbeddedResource Include="DSFileSystem\FilesystemBrowserDialog.resx">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Editor\MinimapControl.resx">
+      <DependentUpon>MinimapControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GraphicEditing\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -228,6 +231,9 @@
     <EmbeddedResource Include="Editor\LevelMinimap.resx">
       <DependentUpon>LevelMinimap.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MdiParentForm.resx">
+      <DependentUpon>MdiParentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NSBMD\TextureEditor.resx">
       <DependentUpon>TextureEditor.cs</DependentUpon>
@@ -540,6 +546,13 @@
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />
     <Compile Include="DSFileSystem\OverlayFile.cs" />
+    <Compile Include="Editor\BackgroundDragEditionMode.cs" />
+    <Compile Include="Editor\MinimapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\MinimapControl.Designer.cs">
+      <DependentUpon>MinimapControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\UndoManager.cs" />
     <Compile Include="GraphicEditing\Image2D.cs" />
     <Compile Include="GraphicEditing\ImageManagerWindow.cs">
@@ -579,6 +592,12 @@
       <DependentUpon>GraphicsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="LanguageManager.cs" />
+    <Compile Include="MdiParentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MdiParentForm.Designer.cs">
+      <DependentUpon>MdiParentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
     <Compile Include="NSBMD\Palette.cs" />

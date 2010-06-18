@@ -33,7 +33,8 @@ namespace NSMBe4
         int TilesetNumber;
 
         public TilesetEditor(ushort TilesetID, string tilesetName) {
-            InitializeComponent();
+            InitializeComponent(); ;
+            this.MdiParent = MdiParentForm.instance;
             LanguageManager.ApplyToContainer(this, "TilesetEditor");
             Text = string.Format(LanguageManager.Get("TilesetEditor", "_TITLE"), tilesetName);
 

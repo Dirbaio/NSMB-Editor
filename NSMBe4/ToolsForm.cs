@@ -34,6 +34,7 @@ namespace NSMBe4
         public ToolsForm(LevelEditorControl edc)
         {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             LanguageManager.ApplyToContainer(this, "ToolsForm");
             this.EdControl = edc;
         }
@@ -97,7 +98,6 @@ namespace NSMBe4
             foreach (NSMBSprite s in toDelete)
                 EdControl.Level.Sprites.Remove(s);
 
-            EdControl.FireSetDirtyFlag();
             EdControl.repaint();
             MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "DeletedSprites"), toDelete.Count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -112,7 +112,6 @@ namespace NSMBe4
                     s.Type = (int) newSpriteNumber.Value;
                 }
 
-            EdControl.FireSetDirtyFlag();
             EdControl.repaint();
             MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "ReplacedSprites"), count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

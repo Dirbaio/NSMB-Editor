@@ -31,6 +31,8 @@ namespace NSMBe4
         public TilesetChooser()
         {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
+
             LanguageManager.ApplyToContainer(this, "TilesetChooser");
 
             // Add tilesets to list

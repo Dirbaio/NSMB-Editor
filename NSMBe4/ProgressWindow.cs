@@ -30,6 +30,7 @@ namespace NSMBe4
         public ProgressWindow(string title)
         {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             this.Text = title;
         }
 

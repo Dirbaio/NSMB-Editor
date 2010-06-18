@@ -19,17 +19,16 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace NSMBe4 {
-    public partial class LevelEditorControl : UserControl {
-
-        //FIXME
-        public void FireSetDirtyFlag() { }
-
+namespace NSMBe4
+{
+    public partial class LevelEditorControl : UserControl
+    {
         private float zoom = 1;
         private bool drag = false;
         public LevelMinimap minimap;
         public UndoManager UndoManager;
         public Image bgImage;
+        public int bgX, bgY;
 
         public LevelEditorControl() {
             InitializeComponent();
@@ -171,7 +170,7 @@ namespace NSMBe4 {
             e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
 
             if (bgImage != null)
-                e.Graphics.DrawImageUnscaled(bgImage, 0, 0);
+                e.Graphics.DrawImage(bgImage, bgX, bgY);
 
             //RENDER PANNING BLOCKS GRID
             for(int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width+ViewableBlocks.X)/16; x++)

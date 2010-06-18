@@ -23,26 +23,36 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NSMBe4 {
-    public partial class LevelMinimap : Form
+namespace NSMBe4
+{
+    public partial class MinimapControl : UserControl
     {
 
         private NSMBLevel Level;
         private LevelEditorControl EdControl;
         private Brush UnviewableAreaBrush;
+        private bool loaded = false;
 
-        public LevelMinimap(NSMBLevel Level, LevelEditorControl EdControl)
+        public MinimapControl()
         {
             InitializeComponent();
-            this.MdiParent = MdiParentForm.instance;
+        }
+
+        public void loadMinimap(NSMBLevel Level, LevelEditorControl EdControl)
+        {
             this.Level = Level;
             this.EdControl = EdControl;
             UnviewableAreaBrush = new SolidBrush(Color.FromArgb(120, Color.DarkSlateGray.R, Color.DarkSlateGray.G, Color.DarkSlateGray.B));
+            loaded = true;
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e) {
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (!loaded) return;
+
             e.Graphics.Clear(Color.LightSlateGray);
-            for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
+            for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++)
+            {
                 e.Graphics.FillRectangle(Brushes.White, Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
             }
 
@@ -57,28 +67,37 @@ namespace NSMBe4 {
             e.Graphics.FillRectangle(UnviewableAreaBrush, EdControl.ViewableArea);
         }
 
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e) {
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (!loaded) return;
             pictureBox1_MouseMove(sender, e);
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!loaded) return;
+            if (e.Button == MouseButtons.Left)
+            {
                 // Calculate new position
                 Rectangle va = EdControl.ViewableArea;
                 Rectangle NewArea = new Rectangle(0, 0, va.Width, va.Height);
                 NewArea.X = e.X - (NewArea.Width / 2);
                 NewArea.Y = e.Y - (NewArea.Height / 2);
                 // Make sure it's within bounds
-                if (NewArea.X < 0) {
+                if (NewArea.X < 0)
+                {
                     NewArea.X = 0;
                 }
-                if (NewArea.Y < 0) {
+                if (NewArea.Y < 0)
+                {
                     NewArea.Y = 0;
                 }
-                if (NewArea.Right >= 512) {
+                if (NewArea.Right >= 512)
+                {
                     NewArea.X = 512 - NewArea.Width;
                 }
-                if (NewArea.Bottom >= 256) {
+                if (NewArea.Bottom >= 256)
+                {
                     NewArea.Y = 256 - NewArea.Height;
                 }
                 // Set it
@@ -86,12 +105,6 @@ namespace NSMBe4 {
                 pictureBox1.Invalidate();
                 //ScrollEditor(ViewableArea.Location);
             }
-        }
-
-        private void onFormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = true;
-            Hide();
         }
     }
 }

@@ -32,6 +32,8 @@ namespace NSMBe4 {
         public EntrancesEditionMode eem;
         public PathsEditionMode pem, ppem;
         public ViewsEditionMode vem, zem;
+        public BackgroundDragEditionMode bgdragem;
+
         public ObjectPickerControl opc;
 
         public ToolsForm tools;
@@ -39,6 +41,7 @@ namespace NSMBe4 {
 
         public LevelEditor(string LevelFilename) {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             this.LevelFilename = LevelFilename;
             editObjectsButton.Checked = true;
 
@@ -98,6 +101,7 @@ namespace NSMBe4 {
             ppem = new PathsEditionMode(Level, levelEditorControl1, Level.ProgressPaths);
             vem = new ViewsEditionMode(Level, levelEditorControl1, true);
             zem = new ViewsEditionMode(Level, levelEditorControl1, false);
+            bgdragem = new BackgroundDragEditionMode(Level, levelEditorControl1);
 
             levelEditorControl1.SetEditionMode(oem);
 
@@ -105,6 +109,7 @@ namespace NSMBe4 {
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);
             levelEditorControl1.minimap = MinimapForm;
             MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), this.Text);
+            minimapControl1.loadMinimap(Level, levelEditorControl1);
         }
 
         private void reloadTilesets_Click(object sender, EventArgs e) {
@@ -339,6 +344,12 @@ namespace NSMBe4 {
                 levelEditorControl1.bgImage = null;
             }
             levelEditorControl1.repaint();
+        }
+
+        private void moveBGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.SetEditionMode(bgdragem);
+            uncheckModeButtons();
         }
     }
 }

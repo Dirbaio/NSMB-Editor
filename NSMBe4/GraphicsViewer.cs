@@ -39,6 +39,7 @@ namespace NSMBe4
         public GraphicsViewer()
         {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             palette = new Color[256];
 
             int colorNum = 0;
