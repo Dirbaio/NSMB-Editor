@@ -168,7 +168,7 @@ namespace NSMBe4 {
 
         private void levelConfigButton_Click(object sender, EventArgs e) {
             if (LevelConfigForm == null || LevelConfigForm.IsDisposed) {
-                LevelConfigForm = new LevelConfig(Level);
+                LevelConfigForm = new LevelConfig(levelEditorControl1);
             }
             LevelConfigForm.ReloadTileset += new LevelConfig.ReloadTilesetDelegate(LevelConfigForm_ReloadTileset);
             LevelConfigForm.RefreshMainWindow += new LevelConfig.RefreshMainWindowDelegate(LevelConfigForm_RefreshMainWindow);

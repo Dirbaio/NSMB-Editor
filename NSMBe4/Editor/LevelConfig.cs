@@ -26,13 +26,12 @@ using NSMBe4.DSFileSystem;
 
 
 namespace NSMBe4 {
-    public partial class LevelConfig : Form
-    {
-        public LevelConfig(NSMBLevel Level)
-        {
+    public partial class LevelConfig : Form {
+        public LevelConfig(LevelEditorControl EdControl) {
             InitializeComponent();
+            this.EdControl = EdControl;
+            this.Level = EdControl.Level;
             this.MdiParent = MdiParentForm.instance;
-            this.Level = Level;
             tabControl1.SelectTab(0);
 
             LanguageManager.ApplyToContainer(this, "LevelConfig");
@@ -68,6 +67,7 @@ namespace NSMBe4 {
         }
 
         private NSMBLevel Level;
+        private LevelEditorControl EdControl;
 
         public delegate void ReloadTilesetDelegate();
         public event ReloadTilesetDelegate ReloadTileset;
@@ -267,11 +267,12 @@ namespace NSMBe4 {
         #endregion
 
         private void OKButton_Click(object sender, EventArgs e) {
-            Level.Blocks[0][0] = (byte)startEntranceUpDown.Value;
-            Level.Blocks[0][1] = (byte)midwayEntranceUpDown.Value;
-            Level.Blocks[0][4] = (byte)((int)timeLimitUpDown.Value & 255);
-            Level.Blocks[0][5] = (byte)((int)timeLimitUpDown.Value >> 8);
-            Level.Blocks[0][26] = (byte)((int)soundSetUpDown.Value & 255);
+            byte[][] newData = UndoManager.Clone(Level.Blocks);
+            newData[0][0] = (byte)startEntranceUpDown.Value;
+            newData[0][1] = (byte)midwayEntranceUpDown.Value;
+            newData[0][4] = (byte)((int)timeLimitUpDown.Value & 255);
+            newData[0][5] = (byte)((int)timeLimitUpDown.Value >> 8);
+            newData[0][26] = (byte)((int)soundSetUpDown.Value & 255);
 
             byte settingsByte = 0x00;
 
@@ -281,32 +282,32 @@ namespace NSMBe4 {
                 settingsByte |= 0x01;
             if (miniMarioPhysicsCheckBox.Checked)
                 settingsByte |= 0x02;
-            Level.Blocks[0][2] = settingsByte;
+            newData[0][2] = settingsByte;
 
-            int oldTileset = Level.Blocks[0][0xC];
+            int oldTileset = newData[0][0xC];
 
-            Level.Blocks[0][0xC] = (byte)tilesetComboBox.SelectedIndex; // ncg
-            Level.Blocks[3][4] = (byte)tilesetComboBox.SelectedIndex; // ncl
+            newData[0][0xC] = (byte)tilesetComboBox.SelectedIndex; // ncg
+            newData[3][4] = (byte)tilesetComboBox.SelectedIndex; // ncl
 
             int FGIndex = bgTopLayerComboBox.SelectedIndex;
             if (FGIndex == bgTopLayerComboBox.Items.Count - 1) FGIndex = 0xFFFF;
-            Level.Blocks[0][0x12] = (byte)FGIndex; // ncg
-            Level.Blocks[0][0x13] = (byte)(FGIndex>>8); // ncg
-            Level.Blocks[4][4] = (byte)FGIndex; // ncl
-            Level.Blocks[4][5] = (byte)(FGIndex >> 8); // ncg
-            Level.Blocks[4][2] = (byte)FGIndex; // nsc
-            Level.Blocks[4][3] = (byte)(FGIndex >> 8); // ncg
+            newData[0][0x12] = (byte)FGIndex; // ncg
+            newData[0][0x13] = (byte)(FGIndex>>8); // ncg
+            newData[4][4] = (byte)FGIndex; // ncl
+            newData[4][5] = (byte)(FGIndex >> 8); // ncg
+            newData[4][2] = (byte)FGIndex; // nsc
+            newData[4][3] = (byte)(FGIndex >> 8); // ncg
 
             int BGIndex = bgBottomLayerComboBox.SelectedIndex;
             if (BGIndex == bgBottomLayerComboBox.Items.Count - 1) BGIndex = 0xFFFF;
-            Level.Blocks[0][6] = (byte)BGIndex; // ncg
-            Level.Blocks[0][7] = (byte)(BGIndex >> 8); // ncg
-            Level.Blocks[2][4] = (byte)BGIndex; // ncl
-            Level.Blocks[2][5] = (byte)(BGIndex >> 8); // ncg
-            Level.Blocks[2][2] = (byte)BGIndex; // nsc
-            Level.Blocks[2][3] = (byte)(BGIndex >> 8); // ncg
+            newData[0][6] = (byte)BGIndex; // ncg
+            newData[0][7] = (byte)(BGIndex >> 8); // ncg
+            newData[2][4] = (byte)BGIndex; // ncl
+            newData[2][5] = (byte)(BGIndex >> 8); // ncg
+            newData[2][2] = (byte)BGIndex; // nsc
+            newData[2][3] = (byte)(BGIndex >> 8); // ncg
 
-            if (oldTileset != Level.Blocks[0][0xC]) {
+            if (oldTileset != newData[0][0xC]) {
                 ReloadTileset();
             }
 
@@ -322,11 +323,10 @@ namespace NSMBe4 {
                 string Item = (string)(checkthese[CheckIdx].Items[Math.Max(0, checkthese[CheckIdx].SelectedIndex)]);
                 int cpos = Item.IndexOf(':');
                 int modifierval = int.Parse(Item.Substring(0, cpos));
-                Level.Blocks[13][checkthese_idx[CheckIdx]] = (byte)modifierval;
+                newData[13][checkthese_idx[CheckIdx]] = (byte)modifierval;
             }
 
-            Level.CalculateSpriteModifiers();
-
+            EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData));
             RefreshMainWindow();
             Close();
         }

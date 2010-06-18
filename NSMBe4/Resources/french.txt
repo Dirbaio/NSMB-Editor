@@ -1371,7 +1371,6 @@ Niveau Inutilisé 5|10|1
 75: Grassland
 
 [LIST_UndoActions]
-
 Add Object
 Remove Object
 Size Object
@@ -1407,3 +1406,5 @@ Remove Zone
 Size Zone
 Move Zone
 Change Zone ID
+Replace Sprites
+Change Level Settings

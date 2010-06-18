@@ -172,24 +172,23 @@ namespace NSMBe4
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
-
             e.DrawBackground();
-            //Brush UseBrush;
-            Color UseColour;
+            Color TextColor, BackColor = e.BackColor;
             if (spriteListBox.Items.Count > 0 && e.Index > -1) {
-                if (EdControl.Level.ValidSprites[curSprites[e.Index]])
-                {
-                    //UseBrush = Brushes.Black;
-                    UseColour = e.ForeColor;
-                }
-                else
-                {
-                    //UseBrush = Brushes.DarkRed;
-                    UseColour = Color.DarkRed;
+                if (EdControl.Level.ValidSprites[curSprites[e.Index]]) {
+                    TextColor = e.ForeColor;
+                } else {
+                    TextColor = Color.DarkRed;
+                    if ((e.State & DrawItemState.Selected) != DrawItemState.None) {
+                        TextColor = Color.White;
+                        BackColor = Color.DarkRed;
+                        SolidBrush b = new SolidBrush(BackColor);
+                        e.Graphics.FillRectangle(b, e.Bounds);
+                        b.Dispose();
+                    }
                 }
 
-                //e.Graphics.DrawString((string)spriteListBox.Items[e.Index], spriteListBox.Font, UseBrush, e.Bounds);
-                TextRenderer.DrawText(e.Graphics, (string)spriteListBox.Items[e.Index], spriteListBox.Font, e.Bounds, UseColour, e.BackColor, TextFormatFlags.Left);
+                TextRenderer.DrawText(e.Graphics, (string)spriteListBox.Items[e.Index], spriteListBox.Font, e.Bounds, TextColor, BackColor, TextFormatFlags.Left);
 
                 int SSNumber = SSTable[curSprites[e.Index] << 1];
                 int SSValue = SSTable[(curSprites[e.Index] << 1) + 1];
@@ -197,9 +196,8 @@ namespace NSMBe4
                 if (SSValue == 0)
                     txt = "-";
 
-                TextRenderer.DrawText(e.Graphics, txt, spriteListBox.Font, new Rectangle(e.Bounds.X +e.Bounds.Width - 30, e.Bounds.Y, 30, e.Bounds.Height), UseColour, e.BackColor, TextFormatFlags.Right);
+                TextRenderer.DrawText(e.Graphics, txt, spriteListBox.Font, new Rectangle(e.Bounds.X +e.Bounds.Width - 30, e.Bounds.Y, 30, e.Bounds.Height), TextColor, BackColor, TextFormatFlags.Right);
             }
-            e.DrawFocusRectangle();
         }
 
         private void spriteDataTextBox_TextChanged(object sender, EventArgs e)

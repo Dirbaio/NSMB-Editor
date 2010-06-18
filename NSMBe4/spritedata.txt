@@ -111,7 +111,11 @@ value checkbox Start as shell
 end sprite
 
 sprite 55
-value number Unknown
+value list Shooting Position
+No shooting
+Straight at Mario
+Position in Editor
+end list
 3
 value number Zone ID
 4
@@ -200,7 +204,7 @@ end sprite
 sprite 78
 value number Activator ID
 1
-value number Length in blocks
+value number Length
 3.2
 value list Display
 Show

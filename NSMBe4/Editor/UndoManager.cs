@@ -158,6 +158,14 @@ namespace NSMBe4
             ToolStripMenuItem item = sender as ToolStripMenuItem;
             actionCount = (item.OwnerItem as ToolStripSplitButton).DropDownItems.IndexOf(item) + 1;
         }
+        public static byte[][] Clone(byte[][] data)
+        {
+            int len = data.GetLength(0);
+            byte[][] newData = new byte[len][];
+            for (int l = 0; l < len; l++)
+                newData[l] = data[l].Clone() as byte[];
+            return newData;
+        }
     }
 
     public class Action
@@ -562,13 +570,6 @@ namespace NSMBe4
         public RemoveMultipleAction(object[] objs)
             : base(objs)
         {
-            zindex = new int[objs.Length];
-            for (int l = 0; l < objs.Length; l++) {
-                if (objs[l] is NSMBObject)
-                    zindex[l] = level.Objects.IndexOf(objs[l] as NSMBObject);
-                if (objs[l] is NSMBSprite)
-                    zindex[l] = level.Sprites.IndexOf(objs[l] as NSMBSprite);
-            }
         }
         public override void Undo()
         {
@@ -594,6 +595,17 @@ namespace NSMBe4
                     level.Objects.Remove(obj as NSMBObject);
                 if (obj is NSMBSprite)
                     level.Sprites.Remove(obj as NSMBSprite);
+            }
+        }
+        public override void AfterSetEdControl()
+        {
+            zindex = new int[objs.Length];
+            for (int l = 0; l < objs.Length; l++)
+            {
+                if (objs[l] is NSMBObject)
+                    zindex[l] = level.Objects.IndexOf(objs[l] as NSMBObject);
+                if (objs[l] is NSMBSprite)
+                    zindex[l] = level.Sprites.IndexOf(objs[l] as NSMBSprite);
             }
         }
         public override string ToString()
@@ -1221,6 +1233,74 @@ namespace NSMBe4
                 return LanguageManager.GetList("UndoActions")[34];
             else
                 return string.Format(LanguageManager.GetList("UndoActions")[29], LanguageManager.Get("ViewEditor", PropNum + 7));
+        }
+    }
+    #endregion
+    #region Other
+    public class ReplaceSpritesAction : Action
+    {
+        int type, newType;
+        List<NSMBSprite> AffectedSprites;
+        public ReplaceSpritesAction(int type, int newType)
+        {
+            this.type = type;
+            this.newType = newType;
+        }
+        public override void Undo()
+        {
+            foreach (NSMBSprite s in AffectedSprites)
+                s.Type = type;
+        }
+        public override void Redo()
+        {
+            foreach (NSMBSprite s in AffectedSprites)
+                s.Type = newType;
+        }
+        public override void AfterSetEdControl()
+        {
+            AffectedSprites = new List<NSMBSprite>();
+            foreach (NSMBSprite s in EdControl.Level.Sprites)
+                if (s.Type == type)
+                    AffectedSprites.Add(s);
+        }
+        public override void AfterAction()
+        {
+            if (EdControl.mode is ObjectsEditionMode && AffectedSprites != null)
+                (EdControl.mode as ObjectsEditionMode).SelectObjects(AffectedSprites.ToArray());
+            else
+                EdControl.SelectObject(null);
+        }
+        public override string ToString()
+        {
+            return LanguageManager.GetList("UndoActions")[35];
+        }
+    }
+    public class ChangeLevelSettingsAction : Action
+    {
+        byte[][] oldData, newData;
+        public ChangeLevelSettingsAction(byte[][] newData)
+        {
+            this.newData = newData;
+        }
+        public override void Undo()
+        {
+            EdControl.Level.Blocks = UndoManager.Clone(oldData);
+        }
+        public override void Redo()
+        {
+            EdControl.Level.Blocks = UndoManager.Clone(newData);
+        }
+        public override void AfterSetEdControl()
+        {
+            this.oldData = UndoManager.Clone(EdControl.Level.Blocks);
+        }
+        public override void AfterAction()
+        {
+            EdControl.Level.CalculateSpriteModifiers();
+        }
+        public override string ToString()
+        {
+            return LanguageManager.GetList("UndoActions")[36];
         }
     }
     #endregion

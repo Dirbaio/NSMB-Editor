@@ -95,6 +95,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BomOmb {
+            get {
+                object obj = ResourceManager.GetObject("BomOmb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Boo {
             get {
                 object obj = ResourceManager.GetObject("Boo", resourceCulture);
@@ -137,6 +144,20 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BulletBillCannon {
+            get {
+                object obj = ResourceManager.GetObject("BulletBillCannon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap BulletBillCannonTop {
+            get {
+                object obj = ResourceManager.GetObject("BulletBillCannonTop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap BumpPlatformLeft {
             get {
                 object obj = ResourceManager.GetObject("BumpPlatformLeft", resourceCulture);
@@ -154,6 +175,20 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap BumpPlatformSection {
             get {
                 object obj = ResourceManager.GetObject("BumpPlatformSection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap BuzzyBeetle {
+            get {
+                object obj = ResourceManager.GetObject("BuzzyBeetle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap BuzzyBeetleU {
+            get {
+                object obj = ResourceManager.GetObject("BuzzyBeetleU", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -427,6 +462,20 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap HammerBro {
             get {
                 object obj = ResourceManager.GetObject("HammerBro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap HangingPlatform {
+            get {
+                object obj = ResourceManager.GetObject("HangingPlatform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap HangingPlatformChain {
+            get {
+                object obj = ResourceManager.GetObject("HangingPlatformChain", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -781,6 +830,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Snailicorn {
+            get {
+                object obj = ResourceManager.GetObject("Snailicorn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to ;NSMB Editor 5
         ///;Spanish Translation File
@@ -1019,9 +1075,23 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Thwomp {
+            get {
+                object obj = ResourceManager.GetObject("Thwomp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap tileoverrides {
             get {
                 object obj = ResourceManager.GetObject("tileoverrides", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TiltingRock {
+            get {
+                object obj = ResourceManager.GetObject("TiltingRock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1064,6 +1134,34 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap WaterBug {
             get {
                 object obj = ResourceManager.GetObject("WaterBug", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Whomp {
+            get {
+                object obj = ResourceManager.GetObject("Whomp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap WhompL {
+            get {
+                object obj = ResourceManager.GetObject("WhompL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Wiggler {
+            get {
+                object obj = ResourceManager.GetObject("Wiggler", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap WigglerL {
+            get {
+                object obj = ResourceManager.GetObject("WigglerL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

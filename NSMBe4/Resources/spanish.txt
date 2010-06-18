@@ -960,8 +960,6 @@ Nivel 5|10|1
 91=Bloque ? que tira|una moneda.
 125=Puerta cerrada.
 
-
-
 [LIST_Sprites]
 0=Sprite beta?
 1=Sin usar
@@ -1369,7 +1367,6 @@ Nivel 5|10|1
 75: Cesped
 
 [LIST_UndoActions]
-
 Agregar Objeto
 Eliminar Objeto
 Calibrar Objeto
@@ -1405,3 +1402,5 @@ Eliminar Zonas
 Calibrar Zonas
 Mueve Zonas
 Cambiar Zonas ID
+Sustituir Sprites
+Cambiar la configuración del nivel de

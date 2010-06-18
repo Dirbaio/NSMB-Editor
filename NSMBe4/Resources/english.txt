@@ -1291,8 +1291,6 @@ Unused Level 5|10|1
 322=Light FG effect with 321
 323=Cloud
 
-
-
 [LIST_Tilesets]
 0: Grassland
 1: Castle
@@ -1372,7 +1370,6 @@ Unused Level 5|10|1
 75: Grassland
 
 [LIST_UndoActions]
-
 Add Object
 Remove Object
 Size Object
@@ -1408,3 +1405,5 @@ Remove Zone
 Size Zone
 Move Zone
 Change Zone ID
+Replace Sprites
+Change Level Settings
