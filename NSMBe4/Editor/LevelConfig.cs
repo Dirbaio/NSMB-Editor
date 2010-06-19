@@ -31,7 +31,9 @@ namespace NSMBe4 {
             InitializeComponent();
             this.EdControl = EdControl;
             this.Level = EdControl.Level;
+#if MDI
             this.MdiParent = MdiParentForm.instance;
+#endif
             tabControl1.SelectTab(0);
 
             LanguageManager.ApplyToContainer(this, "LevelConfig");

@@ -29,7 +29,9 @@ namespace NSMBe4 {
     public partial class DataFinder : Form {
         public DataFinder() {
             InitializeComponent();
+#if MDI
             this.MdiParent = MdiParentForm.instance;
+#endif
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
 
             Levels = new List<string>();

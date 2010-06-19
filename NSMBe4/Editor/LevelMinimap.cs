@@ -34,7 +34,9 @@ namespace NSMBe4 {
         public LevelMinimap(NSMBLevel Level, LevelEditorControl EdControl)
         {
             InitializeComponent();
+#if MDI
             this.MdiParent = MdiParentForm.instance;
+#endif
             this.Level = Level;
             this.EdControl = EdControl;
             UnviewableAreaBrush = new SolidBrush(Color.FromArgb(120, Color.DarkSlateGray.R, Color.DarkSlateGray.G, Color.DarkSlateGray.B));

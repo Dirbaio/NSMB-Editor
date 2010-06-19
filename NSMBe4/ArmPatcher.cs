@@ -23,7 +23,9 @@ namespace NSMBe4
             InitializeComponent();
             this.romf = romFile;
             this.romdir = romf.Directory;
+#if MDI
             this.MdiParent = MdiParentForm.instance;
+#endif
             this.Show();
         }
 

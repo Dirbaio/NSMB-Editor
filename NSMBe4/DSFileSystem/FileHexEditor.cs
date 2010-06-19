@@ -34,7 +34,9 @@ namespace NSMBe4.DSFileSystem
         public FileHexEditor(File f)
         {
             InitializeComponent();
+#if MDI
             this.MdiParent = MdiParentForm.instance;
+#endif
             this.f = f;
             f.beginEdit(this);
 

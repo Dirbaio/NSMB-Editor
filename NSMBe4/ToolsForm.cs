@@ -34,7 +34,9 @@ namespace NSMBe4
         public ToolsForm(LevelEditorControl edc)
         {
             InitializeComponent();
+#if MDI
             this.MdiParent = MdiParentForm.instance;
+#endif
             LanguageManager.ApplyToContainer(this, "ToolsForm");
             this.EdControl = edc;
         }
