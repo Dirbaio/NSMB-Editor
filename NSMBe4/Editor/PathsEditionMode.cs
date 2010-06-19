@@ -49,7 +49,7 @@ namespace NSMBe4
             {
                 foreach (NSMBPathPoint nn in pp.points)
                 {
-                    if(x + NSMBPath.XOffs >= nn.X && x + NSMBPath.XOffs <= nn.X + 16)
+                    if (x + NSMBPath.XOffs >= nn.X && x + NSMBPath.XOffs <= nn.X + 16)
                         if (y + NSMBPath.YOffs >= nn.Y && y + NSMBPath.YOffs <= nn.Y + 16)
                         {
                             p = pp;
@@ -58,11 +58,13 @@ namespace NSMBe4
                 }
             }
 
-            UpdatePanel();
-            EdControl.repaint();
 
             if (n == null)
+            {
+                UpdatePanel();
+                EdControl.repaint();
                 return;
+            }
 
             DragXOff = x - n.X;
             DragYOff = y - n.Y;
@@ -96,7 +98,8 @@ namespace NSMBe4
             int step = 1;
             if ((Control.ModifierKeys & Keys.Shift) > 0)
                 step = 8;
-            bool MovePath = (Control.ModifierKeys & (Keys.Control | Keys.Alt)) >= (Keys.Control | Keys.Alt);
+
+            bool MovePath = (Control.ModifierKeys & (Keys.Control | Keys.Alt)) == (Keys.Control | Keys.Alt);
             int minx = 0, miny = 0;
             if (MovePath) {
                 minx = n.X - p.getMinX();
@@ -117,6 +120,7 @@ namespace NSMBe4
             if(n != null)
                 g.DrawRectangle(Pens.White, n.X + NSMBPath.XOffs, n.Y + NSMBPath.YOffs, 16, 16);
         }
+
         public override void SelectObject(Object o)
         {
             if (o == null)
@@ -134,6 +138,7 @@ namespace NSMBe4
                 EdControl.repaint();
             }
         }
+
         public override void Refresh()
         {
             SetPanel(pe);
@@ -145,8 +150,11 @@ namespace NSMBe4
             if(n == null)
                 p = null;
 
-            UpdatePanel();
-            if (p == null) return;
+            if (p == null)
+            {
+                UpdatePanel();
+                return;
+            }
 
             if (!l.Contains(p) || !p.points.Contains(n))
             {
@@ -158,9 +166,9 @@ namespace NSMBe4
         }
         public void UpdatePanel()
         {
-            pe.setNode(p, n);
             pe.UpdateList();
             pe.UpdateInfo();
+            pe.setNode(p, n);
         }
 
         public override void MouseUp()

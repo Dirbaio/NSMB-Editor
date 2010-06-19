@@ -814,9 +814,11 @@ namespace NSMBe4
     {
         public NSMBPath p;
         public NSMBPathPoint pn;
+        
         public PathAction(NSMBPath p)
         {
             this.p = p;
+            
         }
         public PathAction(NSMBPathPoint pn)
         {
@@ -825,9 +827,9 @@ namespace NSMBe4
         }
         public override void AfterAction()
         {
-            if (pn != null && level.Paths.Contains(p) && p.points.Contains(pn))
+            if (pn != null)
                 EdControl.SelectObject(pn);
-            else if (pn == null && level.Paths.Contains(p))
+            else if (pn == null)
                 EdControl.SelectObject(p.points[0]);
             else
                 EdControl.SelectObject(null);
@@ -839,12 +841,19 @@ namespace NSMBe4
             : base(p) { }
         public override void Undo()
         {
-            level.Paths.Remove(p);
+            if (p.isProgressPath)
+                level.ProgressPaths.Remove(p);
+            else
+                level.Paths.Remove(p);
         }
         public override void Redo()
         {
-            level.Paths.Add(p);
+            if (p.isProgressPath)
+                level.ProgressPaths.Add(p);
+            else
+                level.Paths.Add(p);
         }
+
         public override string ToString()
         {
             return LanguageManager.GetList("UndoActions")[17];
@@ -856,12 +865,20 @@ namespace NSMBe4
             : base(p) { }
         public override void Undo()
         {
-            level.Paths.Add(p);
+            if (p.isProgressPath)
+                level.ProgressPaths.Add(p);
+            else
+                level.Paths.Add(p);
         }
+
         public override void Redo()
         {
-            level.Paths.Remove(p);
+            if (p.isProgressPath)
+                level.ProgressPaths.Remove(p);
+            else
+                level.Paths.Remove(p);
         }
+
         public override string ToString()
         {
             return LanguageManager.GetList("UndoActions")[18];

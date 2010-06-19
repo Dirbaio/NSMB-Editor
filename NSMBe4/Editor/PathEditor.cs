@@ -136,6 +136,9 @@ namespace NSMBe4
         {
             Rectangle va = EdControl.ViewableArea;
             NSMBPath np = new NSMBPath();
+            if (l == EdControl.Level.ProgressPaths)
+                np.isProgressPath = true;
+
             NSMBPathPoint npp = new NSMBPathPoint(np);
             npp.X = va.X * 16;
             npp.Y = va.Y * 16;

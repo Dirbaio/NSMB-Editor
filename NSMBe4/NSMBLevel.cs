@@ -150,7 +150,7 @@ namespace NSMBe4
             Paths = new List<NSMBPath>();
             while (!PathBlock.end())
             {
-                Paths.Add(NSMBPath.read(PathBlock, PathNodeBlock));
+                Paths.Add(NSMBPath.read(PathBlock, PathNodeBlock, false));
             }
 
             PathBlock = new ByteArrayInputStream(Blocks[9]);
@@ -159,7 +159,7 @@ namespace NSMBe4
             ProgressPaths = new List<NSMBPath>();
             while (!PathBlock.end())
             {
-                ProgressPaths.Add(NSMBPath.read(PathBlock, PathNodeBlock));
+                ProgressPaths.Add(NSMBPath.read(PathBlock, PathNodeBlock, true));
             }
 
 

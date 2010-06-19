@@ -29,6 +29,7 @@ namespace NSMBe4
 
         public int id;
         public List<NSMBPathPoint> points = new List<NSMBPathPoint>();
+        public bool isProgressPath;
 
         public NSMBPath()
         {
@@ -57,9 +58,10 @@ namespace NSMBe4
                 p.write(outn);
         }
 
-        public static NSMBPath read(ByteArrayInputStream inp, ByteArrayInputStream nodes)
+        public static NSMBPath read(ByteArrayInputStream inp, ByteArrayInputStream nodes, bool isProgressPath)
         {
             NSMBPath p = new NSMBPath();
+            p.isProgressPath = isProgressPath;
 
             p.id = inp.readUShort();
             int row = inp.readUShort();
