@@ -462,7 +462,9 @@ label4=Inconnu 3 (B):
 label5=Éclairage 3D :
 label7=ID du chemin de progression :
 
-
+[Sprites]
+Warp=Alluvions
+Eel=Cette anguille ne sera pas visible dans le jeu.
 
 [LIST_Backgrounds]
 0: Prarie (collines oranges et nuages)

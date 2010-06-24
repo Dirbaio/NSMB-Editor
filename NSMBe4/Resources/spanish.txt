@@ -441,7 +441,9 @@ ReplacedSprites={0} sprites sustituidos.
 NoSprites=No hay sprites en el nivel.
 NotFound=No se ha encontrado ningun sprite.
 
-
+[Sprites]
+Warp=Urdimbre
+Eel=Esta anguila no será visible en el juego.
 
 [ViewEditor]
 addViewButton=Crear

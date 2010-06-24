@@ -106,6 +106,7 @@ namespace NSMBe4 {
             bgdragem = new BackgroundDragEditionMode(Level, levelEditorControl1);
 
             levelEditorControl1.SetEditionMode(oem);
+            levelEditorControl1.minimapctrl = minimapControl1;
 
             tools = new ToolsForm(levelEditorControl1);
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);

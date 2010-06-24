@@ -515,6 +515,16 @@ namespace NSMBe4
         {
             sprite.Data = NewData.Clone() as byte[];
         }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+        public override void Merge(Action act)
+        {
+            ChangeSpriteDataAction csda = act as ChangeSpriteDataAction;
+            this.NewData = csda.NewData;
+        }
         public override string ToString()
         {
             return LanguageManager.GetList("UndoActions")[9];

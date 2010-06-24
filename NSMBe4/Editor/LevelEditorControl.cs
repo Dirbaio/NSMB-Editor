@@ -26,6 +26,7 @@ namespace NSMBe4
         private float zoom = 1;
         private bool drag = false;
         public LevelMinimap minimap;
+        public MinimapControl minimapctrl;
         public UndoManager UndoManager;
         public Image bgImage;
         public int bgX, bgY;
@@ -161,6 +162,7 @@ namespace NSMBe4
         private void DrawingArea_Paint(object sender, PaintEventArgs e) {
             if (!Ready) return;
             minimap.Invalidate(true);
+            minimapctrl.Invalidate(true);
 
             Rectangle ViewableBlocks = new Rectangle(hScrollBar.Value, vScrollBar.Value, ViewableWidth, ViewableHeight);
             Rectangle ViewablePixels = new Rectangle(hScrollBar.Value * 16, vScrollBar.Value * 16, ViewableWidth * 16, ViewableHeight * 16);

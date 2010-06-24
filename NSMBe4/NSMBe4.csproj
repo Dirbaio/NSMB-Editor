@@ -192,6 +192,9 @@
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Randomize.resx">
+      <DependentUpon>Randomize.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -519,6 +522,28 @@
     <None Include="Resources\Sprite Images\Snailicorn.PNG" />
     <None Include="Resources\Sprite Images\Wiggler.PNG" />
     <None Include="Resources\Sprite Images\WigglerL.PNG" />
+    <None Include="Resources\Sprite Images\Eel.PNG" />
+    <None Include="Resources\Sprite Images\EelNonMoving.PNG" />
+    <None Include="Resources\Sprite Images\ArrowSign.PNG" />
+    <None Include="Resources\Sprite Images\ArrowSignRotate45.PNG" />
+    <None Include="Resources\Sprite Images\ArrowSignRotate45F.PNG" />
+    <None Include="Resources\Sprite Images\SeaWeed.PNG" />
+    <None Include="Resources\Sprite Images\Spinning4PointedPlatform.PNG" />
+    <None Include="Resources\Sprite Images\WhirlPool.PNG" />
+    <None Include="Resources\Sprite Images\Log.PNG" />
+    <None Include="Resources\Sprite Images\SmallFlamethrower.PNG" />
+    <None Include="Resources\Sprite Images\Flamethrower.PNG" />
+    <None Include="Resources\Sprite Images\GiantPiranhaplant.PNG" />
+    <None Include="Resources\Sprite Images\WarpCannon.PNG" />
+    <None Include="Resources\Sprite Images\WarpWorlds.PNG" />
+    <None Include="Resources\Sprite Images\Coin.PNG" />
+    <None Include="Resources\Sprite Images\CoinInBubble.PNG" />
+    <None Include="Resources\Sprite Images\ThruWallPlatform.PNG" />
+    <None Include="Resources\Sprite Images\BalloonBoo.PNG" />
+    <None Include="Resources\Sprite Images\RoofSpiny.PNG" />
+    <None Include="Resources\Sprite Images\DrawBridgeEnd.PNG" />
+    <None Include="Resources\Sprite Images\DrawBridgeHinge.PNG" />
+    <None Include="Resources\Sprite Images\DrawBridgeSection.PNG" />
     <Content Include="spritedata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -584,6 +609,12 @@
     </Compile>
     <Compile Include="Editor\MinimapControl.Designer.cs">
       <DependentUpon>MinimapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Randomize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Randomize.Designer.cs">
+      <DependentUpon>Randomize.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\UndoManager.cs" />
     <Compile Include="GraphicsEditor\Image2D.cs" />

@@ -463,7 +463,9 @@ label4=Unknown 3 (B):
 label5=3D Lighting:
 label7=Progress Path ID:
 
-
+[Sprites]
+Warp=Warp
+Eel=This eel will not be visible in-game.
 
 [LIST_Backgrounds]
 0: Grassland (orange hills and clouds)
@@ -1214,7 +1216,7 @@ Unused Level 5|10|1
 245=Swelling Tube
 246=Spinning Barrel
 247=Shark Generator??
-248=Baloon Boo
+248=Balloon Boo
 249=Wall Jump Platform
 250=Crow
 251=Giant Eel
