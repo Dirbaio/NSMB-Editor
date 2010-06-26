@@ -32,6 +32,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.desc = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -113,6 +114,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.desc);
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
@@ -121,15 +123,25 @@
             this.panel2.Size = new System.Drawing.Size(157, 262);
             this.panel2.TabIndex = 1;
             // 
+            // desc
+            // 
+            this.desc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.desc.Location = new System.Drawing.Point(6, 227);
+            this.desc.Name = "desc";
+            this.desc.Size = new System.Drawing.Size(145, 20);
+            this.desc.TabIndex = 5;
+            this.desc.TextChanged += new System.EventHandler(this.desc_TextChanged);
+            // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.objWidth);
             this.groupBox2.Controls.Add(this.objHeight);
-            this.groupBox2.Location = new System.Drawing.Point(3, 160);
+            this.groupBox2.Location = new System.Drawing.Point(3, 113);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(148, 99);
             this.groupBox2.TabIndex = 4;
@@ -365,6 +377,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objWidth)).EndInit();
@@ -407,5 +420,6 @@
         private System.Windows.Forms.Button emptyTileButton;
         private System.Windows.Forms.Button slopeControlButton;
         private System.Windows.Forms.Button newLineButton;
+        private System.Windows.Forms.TextBox desc;
     }
 }

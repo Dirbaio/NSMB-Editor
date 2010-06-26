@@ -52,6 +52,8 @@ namespace NSMBe4 {
         public static NitroROMFilesystem FS;
         public static string filename;
         public static System.IO.FileInfo romfile;
+        public static Dictionary<int, List<string>> descriptions;
+        public static string DescriptionPath;
 
         public static void load(String filename)
         {
@@ -59,6 +61,7 @@ namespace NSMBe4 {
             FS = new NitroROMFilesystem(filename);
             romfile = new System.IO.FileInfo(filename);
 
+            LoadDescriptions();
             LoadOverlay0();
 
             if (Overlay0[28] == 0x84) {
@@ -96,6 +99,34 @@ namespace NSMBe4 {
             OverlayFile ov = FS.arm9ovs[0];
             ov.decompress();
             Overlay0 = ov.getContents();
+        }
+
+        public static void LoadDescriptions()
+        {
+            DescriptionPath = filename.Substring(0, filename.LastIndexOf('.') + 1) + "txt";
+            descriptions = new Dictionary<int, List<string>>();
+            int lineNum = 0;
+            try {
+                if (!System.IO.File.Exists(DescriptionPath)) return;
+                System.IO.StreamReader s = new System.IO.StreamReader(DescriptionPath);
+                List<string> curList = null;
+                while (!s.EndOfStream) {
+                    lineNum++;
+                    string line = s.ReadLine();
+                    if (line != "") {
+                        if (line.StartsWith("[")) {
+                            int num = int.Parse(line.Substring(1, line.Length - 2));
+                            descriptions.Add(num, new List<string>());
+                            curList = descriptions[num];
+                        } else if (curList != null) {
+                            curList.Add(line);
+                        }
+                    }
+                }
+                s.Close();
+            } catch (Exception ex) {
+                System.Windows.Forms.MessageBox.Show("An error occurred while reading tileset descriptions on line " + lineNum.ToString() + ".\n\nThe original error message was:\n" + ex.Message);
+            }
         }
 
         public enum Origin {

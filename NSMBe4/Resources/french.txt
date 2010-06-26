@@ -406,6 +406,8 @@ exportButton=Exporter
 newTilesGroupBox=Inserer de nouvelles tiles dans :
 palette1RadioButton=Palette 1
 palette2RadioButton=Palette 2
+createDescriptions=Créer des descriptions
+deleteDescriptions=Description Supprimer
 
 
 [TilesetObjectEditor]

@@ -32,16 +32,20 @@ namespace NSMBe4
         NSMBTileset.ObjectDef obj;
         NSMBTileset tls;
         NSMBObject previewObject;
-        int tnum;
+        public int tnum;
         bool couldDrawObject = true;
+        public TextBox descBox;
 
         public delegate void mustRepaintObjectsD();
         public event mustRepaintObjectsD mustRepaintObjects;
+        public delegate void changeDescription();
+        public event changeDescription DescriptionChanged;
 
         public TilesetObjectEditor()
         {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "TilesetObjectEditor");
+            descBox = desc;
         }
 
         public void setObject(int num)
@@ -309,6 +313,11 @@ namespace NSMBe4
             NSMBTileset.ObjectDefTile tile = new NSMBTileset.ObjectDefTile(tls);
             tile.controlByte = 0x80;
             insertTile(tile);
+        }
+
+        private void desc_TextChanged(object sender, EventArgs e)
+        {
+            DescriptionChanged();
         }
     }
 }

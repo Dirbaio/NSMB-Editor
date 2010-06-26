@@ -127,7 +127,8 @@ namespace NSMBe4 {
                     e.Graphics.DrawString(InvalidObjectString, NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY + 14);
                 }
                 if (GFX.Tilesets[CurrentTileset].UseNotes && RealObjIdx < GFX.Tilesets[CurrentTileset].ObjNotes.Length) {
-                    e.Graphics.DrawString(GFX.Tilesets[CurrentTileset].ObjNotes[RealObjIdx], NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY + 14);
+                    //e.Graphics.DrawString(GFX.Tilesets[CurrentTileset].ObjNotes[RealObjIdx], NSMBGraphics.SmallInfoFont, Brushes.Black, 86, (float)CurrentDrawY + 14);
+                    e.Graphics.DrawString(GFX.Tilesets[CurrentTileset].ObjNotes[RealObjIdx], NSMBGraphics.SmallInfoFont, Brushes.Black, new Rectangle(86, CurrentDrawY + 14, DrawingArea.Width - 86, 34));
                 }
                 CurrentDrawY += 54;
                 RealObjIdx++;

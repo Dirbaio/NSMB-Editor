@@ -390,7 +390,6 @@ editNoharaSubButton=Editar Nohara SubUnit (Serie 2: Castillo del final)
 openTilesetButton=Abrir
 
 
-
 [TilesetEditor]
 _TITLE=Edicion de Serie de Objetos - {0}
 toolStripButton1=Guardar Objetos
@@ -405,6 +404,8 @@ exportButton=Exportar
 newTilesGroupBox=Insertar bloques nuevos en:
 palette1RadioButton=Paleta 1
 palette2RadioButton=Paleta 2
+createDescriptions=Crear Descripciones
+deleteDescriptions=Eliminar Descripciones
 
 [TilesetObjectEditor]
 label5=Editor de Objetos

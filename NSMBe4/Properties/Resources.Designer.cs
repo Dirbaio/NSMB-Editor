@@ -1201,6 +1201,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap textfield_add {
+            get {
+                object obj = ResourceManager.GetObject("textfield_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ThruWallPlatform {
             get {
                 object obj = ResourceManager.GetObject("ThruWallPlatform", resourceCulture);

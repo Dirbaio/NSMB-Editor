@@ -192,9 +192,6 @@
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\Randomize.resx">
-      <DependentUpon>Randomize.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -544,6 +541,7 @@
     <None Include="Resources\Sprite Images\DrawBridgeEnd.PNG" />
     <None Include="Resources\Sprite Images\DrawBridgeHinge.PNG" />
     <None Include="Resources\Sprite Images\DrawBridgeSection.PNG" />
+    <None Include="Resources\textfield_add.png" />
     <Content Include="spritedata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -609,12 +607,6 @@
     </Compile>
     <Compile Include="Editor\MinimapControl.Designer.cs">
       <DependentUpon>MinimapControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editor\Randomize.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\Randomize.Designer.cs">
-      <DependentUpon>Randomize.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\UndoManager.cs" />
     <Compile Include="GraphicsEditor\Image2D.cs" />

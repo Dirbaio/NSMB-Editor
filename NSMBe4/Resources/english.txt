@@ -407,6 +407,8 @@ exportButton=Export
 newTilesGroupBox=Insert new tiles in:
 palette1RadioButton=Palette 1
 palette2RadioButton=Palette 2
+createDescriptions=Create Descriptions
+deleteDescriptions=Delete Descriptions
 
 
 [TilesetObjectEditor]
@@ -923,29 +925,29 @@ Unused Level 5|10|1
 
 
 [LIST_ObjNotes]
-9=Door. This object will not|function without a|matching entrance.
+9=Door. This object will not function without a matching entrance.
 10=Beta style flagpole.
 11=Climbable vine.
 16=Donut lift.
-18=Turns into coins|when touched.
-19=Turns into coins|when touched.
+18=Turns into coins when touched.
+19=Turns into coins when touched.
 26=Coins activated by a P-switch.
-30=? block containing a|mushroom or flower|powerup.
+30=? block containing a mushroom or flower powerup.
 31=? block containing a starman.
-32=? block containing a starman if|you already have a star,|otherwise a coin.
-33=? block containing a 1-up|mushroom.
+32=? block containing a starman if you already have a star, otherwise a coin.
+33=? block containing a 1-up mushroom.
 34=? block containing a spring.
-35=? block containing a mini|mushroom.
-36=? block containing|5 floating coins.
+35=? block containing a mini mushroom.
+36=? block containing 5 floating coins.
 37=? block containing a coin.
 38=? block containing a vine.
 39=? block containing a mushroom.
 40=? block containing a mushroom.
 41=? block, contents unknown.
 42=? block containing a Boo.
-43=? block containing a mega|mushroom.
+43=? block containing a mega mushroom.
 44=Brick.
-45=Brick containing a mushroom|or flower powerup.
+45=Brick containing a mushroom or flower powerup.
 46=Brick containing a starman.
 47=Brick containing a 1-up mushroom.
 48=Brick containing a coin.
@@ -953,16 +955,16 @@ Unused Level 5|10|1
 50=Brick containing a vine.
 51=Brick.
 52=Brick.
-70=Invisible block containing|a powerup.
-71=Invisible block containing|a starman.
-72=Invisible block containing|a 1-up mushroom.
-73=Invisible block containing|a coin.
-74=Invisible block containing|a vine.
-75=Invisible block containing|a mushroom.
+70=Invisible block containing a powerup.
+71=Invisible block containing a starman.
+72=Invisible block containing a 1-up mushroom.
+73=Invisible block containing a coin.
+74=Invisible block containing a vine.
+75=Invisible block containing a mushroom.
 88=Water top. Swimmable.
 89=Water. Swimmable.
-90=? block which throws out|a powerup.
-91=? block which throws out|a coin.
+90=? block which throws out a powerup.
+91=? block which throws out a coin.
 125=Closed door.
 
 

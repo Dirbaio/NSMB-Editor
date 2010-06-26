@@ -195,16 +195,17 @@ namespace NSMBe4
 
             // Enable notes for the normal tileset
             Tilesets[0].UseNotes = true;
-            Tilesets[0].ObjNotes = new string[Tilesets[0].Objects.Length];
-            List<string> RawNotes = LanguageManager.GetList("ObjNotes");
-            for (int NoteIdx = 0; NoteIdx < RawNotes.Count; NoteIdx++) {
-                if (RawNotes[NoteIdx] == "") continue;
-
-                int equalPos = RawNotes[NoteIdx].IndexOf('=');
-                if (equalPos != -1) {
-                    int ObjTarget = int.Parse(RawNotes[NoteIdx].Substring(0, equalPos));
-                    Tilesets[0].ObjNotes[ObjTarget] = RawNotes[NoteIdx].Substring(equalPos + 1).Replace('|', '\n');
-                }
+            if (ROM.descriptions.ContainsKey(65535))
+                Tilesets[0].ObjNotes = GetDescriptions(ROM.descriptions[65535]);
+            else
+                Tilesets[0].ObjNotes = GetDescriptions(LanguageManager.GetList("ObjNotes"));
+            if (ROM.descriptions.ContainsKey(TilesetID)) {
+                Tilesets[1].ObjNotes = GetDescriptions(ROM.descriptions[TilesetID]);
+                Tilesets[1].UseNotes = true;
+            }
+            if (ROM.descriptions.ContainsKey(65534)) {
+                Tilesets[2].ObjNotes = GetDescriptions(ROM.descriptions[65534]);
+                Tilesets[2].UseNotes = true;
             }
         }
 
@@ -238,6 +239,22 @@ namespace NSMBe4
             for (int BlockIdx = 0; BlockIdx < 6; BlockIdx++) {
                 Tilesets[0].EditorOverrides[BlockIdx + 176] = (short)(BlockIdx + (type ? 129 : 123));
             }
+        }
+
+        public static string[] GetDescriptions(List<string> contents)
+        {
+            string[] descriptions = new string[256];
+            for (int NoteIdx = 0; NoteIdx < contents.Count; NoteIdx++)
+            {
+                if (contents[NoteIdx] == "") continue;
+
+                int equalPos = contents[NoteIdx].IndexOf('=');
+                if (equalPos != -1) {
+                    int ObjTarget = int.Parse(contents[NoteIdx].Substring(0, equalPos));
+                    descriptions[ObjTarget] = contents[NoteIdx].Substring(equalPos + 1).Replace('|', '\n');
+                }
+            }
+            return descriptions;
         }
 
         public void close()
