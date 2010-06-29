@@ -35,6 +35,7 @@ namespace NSMBe4
         public int tnum;
         bool couldDrawObject = true;
         public TextBox descBox;
+        public Label descLbl;
 
         public delegate void mustRepaintObjectsD();
         public event mustRepaintObjectsD mustRepaintObjects;
@@ -46,6 +47,7 @@ namespace NSMBe4
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "TilesetObjectEditor");
             descBox = desc;
+            descLbl = description;
         }
 
         public void setObject(int num)

@@ -424,7 +424,7 @@ label4=Map16 Tiles:
 slopeControlButton=Slope Control
 emptyTileButton=Empty Tile
 newLineButton=New Line
-
+description=Description
 
 
 [ToolsForm]

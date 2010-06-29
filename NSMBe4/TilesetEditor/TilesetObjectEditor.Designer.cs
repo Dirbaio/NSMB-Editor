@@ -52,6 +52,7 @@
             this.newLineButton = new System.Windows.Forms.Button();
             this.emptyTileButton = new System.Windows.Forms.Button();
             this.slopeControlButton = new System.Windows.Forms.Button();
+            this.description = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.editZone)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -114,6 +115,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.description);
             this.panel2.Controls.Add(this.desc);
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupBox1);
@@ -127,7 +129,7 @@
             // 
             this.desc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.desc.Location = new System.Drawing.Point(6, 227);
+            this.desc.Location = new System.Drawing.Point(6, 239);
             this.desc.Name = "desc";
             this.desc.Size = new System.Drawing.Size(145, 20);
             this.desc.TabIndex = 5;
@@ -364,6 +366,15 @@
             this.slopeControlButton.UseVisualStyleBackColor = true;
             this.slopeControlButton.Click += new System.EventHandler(this.slopeControlButton_Click);
             // 
+            // description
+            // 
+            this.description.AutoSize = true;
+            this.description.Location = new System.Drawing.Point(9, 223);
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(70, 13);
+            this.description.TabIndex = 6;
+            this.description.Text = "<description>";
+            // 
             // TilesetObjectEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -421,5 +432,6 @@
         private System.Windows.Forms.Button slopeControlButton;
         private System.Windows.Forms.Button newLineButton;
         private System.Windows.Forms.TextBox desc;
+        private System.Windows.Forms.Label description;
     }
 }

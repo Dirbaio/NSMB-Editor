@@ -423,7 +423,7 @@ label4=Tiles Map16 :
 slopeControlButton=Control de l'inclinaison
 emptyTileButton=Tile vide
 newLineButton=Nouvelle ligne
-
+description=Description
 
 
 [ToolsForm]

@@ -420,7 +420,7 @@ label4=Bloques Map16:
 slopeControlButton=Crear Control de Pendiente
 emptyTileButton=Bloque vacío
 newLineButton=Nueva Linea
-
+description=Descripcion
 
 
 [ToolsForm]

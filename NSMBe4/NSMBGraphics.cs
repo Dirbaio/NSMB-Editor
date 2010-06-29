@@ -251,7 +251,7 @@ namespace NSMBe4
                 int equalPos = contents[NoteIdx].IndexOf('=');
                 if (equalPos != -1) {
                     int ObjTarget = int.Parse(contents[NoteIdx].Substring(0, equalPos));
-                    descriptions[ObjTarget] = contents[NoteIdx].Substring(equalPos + 1).Replace('|', '\n');
+                    descriptions[ObjTarget] = contents[NoteIdx].Substring(equalPos + 1);
                 }
             }
             return descriptions;

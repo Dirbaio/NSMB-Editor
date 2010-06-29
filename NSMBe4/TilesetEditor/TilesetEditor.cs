@@ -75,12 +75,14 @@ namespace NSMBe4
             graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
 
             graphicsEditor1.SaveGraphics += new GraphicsEditor.SaveGraphicsHandler(graphicsEditor1_SaveGraphics);
-            descExists = ROM.descriptions.ContainsKey(TilesetID);
-            deleteDescriptions.Visible = descExists;
+            
+            descExists = ROM.descriptions.ContainsKey(TilesetID); //Fild in there are descriptions for the tileset
+            deleteDescriptions.Visible = descExists; //Make the appropriate button visible
             createDescriptions.Visible = !descExists;
-            tilesetObjectEditor1.descBox.Visible = descExists;
+            tilesetObjectEditor1.descBox.Visible = descExists; //Hide or show the description text box
+            tilesetObjectEditor1.descLbl.Visible = descExists;
             if (descExists)
-                descriptions = ROM.descriptions[TilesetID];
+                descriptions = ROM.descriptions[TilesetID]; //Get the descriptions
         }
 
         private void graphicsEditor1_SaveGraphics() {
@@ -199,11 +201,12 @@ namespace NSMBe4
                 descriptions = new List<string>();
                 if (TilesetID == 65535) { //Special copying from built in description list
                     List<string> all = LanguageManager.GetList("ObjNotes");
+                    int allIndex = 0;
                     for (int l = 0; l <= 255; l++) {
                         string num = l.ToString();
-                        if (all.Count > 0 && all[0].StartsWith(num)) {
-                            num = all[0];
-                            all.RemoveAt(0);
+                        if (allIndex < all.Count - 1 && all[allIndex].StartsWith(num)) {
+                            num = all[allIndex];
+                            allIndex++;
                         } else
                             num += "=";
                         s.WriteLine(num);
@@ -224,6 +227,8 @@ namespace NSMBe4
                 createDescriptions.Visible = false;
                 deleteDescriptions.Visible = true;
                 tilesetObjectEditor1.descBox.Visible = true;
+                tilesetObjectEditor1.descBox.Text = "";
+                tilesetObjectEditor1.descLbl.Visible = true;
             } catch (Exception ex) {
                 MessageBox.Show("Could not open description file.\n\nThe original error message was:\n" + ex.Message);
             }
@@ -249,7 +254,9 @@ namespace NSMBe4
                     if (line != header)
                         newTxt += line + Environment.NewLine;
                 }
-                while (!s.EndOfStream && !s.ReadLine().StartsWith("[")) { } //Move to the next tileset
+                line = "";
+                while (!s.EndOfStream && !line.StartsWith("[")) { line = s.ReadLine(); } //Move to the next tileset
+                if (!s.EndOfStream) newTxt += line + Environment.NewLine;
                 while (!s.EndOfStream) //Write the rest of the data
                     newTxt += s.ReadLine() + Environment.NewLine;
                 s.Close();
@@ -260,15 +267,14 @@ namespace NSMBe4
                 createDescriptions.Visible = true;
                 deleteDescriptions.Visible = false;
                 tilesetObjectEditor1.descBox.Visible = false;
+                tilesetObjectEditor1.descLbl.Visible = false;
                 if (TilesetID != 65535)
                     t.UseNotes = false;
-                else
+                else //Restore the original notes
                     t.ObjNotes = NSMBGraphics.GetDescriptions(LanguageManager.GetList("ObjNotes"));
                 descExists = false;
                 objectPickerControl1.Invalidate(true);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show("Could not open description file.\n\nThe original error message was:\n" + ex.Message);
             }
         }
