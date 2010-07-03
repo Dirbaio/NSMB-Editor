@@ -36,14 +36,14 @@
             this.m.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m.Location = new System.Drawing.Point(0, 0);
             this.m.Name = "m";
-            this.m.Size = new System.Drawing.Size(292, 268);
+            this.m.Size = new System.Drawing.Size(881, 484);
             this.m.TabIndex = 0;
             // 
             // ImageManagerWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 268);
+            this.ClientSize = new System.Drawing.Size(881, 484);
             this.Controls.Add(this.m);
             this.Name = "ImageManagerWindow";
             this.Text = "x";

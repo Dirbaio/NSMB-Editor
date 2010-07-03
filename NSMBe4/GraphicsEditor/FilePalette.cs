@@ -9,20 +9,31 @@ namespace NSMBe4
     public class FilePalette : Palette
     {
         File f;
-        public FilePalette(File f)
+        string name;
+
+        public FilePalette(File f) : this(f, f.name)
         {
-            f.beginEdit(this);
+        }
+
+        public FilePalette(File f, string name)
+        {
             this.f = f;
-            byte[] data = f.getContents();
-            data = ROM.LZ77_Decompress(data);
+            f.beginEdit(this);
+            this.name = name;
+
+            pal = arrayToPalette(f.getContents());
+        }
+        public static Color[] arrayToPalette(byte[] data)
+        {
             ByteArrayInputStream ii = new ByteArrayInputStream(data);
-            pal = new Color[data.Length / 2];
+            Color[] pal = new Color[data.Length / 2];
             for (int i = 0; i < pal.Length; i++)
             {
                 pal[i] = NSMBTileset.fromRGB15(ii.readUShort());
             }
- 
+            return pal;
         }
+
         public override void save()
         {
             ByteArrayOutputStream oo = new ByteArrayOutputStream();
@@ -40,7 +51,7 @@ namespace NSMBe4
 
         public override string ToString()
         {
-            return f.name;
+            return name;
         }
     }
 }

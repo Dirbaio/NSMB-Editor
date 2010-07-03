@@ -295,8 +295,9 @@ namespace NSMBe4.DSFileSystem
                     new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
             else if(filename.EndsWith("_ncl.bin"))
             {
-                LevelChooser.showImgMgr();
-                LevelChooser.imgMgr.m.addPalette(new FilePalette(f));
+                new PaletteViewer(f).Show();
+//                LevelChooser.showImgMgr();
+//                LevelChooser.imgMgr.m.addPalette(new FilePalette(f));
             }
             else if(filename.EndsWith("_ncg.bin"))
             {

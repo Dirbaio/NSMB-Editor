@@ -23,9 +23,9 @@ namespace NSMBe4
             InitializeComponent();
             this.romf = romFile;
             this.romdir = romf.Directory;
-#if MDI
+
             this.MdiParent = MdiParentForm.instance;
-#endif
+
             this.Show();
         }
 
@@ -38,6 +38,21 @@ namespace NSMBe4
             ArenaLoOffs = int.Parse(l, System.Globalization.NumberStyles.HexNumber);
         }
 
+
+        public static int runProcess(string proc, string cwd)
+        {
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = "cmd";
+            info.Arguments = "/C "+proc+" || pause";
+            info.CreateNoWindow = false;
+            info.UseShellExecute = false;
+            info.WorkingDirectory = cwd;
+
+            Process p = Process.Start(info);
+            p.WaitForExit();
+            return p.ExitCode;
+        }
+
         private void ArmPatcher_Load(object sender, EventArgs e)
         {
             undoPatches();
@@ -46,17 +61,9 @@ namespace NSMBe4
 
             int codeAddr = (int)ROM.FS.readFromRamAddr(ArenaLoOffs, -1);
 
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.FileName = "cmd";
-            info.Arguments = "/C make CODEADDR=0x"+codeAddr.ToString("X8") + " || pause";
-            info.CreateNoWindow = false;
-            info.UseShellExecute = false;
-            info.WorkingDirectory = romdir.FullName;
+            int exCode = runProcess("make CODEADDR=0x" + codeAddr.ToString("X8"), romdir.FullName);
 
-            Process p = Process.Start(info);
-            p.WaitForExit();
-
-            if (p.ExitCode == 0)
+            if (exCode == 0)
             {
                 FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
                 if (!f.Exists) return;
@@ -149,7 +156,6 @@ namespace NSMBe4
             Console.Out.WriteLine();
             Console.Out.WriteLine();
 
-            Close();
         }
 
         public static uint parseUHex(string s)
@@ -223,6 +229,11 @@ namespace NSMBe4
             res |= offs;
 
             return res;
+        }
+
+        private void ArmPatcher_Shown(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

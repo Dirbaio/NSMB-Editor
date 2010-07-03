@@ -44,7 +44,8 @@ namespace NSMBe4 {
             DrawingArea.Invalidate();
         }
 
-        public void Initialise(NSMBGraphics GFXd) {
+        public void Initialise(NSMBGraphics GFXd)
+        {
             if (inited) return;
             inited = true;
             GFX = GFXd;
@@ -52,20 +53,24 @@ namespace NSMBe4 {
             LoadObjects();
         }
 
-        private void LoadObjects() {
+        private void LoadObjects()
+        {
             TilesetObjects = new NSMBObject[][] { null, null, null };
-            TilesetObjects[0] = new NSMBObject[256];
-            TilesetObjects[1] = new NSMBObject[256];
-            TilesetObjects[2] = new NSMBObject[256];
-            for (int TSIdx = 0; TSIdx < 3; TSIdx++) {
-                for (int ObjIdx = 0; ObjIdx < 256; ObjIdx++) {
+            TilesetObjects[0] = new NSMBObject[128];
+            TilesetObjects[1] = new NSMBObject[128];
+            TilesetObjects[2] = new NSMBObject[128];
+            for (int TSIdx = 0; TSIdx < 3; TSIdx++)
+            {
+                for (int ObjIdx = 0; ObjIdx < 128; ObjIdx++)
+                {
                     TilesetObjects[TSIdx][ObjIdx] = new NSMBObject(ObjIdx, TSIdx, 0, 0, 5, 3, GFX);
                 }
             }
         }
 
         public void ReRenderAll(int Tileset) {
-            for (int ObjIdx = 0; ObjIdx < 256; ObjIdx++) {
+            for (int ObjIdx = 0; ObjIdx < 128; ObjIdx++)
+            {
                 try
                 {
                     TilesetObjects[Tileset][ObjIdx].UpdateObjCache();
@@ -78,7 +83,7 @@ namespace NSMBe4 {
         private void UpdateScrollbars() {
             ViewableHeight = (int)Math.Ceiling((float)DrawingArea.Height / 54);
 
-            vScrollBar.Maximum = ((int)Math.Ceiling((float)(256 - ViewableHeight) / 4) * 4) + 1;
+            vScrollBar.Maximum = ((int)Math.Ceiling((float)(128 - ViewableHeight) / 4) * 4) + 1;
         }
 
         private void ObjectPickerControl_Resize(object sender, EventArgs e) {
@@ -132,7 +137,7 @@ namespace NSMBe4 {
                 }
                 CurrentDrawY += 54;
                 RealObjIdx++;
-                if (RealObjIdx == 256) break;
+                if (RealObjIdx == 128) break;
             }
 
             CurrentDrawY = 4;
@@ -142,7 +147,7 @@ namespace NSMBe4 {
                 TilesetObjects[CurrentTileset][RealObjIdx].RenderPlain(e.Graphics, 4, CurrentDrawY);
                 CurrentDrawY += 54;
                 RealObjIdx++;
-                if (RealObjIdx == 256) break;
+                if (RealObjIdx == 128) break;
             }
         }
 
@@ -152,7 +157,7 @@ namespace NSMBe4 {
 
                 SelectedObject = (int)Math.Floor((double)(e.Y - 2) / 54) + vScrollBar.Value;
                 if (SelectedObject < 0) SelectedObject = 0;
-                if (SelectedObject > 255) SelectedObject = 255;
+                if (SelectedObject > 127) SelectedObject = 127;
 
                 if (SelectedObject != OldSelection) {
                     Invalidate(true);

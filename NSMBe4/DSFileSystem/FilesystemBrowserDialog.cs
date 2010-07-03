@@ -32,6 +32,7 @@ namespace NSMBe4.DSFileSystem
         public FilesystemBrowserDialog(Filesystem fs)
         {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
             LanguageManager.ApplyToContainer(this, "FilesystemBrowserDialog");
 
             this.fs = fs;

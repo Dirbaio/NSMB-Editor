@@ -109,8 +109,9 @@ namespace NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public byte[] getContents()
+        public virtual byte[] getContents()
         {
+            enableEdition();
             byte[] file = new byte[fileSize];
             parent.s.Seek(fileBegin, SeekOrigin.Begin);
             parent.s.Read(file, 0, file.Length);
@@ -221,22 +222,35 @@ namespace NSMBe4.DSFileSystem
 
         public void setByteAt(int offs, byte val)
         {
+            enableEdition();
             long pos = parent.s.Position;
             parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
             parent.s.WriteByte(val);
             parent.s.Seek(pos, SeekOrigin.Begin);
         }
 
-        public void replace(byte[] newFile, object editor)
+        public bool isAGoodEditor(object editor)
         {
             if (!beingEdited)
-                throw new Exception("NOT EDITING FILE " + name);
+                return false;
 
-            if(editor != editedBy)
+            if (editor == editedBy)
+                return true;
+
+            if (editor is InlineFile && inlineEditors.Contains(editor as InlineFile))
+                return true;
+
+            return false;
+        }
+        public virtual void replace(byte[] newFile, object editor)
+        {
+            if(!isAGoodEditor(editor))
                 throw new Exception("NOT CORRECT EDITOR " + name);
 
             if(newFile.Length != fileSize && fixedFile)
                 throw new Exception("TRYING TO RESIZE FIXED FILE: " + name);
+
+            enableEdition();
 
 //            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             int newStart = fileBegin;
@@ -319,7 +333,7 @@ namespace NSMBe4.DSFileSystem
             return addr >= fileBegin && addr < fileBegin + fileSize;
         }
 
-        private List<InlineFile> inlineEditors;
+        private List<InlineFile> inlineEditors = new List<InlineFile>();
 
         public void beginEditInline(InlineFile f)
         {
@@ -340,7 +354,12 @@ namespace NSMBe4.DSFileSystem
 
         //Intended for compressed files like overlays.
         //Must decompress the file so it's editable and still playable.
-        public virtual void enableEdition() { } 
+        public virtual void enableEdition() { }
 
+
+        public string getPath()
+        {
+            return parentDir.getPath() + "/" + name;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace NSMBe4
     {
         File f;
         byte[] data;
-        int width;
+        public int width;
         bool is4bpp;
 
         public Image2D(File f, int width, bool is4bpp)
@@ -50,8 +50,14 @@ namespace NSMBe4
 
         public override int getHeight()
         {
-            return data.Length / width;
+            int tileCount = data.Length / 64;
+            int tileWidth = (width / 8);
+            int rowCount = tileCount / tileWidth;
+            if (tileCount % tileWidth != 0) rowCount++;
+
+            return rowCount * 8;
         }
+
 
         public override int getPixel(int x, int y)
         {
@@ -61,6 +67,7 @@ namespace NSMBe4
             int offs = bx + by * (width / 8);
             offs *= 64;
             offs += x % 8 + 8 * (y % 8);
+            if (offs >= data.Length) return 0;
             return data[offs];
         }
 
@@ -72,6 +79,7 @@ namespace NSMBe4
             int offs = bx + by * (width / 8);
             offs *= 64;
             offs += x % 8 + 8 * (y % 8);
+            if (offs >= data.Length) return;
             data[offs] = (byte)c;
         }
 
@@ -89,6 +97,16 @@ namespace NSMBe4
             }
 
             f.replace(newdata, this);
+        }
+
+        public override byte[] getRawData()
+        {
+            return data;
+        }
+
+        public override void setRawData(byte[] data)
+        {
+            this.data = (byte[])data.Clone();
         }
     }
 }

@@ -72,7 +72,7 @@ namespace NSMBe4
 
             tilesetObjectEditor1.load(g, TilesetNumber);
             map16Editor1.load(t);
-            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
+//            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
 
             graphicsEditor1.SaveGraphics += new GraphicsEditor.SaveGraphicsHandler(graphicsEditor1_SaveGraphics);
             
@@ -86,7 +86,7 @@ namespace NSMBe4
         }
 
         private void graphicsEditor1_SaveGraphics() {
-            t.ResetGraphics(graphicsEditor1.GFXData);
+//            t.ResetGraphics(graphicsEditor1.GFXData);
             objectPickerControl1.ReRenderAll(TilesetNumber);
             tilesetObjectEditor1.redrawThings();
             map16Editor1.redrawThings();

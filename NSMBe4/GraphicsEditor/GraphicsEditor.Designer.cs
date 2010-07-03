@@ -36,8 +36,6 @@
             this.hoverStatus = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.drawingBox = new System.Windows.Forms.PictureBox();
-            this.paletteChooser = new System.Windows.Forms.ComboBox();
-            this.paletteChooserLabel = new System.Windows.Forms.Label();
             this.imageStatus = new System.Windows.Forms.Label();
             this.undoButton = new System.Windows.Forms.Button();
             this.redoButton = new System.Windows.Forms.Button();
@@ -184,27 +182,6 @@
             this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
             this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
-            // paletteChooser
-            // 
-            this.paletteChooser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.paletteChooser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.paletteChooser.FormattingEnabled = true;
-            this.paletteChooser.Location = new System.Drawing.Point(570, 3);
-            this.paletteChooser.Name = "paletteChooser";
-            this.paletteChooser.Size = new System.Drawing.Size(48, 21);
-            this.paletteChooser.TabIndex = 13;
-            this.paletteChooser.SelectedIndexChanged += new System.EventHandler(this.paletteChooser_SelectedIndexChanged);
-            // 
-            // paletteChooserLabel
-            // 
-            this.paletteChooserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.paletteChooserLabel.Location = new System.Drawing.Point(492, 6);
-            this.paletteChooserLabel.Name = "paletteChooserLabel";
-            this.paletteChooserLabel.Size = new System.Drawing.Size(72, 13);
-            this.paletteChooserLabel.TabIndex = 14;
-            this.paletteChooserLabel.Text = "<paletteChooserLabel>";
-            this.paletteChooserLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // imageStatus
             // 
             this.imageStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -275,8 +252,6 @@
             this.Controls.Add(this.redoButton);
             this.Controls.Add(this.undoButton);
             this.Controls.Add(this.imageStatus);
-            this.Controls.Add(this.paletteChooserLabel);
-            this.Controls.Add(this.paletteChooser);
             this.Controls.Add(this.palettePicker1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.hoverStatus);
@@ -314,8 +289,6 @@
         private System.Windows.Forms.Label hoverStatus;
         private System.Windows.Forms.Panel panel1;
         private PalettePicker palettePicker1;
-        private System.Windows.Forms.ComboBox paletteChooser;
-        private System.Windows.Forms.Label paletteChooserLabel;
         private System.Windows.Forms.PictureBox drawingBox;
         private System.Windows.Forms.Label imageStatus;
         private System.Windows.Forms.Button undoButton;

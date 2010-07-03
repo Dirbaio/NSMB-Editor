@@ -38,6 +38,7 @@
             this.Name = "ArmPatcher";
             this.Text = "ArmPatcher";
             this.Load += new System.EventHandler(this.ArmPatcher_Load);
+            this.Shown += new System.EventHandler(this.ArmPatcher_Shown);
             this.ResumeLayout(false);
 
         }

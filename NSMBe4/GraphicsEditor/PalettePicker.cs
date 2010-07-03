@@ -26,12 +26,10 @@ using System.Windows.Forms;
 namespace NSMBe4 {
     public partial class PalettePicker : UserControl {
         private Bitmap PalBuffer = null;
-        private Color[] Palette;
+        private Palette pal;
         public int SelectedFG;
         public int SelectedBG;
-        public int ViewPal;
         public int PalSize;
-        public int PalCount;
 
         private bool DragChoice = false;
 
@@ -42,30 +40,25 @@ namespace NSMBe4 {
             InitializeComponent();
         }
 
-        public void SetPalette(Color[] colours, int palsize) {
-            Palette = colours;
+        public void SetPalette(Palette pal) {
+            this.pal = pal;
             SelectedFG = 1;
             SelectedBG = 0;
-            PalSize = palsize;
-            PalCount = colours.Length / palsize;
+            PalSize = pal.pal.Length;
             Height = PalSize / 16 * 12 + 26;
-            SetViewPal(0);
-        }
 
-        public void SetViewPal(int idx) {
-            ViewPal = idx;
             if (PalBuffer == null) {
                 PalBuffer = new Bitmap(16 * 12 + 2, PalSize / 16 * 12 + 2);
             }
 
             Graphics g = Graphics.FromImage(PalBuffer);
-            int i = ViewPal * PalSize;
+            int i = 0;
 
             g.Clear(Color.Black);
 
             for (int y = 2; y < PalBuffer.Height; y += 12) {
                 for (int x = 2; x < PalBuffer.Width; x += 12) {
-                    g.FillRectangle(new SolidBrush(Palette[i]), x, y, 10, 10);
+                    g.FillRectangle(new SolidBrush(pal.pal[i]), x, y, 10, 10);
                     i += 1;
                 }
             }
@@ -90,12 +83,12 @@ namespace NSMBe4 {
                 e.Graphics.FillRectangle(Brushes.White, BGPos.X + 10, BGPos.Y + 8, 1, 3);
 
                 e.Graphics.FillRectangle(Brushes.Black, 21, 0, 64, 20);
-                e.Graphics.FillRectangle(new SolidBrush(Palette[(ViewPal * PalSize) + SelectedFG]), 23, 2, 60, 16);
+                e.Graphics.FillRectangle(new SolidBrush(pal.pal[SelectedFG]), 23, 2, 60, 16);
 
                 e.Graphics.FillRectangle(Brushes.Black, 91, 4, 12, 12);
 
                 e.Graphics.FillRectangle(Brushes.Black, 109, 0, 64, 20);
-                e.Graphics.FillRectangle(new SolidBrush(Palette[(ViewPal * PalSize) + SelectedBG]), 111, 2, 60, 16);
+                e.Graphics.FillRectangle(new SolidBrush(pal.pal[SelectedBG]), 111, 2, 60, 16);
             }
         }
 

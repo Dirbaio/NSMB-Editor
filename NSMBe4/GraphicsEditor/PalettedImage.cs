@@ -13,6 +13,12 @@ namespace NSMBe4
         public abstract int getWidth();
         public abstract int getHeight();
         public abstract void close();
+
+        //These two must return raw data representing the whole image
+        //Used for undo/redo in the GraphicsEditor
+        public abstract byte[] getRawData();
+        public abstract void setRawData(byte[] data);
+
         public int colorsPerPixel = 256;
 
     }

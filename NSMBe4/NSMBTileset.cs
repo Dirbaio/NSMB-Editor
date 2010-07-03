@@ -804,7 +804,7 @@ namespace NSMBe4
             ByteArrayInputStream eObjIndexFile = new ByteArrayInputStream(ObjIndexFile.getContents());
             ByteArrayInputStream eObjFile = new ByteArrayInputStream(ObjFile.getContents());
 
-            Objects = new ObjectDef[256];
+            Objects = new ObjectDef[128];
 
             //read object index
             int obj = 0;

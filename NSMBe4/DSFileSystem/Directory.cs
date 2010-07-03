@@ -64,5 +64,13 @@ namespace NSMBe4.DSFileSystem
             foreach (File f in childrenFiles)
                 f.dumpFile(ind + 4);
         }
+
+        public string getPath()
+        {
+            if (parentDir == null)
+                return "FS";
+            else
+                return parentDir.getPath() + "/" + name;
+        }
     }
 }

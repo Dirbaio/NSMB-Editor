@@ -13,6 +13,7 @@ namespace NSMBe4
         public ImageManagerWindow()
         {
             InitializeComponent();
+            this.MdiParent = MdiParentForm.instance;
         }
 
         private void ImageManagerWindow_FormClosing(object sender, FormClosingEventArgs e)

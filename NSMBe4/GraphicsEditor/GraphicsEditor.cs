@@ -30,22 +30,14 @@ namespace NSMBe4 {
             LanguageManager.ApplyToContainer(this, "GraphicsEditor");
         }
 
-        public Color[] Palettes;
-        public int PalSize;
-        public int SelectedPal;
-        public int CanvasWidth;
-
         public Bitmap DrawBuffer;
         private Bitmap ZoomCache;
-        public byte[] GFXData;
-        public bool Is4bpp;
 
-        private int ImageWidth;
-        private int ImageHeight;
+        private PixelPalettedImage img;
+        private Palette pal;
+
         private int ViewWidth;
         private int ViewHeight;
-
-        private int TileCount;
 
         public int ZoomLevel;
         public bool GridEnabled;
@@ -94,53 +86,46 @@ namespace NSMBe4 {
         public delegate void SaveGraphicsHandler();
         public event SaveGraphicsHandler SaveGraphics;
 
-        public void load(Color[] pal, bool is4bpp, byte[] data, int canvaswidth) {
-            Palettes = pal;
-            PalSize = is4bpp ? 16 : 256;
-            GFXData = data;
-            Is4bpp = is4bpp;
-            TileCount = data.Length / 64 * (Is4bpp ? 2 : 1);
-            CanvasWidth = canvaswidth;
-            SelectTool(ToolType.Brush);
-            DrawBuffer = new Bitmap(CanvasWidth, TileCount / (CanvasWidth / 8) * 8);
-            ImageWidth = DrawBuffer.Width; ImageHeight = DrawBuffer.Height;
-            ZoomCache = new Bitmap(ImageWidth * 8, ImageHeight * 8);
+        public void setImage(PixelPalettedImage img)
+        {
+            this.img = img;
 
-            hoverStatus.Text = "";
-            imageStatus.Text = string.Format(LanguageManager.Get("GraphicsEditor", "imageStatus"), Is4bpp ? 4 : 8, ImageWidth, ImageHeight);
-
-            palettePicker1.SetPalette(pal, PalSize);
-            if (palettePicker1.PalCount == 0) {
-                paletteChooserLabel.Visible = false;
-                paletteChooser.Visible = false;
-                SelectedPal = 0;
-            } else {
-                paletteChooser.Items.Clear();
-                for (int i = 0; i < palettePicker1.PalCount; i++) {
-                    paletteChooser.Items.Add(i.ToString());
-                }
-                paletteChooser.SelectedIndex = 0;
-            }
-
-            RenderBuffer();
+            DrawBuffer = new Bitmap(img.getWidth(), img.getHeight());
+            ZoomCache = new Bitmap(img.getWidth() * 8, img.getHeight() * 8);
             SetZoomLevel(1);
-        }
-
-        private void saveButton_Click(object sender, EventArgs e) {
-            SaveGraphics();
-        }
-
-        private void paletteChooser_SelectedIndexChanged(object sender, EventArgs e) {
-            SelectedPal = paletteChooser.SelectedIndex;
-            palettePicker1.SetViewPal(paletteChooser.SelectedIndex);
             RenderBuffer();
             RenderZoomCache();
             drawingBox.Invalidate();
         }
 
-        private void palettePicker1_EditColour(int idx) {
-            int RealIndex = SelectedPal * PalSize + idx;
-            Color change = Palettes[RealIndex];
+        public void setPalette(Palette pal)
+        {
+            this.pal = pal;
+            palettePicker1.SetPalette(pal);
+            RenderBuffer();
+            RenderZoomCache();
+            drawingBox.Invalidate();
+        }
+
+        public void load()
+        {
+            SelectTool(ToolType.Brush);
+
+            hoverStatus.Text = "";
+            imageStatus.Text = string.Format(LanguageManager.Get("GraphicsEditor", "imageStatus"),  8, img.getWidth(), img.getHeight());
+
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            if (img == null || pal == null) return;
+            SaveGraphics();
+        }
+
+
+        private void palettePicker1_EditColour(int ind)
+        {
+            Color change = pal.pal[ind];
 
             if (_cp == null || _cp.IsDisposed) {
                 _cp = new ColourPicker();
@@ -151,8 +136,8 @@ namespace NSMBe4 {
             _cp.B = change.B >> 3;
 
             if (_cp.ShowDialog() == DialogResult.OK) {
-                Palettes[RealIndex] = Color.FromArgb(_cp.R << 3, _cp.G << 3, _cp.B << 3);
-                palettePicker1.SetViewPal(SelectedPal);
+                pal.pal[ind] = Color.FromArgb(_cp.R << 3, _cp.G << 3, _cp.B << 3);
+                palettePicker1.SetPalette(pal);
 
                 RenderBuffer();
                 RenderZoomCache();
@@ -160,50 +145,19 @@ namespace NSMBe4 {
             }
         }
 
-        private int GetOffsetFromPos(int x, int y) {
-            // return -1 for invalids
-            if (x < 0) return -1;
-            if (y < 0) return -1;
-            if (x >= ImageWidth) return -1;
-            if (y >= ImageHeight) return -1;
-            // figure out the tile number
-            int TileX = x / 8;
-            int TileY = y / 8;
-            int TileIdx = (TileY * (CanvasWidth / 8)) + TileX;
-            // figure out the individual offset
-            return ((TileIdx * 64) + ((y % 8) * 8) + (x % 8)) >> (Is4bpp ? 1 : 0);
-        }
-
         private byte GetPixel(int x, int y) {
-            int offset = GetOffsetFromPos(x, y);
-            if (offset == -1) return 0;
-
-            if (Is4bpp) {
-                if ((x % 2) == 0) {
-                    return (byte)(GFXData[offset] & 15);
-                } else {
-                    return (byte)((GFXData[offset] & 240) >> 4);
-                }
-            } else {
-                return GFXData[offset];
-            }
+            return (byte)img.getPixel(x, y);
         }
 
-        private void SetPixel(int x, int y, byte value) {
-            int offset = GetOffsetFromPos(x, y);
-            if (offset == -1) return;
+        private void SetPixel(int x, int y, byte value)
+        {
+            if (x < 0 || x >= img.getWidth()) return;
+            if (y < 0 || y >= img.getHeight()) return;
+            img.setPixel(x, y, value);
+            value = (byte)img.getPixel(x, y);
 
-            if (Is4bpp) {
-                if ((x % 2) == 0) {
-                    GFXData[offset] = (byte)((GFXData[offset] & 240) | value);
-                } else {
-                    GFXData[offset] = (byte)((GFXData[offset] & 15) | (value << 4));
-                }
-            } else {
-                GFXData[offset] = value;
-            }
+            Color PalValue = pal.getColorSafe(value);
 
-            Color PalValue = Palettes[SelectedPal * PalSize + value];
             DrawBuffer.SetPixel(x, y, PalValue);
 
             int px = x * ZoomLevel;
@@ -284,28 +238,11 @@ namespace NSMBe4 {
                 int y = p.Y;
                 if (x < 0 || x >= w || y < 0 || y >= h) continue;
 
-                int offset = GetOffsetFromPos(x, y);
-                byte val = 0;
-                if (Is4bpp) {
-                    if ((x % 2) == 0) {
-                        val = (byte)(GFXData[offset] & 15);
-                    } else {
-                        val = (byte)((GFXData[offset] & 240) >> 4);
-                    }
-                } else {
-                    val = GFXData[offset];
-                }
+                byte val = GetPixel(x, y);
 
-                if (val == source) {
-                    if (Is4bpp) {
-                        if ((x % 2) == 0) {
-                            GFXData[offset] = (byte)((GFXData[offset] & 240) | dest);
-                        } else {
-                            GFXData[offset] = (byte)((GFXData[offset] & 15) | (dest << 4));
-                        }
-                    } else {
-                        GFXData[offset] = dest;
-                    }
+                if (val == source)
+                {
+                    SetPixel(x, y, dest);
 
                     stack.Push(new Point(x + 1, y));
                     stack.Push(new Point(x - 1, y));
@@ -321,54 +258,33 @@ namespace NSMBe4 {
             NewUndo.ContainsChanges = true;
         }
 
-        private void RenderBuffer() {
-            int PalOffset = SelectedPal * PalSize;
-            int FilePos = 0;
-            int TileSrcX = 0;
-            int TileSrcY = 0;
-            bool LowNibble = false;
-
-            for (int TileIdx = 0; TileIdx < TileCount; TileIdx++) {
-                for (int TileY = 0; TileY < 8; TileY++) {
-                    for (int TileX = 0; TileX < 8; TileX++) {
-                        if (!Is4bpp) {
-                            DrawBuffer.SetPixel(TileSrcX + TileX, TileSrcY + TileY, Palettes[PalOffset + GFXData[FilePos]]);
-                            FilePos++;
-                        } else {
-                            LowNibble = !LowNibble;
-                            if (LowNibble) {
-                                DrawBuffer.SetPixel(TileSrcX + TileX, TileSrcY + TileY, Palettes[PalOffset + (GFXData[FilePos] & 15)]);
-                            } else {
-                                DrawBuffer.SetPixel(TileSrcX + TileX, TileSrcY + TileY, Palettes[PalOffset + ((GFXData[FilePos] & 240) >> 4)]);
-                                FilePos++;
-                            }
-                        }
-                    }
-                }
-
-                TileSrcX += 8;
-                if (TileSrcX >= ImageWidth) {
-                    TileSrcX = 0;
-                    TileSrcY += 8;
-                }
-            }
+        private void RenderBuffer()
+        {
+            if (img == null || pal == null) return;
+            for (int x = 0; x < img.getWidth(); x++)
+                for (int y = 0; y < img.getHeight(); y++)
+                    DrawBuffer.SetPixel(x, y, pal.pal[img.getPixel(x, y)]);
         }
 
-        private unsafe void RenderZoomCache() {
+        private unsafe void RenderZoomCache()
+        {
+            if (img == null || pal == null) return;
             if (ZoomLevel == 0) return;
 
-            System.Drawing.Imaging.BitmapData source = DrawBuffer.LockBits(new Rectangle(0, 0, ImageWidth, ImageHeight), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            System.Drawing.Imaging.BitmapData dest = ZoomCache.LockBits(new Rectangle(0, 0, ImageWidth * ZoomLevel, ImageHeight * ZoomLevel), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            System.Drawing.Imaging.BitmapData source = DrawBuffer.LockBits(new Rectangle(0, 0, img.getWidth(), img.getHeight()), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            System.Drawing.Imaging.BitmapData dest = ZoomCache.LockBits(new Rectangle(0, 0, img.getWidth() * ZoomLevel, img.getHeight() * ZoomLevel), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 
             byte* SourceLine = (byte*)source.Scan0;
             byte* DestLine = (byte*)dest.Scan0;
 
-            for (int y = 0; y < ImageHeight; y++) {
+            int h = img.getHeight();
+            int w = img.getWidth();
+            for (int y = 0; y < h; y++) {
                 for (int zy = 0; zy < ZoomLevel; zy++) {
                     byte* SourcePtr = SourceLine;
                     byte* DestPtr = DestLine;
 
-                    for (int x = 0; x < ImageWidth; x++) {
+                    for (int x = 0; x < w; x++) {
                         byte r = *SourcePtr++;
                         byte g = *SourcePtr++;
                         byte b = *SourcePtr++;
@@ -389,8 +305,11 @@ namespace NSMBe4 {
             ZoomCache.UnlockBits(dest);
         }
 
-        private void drawingBox_Paint(object sender, PaintEventArgs e) {
-            if (DrawBuffer != null) {
+        private void drawingBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (img == null || pal == null) return;
+            if (DrawBuffer != null)
+            {
                 e.Graphics.DrawImage(ZoomCache, 0, 0);
 
                 if (DrawingLine) {
@@ -421,9 +340,11 @@ namespace NSMBe4 {
             }
         }
 
-        private void SetZoomLevel(int zoom) {
+        private void SetZoomLevel(int zoom)
+        {
+            if (img == null || pal == null) return;
             ZoomLevel = zoom;
-            drawingBox.Size = new Size(ImageWidth * zoom, ImageHeight * zoom);
+            drawingBox.Size = new Size(img.getWidth() * zoom, img.getHeight() * zoom);
             ViewWidth = drawingBox.Width; ViewHeight = drawingBox.Height;
             RenderZoomCache();
 
@@ -483,14 +404,17 @@ namespace NSMBe4 {
         }
 
         private void drawingBox_MouseDown(object sender, MouseEventArgs e) {
+            if (img == null || pal == null) return;
             HandleDraw(true, e);
         }
 
         private void drawingBox_MouseMove(object sender, MouseEventArgs e) {
+            if (img == null || pal == null) return;
             HandleDraw(false, e);
         }
 
         private void drawingBox_MouseUp(object sender, MouseEventArgs e) {
+            if (img == null || pal == null) return;
             Point pos = new Point(e.X / ZoomLevel, e.Y / ZoomLevel);
 
             if (Tool == ToolType.Line) {
@@ -513,12 +437,14 @@ namespace NSMBe4 {
         }
 
         private void drawingBox_MouseLeave(object sender, EventArgs e) {
+            if (img == null || pal == null) return;
             HoverX = -1;
             HoverY = -1;
             hoverStatus.Text = "";
         }
 
         private void HandleDraw(bool newclick, MouseEventArgs e) {
+            if (img == null || pal == null) return;
             Point pos = new Point(e.X / ZoomLevel, e.Y / ZoomLevel);
             if (pos.X != HoverX || pos.Y != HoverY) {
                 hoverStatus.Text = string.Format(HoverStatusString, pos.X, pos.Y);
@@ -645,7 +571,7 @@ namespace NSMBe4 {
                 DrawLineY1 = clicked.Y;
                 DrawLineY2 = clicked.Y;
                 DrawLineColour = (e.Button == MouseButtons.Left) ? (byte)palettePicker1.SelectedFG : (byte)palettePicker1.SelectedBG;
-                DrawLinePen = new Pen(Palettes[SelectedPal * PalSize + DrawLineColour], ZoomLevel);
+                DrawLinePen = new Pen(pal.pal[DrawLineColour], ZoomLevel);
                 DrawLinePen.StartCap = System.Drawing.Drawing2D.LineCap.Square;
                 DrawLinePen.EndCap = System.Drawing.Drawing2D.LineCap.Square;
                 drawingBox.Invalidate();
@@ -668,7 +594,7 @@ namespace NSMBe4 {
                 DrawRectY1 = clicked.Y;
                 DrawRectY2 = clicked.Y;
                 DrawRectColour = (e.Button == MouseButtons.Left) ? (byte)palettePicker1.SelectedFG : (byte)palettePicker1.SelectedBG;
-                DrawRectPen = new Pen(Palettes[SelectedPal * PalSize + DrawRectColour], ZoomLevel);
+                DrawRectPen = new Pen(pal.pal[DrawRectColour], ZoomLevel);
                 drawingBox.Invalidate();
             } else {
                 if (DrawingRect) {
@@ -696,14 +622,14 @@ namespace NSMBe4 {
             redoButton.Enabled = (RedoBuffer.Count > 0);
             if (NewUndo == null) {
                 NewUndo = new UndoState();
-                NewUndo.Before = (byte[])GFXData.Clone();
+                NewUndo.Before = (byte[])img.getRawData().Clone();
                 Console.WriteLine("Created undo state");
             }
         }
 
         private void CommitUndo() {
             if (NewUndo != null && NewUndo.ContainsChanges) {
-                NewUndo.After = (byte[])GFXData.Clone();
+                NewUndo.After = (byte[])img.getRawData().Clone();
                 UndoBuffer.Push(NewUndo);
                 NewUndo = null;
                 Console.WriteLine("Committed undo state");
@@ -730,7 +656,7 @@ namespace NSMBe4 {
         }
 
         private void ApplyUndo(UndoState buffer, bool redo) {
-            GFXData = redo ? buffer.After : buffer.Before;
+            img.setRawData(redo ? buffer.After : buffer.Before);
             RenderBuffer();
             RenderZoomCache();
             drawingBox.Invalidate();

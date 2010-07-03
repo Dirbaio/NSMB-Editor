@@ -144,13 +144,11 @@ namespace NSMBe4.DSFileSystem
             source.save();
         }
 
-        public void dumpFilesOrdered()
+        public void dumpFilesOrdered(TextWriter outs)
         {
             allFiles.Sort();
             foreach (File f in allFiles)
-            {
-                Console.Out.WriteLine(f.name + " " + f.fileBegin.ToString("X") + " - " + (f.fileBegin + f.fileSize - 1).ToString("X"));
-            }
+                outs.WriteLine(f.fileBegin.ToString("X8") + " .. " + (f.fileBegin + f.fileSize - 1).ToString("X8") + ":  " + f.getPath());
         }
 
         public virtual void fileMoved(File f)

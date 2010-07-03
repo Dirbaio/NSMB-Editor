@@ -646,23 +646,14 @@ namespace NSMBe4 {
             ROM.FS.fatFile.endEdit(this);
         }
 
-        private void overlaySearchButton_Click(object sender, EventArgs e)
+        private void dumpMapButton_Click(object sender, EventArgs e)
         {
-            uint ramAddr = ArmPatcher.parseUHex(ramAddrBox.Text);
-            uint ramVal = ArmPatcher.parseUHex(valueBox.Text);
+            if (saveTextFileDialog.ShowDialog() != DialogResult.OK) return;
 
-            bool found = false;
-            foreach (OverlayFile f in ROM.FS.arm9ovs)
-                if (f.ramAddr <= ramAddr && f.ramAddr + f.ramSize > ramAddr)
-                    if (f.getUintAt((int)(ramAddr - f.ramAddr)) == ramVal)
-                    {
-                        MessageBox.Show("Found Overlay ID: " + f.ovId.ToString("X2"));
-                        found = true;
-                    }
-
-            if (!found)
-                MessageBox.Show("NOT FOUND");
-
+            TextWriter tw = new StreamWriter(new FileStream(saveTextFileDialog.FileName, FileMode.Create, FileAccess.ReadWrite));
+            ROM.FS.dumpFilesOrdered(tw);
+            tw.Close();
         }
+
     }
 }

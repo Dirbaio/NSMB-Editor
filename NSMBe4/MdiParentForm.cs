@@ -10,7 +10,7 @@ namespace NSMBe4
 {
     public partial class MdiParentForm : Form
     {
-        public static MdiParentForm instance;
+        public static MdiParentForm instance = null;
 
         public MdiParentForm()
         {

@@ -1042,12 +1042,12 @@ namespace NSMBe4
         {
             switch (PropNum)
             {
-                case 1: OrigV = pn.Unknown1; break;
-                case 2: OrigV = pn.Unknown2; break;
-                case 3: OrigV = pn.Unknown3; break;
-                case 4: OrigV = pn.Unknown4; break;
-                case 5: OrigV = pn.Unknown5; break;
-                case 6: OrigV = pn.Unknown6; break;
+                case 0: OrigV = pn.Unknown1; break;
+                case 1: OrigV = pn.Unknown2; break;
+                case 2: OrigV = pn.Unknown3; break;
+                case 3: OrigV = pn.Unknown4; break;
+                case 4: OrigV = pn.Unknown5; break;
+                case 5: OrigV = pn.Unknown6; break;
             }
             this.PropNum = PropNum;
             this.NewV = NewV;
@@ -1064,12 +1064,12 @@ namespace NSMBe4
         {
             switch (PropNum)
             {
-                case 1: pn.Unknown1 = value; break;
-                case 2: pn.Unknown2 = value; break;
-                case 3: pn.Unknown3 = value; break;
-                case 4: pn.Unknown4 = value; break;
-                case 5: pn.Unknown5 = value; break;
-                case 6: pn.Unknown6 = value; break;
+                case 0: pn.Unknown1 = value; break;
+                case 1: pn.Unknown2 = value; break;
+                case 2: pn.Unknown3 = value; break;
+                case 3: pn.Unknown4 = value; break;
+                case 4: pn.Unknown5 = value; break;
+                case 5: pn.Unknown6 = value; break;
             }
         }
         public override string ToString()
