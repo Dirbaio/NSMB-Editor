@@ -38,8 +38,7 @@ namespace NSMBe4.NSBMD
                     texelGfx.DrawImage(img, new Rectangle(0, 0, 4, 4),
                         new Rectangle(x * 4, y * 4, 4, 4), GraphicsUnit.Pixel);
 
-                    ImageIndexer ii = new ImageIndexer(texel, 4, true);
-                    palettes[palNum] = ii.palette;
+                    palettes[palNum] = ImageIndexer.createPaletteForImage(texel);
                     paletteNumbers[x, y] = palNum;
                     paletteCounts[palNum] = 1;
                     int similar = calcPaletteDiffs(palNum);

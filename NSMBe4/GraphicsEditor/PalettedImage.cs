@@ -7,8 +7,10 @@ namespace NSMBe4
 {
     public abstract class PalettedImage
     {
-        public abstract void replace(Bitmap b, Palette p);
         public abstract Bitmap render(Palette p);
+        public abstract void replaceWithPal(Bitmap b, Palette p);
+        public abstract void replaceImgAndPal(Bitmap b, Palette p);
+        public bool supportsReplaceWithPal() { return true; }
         public abstract void save();
         public abstract int getWidth();
         public abstract int getHeight();
@@ -18,8 +20,6 @@ namespace NSMBe4
         //Used for undo/redo in the GraphicsEditor
         public abstract byte[] getRawData();
         public abstract void setRawData(byte[] data);
-
-        public int colorsPerPixel = 256;
-
+        
     }
 }

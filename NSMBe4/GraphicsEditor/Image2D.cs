@@ -7,15 +7,28 @@ namespace NSMBe4
 {
     public class Image2D : PixelPalettedImage
     {
-        File f;
-        byte[] data;
+        private File f;
+        private byte[] data;
+        private byte[] rawdata;
         public int width;
-        bool is4bpp;
+        public int tileOffset;
+
+        private bool is4bppI;
+        public bool is4bpp
+        {
+            get{return is4bppI;}
+            set{
+                if(value == is4bppI) return;
+                saveImageData();
+                is4bppI = value;
+                loadImageData();
+            }
+        }
 
         public Image2D(File f, int width, bool is4bpp)
         {
             this.f = f;
-            this.is4bpp = is4bpp;
+            this.is4bppI = is4bpp;
             this.width = width;
             f.beginEdit(this);
             reload();
@@ -23,19 +36,9 @@ namespace NSMBe4
 
         public void reload()
         {
-            data = f.getContents();
-            data = ROM.LZ77_Decompress(data);
-
-            if (is4bpp)
-            {
-                byte[] newdata = new byte[data.Length * 2];
-                for (int i = 0; i < data.Length; i++)
-                {
-                    newdata[i * 2] = (byte)(data[i] & 0xF);
-                    newdata[i * 2 + 1] = (byte)(data[i] >> 4);
-                }
-                data = newdata;
-            }
+            rawdata = f.getContents();
+            rawdata = ROM.LZ77_Decompress(rawdata);
+            loadImageData();
         }
 
         public override void close()
@@ -50,7 +53,8 @@ namespace NSMBe4
 
         public override int getHeight()
         {
-            int tileCount = data.Length / 64;
+            int tileCount = data.Length / 64 + tileOffset;
+
             int tileWidth = (width / 8);
             int rowCount = tileCount / tileWidth;
             if (tileCount % tileWidth != 0) rowCount++;
@@ -64,7 +68,8 @@ namespace NSMBe4
             int bx = x / 8;
             int by = y / 8;
 
-            int offs = bx + by * (width / 8);
+            int offs = bx + by * (width / 8) - tileOffset;
+            if (offs < 0) return 0;
             offs *= 64;
             offs += x % 8 + 8 * (y % 8);
             if (offs >= data.Length) return 0;
@@ -76,27 +81,50 @@ namespace NSMBe4
             int bx = x / 8;
             int by = y / 8;
 
-            int offs = bx + by * (width / 8);
+            int offs = bx + by * (width / 8) - tileOffset;
+            if (offs < 0) return;
+
             offs *= 64;
             offs += x % 8 + 8 * (y % 8);
             if (offs >= data.Length) return;
             data[offs] = (byte)c;
         }
 
-        public override void save()
+        private void saveImageData()
         {
-            byte[] newdata = data;
             if (is4bpp)
             {
-                newdata = new byte[data.Length / 2];
+                rawdata = new byte[data.Length / 2];
 
-                for(int i = 0; i < newdata.Length; i++)
-                    newdata[i] = (byte)(
-                        data[i*2] & 0xF |
-                        (data[i*2+1] & 0xF)<<4);
+                for (int i = 0; i < rawdata.Length; i++)
+                    rawdata[i] = (byte)(
+                        data[i * 2] & 0xF |
+                        (data[i * 2 + 1] & 0xF) << 4);
             }
+            else
+                rawdata = (byte[])data.Clone();
+        }
 
-            f.replace(newdata, this);
+        private void loadImageData()
+        {
+            if (is4bpp)
+            {
+                byte[] newdata = new byte[rawdata.Length * 2];
+                for (int i = 0; i < rawdata.Length; i++)
+                {
+                    newdata[i * 2] = (byte)(rawdata[i] & 0xF);
+                    newdata[i * 2 + 1] = (byte)(rawdata[i] >> 4);
+                }
+                data = newdata;
+            }
+            else
+                data = (byte[])rawdata.Clone();
+        }
+
+        public override void save()
+        {
+            saveImageData();
+            f.replace(rawdata, this);
         }
 
         public override byte[] getRawData()

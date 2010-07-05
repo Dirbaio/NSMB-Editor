@@ -27,45 +27,45 @@ namespace NSMBe4
     {
         private List<Box> boxes;
         private Dictionary<Color, int> freqTable;
-        private Dictionary<Color, byte> paletteTable;
         public Color[] palette;
-        public byte[] palettedImage;
-        public byte[,] palettedRawImage;
 
-        public ImageIndexer(Bitmap b, bool checkForAlpha)
-            : this(b, 256, checkForAlpha)
+        private ImageIndexer(List<Bitmap> bl, bool checkForAlpha)
+            : this(bl, 256, checkForAlpha)
         {
         }
 
-        public ImageIndexer(Bitmap b)
-            : this(b, 256, false)
+        private ImageIndexer(List<Bitmap> bl)
+            : this(bl, 256, false)
         {
         }
 
-        public ImageIndexer(Bitmap b, int paletteCount, bool checkForAlpha)
+        private ImageIndexer(List<Bitmap> bl, int paletteCount, bool checkForAlpha)
         {
             //COMPUTE FREQUENCY TABLE
 
             bool useAlpha = !checkForAlpha;
 
             freqTable = new Dictionary<Color,int>();
-            for(int x = 0; x < b.Width; x++)
-                for (int y = 0; y < b.Height; y++)
-                {
-                    Color c = b.GetPixel(x, y);
-                    if (c == Color.Transparent)
+            foreach (Bitmap b in bl)
+            {
+                for (int x = 0; x < b.Width; x++)
+                    for (int y = 0; y < b.Height; y++)
                     {
-                        useAlpha = true;
-                        continue;
+                        Color c = b.GetPixel(x, y);
+                        if (c == Color.Transparent)
+                        {
+                            useAlpha = true;
+                            continue;
+                        }
+
+                        c = Color.FromArgb(c.R, c.G, c.B);
+
+                        if (freqTable.ContainsKey(c))
+                            freqTable[c]++;
+                        else
+                            freqTable[c] = 1;
                     }
-
-                    c = Color.FromArgb(c.R, c.G, c.B);
-
-                    if (freqTable.ContainsKey(c))
-                        freqTable[c]++;
-                    else
-                        freqTable[c] = 1;
-                }
+            }
 
             // NOW CREATE THE PALETTE ZONES
             Box startBox = shrinkBox(new Box(0, 0, 0, 255, 255, 255));
@@ -96,58 +96,9 @@ namespace NSMBe4
             if(useAlpha)
                 palette[0] = Color.Transparent;
 
-            paletteTable = new Dictionary<Color, byte>();
-            //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES
-            for (int x = 0; x < b.Width; x++)
-                for (int y = 0; y < b.Height; y++)
-                {
-                    Color c = b.GetPixel(x, y);
-                    if (c.A == 0) continue;
-                        
-                    c = Color.FromArgb(c.R, c.G, c.B);
-                    paletteTable[c] = closest(c, palette);
-                }
+            /*
 
-            paletteTable[Color.Transparent] = 0;
-
-            //NOW INDEX THE IMAGE
-
-            palettedImage = new byte[b.Width * b.Height];
-            int tileCount = b.Width * b.Height / 64;
-            int tileWidth = b.Width / 8;
-
-            for (int t = 0; t < tileCount; t++)
-                for (int y = 0; y < 8; y++)
-                    for (int x = 0; x < 8; x++)
-                    {
-                        int tx = (t % tileWidth) * 8;
-                        int ty = (int)(t / tileWidth) * 8;
-                        Color c = b.GetPixel(tx + x, ty + y);
-                        if (c.A != 0)
-                        {
-                            c = Color.FromArgb(c.R, c.G, c.B);
-
-                            palettedImage[t * 64 + y * 8 + x] =
-                                paletteTable[c];
-                        }
-                        else
-                            palettedImage[t * 64 + y * 8 + x] = 0;
-                    }
-
-            palettedRawImage = new byte[b.Width, b.Height];
-            for(int x = 0; x < b.Width; x++)
-                for (int y = 0; y < b.Height; y++)
-                {
-                    Color c = b.GetPixel(x, y);
-                    if (c.A != 0)
-                    {
-                        c = Color.FromArgb(c.R, c.G, c.B);
-                        palettedRawImage[x, y] =
-                            paletteTable[c];
-                    }
-                    else
-                        palettedRawImage[x, y] = 0;
-                }
+                }*/
         }
 
         public static byte closest(Color c, Color[] palette)
@@ -427,6 +378,66 @@ namespace NSMBe4
             {
                 return "("+r1+"-"+r2+","+g1+"-"+g2+","+b1+"-"+b2+")";
             }
+        }
+
+
+        public static Color[] createPaletteForImage(Bitmap b)
+        {
+            return createPaletteForImage(b, 256);
+        }
+
+        public static Color[] createPaletteForImage(Bitmap b, int palLen)
+        {
+            List<Bitmap> bl = new List<Bitmap>();
+            bl.Add(b);
+
+            ImageIndexer i = new ImageIndexer(bl, palLen, false);
+
+            return i.palette;
+        }
+
+        public static byte[] indexImageWithPalette(Bitmap b, Color[] palette)
+        {
+            Dictionary<Color, byte> paletteTable = new Dictionary<Color, byte>();
+            //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES
+            for (int x = 0; x < b.Width; x++)
+                for (int y = 0; y < b.Height; y++)
+                {
+                    Color c = b.GetPixel(x, y);
+                    if (c.A == 0) continue;
+                        
+                    c = Color.FromArgb(c.R, c.G, c.B);
+                    paletteTable[c] = closest(c, palette);
+                }
+
+            paletteTable[Color.Transparent] = 0;
+
+            
+            //NOW INDEX THE IMAGE
+
+            byte[] palettedImage = new byte[b.Width * b.Height];
+            int tileCount = b.Width * b.Height / 64;
+            int tileWidth = b.Width / 8;
+
+            for (int t = 0; t < tileCount; t++)
+                for (int y = 0; y < 8; y++)
+                    for (int x = 0; x < 8; x++)
+                    {
+                        int tx = (t % tileWidth) * 8;
+                        int ty = (int)(t / tileWidth) * 8;
+                        Color c = b.GetPixel(tx + x, ty + y);
+                        if (c.A != 0)
+                        {
+                            c = Color.FromArgb(c.R, c.G, c.B);
+
+                            palettedImage[t * 64 + y * 8 + x] =
+                                paletteTable[c];
+                        }
+                        else
+                            palettedImage[t * 64 + y * 8 + x] = 0;
+                    }
+
+            return palettedImage;
         }
     }
 }

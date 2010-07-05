@@ -1146,7 +1146,7 @@ namespace NSMBe4
                 
                 dest.DrawImage(img, new Rectangle(i * 8, 0, 8, 8), tx, ty, 8, 8, GraphicsUnit.Pixel);
             }
-
+            /*
             ImageIndexer ia = new ImageIndexer(a);
             ImageIndexer ib = new ImageIndexer(b);
             Array.Copy(ia.palette, 1, Palette, 1, 255);
@@ -1164,7 +1164,7 @@ namespace NSMBe4
                 if (tilesUsed[i] == 2) src = ib;
 
                 Array.Copy(src.palettedImage, i * 64, RawGFXData, i * 64, 64);
-            }
+            }*/
 
             img.Dispose();
             ResetGraphics(RawGFXData);

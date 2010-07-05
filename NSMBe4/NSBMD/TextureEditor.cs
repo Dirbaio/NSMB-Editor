@@ -144,8 +144,8 @@ namespace NSMBe4.NSBMD
                 int ps = (int)paletteSize.Value;
                 if (ps > selectedPalette().colorCount)
                     ps = selectedPalette().colorCount;
-                ImageIndexer ii = new ImageIndexer(b, ps, false);
-                Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), ii.palette.Length);
+//                ImageIndexer ii = new ImageIndexer(b, ps, false);//
+//                Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), ii.palette.Length);
                 selectedPalette().save();
             }
             selectedTexture().replace(b, 0, 0, selectedPalette(), calcPalOffset(), (int)paletteSize.Value);
@@ -196,13 +196,13 @@ namespace NSMBe4.NSBMD
             Graphics gr = Graphics.FromImage(b3);
             gr.Clear(Color.Transparent);
             gr.DrawImage(b, 0, 0);
-            ImageIndexer ii = new ImageIndexer(b3, selectedPalette().colorCount, false);
+/*            ImageIndexer ii = new ImageIndexer(b3, selectedPalette().colorCount, false);
             int palSize = (int)paletteSize.Value;
             if (palSize > selectedPalette().pal.Length)
                 palSize = selectedPalette().pal.Length;
             Array.Copy(ii.palette, 0, selectedPalette().pal, calcPalOffset(), palSize);
             b3.Dispose();
-
+            */
             int xx = 0;
             foreach (Texture t in tx.textures)
             {

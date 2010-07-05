@@ -33,8 +33,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.addToManager = new System.Windows.Forms.Button();
             this.addAllToManager = new System.Windows.Forms.Button();
+            this.addToManager = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -92,16 +92,6 @@
             this.panel2.Size = new System.Drawing.Size(379, 40);
             this.panel2.TabIndex = 4;
             // 
-            // addToManager
-            // 
-            this.addToManager.Location = new System.Drawing.Point(211, 6);
-            this.addToManager.Name = "addToManager";
-            this.addToManager.Size = new System.Drawing.Size(75, 22);
-            this.addToManager.TabIndex = 0;
-            this.addToManager.Text = "Add";
-            this.addToManager.UseVisualStyleBackColor = true;
-            this.addToManager.Click += new System.EventHandler(this.addToManager_Click);
-            // 
             // addAllToManager
             // 
             this.addAllToManager.Location = new System.Drawing.Point(292, 6);
@@ -111,6 +101,16 @@
             this.addAllToManager.Text = "Add all";
             this.addAllToManager.UseVisualStyleBackColor = true;
             this.addAllToManager.Click += new System.EventHandler(this.addAllToManager_Click);
+            // 
+            // addToManager
+            // 
+            this.addToManager.Location = new System.Drawing.Point(211, 6);
+            this.addToManager.Name = "addToManager";
+            this.addToManager.Size = new System.Drawing.Size(75, 22);
+            this.addToManager.TabIndex = 0;
+            this.addToManager.Text = "Add";
+            this.addToManager.UseVisualStyleBackColor = true;
+            this.addToManager.Click += new System.EventHandler(this.addToManager_Click);
             // 
             // PaletteViewer
             // 

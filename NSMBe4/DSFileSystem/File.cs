@@ -111,7 +111,7 @@ namespace NSMBe4.DSFileSystem
 
         public virtual byte[] getContents()
         {
-            enableEdition();
+//            enableEdition();
             byte[] file = new byte[fileSize];
             parent.s.Seek(fileBegin, SeekOrigin.Begin);
             parent.s.Read(file, 0, file.Length);
@@ -250,7 +250,7 @@ namespace NSMBe4.DSFileSystem
             if(newFile.Length != fileSize && fixedFile)
                 throw new Exception("TRYING TO RESIZE FIXED FILE: " + name);
 
-            enableEdition();
+//            enableEdition();
 
 //            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             int newStart = fileBegin;

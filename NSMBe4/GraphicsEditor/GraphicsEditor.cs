@@ -263,7 +263,7 @@ namespace NSMBe4 {
             if (img == null || pal == null) return;
             for (int x = 0; x < img.getWidth(); x++)
                 for (int y = 0; y < img.getHeight(); y++)
-                    DrawBuffer.SetPixel(x, y, pal.pal[img.getPixel(x, y)]);
+                    DrawBuffer.SetPixel(x, y, pal.getColorSafe(img.getPixel(x, y)));
         }
 
         private unsafe void RenderZoomCache()

@@ -12,12 +12,15 @@ namespace NSMBe4
         public abstract void save();
         public abstract void close();
 
-        public int getClosestColor(Color c, int palSize)
+        public int getClosestColor(Color c)
         {
+            if (c.A == 0)
+                return 0;
+
             int bestInd = 0;
             float bestDif = ImageIndexer.colorDifferenceWithoutAlpha(pal[0], c);
 
-            for (int i = 0; i < palSize && i < pal.Length; i++)
+            for (int i = 0; i < pal.Length; i++)
             {
                 float d = ImageIndexer.colorDifferenceWithoutAlpha(pal[i], c);
                 if (d < bestDif)

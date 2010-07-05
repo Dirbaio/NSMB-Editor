@@ -425,14 +425,14 @@ namespace NSMBe4 {
             Bitmap b = new Bitmap(filename);
 
             ImageTiler t = new ImageTiler(b);
-            ImageIndexer i = new ImageIndexer(t.tileBuffer);
+            Color[] palette = ImageIndexer.createPaletteForImage(b);
             byte[] pal = new byte[1024];
-            NSMBTileset.paletteToRawData(i.palette).CopyTo(pal, 0);
+            NSMBTileset.paletteToRawData(palette).CopyTo(pal, 0);
             PalFile.beginEdit(this);
             PalFile.replace(ROM.LZ77_Compress(pal), this);
             PalFile.endEdit(this);
             GFXFile.beginEdit(this);
-            GFXFile.replace(ROM.LZ77_Compress(i.palettedImage), this);
+            GFXFile.replace(ROM.LZ77_Compress(ImageIndexer.indexImageWithPalette(b, palette)), this);
             GFXFile.endEdit(this);
 
             ByteArrayOutputStream layout = new ByteArrayOutputStream();

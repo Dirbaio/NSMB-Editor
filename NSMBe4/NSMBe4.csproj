@@ -612,6 +612,7 @@
       <DependentUpon>MinimapControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\UndoManager.cs" />
+    <Compile Include="GraphicsEditor\GraphicsSet.cs" />
     <Compile Include="GraphicsEditor\Image2D.cs" />
     <Compile Include="GraphicsEditor\ImageManagerWindow.cs">
       <SubType>Form</SubType>

@@ -35,13 +35,16 @@ namespace NSMBe4
             if(i is PixelPalettedImage)
                 graphicsEditor1.setImage(i as PixelPalettedImage);
 
+            tileWidthNumber.Enabled = i is Image2D;
+            tileOffsetNumber.Enabled = i is Image2D;
+            fourBppCheckBox.Enabled = i is Image2D;
+
             if (i is Image2D)
             {
-                tileWidthNumber.Enabled = true;
                 tileWidthNumber.Value = (i as Image2D).width / 8;
+                tileOffsetNumber.Value = (i as Image2D).tileOffset;
+                fourBppCheckBox.Checked = (i as Image2D).is4bpp;
             }
-            else
-                tileWidthNumber.Enabled = false;
         }
 
         private void paletteListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,6 +53,7 @@ namespace NSMBe4
                 paletteListBox.Items.Remove(paletteListBox.SelectedItem);
             updateImage();
             Palette p = paletteListBox.SelectedItem as Palette;
+            if (p == null) return;
             graphicsEditor1.setPalette(p);
         }
 
@@ -92,9 +96,69 @@ namespace NSMBe4
             if (i is Image2D)
             {
                 (i as Image2D).width = (int)(tileWidthNumber.Value * 8);
+                (i as Image2D).tileOffset = (int)(tileOffsetNumber.Value);
+                (i as Image2D).is4bpp = fourBppCheckBox.Checked;
                 graphicsEditor1.setImage(i as Image2D);
                 updateImage();
             }
+        }
+
+        private GraphicsSet createGraphicsSet()
+        {
+            GraphicsSet gs = new GraphicsSet();
+            bool err = false;
+            foreach (object o in imageListBox.Items)
+            {
+                if (o is PixelPalettedImage)
+                    gs.imgs.Add(o as PixelPalettedImage);
+                else
+                    err = true;
+            }
+
+            foreach (object o in paletteListBox.Items)
+                if (o is Palette)
+                    gs.pals.Add(o as Palette);
+
+            gs.win = this;
+
+            if (err)
+                if (MessageBox.Show("Question", "Some textures will not be imported/exported because they aren't compatible. Do you want to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                    return null;
+
+            return gs;
+
+        }
+        private void exportAllBtn_Click(object sender, EventArgs e)
+        {
+            GraphicsSet gs = createGraphicsSet();
+            if (gs == null)
+                return;
+
+            try
+            {
+                gs.export();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void importAllBtn_Click(object sender, EventArgs e)
+        {
+            GraphicsSet gs = createGraphicsSet();
+            if (gs == null)
+                return;
+
+            try
+            {
+                gs.import();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
     }

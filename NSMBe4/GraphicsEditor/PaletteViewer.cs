@@ -22,7 +22,7 @@ namespace NSMBe4
             this.pal = FilePalette.arrayToPalette(ROM.LZ77_Decompress(f.getContents()));
             if (pal.Length < 256)
                 is4bpp.Checked = true;
-
+            updatePalettes();
             pictureBox1.Invalidate();
         }
 
@@ -51,7 +51,7 @@ namespace NSMBe4
             if (is4bpp.Checked) palSize = 16;
             int palOffs = paletteList.SelectedIndex * palSize;
 
-            int size = 16;
+            int size = 12;
             int x = 0;
             int y = 0;
             for (int i = palOffs; i < pal.Length && i < palOffs + palSize; i++)
