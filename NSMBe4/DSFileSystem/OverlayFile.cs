@@ -62,6 +62,13 @@ namespace NSMBe4.DSFileSystem
             }
         }
 
+        public byte[] getarm9()
+        {
+            byte[] data = getContents();
+            data = ROM.DecompressOverlay(data);
+            return data;
+        }
+
         public override void enableEdition()
         {
             decompress();

@@ -78,7 +78,7 @@ namespace NSMBe4.DSFileSystem
         }
 
         //Tries to find LEN bytes of continuous unused space AFTER the freeSpaceDelimiter (usually fat or fnt)
-        public File findFreeSpace(int len, int align)
+        public int findFreeSpace(int len, int align)
         {
             allFiles.Sort(); //sort by offset
 
@@ -98,7 +98,7 @@ namespace NSMBe4.DSFileSystem
                 if (spSize >= len)
                 {
                     int spLeft = len - spSize;
-                    if (spLeft < bestSpaceLeft)
+                    if (spLeft < bestSpaceLeft && (allFiles[i].fileBegin >= 0x1400000))
                     {
                         bestSpaceLeft = spLeft;
                         bestSpace = allFiles[i];
@@ -107,9 +107,11 @@ namespace NSMBe4.DSFileSystem
             }
 
             if (bestSpace != null)
-                return bestSpace;
-            else //if theres no space
-                return allFiles[allFiles.Count - 1]; //just add the file at the very end 
+                return bestSpace.fileBegin + bestSpace.fileSize + 10;
+            else if (allFiles[allFiles.Count - 1].fileBegin >= 0x1400000)
+                return allFiles[allFiles.Count - 1].fileBegin + allFiles[allFiles.Count - 1].fileSize + 10;
+            else
+                return 0x1400000; //just add the file at the very end 
         }
 
         //yeah, i'm tired of looking through the dump myself ;)

@@ -242,7 +242,7 @@ namespace NSMBe4.DSFileSystem
 
             return false;
         }
-        public virtual void replace(byte[] newFile, object editor)
+        public virtual void replace(byte[] newFile, object editor, bool narc=false)
         {
             if(!isAGoodEditor(editor))
                 throw new Exception("NOT CORRECT EDITOR " + name);
@@ -256,11 +256,9 @@ namespace NSMBe4.DSFileSystem
             int newStart = fileBegin;
             if (newFile.Length > fileSize) //if we insert a bigger file
             {                         //it might not fit in the current place
-                if (canChangeOffset)
+                if (canChangeOffset&&narc==false)
                 {
-                    File before = parent.findFreeSpace(newFile.Length, alignment);
-                    //                Console.Out.WriteLine("After " + before.name);
-                    newStart = before.fileBegin + before.fileSize;
+                    newStart = parent.findFreeSpace(newFile.Length, alignment);
                     if (newStart % alignment != 0)
                         newStart += alignment - newStart % alignment;
                 }
@@ -282,7 +280,7 @@ namespace NSMBe4.DSFileSystem
             fileBegin = newStart;
             fileSize = newFile.Length;
             saveOffsets();
-            parent.fileMoved(this);
+            //parent.fileMoved(this);
         }
 
         public void moveTo(int newOffs)
