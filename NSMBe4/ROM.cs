@@ -97,8 +97,7 @@ namespace NSMBe4 {
         public static void LoadOverlay0()
         {
             OverlayFile ov = FS.arm9ovs[0];
-            ov.decompress();
-            Overlay0 = ov.getContents();
+            Overlay0 = ov.getarm9();
         }
 
         public static void LoadDescriptions()
