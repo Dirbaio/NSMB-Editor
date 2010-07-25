@@ -287,7 +287,7 @@ namespace NSMBe4
             {
                 t.Objects[i] = null;
             }
-            tilesetObjectEditor1.repaint();
+            tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
         }
     }
 }
