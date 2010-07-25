@@ -47,13 +47,13 @@
             this.previewBox = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.map16Picker1 = new NSMBe4.Map16Picker();
             this.label4 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.newLineButton = new System.Windows.Forms.Button();
             this.emptyTileButton = new System.Windows.Forms.Button();
             this.slopeControlButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.map16Picker1 = new NSMBe4.Map16Picker();
             ((System.ComponentModel.ISupportInitialize)(this.editZone)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -314,6 +314,18 @@
             this.panel1.Size = new System.Drawing.Size(282, 389);
             this.panel1.TabIndex = 2;
             // 
+            // map16Picker1
+            // 
+            this.map16Picker1.AutoScroll = true;
+            this.map16Picker1.AutoSize = true;
+            this.map16Picker1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.map16Picker1.Location = new System.Drawing.Point(0, 68);
+            this.map16Picker1.MinimumSize = new System.Drawing.Size(282, 187);
+            this.map16Picker1.Name = "map16Picker1";
+            this.map16Picker1.Size = new System.Drawing.Size(282, 321);
+            this.map16Picker1.TabIndex = 3;
+            this.map16Picker1.TileSelected += new NSMBe4.Map16Picker.TileSelectedd(this.map16Picker1_TileSelected);
+            // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -336,6 +348,16 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(282, 55);
             this.panel3.TabIndex = 5;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(6, 29);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(87, 23);
+            this.deleteButton.TabIndex = 0;
+            this.deleteButton.Text = "<deleteButton>";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // newLineButton
             // 
@@ -366,29 +388,6 @@
             this.slopeControlButton.Text = "<slopeControlButton>";
             this.slopeControlButton.UseVisualStyleBackColor = true;
             this.slopeControlButton.Click += new System.EventHandler(this.slopeControlButton_Click);
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.Location = new System.Drawing.Point(6, 29);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(87, 23);
-            this.deleteButton.TabIndex = 0;
-            this.deleteButton.Text = "<deleteButton>";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
-            // 
-            // map16Picker1
-            // 
-            this.map16Picker1.AutoScroll = true;
-            this.map16Picker1.AutoSize = true;
-            this.map16Picker1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map16Picker1.Location = new System.Drawing.Point(0, 68);
-            this.map16Picker1.MinimumSize = new System.Drawing.Size(282, 187);
-            this.map16Picker1.Name = "map16Picker1";
-            this.map16Picker1.Size = new System.Drawing.Size(282, 321);
-            this.map16Picker1.TabIndex = 3;
-            this.map16Picker1.TileSelected += new NSMBe4.Map16Picker.TileSelectedd(this.map16Picker1_TileSelected);
-            this.map16Picker1.Load += new System.EventHandler(this.map16Picker1_Load);
             // 
             // TilesetObjectEditor
             // 

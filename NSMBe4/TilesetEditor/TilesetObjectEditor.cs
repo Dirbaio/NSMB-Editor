@@ -56,7 +56,7 @@ namespace NSMBe4
                 return;
             previewObject.ObjNum = num;
             selTile = null;
-            selRow = null;
+            selRow = obj.tiles[0];
             groupBox1.Visible = false;
             obj = tls.Objects[num];
             if (obj.tiles.Count == 0)
@@ -338,11 +338,6 @@ namespace NSMBe4
                 selTile = null;
             }
             repaint();
-        }
-
-        private void map16Picker1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void editZone_Click(object sender, EventArgs e)
