@@ -423,6 +423,7 @@ label3=Object Preview:
 label4=Map16 Tiles:
 slopeControlButton=Slope Control
 emptyTileButton=Empty Tile
+deleteButton=Delete
 newLineButton=New Line
 description=Description
 
