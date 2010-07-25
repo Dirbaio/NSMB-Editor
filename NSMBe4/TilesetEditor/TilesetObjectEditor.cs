@@ -55,17 +55,17 @@ namespace NSMBe4
             if (tls.Objects[num] == null)
                 return;
             previewObject.ObjNum = num;
-            selTile = null;
-            selRow = obj.tiles[0];
             groupBox1.Visible = false;
             obj = tls.Objects[num];
             if (obj.tiles.Count == 0)
                 obj.tiles.Add(new List<NSMBTileset.ObjectDefTile>());
-
+            selTile = null;
+            selRow = obj.tiles[0];
             DataUpdateFlag = true;
             objWidth.Value = obj.width;
             objHeight.Value = obj.height;
             DataUpdateFlag = false;
+            groupBox1.Visible = selTile != null;
             repaint();
         }
 
