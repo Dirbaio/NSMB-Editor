@@ -52,6 +52,8 @@ namespace NSMBe4
 
         public void setObject(int num)
         {
+            if (tls.Objects[num] == null)
+                return;
             previewObject.ObjNum = num;
             selTile = null;
             selRow = null;
@@ -320,6 +322,32 @@ namespace NSMBe4
         private void desc_TextChanged(object sender, EventArgs e)
         {
             DescriptionChanged();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            if (selRow == null)
+                return;
+            if (selTile == null)
+            {
+                obj.tiles.Remove(selRow);
+            }
+            else
+            {
+                selRow.Remove(selTile);
+                selTile = null;
+            }
+            repaint();
+        }
+
+        private void map16Picker1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editZone_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

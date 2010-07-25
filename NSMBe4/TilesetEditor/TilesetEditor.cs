@@ -23,7 +23,6 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-
 namespace NSMBe4
 {
     public partial class TilesetEditor : Form
@@ -96,15 +95,12 @@ namespace NSMBe4
         {
             if (t.Objects.Length <= objectPickerControl1.SelectedObject)
                 return;
-            if (t.Objects[objectPickerControl1.SelectedObject] == null)
-            {
-                t.Objects[objectPickerControl1.SelectedObject] = new NSMBTileset.ObjectDef(t);
-            }
-
+            
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
             if (tilesetObjectEditor1.descBox.Visible)
                 tilesetObjectEditor1.descBox.Text = descriptions[objectPickerControl1.SelectedObject].Substring(descriptions[objectPickerControl1.SelectedObject].IndexOf('=') + 1);
         }
+
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -277,6 +273,21 @@ namespace NSMBe4
             } catch (Exception ex) {
                 MessageBox.Show("Could not open description file.\n\nThe original error message was:\n" + ex.Message);
             }
+        }
+
+        private void setend_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            for (; i <= objectPickerControl1.SelectedObject; i++)
+            {
+                if (t.Objects[i] == null)
+                    t.Objects[i] = new NSMBTileset.ObjectDef(t);
+            }
+            for (; i <= 127; i++)
+            {
+                t.Objects[i] = null;
+            }
+            tilesetObjectEditor1.repaint();
         }
     }
 }
