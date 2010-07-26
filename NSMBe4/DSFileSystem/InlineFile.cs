@@ -41,7 +41,7 @@ namespace NSMBe4.DSFileSystem
             else return base.getContents();
         }
 
-        public override void replace(byte[] newFile, object editor, bool narc)
+        public override void replace(byte[] newFile, object editor)
         {
             if (isLzCompressed)
             {
