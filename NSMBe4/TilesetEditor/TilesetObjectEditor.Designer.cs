@@ -79,7 +79,6 @@
             this.editZone.Size = new System.Drawing.Size(235, 249);
             this.editZone.TabIndex = 0;
             this.editZone.TabStop = false;
-            this.editZone.Click += new System.EventHandler(this.editZone_Click);
             this.editZone.Paint += new System.Windows.Forms.PaintEventHandler(this.editZone_Paint);
             this.editZone.MouseDown += new System.Windows.Forms.MouseEventHandler(this.editZone_MouseDown);
             // 

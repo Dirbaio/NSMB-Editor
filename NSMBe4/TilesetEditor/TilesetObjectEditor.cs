@@ -301,6 +301,7 @@ namespace NSMBe4
                 return;
 
             obj.tiles.Insert(obj.tiles.IndexOf(selRow)+1, new List<NSMBTileset.ObjectDefTile>());
+            selRow = obj.tiles[obj.tiles.IndexOf(selRow) + 1];
             repaint();
         }
 
@@ -330,20 +331,42 @@ namespace NSMBe4
                 return;
             if (selTile == null)
             {
-                obj.tiles.Remove(selRow);
+                if (obj.tiles.Count - 1 == obj.tiles.IndexOf(selRow))
+                    if (obj.tiles.IndexOf(selRow) == 0)
+                        return;
+                    else
+                    {
+                        selRow = obj.tiles[obj.tiles.IndexOf(selRow) - 1];
+                        obj.tiles.RemoveAt(obj.tiles.IndexOf(selRow) + 1);
+                    }
+                else
+                {
+                    selRow = obj.tiles[obj.tiles.IndexOf(selRow) + 1];
+                    obj.tiles.RemoveAt(obj.tiles.IndexOf(selRow) - 1);
+                }
             }
             else
             {
-                selRow.Remove(selTile);
-                selTile = null;
+                if (selRow.Count - 1 == selRow.IndexOf(selTile))
+                    if (selRow.IndexOf(selTile) == 0)
+                    {
+                        selRow.Remove(selTile);
+                            selTile=null;
+                    }
+                    else
+                    {
+                        selTile = selRow[selRow.IndexOf(selTile) - 1];
+                        selRow.RemoveAt(selRow.IndexOf(selTile) + 1);
+                    }
+                else
+                {
+                    selTile = selRow[selRow.IndexOf(selTile) + 1];
+                    selRow.RemoveAt(selRow.IndexOf(selTile) - 1);
+                }
             }
             repaint();
         }
 
-        private void editZone_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
 

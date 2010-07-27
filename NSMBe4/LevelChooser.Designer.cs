@@ -41,6 +41,7 @@ namespace NSMBe4 {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.encryptFAT = new System.Windows.Forms.Button();
             this.parseFileListBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.padarm7bin = new System.Windows.Forms.Button();
             this.decompArm9Bin = new System.Windows.Forms.Button();
             this.mpPatch2 = new System.Windows.Forms.Button();
@@ -48,6 +49,7 @@ namespace NSMBe4 {
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
             this.changeLanguageButton = new System.Windows.Forms.Button();
+            this.dumpMapButton = new System.Windows.Forms.Button();
             this.tilesetEditor = new System.Windows.Forms.Button();
             this.mpPatch = new System.Windows.Forms.Button();
             this.patchImport = new System.Windows.Forms.Button();
@@ -60,8 +62,6 @@ namespace NSMBe4 {
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.dumpMapButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -96,7 +96,7 @@ namespace NSMBe4 {
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(498, 375);
+            this.tabPage2.Size = new System.Drawing.Size(498, 398);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -165,8 +165,8 @@ namespace NSMBe4 {
             this.levelTreeView.Name = "levelTreeView";
             this.levelTreeView.Size = new System.Drawing.Size(486, 281);
             this.levelTreeView.TabIndex = 0;
-            this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);
             this.levelTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.levelTreeView_AfterSelect);
+            this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);
             // 
             // tabPage1
             // 
@@ -174,7 +174,7 @@ namespace NSMBe4 {
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(498, 375);
+            this.tabPage1.Size = new System.Drawing.Size(498, 398);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -184,7 +184,7 @@ namespace NSMBe4 {
             this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
             this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(492, 369);
+            this.filesystemBrowser1.Size = new System.Drawing.Size(492, 392);
             this.filesystemBrowser1.TabIndex = 0;
             // 
             // tabPage3
@@ -245,6 +245,18 @@ namespace NSMBe4 {
             this.parseFileListBtn.Text = "parse read list";
             this.parseFileListBtn.UseVisualStyleBackColor = true;
             this.parseFileListBtn.Click += new System.EventHandler(this.parseFileListBtn_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(6, 77);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(222, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Run \'make clean\'";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.padarm7bin_Click);
             // 
             // padarm7bin
             // 
@@ -328,6 +340,18 @@ namespace NSMBe4 {
             this.changeLanguageButton.Text = "<changeLanguageButton>";
             this.changeLanguageButton.UseVisualStyleBackColor = true;
             this.changeLanguageButton.Click += new System.EventHandler(this.changeLanguageButton_Click);
+            // 
+            // dumpMapButton
+            // 
+            this.dumpMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dumpMapButton.Location = new System.Drawing.Point(258, 180);
+            this.dumpMapButton.Name = "dumpMapButton";
+            this.dumpMapButton.Size = new System.Drawing.Size(234, 23);
+            this.dumpMapButton.TabIndex = 3;
+            this.dumpMapButton.Text = "Dump rom map";
+            this.dumpMapButton.UseVisualStyleBackColor = true;
+            this.dumpMapButton.Click += new System.EventHandler(this.dumpMapButton_Click);
             // 
             // tilesetEditor
             // 
@@ -420,30 +444,6 @@ namespace NSMBe4 {
             // openTextFileDialog
             // 
             this.openTextFileDialog.Filter = "Text Files|*.txt|All files|*.*";
-            // 
-            // dumpMapButton
-            // 
-            this.dumpMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dumpMapButton.Location = new System.Drawing.Point(258, 180);
-            this.dumpMapButton.Name = "dumpMapButton";
-            this.dumpMapButton.Size = new System.Drawing.Size(234, 23);
-            this.dumpMapButton.TabIndex = 3;
-            this.dumpMapButton.Text = "Dump rom map";
-            this.dumpMapButton.UseVisualStyleBackColor = true;
-            this.dumpMapButton.Click += new System.EventHandler(this.dumpMapButton_Click);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(6, 77);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(222, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Run \'make clean\'";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.padarm7bin_Click);
             // 
             // saveTextFileDialog
             // 

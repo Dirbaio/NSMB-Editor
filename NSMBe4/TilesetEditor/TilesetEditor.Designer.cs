@@ -31,8 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TilesetEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tilesetObjectEditor1 = new NSMBe4.TilesetObjectEditor();
+            this.objectPickerControl1 = new NSMBe4.ObjectPickerControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.map16Editor1 = new NSMBe4.Map16Editor();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -51,10 +55,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.tilesetObjectEditor1 = new NSMBe4.TilesetObjectEditor();
-            this.objectPickerControl1 = new NSMBe4.ObjectPickerControl();
-            this.map16Editor1 = new NSMBe4.Map16Editor();
-            this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -86,6 +86,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             // 
+            // tilesetObjectEditor1
+            // 
+            this.tilesetObjectEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tilesetObjectEditor1.Location = new System.Drawing.Point(181, 3);
+            this.tilesetObjectEditor1.Name = "tilesetObjectEditor1";
+            this.tilesetObjectEditor1.Size = new System.Drawing.Size(765, 504);
+            this.tilesetObjectEditor1.TabIndex = 2;
+            this.tilesetObjectEditor1.mustRepaintObjects += new NSMBe4.TilesetObjectEditor.mustRepaintObjectsD(this.mustRepaintObjects);
+            this.tilesetObjectEditor1.DescriptionChanged += new NSMBe4.TilesetObjectEditor.changeDescription(this.tilesetObjectEditor1_DescriptionChanged);
+            // 
+            // objectPickerControl1
+            // 
+            this.objectPickerControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.objectPickerControl1.Location = new System.Drawing.Point(3, 3);
+            this.objectPickerControl1.Name = "objectPickerControl1";
+            this.objectPickerControl1.Size = new System.Drawing.Size(178, 504);
+            this.objectPickerControl1.TabIndex = 1;
+            this.objectPickerControl1.ObjectSelected += new NSMBe4.ObjectPickerControl.ObjectSelectedDelegate(this.objectPickerControl1_ObjectSelected);
+            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
@@ -97,6 +116,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             // 
+            // map16Editor1
+            // 
+            this.map16Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.map16Editor1.Location = new System.Drawing.Point(3, 3);
+            this.map16Editor1.Name = "map16Editor1";
+            this.map16Editor1.Size = new System.Drawing.Size(943, 504);
+            this.map16Editor1.TabIndex = 0;
+            this.map16Editor1.mustRepaintObjects += new NSMBe4.Map16Editor.mustRepaintObjectsD(this.mustRepaintObjects);
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.graphicsEditor1);
@@ -107,6 +135,14 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // graphicsEditor1
+            // 
+            this.graphicsEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphicsEditor1.Location = new System.Drawing.Point(3, 3);
+            this.graphicsEditor1.Name = "graphicsEditor1";
+            this.graphicsEditor1.Size = new System.Drawing.Size(943, 504);
+            this.graphicsEditor1.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -248,42 +284,6 @@
             // 
             this.saveFileDialog2.Filter = "NSMB Tilesets|*.nmt";
             // 
-            // tilesetObjectEditor1
-            // 
-            this.tilesetObjectEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tilesetObjectEditor1.Location = new System.Drawing.Point(181, 3);
-            this.tilesetObjectEditor1.Name = "tilesetObjectEditor1";
-            this.tilesetObjectEditor1.Size = new System.Drawing.Size(765, 504);
-            this.tilesetObjectEditor1.TabIndex = 2;
-            this.tilesetObjectEditor1.mustRepaintObjects += new NSMBe4.TilesetObjectEditor.mustRepaintObjectsD(this.mustRepaintObjects);
-            this.tilesetObjectEditor1.DescriptionChanged += new NSMBe4.TilesetObjectEditor.changeDescription(this.tilesetObjectEditor1_DescriptionChanged);
-            // 
-            // objectPickerControl1
-            // 
-            this.objectPickerControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.objectPickerControl1.Location = new System.Drawing.Point(3, 3);
-            this.objectPickerControl1.Name = "objectPickerControl1";
-            this.objectPickerControl1.Size = new System.Drawing.Size(178, 504);
-            this.objectPickerControl1.TabIndex = 1;
-            this.objectPickerControl1.ObjectSelected += new NSMBe4.ObjectPickerControl.ObjectSelectedDelegate(this.objectPickerControl1_ObjectSelected);
-            // 
-            // map16Editor1
-            // 
-            this.map16Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map16Editor1.Location = new System.Drawing.Point(3, 3);
-            this.map16Editor1.Name = "map16Editor1";
-            this.map16Editor1.Size = new System.Drawing.Size(943, 504);
-            this.map16Editor1.TabIndex = 0;
-            this.map16Editor1.mustRepaintObjects += new NSMBe4.Map16Editor.mustRepaintObjectsD(this.mustRepaintObjects);
-            // 
-            // graphicsEditor1
-            // 
-            this.graphicsEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsEditor1.Location = new System.Drawing.Point(3, 3);
-            this.graphicsEditor1.Name = "graphicsEditor1";
-            this.graphicsEditor1.Size = new System.Drawing.Size(943, 504);
-            this.graphicsEditor1.TabIndex = 0;
-            // 
             // TilesetEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,6 +294,7 @@
             this.Name = "TilesetEditor";
             this.Text = "TilesetEditor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TilesetEditor_FormClosed);
+            this.Load += new System.EventHandler(this.TilesetEditor_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

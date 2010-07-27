@@ -290,5 +290,10 @@ namespace NSMBe4
             }
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
         }
+
+        private void TilesetEditor_Load(object sender, EventArgs e)
+        {
+            tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
+        }
     }
 }

@@ -265,17 +265,29 @@ namespace NSMBe4.DSFileSystem
                 else
                 {
                     parent.allFiles.Sort();
-                    File nextFile = parent.allFiles[parent.allFiles.IndexOf(this) + 1];
-                    parent.moveAllFilesForward(nextFile, fileBegin +  newFile.Length);
+                    if (!(parent.allFiles.IndexOf(this) == parent.allFiles.Count - 1))
+                    {
+                        File nextFile = parent.allFiles[parent.allFiles.IndexOf(this) + 1];
+                        parent.moveAllFiles(nextFile, fileBegin + newFile.Length);
+                    }
                 }
             }
-
+            else if(parent is NarcFilesystem)
+            {
+                parent.allFiles.Sort();
+                if (!(parent.allFiles.IndexOf(this) == parent.allFiles.Count - 1))
+                {
+                    File nextFile = parent.allFiles[parent.allFiles.IndexOf(this) + 1];
+                    parent.moveAllFiles(nextFile, fileBegin + newFile.Length);
+                }
+            }
             if (newStart % alignment != 0)
                 Console.Out.Write("Warning: File is not being aligned: " + nameP + ", at " + newStart.ToString("X"));
             //write the file
             parent.s.Seek(newStart, SeekOrigin.Begin);
             parent.s.Write(newFile, 0, newFile.Length);
-
+            if(parent is NarcFilesystem)
+                parent.s.SetLength(parent.allFiles[parent.allFiles.Count - 1].fileBegin + parent.allFiles[parent.allFiles.Count - 1].fileSize + 10);
             //update ending pos
             fileBegin = newStart;
             fileSize = newFile.Length;

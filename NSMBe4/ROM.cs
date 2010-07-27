@@ -19,6 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NSMBe4.DSFileSystem;
+using System.IO;
+using System.Runtime.InteropServices;
 
 
 /**
@@ -295,7 +297,120 @@ namespace NSMBe4 {
             V = ((((v1 & 2147483648) != 0) && ((v2 & 2147483648) == 0) && ((dest & 2147483648) == 0)) || ((v1 & 2147483648) == 0) && ((v2 & 2147483648) != 0) && ((dest & 2147483648) != 0));
         }
 
+        static private unsafe int[] Search(byte* source, int position, int lenght) //Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
+        {
+            int SlidingWindowSize = 4096;
+            int ReadAheadBufferSize = 18;
+
+            if (position >= lenght)
+                return new int[2] { -1, 0 };
+            if ((position < 2) || ((lenght - position) < 2))
+                return new int[2] { 0, 0 };
+
+            List<int> results = new List<int>();
+
+            for (int i = 1; (i < SlidingWindowSize) && (i < position); i++)
+            {
+                if (source[position - (i + 1)] == source[position])
+                {
+                    results.Add(i + 1);
+                }
+            }
+            if (results.Count == 0)
+                return new int[2] { 0, 0 };
+
+            int amountOfBytes = 0;
+
+            bool Continue = true;
+            while (amountOfBytes < ReadAheadBufferSize && Continue)
+            {
+                amountOfBytes++;
+                for (int i = results.Count - 1; i >= 0; i--)
+                {
+                    if (source[position + amountOfBytes] != source[position - results[i] + (amountOfBytes % results[i])])
+                    {
+                        if (results.Count > 1)
+                            results.RemoveAt(i);
+                        else
+                            Continue = false;
+                    }
+                }
+            }
+            return new int[2] { amountOfBytes, results[0] }; //lenght of data is first, then position
+        }
+
+        static public unsafe byte[] LZ77_Compress(byte[] source)//Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
+        {
+            fixed (byte* pointer = &source[0])
+            {
+                return Compress(pointer, source.Length);
+            }
+        }
+
+        static public unsafe byte[] Compress(byte* source, int lenght) //Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
+        {
+            int position = 0;
+            int BlockSize = 8;
+
+            List<byte> CompressedData = new List<byte>();
+            CompressedData.Add(0x10);
+
+            {
+                byte* pointer = (byte*)&lenght;
+                for (int i = 0; i < 3; i++)
+                    CompressedData.Add(*(pointer++));
+            }
+
+            while (position < lenght)
+            {
+                byte isCompressed = 0;
+                List<byte> tempList = new List<byte>();
+
+                for (int i = 0; i < BlockSize; i++)
+                {
+                    int[] searchResult = Search(source, position, lenght);
+
+                    if (searchResult[0] > 2)
+                    {
+                        byte add = (byte)((((searchResult[0] - 3) & 0xF) << 4) + (((searchResult[1] - 1) >> 8) & 0xF));
+                        tempList.Add(add);
+                        add = (byte)((searchResult[1] - 1) & 0xFF);
+                        tempList.Add(add);
+                        position += searchResult[0];
+                        isCompressed |= (byte)(1 << (BlockSize - (i + 1)));
+                    }
+                    else if (searchResult[0] >= 0)
+                        tempList.Add(source[position++]);
+                    else
+                        break;
+                }
+                CompressedData.Add(isCompressed);
+                CompressedData.AddRange(tempList);
+            }
+            while (CompressedData.Count % 4 != 0)
+                CompressedData.Add(0);
+
+            return CompressedData.ToArray();
+        }
+
+        /*[DllImport("narctool.dll")]
+        private static extern void Compress();
+
         public static byte[] LZ77_Compress(byte[] source)
+        {
+            FileStream wfs = new FileStream("raw", FileMode.Create, FileAccess.Write, FileShare.None);
+            wfs.Write(source, 0, source.GetLength(0));
+            wfs.Dispose();
+            Compress();
+            FileStream rfs = new FileStream("compressed", FileMode.Open, FileAccess.Read, FileShare.Read);
+            byte[] TempFile = new byte[rfs.Length];
+            rfs.Read(TempFile, 0, (int)rfs.Length);
+            rfs.Dispose();
+            System.IO.File.Delete("raw");
+            System.IO.File.Delete("compressed");
+            return TempFile;
+        }*/
+        /*public static byte[] LZ77_Compress(byte[] source)
         {
             // This should really be named LZ77_FakeCompress for more accuracy
             int DataLen = 4;
@@ -325,12 +440,24 @@ namespace NSMBe4 {
             }
 
             return dest;
-        }
+        }*/
 
         /* DeLZ */
+        /*public static byte[] LZ77_Decompress(byte[] source)
+        {
+            FileStream wfs = new FileStream("compressed", FileMode.Create, FileAccess.Write, FileShare.None);
+            wfs.Write(source, 0, source.GetLength(0));
+            wfs.Dispose();
+            Decompress();
+            FileStream rfs = new FileStream("decompressed", FileMode.Open, FileAccess.Read, FileShare.Read);
+            byte[] TempFile = new byte[rfs.Length];
+            rfs.Read(TempFile, 0, (int)rfs.Length);
+            rfs.Dispose();
+            return TempFile;
+        }*/
         public static byte[] LZ77_Decompress(byte[] source)
         {
-            /* This code converted from Elitemap */
+            // This code converted from Elitemap 
             int DataLen;
             DataLen = source[1] | (source[2] << 8) | (source[3] << 16);
             byte[] dest = new byte[DataLen];

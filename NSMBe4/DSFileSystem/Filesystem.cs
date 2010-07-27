@@ -178,7 +178,7 @@ namespace NSMBe4.DSFileSystem
         }
 
 
-        public void moveAllFilesForward(File first, int firstOffs)
+        public void moveAllFiles(File first, int firstOffs)
         {
             allFiles.Sort();
             Console.Out.WriteLine("Moving file " + first.name);
@@ -188,9 +188,9 @@ namespace NSMBe4.DSFileSystem
             int firstStart = first.fileBegin;
             int diff = (int)firstOffs - (int)firstStart;
             Console.Out.WriteLine("DIFF " + diff.ToString("X"));
-            if (diff < 0)
+            //if (diff < 0)
                 //throw new Exception("DOSADJODJOSAJD");
-                return;
+            //    return;
 
             //WARNING: I assume all the aligns are powers of 2
             int maxAlign = 4;
