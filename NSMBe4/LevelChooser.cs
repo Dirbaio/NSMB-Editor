@@ -525,60 +525,60 @@ namespace NSMBe4 {
             NarcReplace("Dat_Basement.narc", "d_2d_I_M_tikei_chika3_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
             NarcReplace("Dat_Basement.narc", "d_2d_I_M_tikei_chika3_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
 
-            NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_VS_R_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
-            NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
-            NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
+            NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_R_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
+            NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
+            NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
 
 
             lvl = new NSMBLevel(ROM.FS.getFileByName("J03_1.bin"), ROM.FS.getFileByName("J03_1_bgdat.bin"), null);
-            NarcReplace("Dat_Field.narc", "I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
-            NarcReplace("Dat_Field.narc", "I_M_setsugen2_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
-            NarcReplace("Dat_Field.narc", "d_2d_PA_I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
-            NarcReplace("Dat_Field.narc", "SeTsuGen2MainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_tikei_setsugen2_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_tikei_setsugen2_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
+            NarcReplace("Dat_Ice.narc", "I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
+            NarcReplace("Dat_Ice.narc", "I_M_setsugen2_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
+            NarcReplace("Dat_Ice.narc", "d_2d_PA_I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
+            NarcReplace("Dat_Ice.narc", "SeTsuGen2MainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_tikei_setsugen2_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_tikei_setsugen2_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
 
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_back_setsugen2_VS_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_back_setsugen2_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_back_setsugen2_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_back_setsugen2_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_back_setsugen2_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_back_setsugen2_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
 
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_setsugen2_VS_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NSC));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_setsugen2_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_setsugen2_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NSC));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
+            NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
             
             lvl = new NSMBLevel(ROM.FS.getFileByName("J04_1.bin"), ROM.FS.getFileByName("J04_1_bgdat.bin"), null);
-            NarcReplace("Dat_Field.narc", "W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
-            NarcReplace("Dat_Field.narc", "W_M_dokansoto_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
-            NarcReplace("Dat_Field.narc", "d_2d_PA_W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
-            NarcReplace("Dat_Field.narc", "dokansotoMainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_tikei_dokansoto_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_tikei_dokansoto_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
+            NarcReplace("Dat_Pipe.narc", "W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
+            NarcReplace("Dat_Pipe.narc", "W_M_dokansoto_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
+            NarcReplace("Dat_Pipe.narc", "d_2d_PA_W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
+            NarcReplace("Dat_Pipe.narc", "dokansotoMainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_tikei_dokansoto_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_tikei_dokansoto_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
 
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_back_dokansoto_VS_R_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_back_dokansoto_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_back_dokansoto_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_back_dokansoto_R_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_back_dokansoto_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_back_dokansoto_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
 
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_free_dokansoto_VS_R_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NSC));
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_free_dokansoto_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_W_M_free_dokansoto_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_free_dokansoto_R_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NSC));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_free_dokansoto_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
+            NarcReplace("Dat_Pipe.narc", "d_2d_W_M_free_dokansoto_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
 
             lvl = new NSMBLevel(ROM.FS.getFileByName("J05_1.bin"), ROM.FS.getFileByName("J05_1_bgdat.bin"), null);
-            NarcReplace("Dat_Field.narc", "I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
-            NarcReplace("Dat_Field.narc", "I_M_yakata_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
-            NarcReplace("Dat_Field.narc", "d_2d_PA_I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
-            NarcReplace("Dat_Field.narc", "YaKaTaMainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_tikei_yakata_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_tikei_yakata_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
+            NarcReplace("Dat_Fort.narc", "I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
+            NarcReplace("Dat_Fort.narc", "I_M_yakata_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
+            NarcReplace("Dat_Fort.narc", "d_2d_PA_I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
+            NarcReplace("Dat_Fort.narc", "YaKaTaMainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_tikei_yakata_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_tikei_yakata_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
 
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_back_yakata_VS_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_back_yakata_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_back_yakata_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_back_yakata_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_back_yakata_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_back_yakata_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
 
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_yakata_VS_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NSC));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_yakata_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
-            NarcReplace("Dat_Field.narc", "d_2d_I_M_free_yakata_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NSC));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
+            NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
             MessageBox.Show(LanguageManager.Get("General", "Completed"));
         }
@@ -589,10 +589,14 @@ namespace NSMBe4 {
             NarcFilesystem fs = new NarcFilesystem(ROM.FS.getFileByName(NarcName));
 
             NSMBe4.DSFileSystem.File f = fs.getFileByName(f1);
-            f.beginEdit(this);
-            f.replace(ROM.FS.getFileById(f2).getContents(), this);
-            f.endEdit(this);
-
+            if (f == null)
+                Console.Out.WriteLine("No File: " + NarcName + "/" + f1);
+            else
+            {
+                f.beginEdit(this);
+                f.replace(ROM.FS.getFileById(f2).getContents(), this);
+                f.endEdit(this);
+            }
             fs.close();            
         }
         private void NarcReplace(string NarcName, string f1)
@@ -679,32 +683,7 @@ namespace NSMBe4 {
 
         private void encryptFAT_Click(object sender, EventArgs e)
         {
-            ByteArrayInputStream i = new ByteArrayInputStream(
-                ROM.FS.fatFile.getContents());
-            ByteArrayOutputStream o = new ByteArrayOutputStream();
-            
-            while (i.available(8))
-            {
-                long dat = i.readLong();/*
-                long n = i.getPos();
-            	dat ^= n;
-                long r = n;
-                r *= 0x20229846520937L;
-                r ^= 0x12034871092587L;
-                n += 0x2341;
-                r ^= n * 0x21938981f1f813L;
-                dat ^= n;
-                r += n;
-                r *= 0x20229846520937L;
-                r ^= 0x12034871092587L;
-                r ^= n * 0x2354102349391223L;*/
-                dat ^= 0x2354102349391223L * (i.getPos() + 1);
-                o.writeLong(dat);
-            }
-
-            ROM.FS.fatFile.beginEdit(this);
-            ROM.FS.fatFile.replace(o.getArray(), this);
-            ROM.FS.fatFile.endEdit(this);
+            //LOL
         }
 
         private void dumpMapButton_Click(object sender, EventArgs e)
@@ -714,6 +693,34 @@ namespace NSMBe4 {
             TextWriter tw = new StreamWriter(new FileStream(saveTextFileDialog.FileName, FileMode.Create, FileAccess.ReadWrite));
             ROM.FS.dumpFilesOrdered(tw);
             tw.Close();
+        }
+
+        private void insertRomButton_Click(object sender, EventArgs e)
+        {
+            if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string file = openROMDialog.FileName;
+                FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read);
+                byte[] data = new byte[fs.Length];
+                fs.Read(data, 0, (int)fs.Length);
+                fs.Close();
+
+                /*
+                int arm9offs = data[0x22] | data[0x23] << 8;
+                arm9offs += 0x01F0;
+                data[0x22] = (byte)(arm9offs >> 0);
+                data[0x23] = (byte)(arm9offs >> 8);
+
+                int arm7offs = data[0x32] | data[0x33] << 8;
+                arm7offs += 0x01F0;
+                data[0x32] = (byte)(arm7offs >> 0);
+                data[0x33] = (byte)(arm7offs >> 8);*/
+
+                Stream s = ROM.FS.s;
+                s.Seek(0x1F00000, SeekOrigin.Begin);
+                s.Write(data, 0, data.Length);
+                
+            }
         }
 
     }

@@ -256,7 +256,7 @@ namespace NSMBe4.DSFileSystem
             int newStart = fileBegin;
             if (newFile.Length > fileSize) //if we insert a bigger file
             {                         //it might not fit in the current place
-                if (canChangeOffset&&!(parent is NarcFilesystem))
+                if (canChangeOffset && !(parent is NarcFilesystem))
                 {
                     newStart = parent.findFreeSpace(newFile.Length, alignment);
                     if (newStart % alignment != 0)
@@ -292,7 +292,7 @@ namespace NSMBe4.DSFileSystem
             fileBegin = newStart;
             fileSize = newFile.Length;
             saveOffsets();
-            //parent.fileMoved(this);
+            parent.fileMoved(this); //NEEDED FOR UPDATING TOTAL USED ROM SIZE IN HEADER
         }
 
         public void moveTo(int newOffs)

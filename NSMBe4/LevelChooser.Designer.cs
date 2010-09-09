@@ -63,6 +63,7 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.insertRomButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -210,6 +211,7 @@ namespace NSMBe4 {
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.insertRomButton);
             this.groupBox2.Controls.Add(this.encryptFAT);
             this.groupBox2.Controls.Add(this.parseFileListBtn);
             this.groupBox2.Controls.Add(this.button1);
@@ -217,7 +219,7 @@ namespace NSMBe4 {
             this.groupBox2.Controls.Add(this.decompArm9Bin);
             this.groupBox2.Location = new System.Drawing.Point(258, 209);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(234, 173);
+            this.groupBox2.Size = new System.Drawing.Size(234, 186);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ASM Tools";
@@ -449,6 +451,18 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
+            // insertRomButton
+            // 
+            this.insertRomButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.insertRomButton.Location = new System.Drawing.Point(6, 164);
+            this.insertRomButton.Name = "insertRomButton";
+            this.insertRomButton.Size = new System.Drawing.Size(222, 23);
+            this.insertRomButton.TabIndex = 3;
+            this.insertRomButton.Text = "Insert Homebrew Rom at 0x1F00000";
+            this.insertRomButton.UseVisualStyleBackColor = true;
+            this.insertRomButton.Click += new System.EventHandler(this.insertRomButton_Click);
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -508,5 +522,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button dumpMapButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.SaveFileDialog saveTextFileDialog;
+        private System.Windows.Forms.Button insertRomButton;
     }
 }
