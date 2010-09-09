@@ -498,5 +498,163 @@ namespace NSMBe4 {
             ROM.SetFileIDFromTable(id, ROM.Data.Table_BG_NSC, (ushort)(fid + 2));
             ROM.SaveOverlay0();
         }
+
+        private void bgTopLayerExportBG_Click(object sender, EventArgs e)
+        {
+            if (bgTopLayerComboBox.SelectedIndex == bgTopLayerComboBox.Items.Count - 1)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BlankBG"));
+                return;
+            }
+
+            ushort GFXFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NCG);
+            ushort PalFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NCL);
+            ushort LayoutFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NSC);
+
+            File GFXFile = ROM.FS.getFileById(GFXFileID);
+            File PalFile = ROM.FS.getFileById(PalFileID);
+            File LayoutFile = ROM.FS.getFileById(LayoutFileID);
+
+            if (GFXFile == null || PalFile == null || LayoutFile == null)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BrokenBG"));
+                return;
+            }
+
+            saveFileDialog2.ShowDialog();
+            string filename = saveFileDialog2.FileName;
+            exportBackground(GFXFile, PalFile, LayoutFile, filename);
+        }
+
+        void exportBackground(File GFXFile, File PalFile, File LayoutFile, string filename)
+        {
+            System.IO.BinaryWriter bw = new System.IO.BinaryWriter(
+                new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write));
+            bw.Write("NSMBe Exported Background");
+            writeFileContents(GFXFile, bw);
+            writeFileContents(PalFile, bw);
+            writeFileContents(LayoutFile, bw);
+            bw.Close();
+        }
+
+        void importBackground(File GFXFile, File PalFile, File LayoutFile, string filename)
+        {
+            System.IO.BinaryReader br = new System.IO.BinaryReader(
+                new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read));
+            string header = br.ReadString();
+            if (header != "NSMBe Exported Background")
+            {
+                MessageBox.Show(
+                    LanguageManager.Get("NSMBLevel", "InvalidFile"),
+                    LanguageManager.Get("NSMBLevel", "Unreadable"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            readFileContents(GFXFile, br);
+            readFileContents(PalFile, br);
+            readFileContents(LayoutFile, br);
+            br.Close();
+        }
+
+        private void writeFileContents(File f, System.IO.BinaryWriter bw)
+        {
+            bw.Write((int)f.fileSize);
+            bw.Write(f.getContents());
+        }
+
+        void readFileContents(File f, System.IO.BinaryReader br)
+        {
+            int len = br.ReadInt32();
+            byte[] data = new byte[len];
+            br.Read(data, 0, len);
+            f.beginEdit(this);
+            f.replace(data, this);
+            f.endEdit(this);
+        }
+
+        private void bgTopLayerImportBG_Click(object sender, EventArgs e)
+        {
+
+            if (bgTopLayerComboBox.SelectedIndex == bgTopLayerComboBox.Items.Count - 1)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BlankBG"));
+                return;
+            }
+
+            ushort GFXFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NCG);
+            ushort PalFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NCL);
+            ushort LayoutFileID = ROM.GetFileIDFromTable(bgTopLayerComboBox.SelectedIndex, ROM.Data.Table_FG_NSC);
+
+            File GFXFile = ROM.FS.getFileById(GFXFileID);
+            File PalFile = ROM.FS.getFileById(PalFileID);
+            File LayoutFile = ROM.FS.getFileById(LayoutFileID);
+
+            if (GFXFile == null || PalFile == null || LayoutFile == null)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BrokenBG"));
+                return;
+            }
+
+            openFileDialog2.ShowDialog();
+            string filename = openFileDialog2.FileName;
+ 
+            importBackground(GFXFile, PalFile, LayoutFile, filename);
+        }
+
+        private void bgBottomLayerExportBG_Click(object sender, EventArgs e)
+        {
+
+            if (bgTopLayerComboBox.SelectedIndex == bgTopLayerComboBox.Items.Count - 1)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BlankBG"));
+                return;
+            }
+
+            ushort GFXFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NCG);
+            ushort PalFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NCL);
+            ushort LayoutFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NSC);
+
+            File GFXFile = ROM.FS.getFileById(GFXFileID);
+            File PalFile = ROM.FS.getFileById(PalFileID);
+            File LayoutFile = ROM.FS.getFileById(LayoutFileID);
+
+            if (GFXFile == null || PalFile == null || LayoutFile == null)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BrokenBG"));
+                return;
+            }
+
+            saveFileDialog2.ShowDialog();
+            string filename = saveFileDialog2.FileName;
+            exportBackground(GFXFile, PalFile, LayoutFile, filename);
+        }
+
+        private void bgBottomLayerImportBG_Click(object sender, EventArgs e)
+        {
+            if (bgTopLayerComboBox.SelectedIndex == bgTopLayerComboBox.Items.Count - 1)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BlankBG"));
+                return;
+            }
+
+            ushort GFXFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NCG);
+            ushort PalFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NCL);
+            ushort LayoutFileID = ROM.GetFileIDFromTable(bgBottomLayerComboBox.SelectedIndex, ROM.Data.Table_BG_NSC);
+
+            File GFXFile = ROM.FS.getFileById(GFXFileID);
+            File PalFile = ROM.FS.getFileById(PalFileID);
+            File LayoutFile = ROM.FS.getFileById(LayoutFileID);
+
+            if (GFXFile == null || PalFile == null || LayoutFile == null)
+            {
+                MessageBox.Show(LanguageManager.Get("LevelConfig", "BrokenBG"));
+                return;
+            }
+
+            openFileDialog2.ShowDialog();
+            string filename = openFileDialog2.FileName;
+ 
+            importBackground(GFXFile, PalFile, LayoutFile, filename);
+        }
     }
 }

@@ -77,6 +77,7 @@ namespace NSMBe4 {
                 }
                 catch (Exception) { }
             }
+            DrawingArea.Invalidate();
         }
 
         #region Scrolling

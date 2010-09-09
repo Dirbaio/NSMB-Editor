@@ -33,7 +33,6 @@ namespace NSMBe4
         NSMBTileset tls;
         NSMBObject previewObject;
         public int tnum;
-        bool couldDrawObject = true;
         public TextBox descBox;
         public Label descLbl;
 
@@ -71,14 +70,12 @@ namespace NSMBe4
 
         public void repaint()
         {
-            couldDrawObject = true;
             try
             {
                 previewObject.UpdateObjCache();
             }
             catch (Exception)
             {
-                couldDrawObject = false;
             }
             editZone.Invalidate(true);
             previewBox.Invalidate(true);

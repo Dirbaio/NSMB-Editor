@@ -48,6 +48,7 @@
             this.clearSearch = new System.Windows.Forms.PictureBox();
             this.search = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.spriteTypeUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -57,6 +58,7 @@
             this.rawSpriteData.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clearSearch)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // spriteListBox
@@ -65,9 +67,9 @@
             this.spriteListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.spriteListBox.FormattingEnabled = true;
             this.spriteListBox.IntegralHeight = false;
-            this.spriteListBox.Location = new System.Drawing.Point(0, 145);
+            this.spriteListBox.Location = new System.Drawing.Point(0, 133);
             this.spriteListBox.Name = "spriteListBox";
-            this.spriteListBox.Size = new System.Drawing.Size(289, 250);
+            this.spriteListBox.Size = new System.Drawing.Size(289, 262);
             this.spriteListBox.TabIndex = 26;
             this.spriteListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.spriteListBox_DrawItem);
             this.spriteListBox.SelectedIndexChanged += new System.EventHandler(this.spriteListBox_SelectedIndexChanged);
@@ -96,7 +98,7 @@
             // 
             this.spriteTypeUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.spriteTypeUpDown.Location = new System.Drawing.Point(105, 83);
+            this.spriteTypeUpDown.Location = new System.Drawing.Point(108, 3);
             this.spriteTypeUpDown.Maximum = new decimal(new int[] {
             323,
             0,
@@ -109,7 +111,7 @@
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(14, 84);
+            this.label8.Location = new System.Drawing.Point(17, 4);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 15);
             this.label8.TabIndex = 21;
@@ -119,7 +121,7 @@
             // deleteSpriteButton
             // 
             this.deleteSpriteButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.deleteSpriteButton.Location = new System.Drawing.Point(155, 3);
+            this.deleteSpriteButton.Location = new System.Drawing.Point(150, 3);
             this.deleteSpriteButton.Name = "deleteSpriteButton";
             this.deleteSpriteButton.Size = new System.Drawing.Size(88, 23);
             this.deleteSpriteButton.TabIndex = 20;
@@ -130,7 +132,7 @@
             // addSpriteButton
             // 
             this.addSpriteButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.addSpriteButton.Location = new System.Drawing.Point(61, 3);
+            this.addSpriteButton.Location = new System.Drawing.Point(56, 3);
             this.addSpriteButton.Name = "addSpriteButton";
             this.addSpriteButton.Size = new System.Drawing.Size(88, 23);
             this.addSpriteButton.TabIndex = 19;
@@ -140,12 +142,11 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.tableLayoutPanel3);
-            this.groupBox1.Location = new System.Drawing.Point(3, 32);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 26);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(283, 45);
+            this.groupBox1.Size = new System.Drawing.Size(289, 45);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -167,34 +168,34 @@
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(277, 26);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(283, 26);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // spriteYPosUpDown
             // 
             this.spriteYPosUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spriteYPosUpDown.Location = new System.Drawing.Point(177, 3);
+            this.spriteYPosUpDown.Location = new System.Drawing.Point(181, 3);
             this.spriteYPosUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.spriteYPosUpDown.Name = "spriteYPosUpDown";
-            this.spriteYPosUpDown.Size = new System.Drawing.Size(97, 20);
+            this.spriteYPosUpDown.Size = new System.Drawing.Size(99, 20);
             this.spriteYPosUpDown.TabIndex = 5;
             this.spriteYPosUpDown.ValueChanged += new System.EventHandler(this.spriteYPosUpDown_ValueChanged);
             // 
             // spriteXPosUpDown
             // 
             this.spriteXPosUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spriteXPosUpDown.Location = new System.Drawing.Point(40, 3);
+            this.spriteXPosUpDown.Location = new System.Drawing.Point(41, 3);
             this.spriteXPosUpDown.Maximum = new decimal(new int[] {
             511,
             0,
             0,
             0});
             this.spriteXPosUpDown.Name = "spriteXPosUpDown";
-            this.spriteXPosUpDown.Size = new System.Drawing.Size(94, 20);
+            this.spriteXPosUpDown.Size = new System.Drawing.Size(96, 20);
             this.spriteXPosUpDown.TabIndex = 1;
             this.spriteXPosUpDown.ValueChanged += new System.EventHandler(this.spriteXPosUpDown_ValueChanged);
             // 
@@ -202,7 +203,7 @@
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 0);
+            this.label11.Location = new System.Drawing.Point(8, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 26);
             this.label11.TabIndex = 0;
@@ -212,7 +213,7 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(144, 0);
+            this.label9.Location = new System.Drawing.Point(148, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(27, 26);
             this.label9.TabIndex = 4;
@@ -222,25 +223,23 @@
             // 
             this.spriteDataPanel.AutoSize = true;
             this.spriteDataPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.spriteDataPanel.Location = new System.Drawing.Point(0, 106);
+            this.spriteDataPanel.Location = new System.Drawing.Point(0, 100);
             this.spriteDataPanel.MinimumSize = new System.Drawing.Size(10, 10);
             this.spriteDataPanel.Name = "spriteDataPanel";
             this.spriteDataPanel.Size = new System.Drawing.Size(289, 10);
             this.spriteDataPanel.TabIndex = 27;
+            this.spriteDataPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.spriteDataPanel_Paint);
             // 
             // panel1
             // 
-            this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.addSpriteButton);
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.deleteSpriteButton);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.spriteTypeUpDown);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 110);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(289, 106);
+            this.panel1.Size = new System.Drawing.Size(289, 23);
             this.panel1.TabIndex = 28;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // rawSpriteData
             // 
@@ -249,7 +248,7 @@
             this.rawSpriteData.Controls.Add(this.spriteDataTextBox);
             this.rawSpriteData.Controls.Add(this.label10);
             this.rawSpriteData.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rawSpriteData.Location = new System.Drawing.Point(0, 116);
+            this.rawSpriteData.Location = new System.Drawing.Point(0, 71);
             this.rawSpriteData.MinimumSize = new System.Drawing.Size(10, 10);
             this.rawSpriteData.Name = "rawSpriteData";
             this.rawSpriteData.Size = new System.Drawing.Size(289, 29);
@@ -276,9 +275,9 @@
             this.clearSearch.Size = new System.Drawing.Size(16, 16);
             this.clearSearch.TabIndex = 26;
             this.clearSearch.TabStop = false;
-            this.clearSearch.MouseLeave += new System.EventHandler(this.clearSearch_MouseLeave);
             this.clearSearch.Click += new System.EventHandler(this.clearSearch_Click);
             this.clearSearch.MouseEnter += new System.EventHandler(this.clearSearch_MouseEnter);
+            this.clearSearch.MouseLeave += new System.EventHandler(this.clearSearch_MouseLeave);
             // 
             // search
             // 
@@ -300,15 +299,27 @@
             this.searchBox.TabIndex = 0;
             this.searchBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.addSpriteButton);
+            this.panel3.Controls.Add(this.deleteSpriteButton);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(289, 26);
+            this.panel3.TabIndex = 23;
+            // 
             // SpriteEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.spriteListBox);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.spriteDataPanel);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.rawSpriteData);
-            this.Controls.Add(this.spriteDataPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.panel3);
             this.Name = "SpriteEditor";
             this.Size = new System.Drawing.Size(289, 422);
             ((System.ComponentModel.ISupportInitialize)(this.spriteTypeUpDown)).EndInit();
@@ -323,6 +334,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clearSearch)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -350,6 +362,7 @@
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label search;
         private System.Windows.Forms.PictureBox clearSearch;
+        private System.Windows.Forms.Panel panel3;
 
     }
 }

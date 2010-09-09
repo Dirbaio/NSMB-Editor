@@ -46,15 +46,13 @@ namespace NSMBe4
         {
             objectPickerControl1 = opc;
 
-            this.objectPickerControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.objectPickerControl1.Dock = DockStyle.Fill;
             this.objectPickerControl1.Location = new System.Drawing.Point(3, 70);
             this.objectPickerControl1.Name = "objectPickerControl1";
-            this.objectPickerControl1.Size = new System.Drawing.Size(objPickerBox.Width - 6, objPickerBox.Height - 70);
             this.objectPickerControl1.TabIndex = 1;
             this.objectPickerControl1.ObjectSelected += new NSMBe4.ObjectPickerControl.ObjectSelectedDelegate(this.objectPickerControl1_ObjectSelected);
-            this.objPickerBox.Controls.Add(this.objectPickerControl1);
+            this.objectPickerControl1.BringToFront();
+            this.panel2.Controls.Add(this.objectPickerControl1);
 
         }
 
@@ -75,10 +73,6 @@ namespace NSMBe4
         {
             if (o == null) return;
             DataUpdateFlag = true;
-            objXPosUpDown.Value = o.X;
-            objYPosUpDown.Value = o.Y;
-            objWidthUpDown.Value = o.Width;
-            objHeightUpDown.Value = o.Height;
 
             objTileset0Button.Checked = (o.Tileset == 0);
             objTileset1Button.Checked = (o.Tileset == 1);
@@ -99,33 +93,6 @@ namespace NSMBe4
             objectPickerControl1.ReRenderAll(2);
         }
 
-        private void objXPosUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (DataUpdateFlag) return;
-            if ((int)objXPosUpDown.Value != o.X)
-                EdControl.UndoManager.Do(new MoveObjectAction(o, (int)objXPosUpDown.Value, o.Y));
-        }
-
-        private void objYPosUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (DataUpdateFlag) return;
-            if ((int)objYPosUpDown.Value != o.Y)
-                EdControl.UndoManager.Do(new MoveObjectAction(o, o.X, (int)objYPosUpDown.Value));
-        }
-
-        private void objWidthUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (DataUpdateFlag) return;
-            if ((int)objWidthUpDown.Value != o.Width)
-                EdControl.UndoManager.Do(new SizeObjectAction(o, (int)objWidthUpDown.Value, o.Height));
-        }
-
-        private void objHeightUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (DataUpdateFlag) return;
-            if ((int)objHeightUpDown.Value != o.Height)
-                EdControl.UndoManager.Do(new SizeObjectAction(o, o.Width, (int)objHeightUpDown.Value));
-        }
 
         private void objTileset0Button_Click(object sender, EventArgs e)
         {

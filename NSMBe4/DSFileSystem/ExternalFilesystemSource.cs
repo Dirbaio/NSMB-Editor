@@ -24,8 +24,6 @@ namespace NSMBe4.DSFileSystem
 {
     public class ExternalFilesystemSource : FilesystemSource
     {
-        String path;
-
         public string fileName;
 
         public ExternalFilesystemSource(string n)

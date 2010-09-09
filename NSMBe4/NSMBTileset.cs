@@ -1205,6 +1205,7 @@ namespace NSMBe4
             writeFileContents(ObjIndexFile, bw);
             if (TileBehaviorFile != null)
                 writeFileContents(TileBehaviorFile, bw);
+            bw.Close();
         }
 
         private void writeFileContents(File f, System.IO.BinaryWriter bw)
@@ -1236,7 +1237,7 @@ namespace NSMBe4
             readFileContents(ObjIndexFile, br);
             if (TileBehaviorFile != null)
                 readFileContents(TileBehaviorFile, br);
-
+            br.Close();
             load();
         }
 

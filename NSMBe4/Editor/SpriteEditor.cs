@@ -256,5 +256,15 @@ namespace NSMBe4
             searchBox.Text = "";
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void spriteDataPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
     }
 }

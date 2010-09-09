@@ -49,6 +49,7 @@
             this.set1ComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tilesetPreviewButton = new System.Windows.Forms.Button();
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
@@ -82,7 +83,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label16 = new System.Windows.Forms.Label();
+            this.bgTopLayerExportBG = new System.Windows.Forms.Button();
+            this.bgTopLayerImportBG = new System.Windows.Forms.Button();
+            this.bgBottomLayerExportBG = new System.Windows.Forms.Button();
+            this.bgBottomLayerImportBG = new System.Windows.Forms.Button();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -101,7 +107,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(401, 354);
+            this.cancelButton.Location = new System.Drawing.Point(451, 408);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 4;
@@ -112,7 +118,7 @@
             // OKButton
             // 
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OKButton.Location = new System.Drawing.Point(320, 354);
+            this.OKButton.Location = new System.Drawing.Point(370, 408);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 5;
@@ -374,27 +380,37 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(472, 310);
+            this.tabPage2.Size = new System.Drawing.Size(522, 364);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.Location = new System.Drawing.Point(9, 226);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(507, 135);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "label16";
+            // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.tilesetPreviewButton);
             this.groupBox1.Controls.Add(this.tilesetComboBox);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(460, 46);
+            this.groupBox1.Size = new System.Drawing.Size(516, 46);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -402,7 +418,7 @@
             // tilesetPreviewButton
             // 
             this.tilesetPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tilesetPreviewButton.Location = new System.Drawing.Point(379, 19);
+            this.tilesetPreviewButton.Location = new System.Drawing.Point(435, 19);
             this.tilesetPreviewButton.Name = "tilesetPreviewButton";
             this.tilesetPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.tilesetPreviewButton.TabIndex = 1;
@@ -418,22 +434,23 @@
             this.tilesetComboBox.FormattingEnabled = true;
             this.tilesetComboBox.Location = new System.Drawing.Point(6, 19);
             this.tilesetComboBox.Name = "tilesetComboBox";
-            this.tilesetComboBox.Size = new System.Drawing.Size(367, 21);
+            this.tilesetComboBox.Size = new System.Drawing.Size(423, 21);
             this.tilesetComboBox.TabIndex = 0;
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.bgFileID);
             this.groupBox2.Controls.Add(this.bgTopLayerFileButton);
+            this.groupBox2.Controls.Add(this.bgTopLayerImportBG);
+            this.groupBox2.Controls.Add(this.bgTopLayerExportBG);
             this.groupBox2.Controls.Add(this.bgTopLayerImportButton);
             this.groupBox2.Controls.Add(this.bgTopLayerExportButton);
             this.groupBox2.Controls.Add(this.bgTopLayerPreviewButton);
             this.groupBox2.Controls.Add(this.bgTopLayerComboBox);
-            this.groupBox2.Location = new System.Drawing.Point(6, 58);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(3, 49);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(460, 73);
+            this.groupBox2.Size = new System.Drawing.Size(516, 100);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "<groupBox2>";
@@ -441,7 +458,7 @@
             // bgFileID
             // 
             this.bgFileID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgFileID.Location = new System.Drawing.Point(399, 46);
+            this.bgFileID.Location = new System.Drawing.Point(455, 46);
             this.bgFileID.Name = "bgFileID";
             this.bgFileID.Size = new System.Drawing.Size(55, 20);
             this.bgFileID.TabIndex = 2;
@@ -449,7 +466,7 @@
             // bgTopLayerFileButton
             // 
             this.bgTopLayerFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgTopLayerFileButton.Location = new System.Drawing.Point(318, 46);
+            this.bgTopLayerFileButton.Location = new System.Drawing.Point(374, 46);
             this.bgTopLayerFileButton.Name = "bgTopLayerFileButton";
             this.bgTopLayerFileButton.Size = new System.Drawing.Size(75, 21);
             this.bgTopLayerFileButton.TabIndex = 1;
@@ -460,7 +477,7 @@
             // bgTopLayerImportButton
             // 
             this.bgTopLayerImportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgTopLayerImportButton.Location = new System.Drawing.Point(237, 46);
+            this.bgTopLayerImportButton.Location = new System.Drawing.Point(293, 46);
             this.bgTopLayerImportButton.Name = "bgTopLayerImportButton";
             this.bgTopLayerImportButton.Size = new System.Drawing.Size(75, 21);
             this.bgTopLayerImportButton.TabIndex = 1;
@@ -471,7 +488,7 @@
             // bgTopLayerExportButton
             // 
             this.bgTopLayerExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgTopLayerExportButton.Location = new System.Drawing.Point(156, 46);
+            this.bgTopLayerExportButton.Location = new System.Drawing.Point(212, 46);
             this.bgTopLayerExportButton.Name = "bgTopLayerExportButton";
             this.bgTopLayerExportButton.Size = new System.Drawing.Size(75, 21);
             this.bgTopLayerExportButton.TabIndex = 1;
@@ -482,7 +499,7 @@
             // bgTopLayerPreviewButton
             // 
             this.bgTopLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgTopLayerPreviewButton.Location = new System.Drawing.Point(75, 46);
+            this.bgTopLayerPreviewButton.Location = new System.Drawing.Point(131, 46);
             this.bgTopLayerPreviewButton.Name = "bgTopLayerPreviewButton";
             this.bgTopLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.bgTopLayerPreviewButton.TabIndex = 1;
@@ -498,22 +515,23 @@
             this.bgTopLayerComboBox.FormattingEnabled = true;
             this.bgTopLayerComboBox.Location = new System.Drawing.Point(6, 19);
             this.bgTopLayerComboBox.Name = "bgTopLayerComboBox";
-            this.bgTopLayerComboBox.Size = new System.Drawing.Size(448, 21);
+            this.bgTopLayerComboBox.Size = new System.Drawing.Size(504, 21);
             this.bgTopLayerComboBox.TabIndex = 0;
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.bgFileID2);
             this.groupBox3.Controls.Add(this.bgBottomLayerFileButton);
+            this.groupBox3.Controls.Add(this.bgBottomLayerImportBG);
+            this.groupBox3.Controls.Add(this.bgBottomLayerExportBG);
             this.groupBox3.Controls.Add(this.bgBottomLayerImportButton);
             this.groupBox3.Controls.Add(this.bgBottomLayerExportButton);
             this.groupBox3.Controls.Add(this.bgBottomLayerPreviewButton);
             this.groupBox3.Controls.Add(this.bgBottomLayerComboBox);
-            this.groupBox3.Location = new System.Drawing.Point(6, 137);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(3, 149);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(460, 72);
+            this.groupBox3.Size = new System.Drawing.Size(516, 97);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "<groupBox3>";
@@ -521,7 +539,7 @@
             // bgFileID2
             // 
             this.bgFileID2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgFileID2.Location = new System.Drawing.Point(399, 45);
+            this.bgFileID2.Location = new System.Drawing.Point(455, 45);
             this.bgFileID2.Name = "bgFileID2";
             this.bgFileID2.Size = new System.Drawing.Size(55, 20);
             this.bgFileID2.TabIndex = 2;
@@ -529,7 +547,7 @@
             // bgBottomLayerFileButton
             // 
             this.bgBottomLayerFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgBottomLayerFileButton.Location = new System.Drawing.Point(318, 45);
+            this.bgBottomLayerFileButton.Location = new System.Drawing.Point(374, 45);
             this.bgBottomLayerFileButton.Name = "bgBottomLayerFileButton";
             this.bgBottomLayerFileButton.Size = new System.Drawing.Size(75, 21);
             this.bgBottomLayerFileButton.TabIndex = 1;
@@ -540,7 +558,7 @@
             // bgBottomLayerImportButton
             // 
             this.bgBottomLayerImportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgBottomLayerImportButton.Location = new System.Drawing.Point(237, 45);
+            this.bgBottomLayerImportButton.Location = new System.Drawing.Point(293, 45);
             this.bgBottomLayerImportButton.Name = "bgBottomLayerImportButton";
             this.bgBottomLayerImportButton.Size = new System.Drawing.Size(75, 21);
             this.bgBottomLayerImportButton.TabIndex = 1;
@@ -551,7 +569,7 @@
             // bgBottomLayerExportButton
             // 
             this.bgBottomLayerExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgBottomLayerExportButton.Location = new System.Drawing.Point(156, 45);
+            this.bgBottomLayerExportButton.Location = new System.Drawing.Point(212, 45);
             this.bgBottomLayerExportButton.Name = "bgBottomLayerExportButton";
             this.bgBottomLayerExportButton.Size = new System.Drawing.Size(75, 21);
             this.bgBottomLayerExportButton.TabIndex = 1;
@@ -562,7 +580,7 @@
             // bgBottomLayerPreviewButton
             // 
             this.bgBottomLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgBottomLayerPreviewButton.Location = new System.Drawing.Point(75, 45);
+            this.bgBottomLayerPreviewButton.Location = new System.Drawing.Point(131, 45);
             this.bgBottomLayerPreviewButton.Name = "bgBottomLayerPreviewButton";
             this.bgBottomLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.bgBottomLayerPreviewButton.TabIndex = 1;
@@ -578,7 +596,7 @@
             this.bgBottomLayerComboBox.FormattingEnabled = true;
             this.bgBottomLayerComboBox.Location = new System.Drawing.Point(6, 19);
             this.bgBottomLayerComboBox.Name = "bgBottomLayerComboBox";
-            this.bgBottomLayerComboBox.Size = new System.Drawing.Size(448, 21);
+            this.bgBottomLayerComboBox.Size = new System.Drawing.Size(504, 21);
             this.bgBottomLayerComboBox.TabIndex = 0;
             // 
             // tabPage1
@@ -760,7 +778,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(480, 336);
+            this.tabControl1.Size = new System.Drawing.Size(530, 390);
             this.tabControl1.TabIndex = 6;
             // 
             // openFileDialog1
@@ -772,16 +790,58 @@
             // 
             this.saveFileDialog1.Filter = "PNG images|*.png|All files|*.*";
             // 
-            // label16
+            // bgTopLayerExportBG
             // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.Location = new System.Drawing.Point(9, 212);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(457, 95);
-            this.label16.TabIndex = 3;
-            this.label16.Text = "label16";
+            this.bgTopLayerExportBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgTopLayerExportBG.Location = new System.Drawing.Point(212, 73);
+            this.bgTopLayerExportBG.Name = "bgTopLayerExportBG";
+            this.bgTopLayerExportBG.Size = new System.Drawing.Size(75, 21);
+            this.bgTopLayerExportBG.TabIndex = 1;
+            this.bgTopLayerExportBG.Text = "<bgTopLayerExportButton>";
+            this.bgTopLayerExportBG.UseVisualStyleBackColor = true;
+            this.bgTopLayerExportBG.Click += new System.EventHandler(this.bgTopLayerExportBG_Click);
+            // 
+            // bgTopLayerImportBG
+            // 
+            this.bgTopLayerImportBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgTopLayerImportBG.Location = new System.Drawing.Point(293, 73);
+            this.bgTopLayerImportBG.Name = "bgTopLayerImportBG";
+            this.bgTopLayerImportBG.Size = new System.Drawing.Size(75, 21);
+            this.bgTopLayerImportBG.TabIndex = 1;
+            this.bgTopLayerImportBG.Text = "<bgTopLayerImportButton>";
+            this.bgTopLayerImportBG.UseVisualStyleBackColor = true;
+            this.bgTopLayerImportBG.Click += new System.EventHandler(this.bgTopLayerImportBG_Click);
+            // 
+            // bgBottomLayerExportBG
+            // 
+            this.bgBottomLayerExportBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgBottomLayerExportBG.Location = new System.Drawing.Point(212, 72);
+            this.bgBottomLayerExportBG.Name = "bgBottomLayerExportBG";
+            this.bgBottomLayerExportBG.Size = new System.Drawing.Size(75, 21);
+            this.bgBottomLayerExportBG.TabIndex = 1;
+            this.bgBottomLayerExportBG.Text = "<bgBottomLayerExportButton>";
+            this.bgBottomLayerExportBG.UseVisualStyleBackColor = true;
+            this.bgBottomLayerExportBG.Click += new System.EventHandler(this.bgBottomLayerExportBG_Click);
+            // 
+            // bgBottomLayerImportBG
+            // 
+            this.bgBottomLayerImportBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bgBottomLayerImportBG.Location = new System.Drawing.Point(293, 72);
+            this.bgBottomLayerImportBG.Name = "bgBottomLayerImportBG";
+            this.bgBottomLayerImportBG.Size = new System.Drawing.Size(75, 21);
+            this.bgBottomLayerImportBG.TabIndex = 1;
+            this.bgBottomLayerImportBG.Text = "<bgBottomLayerImportButton>";
+            this.bgBottomLayerImportBG.UseVisualStyleBackColor = true;
+            this.bgBottomLayerImportBG.Click += new System.EventHandler(this.bgBottomLayerImportBG_Click);
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "openFileDialog1";
+            this.openFileDialog2.Filter = "NSMB BGs|*.nmb|All files|*.*";
+            // 
+            // saveFileDialog2
+            // 
+            this.saveFileDialog2.Filter = "NSMB BGs|*.nmb|All files|*.*";
             // 
             // LevelConfig
             // 
@@ -789,7 +849,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(504, 389);
+            this.ClientSize = new System.Drawing.Size(554, 443);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.cancelButton);
@@ -880,5 +940,11 @@
         private System.Windows.Forms.TextBox bgFileID;
         private System.Windows.Forms.TextBox bgFileID2;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button bgBottomLayerImportBG;
+        private System.Windows.Forms.Button bgBottomLayerExportBG;
+        private System.Windows.Forms.Button bgTopLayerImportBG;
+        private System.Windows.Forms.Button bgTopLayerExportBG;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog2;
     }
 }
