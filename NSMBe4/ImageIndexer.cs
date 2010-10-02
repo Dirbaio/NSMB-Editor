@@ -29,17 +29,17 @@ namespace NSMBe4
         private Dictionary<MultiColor, int> freqTable;
         public Color[][] palettes;
 
-        private ImageIndexer(List<Bitmap> bl, bool checkForAlpha)
-            : this(bl, 256, checkForAlpha)
+        public ImageIndexer(List<Bitmap> bl, bool useAlpha)
+            : this(bl, 256, useAlpha)
         {
         }
 
-        private ImageIndexer(List<Bitmap> bl)
-            : this(bl, 256, false)
+        public ImageIndexer(List<Bitmap> bl)
+            : this(bl, 256, true)
         {
         }
 
-        private ImageIndexer(List<Bitmap> bl, int paletteCount, bool useAlpha)
+        public ImageIndexer(List<Bitmap> bl, int paletteCount, bool useAlpha)
         {
             int boxColorCount = bl.Count * 4;
             //COMPUTE FREQUENCY TABLE
@@ -62,6 +62,7 @@ namespace NSMBe4
                     MultiColor c = new MultiColor(boxColorCount);
                     for(int i = 0; i < bl.Count; i++)
                         c.setColor(i, bl[i].GetPixel(x, y));
+                    c.calcHash();
                     if(!c.allTransparent())
                         if (freqTable.ContainsKey(c))
                             freqTable[c]++;
@@ -76,6 +77,7 @@ namespace NSMBe4
 
             while (boxes.Count < (useAlpha ? paletteCount - 1 : paletteCount))
             {
+                Console.Out.WriteLine(boxes.Count);
                 Box bo = getDominantBox();
                 if (bo == null)
                     break;
@@ -99,8 +101,9 @@ namespace NSMBe4
                 }
                 if (useAlpha)
                     palettes[i][0] = Color.Transparent;
+                
             }
-
+            Console.Out.WriteLine("DONE");
             /*
 
                 }*/
@@ -273,6 +276,11 @@ namespace NSMBe4
             return (ushort)res;
         }
 
+        public static byte reduce(int c)
+        {
+            return (byte)((c >> 3) << 3);
+        }
+
         private class MultiColor
         {
             public byte[] data;
@@ -290,9 +298,9 @@ namespace NSMBe4
                 transp[i * 3 + 2] = c.A < 128;
                 if (c.A >= 128)
                 {
-                    data[i * 3 + 0] = c.R;
-                    data[i * 3 + 1] = c.G;
-                    data[i * 3 + 2] = c.B;
+                    data[i * 3 + 0] = reduce(c.R);
+                    data[i * 3 + 1] = reduce(c.G);
+                    data[i * 3 + 2] = reduce(c.B);
                 }
             }
 
@@ -308,11 +316,60 @@ namespace NSMBe4
                     if (!transp[i]) return false;
                 return true;
             }
+
+            private int thehash;
+            public void calcHash()
+            {
+                unchecked
+                {
+                    const int p = 16777619;
+                    int hash = (int)2166136261;
+
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        hash = (hash ^ data[i]) * p;
+                        if (transp[i]) hash++;
+                    }
+
+                    hash += hash << 13;
+                    hash ^= hash >> 7;
+                    hash += hash << 3;
+                    hash ^= hash >> 17;
+                    hash += hash << 5;
+
+                    thehash = hash;
+                }
+            }
+
+            public override int GetHashCode()
+            {
+                return thehash;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj is MultiColor)
+                {
+                    MultiColor c = obj as MultiColor;
+                    if(data.Length != c.data.Length)
+                        return false;
+
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        if (data[i] != c.data[i]) return false;
+                        if (transp[i] != c.transp[i]) return false;
+                    }
+                    return true;
+                }
+                else return false;
+            }
         }
 
         private class Box
         {
             public byte[] min, max;
+            private bool splittable = false;
+            private bool splittablecached = false;
             public Box(int count)
             {
                 min = new byte[count];
@@ -333,6 +390,7 @@ namespace NSMBe4
             public Box(MultiColor c)
             {
                 //FIXME!!!!! NOW!!!
+                //Transparent colors are made into black...
                 this.min = (byte[])c.data.Clone();
                 this.max = (byte[])c.data.Clone();
             }
@@ -356,6 +414,7 @@ namespace NSMBe4
                     if (min[i] > c.data[i]) min[i] = c.data[i];
                     if (max[i] < c.data[i]) max[i] = c.data[i];
                 }
+                splittablecached = false;
             }
 
             public int dominantDimension()
@@ -388,13 +447,25 @@ namespace NSMBe4
             public void setDimMin(byte d, byte a)
             {
                 min[d] = a;
+                splittablecached = false;
             }
             public void setDimMax(byte d, byte a)
             {
                 max[d] = a;
+                splittablecached = false;
             }
 
             public bool canSplit(Dictionary<MultiColor, int> freqTable)
+            {
+                if (splittablecached) return splittable;
+                else
+                {
+                    splittablecached = true;
+                    splittable = canSplit2(freqTable);
+                    return splittable;
+                }
+            }
+            public bool canSplit2(Dictionary<MultiColor, int> freqTable)
             {
                 int count = 0;
                 foreach (MultiColor c in freqTable.Keys)
@@ -439,6 +510,17 @@ namespace NSMBe4
             return i.palettes[0];
         }
 
+        public static void previewPalettedBitmap(Bitmap b, Color[] palette)
+        {
+            for(int x = 0; x < b.Width; x++)
+                for (int y = 0; y < b.Height; y++)
+                {
+                    Color c = b.GetPixel(x, y);
+                    if (c.A < 128) c = Color.Transparent;
+                    else c = palette[closest(c, palette)];
+                    b.SetPixel(x, y, c);
+                }
+        }
         public static byte[] indexImageWithPalette(Bitmap b, Color[] palette)
         {
             Dictionary<Color, byte> paletteTable = new Dictionary<Color, byte>();
