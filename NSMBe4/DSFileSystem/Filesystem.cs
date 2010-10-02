@@ -64,7 +64,8 @@ namespace NSMBe4.DSFileSystem
         {
             allFiles.Add(f);
             if(f.id != -1)
-                filesById.Add(f.id, f);
+                if(!filesById.ContainsKey(f.id))
+                    filesById.Add(f.id, f);
 //            filesByName.Add(f.name, f);
         }
 

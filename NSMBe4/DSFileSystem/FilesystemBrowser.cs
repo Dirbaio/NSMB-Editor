@@ -290,8 +290,8 @@ namespace NSMBe4.DSFileSystem
                     {
                         MessageBox.Show(ex.Message);
                     }
-                    
-            else if(filename.EndsWith(".narc"))
+
+            else if (filename.EndsWith(".narc") || filename.EndsWith(".carc"))
                     new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
             else if(filename.EndsWith("_ncl.bin"))
             {
