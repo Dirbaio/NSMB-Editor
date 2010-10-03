@@ -150,15 +150,39 @@ namespace NSMBe4
             if (gs == null)
                 return;
 
+            gs.import();
             try
             {
-                gs.import();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void exportThisBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void importThisBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveAllBtn_Click(object sender, EventArgs e)
+        {
+            foreach (object o in imageListBox.Items)
+            {
+                if (o is PalettedImage)
+                    (o as PalettedImage).save();
+            }
+            foreach (object o in paletteListBox.Items)
+            {
+                if (o is Palette)
+                    (o as Palette).save();
+            }
         }
 
     }

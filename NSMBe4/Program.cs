@@ -177,16 +177,16 @@ namespace NSMBe4 {
              */
 
             //Whoa... This is a good place for testing stuff!
+            /*
             Bitmap b = new Bitmap("C:\\test1.png");
             Bitmap b2 = new Bitmap("C:\\test2.png");
             List<Bitmap> bl = new List<Bitmap>();
             bl.Add(b);
             bl.Add(b2);
-            ImageIndexer ii = new ImageIndexer(bl, 256, true);
-            ImageIndexer.previewPalettedBitmap(b, ii.palettes[0]);
-            ImageIndexer.previewPalettedBitmap(b2, ii.palettes[1]);
-            new ImagePreviewer(b).Show();
-            new ImagePreviewer(b2).Show();
+            ImageIndexer ii = new ImageIndexer(bl, 256, true, 0);
+            new ImagePreviewer(ii.previewImage(0)).Show();
+            new ImagePreviewer(ii.previewImage(1)).Show();*/
+
             if (Properties.Settings.Default.Language == 0)
             {
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));

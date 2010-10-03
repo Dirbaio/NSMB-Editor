@@ -16,7 +16,8 @@ namespace NSMBe4
 
         public GraphicsSet()
         {
-
+            imgs = new List<PixelPalettedImage>();
+            pals = new List<Palette>();
         }
 
         private void calcSizes()
@@ -90,48 +91,31 @@ namespace NSMBe4
 
             Bitmap b = new Bitmap(ofd.FileName);
             if (b.Width != tx || b.Height != ty)
-                throw new Exception("Wrong image size");
+                throw new Exception("Wrong input image size");
 
-            Bitmap bbb = new Bitmap(b.Width, tys);
-            Graphics bbbgfx = Graphics.FromImage(bbb);
-            bbbgfx.DrawImage(b, 0, 0, b.Width, b.Height);
-            Color[] firstPal = ImageIndexer.createPaletteForImage(bbb, pals[0].pal.Length);
-            pals[0].pal = firstPal;
+            List<Bitmap> bl = new List<Bitmap>();
+            for (int i = 0; i < pals.Count; i++)
+            {
+                Bitmap bbb = new Bitmap(b.Width, tys);
+                Graphics bbbgfx = Graphics.FromImage(bbb);
+                bbbgfx.DrawImage(b, 0, -i*tys, b.Width, b.Height);
+                bl.Add(bbb);
+            }
+            b.Dispose();
 
-            bbb.Dispose();
+            ImageIndexer ii = new ImageIndexer(bl, 256, true, 0);
+            
 
             int x = 0;
             foreach (PixelPalettedImage i in imgs)
             {
-                Bitmap bb = new Bitmap(i.getWidth(), i.getHeight());
-                Graphics bbgfx = Graphics.FromImage(bb);
-                bbgfx.DrawImage(b, -x, 0, b.Width, b.Height);
-
-                i.replaceWithPal(bb, pals[0]);
-                bb.Dispose();
+                i.setPixelData(ii.imageData, x, 0);
+                x += i.getWidth();
             }
 
-            for (int i = 1; i < pals.Count; i++)
+            for (int i = 0; i < pals.Count; i++)
             {
-                Color[] newPal = new Color[firstPal.Length];
-                x = 0;
-                foreach(PixelPalettedImage img in imgs)
-                {
-                    for (int xx = 0; xx < img.getWidth(); xx++)
-                    {
-                        for (int y = 0; y < img.getHeight(); y++)
-                        {
-                            Color c = b.GetPixel(x + xx, y + i * tys);
-                            int ind = img.getPixel(xx, y);
-                            if (newPal[ind] == null)
-                                newPal[ind] = c;
-                            else
-                                newPal[ind] = ImageTiler.colorMean(newPal[ind], c, 6, 1);
-                        }
-                    }
-                    x += img.getWidth();
-                }
-                pals[i].pal = newPal;
+                pals[i].pal = ii.palettes[i];
             }
 
             return false;

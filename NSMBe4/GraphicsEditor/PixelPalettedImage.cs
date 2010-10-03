@@ -36,6 +36,31 @@ namespace NSMBe4
 
             return b;
         }
+
+        public void setPixelData(byte[,] a, int xx, int yy)
+        {
+            int tx = getWidth();
+            int ty = getHeight();
+
+            for (int x = 0; x < tx; x++)
+                for (int y = 0; y < ty; y++)
+                {
+                    setPixel(x, y, a[x + xx, y + yy]);
+                }
+        }
+
+        public void setPixelData(int[,] a, int xx, int yy)
+        {
+            int tx = getWidth();
+            int ty = getHeight();
+
+            for (int x = 0; x < tx; x++)
+                for (int y = 0; y < ty; y++)
+                {
+                    setPixel(x, y, a[x + xx, y + yy]);
+                }
+        }
+
         public abstract void setPixel(int x, int y, int c);
         public abstract int getPixel(int x, int y);
     }

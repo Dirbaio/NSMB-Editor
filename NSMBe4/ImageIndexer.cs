@@ -23,32 +23,54 @@ using System.Windows.Forms;
 
 namespace NSMBe4
 {
+    /**
+     * This is the core of all the image importing.
+     * Takes one or more RGB bitmaps and outputs:
+     *  - The image data common to all images. (tiled or non-tiled)
+     *  - One palette for each image, so that viewing the image data with 
+     *    it shows the original image.
+     *    
+     * It could still be optimized more, I know.
+     * ~Dirbaio
+     */
+
     public class ImageIndexer
     {
         private List<Box> boxes;
         private Dictionary<MultiColor, int> freqTable;
+        private Dictionary<MultiColor, byte> colorTable;
         public Color[][] palettes;
+        private MultiColor[] multiPalette;
+        private int width, height;
+        private int paletteCount, boxColorCount;
+        private bool useAlpha;
+        private List<Bitmap> bl;
+        public Byte[,] imageData;
 
         public ImageIndexer(List<Bitmap> bl, bool useAlpha)
-            : this(bl, 256, useAlpha)
+            : this(bl, 256, useAlpha, 0)
         {
         }
 
         public ImageIndexer(List<Bitmap> bl)
-            : this(bl, 256, true)
+            : this(bl, 256, true, 0)
         {
         }
 
-        public ImageIndexer(List<Bitmap> bl, int paletteCount, bool useAlpha)
+        public ImageIndexer(List<Bitmap> bl, int paletteCount, bool useAlpha, int transpCol)
         {
-            int boxColorCount = bl.Count * 4;
+            this.bl = bl;
+            this.paletteCount = paletteCount;
+            this.useAlpha = useAlpha;
+
+            boxColorCount = bl.Count * 3;
             //COMPUTE FREQUENCY TABLE
 
             freqTable = new Dictionary<MultiColor,int>();
 
             //Quick check just in case...
-            int width = bl[0].Width;
-            int height = bl[0].Height;
+            width = bl[0].Width;
+            height = bl[0].Height;
             foreach(Bitmap b in bl)
             {
                 if (b.Width != width || b.Height != height)
@@ -86,6 +108,11 @@ namespace NSMBe4
             }
 
 
+            multiPalette = new MultiColor[paletteCount];
+            for (int j = useAlpha ? 1 : 0; j < paletteCount; j++)
+                if ((useAlpha ? j : j + 1) <= boxes.Count)
+                    multiPalette[j] = boxes[useAlpha ? j - 1 : j].center();
+
             //NOW CREATE THE PALETTE COLORS
             palettes = new Color[bl.Count][];
             for (int i = 0; i < bl.Count; i++)
@@ -103,40 +130,128 @@ namespace NSMBe4
                     palettes[i][0] = Color.Transparent;
                 
             }
+
+            //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES
+            colorTable = new Dictionary<MultiColor, byte>();
+            foreach (MultiColor c in freqTable.Keys)
+                colorTable[c] = closestMultiColor(c);
+
+
+            //NOW INDEX THE WHOLE IMAGES
+            imageData = new byte[width, height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    MultiColor c = new MultiColor(boxColorCount);
+                    for (int i = 0; i < bl.Count; i++)
+                        c.setColor(i, bl[i].GetPixel(x, y));
+                    c.calcHash();
+                    if (c.allTransparent())
+                        imageData[x, y] = (byte)transpCol;
+                    else
+                        imageData[x, y] = colorTable[c];
+                }
+            }
+
             Console.Out.WriteLine("DONE");
             /*
 
                 }*/
         }
 
-        public static byte closest(Color c, Color[] palette)
+        
+        
+
+
+        //PUBLIC DATA-RETRIEVING FUNCTIONS
+        public byte[] getTiledImageData()
         {
-            int best = 0;
-            float bestDif = colorDifference(c, palette[0]);
-            for (int i = 0; i < palette.Length; i++)
-            {
-                float dif = colorDifference(c, palette[i]);
-                if (dif < bestDif)
+
+            byte[] palettedImage = new byte[width * height];
+            int tileCount = width * height / 64;
+            int tileWidth = width / 8;
+
+            for (int t = 0; t < tileCount; t++)
+                for (int y = 0; y < 8; y++)
+                    for (int x = 0; x < 8; x++)
+                    {
+                        int tx = (t % tileWidth) * 8;
+                        int ty = (int)(t / tileWidth) * 8;
+                        palettedImage[t * 64 + y * 8 + x] =
+                            imageData[tx + x, ty + y];
+                    }
+            return palettedImage;
+        }
+        public byte[] getTiledImageDataPart(int px, int py, int ptx, int pty)
+        {
+
+            byte[] palettedImage = new byte[ptx * pty];
+            int tileCount = ptx * pty / 64;
+            int tileWidth = ptx / 8;
+
+            for (int t = 0; t < tileCount; t++)
+                for (int y = 0; y < 8; y++)
+                    for (int x = 0; x < 8; x++)
+                    {
+                        int tx = (t % tileWidth) * 8;
+                        int ty = (int)(t / tileWidth) * 8;
+                        palettedImage[t * 64 + y * 8 + x] =
+                            imageData[tx + x + px, ty + y + py];
+                    }
+            return palettedImage;
+        }
+
+        public Bitmap previewImage(int i)
+        {
+            Bitmap b = new Bitmap(width, height);
+            for(int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
                 {
-                    bestDif = dif;
-                    best = i;
+                    b.SetPixel(x, y, palettes[i][imageData[x, y]]);
                 }
+            return b;
+        }
+
+
+
+
+
+        //ALGORITHM CORE
+        private byte closestMultiColor(MultiColor mc)
+        {
+            if (mc.allTransparent()) return 0;
+            else
+            {
+                int best = -1;
+                float bestd = 10000000000;
+                for (int i = 0; i < multiPalette.Length; i++)
+                {
+                    if (multiPalette[i] == null) continue;
+                    float d = mc.diff(multiPalette[i]);
+                    if (d < bestd || best == -1)
+                    {
+                        best = i;
+                        bestd = d;
+                    }
+                }
+                return (byte)best;
             }
-            if (best >= 256)
-                Console.Out.WriteLine("GRAAH");
-            return (byte)best;
         }
 
         private void split(Box b)
         {
-            byte dim = b.dominantDimensionNum(); //0, 1, 2 = r, g, b
+            byte dim = b.dominantDimensionNum(freqTable); //0, 1, 2 = r, g, b
             List<byteint> values = new List<byteint>();
             int total = 0;
             foreach(MultiColor c in freqTable.Keys)
                 if(b.inside(c))
                 {
-                    values.Add(new byteint(c.data[dim], freqTable[c]));
-                    total += freqTable[c];
+                    if (!c.transp[dim])
+                    {
+                        values.Add(new byteint(c.data[dim], freqTable[c]));
+                        total += freqTable[c];
+                    }
                 }
             values.Sort();
 
@@ -147,7 +262,7 @@ namespace NSMBe4
             if (m == values[0].b)
                 m++;
 
-//            Console.Out.Write("Split: " + b + " ");
+            Console.Out.Write("Split: " + b + " ");
             Box nb = new Box(b);
             nb.setDimMax(dim, (byte)(m-1));
             b.setDimMin(dim, m);
@@ -160,7 +275,7 @@ namespace NSMBe4
         private byte median(List<byteint> values, int total)
         {
             //Naive median algorithm
-            //Binary search would be better?
+            //Binary search would be better? 
             int acum = 0;
             foreach(byteint val in values)
             {
@@ -180,39 +295,6 @@ namespace NSMBe4
             throw new Exception("Bad, bad, bad!");
         }
 
-        private class byteint : IComparable
-        {
-            public byte b;
-            public int i;
-            public byteint(byte b, int i)
-            {
-                this.b = b;
-                this.i = i;
-            }
-
-            public int CompareTo(object obj)
-            {
-                byteint bi = obj as byteint;
-                return b.CompareTo(bi.b);
-            }
-
-            public static bool operator <(byteint a, byteint b)
-            {
-                return a.b < b.b;
-            }
-            public static bool operator >(byteint a, byteint b)
-            {
-                return a.b > b.b;
-            }
-        }
-
-        private byte colorDim(Color c, byte d)
-        {
-            if (d == 0) return c.R;
-            if (d == 1) return c.G;
-            return c.B;
-        }
-
         private Box getDominantBox()
         {
             Box best = null;
@@ -220,7 +302,7 @@ namespace NSMBe4
 
             foreach (Box b in boxes)
             {
-                int dim = b.dominantDimension();
+                int dim = b.dominantDimension(freqTable);
                 if ((dim > bestDim || best == null) && b.canSplit(freqTable))
                 {
                     bestDim = dim;
@@ -232,48 +314,31 @@ namespace NSMBe4
 
         private Box shrinkBox(Box b)
         {
-            Box r = null;
+            byte[] min = (byte[]) b.min.Clone();
+            byte[] max = (byte[]) b.max.Clone();
+            bool[] def = new bool[b.max.Length];
+
             foreach(MultiColor c in freqTable.Keys)
                 if (b.inside(c))
                 {
-                    if (r == null)
-                        r = new Box(c);
-                    else
-                        r.expand(c);
+                    for (int i = 0; i < c.data.Length; i++)
+                    {
+                        if(!c.transp[i])
+                            if (def[i])
+                            {
+                                if (min[i] > c.data[i]) min[i] = c.data[i];
+                                if (max[i] < c.data[i]) max[i] = c.data[i];
+                            }
+                            else
+                            {
+                                min[i] = c.data[i];
+                                max[i] = c.data[i];
+                                def[i] = true;
+                            }
+                    }
                 }
 
-            if (r == null)
-                return new Box(b);
-
-            return r;
-        }
-
-        public static float colorDifference(Color a, Color b)
-        {
-            if (a.A != b.A) return float.MaxValue;
-
-            float res = 0;
-            res += (a.R - b.R) * (a.R - b.R) / 40;
-            res += (a.G - b.G) * (a.G - b.G) / 40;
-            res += (a.B - b.B) * (a.B - b.B) / 40;
-
-            if (res > float.MaxValue)
-                return float.MaxValue;
-
-            return res;
-        }
-
-        public static float colorDifferenceWithoutAlpha(Color a, Color b)
-        {
-            int res = 0;
-            res += (a.R - b.R) * (a.R - b.R) / 40;
-            res += (a.G - b.G) * (a.G - b.G) / 40;
-            res += (a.B - b.B) * (a.B - b.B) / 40;
-
-            if (res > float.MaxValue)
-                return float.MaxValue;
-
-            return (ushort)res;
+            return new Box(min, max);
         }
 
         public static byte reduce(int c)
@@ -281,6 +346,11 @@ namespace NSMBe4
             return (byte)((c >> 3) << 3);
         }
 
+
+
+
+
+        //HELPER CLASSES
         private class MultiColor
         {
             public byte[] data;
@@ -301,6 +371,12 @@ namespace NSMBe4
                     data[i * 3 + 0] = reduce(c.R);
                     data[i * 3 + 1] = reduce(c.G);
                     data[i * 3 + 2] = reduce(c.B);
+                }
+                else
+                {
+                    data[i * 3 + 0] = 0;
+                    data[i * 3 + 1] = 255;
+                    data[i * 3 + 2] = 255;
                 }
             }
 
@@ -363,6 +439,18 @@ namespace NSMBe4
                 }
                 else return false;
             }
+
+            public float diff(MultiColor b)
+            {
+                float res = 0;
+                for(int i = 0; i < data.Length; i++)
+                    if (!transp[i] && !b.transp[i])
+                    {
+                        float d = data[i] - b.data[i];
+                        res += d * d;
+                    }
+                return res;
+            }
         }
 
         private class Box
@@ -370,6 +458,12 @@ namespace NSMBe4
             public byte[] min, max;
             private bool splittable = false;
             private bool splittablecached = false;
+            public Box(byte[] min, byte[] max)
+            {
+                this.min = min;
+                this.max = max;
+            }
+
             public Box(int count)
             {
                 min = new byte[count];
@@ -387,14 +481,6 @@ namespace NSMBe4
                 this.max = (byte[])b.max.Clone();
             }
 
-            public Box(MultiColor c)
-            {
-                //FIXME!!!!! NOW!!!
-                //Transparent colors are made into black...
-                this.min = (byte[])c.data.Clone();
-                this.max = (byte[])c.data.Clone();
-            }
-
             public bool inside(MultiColor c)
             {
                 for (int i = 0; i < min.Length; i++)
@@ -406,42 +492,26 @@ namespace NSMBe4
                 return true;
             }
 
-            public void expand(MultiColor c)
+            public int dominantDimension(Dictionary<MultiColor, int> freqTable)
             {
-                for (int i = 0; i < min.Length; i++)
-                {
-                    if (c.transp[i]) continue;
-                    if (min[i] > c.data[i]) min[i] = c.data[i];
-                    if (max[i] < c.data[i]) max[i] = c.data[i];
-                }
-                splittablecached = false;
-            }
-
-            public int dominantDimension()
-            {
-                int d = dominantDimensionNum();
+                int d = dominantDimensionNum(freqTable);
                 return max[d] - min[d];
             }
 
-            public byte dominantDimensionNum()
+            public byte dominantDimensionNum(Dictionary<MultiColor, int> freqTable)
             {
                 int d = -1;
                 int dl = -1;
                 for (int i = 0; i < min.Length; i++)
                 {
                     int il = max[i] - min[i];
-                    if (il > dl)
+                    if (il > dl && canSplitInDim(i, freqTable))
                     {
                         dl = il;
                         d = i;
                     }
                 }
                 return (byte)d;
-            }
-
-            public bool isColorIn(MultiColor c, int i)
-            {
-                return c.data[i] >= min[i] && c.data[i] <= max[i];
             }
 
             public void setDimMin(byte d, byte a)
@@ -453,6 +523,33 @@ namespace NSMBe4
             {
                 max[d] = a;
                 splittablecached = false;
+            }
+
+            public bool canSplitInDim(int i, Dictionary<MultiColor, int> freqTable)
+            {
+                byte data = 0;
+                bool seen = false;
+
+                foreach (MultiColor c in freqTable.Keys)
+                {
+                    if (inside(c))
+                    {
+                        if (!c.transp[i])
+                        {
+                            if (!seen) //First val we see
+                            {
+                                seen = true;
+                                data = c.data[i];
+                            }
+                            else
+                            {
+                                if (data != c.data[i])
+                                    return true;
+                            }
+                        }
+                    }
+                }
+                return false;
             }
 
             public bool canSplit(Dictionary<MultiColor, int> freqTable)
@@ -467,14 +564,32 @@ namespace NSMBe4
             }
             public bool canSplit2(Dictionary<MultiColor, int> freqTable)
             {
-                int count = 0;
+                //Whoa... This gets complicated if I have to
+                //take into acount the "don't care" of transparent colors...
+                byte[] data = new byte[min.Length];
+                bool[] seen = new bool[min.Length];
+
                 foreach (MultiColor c in freqTable.Keys)
                 {
                     if (inside(c))
-                        count++;
-
-                    if (count >= 2)
-                        return true;
+                    {
+                        for (int i = 0; i < min.Length; i++)
+                        {
+                            if (!c.transp[i])
+                            {
+                                if (!seen[i]) //First val we see
+                                {
+                                    seen[i] = true;
+                                    data[i] = c.data[i];
+                                }
+                                else
+                                {
+                                    if (data[i] != c.data[i])
+                                        return true;
+                                }
+                            }
+                        }
+                    }
                 }
                 return false;
             }
@@ -489,12 +604,55 @@ namespace NSMBe4
 
             public override string ToString()
             {
-                return "shit";
+                return arr2str(min) + " - " + arr2str(max);
 //                return "("+r1+"-"+r2+","+g1+"-"+g2+","+b1+"-"+b2+")";
+            }
+
+            private string arr2str(byte[] a)
+            {
+                string s = "("+a[0];
+                for (int i = 1; i < a.Length; i++)
+                    s += ", " + a[i];
+                return s + ")";
+            }
+        }
+
+        private class byteint : IComparable
+        {
+            public byte b;
+            public int i;
+            public byteint(byte b, int i)
+            {
+                this.b = b;
+                this.i = i;
+            }
+
+            public int CompareTo(object obj)
+            {
+                byteint bi = obj as byteint;
+                return b.CompareTo(bi.b);
+            }
+
+            public static bool operator <(byteint a, byteint b)
+            {
+                return a.b < b.b;
+            }
+            public static bool operator >(byteint a, byteint b)
+            {
+                return a.b > b.b;
+            }
+
+            public override string ToString()
+            {
+                return "(" + b + ", " + i + ")";
             }
         }
 
 
+
+
+
+        //GENERAL PURPOSE FUNCTIONS
         public static Color[] createPaletteForImage(Bitmap b)
         {
             return createPaletteForImage(b, 256);
@@ -505,41 +663,14 @@ namespace NSMBe4
             List<Bitmap> bl = new List<Bitmap>();
             bl.Add(b);
 
-            ImageIndexer i = new ImageIndexer(bl, palLen, true);
+            ImageIndexer i = new ImageIndexer(bl, palLen, true, 0);
 
             return i.palettes[0];
         }
 
-        public static void previewPalettedBitmap(Bitmap b, Color[] palette)
-        {
-            for(int x = 0; x < b.Width; x++)
-                for (int y = 0; y < b.Height; y++)
-                {
-                    Color c = b.GetPixel(x, y);
-                    if (c.A < 128) c = Color.Transparent;
-                    else c = palette[closest(c, palette)];
-                    b.SetPixel(x, y, c);
-                }
-        }
         public static byte[] indexImageWithPalette(Bitmap b, Color[] palette)
         {
-            Dictionary<Color, byte> paletteTable = new Dictionary<Color, byte>();
-            //NOW MAP ORIGINAL COLORS TO PALETTE ENTRIES
-            for (int x = 0; x < b.Width; x++)
-                for (int y = 0; y < b.Height; y++)
-                {
-                    Color c = b.GetPixel(x, y);
-                    if (c.A == 0) continue;
-                        
-                    c = Color.FromArgb(c.R, c.G, c.B);
-                    paletteTable[c] = closest(c, palette);
-                }
-
-            paletteTable[Color.Transparent] = 0;
-
-            
-            //NOW INDEX THE IMAGE
-
+            //More efficient now.
             byte[] palettedImage = new byte[b.Width * b.Height];
             int tileCount = b.Width * b.Height / 64;
             int tileWidth = b.Width / 8;
@@ -555,14 +686,60 @@ namespace NSMBe4
                         {
                             c = Color.FromArgb(c.R, c.G, c.B);
 
-                            palettedImage[t * 64 + y * 8 + x] =
-                                paletteTable[c];
+                            palettedImage[t * 64 + y * 8 + x] = closest(c, palette);
                         }
                         else
                             palettedImage[t * 64 + y * 8 + x] = 0;
                     }
 
             return palettedImage;
+        }
+
+        public static float colorDifference(Color a, Color b)
+        {
+            if (a.A != b.A) return float.MaxValue;
+
+            float res = 0;
+            res += (a.R - b.R) * (a.R - b.R) / 40;
+            res += (a.G - b.G) * (a.G - b.G) / 40;
+            res += (a.B - b.B) * (a.B - b.B) / 40;
+
+            if (res > float.MaxValue)
+                return float.MaxValue;
+
+            return res;
+        }
+
+        public static float colorDifferenceWithoutAlpha(Color a, Color b)
+        {
+            int res = 0;
+            res += (a.R - b.R) * (a.R - b.R) / 40;
+            res += (a.G - b.G) * (a.G - b.G) / 40;
+            res += (a.B - b.B) * (a.B - b.B) / 40;
+
+            if (res > float.MaxValue)
+                return float.MaxValue;
+
+            return (ushort)res;
+        }
+
+
+        public static byte closest(Color c, Color[] palette)
+        {
+            int best = 0;
+            float bestDif = colorDifference(c, palette[0]);
+            for (int i = 0; i < palette.Length; i++)
+            {
+                float dif = colorDifference(c, palette[i]);
+                if (dif < bestDif)
+                {
+                    bestDif = dif;
+                    best = i;
+                }
+            }
+            if (best >= 256)
+                Console.Out.WriteLine("GRAAH");
+            return (byte)best;
         }
     }
 }

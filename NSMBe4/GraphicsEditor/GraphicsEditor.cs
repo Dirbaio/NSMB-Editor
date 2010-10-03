@@ -83,9 +83,6 @@ namespace NSMBe4 {
 
         public ToolType Tool;
 
-        public delegate void SaveGraphicsHandler();
-        public event SaveGraphicsHandler SaveGraphics;
-
         public void setImage(PixelPalettedImage img)
         {
             this.img = img;
@@ -119,7 +116,8 @@ namespace NSMBe4 {
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (img == null || pal == null) return;
-            SaveGraphics();
+            img.save();
+            pal.save();
         }
 
 
@@ -169,7 +167,8 @@ namespace NSMBe4 {
                 py += 1;
             }
 
-            NewUndo.ContainsChanges = true;
+            if(NewUndo != null)
+                NewUndo.ContainsChanges = true;
         }
 
         private void DrawLine(int x0, int y0, int x1, int y1, byte colour) {

@@ -43,11 +43,11 @@ namespace NSMBe4.DSFileSystem
 
         public override void replace(byte[] newFile, object editor)
         {
+            if (!isAGoodEditor(editor))
+                throw new Exception("NOT CORRECT EDITOR " + name);
+
             if (isLzCompressed)
             {
-                if (!isAGoodEditor(editor))
-                    throw new Exception("NOT CORRECT EDITOR " + name);
-
                 byte[] olddata = ROM.LZ77_Decompress(parentFile.getContents());
                 Array.Copy(newFile, 0, olddata, inlineOffs, inlineLen);
                 parentFile.replace(ROM.LZ77_Compress(olddata), this);

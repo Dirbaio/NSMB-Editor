@@ -47,6 +47,7 @@
             this.importThisBtn = new System.Windows.Forms.Button();
             this.exportThisBtn = new System.Windows.Forms.Button();
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
+            this.saveAllBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -62,7 +63,7 @@
             this.imageListBox.FormattingEnabled = true;
             this.imageListBox.Location = new System.Drawing.Point(0, 13);
             this.imageListBox.Name = "imageListBox";
-            this.imageListBox.Size = new System.Drawing.Size(121, 264);
+            this.imageListBox.Size = new System.Drawing.Size(121, 267);
             this.imageListBox.TabIndex = 1;
             this.imageListBox.SelectedIndexChanged += new System.EventHandler(this.imageListBox_SelectedIndexChanged);
             this.imageListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageListBox_MouseDown);
@@ -73,7 +74,7 @@
             this.paletteListBox.FormattingEnabled = true;
             this.paletteListBox.Location = new System.Drawing.Point(0, 13);
             this.paletteListBox.Name = "paletteListBox";
-            this.paletteListBox.Size = new System.Drawing.Size(128, 264);
+            this.paletteListBox.Size = new System.Drawing.Size(128, 267);
             this.paletteListBox.TabIndex = 2;
             this.paletteListBox.SelectedIndexChanged += new System.EventHandler(this.paletteListBox_SelectedIndexChanged);
             this.paletteListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paletteListBox_MouseDown);
@@ -214,6 +215,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.importAllBtn);
+            this.panel2.Controls.Add(this.saveAllBtn);
             this.panel2.Controls.Add(this.exportAllBtn);
             this.panel2.Controls.Add(this.importThisBtn);
             this.panel2.Controls.Add(this.exportThisBtn);
@@ -251,6 +253,7 @@
             this.importThisBtn.TabIndex = 0;
             this.importThisBtn.Text = "Import this";
             this.importThisBtn.UseVisualStyleBackColor = true;
+            this.importThisBtn.Click += new System.EventHandler(this.importThisBtn_Click);
             // 
             // exportThisBtn
             // 
@@ -260,6 +263,7 @@
             this.exportThisBtn.TabIndex = 0;
             this.exportThisBtn.Text = "Export this";
             this.exportThisBtn.UseVisualStyleBackColor = true;
+            this.exportThisBtn.Click += new System.EventHandler(this.exportThisBtn_Click);
             // 
             // graphicsEditor1
             // 
@@ -268,6 +272,16 @@
             this.graphicsEditor1.Name = "graphicsEditor1";
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 431);
             this.graphicsEditor1.TabIndex = 4;
+            // 
+            // saveAllBtn
+            // 
+            this.saveAllBtn.Location = new System.Drawing.Point(162, 3);
+            this.saveAllBtn.Name = "saveAllBtn";
+            this.saveAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveAllBtn.TabIndex = 0;
+            this.saveAllBtn.Text = "Save all";
+            this.saveAllBtn.UseVisualStyleBackColor = true;
+            this.saveAllBtn.Click += new System.EventHandler(this.saveAllBtn_Click);
             // 
             // ImageManager
             // 
@@ -312,5 +326,6 @@
         private System.Windows.Forms.Button exportAllBtn;
         private System.Windows.Forms.Button importThisBtn;
         private System.Windows.Forms.Button exportThisBtn;
+        private System.Windows.Forms.Button saveAllBtn;
     }
 }

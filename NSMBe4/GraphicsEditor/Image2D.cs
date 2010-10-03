@@ -14,6 +14,10 @@ namespace NSMBe4
         public int tileOffset;
 
         private bool is4bppI;
+
+        //TODO: Ask on file opening whether LZ Compresed?
+        public bool isLZCompressed = true;
+
         public bool is4bpp
         {
             get{return is4bppI;}
@@ -37,7 +41,8 @@ namespace NSMBe4
         public void reload()
         {
             rawdata = f.getContents();
-            rawdata = ROM.LZ77_Decompress(rawdata);
+            if(isLZCompressed)
+                rawdata = ROM.LZ77_Decompress(rawdata);
             loadImageData();
         }
 
@@ -124,7 +129,10 @@ namespace NSMBe4
         public override void save()
         {
             saveImageData();
-            f.replace(rawdata, this);
+            if (isLZCompressed)
+                f.replace(ROM.LZ77_Compress(rawdata), this);
+            else
+                f.replace(rawdata, this);
         }
 
         public override byte[] getRawData()

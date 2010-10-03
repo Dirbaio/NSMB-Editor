@@ -71,6 +71,12 @@ namespace NSMBe4 {
                 this.Activate();
 
 //                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
+                ImageManagerWindow w = new ImageManagerWindow();
+                w.Show();
+                w.m.addImage(new Image2D(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncg.bin"), 256, false));
+                w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 0, 512, "pal", null, true)));
+                w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 512, 512, "pal2", null, true)));
+
             }
             /*
             List<string> spriteNames = LanguageManager.GetList("Sprites");

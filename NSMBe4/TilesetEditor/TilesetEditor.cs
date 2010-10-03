@@ -73,7 +73,8 @@ namespace NSMBe4
             map16Editor1.load(t);
 //            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
 
-            graphicsEditor1.SaveGraphics += new GraphicsEditor.SaveGraphicsHandler(graphicsEditor1_SaveGraphics);
+            //FIXME
+//            graphicsEditor1.SaveGraphics += new GraphicsEditor.SaveGraphicsHandler(graphicsEditor1_SaveGraphics);
             
             descExists = ROM.descriptions.ContainsKey(TilesetID); //Fild in there are descriptions for the tileset
             deleteDescriptions.Visible = descExists; //Make the appropriate button visible
