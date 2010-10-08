@@ -1,7 +1,6 @@
 //SPRITE DATA FILE
 //NSMBe4 originally written by Treeki
 //This feature by Dirbaio
-//100/203
 
 //   This file is part of NSMB Editor 5.
 //
@@ -535,6 +534,7 @@ sprite 144
 value list Contents
 Coin
 Mushroom/flower
+1-up
 end list
 3
 end sprite
@@ -712,7 +712,7 @@ end list
 3.2
 value checkbox Disappear after a while
 4.1
-value checkbox Hide
+value checkbox Appear from midpoint
 5.1
 end sprite
 
@@ -728,13 +728,30 @@ end list
 3
 end sprite
 
+sprite 191
+value list Item
+Coin
+Powerup
+Star
+1-up
+Powerup
+Mini Mushroom
+Shell Powerup
+Mega Mushroom
+Mushroom
+end list
+3.2
+value number Drop Length
+5.1
+end sprite
+
 sprite 197
 value number Activator ID
 1
 value number Width
-3.1 plus 1
+3.1
 value number Height
-3.2 plus 1
+3.2
 value checkbox Create, not destroy
 4
 value checkbox Do not time out
@@ -824,6 +841,7 @@ end sprite
 sprite 228
 value checkbox Have mini-mushroom
 3.1
+value label Shell is the default
 end sprite
 
 sprite 231
@@ -907,7 +925,7 @@ value number Unknown
 end sprite
 
 sprite 239
-value number Distance to go down
+value number Dist. to go down
 3.1
 value number Width
 3.2
@@ -935,7 +953,7 @@ value checkbox Start Expanded
 3.1
 value number Stalk Height
 3.2
-value checkbox Large
+value checkbox Small
 4.2
 end sprite
 
@@ -1068,10 +1086,10 @@ end list
 end sprite
 
 sprite 278
-value number Width
-3.1 plus 1
 value number Height
-3.2 plus 2
+3.1 plus 1
+value number Width
+3.2 plus 1
 end sprite
 
 sprite 279
@@ -1089,7 +1107,7 @@ end list
 end sprite
 
 sprite 281
-value checkbox Come out upwards
+value checkbox Come out downwards
 3.2
 end sprite
 
@@ -1238,6 +1256,11 @@ value number Unknown
 6
 end sprite
 
+sprite 300
+value number Y-Shift (pixels)
+3.2
+end sprite
+
 sprite 301
 value list Type
 1-Up Mushroom
@@ -1258,7 +1281,7 @@ value number ID
 end sprite
 
 sprite 304 307 308 309
-value number length
+value number Length
 3.1
 value number Leaving Speed
 4.1

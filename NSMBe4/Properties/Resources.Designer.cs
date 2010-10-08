@@ -102,6 +102,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BanzaiBillCannon {
+            get {
+                object obj = ResourceManager.GetObject("BanzaiBillCannon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Barrel {
             get {
                 object obj = ResourceManager.GetObject("Barrel", resourceCulture);
@@ -137,6 +144,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BoomerangBro {
+            get {
+                object obj = ResourceManager.GetObject("BoomerangBro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap BouncingMushroom {
             get {
                 object obj = ResourceManager.GetObject("BouncingMushroom", resourceCulture);
@@ -154,6 +168,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap BowserJr {
             get {
                 object obj = ResourceManager.GetObject("BowserJr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Broozer {
+            get {
+                object obj = ResourceManager.GetObject("Broozer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -217,6 +238,20 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap BuzzyBeetleU {
             get {
                 object obj = ResourceManager.GetObject("BuzzyBeetleU", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ChainChomp {
+            get {
+                object obj = ResourceManager.GetObject("ChainChomp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ChainChompLog {
+            get {
+                object obj = ResourceManager.GetObject("ChainChompLog", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -291,6 +326,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ContractedMushroom {
+            get {
+                object obj = ResourceManager.GetObject("ContractedMushroom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap cross_script {
             get {
                 object obj = ResourceManager.GetObject("cross_script", resourceCulture);
@@ -305,6 +347,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Crow {
+            get {
+                object obj = ResourceManager.GetObject("Crow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap door {
             get {
                 object obj = ResourceManager.GetObject("door", resourceCulture);
@@ -312,9 +361,23 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Door2 {
+            get {
+                object obj = ResourceManager.GetObject("Door2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Dorrie {
             get {
                 object obj = ResourceManager.GetObject("Dorrie", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DownArrow {
+            get {
+                object obj = ResourceManager.GetObject("DownArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -431,6 +494,34 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ExpandedMushroomL {
+            get {
+                object obj = ResourceManager.GetObject("ExpandedMushroomL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ExpandedMushroomS {
+            get {
+                object obj = ResourceManager.GetObject("ExpandedMushroomS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ExpandMushroomStalk {
+            get {
+                object obj = ResourceManager.GetObject("ExpandMushroomStalk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ExpandMushroomStalkTop {
+            get {
+                object obj = ResourceManager.GetObject("ExpandMushroomStalkTop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap FenceKoopaGreen {
             get {
                 object obj = ResourceManager.GetObject("FenceKoopaGreen", resourceCulture);
@@ -473,6 +564,41 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap FireBarBall {
+            get {
+                object obj = ResourceManager.GetObject("FireBarBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FireBarMiddle {
+            get {
+                object obj = ResourceManager.GetObject("FireBarMiddle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FireBro {
+            get {
+                object obj = ResourceManager.GetObject("FireBro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FirePiranhaplant {
+            get {
+                object obj = ResourceManager.GetObject("FirePiranhaplant", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FlameChomp {
+            get {
+                object obj = ResourceManager.GetObject("FlameChomp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Flamethrower {
             get {
                 object obj = ResourceManager.GetObject("Flamethrower", resourceCulture);
@@ -501,6 +627,20 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap FlyingQBlock {
+            get {
+                object obj = ResourceManager.GetObject("FlyingQBlock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FlyingQBlockOverrides {
+            get {
+                object obj = ResourceManager.GetObject("FlyingQBlockOverrides", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
@@ -522,6 +662,27 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap GhostGoo {
+            get {
+                object obj = ResourceManager.GetObject("GhostGoo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GhostPlatform {
+            get {
+                object obj = ResourceManager.GetObject("GhostPlatform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GiantHammerBro {
+            get {
+                object obj = ResourceManager.GetObject("GiantHammerBro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap GiantPiranhaplant {
             get {
                 object obj = ResourceManager.GetObject("GiantPiranhaplant", resourceCulture);
@@ -529,9 +690,23 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap GiantSpike {
+            get {
+                object obj = ResourceManager.GetObject("GiantSpike", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap GiantSpinningPlatform {
             get {
                 object obj = ResourceManager.GetObject("GiantSpinningPlatform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GiantThwomp {
+            get {
+                object obj = ResourceManager.GetObject("GiantThwomp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -550,9 +725,30 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap GroundpoundGoo {
+            get {
+                object obj = ResourceManager.GetObject("GroundpoundGoo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap HammerBro {
             get {
                 object obj = ResourceManager.GetObject("HammerBro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Hand {
+            get {
+                object obj = ResourceManager.GetObject("Hand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap HangingBlockOverrides {
+            get {
+                object obj = ResourceManager.GetObject("HangingBlockOverrides", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -595,6 +791,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap JumpingFlame {
             get {
                 object obj = ResourceManager.GetObject("JumpingFlame", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Kabomb {
+            get {
+                object obj = ResourceManager.GetObject("Kabomb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -648,6 +851,27 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap LoweringMushroomEdge {
+            get {
+                object obj = ResourceManager.GetObject("LoweringMushroomEdge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap LoweringMushroomMiddle {
+            get {
+                object obj = ResourceManager.GetObject("LoweringMushroomMiddle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ManualPlatform {
+            get {
+                object obj = ResourceManager.GetObject("ManualPlatform", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap MidpointFlag {
             get {
                 object obj = ResourceManager.GetObject("MidpointFlag", resourceCulture);
@@ -665,6 +889,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap minimap {
             get {
                 object obj = ResourceManager.GetObject("minimap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap MoneyBag {
+            get {
+                object obj = ResourceManager.GetObject("MoneyBag", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -774,6 +1005,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Pendulum {
+            get {
+                object obj = ResourceManager.GetObject("Pendulum", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap picker {
             get {
                 object obj = ResourceManager.GetObject("picker", resourceCulture);
@@ -784,6 +1022,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap Pipe {
             get {
                 object obj = ResourceManager.GetObject("Pipe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap PipeCaterpiller {
+            get {
+                object obj = ResourceManager.GetObject("PipeCaterpiller", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -844,6 +1089,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap QBlock {
+            get {
+                object obj = ResourceManager.GetObject("QBlock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap QSwitch {
             get {
                 object obj = ResourceManager.GetObject("QSwitch", resourceCulture);
@@ -886,9 +1138,58 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap RiseLowerMushroomStalk {
+            get {
+                object obj = ResourceManager.GetObject("RiseLowerMushroomStalk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RiseLowerMushroomStalkTop {
+            get {
+                object obj = ResourceManager.GetObject("RiseLowerMushroomStalkTop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RisingMushroomEdge {
+            get {
+                object obj = ResourceManager.GetObject("RisingMushroomEdge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RisingMushroomMiddle {
+            get {
+                object obj = ResourceManager.GetObject("RisingMushroomMiddle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap RoofSpiny {
             get {
                 object obj = ResourceManager.GetObject("RoofSpiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Rope {
+            get {
+                object obj = ResourceManager.GetObject("Rope", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RotatingCannon {
+            get {
+                object obj = ResourceManager.GetObject("RotatingCannon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RotatingCannonEmpty {
+            get {
+                object obj = ResourceManager.GetObject("RotatingCannonEmpty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -921,6 +1222,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ScuttleBug {
+            get {
+                object obj = ResourceManager.GetObject("ScuttleBug", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap SeaWeed {
             get {
                 object obj = ResourceManager.GetObject("SeaWeed", resourceCulture);
@@ -942,6 +1250,20 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap SinkingSnow {
+            get {
+                object obj = ResourceManager.GetObject("SinkingSnow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SinkingSnowEdge {
+            get {
+                object obj = ResourceManager.GetObject("SinkingSnowEdge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap SmallFlamethrower {
             get {
                 object obj = ResourceManager.GetObject("SmallFlamethrower", resourceCulture);
@@ -952,6 +1274,27 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap Snailicorn {
             get {
                 object obj = ResourceManager.GetObject("Snailicorn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SnowballThrower {
+            get {
+                object obj = ResourceManager.GetObject("SnowballThrower", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SnowBranchLeft {
+            get {
+                object obj = ResourceManager.GetObject("SnowBranchLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SnowBranchRight {
+            get {
+                object obj = ResourceManager.GetObject("SnowBranchRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -998,6 +1341,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap SpikedBlock {
+            get {
+                object obj = ResourceManager.GetObject("SpikedBlock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap SpinBoard {
             get {
                 object obj = ResourceManager.GetObject("SpinBoard", resourceCulture);
@@ -1026,6 +1376,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap SpinningSpikeBall {
+            get {
+                object obj = ResourceManager.GetObject("SpinningSpikeBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap SpinningSquarePlatform {
             get {
                 object obj = ResourceManager.GetObject("SpinningSquarePlatform", resourceCulture);
@@ -1043,6 +1400,34 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap Spiny {
             get {
                 object obj = ResourceManager.GetObject("Spiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SpinyBeetleDown {
+            get {
+                object obj = ResourceManager.GetObject("SpinyBeetleDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SpinyBeetleLeft {
+            get {
+                object obj = ResourceManager.GetObject("SpinyBeetleLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SpinyBeetleRight {
+            get {
+                object obj = ResourceManager.GetObject("SpinyBeetleRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SpinyBeetleUp {
+            get {
+                object obj = ResourceManager.GetObject("SpinyBeetleUp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1180,9 +1565,23 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap SwingingPole {
+            get {
+                object obj = ResourceManager.GetObject("SwingingPole", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap SwitchBlock {
             get {
                 object obj = ResourceManager.GetObject("SwitchBlock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SwitchBlock2 {
+            get {
+                object obj = ResourceManager.GetObject("SwitchBlock2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1236,9 +1635,23 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Tornado {
+            get {
+                object obj = ResourceManager.GetObject("Tornado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap TubeBubbles {
             get {
                 object obj = ResourceManager.GetObject("TubeBubbles", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap UnderwaterBounceBall {
+            get {
+                object obj = ResourceManager.GetObject("UnderwaterBounceBall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1250,9 +1663,37 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap UpArrow {
+            get {
+                object obj = ResourceManager.GetObject("UpArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap views {
             get {
                 object obj = ResourceManager.GetObject("views", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Vine {
+            get {
+                object obj = ResourceManager.GetObject("Vine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap VineBottom {
+            get {
+                object obj = ResourceManager.GetObject("VineBottom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap VineTop {
+            get {
+                object obj = ResourceManager.GetObject("VineTop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

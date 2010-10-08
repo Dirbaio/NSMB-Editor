@@ -38,12 +38,10 @@ namespace NSMBe4
                 int v = 0;
                 if (_CheckBoxCount > 0) {
                     CheckBox cb = this.Controls[0] as CheckBox;
-                    for (int l = 1; l <= _CheckBoxCount; l++)
-                    {
+                    for (int l = 0; l < _CheckBoxCount; l++) {
                         if (cb.Checked)
-                            v += (int)Math.Pow(2, l - 1);
-                        if (l < _CheckBoxCount)
-                            cb = this.GetNextControl(cb, true) as CheckBox;
+                            v |= 1 << l;
+                        cb = this.GetNextControl(cb, true) as CheckBox;
                     }
                 }
                 return v;
@@ -51,9 +49,8 @@ namespace NSMBe4
             set {
                 if (_CheckBoxCount > 0) {
                     CheckBox cb = this.Controls[0] as CheckBox;
-                    for (int l = 1; l <= _CheckBoxCount; l++)
-                    {
-                        cb.Checked = value / (int)Math.Pow(2, l - 1) % 2 == 1;
+                    for (int l = 0; l < _CheckBoxCount; l++) {
+                        cb.Checked = (value & (1 << l)) > 0;
                         cb = this.GetNextControl(cb, true) as CheckBox;
                     }
                 }
@@ -77,7 +74,7 @@ namespace NSMBe4
         public void RaiseValueChanged()
         {
             if (ValueChanged != null)
-                ValueChanged(this, new EventArgs());
+                ValueChanged(this, EventArgs.Empty);
         }
 
         private void CheckBoxCheckedChanged(object sender, EventArgs e)
