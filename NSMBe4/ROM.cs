@@ -66,15 +66,24 @@ namespace NSMBe4 {
             LoadDescriptions();
             LoadOverlay0();
 
-            if (Overlay0[28] == 0x84) {
-                Region = Origin.US;
-            } else if (Overlay0[28] == 0x64) {
-                Region = Origin.EU;
-            } else if (Overlay0[28] == 0x04) {
-                Region = Origin.JP;
-            } else if (Overlay0[28] == 0xC4) {
-                Region = Origin.KR;
-            } else {
+            if (Overlay0 != null)
+            {
+                if (Overlay0[28] == 0x84)
+                    Region = Origin.US;
+                else if (Overlay0[28] == 0x64)
+                    Region = Origin.EU;
+                else if (Overlay0[28] == 0x04)
+                    Region = Origin.JP;
+                else if (Overlay0[28] == 0xC4)
+                    Region = Origin.KR;
+                else
+                {
+                    Region = Origin.US;
+                    System.Windows.Forms.MessageBox.Show(LanguageManager.Get("General", "UnknownRegion"), LanguageManager.Get("General", "Warning"), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
                 Region = Origin.US;
                 System.Windows.Forms.MessageBox.Show(LanguageManager.Get("General", "UnknownRegion"), LanguageManager.Get("General", "Warning"), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
             }
@@ -98,6 +107,9 @@ namespace NSMBe4 {
 
         public static void LoadOverlay0()
         {
+            if (FS.arm9ovs.Length == 0)
+                return;
+
             OverlayFile ov = FS.arm9ovs[0];
             Overlay0 = ov.getarm9();
         }
@@ -392,27 +404,9 @@ namespace NSMBe4 {
 
             return CompressedData.ToArray();
         }
-
-        /*[DllImport("narctool.dll")]
-        private static extern void Compress();
-
-        public static byte[] LZ77_Compress(byte[] source)
+        
+        public static byte[] LZ77_FastCompress(byte[] source)
         {
-            FileStream wfs = new FileStream("raw", FileMode.Create, FileAccess.Write, FileShare.None);
-            wfs.Write(source, 0, source.GetLength(0));
-            wfs.Dispose();
-            Compress();
-            FileStream rfs = new FileStream("compressed", FileMode.Open, FileAccess.Read, FileShare.Read);
-            byte[] TempFile = new byte[rfs.Length];
-            rfs.Read(TempFile, 0, (int)rfs.Length);
-            rfs.Dispose();
-            System.IO.File.Delete("raw");
-            System.IO.File.Delete("compressed");
-            return TempFile;
-        }*/
-        /*public static byte[] LZ77_Compress(byte[] source)
-        {
-            // This should really be named LZ77_FakeCompress for more accuracy
             int DataLen = 4;
             DataLen += source.Length;
             DataLen += (int)Math.Ceiling((double)source.Length / 8);
@@ -440,21 +434,8 @@ namespace NSMBe4 {
             }
 
             return dest;
-        }*/
+        }
 
-        /* DeLZ */
-        /*public static byte[] LZ77_Decompress(byte[] source)
-        {
-            FileStream wfs = new FileStream("compressed", FileMode.Create, FileAccess.Write, FileShare.None);
-            wfs.Write(source, 0, source.GetLength(0));
-            wfs.Dispose();
-            Decompress();
-            FileStream rfs = new FileStream("decompressed", FileMode.Open, FileAccess.Read, FileShare.Read);
-            byte[] TempFile = new byte[rfs.Length];
-            rfs.Read(TempFile, 0, (int)rfs.Length);
-            rfs.Dispose();
-            return TempFile;
-        }*/
         public static byte[] LZ77_Decompress(byte[] source)
         {
             // This code converted from Elitemap 

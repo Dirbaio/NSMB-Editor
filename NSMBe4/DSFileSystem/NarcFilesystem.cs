@@ -29,7 +29,12 @@ namespace NSMBe4.DSFileSystem
         public int fatOffset, fatSize;
 
         public NarcFilesystem(File f)
-            : base(new FileFilesystemSource(f))
+            : base(new FileFilesystemSource(f, false))
+        {
+        }
+
+        public NarcFilesystem(File f, bool compressed)
+            : base(new FileFilesystemSource(f, compressed))
         {
         }
 
@@ -50,6 +55,7 @@ namespace NSMBe4.DSFileSystem
             fatFile = new File(this, mainDir, true, -3, "fat.bin", fatOffset, fatSize);
 
             base.load();
+            loadNamelessFiles(mainDir);
         }
     }
 }

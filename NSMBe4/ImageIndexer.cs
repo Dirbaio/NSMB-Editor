@@ -495,6 +495,7 @@ namespace NSMBe4
             public int dominantDimension(Dictionary<MultiColor, int> freqTable)
             {
                 int d = dominantDimensionNum(freqTable);
+                if (d == 255) return 0;
                 return max[d] - min[d];
             }
 

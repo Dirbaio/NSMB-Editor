@@ -291,9 +291,11 @@ namespace NSMBe4.DSFileSystem
                         MessageBox.Show(ex.Message);
                     }
 
-            else if (filename.EndsWith(".narc") || filename.EndsWith(".carc"))
-                    new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
-            else if(filename.EndsWith("_ncl.bin"))
+            else if (filename.EndsWith(".narc"))
+                new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
+            else if(filename.EndsWith(".carc"))
+                new FilesystemBrowserDialog(new NarcFilesystem(f, true)).Show();
+            else if (filename.EndsWith("_ncl.bin"))
             {
                 new PaletteViewer(f).Show();
 //                LevelChooser.showImgMgr();

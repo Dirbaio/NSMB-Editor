@@ -27,9 +27,12 @@ namespace NSMBe4.DSFileSystem
 
         File f;
         MemoryStream str;
-        public FileFilesystemSource(File f)
+        bool lz;
+
+        public FileFilesystemSource(File f, bool compressed)
         {
             this.f = f;
+            lz = compressed;
         }
 
         public override Stream load()
@@ -37,6 +40,9 @@ namespace NSMBe4.DSFileSystem
             f.beginEdit(this);
             str = new MemoryStream();
             byte[] data = f.getContents();
+            if (lz)
+                data = ROM.LZ77_Decompress(data);
+
             str.Write(data, 0, data.Length);
 
             return str;
@@ -44,7 +50,12 @@ namespace NSMBe4.DSFileSystem
 
         public override void save()
         {
-            f.replace(str.ToArray(), this);
+            byte[] data = str.ToArray();
+
+            if (lz)
+                data = ROM.LZ77_Compress(data);
+            
+            f.replace(data, this);
         }
 
         public override void close()

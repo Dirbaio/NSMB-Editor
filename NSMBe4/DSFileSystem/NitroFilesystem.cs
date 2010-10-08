@@ -50,6 +50,7 @@ namespace NSMBe4.DSFileSystem
             //            fnt.dumpAsciiData();
 
             loadDir(fnt, "Files", 0xF000, mainDir);
+            
         }
 
 
@@ -58,7 +59,13 @@ namespace NSMBe4.DSFileSystem
             fnt.savePos();
             fnt.seek(8 * (dirID & 0xFFF));
             uint subTableOffs = fnt.readUInt();
+
             int fileID = fnt.readUShort();
+
+            //Crappy hack for MKDS course .carc's. 
+            //Their main dir starting ID is 2, which is weird...
+            if (parent == mainDir) fileID = 0; 
+
             Directory thisDir = new Directory(this, parent, false, dirName, dirID);
             addDir(thisDir);
             parent.childrenDirs.Add(thisDir);
@@ -84,6 +91,28 @@ namespace NSMBe4.DSFileSystem
                 fileID++;
             }
             fnt.loadPos();
+        }
+
+        protected virtual void loadNamelessFiles(Directory parent)
+        {
+            bool ok = true;
+            for (int i = 0; i < fatFile.fileSize / 8; i++)
+            {
+                if (getFileById(i) == null)
+                    ok = false;
+            }
+
+            if (ok) return;
+
+            Directory d = new Directory(this, parent, true, "Unnamed files", -94);
+            parent.childrenDirs.Add(d);
+            allDirs.Add(d);
+
+            for (int i = 0; i < fatFile.fileSize / 8; i++)
+            {
+                if (getFileById(i) == null)
+                    loadFile("File " + i, i, d);
+            }
         }
 
         protected File loadFile(string fileName, int fileID, Directory parent)

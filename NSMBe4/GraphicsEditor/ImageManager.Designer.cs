@@ -43,11 +43,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.importAllBtn = new System.Windows.Forms.Button();
+            this.saveAllBtn = new System.Windows.Forms.Button();
             this.exportAllBtn = new System.Windows.Forms.Button();
             this.importThisBtn = new System.Windows.Forms.Button();
             this.exportThisBtn = new System.Windows.Forms.Button();
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
-            this.saveAllBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -235,6 +235,16 @@
             this.importAllBtn.UseVisualStyleBackColor = true;
             this.importAllBtn.Click += new System.EventHandler(this.importAllBtn_Click);
             // 
+            // saveAllBtn
+            // 
+            this.saveAllBtn.Location = new System.Drawing.Point(162, 3);
+            this.saveAllBtn.Name = "saveAllBtn";
+            this.saveAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveAllBtn.TabIndex = 0;
+            this.saveAllBtn.Text = "Save all";
+            this.saveAllBtn.UseVisualStyleBackColor = true;
+            this.saveAllBtn.Click += new System.EventHandler(this.saveAllBtn_Click);
+            // 
             // exportAllBtn
             // 
             this.exportAllBtn.Location = new System.Drawing.Point(81, 3);
@@ -272,16 +282,6 @@
             this.graphicsEditor1.Name = "graphicsEditor1";
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 431);
             this.graphicsEditor1.TabIndex = 4;
-            // 
-            // saveAllBtn
-            // 
-            this.saveAllBtn.Location = new System.Drawing.Point(162, 3);
-            this.saveAllBtn.Name = "saveAllBtn";
-            this.saveAllBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveAllBtn.TabIndex = 0;
-            this.saveAllBtn.Text = "Save all";
-            this.saveAllBtn.UseVisualStyleBackColor = true;
-            this.saveAllBtn.Click += new System.EventHandler(this.saveAllBtn_Click);
             // 
             // ImageManager
             // 

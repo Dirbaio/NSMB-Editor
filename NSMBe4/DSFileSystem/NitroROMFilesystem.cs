@@ -45,9 +45,10 @@ namespace NSMBe4.DSFileSystem
 
             arm9ovFile = new File(this, mainDir, true, -1, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
             arm7ovFile = new File(this, mainDir, true, -1, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
-            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
-            arm9binFile.alignment = 0x1000;
-            arm9binFile.canChangeOffset = false;
+//            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
+            File arm9binFile2 = new File(this, mainDir, true, -2, "arm9.bin", headerFile, 0x20, 0xC, true);
+            arm9binFile2.alignment = 0x1000;
+            arm9binFile2.canChangeOffset = false;
             arm7binFile = new File(this, mainDir, true, -1, "arm7.bin", headerFile, 0x30, 0x3C, true);
             arm7binFile.alignment = 0x200; //Not sure what should be used here...
             bannerFile = new BannerFile(this, mainDir, headerFile);
@@ -58,14 +59,15 @@ namespace NSMBe4.DSFileSystem
             mainDir.childrenFiles.Add(arm9ovFile);
             addFile(arm7ovFile);
             mainDir.childrenFiles.Add(arm7ovFile);
-            addFile(arm9binFile);
-            mainDir.childrenFiles.Add(arm9binFile);
+            addFile(arm9binFile2);
+            mainDir.childrenFiles.Add(arm9binFile2);
             addFile(arm7binFile);
             mainDir.childrenFiles.Add(arm7binFile);
             addFile(bannerFile);
             mainDir.childrenFiles.Add(bannerFile);
             loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile, out arm7ovs);
             loadOvTable("ARM9 Overlay Table", -98, mainDir, arm9ovFile, out arm9ovs);
+            loadNamelessFiles(mainDir);
         }
 
         private void loadOvTable(String dirName, int id, Directory parent, File table, out OverlayFile[] arr)
