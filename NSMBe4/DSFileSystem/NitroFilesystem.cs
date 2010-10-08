@@ -64,9 +64,9 @@ namespace NSMBe4.DSFileSystem
 
             //Crappy hack for MKDS course .carc's. 
             //Their main dir starting ID is 2, which is weird...
-            if (parent == mainDir) fileID = 0; 
+          //  if (parent == mainDir) fileID = 0; 
 
-            Directory thisDir = new Directory(this, parent, false, dirName, dirID);
+            Directory thisDir = new Directory(this, parent, false, dirName + " " + fileID, dirID);
             addDir(thisDir);
             parent.childrenDirs.Add(thisDir);
 
@@ -86,9 +86,10 @@ namespace NSMBe4.DSFileSystem
                     loadDir(fnt, name, subDirID, thisDir);
                 }
                 else
+                {
                     loadFile(name, fileID, thisDir);
-
-                fileID++;
+                    fileID++;
+                }
             }
             fnt.loadPos();
         }
