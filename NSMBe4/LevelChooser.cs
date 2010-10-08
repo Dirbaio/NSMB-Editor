@@ -47,10 +47,18 @@ namespace NSMBe4 {
         }
 
         private void LevelChooser_Load(object sender, EventArgs e) {
-            openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
-            if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
-                Application.Exit();
+            string path = "";
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Length > 1) {
+                path = args[1];
             } else {
+                openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
+                if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    Application.Exit();
+                else
+                    path = openROMDialog.FileName;
+            }
+            if (path != "") {
                 editors = new List<LevelEditor>();
 
                 importLevelButton.Enabled = false;
@@ -58,7 +66,7 @@ namespace NSMBe4 {
                 editLevelButton.Enabled = false;
                 hexEditLevelButton.Enabled = false;
 
-                ROM.load(openROMDialog.FileName);
+                ROM.load(path);
                 filesystemBrowser1.Load(ROM.FS);
 
                 LoadLevelNames();
