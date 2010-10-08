@@ -61,6 +61,7 @@ mpPatch=NARC Patch Multijoueur (Carte)
 mpPatch2=NARC Patch Multijoueur (Tex + BG)
 lzUncompressAll=Tout décompresser (avec LZ)
 tilesetEditor=Éditeur de tilesets
+useMDI=Utilisez MDI
 
 ;Non-Control Strings
 AlreadyHexEditing=Vous êtes actuellement en train d'éditer ce niveau dans un éditeur hexadécimal. Pour éviter les problèmes, vous ne pouvez pas l'éditer avec l'éditeur normal en même temps.

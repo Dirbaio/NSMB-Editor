@@ -59,6 +59,7 @@ mpPatch=Parchar Mario vs Luigi (Mapa)
 mpPatch2=Parchar Mario vs Luigi (Tex + BG)
 lzUncompressAll=Descomprimir Todo (en LZ)
 tilesetEditor=Editar Objetos
+useMDI=Utilice MDI
 
 ;Non-Control Strings
 AlreadyHexEditing=Tienes un editor hex abierto para este nivel. Para que no pasen problemas, no puedes editar el nivel en el editor normal a la misma vez.

@@ -193,11 +193,10 @@ namespace NSMBe4 {
             } else if (Properties.Settings.Default.Language == 1) {
                 LanguageManager.Load(Properties.Resources.spanish.Split('\n'));
             }
-#if MDI
-            Application.Run(new MdiParentForm());
-#else
-            Application.Run(new LevelChooser());
-#endif
+            if (Properties.Settings.Default.mdi)
+                Application.Run(new MdiParentForm());
+            else
+                Application.Run(new LevelChooser());
         }
 
         public static byte[] compressImage(Bitmap b)

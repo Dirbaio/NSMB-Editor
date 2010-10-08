@@ -36,9 +36,8 @@ namespace NSMBe4
 
         public TilesetEditor(ushort TilesetID, string tilesetName) {
             InitializeComponent();
-#if MDI
-            this.MdiParent = MdiParentForm.instance;
-#endif
+            if (Properties.Settings.Default.mdi)
+                this.MdiParent = MdiParentForm.instance;
             LanguageManager.ApplyToContainer(this, "TilesetEditor");
             Text = string.Format(LanguageManager.Get("TilesetEditor", "_TITLE"), tilesetName);
 

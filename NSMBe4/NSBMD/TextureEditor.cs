@@ -35,9 +35,8 @@ namespace NSMBe4.NSBMD
         public TextureEditor(File f)
         {
             InitializeComponent();
-#if MDI
-            this.MdiParent = MdiParentForm.instance;
-#endif
+            if (Properties.Settings.Default.mdi)
+                this.MdiParent = MdiParentForm.instance;
             this.f = f;
             tx = new NSBTX(f);
             if (tx.textures.Length == 0) return;

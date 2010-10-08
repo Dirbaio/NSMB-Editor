@@ -61,6 +61,7 @@ mpPatch=Multiplayer NARC Patch (Map)
 mpPatch2=Multiplayer NARC Patch (Tex + BG)
 lzUncompressAll=LZ Uncompress Everything
 tilesetEditor=Tileset Editor
+useMDI=Use MDI
 
 ;Non-Control Strings
 AlreadyHexEditing=You are currently editing this level in a hex editor. To prevent problems, you can't edit it normally at the same time.

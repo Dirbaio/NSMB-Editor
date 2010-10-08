@@ -65,6 +65,7 @@ namespace NSMBe4 {
                 exportLevelButton.Enabled = false;
                 editLevelButton.Enabled = false;
                 hexEditLevelButton.Enabled = false;
+                useMDI.Checked = Properties.Settings.Default.mdi;
 
                 ROM.load(path);
                 filesystemBrowser1.Load(ROM.FS);
@@ -737,6 +738,12 @@ namespace NSMBe4 {
                 s.Write(data, 0, data.Length);
                 
             }
+        }
+
+        private void useMDI_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.mdi = useMDI.Checked;
+            Properties.Settings.Default.Save();
         }
 
     }

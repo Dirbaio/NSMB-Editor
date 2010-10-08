@@ -41,9 +41,8 @@ namespace NSMBe4 {
 
         public LevelEditor(string LevelFilename) {
             InitializeComponent();
-#if MDI
-            this.MdiParent = MdiParentForm.instance;
-#endif
+            if (Properties.Settings.Default.mdi)
+                this.MdiParent = MdiParentForm.instance;
             this.LevelFilename = LevelFilename;
             editObjectsButton.Checked = true;
 
