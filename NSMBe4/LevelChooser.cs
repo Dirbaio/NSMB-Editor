@@ -78,6 +78,17 @@ namespace NSMBe4 {
                 openPatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 this.Activate();
+                //Get Language Files
+                if (System.IO.Directory.Exists(Application.StartupPath + "\\Languages")) {
+                    string[] files = System.IO.Directory.GetFiles(Application.StartupPath + "\\Languages");
+                    for (int l = 0; l < files.Length; l++) {
+                        if (files[l].EndsWith(".ini")) {
+                            int startPos = files[l].LastIndexOf("\\") + 1;
+                            languageListBox.Items.Add(files[l].Substring(startPos, files[l].LastIndexOf('.') - startPos));
+                        }
+                    }
+                }
+
 
 //                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
 
@@ -284,7 +295,7 @@ namespace NSMBe4 {
 
         private void changeLanguageButton_Click(object sender, EventArgs e) {
             if (languageListBox.SelectedItem != null) {
-                Properties.Settings.Default.Language = languageListBox.SelectedIndex;
+                Properties.Settings.Default.LanguageFile = languageListBox.SelectedItem.ToString();
                 Properties.Settings.Default.Save();
 
                     MessageBox.Show(

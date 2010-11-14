@@ -58,5 +58,17 @@ namespace NSMBe4.Properties {
                 this["mdi"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("English")]
+        public string LanguageFile {
+            get {
+                return ((string)(this["LanguageFile"]));
+            }
+            set {
+                this["LanguageFile"] = value;
+            }
+        }
     }
 }

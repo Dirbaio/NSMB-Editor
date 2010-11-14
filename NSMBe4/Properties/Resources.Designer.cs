@@ -1299,27 +1299,6 @@ namespace NSMBe4.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to ;NSMB Editor 5
-        ///;Spanish Translation File
-        ///;Created by Treeki; 12 Oct 2009
-        ///;
-        ///;   This file is part of NSMB Editor 5.
-        ///;
-        ///;   NSMB Editor 5 is free software: you can redistribute it and/or modify
-        ///;   it under the terms of the GNU General Public License as published by
-        ///;   the Free Software Foundation, either version 3 of the License, or
-        ///;   (at your option) any later version.
-        ///;
-        ///;   NSMB Editor 5 is distributed in the hope that it will be useful,
-        ///;   but WITHOUT ANY WARRANTY; without even the implied  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string spanish {
-            get {
-                return ResourceManager.GetString("spanish", resourceCulture);
-            }
-        }
-        
         internal static System.Drawing.Bitmap SpikeBallLarge {
             get {
                 object obj = ResourceManager.GetObject("SpikeBallLarge", resourceCulture);

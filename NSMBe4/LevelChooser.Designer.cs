@@ -349,9 +349,6 @@ namespace NSMBe4 {
             this.languageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.languageListBox.FormattingEnabled = true;
-            this.languageListBox.Items.AddRange(new object[] {
-            "English",
-            "Spanish"});
             this.languageListBox.Location = new System.Drawing.Point(6, 32);
             this.languageListBox.Name = "languageListBox";
             this.languageListBox.Size = new System.Drawing.Size(234, 95);

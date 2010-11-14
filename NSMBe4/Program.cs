@@ -187,11 +187,14 @@ namespace NSMBe4 {
             new ImagePreviewer(ii.previewImage(0)).Show();
             new ImagePreviewer(ii.previewImage(1)).Show();*/
 
-            if (Properties.Settings.Default.Language == 0)
-            {
+            string langFileName = Application.StartupPath + "\\Languages\\" + Properties.Settings.Default.LanguageFile + ".ini";
+            if (System.IO.File.Exists(langFileName)) {
+                System.IO.StreamReader rdr = new StreamReader(langFileName);
+                LanguageManager.Load(rdr.ReadToEnd().Split('\n'));
+                rdr.Close();
+            } else {
+                MessageBox.Show("File " + langFileName + " could not be found, so the language has defaulted to English.");
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
-            } else if (Properties.Settings.Default.Language == 1) {
-                LanguageManager.Load(Properties.Resources.spanish.Split('\n'));
             }
             if (Properties.Settings.Default.mdi)
                 Application.Run(new MdiParentForm());

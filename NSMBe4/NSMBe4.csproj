@@ -370,6 +370,15 @@
   <ItemGroup>
     <None Include="Resources\cross-script.png" />
     <None Include="Resources\cross-script-bright.png" />
+    <None Include="Languages\English.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Languages\French.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Languages\Spanish.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\french.txt" />
     <Content Include="Resources\Icons\brush.png" />
     <Content Include="Resources\Icons\eraser.png" />
