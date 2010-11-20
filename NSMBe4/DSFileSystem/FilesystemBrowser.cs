@@ -140,7 +140,7 @@ namespace NSMBe4.DSFileSystem
             {
                 MessageBox.Show(LanguageManager.Get("Errors", "File"));
                 return;
-            }                
+            }
                 
             string FileName = f.name;
             replaceFileDialog.FileName = FileName;

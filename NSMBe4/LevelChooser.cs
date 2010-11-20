@@ -92,13 +92,13 @@ namespace NSMBe4 {
 
 //                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
 
-                /*
+                
                 ImageManagerWindow w = new ImageManagerWindow();
                 w.Show();
                 w.m.addImage(new Image2D(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncg.bin"), 256, false));
                 w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 0, 512, "pal", null, true)));
                 w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 512, 512, "pal2", null, true)));
-                */
+                
             }
             /*
             List<string> spriteNames = LanguageManager.GetList("Sprites");
@@ -118,6 +118,53 @@ namespace NSMBe4 {
                 Console.Out.WriteLine();
             }*/
 //            ROM.FS.dumpFilesOrdered();
+
+            /*
+            //Delete item boxes in all MKDS courses. Works cool!
+             
+            DSFileSystem.Directory d = ROM.FS.getDirByPath("root/data/Course");
+            foreach (DSFileSystem.File f in d.childrenFiles)
+            {
+                if (f.name.Contains("Tex")) continue;
+                if (!f.name.EndsWith(".carc")) continue;
+                Console.Out.Write(f.name + ": ");
+                NarcFilesystem fs = new NarcFilesystem(f, true);
+                DSFileSystem.File nkm = fs.getFileByName("course_map.nkm");
+                if (nkm == null) Console.Out.WriteLine("No NKM File.");
+                else
+                {
+                    ByteArrayInputStream inp = new ByteArrayInputStream(nkm.getContents());
+                    inp.seek(0x6);
+                    uint objiOffs = inp.readUShort();
+                    objiOffs += inp.readUInt();
+                    inp.seek(objiOffs);
+                    inp.readUInt(); //"OBJI" ascii header
+                    uint objCount = inp.readUInt(); // Object count
+                    int ct = 0;
+                    for(uint i = 0; i < objCount; i++)
+                    {
+                        inp.savePos();
+                        inp.seek(inp.getPos() + 0x24);
+                        byte objType = inp.readByte();
+                        inp.loadPos();
+
+                        if (objType == 0x65)
+                        {
+                            for (int j = 0; j < 0x3C; j++)
+                                inp.writeByte(0);
+                            ct++;
+                        }
+                        else
+                            inp.seek(inp.getPos() + 0x3C);
+
+                    }
+                    nkm.beginEdit(this);
+                    nkm.replace(inp.getData(), this);
+                    nkm.endEdit(this);
+                    Console.Out.WriteLine("Ok "+ct+".");
+                }
+                fs.close();
+            }*/
         }
 
 

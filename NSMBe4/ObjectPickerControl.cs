@@ -100,8 +100,11 @@ namespace NSMBe4 {
         public void EnsureObjVisible(int ObjNum) {
             if (ObjNum < vScrollBar.Value) {
                 vScrollBar.Value = ObjNum;
-            } else if (ObjNum > (vScrollBar.Value + ViewableHeight - 2)) {
-                vScrollBar.Value = ObjNum - ViewableHeight + 2;
+            } else if (ObjNum > (vScrollBar.Value + ViewableHeight - 2))
+            {
+                int nval = ObjNum - ViewableHeight + 2;
+                if (nval <= vScrollBar.Maximum && nval >= vScrollBar.Minimum)
+                    vScrollBar.Value = nval;
             }
         }
 

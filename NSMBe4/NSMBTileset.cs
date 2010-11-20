@@ -1146,25 +1146,30 @@ namespace NSMBe4
                 
                 dest.DrawImage(img, new Rectangle(i * 8, 0, 8, 8), tx, ty, 8, 8, GraphicsUnit.Pixel);
             }
-            /*
-            ImageIndexer ia = new ImageIndexer(a);
-            ImageIndexer ib = new ImageIndexer(b);
-            Array.Copy(ia.palette, 1, Palette, 1, 255);
-            Array.Copy(ib.palette, 1, Palette, 257, 255);
-//            Array.Copy(ia.palettedImage, RawGFXData, RawGFXData.Length);
             
+            ImageIndexer ia = new ImageIndexer(new List<Bitmap>(){a});
+            ImageIndexer ib = new ImageIndexer(new List<Bitmap>(){b});
+
+            Array.Copy(ia.palettes[0], 1, Palette, 1, 255);
+            Array.Copy(ib.palettes[0], 1, Palette, 257, 255);
+
+            byte[] da = ia.getTiledImageData();
+            byte[] db = ib.getTiledImageData();
+
+            Array.Copy(da, RawGFXData, RawGFXData.Length);
+
             for (int i = 0; i < tileCount; i++)
             {
                 int tx = (i % 32) * 8;
                 int ty = (int)(i / 32) * 8;
 
-                ImageIndexer src = ia;
-                if (newInSecondPal) src = ib;
-                if (tilesUsed[i] == 1) src = ia;
-                if (tilesUsed[i] == 2) src = ib;
+                byte[] src = da;
+                if (newInSecondPal) src = db;
+                if (tilesUsed[i] == 1) src = da;
+                if (tilesUsed[i] == 2) src = db;
 
-                Array.Copy(src.palettedImage, i * 64, RawGFXData, i * 64, 64);
-            }*/
+                Array.Copy(src, i * 64, RawGFXData, i * 64, 64);
+            }
 
             img.Dispose();
             ResetGraphics(RawGFXData);

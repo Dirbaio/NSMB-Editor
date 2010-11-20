@@ -98,6 +98,10 @@ namespace NSMBe4
             pos += bytes;
         }
 
+        public byte[] getData()
+        {
+            return array;
+        }
         public void skipback(uint bytes)
         {
             pos -= bytes;

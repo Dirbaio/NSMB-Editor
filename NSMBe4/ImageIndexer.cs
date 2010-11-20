@@ -92,6 +92,43 @@ namespace NSMBe4
                             freqTable[c] = 1;
                 }
 
+            int ct = 0;
+            foreach (MultiColor c in freqTable.Keys)
+                if (c.someTransparent()) ct++;
+            Console.Out.WriteLine("Transparent: " + ct);
+
+
+            Dictionary<MultiColor, int> newFreqTable = new Dictionary<MultiColor, int>();
+            foreach (MultiColor c in freqTable.Keys)
+            {
+                if (!c.deleteFlag)
+                {
+                    int cnt = freqTable[c];
+                    foreach(MultiColor c2 in freqTable.Keys)
+                    {
+                        if (c2 == null) continue;
+                        if (c2.deleteFlag) continue;
+                        if (c2 == c) continue;
+
+                        if (c.diff(c2) == 0)
+                        {
+                            cnt += freqTable[c2];
+                            c.merge(c2);
+                            c2.deleteFlag = true;
+                        }
+                    }
+                    c.deleteFlag = true;
+                    c.removeAllTransparent();
+                    newFreqTable.Add(c, cnt);
+                }
+            }
+            freqTable = newFreqTable;
+
+            ct = 0;
+            foreach (MultiColor c in freqTable.Keys)
+                if (c.someTransparent()) ct++;
+            Console.Out.WriteLine("Transparent2: " + ct);
+
             // NOW CREATE THE PALETTE ZONES
             Box startBox = shrinkBox(new Box(boxColorCount));
             boxes = new List<Box>();
@@ -150,7 +187,7 @@ namespace NSMBe4
                     if (c.allTransparent())
                         imageData[x, y] = (byte)transpCol;
                     else
-                        imageData[x, y] = colorTable[c];
+                        imageData[x, y] = closestMultiColor(c);
                 }
             }
 
@@ -224,7 +261,7 @@ namespace NSMBe4
             else
             {
                 int best = -1;
-                float bestd = 10000000000;
+                float bestd = float.PositiveInfinity;
                 for (int i = 0; i < multiPalette.Length; i++)
                 {
                     if (multiPalette[i] == null) continue;
@@ -355,10 +392,12 @@ namespace NSMBe4
         {
             public byte[] data;
             public bool[] transp;
+            public bool deleteFlag;
             public MultiColor(int count)
             {
                 data = new byte[count];
                 transp = new bool[count];
+                deleteFlag = false;
             }
 
             public void setColor(int i, Color c)
@@ -380,6 +419,17 @@ namespace NSMBe4
                 }
             }
 
+            public void merge(MultiColor b)
+            {
+                for(int i = 0; i < data.Length; i++)
+                    if (transp[i])
+                    {
+                        transp[i] = b.transp[i];
+                        data[i] = b.data[i];
+                    }
+                calcHash();
+            }
+
             public Color getColor(int i)
             {
                 if (transp[i * 3]) return Color.Transparent;
@@ -388,9 +438,15 @@ namespace NSMBe4
 
             public bool allTransparent()
             {
-                for (int i = 0; i < transp.Length; i+=3)
+                for (int i = 0; i < transp.Length; i += 3)
                     if (!transp[i]) return false;
                 return true;
+            }
+            public bool someTransparent()
+            {
+                for (int i = 0; i < transp.Length; i += 3)
+                    if (transp[i]) return true;
+                return false;
             }
 
             private int thehash;
@@ -450,6 +506,16 @@ namespace NSMBe4
                         res += d * d;
                     }
                 return res;
+            }
+
+            internal void removeAllTransparent()
+            {
+                for (int i = 0; i < data.Length; i++)
+                    if (transp[i])
+                    {
+                        transp[i] = false;
+                        data[i] = 0;
+                    }
             }
         }
 

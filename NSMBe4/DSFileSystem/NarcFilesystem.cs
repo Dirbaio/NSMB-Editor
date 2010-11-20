@@ -57,5 +57,11 @@ namespace NSMBe4.DSFileSystem
             base.load();
             loadNamelessFiles(mainDir);
         }
+
+
+        public override void fileMoved(File f)
+        {
+            source.save();
+        }
     }
 }

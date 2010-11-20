@@ -49,7 +49,7 @@ namespace NSMBe4.DSFileSystem
             ByteArrayInputStream fnt = new ByteArrayInputStream(fntFile.getContents());
             //            fnt.dumpAsciiData();
 
-            loadDir(fnt, "Files", 0xF000, mainDir);
+            loadDir(fnt, "root", 0xF000, mainDir);
             
         }
 
@@ -66,7 +66,7 @@ namespace NSMBe4.DSFileSystem
             //Their main dir starting ID is 2, which is weird...
           //  if (parent == mainDir) fileID = 0; 
 
-            Directory thisDir = new Directory(this, parent, false, dirName + " " + fileID, dirID);
+            Directory thisDir = new Directory(this, parent, false, dirName, dirID);
             addDir(thisDir);
             parent.childrenDirs.Add(thisDir);
 

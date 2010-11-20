@@ -60,6 +60,26 @@ namespace NSMBe4.DSFileSystem
             return null;
         }
 
+        public Directory getDirByPath(string path)
+        {
+            string[] shit = path.Split(new char[] { '/' });
+            Directory dir = mainDir;
+            for (int i = 0; i < shit.Length; i++)
+            {
+                Directory newDir = null;
+                foreach(Directory d in dir.childrenDirs)
+                    if(d.name == shit[i])
+                    {
+                        newDir = d;
+                        break;
+                    }
+                if(newDir == null) return null;
+
+                dir = newDir;
+            }
+            return dir;
+        }
+
         protected void addFile(File f)
         {
             allFiles.Add(f);
