@@ -541,14 +541,8 @@ namespace NSMBe4
         }
         public override void AfterAction()
         {
-<<<<<<< .mine
             if (EdControl.mode is ObjectsEditionMode && objs != null && objs.Length != 0 &&
                 (EdControl.Level.Objects.Contains(objs[0] as NSMBObject) || EdControl.Level.Sprites.Contains(objs[0] as NSMBSprite)))
-=======
-            if (objs.Length == 0)
-                return;
-            if (EdControl.mode is ObjectsEditionMode && objs != null && (EdControl.Level.Objects.Contains(objs[0] as NSMBObject) || EdControl.Level.Sprites.Contains(objs[0] as NSMBSprite)))
->>>>>>> .r128
                 (EdControl.mode as ObjectsEditionMode).SelectObjects(objs);
             else
                 EdControl.SelectObject(null);

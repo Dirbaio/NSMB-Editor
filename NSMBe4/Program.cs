@@ -186,8 +186,8 @@ namespace NSMBe4 {
             ImageIndexer ii = new ImageIndexer(bl, 256, true, 0);
             new ImagePreviewer(ii.previewImage(0)).Show();
             new ImagePreviewer(ii.previewImage(1)).Show();*/
-
-            string langFileName = Application.StartupPath + "\\Languages\\" + Properties.Settings.Default.LanguageFile + ".ini";
+			string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
+            string langFileName = System.IO.Path.Combine(langDir, Properties.Settings.Default.LanguageFile + ".ini");
             if (System.IO.File.Exists(langFileName)) {
                 System.IO.StreamReader rdr = new StreamReader(langFileName);
                 LanguageManager.Load(rdr.ReadToEnd().Split('\n'));

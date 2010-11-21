@@ -79,11 +79,12 @@ namespace NSMBe4 {
                 savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
                 this.Activate();
                 //Get Language Files
-                if (System.IO.Directory.Exists(Application.StartupPath + "\\Languages")) {
-                    string[] files = System.IO.Directory.GetFiles(Application.StartupPath + "\\Languages");
+				string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
+                if (System.IO.Directory.Exists(langDir)) {
+                    string[] files = System.IO.Directory.GetFiles(langDir);
                     for (int l = 0; l < files.Length; l++) {
                         if (files[l].EndsWith(".ini")) {
-                            int startPos = files[l].LastIndexOf("\\") + 1;
+                            int startPos = files[l].LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1;
                             languageListBox.Items.Add(files[l].Substring(startPos, files[l].LastIndexOf('.') - startPos));
                         }
                     }
@@ -93,11 +94,12 @@ namespace NSMBe4 {
 //                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
 
                 
-                ImageManagerWindow w = new ImageManagerWindow();
+                // this is for debugging?
+                /*ImageManagerWindow w = new ImageManagerWindow();
                 w.Show();
                 w.m.addImage(new Image2D(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncg.bin"), 256, false));
                 w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 0, 512, "pal", null, true)));
-                w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 512, 512, "pal2", null, true)));
+                w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 512, 512, "pal2", null, true)));*/
                 
             }
             /*

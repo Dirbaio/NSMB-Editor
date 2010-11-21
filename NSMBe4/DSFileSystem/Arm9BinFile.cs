@@ -94,11 +94,28 @@ namespace NSMBe4.DSFileSystem
             endEdit(this);
             Console.Out.WriteLine("DONE");
         }
-
-        public int codeSettingsOffs {get
+  
+        private int _codeSettingsOffs = -1;
+        
+        public int codeSettingsOffs
         {
-            return (int)(getUintAt(0x90C) - 0x02000000u);
-        }}
+            get
+            {
+                // Find the end of the settings
+                // This old method doesn't work with The Legendary Starfy :\ -Treeki
+                //return (int)(getUintAt(0x90C) - 0x02000000u);
+                if (_codeSettingsOffs == -1) {
+                    for (int i = 0; i < 0x8000; i += 4) {
+                        if (getUintAt(i) == 0xDEC00621 && getUintAt(i+4) == 0x2106C0DE) {
+                            _codeSettingsOffs = i - 0x1C;
+                            break;
+                        }
+                    }
+                }
+                
+                return _codeSettingsOffs;
+            }
+        }
 
         public int decompressionRamAddr
         {
