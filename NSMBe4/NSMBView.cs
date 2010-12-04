@@ -28,13 +28,17 @@ namespace NSMBe4
         public int Width;
         public int Height;
         public int Number;
-        public int Camera;
+//        public int Camera;
         public int Music;
         public int Unknown1;
         public int Unknown2;
         public int Unknown3;
         public int Lighting;
         public int FlagpoleID;
+
+        public int CameraTop, CameraBottom;
+        public int CameraTopSpin, CameraBottomSpin;
+        public int CameraBottomStick;
 
         public bool isZone = false;
 
@@ -52,7 +56,7 @@ namespace NSMBe4
             Width = v.Width;
             Height = v.Height;
             Number = v.Number;
-            Camera = v.Camera;
+//            Camera = v.Camera;
             Music = v.Music;
             Unknown1 = v.Unknown1;
             Unknown2 = v.Unknown2;
@@ -60,6 +64,11 @@ namespace NSMBe4
             Lighting = v.Lighting;
             FlagpoleID = v.FlagpoleID;
             isZone = v.isZone;
+            CameraTop = v.CameraTop;
+            CameraTopSpin = v.CameraTopSpin;
+            CameraBottom = v.CameraBottom;
+            CameraBottomSpin = v.CameraBottomSpin;
+            CameraBottomStick = v.CameraBottomStick;
         }
 
         public void render(Graphics g, int vx, int vy)
@@ -101,22 +110,30 @@ namespace NSMBe4
                 g.DrawLine(col, X, y, X + Width, y);
         }
 
-        public void write(ByteArrayOutputStream outp)
+        public void write(ByteArrayOutputStream outp, ByteArrayOutputStream cam)
         {
             outp.writeUShort((ushort)X);
             outp.writeUShort((ushort)Y);
             outp.writeUShort((ushort)Width);
             outp.writeUShort((ushort)Height);
             outp.writeByte((byte)Number);
-            outp.writeByte((byte)Camera);
+            outp.writeByte((byte)Number); // Camera ID same as View ID
             outp.writeByte((byte)Music);
             outp.writeByte((byte)Unknown1);
             outp.writeByte((byte)Unknown2);
             outp.writeByte((byte)Unknown3);
             outp.writeByte((byte)Lighting);
             outp.writeByte((byte)FlagpoleID);
+
+            cam.writeInt(CameraTop);
+            cam.writeInt(CameraBottom);
+            cam.writeInt(CameraTopSpin);
+            cam.writeInt(CameraBottomSpin);
+            cam.writeUShort((ushort)Number);
+            cam.writeUShort((ushort)CameraBottomStick);
+            cam.writeUInt(0); //This seems just padding.
         }
-        public static NSMBView read(ByteArrayInputStream inp)
+        public static NSMBView read(ByteArrayInputStream inp, ByteArrayInputStream cam)
         {
             NSMBView v = new NSMBView();
 
@@ -125,7 +142,7 @@ namespace NSMBe4
             v.Width = inp.readUShort();
             v.Height = inp.readUShort();
             v.Number = inp.readByte();
-            v.Camera = inp.readByte();
+            int camID = inp.readByte();
             v.Music = inp.readByte();
             v.Unknown1 = inp.readByte();
             v.Unknown2 = inp.readByte();
@@ -133,6 +150,34 @@ namespace NSMBe4
             v.Lighting = inp.readByte();
             v.FlagpoleID = inp.readByte();
 
+            cam.seek(0);
+            int camCount = (int)cam.available() / 24;
+            Console.Out.WriteLine("CamCount: " + camCount);
+            int goodCam = -1;
+            for (int i = 0; i < camCount; i++)
+            {
+                cam.seek(i * 24 + 16);
+                int thisCam = cam.readUShort();
+                Console.Out.WriteLine("Cam ID: " + thisCam);
+                if (thisCam == camID)
+                {
+                    goodCam = i;
+                    break;
+                }
+            }
+
+            if (goodCam == -1)
+                Console.Out.WriteLine("Warning: Could not find camera ID " + camID);
+            else
+            {
+                cam.seek(goodCam * 24);
+                v.CameraTop = cam.readInt();
+                v.CameraBottom = cam.readInt();
+                v.CameraTopSpin = cam.readInt();
+                v.CameraBottomSpin = cam.readInt();
+                cam.skip(2);
+                v.CameraBottomStick = cam.readUShort();
+            }
             return v;
         }
 

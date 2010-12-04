@@ -85,8 +85,16 @@ namespace NSMBe4
                 step = 8;
             int nx, ny;
             if (ResizeMode) {
-                nx = Math.Max(16 * 16, (x + DragXOff - v.X) / step * step);
-                ny = Math.Max(12 * 16, (y + DragYOff - v.Y) / step * step);
+                int xmin = 16;
+                int ymin = 16;
+                if (EdVi)
+                {
+                    xmin = 16 * 16;
+                    ymin = 12 * 16;
+                }
+
+                nx = Math.Max(xmin, (x + DragXOff - v.X) / step * step);
+                ny = Math.Max(ymin, (y + DragYOff - v.Y) / step * step);
                 if (v.Width != nx || v.Height != ny)
                     EdControl.UndoManager.Do(new SizeViewAction(v, nx, ny));
             } else {

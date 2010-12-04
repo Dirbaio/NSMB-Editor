@@ -129,7 +129,7 @@ namespace NSMBe4 {
 
         private static void ApplyToContainer(System.Windows.Forms.Control Container, Dictionary<string, string> Referred) {
             foreach (System.Windows.Forms.Control Control in Container.Controls) {
-                Console.Out.WriteLine(Control.Name + " " + Control);
+                //Console.Out.WriteLine(Control.Name + " " + Control);
                 if (Referred.ContainsKey(Control.Name)) {
                     Control.Text = Referred[Control.Name];
                 }

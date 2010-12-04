@@ -97,7 +97,6 @@ namespace NSMBe4
                 height.Value = v.Height;
                 viewID.Value = v.Number;
 
-                cameraID.Value = v.Camera;
                 music.SelectedIndex = 0;
                 for (int findmusic = 0; findmusic < music.Items.Count; findmusic++) {
                     int check = int.Parse((music.Items[findmusic] as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
@@ -111,6 +110,12 @@ namespace NSMBe4
                 unk3.Value = v.Unknown3;
                 light.Value = v.Lighting;
                 progressID.Value = v.FlagpoleID;
+
+                camTop.Value = v.CameraTop;
+                camTopSpecial.Value = v.CameraTopSpin;
+                camBottom.Value = v.CameraBottom;
+                camBottomSpecial.Value = v.CameraBottomSpin;
+                camStick.Value = v.CameraBottomStick;
             }
             DataUpdateFlag = false;
         }
@@ -140,9 +145,7 @@ namespace NSMBe4
         {
             if (v == null || DataUpdateFlag)
                 return;
-            if (v.Camera != (int)cameraID.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 1, (int)cameraID.Value));
-            v.Camera = (int)cameraID.Value;
+
             int newMusic = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
             if (v.Music != newMusic)
                 EdControl.UndoManager.Do(new ChangeViewDataAction(v, 2, newMusic));
@@ -156,6 +159,16 @@ namespace NSMBe4
                 EdControl.UndoManager.Do(new ChangeViewDataAction(v, 6, (int)light.Value));
             if (v.FlagpoleID != (int)progressID.Value)
                 EdControl.UndoManager.Do(new ChangeViewDataAction(v, 7, (int)progressID.Value));
+            if (v.CameraTop != (int)camTop.Value)
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 8, (int)camTop.Value));
+            if (v.CameraBottom != (int)camBottom.Value)
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 9, (int)camBottom.Value));
+            if (v.CameraTopSpin != (int)camTopSpecial.Value)
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 10, (int)camTopSpecial.Value));
+            if (v.CameraBottomSpin != (int)camBottomSpecial.Value)
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 11, (int)camBottomSpecial.Value));
+            if (v.CameraBottomStick != (int)camStick.Value)
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 12, (int)camStick.Value));
         }
 
         private void viewsList_SelectedIndexChanged(object sender, EventArgs e) {

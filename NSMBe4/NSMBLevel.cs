@@ -132,9 +132,10 @@ namespace NSMBe4
 
             // Views
             ByteArrayInputStream ViewBlock = new ByteArrayInputStream(Blocks[7]);
+            ByteArrayInputStream CamBlock = new ByteArrayInputStream(Blocks[1]);
             Views = new List<NSMBView>();
             while (ViewBlock.available(16))
-                Views.Add(NSMBView.read(ViewBlock));
+                Views.Add(NSMBView.read(ViewBlock, CamBlock));
 
             // Zones
             ByteArrayInputStream ZoneBlock = new ByteArrayInputStream(Blocks[8]);
@@ -142,7 +143,7 @@ namespace NSMBe4
             while (ZoneBlock.available(12))
                 Zones.Add(NSMBView.readZone(ZoneBlock));
 
-            // Paths!!! (warning, cool feature)
+            // Paths
 
             ByteArrayInputStream PathBlock = new ByteArrayInputStream(Blocks[10]);
             ByteArrayInputStream PathNodeBlock = new ByteArrayInputStream(Blocks[12]);
@@ -270,9 +271,12 @@ namespace NSMBe4
             // Save Views
 
             ByteArrayOutputStream Block8 = new ByteArrayOutputStream();
+            ByteArrayOutputStream Block2 = new ByteArrayOutputStream();
+            int camCount = 0;
             foreach (NSMBView v in Views)
-                v.write(Block8);
+                v.write(Block8, Block2, camCount++);
             Blocks[7] = Block8.getArray();
+            Blocks[1] = Block2.getArray();
 
             //save Zones
             ByteArrayOutputStream Block9 = new ByteArrayOutputStream();

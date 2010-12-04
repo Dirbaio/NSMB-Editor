@@ -1222,13 +1222,19 @@ namespace NSMBe4
             switch (PropNum)
             {
                 case 0: OrigV = view.Number; break;
-                case 1: OrigV = view.Camera; break;
+                case 1: throw new Exception("Blah");
                 case 2: OrigV = view.Music; break;
                 case 3: OrigV = view.Unknown1; break;
                 case 4: OrigV = view.Unknown2; break;
                 case 5: OrigV = view.Unknown3; break;
                 case 6: OrigV = view.Lighting; break;
                 case 7: OrigV = view.FlagpoleID; break;
+                case 8: OrigV = view.CameraTop; break;
+                case 9: OrigV = view.CameraBottom; break;
+                case 10: OrigV = view.CameraTopSpin; break;
+                case 11: OrigV = view.CameraBottomSpin; break;
+                case 12: OrigV = view.CameraBottomStick; break;
+
             }
             this.PropNum = PropNum;
             this.NewV = NewV;
@@ -1246,13 +1252,18 @@ namespace NSMBe4
             switch (PropNum)
             {
                 case 0: view.Number = value; break;
-                case 1: view.Camera = value; break;
+                case 1: throw new Exception("Blah");
                 case 2: view.Music = value; break;
                 case 3: view.Unknown1 = value; break;
                 case 4: view.Unknown2 = value; break;
                 case 5: view.Unknown3 = value; break;
                 case 6: view.Lighting = value; break;
                 case 7: view.FlagpoleID = value; break;
+                case 8: view.CameraTop = value; break;
+                case 9: view.CameraBottom = value; break;
+                case 10: view.CameraTopSpin = value; break;
+                case 11: view.CameraBottomSpin= value; break;
+                case 12: view.CameraBottomStick = value; break;
             }
         }
         public override string ToString()
@@ -1260,7 +1271,7 @@ namespace NSMBe4
             if (view.isZone)
                 return LanguageManager.GetList("UndoActions")[34];
             else
-                return string.Format(LanguageManager.GetList("UndoActions")[29], LanguageManager.Get("ViewEditor", PropNum + 7));
+                return string.Format(LanguageManager.GetList("UndoActions")[29], PropNum);
         }
     }
     #endregion

@@ -128,6 +128,15 @@ namespace NSMBe4
             }
             return res;
         }
+        public int readInt()
+        {
+            uint res = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                res |= (uint)readByte() << 8 * i;
+            }
+            return (int) res;
+        }
 
         public long readLong()
         {

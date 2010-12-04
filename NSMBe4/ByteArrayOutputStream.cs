@@ -66,6 +66,12 @@ namespace NSMBe4
             writeByte((byte)(u >> 16));
             writeByte((byte)(u >> 24));
         }
+
+        public void writeInt(int i)
+        {
+            writeUInt((uint)i);
+
+        }
         public void writeLong(long u)
         {
             writeByte((byte)u);
