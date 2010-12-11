@@ -110,14 +110,14 @@ namespace NSMBe4
                 g.DrawLine(col, X, y, X + Width, y);
         }
 
-        public void write(ByteArrayOutputStream outp, ByteArrayOutputStream cam)
+        public void write(ByteArrayOutputStream outp, ByteArrayOutputStream cam, int camID)
         {
             outp.writeUShort((ushort)X);
             outp.writeUShort((ushort)Y);
             outp.writeUShort((ushort)Width);
             outp.writeUShort((ushort)Height);
             outp.writeByte((byte)Number);
-            outp.writeByte((byte)Number); // Camera ID same as View ID
+            outp.writeByte((byte)camID); 
             outp.writeByte((byte)Music);
             outp.writeByte((byte)Unknown1);
             outp.writeByte((byte)Unknown2);
@@ -129,7 +129,7 @@ namespace NSMBe4
             cam.writeInt(CameraBottom);
             cam.writeInt(CameraTopSpin);
             cam.writeInt(CameraBottomSpin);
-            cam.writeUShort((ushort)Number);
+            cam.writeUShort((ushort)camID);
             cam.writeUShort((ushort)CameraBottomStick);
             cam.writeUInt(0); //This seems just padding.
         }

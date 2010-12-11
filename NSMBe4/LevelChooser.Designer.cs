@@ -65,6 +65,7 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.bootInsertButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -84,7 +85,7 @@ namespace NSMBe4 {
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(506, 424);
+            this.tabControl1.Size = new System.Drawing.Size(514, 475);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
@@ -203,7 +204,7 @@ namespace NSMBe4 {
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(498, 398);
+            this.tabPage3.Size = new System.Drawing.Size(506, 449);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -212,6 +213,7 @@ namespace NSMBe4 {
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.bootInsertButton);
             this.groupBox2.Controls.Add(this.insertRomButton);
             this.groupBox2.Controls.Add(this.encryptFAT);
             this.groupBox2.Controls.Add(this.parseFileListBtn);
@@ -220,7 +222,7 @@ namespace NSMBe4 {
             this.groupBox2.Controls.Add(this.decompArm9Bin);
             this.groupBox2.Location = new System.Drawing.Point(258, 209);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(234, 186);
+            this.groupBox2.Size = new System.Drawing.Size(242, 234);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ASM Tools";
@@ -229,9 +231,9 @@ namespace NSMBe4 {
             // 
             this.insertRomButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.insertRomButton.Location = new System.Drawing.Point(6, 164);
+            this.insertRomButton.Location = new System.Drawing.Point(6, 193);
             this.insertRomButton.Name = "insertRomButton";
-            this.insertRomButton.Size = new System.Drawing.Size(222, 23);
+            this.insertRomButton.Size = new System.Drawing.Size(230, 23);
             this.insertRomButton.TabIndex = 3;
             this.insertRomButton.Text = "Insert Homebrew Rom at 0x1F00000";
             this.insertRomButton.UseVisualStyleBackColor = true;
@@ -241,9 +243,9 @@ namespace NSMBe4 {
             // 
             this.encryptFAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.encryptFAT.Location = new System.Drawing.Point(6, 135);
+            this.encryptFAT.Location = new System.Drawing.Point(6, 164);
             this.encryptFAT.Name = "encryptFAT";
-            this.encryptFAT.Size = new System.Drawing.Size(222, 23);
+            this.encryptFAT.Size = new System.Drawing.Size(230, 23);
             this.encryptFAT.TabIndex = 3;
             this.encryptFAT.Text = "cryptFat";
             this.encryptFAT.UseVisualStyleBackColor = true;
@@ -253,9 +255,9 @@ namespace NSMBe4 {
             // 
             this.parseFileListBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.parseFileListBtn.Location = new System.Drawing.Point(6, 106);
+            this.parseFileListBtn.Location = new System.Drawing.Point(6, 135);
             this.parseFileListBtn.Name = "parseFileListBtn";
-            this.parseFileListBtn.Size = new System.Drawing.Size(222, 23);
+            this.parseFileListBtn.Size = new System.Drawing.Size(230, 23);
             this.parseFileListBtn.TabIndex = 3;
             this.parseFileListBtn.Text = "parse read list";
             this.parseFileListBtn.UseVisualStyleBackColor = true;
@@ -267,7 +269,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(6, 77);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(222, 23);
+            this.button1.Size = new System.Drawing.Size(230, 23);
             this.button1.TabIndex = 3;
             this.button1.Text = "Run \'make clean\'";
             this.button1.UseVisualStyleBackColor = true;
@@ -279,7 +281,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.padarm7bin.Location = new System.Drawing.Point(6, 48);
             this.padarm7bin.Name = "padarm7bin";
-            this.padarm7bin.Size = new System.Drawing.Size(222, 23);
+            this.padarm7bin.Size = new System.Drawing.Size(230, 23);
             this.padarm7bin.TabIndex = 3;
             this.padarm7bin.Text = "Run \'make\' and insert";
             this.padarm7bin.UseVisualStyleBackColor = true;
@@ -291,7 +293,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.decompArm9Bin.Location = new System.Drawing.Point(6, 19);
             this.decompArm9Bin.Name = "decompArm9Bin";
-            this.decompArm9Bin.Size = new System.Drawing.Size(222, 23);
+            this.decompArm9Bin.Size = new System.Drawing.Size(230, 23);
             this.decompArm9Bin.TabIndex = 3;
             this.decompArm9Bin.Text = "Decompress ARM9 binary";
             this.decompArm9Bin.UseVisualStyleBackColor = true;
@@ -303,7 +305,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.mpPatch2.Location = new System.Drawing.Point(258, 122);
             this.mpPatch2.Name = "mpPatch2";
-            this.mpPatch2.Size = new System.Drawing.Size(234, 23);
+            this.mpPatch2.Size = new System.Drawing.Size(242, 23);
             this.mpPatch2.TabIndex = 5;
             this.mpPatch2.Text = "<mpPatch2>";
             this.mpPatch2.UseVisualStyleBackColor = true;
@@ -319,7 +321,7 @@ namespace NSMBe4 {
             this.groupBox1.Controls.Add(this.changeLanguageButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 386);
+            this.groupBox1.Size = new System.Drawing.Size(246, 437);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -371,7 +373,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dumpMapButton.Location = new System.Drawing.Point(258, 180);
             this.dumpMapButton.Name = "dumpMapButton";
-            this.dumpMapButton.Size = new System.Drawing.Size(234, 23);
+            this.dumpMapButton.Size = new System.Drawing.Size(242, 23);
             this.dumpMapButton.TabIndex = 3;
             this.dumpMapButton.Text = "Dump rom map";
             this.dumpMapButton.UseVisualStyleBackColor = true;
@@ -383,7 +385,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tilesetEditor.Location = new System.Drawing.Point(258, 151);
             this.tilesetEditor.Name = "tilesetEditor";
-            this.tilesetEditor.Size = new System.Drawing.Size(234, 23);
+            this.tilesetEditor.Size = new System.Drawing.Size(242, 23);
             this.tilesetEditor.TabIndex = 3;
             this.tilesetEditor.Text = "<tilesetEditor>";
             this.tilesetEditor.UseVisualStyleBackColor = true;
@@ -395,7 +397,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.mpPatch.Location = new System.Drawing.Point(258, 93);
             this.mpPatch.Name = "mpPatch";
-            this.mpPatch.Size = new System.Drawing.Size(234, 23);
+            this.mpPatch.Size = new System.Drawing.Size(242, 23);
             this.mpPatch.TabIndex = 3;
             this.mpPatch.Text = "<mpPatch>";
             this.mpPatch.UseVisualStyleBackColor = true;
@@ -407,7 +409,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.patchImport.Location = new System.Drawing.Point(258, 64);
             this.patchImport.Name = "patchImport";
-            this.patchImport.Size = new System.Drawing.Size(234, 23);
+            this.patchImport.Size = new System.Drawing.Size(242, 23);
             this.patchImport.TabIndex = 3;
             this.patchImport.Text = "<patchImport>";
             this.patchImport.UseVisualStyleBackColor = true;
@@ -419,7 +421,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.patchExport.Location = new System.Drawing.Point(258, 35);
             this.patchExport.Name = "patchExport";
-            this.patchExport.Size = new System.Drawing.Size(234, 23);
+            this.patchExport.Size = new System.Drawing.Size(242, 23);
             this.patchExport.TabIndex = 3;
             this.patchExport.Text = "<patchExport>";
             this.patchExport.UseVisualStyleBackColor = true;
@@ -431,7 +433,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataFinderButton.Location = new System.Drawing.Point(258, 6);
             this.dataFinderButton.Name = "dataFinderButton";
-            this.dataFinderButton.Size = new System.Drawing.Size(234, 23);
+            this.dataFinderButton.Size = new System.Drawing.Size(242, 23);
             this.dataFinderButton.TabIndex = 3;
             this.dataFinderButton.Text = "<dataFinderButton>";
             this.dataFinderButton.UseVisualStyleBackColor = true;
@@ -473,11 +475,23 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
+            // bootInsertButton
+            // 
+            this.bootInsertButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bootInsertButton.Location = new System.Drawing.Point(6, 106);
+            this.bootInsertButton.Name = "bootInsertButton";
+            this.bootInsertButton.Size = new System.Drawing.Size(230, 23);
+            this.bootInsertButton.TabIndex = 4;
+            this.bootInsertButton.Text = "Make and insert at 0x02000C00";
+            this.bootInsertButton.UseVisualStyleBackColor = true;
+            this.bootInsertButton.Click += new System.EventHandler(this.bootInsertButton_Click);
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 448);
+            this.ClientSize = new System.Drawing.Size(539, 499);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelChooser";
@@ -534,5 +548,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.SaveFileDialog saveTextFileDialog;
         private System.Windows.Forms.Button insertRomButton;
         private System.Windows.Forms.CheckBox useMDI;
+        private System.Windows.Forms.Button bootInsertButton;
     }
 }

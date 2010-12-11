@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -154,11 +154,10 @@
     </Compile>
     <Compile Include="Editor\ObjectsEditionMode.cs" />
     <Compile Include="Editor\PathsEditionMode.cs" />
+    <Compile Include="Patcher\PatchCompiler.cs" />
+    <Compile Include="Patcher\PatchMaker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ArmPatcher.resx">
-      <DependentUpon>ArmPatcher.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="BinaryEdit.resx">
       <DependentUpon>BinaryEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -613,12 +612,6 @@
     <None Include="Resources\Icons\paths.png" />
     <None Include="Resources\Icons\views.png" />
     <Compile Include="TilesetEditor\AlreadyEditingException.cs" />
-    <Compile Include="ArmPatcher.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ArmPatcher.Designer.cs">
-      <DependentUpon>ArmPatcher.cs</DependentUpon>
-    </Compile>
     <Compile Include="BinaryEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -632,7 +625,7 @@
       <DependentUpon>ByteArrayEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ByteArrayOutputStream.cs" />
-    <Compile Include="DSFileSystem\Arm9BinFile.cs" />
+    <Compile Include="DSFileSystem\Arm9Binary.cs" />
     <Compile Include="DSFileSystem\Arm9BinSection.cs" />
     <Compile Include="DSFileSystem\BannerFile.cs" />
     <Compile Include="DSFileSystem\ExternalFilesystemSource.cs" />

@@ -27,6 +27,7 @@ using System.IO;
 using System.Threading;
 using NSMBe4.DSFileSystem;
 using NSMBe4.NSBMD;
+using NSMBe4.Patcher;
 
 
 namespace NSMBe4 {
@@ -695,13 +696,14 @@ namespace NSMBe4 {
 
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
-            ROM.FS.arm9binFile.decompress();
+//            ROM.FS.arm9binFile.decompress();
         }
 
         private void padarm7bin_Click(object sender, EventArgs e)
         {
-            //ROM.FS.writeToRamAddr(0x01ff8f20, 0x00);
-            new ArmPatcher(ROM.romfile);
+            PatchMaker.compilePatch(ROM.romfile.Directory);
+            PatchMaker.generatePatch(ROM.romfile.Directory);
+            
         }
 
         private void parseFileListBtn_Click(object sender, EventArgs e)
@@ -806,5 +808,23 @@ namespace NSMBe4 {
             Properties.Settings.Default.Save();
         }
 
+        private void bootInsertButton_Click(object sender, EventArgs e)
+        {
+            PatchCompiler.compilePatch(0x02000C00, ROM.romfile.Directory);
+            ROM.FS.arm9binFile.beginEdit(this);
+
+            byte[] data = ROM.FS.arm9binFile.getContents();
+
+
+            FileInfo f = new FileInfo(ROM.romfile.Directory.FullName + "/newcode.bin");
+            FileStream fs = f.OpenRead();
+            byte[] newdata = new byte[fs.Length];
+            fs.Read(newdata, 0, (int)fs.Length);
+            fs.Close();
+
+            Array.Copy(newdata, 0, data, 0xC00, newdata.Length);
+            ROM.FS.arm9binFile.replace(data, this);
+            ROM.FS.arm9binFile.endEdit(this);
+        }
     }
 }

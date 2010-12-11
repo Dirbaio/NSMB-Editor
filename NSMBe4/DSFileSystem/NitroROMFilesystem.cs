@@ -25,7 +25,8 @@ namespace NSMBe4.DSFileSystem
     public class NitroROMFilesystem : NitroFilesystem
     {
         public File arm7binFile, arm7ovFile, arm9ovFile, bannerFile;
-        public Arm9BinFile arm9binFile;
+        public File arm9binFile; 
+        public Arm9Binary arm9bin; 
         public HeaderFile headerFile;
         public OverlayFile[] arm7ovs, arm9ovs;
 
@@ -45,9 +46,9 @@ namespace NSMBe4.DSFileSystem
 
             arm9ovFile = new File(this, mainDir, true, -1, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
             arm7ovFile = new File(this, mainDir, true, -1, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
-//            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
-//            File arm9binFile2 = new File(this, mainDir, true, -2, "arm9.bin", headerFile, 0x20, 0xC, true);
-            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
+            //            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
+            //            File arm9binFile2 = new File(this, mainDir, true, -2, "arm9.bin", headerFile, 0x20, 0xC, true);
+            arm9binFile = new File(this, mainDir, true, -1, "arm9.bin", headerFile, 0x20, 0x2C, true);
             arm9binFile.alignment = 0x1000;
             arm9binFile.canChangeOffset = false;
             arm7binFile = new File(this, mainDir, true, -1, "arm7.bin", headerFile, 0x30, 0x3C, true);
@@ -69,6 +70,21 @@ namespace NSMBe4.DSFileSystem
             loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile, out arm7ovs);
             loadOvTable("ARM9 Overlay Table", -98, mainDir, arm9ovFile, out arm9ovs);
             loadNamelessFiles(mainDir);
+
+
+            //This might fail on some ROM's
+            //So it's tried and catched
+
+            arm9bin = new Arm9Binary(arm9binFile);
+            try
+            {
+//                arm9bin = new Arm9Binary(arm9binFile);
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex.Message);
+                Console.Out.WriteLine(ex.StackTrace);
+            }
         }
 
         private void loadOvTable(String dirName, int id, Directory parent, File table, out OverlayFile[] arr)
@@ -118,65 +134,5 @@ namespace NSMBe4.DSFileSystem
             headerFile.setUintAt(0x80, end);
             headerFile.UpdateCRC16();
         }
-
-        #region Patching ARM9
-
-        public void writeToRamAddr(int ramAddr, uint val, int ovId)
-        {
-            Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}", ramAddr, val));
-
-            if (ovId != -1)
-            {
-                foreach (OverlayFile of in arm9ovs)
-                    if (of.ovId == ovId)
-                    {
-                        of.setUintAt((int)(ramAddr - of.ramAddr), val);
-                        return;
-                    }
-
-                throw new Exception("ERROR: WRONG OVERLAY");
-            }
-
-            foreach (Arm9BinSection s in arm9binFile.sections)
-                if (s.isAddrIn(ramAddr))
-                {
-                    s.writeTo(ramAddr, val);
-                    return;
-                }
-
-            foreach (OverlayFile f in arm9ovs)
-                if (f.ramAddr <= ramAddr && f.ramAddr + f.ramSize > ramAddr)
-                {
-                    f.setUintAt((int)(ramAddr - f.ramAddr), val);
-                    return;
-                }
-
-            throw new Exception("ERROR: WRONG FILE");
-        }
-
-        public uint readFromRamAddr(int ramAddr, int ovId)
-        {
-            Console.Out.WriteLine(String.Format("READFROM {0:X8}", ramAddr));
-
-            if (ovId != -1)
-            {
-                foreach (OverlayFile of in arm9ovs)
-                    if (of.ovId == ovId)
-                        return of.getUintAt((int)(ramAddr - of.ramAddr));
-
-                throw new Exception("ERROR: WRONG OVERLAY");
-            }
-
-            foreach (Arm9BinSection s in arm9binFile.sections)
-                if (s.isAddrIn(ramAddr))
-                    return s.readFrom(ramAddr);
-
-            foreach (OverlayFile f in arm9ovs)
-                if (f.ramAddr <= ramAddr && f.ramAddr + f.ramSize > ramAddr)
-                    return f.getUintAt((int)(ramAddr - f.ramAddr));
-
-            throw new Exception("ERROR: WRONG FILE");
-        }
-        #endregion
     }
 }
