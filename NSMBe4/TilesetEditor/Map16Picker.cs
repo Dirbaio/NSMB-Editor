@@ -30,6 +30,8 @@ namespace NSMBe4
         Image map16Image;
         int selx = -1, sely = -1;
         int hovx = -1, hovy = -1;
+        public int qx = -1;
+        public int qy = -1;
         int tileCount;
 
         public Map16Picker()
@@ -81,6 +83,8 @@ namespace NSMBe4
             e.Graphics.DrawImage(map16Image, 0, 0);
             e.Graphics.DrawRectangle(Pens.White, selx * 16, sely * 16, 16, 16);
             e.Graphics.DrawRectangle(Pens.White, hovx * 16, hovy * 16, 16, 16);
+            if (qx != -1)
+                e.Graphics.DrawRectangle(Pens.Yellow, selx * 16+qx*8, sely * 16+qy*8, 8, 8);
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)

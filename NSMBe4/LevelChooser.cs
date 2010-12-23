@@ -701,9 +701,9 @@ namespace NSMBe4 {
 
         private void padarm7bin_Click(object sender, EventArgs e)
         {
+            ROM.FS.loadArm9Bin();
             PatchMaker.compilePatch(ROM.romfile.Directory);
             PatchMaker.generatePatch(ROM.romfile.Directory);
-            
         }
 
         private void parseFileListBtn_Click(object sender, EventArgs e)
@@ -762,7 +762,7 @@ namespace NSMBe4 {
 
         private void encryptFAT_Click(object sender, EventArgs e)
         {
-            //LOL
+            //LOL. Nothing for you here.
         }
 
         private void dumpMapButton_Click(object sender, EventArgs e)

@@ -32,6 +32,8 @@ namespace NSMBe4
         NSMBTileset.Map16Quarter selQuarter = null;
         int selTileNum = -1;
         bool DataUpdateFlag = false;
+        int qx = 0;
+        int qy = 0;
 
         public delegate void mustRepaintObjectsD();
         public event mustRepaintObjectsD mustRepaintObjects;
@@ -55,12 +57,25 @@ namespace NSMBe4
             this.selTileNum = tile;
             if(t.TileBehaviors != null)
                 tileBehavior.setArray(t.TileBehaviors[tile]);
-            selectQuarter(selTile.topLeft);
+            selectQuarter();
         }
 
-        private void selectQuarter(NSMBTileset.Map16Quarter selQuarter)
+        private void selectQuarter()
         {
-            this.selQuarter = selQuarter;
+            if (qx == 0)
+                if (qy == 0)
+                    selQuarter = selTile.topLeft;
+                else
+                    selQuarter = selTile.bottomLeft;
+            else
+                if (qy == 0)
+                    selQuarter = selTile.topRight;
+                else
+                    selQuarter = selTile.bottomRight;
+
+            map16Picker1.qx = qx;
+            map16Picker1.qy = qy;
+            map16Picker1.Refresh();
             updateQuarterInfo();
         }
 
@@ -174,28 +189,36 @@ namespace NSMBe4
         {
             if (selTile == null)
                 return;
-            selectQuarter(selTile.topLeft);
+            qx = 0;
+            qy = 0;
+            selectQuarter();
         }
 
         private void editQ3_Click(object sender, EventArgs e)
         {
             if (selTile == null)
                 return;
-            selectQuarter(selTile.topRight);
+            qx = 1;
+            qy = 0;
+            selectQuarter();
         }
 
         private void editQ2_Click(object sender, EventArgs e)
         {
             if (selTile == null)
                 return;
-            selectQuarter(selTile.bottomLeft);
+            qx = 0;
+            qy = 1;
+            selectQuarter();
         }
 
         private void editQ4_Click(object sender, EventArgs e)
         {
             if (selTile == null)
                 return;
-            selectQuarter(selTile.bottomRight);
+            qx = 1;
+            qy = 1;
+            selectQuarter();
         }
 
         private void tileNumber_ValueChanged(object sender, EventArgs e)
@@ -278,6 +301,32 @@ namespace NSMBe4
             selectTile(0);
             t.repaintAllMap16();
             repaint();
+        }
+
+        private void tilePicker1_QuarterChanged(int dx, int dy)
+        {
+            if (dx == -1 && qx == 0)
+                selTileNum--;
+            if (dx == 1 && qx == 1)
+                selTileNum++;
+
+            if (dx != 0) qx = 1 - qx;
+
+            if (dy == -1 && qy == 0)
+                selTileNum -= 16;
+            if (dy == 1 && qy == 1)
+                selTileNum += 16;
+
+            if (dy != 0) qy = 1 - qy;
+
+            if (selTileNum < 0) selTileNum = 0;
+            if (selTileNum >= t.Map16.Length) selTileNum = t.Map16.Length - 1;
+
+            selectQuarter();
+            map16Picker1_TileSelected(selTileNum);
+            map16Picker1.qx = qx;
+            map16Picker1.qy = qy;
+            map16Picker1.selectTile(selTileNum);
         }
     }
 }

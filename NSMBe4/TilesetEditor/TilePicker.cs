@@ -35,9 +35,13 @@ namespace NSMBe4
         public TilePicker()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.Selectable, true);
         }
+
         public delegate void TileSelectedd(int tile, bool second);
         public event TileSelectedd TileSelected;
+        public delegate void QuarterChangedd(int dx, int dy);
+        public event QuarterChangedd QuarterChanged;
 
         NSMBTileset t;
 
@@ -77,6 +81,7 @@ namespace NSMBe4
                 if (TileSelected != null)
                     TileSelected(t, second);
             }
+            this.Focus();
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -102,5 +107,21 @@ namespace NSMBe4
             hovy = -1;
             pictureBox1.Invalidate(true);
         }
+
+        private void TilePicker_KeyPress(object sender, KeyPressEventArgs e)
+        {
+//            Console.Out.WriteLine("Key pressed: " + e.KeyChar);
+            if(QuarterChanged == null) return;
+
+            if (e.KeyChar == 'a' || e.KeyChar == 'A')
+                QuarterChanged(-1, 0);
+            if (e.KeyChar == 'w' || e.KeyChar == 'W')
+                QuarterChanged(0, -1);
+            if (e.KeyChar == 's' || e.KeyChar == 'S')
+                QuarterChanged(0, 1);
+            if (e.KeyChar == 'd' || e.KeyChar == 'D')
+                QuarterChanged(1, 0);
+        }
+
     }
 }

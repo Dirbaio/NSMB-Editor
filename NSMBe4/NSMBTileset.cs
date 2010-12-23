@@ -763,6 +763,8 @@ namespace NSMBe4
             public ObjectDefTile(ByteArrayInputStream inp, NSMBTileset t)
             {
                 this.t = t;
+                if (inp.available() < 1) return;
+
                 controlByte = inp.readByte();
 
                 if (!controlTile)

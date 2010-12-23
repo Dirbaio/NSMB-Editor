@@ -329,6 +329,7 @@
             this.tilePicker1.Size = new System.Drawing.Size(423, 224);
             this.tilePicker1.TabIndex = 1;
             this.tilePicker1.TileSelected += new NSMBe4.TilePicker.TileSelectedd(this.tilePicker1_TileSelected);
+            this.tilePicker1.QuarterChanged += new NSMBe4.TilePicker.QuarterChangedd(this.tilePicker1_QuarterChanged);
             // 
             // map16Picker1
             // 

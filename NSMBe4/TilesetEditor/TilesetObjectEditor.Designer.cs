@@ -55,7 +55,6 @@
             this.emptyTileButton = new System.Windows.Forms.Button();
             this.slopeControlButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.editZone)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -399,7 +398,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.editZone)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

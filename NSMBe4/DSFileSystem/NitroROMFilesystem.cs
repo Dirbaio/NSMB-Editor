@@ -70,21 +70,6 @@ namespace NSMBe4.DSFileSystem
             loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile, out arm7ovs);
             loadOvTable("ARM9 Overlay Table", -98, mainDir, arm9ovFile, out arm9ovs);
             loadNamelessFiles(mainDir);
-
-
-            //This might fail on some ROM's
-            //So it's tried and catched
-
-            arm9bin = new Arm9Binary(arm9binFile);
-            try
-            {
-//                arm9bin = new Arm9Binary(arm9binFile);
-            }
-            catch (Exception ex)
-            {
-                Console.Out.WriteLine(ex.Message);
-                Console.Out.WriteLine(ex.StackTrace);
-            }
         }
 
         private void loadOvTable(String dirName, int id, Directory parent, File table, out OverlayFile[] arr)
@@ -133,6 +118,12 @@ namespace NSMBe4.DSFileSystem
             uint end = (uint)getFilesystemEnd();
             headerFile.setUintAt(0x80, end);
             headerFile.UpdateCRC16();
+        }
+
+        public void loadArm9Bin()
+        {
+            if (arm9bin == null)
+                arm9bin = new Arm9Binary(arm9binFile);
         }
     }
 }
