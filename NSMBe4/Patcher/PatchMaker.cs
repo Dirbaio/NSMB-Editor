@@ -56,15 +56,20 @@ namespace NSMBe4.Patcher
 
                 if (ind != -1)
                 {
-                    int destRamAddr= parseHex(l.Substring(0, 8));
-                    int ramAddr = parseHex(l.Substring(ind + 5, 8));
+                    int destRamAddr= parseHex(l.Substring(0, 8));    //Redirect dest addr
+                    int ramAddr = parseHex(l.Substring(ind + 5, 8)); //Patched addr
                     int val = 0;
 
                     int ovId = -1;
                     if (l.Contains("_ov_"))
                         ovId = parseHex(l.Substring(l.IndexOf("_ov_") + 4, 2));
 
+                    int patchCategory = ovId + 1;
+                    if (patchCategory == 0)
+                        patchCategory = ROM.FS.arm9bin.getPatchCategoryAtAddr(ramAddr);
+
                     string cmd = l.Substring(ind, 4);
+                    int thisHookAddr = 0;
                     if (cmd == "nsub")
                         val = makeBranchOpcode(ramAddr, destRamAddr, false);
                     else if (cmd == "repl")
@@ -72,6 +77,7 @@ namespace NSMBe4.Patcher
                     else if (cmd == "hook")
                     {
                         //Jump to the hook addr
+                        thisHookAddr = hookAddr;
                         val = makeBranchOpcode(ramAddr, hookAddr, true);
 
                         uint originalOpcode = ROM.FS.arm9bin.readFromRamAddr(ramAddr, ovId);
@@ -81,7 +87,9 @@ namespace NSMBe4.Patcher
                         hookAddr += 4;
                     }
 
-                    patchstruct.writeInt(ovId + 1);
+                    Console.Out.WriteLine(String.Format("{0:X8}:{1:X8} = {2:X8}", patchCategory, ramAddr, val));
+                    Console.Out.WriteLine(String.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
+                    patchstruct.writeInt(patchCategory);
                     patchstruct.writeInt(ramAddr);
                     patchstruct.writeInt(val);
 

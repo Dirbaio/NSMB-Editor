@@ -100,21 +100,60 @@ namespace  NSMBe4.DSFileSystem
         public uint readFromRamAddr(int ramAddr, int ovId)
         {
             Console.Out.WriteLine(String.Format("READFROM {0:X8}", ramAddr));
-            
+
             if (ovId != -1)
             {
                 foreach (OverlayFile of in ROM.FS.arm9ovs)
                     if (of.ovId == ovId)
-                        return of.getUintAt((int)(ramAddr - of.ramAddr));
+                        return of.readFromRamAddr(ramAddr);
 
-                throw new Exception("ERROR: WRONG OVERLAY");
+                throw new Exception("ERROR: Overlay ID " + ovId + " doesn't exist.");
             }
-            
+
+            ovId = -1;
+            uint res = 0;
+            foreach (OverlayFile of in ROM.FS.arm9ovs)
+                if (of.isAddrIn(ramAddr))
+                {
+                    if (ovId == -1)
+                    {
+                        ovId = (int)of.ovId;
+                        res = of.readFromRamAddr(ramAddr);
+                    }
+//                    else
+//                        throw new Exception("ERROR: Address " + ramAddr.ToString("X8") + " is in more than 1 overlay.");
+                }
+
+            if (ovId != -1) return res;
+
             foreach (Arm9BinSection s in sections)
                 if (s.isAddrIn(ramAddr))
                     return s.readFrom(ramAddr);
 
-            throw new Exception("ERROR: ADDR NOT FOUND");
+            throw new Exception("ERROR: The address " + ramAddr.ToString("X8") + "is not in an overlay or main binary.");
+        }
+
+        //Returns 0 if addr in main bin, ovNum+1 if only one overlay at addr
+        //Throws error if more than 1 ov
+        public int getPatchCategoryAtAddr(int ramAddr)
+        {
+            int ovId = -1;
+            foreach (OverlayFile of in ROM.FS.arm9ovs)
+                if (of.isAddrIn(ramAddr))
+                {
+                    if(ovId == -1)
+                        ovId = (int)of.ovId;
+//                    else
+//                        throw new Exception("ERROR: Address "+ramAddr.ToString("X8")+" is in more than 1 overlay.");
+                }
+
+            if(ovId != -1) return ovId+1;
+
+            foreach (Arm9BinSection s in sections)
+                if (s.isAddrIn(ramAddr))
+                    return 0;
+
+            throw new Exception("ERROR: The address " + ramAddr.ToString("X8") + "is not in an overlay or main binary.");
         }
     }
 }

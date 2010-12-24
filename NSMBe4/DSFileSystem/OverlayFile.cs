@@ -10,6 +10,7 @@ namespace NSMBe4.DSFileSystem
         public File ovTableFile;
         public uint ovTableOffs;
         public uint ovId, ramAddr, ramSize, bssSize, staticInitStart, staticInitEnd;
+        byte[] decompressedData;
 
         public bool isCompressed
         {
@@ -69,10 +70,37 @@ namespace NSMBe4.DSFileSystem
             return data;
         }
 
+        public void load()
+        {
+            if (decompressedData != null) return;
+
+            decompressedData = getContents();
+            if (isCompressed)
+                decompressedData = ROM.DecompressOverlay(decompressedData);
+        }
+
         public override void enableEdition()
         {
-            decompress();
+//            decompress();
             base.enableEdition();
+        }
+
+        public bool isAddrIn(int addr)
+        {
+            return addr >= ramAddr && addr < ramAddr + ramSize;
+        }
+
+        public uint readFromRamAddr(int addr)
+        {
+            load();
+            addr -= (int)ramAddr;
+
+            int res = 0;
+            res |= decompressedData[addr + 0] << 0;
+            res |= decompressedData[addr + 1] << 8;
+            res |= decompressedData[addr + 2] << 16;
+            res |= decompressedData[addr + 3] << 24;
+            return (uint)res;
         }
     }
 }
