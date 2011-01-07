@@ -763,6 +763,26 @@ namespace NSMBe4 {
         private void encryptFAT_Click(object sender, EventArgs e)
         {
             //LOL. Nothing for you here.
+            String path = ROM.romfile.Directory.FullName;
+            FileStream fs = new FileStream(path + "/introload.arm9", FileMode.Open);
+            byte[] arm9 = new byte[fs.Length];
+            fs.Read(arm9, 0, (int)fs.Length);
+            fs.Close();
+
+            byte[] oldarm9 = ROM.FS.arm9binFile.getContents();
+            Array.Copy(oldarm9, 0, arm9, 0, 0x800); //Weird secure area shit??
+            ROM.FS.arm9binFile.beginEdit(this);
+            ROM.FS.arm9binFile.replace(arm9, this);
+            ROM.FS.arm9binFile.endEdit(this);
+
+            fs = new FileStream(path + "/introload.ewram.arm7", FileMode.Open);
+            byte[] arm7 = new byte[fs.Length];
+            fs.Read(arm7, 0, (int)fs.Length);
+            fs.Close();
+
+            ROM.FS.arm7binFile.beginEdit(this);
+            ROM.FS.arm7binFile.replace(arm7, this);
+            ROM.FS.arm7binFile.endEdit(this);
         }
 
         private void dumpMapButton_Click(object sender, EventArgs e)
@@ -810,13 +830,14 @@ namespace NSMBe4 {
 
         private void bootInsertButton_Click(object sender, EventArgs e)
         {
-            PatchCompiler.compilePatch(0x02000C00, ROM.romfile.Directory);
+            DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName + "/loader");
+            PatchCompiler.compilePatch(0x02000C00, dir);
             ROM.FS.arm9binFile.beginEdit(this);
 
             byte[] data = ROM.FS.arm9binFile.getContents();
 
 
-            FileInfo f = new FileInfo(ROM.romfile.Directory.FullName + "/newcode.bin");
+            FileInfo f = new FileInfo(dir.FullName + "/newcode.bin");
             FileStream fs = f.OpenRead();
             byte[] newdata = new byte[fs.Length];
             fs.Read(newdata, 0, (int)fs.Length);

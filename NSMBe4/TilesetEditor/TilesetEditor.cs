@@ -151,8 +151,15 @@ namespace NSMBe4
             if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelAll"), "NSMB Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 t.Objects = new NSMBTileset.ObjectDef[0];
-                foreach (NSMBTileset.Map16Tile tile in t.Map16)
-                    tile.makeEmpty();
+//                foreach (NSMBTileset.Map16Tile tile in t.Map16)
+//                    tile.makeEmpty();
+                foreach (byte[] beh in t.TileBehaviors)
+                {
+                    beh[0] = 0;
+                    beh[1] = 0;
+                    beh[2] = 0;
+                    beh[3] = 0;
+                }
                 mustRepaintObjects();
             }
         }

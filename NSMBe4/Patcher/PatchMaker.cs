@@ -42,6 +42,8 @@ namespace NSMBe4.Patcher
             f = new FileInfo(romdir.FullName + "/newcode.sym");
             StreamReader s = f.OpenText();
 
+            int setupAddr = -1;
+            int mainPatchAddr = -1;
             while (!s.EndOfStream)
             {
                 string l = s.ReadLine();
@@ -53,6 +55,11 @@ namespace NSMBe4.Patcher
                     ind = l.IndexOf("hook_");
                 if (l.Contains("repl_"))
                     ind = l.IndexOf("repl_");
+
+                if (l.Contains("NSMBEPatcher_Setup"))
+                    setupAddr = parseHex(l.Substring(0, 8));
+                if (l.Contains("NSMBEPatcher_ApplyMainPatch"))
+                    mainPatchAddr = parseHex(l.Substring(0, 8));
 
                 if (ind != -1)
                 {
@@ -128,15 +135,23 @@ namespace NSMBe4.Patcher
             arm9 = newarm9b;
 
 
-            String a = "PatchMaker.cs:98";
+            String a = "PatchMaker.cs:1";
             ROM.FS.arm9binFile.beginEdit(a);
             ROM.FS.arm9binFile.replace(arm9, a);
             ROM.FS.arm9binFile.endEdit(a);
 
-            ROM.FS.arm9binFile.setUintAt(0x0F90, offs + 0x02000000);
-            ROM.FS.arm9binFile.setUintAt(0x0F94, offs + 0x02000000 + (uint)patchDataArray.Length);
-            ROM.FS.arm9binFile.setUintAt(0x0F98, (uint)codeAddr);
-            ROM.FS.arm9binFile.setUintAt(0x0F9C, (uint)patchStructOffs);
+            ROM.FS.arm9binFile.setUintAt(0x800, 0xE1A00000);
+            int preSetupAddr = (int)( setupAddr-codeAddr + offs+0x02000000);
+            ROM.FS.arm9binFile.setUintAt(0x804, (uint)makeBranchOpcode(0x02000804, preSetupAddr, true));
+            ROM.FS.arm9binFile.setUintAt(preSetupAddr - 0x0200000C, offs + 0x02000000);
+            ROM.FS.arm9binFile.setUintAt(preSetupAddr - 0x02000008, offs + 0x02000000 + (uint)patchDataArray.Length);
+            ROM.FS.arm9binFile.setUintAt(preSetupAddr - 0x02000004, (uint)codeAddr);
+
+
+            int prePatchAddr = (int)(mainPatchAddr - codeAddr + offs + 0x02000000);
+            ROM.FS.arm9binFile.setUintAt(prePatchAddr - 0x02000004, (uint)patchStructOffs);
+            ROM.FS.arm9binFile.setUintAt(0x8E4, (uint)makeBranchOpcode(0x020008E4, mainPatchAddr, true));
+
             ROM.FS.arm9binFile.setUintAt(0x0FA0, offs);
 
 

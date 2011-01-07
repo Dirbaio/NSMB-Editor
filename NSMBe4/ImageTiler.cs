@@ -35,7 +35,7 @@ namespace NSMBe4
         public ImageTiler(Bitmap b)
         {
             if(b.Size != new Size(512,512))
-                throw new Exception("WRONG SIZE, FUCK YOU!"); // lol
+                throw new Exception("Wrong image size");
 
             ProgressWindow p = new ProgressWindow(LanguageManager.Get("BgImport", "Importing"));
             p.Show();
@@ -145,7 +145,7 @@ namespace NSMBe4
             bb.Save("C:\\image2.png");
             new ImagePreviewer(bb).Show();*/
 
-            //COMPACTFIY TILES AND MAKE THE TILE BUFFER!!!
+            //COMPACTIFY TILES AND MAKE THE TILE BUFFER!!!
             tileBuffer = new Bitmap(countUsedTiles() * 8, 8, PixelFormat.Format32bppArgb);
             int[] newTileNums = new int[tileCount];
             int nt = 0;
@@ -160,6 +160,7 @@ namespace NSMBe4
                     nt++;
                 }
             }
+            new ImagePreviewer(tileBuffer).Show();
 
             for (int xt = 0; xt < 64; xt++)
                 for (int yt = 0; yt < 64; yt++)

@@ -33,6 +33,7 @@ namespace NSMBe4
         public int qx = -1;
         public int qy = -1;
         int tileCount;
+        public bool map16Editing = false;
 
         public Map16Picker()
         {
@@ -63,11 +64,17 @@ namespace NSMBe4
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            
             int tx = e.X / 16;
             int ty = e.Y / 16;
             int t = ty * 16 + tx;
             if (t >= 0 && t < tileCount)
             {
+                if (Control.ModifierKeys == Keys.Control && map16Editing)
+                {
+                    int ot = selx + sely * 16;
+                    Array.Copy(this.t.TileBehaviors[ot], this.t.TileBehaviors[t], 4);
+                }
                 selx = tx;
                 sely = ty;
                 if (TileSelected != null)

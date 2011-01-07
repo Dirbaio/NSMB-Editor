@@ -39,6 +39,7 @@ namespace NSMBe4 {
             this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.bootInsertButton = new System.Windows.Forms.Button();
             this.insertRomButton = new System.Windows.Forms.Button();
             this.encryptFAT = new System.Windows.Forms.Button();
             this.parseFileListBtn = new System.Windows.Forms.Button();
@@ -65,7 +66,6 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.bootInsertButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -99,7 +99,7 @@ namespace NSMBe4 {
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(498, 398);
+            this.tabPage2.Size = new System.Drawing.Size(506, 449);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -177,7 +177,7 @@ namespace NSMBe4 {
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(498, 398);
+            this.tabPage1.Size = new System.Drawing.Size(506, 449);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -227,6 +227,18 @@ namespace NSMBe4 {
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ASM Tools";
             // 
+            // bootInsertButton
+            // 
+            this.bootInsertButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bootInsertButton.Location = new System.Drawing.Point(6, 106);
+            this.bootInsertButton.Name = "bootInsertButton";
+            this.bootInsertButton.Size = new System.Drawing.Size(230, 23);
+            this.bootInsertButton.TabIndex = 4;
+            this.bootInsertButton.Text = "Make and insert at 0x02000C00";
+            this.bootInsertButton.UseVisualStyleBackColor = true;
+            this.bootInsertButton.Click += new System.EventHandler(this.bootInsertButton_Click);
+            // 
             // insertRomButton
             // 
             this.insertRomButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -247,7 +259,7 @@ namespace NSMBe4 {
             this.encryptFAT.Name = "encryptFAT";
             this.encryptFAT.Size = new System.Drawing.Size(230, 23);
             this.encryptFAT.TabIndex = 3;
-            this.encryptFAT.Text = "cryptFat";
+            this.encryptFAT.Text = "Replace binaries";
             this.encryptFAT.UseVisualStyleBackColor = true;
             this.encryptFAT.Click += new System.EventHandler(this.encryptFAT_Click);
             // 
@@ -474,18 +486,6 @@ namespace NSMBe4 {
             // saveTextFileDialog
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
-            // 
-            // bootInsertButton
-            // 
-            this.bootInsertButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.bootInsertButton.Location = new System.Drawing.Point(6, 106);
-            this.bootInsertButton.Name = "bootInsertButton";
-            this.bootInsertButton.Size = new System.Drawing.Size(230, 23);
-            this.bootInsertButton.TabIndex = 4;
-            this.bootInsertButton.Text = "Make and insert at 0x02000C00";
-            this.bootInsertButton.UseVisualStyleBackColor = true;
-            this.bootInsertButton.Click += new System.EventHandler(this.bootInsertButton_Click);
             // 
             // LevelChooser
             // 

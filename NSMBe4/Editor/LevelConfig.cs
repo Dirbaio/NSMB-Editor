@@ -431,8 +431,9 @@ namespace NSMBe4 {
             PalFile.replace(ROM.LZ77_Compress(pal), this);
             PalFile.endEdit(this);
             GFXFile.beginEdit(this);
-            GFXFile.replace(ROM.LZ77_Compress(ImageIndexer.indexImageWithPalette(b, palette)), this);
+            GFXFile.replace(ROM.LZ77_Compress(ImageIndexer.indexImageWithPalette(t.tileBuffer, palette)), this);
             GFXFile.endEdit(this);
+            b.Dispose();
 
             ByteArrayOutputStream layout = new ByteArrayOutputStream();
             for (int y = 0; y < 64; y++)
@@ -442,6 +443,7 @@ namespace NSMBe4 {
             LayoutFile.beginEdit(this);
             LayoutFile.replace(ROM.LZ77_Compress(layout.getArray()), this);
             LayoutFile.endEdit(this);
+            
         }
 
         private void bgTopLayerImportButton_Click(object sender, EventArgs e)
