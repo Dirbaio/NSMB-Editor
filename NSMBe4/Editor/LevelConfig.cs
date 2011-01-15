@@ -358,10 +358,11 @@ namespace NSMBe4 {
                 return;
             }
 
-            saveFileDialog1.ShowDialog();
-            string filename = saveFileDialog1.FileName;
-            RenderBackground(GFXFile, PalFile, LayoutFile, 256).Save(filename);
-
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filename = saveFileDialog1.FileName;
+                RenderBackground(GFXFile, PalFile, LayoutFile, 256).Save(filename);
+            }
         }
 
         private void bgBottomLayerExportButton_Click(object sender, EventArgs e)
@@ -383,11 +384,13 @@ namespace NSMBe4 {
             {
                 MessageBox.Show(LanguageManager.Get("LevelConfig", "BrokenBG"));
                 return;
-            } 
-            
-            saveFileDialog1.ShowDialog();
-            string filename = saveFileDialog1.FileName;
-            RenderBackground(GFXFile, PalFile, LayoutFile, 576).Save(filename);
+            }
+
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filename = saveFileDialog1.FileName;
+                RenderBackground(GFXFile, PalFile, LayoutFile, 576).Save(filename);
+            }
         }
 
         private void bgBottomLayerImportButton_Click(object sender, EventArgs e)

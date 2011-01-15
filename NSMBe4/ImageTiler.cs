@@ -31,6 +31,7 @@ namespace NSMBe4
         public int[,] tileMap;
         float[,] tileDiffs;
         public Bitmap tileBuffer;
+        private List<TileDiff> diffs;
 
         public ImageTiler(Bitmap b)
         {
@@ -44,9 +45,10 @@ namespace NSMBe4
             tileMap = new int[64,64];
             tileDiffs = new float[tileCount, tileCount];
             tiles = new Tile[tileCount];
+            diffs = new List<TileDiff>();
 
             //LOAD TILES
-
+            p.WriteLine("1/4: Loading tiles...");
             int tileNum = 0;
             for (int xt = 0; xt < 64; xt++)
             {
@@ -72,6 +74,10 @@ namespace NSMBe4
                 Console.Out.WriteLine(xt);
             }
 
+            p.WriteLine("2/4: Sorting tiles...");
+            diffs.Sort();
+
+            p.WriteLine("3/4: Merging tiles...");
             //REDUCE TILE COUNT
             int used = countUsedTiles();
             int mustRemove = used - 320;
@@ -81,45 +87,33 @@ namespace NSMBe4
                 p.SetMax(mustRemove);
             }
 
+            List<TileDiff>.Enumerator en = diffs.GetEnumerator();
+            
             while (used > 320)
             {
-                //find the two most similar tiles
-                int best1 = 0;
-                int best2 = 0;
-                float bestdif = 0;
-                bool first = true;
-                for(int t1 = 0; t1 < tileCount; t1++)
-                    for (int t2 = 0; t2 < tileCount; t2++)
-                    {
-                        if (tiles[t1] == null) continue;
-                        if (tiles[t2] == null) continue;
-                        if (t1 == t2) continue;
+                en.MoveNext();
+                TileDiff td = en.Current;
+                int t1 = td.t1;
+                int t2 = td.t2;
+                if (tiles[t1] == null) continue;
+                if (tiles[t2] == null) continue;
+                if (t1 == t2) throw new Exception("Should never happen");
 
-                        if (first || tileDiffs[t1, t2] < bestdif)
-                        {
-                            best1 = t1;
-                            best2 = t2;
-                            bestdif = tileDiffs[t1, t2];
-//                            Console.Out.WriteLine(tileDiffs[t1, t2]);
-                            first = false;
-                        }
-                    }
-
-//                Console.Out.WriteLine("Used: " + countUsedTiles() + ", replacing " + best2 + " with " + best1 + ", diff " + bestdif);
-                tiles[best1].merge(tiles[best2]);
-                fillDiffs(best1);
+                Console.Out.WriteLine("Used: " + countUsedTiles() + ", replacing " + t2 + " with " + t1 + ", diff " + td.diff);
+                tiles[t1].merge(tiles[t2]);
+//                fillDiffs(best1);
                 //fusionate them
                 for (int xt = 0; xt < 64; xt++)
                     for (int yt = 0; yt < 64; yt++)
-                        if (tileMap[xt,yt] == best2)
-                            tileMap[xt,yt] = best1;
+                        if (tileMap[xt,yt] == t2)
+                            tileMap[xt,yt] = t1;
 
-                tiles[best2] = null;
+                tiles[t2] = null;
                 used = countUsedTiles();
                 p.setValue(mustRemove - used + 320);
             }
 
-
+            p.WriteLine("4/4: Buiding tile map...");
             //DEBUG, DEBUG...
             /*
             for (int yt = 0; yt < 64; yt++)
@@ -160,11 +154,14 @@ namespace NSMBe4
                     nt++;
                 }
             }
+
             new ImagePreviewer(tileBuffer).Show();
 
             for (int xt = 0; xt < 64; xt++)
                 for (int yt = 0; yt < 64; yt++)
                     tileMap[xt, yt] = newTileNums[tileMap[xt, yt]];
+
+            p.WriteLine("Done! You can close this window now.");
         }
 
 
@@ -191,10 +188,15 @@ namespace NSMBe4
                 if (t == tile) continue;
                 if(tiles[t] == null) continue;
                 float diff = tiles[tile].difference(tiles[t]);
-                if (diff < 0.00000003)
+                if (diff < 0.0000003)
                     return t;
                 tileDiffs[tile,t] = diff;
                 tileDiffs[t,tile] = diff;
+                TileDiff td = new TileDiff();
+                td.diff = diff;
+                td.t1 = t;
+                td.t2 = tile;
+                diffs.Add(td);
 //                Console.Out.WriteLine(t+" "+tile+" "+diff);
             }
             return -1;
@@ -205,9 +207,13 @@ namespace NSMBe4
             if (a.A != b.A) return 10f;
 
             float res = 0;
-            res += (float)(a.R - b.R) * (float)(a.R - b.R) / 65536f;
+/*            res += (float)(a.R - b.R) * (float)(a.R - b.R) / 65536f;
             res += (float)(a.G - b.G) * (float)(a.G - b.G) / 65536f;
-            res += (float)(a.B - b.B) * (float)(a.B - b.B) / 65536f;
+            res += (float)(a.B - b.B) * (float)(a.B - b.B) / 65536f;*/
+
+            res += Math.Abs((float)(a.R - b.R)) / 256f;
+            res += Math.Abs((float)(a.G - b.G)) / 256f;
+            res += Math.Abs((float)(a.B - b.B)) / 256f;
 
             return res;
         }
@@ -267,6 +273,18 @@ namespace NSMBe4
                                   mean(a.B, b.B, wa, wb));
         }
 
+        private class TileDiff : IComparable<TileDiff>
+        {
+            public float diff;
+            public int t1, t2;
+
+            public int CompareTo(TileDiff t)
+            {
+                return diff.CompareTo(t.diff);
+            }
+        }
+
+
         private class Tile
         {
             public Color[,] data, d1, d2;
@@ -302,7 +320,7 @@ namespace NSMBe4
                     for (int y = 0; y < 8; y++)
                         data[x, y] = colorMean(data[x, y], b.data[x, y], count, b.count);
                 count += b.count;
-                makeReductions();
+//                makeReductions();
             }
         }
     }
