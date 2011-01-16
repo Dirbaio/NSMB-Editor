@@ -215,14 +215,14 @@ namespace NSMBe4
             if (a.A != b.A) return 10000f;
 
             float res = 0;
-            res += (float)(a.R - b.R) * (float)(a.R - b.R) / 65536f;
+            /*res += (float)(a.R - b.R) * (float)(a.R - b.R) / 65536f;
             res += (float)(a.G - b.G) * (float)(a.G - b.G) / 65536f;
             res += (float)(a.B - b.B) * (float)(a.B - b.B) / 65536f;
-            /*
+            */
             res += Math.Abs((float)(a.R - b.R)) / 256f;
             res += Math.Abs((float)(a.G - b.G)) / 256f;
             res += Math.Abs((float)(a.B - b.B)) / 256f;
-            */
+            
             return res;
         }
 
