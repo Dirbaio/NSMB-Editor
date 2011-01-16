@@ -48,7 +48,7 @@ namespace NSMBe4
             diffs = new List<TileDiff>();
 
             //LOAD TILES
-            p.WriteLine("1/4: Loading tiles...");
+            p.WriteLine("1/5: Loading tiles...");
             int tileNum = 0;
             for (int xt = 0; xt < 64; xt++)
             {
@@ -56,28 +56,35 @@ namespace NSMBe4
                 {
                     //                    Console.Out.WriteLine("Tile " + xt + " " + yt + ", " + tileNum);
                     tiles[tileNum] = new Tile(b, xt * 8, yt * 8);
-                    int eqTile = fillDiffs(tileNum);
-                    if (eqTile == -1)
-                    {
-                        eqTile = tileNum;
-                        tileNum++;
-                    }
-                    else
-                    {
-                        tiles[tileNum] = null;
-                        tiles[eqTile].count++;
-                    }
-
-                    tileMap[xt, yt] = eqTile;
+                    tileMap[xt, yt] = tileNum;
+                    tileNum++;
                     p.setValue(xt * 64 + yt);
                 }
                 Console.Out.WriteLine(xt);
             }
 
-            p.WriteLine("2/4: Sorting tiles...");
+            p.setValue(0);
+            p.SetMax(64 * 64);
+            p.WriteLine("2/5: Computing tile differences...");
+            for (int xt = 0; xt < 64*64; xt++)
+            {
+                for (int yt = 0; yt < xt; yt++)
+                {
+                    float diff = tiles[xt].difference(tiles[yt]);
+                    TileDiff td = new TileDiff();
+                    td.diff = diff;
+                    td.t1 = xt;
+                    td.t2 = yt;
+                    diffs.Add(td);
+                }
+                p.setValue(xt);
+            }
+
+//            p.WriteLine("Tiles merged in first pass: " + (64 * 64 - countUsedTiles()) + " of " + 64 * 64);
+            p.WriteLine("3/5: Sorting tiles...");
             diffs.Sort();
 
-            p.WriteLine("3/4: Merging tiles...");
+            p.WriteLine("4/5: Merging tiles...");
             //REDUCE TILE COUNT
             int used = countUsedTiles();
             int mustRemove = used - 320;
@@ -113,9 +120,10 @@ namespace NSMBe4
                 p.setValue(mustRemove - used + 320);
             }
 
-            p.WriteLine("4/4: Buiding tile map...");
-            //DEBUG, DEBUG...
+            p.WriteLine("5/5: Buiding tile map...");
             /*
+            //DEBUG, DEBUG...
+            
             for (int yt = 0; yt < 64; yt++)
             {
                 for (int xt = 0; xt < 64; xt++)
@@ -155,7 +163,7 @@ namespace NSMBe4
                 }
             }
 
-            new ImagePreviewer(tileBuffer).Show();
+//            new ImagePreviewer(tileBuffer).Show();
 
             for (int xt = 0; xt < 64; xt++)
                 for (int yt = 0; yt < 64; yt++)
@@ -188,7 +196,7 @@ namespace NSMBe4
                 if (t == tile) continue;
                 if(tiles[t] == null) continue;
                 float diff = tiles[tile].difference(tiles[t]);
-                if (diff < 0.0000003)
+                if (diff == 0)
                     return t;
                 tileDiffs[tile,t] = diff;
                 tileDiffs[t,tile] = diff;
@@ -204,17 +212,17 @@ namespace NSMBe4
 
         private static float colorDifference(Color a, Color b)
         {
-            if (a.A != b.A) return 10f;
+            if (a.A != b.A) return 10000f;
 
             float res = 0;
-/*            res += (float)(a.R - b.R) * (float)(a.R - b.R) / 65536f;
+            res += (float)(a.R - b.R) * (float)(a.R - b.R) / 65536f;
             res += (float)(a.G - b.G) * (float)(a.G - b.G) / 65536f;
-            res += (float)(a.B - b.B) * (float)(a.B - b.B) / 65536f;*/
-
+            res += (float)(a.B - b.B) * (float)(a.B - b.B) / 65536f;
+            /*
             res += Math.Abs((float)(a.R - b.R)) / 256f;
             res += Math.Abs((float)(a.G - b.G)) / 256f;
             res += Math.Abs((float)(a.B - b.B)) / 256f;
-
+            */
             return res;
         }
 
@@ -267,8 +275,7 @@ namespace NSMBe4
             if (a.A == 0) return b;
             if (b.A == 0) return a;
 
-            return Color.FromArgb(255,
-                                  mean(a.R, b.R, wa, wb),
+            return Color.FromArgb(mean(a.R, b.R, wa, wb),
                                   mean(a.G, b.G, wa, wb),
                                   mean(a.B, b.B, wa, wb));
         }
@@ -295,7 +302,13 @@ namespace NSMBe4
                 data = new Color[8,8];
                 for (int x = 0; x < 8; x++)
                     for (int y = 0; y < 8; y++)
-                        data[x,y] = b.GetPixel(x + xp, y + yp);
+                    {
+                        Color c = b.GetPixel(x + xp, y + yp);
+                        if (c.A < 128)
+                            data[x, y] = Color.Transparent;
+                        else
+                            data[x, y] = Color.FromArgb(c.R, c.G, c.B);
+                    }
                 makeReductions();
             }
 
@@ -307,9 +320,9 @@ namespace NSMBe4
             public float difference(Tile b)
             {
                 float res = 0;
-                res += colorMatrixBorderDiff(data, b.data) * 3;
-                res += colorMatrixDiff(d1, b.d1);
+                res += colorMatrixBorderDiff(data, b.data) * 5;
                 res += colorMatrixDiff(d2, b.d2);
+                res += colorMatrixDiff(d1, b.d1);
                 res *= count + b.count;
                 return res;
             }

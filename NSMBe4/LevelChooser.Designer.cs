@@ -29,7 +29,6 @@ namespace NSMBe4 {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelChooser));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.loadROMButton = new System.Windows.Forms.Button();
             this.hexEditLevelButton = new System.Windows.Forms.Button();
             this.exportLevelButton = new System.Windows.Forms.Button();
             this.importLevelButton = new System.Windows.Forms.Button();
@@ -90,7 +89,6 @@ namespace NSMBe4 {
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.loadROMButton);
             this.tabPage2.Controls.Add(this.hexEditLevelButton);
             this.tabPage2.Controls.Add(this.exportLevelButton);
             this.tabPage2.Controls.Add(this.importLevelButton);
@@ -104,21 +102,10 @@ namespace NSMBe4 {
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // loadROMButton
-            // 
-            this.loadROMButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadROMButton.Location = new System.Drawing.Point(416, 293);
-            this.loadROMButton.Name = "loadROMButton";
-            this.loadROMButton.Size = new System.Drawing.Size(76, 23);
-            this.loadROMButton.TabIndex = 5;
-            this.loadROMButton.Text = "<loadROM>";
-            this.loadROMButton.UseVisualStyleBackColor = true;
-            this.loadROMButton.Click += new System.EventHandler(this.loadROMButton_Click);
-            // 
             // hexEditLevelButton
             // 
             this.hexEditLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.hexEditLevelButton.Location = new System.Drawing.Point(263, 293);
+            this.hexEditLevelButton.Location = new System.Drawing.Point(345, 293);
             this.hexEditLevelButton.Name = "hexEditLevelButton";
             this.hexEditLevelButton.Size = new System.Drawing.Size(66, 23);
             this.hexEditLevelButton.TabIndex = 4;
@@ -151,7 +138,7 @@ namespace NSMBe4 {
             // editLevelButton
             // 
             this.editLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editLevelButton.Location = new System.Drawing.Point(335, 293);
+            this.editLevelButton.Location = new System.Drawing.Point(417, 293);
             this.editLevelButton.Name = "editLevelButton";
             this.editLevelButton.Size = new System.Drawing.Size(75, 23);
             this.editLevelButton.TabIndex = 1;
@@ -187,7 +174,7 @@ namespace NSMBe4 {
             this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
             this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(492, 392);
+            this.filesystemBrowser1.Size = new System.Drawing.Size(500, 443);
             this.filesystemBrowser1.TabIndex = 0;
             // 
             // tabPage3
@@ -535,7 +522,6 @@ namespace NSMBe4 {
         private FilesystemBrowser filesystemBrowser1;
         private System.Windows.Forms.Button mpPatch;
         private System.Windows.Forms.Button tilesetEditor;
-        private System.Windows.Forms.Button loadROMButton;
         private System.Windows.Forms.Button decompArm9Bin;
         private System.Windows.Forms.Button mpPatch2;
         private System.Windows.Forms.GroupBox groupBox2;
