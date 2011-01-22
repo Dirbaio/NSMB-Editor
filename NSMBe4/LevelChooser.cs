@@ -168,6 +168,8 @@ namespace NSMBe4 {
                 }
                 fs.close();
             }*/
+
+            new NSBTX(ROM.FS.getFileByName("I_dokan.nsbtx"));
         }
 
 
@@ -203,26 +205,6 @@ namespace NSMBe4 {
                         }
                     }
                 }
-            }
-        }
-
-        private void loadROMButton_Click(object sender, EventArgs e)
-        {
-            openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
-            if (openROMDialog.ShowDialog() == DialogResult.Cancel) {
-                return;
-            }
-            else {
-                for (int l = editors.Count - 1; l >= 0; l--)
-                {
-                    if (l < editors.Count - 1)
-                        return;
-                    editors[l].Close();
-                }
-                ROM.close();
-                ROM.load(openROMDialog.FileName);
-                filesystemBrowser1 = new FilesystemBrowser();
-                filesystemBrowser1.Load(ROM.FS);
             }
         }
 
@@ -677,6 +659,7 @@ namespace NSMBe4 {
             }
             fs.close();            
         }
+
         private void NarcReplace(string NarcName, string f1)
         {
             NarcFilesystem fs = new NarcFilesystem(ROM.FS.getFileByName(NarcName));

@@ -263,9 +263,6 @@
     <EmbeddedResource Include="MdiParentForm.resx">
       <DependentUpon>MdiParentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NSBMD\TextureEditor.resx">
-      <DependentUpon>TextureEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\Map16Editor.resx">
       <DependentUpon>Map16Editor.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -743,12 +740,6 @@
     <Compile Include="NSBMD\NSBTX.cs" />
     <Compile Include="NSBMD\Palette.cs" />
     <Compile Include="NSBMD\Texture.cs" />
-    <Compile Include="NSBMD\TextureEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NSBMD\TextureEditor.Designer.cs">
-      <DependentUpon>TextureEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="TilesetEditor\Map16Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>

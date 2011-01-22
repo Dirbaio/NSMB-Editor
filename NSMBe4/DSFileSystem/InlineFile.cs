@@ -18,7 +18,7 @@ namespace NSMBe4.DSFileSystem
         }
 
         public InlineFile(File parent, int offs, int len, string name, Directory parentDir, bool isLzCompressed)
-            :base(parent.parent, parentDir, parent.name+" - "+name)
+            :base(parent.parent, parentDir, parent.name+" - "+name + ":"+offs.ToString("X")+":"+len)
         {
             parentFile = parent;
             inlineOffs = offs;
@@ -69,7 +69,7 @@ namespace NSMBe4.DSFileSystem
 
         public override void refreshOffsets()
         {
-            fileBegin = parentFile.fileBegin + inlineLen;
+            fileBegin = parentFile.fileBegin + inlineOffs;
             fileSize = inlineLen;
         }
 

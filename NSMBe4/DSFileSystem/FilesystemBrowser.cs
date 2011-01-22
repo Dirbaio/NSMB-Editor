@@ -281,27 +281,21 @@ namespace NSMBe4.DSFileSystem
             String filename = f.name;
             filename = filename.ToLowerInvariant();
 
-            if(filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
-                    try
-                    {
-                        new TextureEditor(f).Show();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-
+            if (filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
+            {
+                    new NSBTX(f);
+            }
             else if (filename.EndsWith(".narc"))
                 new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
-            else if(filename.EndsWith(".carc"))
+            else if (filename.EndsWith(".carc"))
                 new FilesystemBrowserDialog(new NarcFilesystem(f, true)).Show();
             else if (filename.EndsWith("_ncl.bin"))
             {
                 new PaletteViewer(f).Show();
-//                LevelChooser.showImgMgr();
-//                LevelChooser.imgMgr.m.addPalette(new FilePalette(f));
+                //                LevelChooser.showImgMgr();
+                //                LevelChooser.imgMgr.m.addPalette(new FilePalette(f));
             }
-            else if(filename.EndsWith("_ncg.bin"))
+            else if (filename.EndsWith("_ncg.bin"))
             {
                 LevelChooser.showImgMgr();
                 LevelChooser.imgMgr.m.addImage(new Image2D(f, 256, false));

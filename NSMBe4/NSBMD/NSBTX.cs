@@ -26,23 +26,25 @@ namespace NSMBe4.NSBMD
     {
         File f;
         byte[] data;
-        uint texDataOffset;
-        uint palDataOffset;
-        uint palDefOffset;
-        uint palDataSize;
-        uint f5texDataOffset;
-        uint f5dataOffset;
+        int texDataOffset;
+        int palDataOffset;
+        int palDefOffset;
+        int palDataSize;
+        int f5texDataOffset;
+        int f5dataOffset;
 
         public Texture[] textures;
-        public Palette[] palettes;
+        PaletteDef[] palettes;
         public ByteArrayInputStream str;
 
         public NSBTX(File f)
         {
             this.f = f;
-            f.beginEdit(this);
+
             data = f.getContents();
             str = new ByteArrayInputStream(data);
+
+            bool LZd = false;
             if (str.readUInt() == 0x37375A4C) //LZ77
             {
                 byte[] ndata = new byte[data.Length-4];
@@ -50,17 +52,20 @@ namespace NSMBe4.NSBMD
 
                 data = ROM.LZ77_Decompress(ndata);
                 str = new ByteArrayInputStream(data);
+                LZd = true;
             }
 
             //look for TEX0 block
             //ugly, but i'm lazy to implement it properly.
             bool found = false;
+            int blockStart = 0;
             while (str.available(4))
             {
                 uint v = str.readUInt();
                 if (v == 0x30584554) // "TEX0"
                 {
                     str.setOrigin(str.getPos()-4);
+                    blockStart = (int)(str.getPos() - 4);
                     found = true;
                     break;
                 }
@@ -71,21 +76,30 @@ namespace NSMBe4.NSBMD
             if (!found)
             {
                 textures = new Texture[0];
-                palettes = new Palette[0];
+                palettes = new PaletteDef[0];
                 return;
             }
 
+            Console.Out.WriteLine("\n");
             //Read stuff
             str.seek(0x14);
-            texDataOffset = str.readUInt();
+            texDataOffset = str.readInt();
+            Console.Out.WriteLine("Texdata " + texDataOffset.ToString("X8"));
+
             str.seek(0x24);
-            f5texDataOffset = str.readUInt();
-            f5dataOffset = str.readUInt();
+            f5texDataOffset = str.readInt();
+            Console.Out.WriteLine("f5Texdata " + f5texDataOffset.ToString("X8"));
+            f5dataOffset = str.readInt();
+            Console.Out.WriteLine("f5data " + f5dataOffset.ToString("X8"));
+            
             str.seek(0x30);
-            palDataSize = str.readUInt() * 8;
+            palDataSize = str.readInt() * 8;
+            Console.Out.WriteLine("paldata size " + palDataSize.ToString("X8"));
             str.seek(0x34);
-            palDefOffset = str.readUInt();
-            palDataOffset = str.readUInt(); 
+            palDefOffset = str.readInt();
+            Console.Out.WriteLine("paldef " + palDefOffset.ToString("X8"));
+            palDataOffset = str.readInt();
+            Console.Out.WriteLine("paldata " + palDataOffset.ToString("X8"));
 
             //Read texture definitions
             str.seek(0x3D);
@@ -94,53 +108,72 @@ namespace NSMBe4.NSBMD
 
             for (int i = 0; i < textures.Length; i++)
             {
-                uint offset = (uint)(8 * str.readUShort());
+                int offset = 8 * str.readUShort() + blockStart;
                 ushort param = str.readUShort();
                 int format = (param >> 10) & 7;
+
                 if (format == 5)
                     offset += f5texDataOffset;
                 else
                     offset += texDataOffset;
+
                 int width = 8 << ((param >> 4) & 7);
                 int height = 8 << ((param >> 7) & 7);
                 bool color0 = ((param >> 13) & 1) != 0;
                 str.readUInt(); // unused
 
-                textures[i] = new Texture(this, color0, width, height, format, offset, "");
+                int size = width*height*Image3D.bpps[format]/8;
+                Console.Out.WriteLine(offset.ToString("X8") + " " + format + " " + width + "x" + height + " " + color0 + " LZ"+LZd);
                 if (format == 5)
+                {
+                }
+                else
+                {
+                    Image3D img = new Image3D(new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd), color0, width, height, format);
+                    LevelChooser.showImgMgr();
+                    LevelChooser.imgMgr.m.addImage(img);
+                }
+
+//                textures[i] = new Texture(this, color0, width, height, format, offset, "");
+/*                if (format == 5)
                 {
                     textures[i].f5DataOffset = f5dataOffset;
                     f5dataOffset += (uint)(width * height) / 16 * 2;
-                }
+                }*/
             }
 
-            for (int i = 0; i < textures.Length; i++)
-                textures[i].name = str.ReadString(16);
+//            for (int i = 0; i < textures.Length; i++)
+//                textures[i].name = str.ReadString(16);
 
 
 
             //Read palette definitions
             str.seek(palDefOffset+1);
-            palettes = new Palette[str.readByte()];
+            palettes = new PaletteDef[str.readByte()];
             str.skip((uint)(0xE + palettes.Length * 4));
 
             for (int i = 0; i < palettes.Length; i++)
             {
-                uint offset = (uint)(8 * str.readUShort() + palDataOffset);
+                int offset = 8 * str.readUShort() + palDataOffset + blockStart;
                 str.readUShort();
-                palettes[i] = new Palette(this, offset);
+                palettes[i] = new PaletteDef();
+                palettes[i].offs = offset;
             }
 
             for (int i = 0; i < palettes.Length; i++)
             {
                 palettes[i].name = str.ReadString(16);
                 if (i != palettes.Length - 1)
-                    palettes[i].size = palettes[i + 1].offset - palettes[i].offset;
-            }
+                    palettes[i].size = palettes[i + 1].offs - palettes[i].offs;
 
-            palettes[palettes.Length - 1].size = palDataOffset + palDataSize - palettes[palettes.Length - 1].offset;
-            foreach (Palette p in palettes)
-                p.load();
+            }
+            palettes[palettes.Length - 1].size = palDataOffset + palDataSize - palettes[palettes.Length - 1].offs;
+
+            for (int i = 0; i < palettes.Length; i++)
+            {
+                FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs, palettes[i].size, palettes[i].name, null, LZd));
+                LevelChooser.imgMgr.m.addPalette(pa);
+            }
 
 //            new ImagePreviewer(textures[0].render(palettes[0])).Show();
         }
@@ -153,6 +186,12 @@ namespace NSMBe4.NSBMD
         public void save()
         {
             f.replace(data, this);
+        }
+
+        class PaletteDef
+        {
+            public int offs, size;
+            public string name;
         }
     }
 }

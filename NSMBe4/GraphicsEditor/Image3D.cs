@@ -14,40 +14,23 @@ namespace NSMBe4
         public int width, height;
         public int format;
 
-//        byte[] data;
-
         public byte bpp
         {
             get { return bpps[format]; }
         }
 
-        public byte mask
-        {
-            get { return masks[format]; }
-        }
-        public byte cmask
-        {
-            get { return masks[format]; }
-        }
+        //                                 0  1  2  3  4  5  6  7
+        public static byte[] bpps  = new byte[] { 0, 8, 2, 4, 8, 0, 8, 16 };
 
-        //        public uint f5DataOffset;
-
-        //                                  0  1     2  3  4     5    6     7
-        static byte[] bpps  = new byte[] { 0, 8, 2, 4, 8, 0, 8, 16 };
-        static byte[] masks = new byte[] { 0, 0xFF, 3, 7, 0xFF, 0, 0xFF, 0x0 };
-        static byte[] cmsks = new byte[] { 0, 0x1F, 3, 7, 0xFF, 0, 0x07, 0x0 };
-
-
-
-        static string[] formatNames = {
-                                          "Error?",
-                                          "A3I5 Translucent Texture",
-                                          "4-Color Palette Texture", 
-                                          "16-Color Palette Texture", 
-                                          "256-Color Palette Texture",
-                                          "4x4-Texel Compressed Texture",
-                                          "A5I3 Translucent Texture",
-                                          "Direct Color Texture (UNSUPPORTED)"
+        public static string[] formatNames = {
+                                          "Error?", //0
+                                          "A3I5 Translucent", //1
+                                          "2bpp Paletted",  //2
+                                          "4bpp Paletted", //3
+                                          "8bpp Paletted",//4
+                                          "4x4-Texeled",//5
+                                          "A5I3 Translucent",//6
+                                          "16-bit Color Texture" //7
                                       };
 
         public Image3D(File f, bool color0, int width, int height, int format)
@@ -62,14 +45,67 @@ namespace NSMBe4
             data = f.getContents();
         }
 
+        private int getPixelVal(int x, int y)
+        {
+            int i = x + y * width;
+            if (bpp == 8) return data[i];
+            if (bpp == 16) return data[i * 2] | data[i * 2 + 1] << 8;
+            if (bpp == 4)
+            {
+                int res = data[i / 2];
+                res = res >> ((i % 2) * 4);
+                res &= 0xF;
+                return res;
+            }
+            if (bpp == 2)
+            {
+                int res = data[i / 4];
+                res = res >> ((i % 4) * 2);
+                res &= 0x3;
+                return res;
+            }
+            throw new Exception("Unsupported BPP Value: " + bpp);
+        }
+
+        private void setPixelVal(int x, int y, int v)
+        {
+            int i = x + y * width;
+            if (bpp == 8) data[i] = (byte)v;
+            if (bpp == 16)
+            {
+                data[i * 2] = (byte)(v & 0xFF);
+                data[i * 2] = (byte)((v >> 8) & 0xFF);
+            }
+
+            if (bpp == 4)
+            {
+                int res = data[i / 2];
+                res &= ~(0xF << ((i % 2) * 4));
+                res |= (v & 0xF) << ((i % 2) * 4);
+                data[i / 2] = (byte)res;
+            }
+
+            if (bpp == 4)
+            {
+                int res = data[i / 4];
+                res &= ~(0xF << ((i % 4) * 2));
+                res |= (v & 0xF) << ((i % 4) * 2);
+                data[i / 4] = (byte)res;
+            } 
+            
+            throw new Exception("Unsupported BPP Value: " + bpp);
+        }
         public override int getPixel(int x, int y)
         {
-            throw new NotImplementedException();
+            int val = getPixelVal(x, y);
+            if (format == 1) val &= 0x1F;
+            if (format == 6) val &= 0x07;
+            return val;
         }
 
         public override void setPixel(int x, int y, int c)
         {
-            throw new NotImplementedException();
+             
         }
 
         public override int getWidth()
@@ -84,25 +120,28 @@ namespace NSMBe4
 
         public override byte[] getRawData()
         {
-            throw new NotImplementedException();
+            return data;
         }
 
         public override void setRawData(byte[] data)
         {
-            throw new NotImplementedException();
+            this.data = (byte[])data.Clone();
         }
 
         public override void save()
         {
-            throw new NotImplementedException();
+            f.replace(data, this);
         }
 
         public override void close()
         {
-            throw new NotImplementedException();
+            f.endEdit(this);
         }
 
 
-
+        public override string ToString()
+        {
+            return f.name;
+        }
     }
 }

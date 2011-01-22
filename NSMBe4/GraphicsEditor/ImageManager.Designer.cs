@@ -48,6 +48,7 @@
             this.importThisBtn = new System.Windows.Forms.Button();
             this.exportThisBtn = new System.Windows.Forms.Button();
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -55,6 +56,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tileOffsetNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileWidthNumber)).BeginInit();
             this.panel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageListBox
@@ -63,7 +65,7 @@
             this.imageListBox.FormattingEnabled = true;
             this.imageListBox.Location = new System.Drawing.Point(0, 13);
             this.imageListBox.Name = "imageListBox";
-            this.imageListBox.Size = new System.Drawing.Size(121, 267);
+            this.imageListBox.Size = new System.Drawing.Size(243, 121);
             this.imageListBox.TabIndex = 1;
             this.imageListBox.SelectedIndexChanged += new System.EventHandler(this.imageListBox_SelectedIndexChanged);
             this.imageListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageListBox_MouseDown);
@@ -74,15 +76,14 @@
             this.paletteListBox.FormattingEnabled = true;
             this.paletteListBox.Location = new System.Drawing.Point(0, 13);
             this.paletteListBox.Name = "paletteListBox";
-            this.paletteListBox.Size = new System.Drawing.Size(128, 267);
+            this.paletteListBox.Size = new System.Drawing.Size(243, 121);
             this.paletteListBox.TabIndex = 2;
             this.paletteListBox.SelectedIndexChanged += new System.EventHandler(this.paletteListBox_SelectedIndexChanged);
             this.paletteListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paletteListBox_MouseDown);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.image2dOptions);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -96,9 +97,9 @@
             this.panel3.Controls.Add(this.paletteListBox);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(121, 0);
+            this.panel3.Location = new System.Drawing.Point(3, 143);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(128, 280);
+            this.panel3.Size = new System.Drawing.Size(243, 134);
             this.panel3.TabIndex = 4;
             // 
             // label1
@@ -115,10 +116,10 @@
             // 
             this.panel4.Controls.Add(this.imageListBox);
             this.panel4.Controls.Add(this.label2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(121, 280);
+            this.panel4.Size = new System.Drawing.Size(243, 134);
             this.panel4.TabIndex = 5;
             // 
             // label2
@@ -283,6 +284,21 @@
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 431);
             this.graphicsEditor1.TabIndex = 4;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 280);
+            this.tableLayoutPanel1.TabIndex = 6;
+            // 
             // ImageManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,6 +317,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tileOffsetNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileWidthNumber)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -327,5 +344,6 @@
         private System.Windows.Forms.Button importThisBtn;
         private System.Windows.Forms.Button exportThisBtn;
         private System.Windows.Forms.Button saveAllBtn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
