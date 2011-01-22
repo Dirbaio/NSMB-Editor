@@ -64,8 +64,8 @@ namespace NSMBe4.NSBMD
                     found = true;
                     break;
                 }
-                else
-                    str.skipback(3); //just in case its not word-aligned
+//                else
+//                    str.skipback(3); //just in case its not word-aligned
             }
             str.seek(0);
             if (!found)

@@ -186,7 +186,7 @@ namespace NSMBe4
         {
             this.Redo();
             if (this is ChangeSpriteTypeAction || !multiple) {
-                this.AfterAction();
+                //this.AfterAction();
                 EdControl.repaint();
             }
         }

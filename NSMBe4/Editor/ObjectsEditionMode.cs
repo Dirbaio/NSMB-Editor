@@ -253,11 +253,9 @@ namespace NSMBe4
             int NewX = x / 16;
             int NewY = y / 16;
 
-            if(x == NewX && y == NewY) // don't clone objects if there is no visible movement
+            if(lx == NewX && ly == NewY) // don't clone objects if there is no visible movement
                 return;
 
-            lx = NewX;
-            ly = NewY;
 
             if(SelectMode)
             {
@@ -295,24 +293,27 @@ namespace NSMBe4
                 }
                 else
                 {
-                    int nx = Math.Max(0, (x - DragXOff) / 16);
-                    int ny = Math.Max(0, (y - DragYOff) / 16);
+                    int nx = Math.Max(-minBoundX, NewX - lx);
+                    int ny = Math.Max(-minBoundY, NewY - ly);
+                    minBoundX += nx;
+                    minBoundY += ny;
+
                     if (SelectedObjects.Count == 1)
                     {
                         if (SelectedObjects[0] is NSMBObject) {
                             NSMBObject o = SelectedObjects[0] as NSMBObject;
-                            if (o.X != nx || o.Y != ny)
-                                EdControl.UndoManager.Do(new MoveObjectAction(o, nx, ny));
+                            EdControl.UndoManager.Do(new MoveObjectAction(o, o.X+nx, o.Y+ny));
                         } else {
                             NSMBSprite s = SelectedObjects[0] as NSMBSprite;
-                            if (s.X != nx || s.Y != ny)
-                                EdControl.UndoManager.Do(new MoveSpriteAction(s, nx, ny));
+                            EdControl.UndoManager.Do(new MoveSpriteAction(s, s.X + nx, s.Y+ny));
                         }
-                    } else
-                        if (GetX(CurObj) != nx || GetY(CurObj) != ny)
-                            EdControl.UndoManager.Do(new MoveMultipleAction(SelectedObjects.ToArray(), CurObj, nx, ny));
+                    } 
+                    else
+                        EdControl.UndoManager.Do(new MoveMultipleAction(SelectedObjects.ToArray(), nx, ny));
                 }
             }
+            lx = NewX;
+            ly = NewY;
         }
 
         public override void MouseUp()
