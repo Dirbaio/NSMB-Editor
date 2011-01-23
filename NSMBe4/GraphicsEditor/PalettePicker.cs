@@ -36,6 +36,8 @@ namespace NSMBe4 {
         public delegate void EditColourDelegate(int idx);
         public event EditColourDelegate EditColour;
 
+        int rows;
+
         public PalettePicker() {
             InitializeComponent();
         }
@@ -45,22 +47,22 @@ namespace NSMBe4 {
             SelectedFG = 1;
             SelectedBG = 0;
             PalSize = pal.pal.Length;
-            Height = PalSize / 16 * 12 + 26;
+            rows = (PalSize + 15) / 16;
+            Height = rows * 12 + 26;
 
             if (PalBuffer == null) {
-                PalBuffer = new Bitmap(16 * 12 + 2, PalSize / 16 * 12 + 2);
+                PalBuffer = new Bitmap(16 * 12 + 2, rows * 12 + 2);
             }
 
             Graphics g = Graphics.FromImage(PalBuffer);
-            int i = 0;
 
             g.Clear(Color.Black);
 
-            for (int y = 2; y < PalBuffer.Height; y += 12) {
-                for (int x = 2; x < PalBuffer.Width; x += 12) {
-                    g.FillRectangle(new SolidBrush(pal.pal[i]), x, y, 10, 10);
-                    i += 1;
-                }
+            for (int i = 0; i < pal.pal.Length; i++)
+            {
+                int x = 2 + (i % 16) * 12;
+                int y = 2 + (i / 16) * 12;
+                g.FillRectangle(new SolidBrush(pal.pal[i]), x, y, 10, 10);
             }
 
             drawingBox.Invalidate();

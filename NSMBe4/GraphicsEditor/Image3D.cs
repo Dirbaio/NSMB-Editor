@@ -86,7 +86,7 @@ namespace NSMBe4
                 data[i / 2] = (byte)res;
             }
 
-            else if (bpp == 4)
+            else if (bpp == 2)
             {
                 int res = data[i / 4];
                 res &= ~(0xF << ((i % 4) * 2));
