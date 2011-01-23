@@ -31,10 +31,11 @@
             this.imageListBox = new System.Windows.Forms.ListBox();
             this.paletteListBox = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.image2dOptions = new System.Windows.Forms.Panel();
             this.fourBppCheckBox = new System.Windows.Forms.CheckBox();
             this.tileOffsetNumber = new System.Windows.Forms.NumericUpDown();
@@ -48,15 +49,14 @@
             this.importThisBtn = new System.Windows.Forms.Button();
             this.exportThisBtn = new System.Windows.Forms.Button();
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.image2dOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tileOffsetNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileWidthNumber)).BeginInit();
             this.panel2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageListBox
@@ -92,25 +92,20 @@
             this.panel1.Size = new System.Drawing.Size(249, 431);
             this.panel1.TabIndex = 3;
             // 
-            // panel3
+            // tableLayoutPanel1
             // 
-            this.panel3.Controls.Add(this.paletteListBox);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 143);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(243, 134);
-            this.panel3.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 280);
+            this.tableLayoutPanel1.TabIndex = 6;
             // 
             // panel4
             // 
@@ -131,6 +126,26 @@
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "label2";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.paletteListBox);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 143);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(243, 134);
+            this.panel3.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "label1";
             // 
             // image2dOptions
             // 
@@ -284,21 +299,6 @@
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 431);
             this.graphicsEditor1.TabIndex = 4;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 280);
-            this.tableLayoutPanel1.TabIndex = 6;
-            // 
             // ImageManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,16 +308,16 @@
             this.Name = "ImageManager";
             this.Size = new System.Drawing.Size(817, 431);
             this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.image2dOptions.ResumeLayout(false);
             this.image2dOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tileOffsetNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileWidthNumber)).EndInit();
             this.panel2.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

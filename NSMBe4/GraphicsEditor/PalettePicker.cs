@@ -144,5 +144,10 @@ namespace NSMBe4 {
         private void drawingBox_MouseUp(object sender, MouseEventArgs e) {
             DragChoice = false;
         }
+
+        private void drawingBox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

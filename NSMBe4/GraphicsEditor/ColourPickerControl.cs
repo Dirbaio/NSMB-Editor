@@ -132,5 +132,10 @@ namespace NSMBe4 {
                 renderer.Invalidate();
             }
         }
+
+        private void renderer_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

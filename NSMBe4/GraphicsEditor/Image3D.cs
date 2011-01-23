@@ -13,6 +13,7 @@ namespace NSMBe4
         public bool color0Transp;
         public int width, height;
         public int format;
+        public string name;
 
         public byte bpp
         {
@@ -71,13 +72,13 @@ namespace NSMBe4
         {
             int i = x + y * width;
             if (bpp == 8) data[i] = (byte)v;
-            if (bpp == 16)
+            else if (bpp == 16)
             {
                 data[i * 2] = (byte)(v & 0xFF);
                 data[i * 2] = (byte)((v >> 8) & 0xFF);
             }
 
-            if (bpp == 4)
+            else if (bpp == 4)
             {
                 int res = data[i / 2];
                 res &= ~(0xF << ((i % 2) * 4));
@@ -85,18 +86,20 @@ namespace NSMBe4
                 data[i / 2] = (byte)res;
             }
 
-            if (bpp == 4)
+            else if (bpp == 4)
             {
                 int res = data[i / 4];
                 res &= ~(0xF << ((i % 4) * 2));
                 res |= (v & 0xF) << ((i % 4) * 2);
                 data[i / 4] = (byte)res;
             } 
-            
-            throw new Exception("Unsupported BPP Value: " + bpp);
+            else
+                throw new Exception("Unsupported BPP Value: " + bpp);
         }
         public override int getPixel(int x, int y)
         {
+            if (x < 0 || x >= width) return 0;
+            if (y < 0 || y >= height) return 0;
             int val = getPixelVal(x, y);
             if (format == 1) val &= 0x1F;
             if (format == 6) val &= 0x07;
@@ -105,7 +108,20 @@ namespace NSMBe4
 
         public override void setPixel(int x, int y, int c)
         {
-             
+            if (x < 0 || x >= width) return;
+            if (y < 0 || y >= height) return;
+            if (format == 1)
+            {
+                c &= 0x1F;
+                c |= getPixelVal(x, y) & (~0x1F);
+            }
+            if (format == 6)
+            {
+                c &= 0x07;
+                c |= getPixelVal(x, y) & (~0x07);
+            }
+
+            setPixelVal(x, y, c);
         }
 
         public override int getWidth()
@@ -141,7 +157,7 @@ namespace NSMBe4
 
         public override string ToString()
         {
-            return f.name;
+            return name ;
         }
     }
 }

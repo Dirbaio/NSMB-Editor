@@ -33,7 +33,7 @@ namespace NSMBe4.NSBMD
         int f5texDataOffset;
         int f5dataOffset;
 
-        public Texture[] textures;
+        Image3D[] textures;
         PaletteDef[] palettes;
         public ByteArrayInputStream str;
 
@@ -75,7 +75,7 @@ namespace NSMBe4.NSBMD
             str.seek(0);
             if (!found)
             {
-                textures = new Texture[0];
+                textures = new Image3D[0];
                 palettes = new PaletteDef[0];
                 return;
             }
@@ -103,8 +103,9 @@ namespace NSMBe4.NSBMD
 
             //Read texture definitions
             str.seek(0x3D);
-            textures = new Texture[str.readByte()];
+            textures = new Image3D[str.readByte()];
             str.skip((uint)(0xE + textures.Length * 4));
+            LevelChooser.showImgMgr();
 
             for (int i = 0; i < textures.Length; i++)
             {
@@ -129,9 +130,7 @@ namespace NSMBe4.NSBMD
                 }
                 else
                 {
-                    Image3D img = new Image3D(new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd), color0, width, height, format);
-                    LevelChooser.showImgMgr();
-                    LevelChooser.imgMgr.m.addImage(img);
+                    textures[i] = new Image3D(new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd), color0, width, height, format);
                 }
 
 //                textures[i] = new Texture(this, color0, width, height, format, offset, "");
@@ -142,8 +141,12 @@ namespace NSMBe4.NSBMD
                 }*/
             }
 
-//            for (int i = 0; i < textures.Length; i++)
-//                textures[i].name = str.ReadString(16);
+            for (int i = 0; i < textures.Length; i++)
+            {
+                if(textures[i] == null) continue;
+                textures[i].name = str.ReadString(16);
+                LevelChooser.imgMgr.m.addImage(textures[i]);
+            }
 
 
 
@@ -167,12 +170,22 @@ namespace NSMBe4.NSBMD
                     palettes[i].size = palettes[i + 1].offs - palettes[i].offs;
 
             }
-            palettes[palettes.Length - 1].size = palDataOffset + palDataSize - palettes[palettes.Length - 1].offs;
+            palettes[palettes.Length - 1].size = blockStart+ palDataOffset + palDataSize - palettes[palettes.Length - 1].offs;
 
             for (int i = 0; i < palettes.Length; i++)
             {
-                FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs, palettes[i].size, palettes[i].name, null, LZd));
-                LevelChooser.imgMgr.m.addPalette(pa);
+                int extrapalcount = (palettes[i].size) / 512;
+                for (int j = 0; j < extrapalcount; j++)
+                {
+                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs+j*512, 512, palettes[i].name + ":"+i, null, LZd));
+                    LevelChooser.imgMgr.m.addPalette(pa);
+                }
+                int lastsize = palettes[i].size % 512;
+                if (lastsize != 0)
+                {
+                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs+extrapalcount*512, lastsize, palettes[i].name+":"+extrapalcount, null, LZd));
+                    LevelChooser.imgMgr.m.addPalette(pa);
+                }
             }
 
 //            new ImagePreviewer(textures[0].render(palettes[0])).Show();

@@ -35,9 +35,10 @@
             this.renderer.Size = new System.Drawing.Size(256, 102);
             this.renderer.TabIndex = 0;
             this.renderer.TabStop = false;
-            this.renderer.MouseMove += new System.Windows.Forms.MouseEventHandler(this.renderer_MouseMove);
-            this.renderer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.renderer_MouseDown);
+            this.renderer.Click += new System.EventHandler(this.renderer_Click);
             this.renderer.Paint += new System.Windows.Forms.PaintEventHandler(this.renderer_Paint);
+            this.renderer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.renderer_MouseDown);
+            this.renderer.MouseMove += new System.Windows.Forms.MouseEventHandler(this.renderer_MouseMove);
             // 
             // ColourPickerControl
             // 
