@@ -169,7 +169,7 @@ namespace NSMBe4 {
                 fs.close();
             }*/
 
-            new NSBTX(ROM.FS.getFileByName("I_dokan.nsbtx"));
+//            new NSBTX(ROM.FS.getFileByName("I_dokan.nsbtx"));
         }
 
 
