@@ -235,6 +235,7 @@ namespace NSMBe4
         public override void Redo()
         {
             level.Objects.Add(obj);
+            EdControl.SelectObject(obj);
         }
         public override string ToString()
         {
@@ -252,6 +253,7 @@ namespace NSMBe4
         public override void Redo()
         {
             level.Objects.Remove(obj);
+            EdControl.SelectObject(null);
         }
         public override string ToString()
         {
@@ -405,6 +407,7 @@ namespace NSMBe4
         public override void Redo()
         {
             level.Sprites.Add(sprite);
+            EdControl.SelectObject(sprite);
         }
         public override string ToString()
         {
@@ -422,6 +425,7 @@ namespace NSMBe4
         public override void Redo()
         {
             level.Sprites.Remove(sprite);
+            EdControl.SelectObject(null);
         }
         public override string ToString()
         {
@@ -560,6 +564,7 @@ namespace NSMBe4
                 if (obj is NSMBSprite)
                     level.Sprites.Remove(obj as NSMBSprite);
             }
+            this.AfterAction();
         }
         public override void Redo()
         {
@@ -569,6 +574,7 @@ namespace NSMBe4
                 if (obj is NSMBSprite)
                     level.Sprites.Add(obj as NSMBSprite);
             }
+            this.AfterAction();
         }
         public override string ToString()
         {
@@ -712,6 +718,7 @@ namespace NSMBe4
         public override void Redo()
         {
             level.Entrances.Add(en);
+            EdControl.SelectObject(en);
         }
         public override string ToString()
         {
@@ -729,6 +736,7 @@ namespace NSMBe4
         public override void Redo()
         {
             level.Entrances.Remove(en);
+            EdControl.SelectObject(null);
         }
         public override string ToString()
         {
