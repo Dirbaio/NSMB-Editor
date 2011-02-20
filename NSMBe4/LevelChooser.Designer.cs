@@ -483,6 +483,7 @@ namespace NSMBe4 {
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelChooser";
             this.Text = "<_TITLE>";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelChooser_FormClosing);
             this.Load += new System.EventHandler(this.LevelChooser_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

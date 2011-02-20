@@ -33,7 +33,6 @@ using NSMBe4.Patcher;
 namespace NSMBe4 {
     public partial class LevelChooser : Form
     {
-        private List<LevelEditor> editors;
         public static ImageManagerWindow imgMgr;
         public static void showImgMgr()
         {
@@ -60,8 +59,6 @@ namespace NSMBe4 {
                     path = openROMDialog.FileName;
             }
             if (path != "") {
-                editors = new List<LevelEditor>();
-
                 importLevelButton.Enabled = false;
                 exportLevelButton.Enabled = false;
                 editLevelButton.Enabled = false;
@@ -237,8 +234,6 @@ namespace NSMBe4 {
             try
             {
                 LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag);
-                editors.Add(NewEditor);
-                NewEditor.FormClosed += new FormClosedEventHandler(editorClosing);
                 NewEditor.Text = EditorCaption;
                 NewEditor.Show();
             }
@@ -246,11 +241,6 @@ namespace NSMBe4 {
             {
                 MessageBox.Show(LanguageManager.Get("Errors", "Level"));
             }                
-        }
-
-        private void editorClosing(object sender, FormClosedEventArgs e)
-        {
-            editors.Remove(sender as LevelEditor);
         }
 
         private void hexEditLevelButton_Click(object sender, EventArgs e) {
@@ -829,6 +819,14 @@ namespace NSMBe4 {
             Array.Copy(newdata, 0, data, 0xC00, newdata.Length);
             ROM.FS.arm9binFile.replace(data, this);
             ROM.FS.arm9binFile.endEdit(this);
+        }
+
+        private void LevelChooser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ROM.close();
+            Console.Out.WriteLine(e.CloseReason.ToString());
+            if (MdiParentForm.instance != null && e.CloseReason != CloseReason.MdiFormClosing)
+                MdiParentForm.instance.Close();
         }
     }
 }
