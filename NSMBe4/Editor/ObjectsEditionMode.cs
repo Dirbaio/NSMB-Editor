@@ -376,6 +376,9 @@ namespace NSMBe4
                     EdControl.UndoManager.Do(new RemoveSpriteAction(SelectedObjects[0] as NSMBSprite));
             } else
                 EdControl.UndoManager.Do(new RemoveMultipleAction(SelectedObjects.ToArray()));
+
+            SelectedObjects.Clear();
+            EdControl.repaint();
         }
         public override object copy()
         {
