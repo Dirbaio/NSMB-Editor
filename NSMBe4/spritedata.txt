@@ -1,4 +1,4 @@
-//SPRITE DATA FILE
+//SPRITE DATA FILE 
 //NSMBe4 originally written by Treeki
 //This feature by Dirbaio
 
