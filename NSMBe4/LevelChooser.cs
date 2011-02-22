@@ -53,9 +53,10 @@ namespace NSMBe4 {
                 path = args[1];
             } else {
                 openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
-                if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
                     Application.Exit();
-                else
+                    return;
+                } else
                     path = openROMDialog.FileName;
             }
             if (path != "") {
