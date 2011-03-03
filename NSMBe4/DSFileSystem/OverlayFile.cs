@@ -63,44 +63,30 @@ namespace NSMBe4.DSFileSystem
             }
         }
 
-        public byte[] getarm9()
-        {
-            byte[] data = getContents();
-            data = ROM.DecompressOverlay(data);
-            return data;
-        }
-
-        public void load()
-        {
-            if (decompressedData != null) return;
-
-            decompressedData = getContents();
-            if (isCompressed)
-                decompressedData = ROM.DecompressOverlay(decompressedData);
-        }
-
         public override void enableEdition()
         {
 //            decompress();
             base.enableEdition();
         }
 
-        public bool isAddrIn(int addr)
+        public bool containsRamAddr(int addr)
         {
             return addr >= ramAddr && addr < ramAddr + ramSize;
         }
 
         public uint readFromRamAddr(int addr)
         {
-            load();
-            addr -= (int)ramAddr;
+            decompress();
 
-            int res = 0;
-            res |= decompressedData[addr + 0] << 0;
-            res |= decompressedData[addr + 1] << 8;
-            res |= decompressedData[addr + 2] << 16;
-            res |= decompressedData[addr + 3] << 24;
-            return (uint)res;
+            addr -= (int)ramAddr;
+            return getUintAt(addr);
+        }
+
+        public void writeToRamAddr(int addr, uint val)
+        {
+            decompress();
+            addr -= (int)ramAddr;
+            setUintAt(addr, val);
         }
     }
 }

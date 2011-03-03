@@ -113,7 +113,7 @@ namespace  NSMBe4.DSFileSystem
             ovId = -1;
             uint res = 0;
             foreach (OverlayFile of in ROM.FS.arm9ovs)
-                if (of.isAddrIn(ramAddr))
+                if (of.containsRamAddr(ramAddr))
                 {
                     if (ovId == -1)
                     {
@@ -127,8 +127,8 @@ namespace  NSMBe4.DSFileSystem
             if (ovId != -1) return res;
 
             foreach (Arm9BinSection s in sections)
-                if (s.isAddrIn(ramAddr))
-                    return s.readFrom(ramAddr);
+                if (s.containsRamAddr(ramAddr))
+                    return s.readFromRamAddr(ramAddr);
 
             throw new Exception("ERROR: The address " + ramAddr.ToString("X8") + "is not in an overlay or main binary.");
         }
@@ -139,7 +139,7 @@ namespace  NSMBe4.DSFileSystem
         {
             int ovId = -1;
             foreach (OverlayFile of in ROM.FS.arm9ovs)
-                if (of.isAddrIn(ramAddr))
+                if (of.containsRamAddr(ramAddr))
                 {
                     if(ovId == -1)
                         ovId = (int)of.ovId;
@@ -150,7 +150,7 @@ namespace  NSMBe4.DSFileSystem
             if(ovId != -1) return ovId+1;
 
             foreach (Arm9BinSection s in sections)
-                if (s.isAddrIn(ramAddr))
+                if (s.containsRamAddr(ramAddr))
                     return 0;
 
             throw new Exception("ERROR: The address " + ramAddr.ToString("X8") + "is not in an overlay or main binary.");
