@@ -675,9 +675,9 @@ namespace NSMBe4 {
 
         private void padarm7bin_Click(object sender, EventArgs e)
         {
-            ROM.FS.loadArm9Bin();
-            PatchMaker.compilePatch(ROM.romfile.Directory);
-            PatchMaker.generatePatch(ROM.romfile.Directory);
+            PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+            pm.compilePatch();
+            pm.generatePatch();
         }
 
         private void parseFileListBtn_Click(object sender, EventArgs e)
@@ -828,6 +828,11 @@ namespace NSMBe4 {
             Console.Out.WriteLine(e.CloseReason.ToString());
             if (MdiParentForm.instance != null && e.CloseReason != CloseReason.MdiFormClosing)
                 MdiParentForm.instance.Close();
+        }
+
+        private void makeclean_Click(object sender, EventArgs e)
+        {
+            PatchCompiler.cleanPatch(ROM.romfile.Directory);
         }
     }
 }

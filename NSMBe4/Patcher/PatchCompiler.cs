@@ -31,6 +31,11 @@ namespace NSMBe4.Patcher
             return runProcess("make CODEADDR=0x" + destAddr.ToString("X8"), romDir.FullName);
         }
 
+        public static int cleanPatch(DirectoryInfo romDir)
+        {
+            return runProcess("make clean", romDir.FullName);
+        }
+
         public static int runProcess(string proc, string cwd)
         {
             ProcessStartInfo info = new ProcessStartInfo();

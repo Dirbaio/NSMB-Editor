@@ -42,8 +42,8 @@ namespace NSMBe4 {
             this.insertRomButton = new System.Windows.Forms.Button();
             this.encryptFAT = new System.Windows.Forms.Button();
             this.parseFileListBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.padarm7bin = new System.Windows.Forms.Button();
+            this.makeclean = new System.Windows.Forms.Button();
+            this.makeinsert = new System.Windows.Forms.Button();
             this.decompArm9Bin = new System.Windows.Forms.Button();
             this.mpPatch2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -204,8 +204,8 @@ namespace NSMBe4 {
             this.groupBox2.Controls.Add(this.insertRomButton);
             this.groupBox2.Controls.Add(this.encryptFAT);
             this.groupBox2.Controls.Add(this.parseFileListBtn);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.padarm7bin);
+            this.groupBox2.Controls.Add(this.makeclean);
+            this.groupBox2.Controls.Add(this.makeinsert);
             this.groupBox2.Controls.Add(this.decompArm9Bin);
             this.groupBox2.Location = new System.Drawing.Point(258, 209);
             this.groupBox2.Name = "groupBox2";
@@ -262,29 +262,29 @@ namespace NSMBe4 {
             this.parseFileListBtn.UseVisualStyleBackColor = true;
             this.parseFileListBtn.Click += new System.EventHandler(this.parseFileListBtn_Click);
             // 
-            // button1
+            // makeclean
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.makeclean.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(6, 77);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(230, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Run \'make clean\'";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.padarm7bin_Click);
+            this.makeclean.Location = new System.Drawing.Point(6, 77);
+            this.makeclean.Name = "makeclean";
+            this.makeclean.Size = new System.Drawing.Size(230, 23);
+            this.makeclean.TabIndex = 3;
+            this.makeclean.Text = "Run \'make clean\'";
+            this.makeclean.UseVisualStyleBackColor = true;
+            this.makeclean.Click += new System.EventHandler(this.makeclean_Click);
             // 
-            // padarm7bin
+            // makeinsert
             // 
-            this.padarm7bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.makeinsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.padarm7bin.Location = new System.Drawing.Point(6, 48);
-            this.padarm7bin.Name = "padarm7bin";
-            this.padarm7bin.Size = new System.Drawing.Size(230, 23);
-            this.padarm7bin.TabIndex = 3;
-            this.padarm7bin.Text = "Run \'make\' and insert";
-            this.padarm7bin.UseVisualStyleBackColor = true;
-            this.padarm7bin.Click += new System.EventHandler(this.padarm7bin_Click);
+            this.makeinsert.Location = new System.Drawing.Point(6, 48);
+            this.makeinsert.Name = "makeinsert";
+            this.makeinsert.Size = new System.Drawing.Size(230, 23);
+            this.makeinsert.TabIndex = 3;
+            this.makeinsert.Text = "Run \'make\' and insert";
+            this.makeinsert.UseVisualStyleBackColor = true;
+            this.makeinsert.Click += new System.EventHandler(this.padarm7bin_Click);
             // 
             // decompArm9Bin
             // 
@@ -526,12 +526,12 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button decompArm9Bin;
         private System.Windows.Forms.Button mpPatch2;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button padarm7bin;
+        private System.Windows.Forms.Button makeinsert;
         private System.Windows.Forms.Button parseFileListBtn;
         private System.Windows.Forms.OpenFileDialog openTextFileDialog;
         private System.Windows.Forms.Button encryptFAT;
         private System.Windows.Forms.Button dumpMapButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button makeclean;
         private System.Windows.Forms.SaveFileDialog saveTextFileDialog;
         private System.Windows.Forms.Button insertRomButton;
         private System.Windows.Forms.CheckBox useMDI;

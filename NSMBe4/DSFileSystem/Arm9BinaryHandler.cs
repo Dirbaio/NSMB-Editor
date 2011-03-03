@@ -4,14 +4,14 @@ using System.Text;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class Arm9BinFile : 
+    public class Arm9BinaryHandler
     {
         public List<Arm9BinSection> sections;
         Arm9BinSection nullSection;
         File f;
         NitroROMFilesystem fs;
 
-        public Arm9BinFile(NitroROMFilesystem fs)
+        public Arm9BinaryHandler(NitroROMFilesystem fs)
         {
             f = fs.arm9binFile;
             this.fs = fs;

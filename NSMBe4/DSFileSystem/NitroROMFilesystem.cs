@@ -26,7 +26,7 @@ namespace NSMBe4.DSFileSystem
     {
         public File arm7binFile, arm7ovFile, arm9ovFile, bannerFile;
         public File arm9binFile; 
-        public Arm9Binary arm9bin; 
+
         public HeaderFile headerFile;
         public OverlayFile[] arm7ovs, arm9ovs;
 
@@ -118,12 +118,6 @@ namespace NSMBe4.DSFileSystem
             uint end = (uint)getFilesystemEnd();
             headerFile.setUintAt(0x80, end);
             headerFile.UpdateCRC16();
-        }
-
-        public void loadArm9Bin()
-        {
-            if (arm9bin == null)
-                arm9bin = new Arm9Binary(arm9binFile);
         }
     }
 }
