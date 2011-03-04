@@ -54,7 +54,8 @@ namespace NSMBe4 {
             } else {
                 openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
                 if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
-                    Application.Exit();
+//                    Application.Exit();
+                    
                     return;
                 } else
                     path = openROMDialog.FileName;
@@ -676,7 +677,6 @@ namespace NSMBe4 {
         private void padarm7bin_Click(object sender, EventArgs e)
         {
             PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
-            pm.compilePatch();
             pm.generatePatch();
         }
 

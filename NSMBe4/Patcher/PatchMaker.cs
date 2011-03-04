@@ -26,6 +26,10 @@ namespace NSMBe4.Patcher
 
         public void generatePatch()
         {
+            handler.restoreFromBackup();
+            handler.load();
+            compilePatch();
+
             loadArenaLoOffsFile(romdir);
 
             FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
@@ -94,6 +98,8 @@ namespace NSMBe4.Patcher
                             extradata.writeUInt(originalOpcode);
                             hookAddr += 4;
                             extradata.writeUInt(makeBranchOpcode(hookAddr, destRamAddr, false));
+                            hookAddr += 4;
+                            extradata.writeUInt(0x12345678);
                             hookAddr += 4;
                             break;
                         default:

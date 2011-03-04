@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace NSMBe4.DSFileSystem
 {
@@ -15,10 +16,13 @@ namespace NSMBe4.DSFileSystem
         {
             f = fs.arm9binFile;
             this.fs = fs;
+        }
+
+        public void load()
+        {
             decompress();
             loadSections();
         }
-
         public void newSection(int ramAddr, int ramLen, int fileOffs, int bssSize)
         {
             byte[] data = new byte[ramLen];
@@ -174,6 +178,7 @@ namespace NSMBe4.DSFileSystem
                 if(s.containsRamAddr(ramAddr))
                 {
                     Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
+                    makeBinBackup(-1);
                     s.writeToRamAddr(ramAddr, val);
                     return;
                 }
@@ -181,6 +186,7 @@ namespace NSMBe4.DSFileSystem
                 if(of.containsRamAddr(ramAddr))
                 {
                     Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
+                    makeBinBackup((int)of.ovId);
                     of.writeToRamAddr(ramAddr, val);
                     return;
                 }
@@ -198,6 +204,75 @@ namespace NSMBe4.DSFileSystem
                     return of.readFromRamAddr(ramAddr);
 
             throw new Exception("READ: Addr "+ramAddr+" is not in arm9 binary or overlays");
+        }
+
+        public void makeBinBackup(int file)
+        {
+            DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
+            Console.Out.WriteLine("Backing up " + file + " "+dir.FullName);
+            if (!dir.Exists)
+                dir.Create();
+            
+            
+            dir = ROM.romfile.Directory;
+            FileStream fs;
+
+            try
+            {
+                if (file == -1)
+                    fs = new FileStream(dir.FullName + "/bak/" + "main.bin", FileMode.CreateNew);
+                else
+                    fs = new FileStream(dir.FullName + "/bak/" + file + ".bin", FileMode.CreateNew);
+            }
+            catch (IOException e) {return;}
+
+            File f = ROM.FS.arm9binFile;
+            if (file != -1)
+            {
+                f = ROM.FS.arm9ovs[file];
+                ROM.FS.arm9ovs[file].decompress(); //b4ckupz r 41w4ys cmpr3zzd
+            }
+
+            fs.Write(f.getContents(), 0, f.fileSize);
+            fs.Close();
+        }
+
+        public void restoreFromBackup()
+        {
+            DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
+            if (!dir.Exists) return;
+
+            foreach (FileInfo f in dir.GetFiles())
+            {
+                string n = f.Name;
+                if (!n.EndsWith(".bin")) continue;
+
+                File ff = null;
+
+                n = n.Substring(0, n.Length - 4);
+                if (n == "main")
+                    ff = ROM.FS.arm9binFile;
+                else
+                {
+                    int num = 0;
+                    if (Int32.TryParse(n, out num))
+                        ff = ROM.FS.arm9ovs[num];
+                }
+
+                if (ff == null) continue;
+
+                Console.Out.WriteLine("Restoring " + f + ", " + ff.name);
+                FileStream fs = f.OpenRead();
+                byte[] data = new byte[fs.Length];
+                fs.Read(data, 0, data.Length);
+                fs.Close();
+
+                ff.beginEdit(this);
+                ff.replace(data, this);
+                ff.endEdit(this);
+
+                if (ff is OverlayFile) (ff as OverlayFile).isCompressed = false;
+            }
         }
 
     }
