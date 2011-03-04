@@ -152,13 +152,13 @@ namespace NSMBe4
 
             cam.seek(0);
             int camCount = (int)cam.available() / 24;
-            Console.Out.WriteLine("CamCount: " + camCount);
+//            Console.Out.WriteLine("CamCount: " + camCount);
             int goodCam = -1;
             for (int i = 0; i < camCount; i++)
             {
                 cam.seek(i * 24 + 16);
                 int thisCam = cam.readUShort();
-                Console.Out.WriteLine("Cam ID: " + thisCam);
+//                Console.Out.WriteLine("Cam ID: " + thisCam);
                 if (thisCam == camID)
                 {
                     goodCam = i;

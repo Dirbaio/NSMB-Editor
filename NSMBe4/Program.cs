@@ -38,7 +38,7 @@ namespace NSMBe4 {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            SpriteData.Load();
+
             //just for tesing
 
             /*
@@ -196,6 +196,7 @@ namespace NSMBe4 {
                 MessageBox.Show("File " + langFileName + " could not be found, so the language has defaulted to English.");
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
             }
+            SpriteData.Load();
             if (Properties.Settings.Default.mdi)
                 Application.Run(new MdiParentForm());
             else

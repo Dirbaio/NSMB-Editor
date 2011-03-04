@@ -203,9 +203,16 @@ namespace NSMBe4 {
             return GetFileIDFromTable(id, GetOffset(datatype));
         }
 
-        public static ushort GetFileIDFromTable(int id, int tableoffset) {
+        public static ushort GetFileIDFromTable(int id, int tableoffset)
+        {
             int off = tableoffset + (id << 2);
             return (ushort)((Overlay0[off] | (Overlay0[off + 1] << 8)) + GetOffset(Data.Number_FileOffset));
+        }
+
+        public static ushort GetClassIDFromTable(int id)
+        {
+            int off = GetOffset(Data.Table_Sprite_CLASSID) + (id << 1);
+            return (ushort)((Overlay0[off] | (Overlay0[off + 1] << 8)));
         }
 
         public static void SetFileIDFromTable(int id, Data datatype, ushort fid)

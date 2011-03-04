@@ -970,7 +970,6 @@ Unused Level 5|10|1
 125=Closed door.
 
 
-
 [LIST_Sprites]
 0=Beta Level Sprite??
 1=Unused

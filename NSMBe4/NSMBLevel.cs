@@ -100,9 +100,16 @@ namespace NSMBe4
                 Sprite.X = SpriteBlock[FilePos + 2] | (SpriteBlock[FilePos + 3] << 8);
                 Sprite.Y = SpriteBlock[FilePos + 4] | (SpriteBlock[FilePos + 5] << 8);
                 Sprite.Data = new byte[6];
-                Array.Copy(SpriteBlock, FilePos + 6, Sprite.Data, 0, 6);
+                FilePos += 6;
+                Sprite.Data[0] = SpriteBlock[FilePos + 1];
+                Sprite.Data[1] = SpriteBlock[FilePos + 0];
+                Sprite.Data[2] = SpriteBlock[FilePos + 5];
+                Sprite.Data[3] = SpriteBlock[FilePos + 4];
+                Sprite.Data[4] = SpriteBlock[FilePos + 3];
+                Sprite.Data[5] = SpriteBlock[FilePos + 2];
+//                Array.Copy(SpriteBlock, FilePos + 6, Sprite.Data, 0, 6);
                 Sprites.Add(Sprite);
-                FilePos += 12;
+                FilePos += 6;
             }
 
             // Entrances.
@@ -212,8 +219,14 @@ namespace NSMBe4
                 Blocks[6][FilePos + 3] = (byte)((Sprites[SpriteIdx].X >> 8) & 0xFF);
                 Blocks[6][FilePos + 4] = (byte)(Sprites[SpriteIdx].Y & 0xFF);
                 Blocks[6][FilePos + 5] = (byte)((Sprites[SpriteIdx].Y >> 8) & 0xFF);
-                Array.Copy(Sprites[SpriteIdx].Data, 0, Blocks[6], FilePos + 6, 6);
-                FilePos += 12;
+                FilePos += 6;
+                Blocks[6][FilePos + 0] = Sprites[SpriteIdx].Data[1];
+                Blocks[6][FilePos + 1] = Sprites[SpriteIdx].Data[0];
+                Blocks[6][FilePos + 2] = Sprites[SpriteIdx].Data[5];
+                Blocks[6][FilePos + 3] = Sprites[SpriteIdx].Data[4];
+                Blocks[6][FilePos + 4] = Sprites[SpriteIdx].Data[3];
+                Blocks[6][FilePos + 5] = Sprites[SpriteIdx].Data[2];
+                FilePos += 6;
             }
 
             Blocks[6][FilePos] = 0xFF;
