@@ -169,7 +169,6 @@ namespace NSMBe4 {
             }*/
 
 //            new NSBTX(ROM.FS.getFileByName("I_dokan.nsbtx"));
-            SpriteData.export();
         }
 
 

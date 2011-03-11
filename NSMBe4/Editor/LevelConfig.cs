@@ -328,6 +328,7 @@ namespace NSMBe4 {
             }
 
             EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData));
+
             RefreshMainWindow();
             Close();
         }

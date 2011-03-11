@@ -191,6 +191,7 @@ namespace NSMBe4 {
                                            {0x2FDA4, 0x2F5B8, 0x2F1A4, 0x2FC74}, //Jyotyu_CHK
                                            {0x2C930, 0x2BDF0, 0x2BD30, 0x2BDF0}, //Modifiers
                                            {0x29BD8, 0x00000, 0x00000, 0x00000}, //Sprite Class IDs
+                                           {0x2CBBC, 0, 0, 0}, //weird table¿?
                                        };
 
         public static int[] FileSizes = {
@@ -218,6 +219,17 @@ namespace NSMBe4 {
         public static void SetFileIDFromTable(int id, Data datatype, ushort fid)
         {
             SetFileIDFromTable(id, GetOffset(datatype), fid);
+        }
+
+        public static string getDataForSprite(int id)
+        {
+            int offs = 0x2CBBC + id * 20;
+            string s = "";
+
+            for(int i = 0; i < 20; i++)
+                s += String.Format("{0:X2}", Overlay0[offs++]) + " ";
+
+            return s;
         }
 
         public static void SetFileIDFromTable(int id, int tableoffset, ushort fid)

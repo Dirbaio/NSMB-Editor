@@ -26,177 +26,16 @@ namespace NSMBe4
     public class SpriteData
     {
         public static int LineNum = 0;
-        public static Dictionary<int, SpriteData> datas;
+        public static Dictionary<int, SpriteData> datas = new Dictionary<int,SpriteData>();
 
         public List<int> numbers = new List<int>();
         public List<SpriteDataValue> values = new List<SpriteDataValue>();
 
-        public static string cut(string s)
+        public static void Load()
         {
-            int i = s.IndexOf('=');
-            return s.Substring(i + 1, s.Length - i - 1);
-        }
-
-        static List<string> Levels;
-        static List<string> LevelFiles;
-        static void loadLevels()
-        {
-
-            List<string> LevelNames = LanguageManager.GetList("LevelNames");
-            Levels = new List<string>();
-            LevelFiles = new List<string>();
-
-            string WorldID = null;
-            for (int NameIdx = 0; NameIdx < LevelNames.Count; NameIdx++)
-            {
-                LevelNames[NameIdx] = LevelNames[NameIdx].Trim();
-                if (LevelNames[NameIdx] == "") continue;
-                if (LevelNames[NameIdx][0] == '-')
-                {
-                    string[] ParseWorld = LevelNames[NameIdx].Substring(1).Split('|');
-                    WorldID = ParseWorld[1];
-                }
-                else
-                {
-                    string[] ParseLevel = LevelNames[NameIdx].Split('|');
-                    if (ParseLevel[2] == "1")
-                    {
-                        Levels.Add(ParseLevel[0]);
-                        LevelFiles.Add(WorldID + ParseLevel[1] + "_1");
-                    }
-                    else
-                    {
-                        int AreaCount = int.Parse(ParseLevel[2]);
-                        for (int AreaIdx = 1; AreaIdx <= AreaCount; AreaIdx++)
-                        {
-                            Levels.Add(ParseLevel[0] + " area " + AreaIdx.ToString());
-                            LevelFiles.Add(WorldID + ParseLevel[1] + "_" + AreaIdx.ToString());
-                        }
-                    }
-                }
-            }
-        }
-
-        static int writeUsages(StreamWriter s2, int spNum)
-        {
-            int unused = 1;
-            //sprite level data
-            for (int i = 0; i < Levels.Count; i++)
-            {
-                NSMBe4.DSFileSystem.File levelFile = ROM.FS.getFileByName(LevelFiles[i] + ".bin");
-                NSMBe4.DSFileSystem.File bgFile = ROM.FS.getFileByName(LevelFiles[i] + "_bgdat.bin");
-                NSMBLevel l = new NSMBLevel(levelFile, bgFile, null);
-
-                string n = Levels[i];
-//                n = n.Replace("World", "");
-
-                foreach (NSMBSprite s in l.Sprites)
-                    if (s.Type == spNum)
-                    {
-                        s2.Write("(" + spNum + ", '" + n + "', '");
-                        for (int j = 0; j < 6; j++)
-                            s2.Write(String.Format("{0:X2}", s.Data[j]) + " ");
-                        s2.Write("'),\n");
-                        unused = 0;
-                    }
-
-                l.close();
-            }
-            return unused;
-        }
-
-        public static void export()
-        {
-
-            loadLevels();
-    //            INSERT INTO `sprites` (`name`, `name-es` `known`, `complete`, `orig`, `notes`) VALUES
-            FileStream fs = new FileStream("./spritedata.sql", FileMode.Create, FileAccess.Write, FileShare.None);
-            StreamWriter sw = new StreamWriter(fs);
-            FileStream fs2 = new FileStream("./spriteusages.sql", FileMode.Create, FileAccess.Write, FileShare.None);
-            StreamWriter sw2 = new StreamWriter(fs2);
-
-            List<string> s = LanguageManager.GetList("Sprites");
-            List<string> s2 = LanguageManager.GetList("Spriteses");
-
-            for (int i = 0; i < s.Count; i++)
-            {
-                int unused = writeUsages(sw2, i);
-//                int unused = 0;
-                int cid = ROM.GetClassIDFromTable(i);
-                sw.Write("UPDATE `nsmb`.`sprites` SET `classid` = '"+cid+"' WHERE `sprites`.`id` ="+i+";\n");
-            }
-            sw.Close();
-            sw2.Close();
-
 
             return;
 
-//            FileStream fs = new FileStream("./spritedata.sql", FileMode.Create, FileAccess.Write, FileShare.None);
-//            StreamWriter sw = new StreamWriter(fs);
-            foreach (int spriteNum in datas.Keys)
-            {
-                SpriteData sd = datas[spriteNum];
-
-                foreach(SpriteDataValue f in sd.values)
-                {
-//INSERT INTO `fields` (`sprite`, `type`, `comment`, `data`, `nybble`, `title`) VALUES
-                    if (f.display != "checkbox" && f.display != "list" && f.display != "number")
-                    {
-                        Console.Out.WriteLine("Dropping unk display " + f.display);
-                        continue;
-                    }
-                    sw.Write("(");
-                    sw.Write(spriteNum);
-                    sw.Write(",'");
-                    if (f.display == "number") sw.Write("value");
-                    else sw.Write(f.display);
-                    sw.Write("','', '");
-                    if (f.display == "checkbox") sw.Write("1");
-                    if (f.display == "list")
-                    {
-                        bool coma = false;
-
-                        for (int i = 0; i < f.values.Length; i++)
-                        {
-                            if (coma) sw.Write(",");
-                            coma = true;
-                            sw.Write(f.values[i]);
-                            sw.Write("=");
-                            sw.Write(f.strings[i].Replace('\'', ' '));
-                        }
-                    }
-                    sw.Write("','");
-                    int bt = f.vs.byteNum;
-                    if (bt <= 1) //First hword
-                    {
-                        bt = 1 - bt;
-                    }
-                    else
-                    {
-                        bt -= 2;
-                        bt = 3 - bt;
-                        bt += 2;
-                    }
-
-                    bt *= 2;
-                    if (f.vs.type == ValueSourceType.BYTE)
-                        sw.Write((bt) + "-" + (bt+1));
-                    else if(f.vs.secondNibble)
-                        sw.Write(bt+1);
-                    else
-                        sw.Write(bt);
-                    sw.Write("','");
-                    sw.Write(f.name.Replace('\'', ' '));
-                    sw.Write("'),\n");
-
-                }
-            }
-
-            sw.Close();
-        }
-
-        public static void Load()
-        {
             //datas = new Dictionary<int, SpriteData>();
             //return;
 
@@ -206,7 +45,6 @@ namespace NSMBe4
             try
             {
 
-                datas = new Dictionary<int, SpriteData>();
                 SpriteData d = readFromStream(sr);
 
                 while (d != null && !sr.EndOfStream)

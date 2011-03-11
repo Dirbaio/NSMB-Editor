@@ -1332,10 +1332,12 @@ namespace NSMBe4
         public override void Undo()
         {
             EdControl.Level.Blocks = UndoManager.Clone(oldData);
+            EdControl.Level.CalculateSpriteModifiers();
         }
         public override void Redo()
         {
             EdControl.Level.Blocks = UndoManager.Clone(newData);
+            EdControl.Level.CalculateSpriteModifiers();
         }
         public override void AfterSetEdControl()
         {
