@@ -205,6 +205,7 @@ namespace NSMBe4
         public bool UseNotes;
         public string[] ObjNotes;
 
+        public int objectCount = 256;
         public ObjectDef[] Objects;
 
         public Map16Tile[] Map16;
@@ -806,7 +807,7 @@ namespace NSMBe4
             ByteArrayInputStream eObjIndexFile = new ByteArrayInputStream(ObjIndexFile.getContents());
             ByteArrayInputStream eObjFile = new ByteArrayInputStream(ObjFile.getContents());
 
-            Objects = new ObjectDef[128];
+            Objects = new ObjectDef[objectCount];
 
             //read object index
             int obj = 0;
