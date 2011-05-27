@@ -49,6 +49,8 @@ namespace NSMBe4
 
         public void Do(Action act)
         {
+            if (act.cancel)
+                return;
             //Determine if the actions should be merged
             if (merge && UActions.Count > 0 && UActions.Peek().CanMerge && 
             UActions.Peek().GetType().Equals(act.GetType())) {
@@ -172,6 +174,7 @@ namespace NSMBe4
     {
         public LevelEditorControl EdControl;
         public NSMBLevel level;
+        public bool cancel;
 
         public Action() { }
         public void DoUndo(bool multiple)
@@ -542,6 +545,8 @@ namespace NSMBe4
         public MultipleAction(object[] objs)
         {
             this.objs = objs;
+            if (objs.Length == 0)
+                cancel = true;
         }
         public override void AfterAction()
         {
