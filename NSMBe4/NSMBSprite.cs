@@ -31,6 +31,8 @@ namespace NSMBe4
         public byte[] Data;
         private NSMBLevel Level;
 
+        private static SolidBrush invalidBrush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
+
         public NSMBSprite(NSMBLevel Level)
         {
             this.Level = Level;
@@ -111,6 +113,10 @@ namespace NSMBe4
                         x -= 29; width = 45;
                     }
                     break;
+                case 43:
+                    y -= 28; height = 28;
+                    x -= 29; width = 44;
+                    break;
                 case 48:
                     y -= 90;
                     width = 32; height = 74;
@@ -185,6 +191,15 @@ namespace NSMBe4
                 case 68:
                 case 69:
                     width = Math.Max(16 * (Data[5] + 1), 32);
+                    break;
+                case 70:
+                    if (Data[5] == 1) {
+                        x -= 56;
+                        width = 128;
+                    } else {
+                        x -= 24;
+                        width = 64;
+                    }
                     break;
                 case 73:
                     width = 192; height = 32;
@@ -369,6 +384,10 @@ namespace NSMBe4
                     x -= 8; y += 2;
                     width = 40; height = 30;
                     break;
+                case 124:
+                    x -= 38; y -= 45;
+                    width = 79; height = 61;
+                    break;
                 case 126:
                     width = (Data[2] & 0xF0) * 2;
                     x -= width / 2;
@@ -393,6 +412,24 @@ namespace NSMBe4
                 case 136:
                     width = 18; height = 16 * (Data[5] + 2) + 7;
                     y -= height - 16;
+                    break;
+                case 141:
+                    x -= 128;
+                    width = 276; height = 128;
+                    break;
+                case 142:
+                    x -= 8; width = (Data[2] / 16 + 1) * 16;
+                    height = (Data[2] % 16);
+                    if (height >= 8)
+                        height -= 16;
+                    if (height >= 0) {
+                        y -= height * 16;
+                        height += 1;
+                    } else {
+                        height -= 1;
+                    }
+                    height *= 16;
+                    height = Math.Abs(height);
                     break;
                 case 144:
                     x -= 2; y -= 7;
@@ -780,6 +817,7 @@ namespace NSMBe4
         public bool Render(Graphics g) {
             int RenderX = X * 16, RenderX2 = RenderX;
             int RenderY = Y * 16, RenderY2 = RenderY;
+            int width, height;
             Bitmap img = null;
 
             bool customRendered = true;
@@ -854,6 +892,9 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.ChainChompLog, RenderX, RenderY - 48, 16, 48);
                     if (Data[5] % 0x10 > 0)
                         g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28, 44, 28);
+                    break;
+                case 43:
+                    g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28, 44, 28);
                     break;
                 case 48:
                     g.DrawImage(Properties.Resources.TubeBubbles, RenderX, RenderY - 90, 32, 74);
@@ -943,12 +984,39 @@ namespace NSMBe4
                     break;
                 case 68:
                 case 69:
+                    int dist = Data[4] * 16;
+                    if (Data[3] == 1)
+                        dist = -dist;
+                    if (this.Type == 68) {
+                        RenderY2 -= dist;
+                    } else {
+                        RenderX2 += dist;
+                    }
+                    width = Math.Max(16 * (Data[5] + 1), 32) / 2;
+                    g.DrawLine(Pens.White, RenderX + width, RenderY + 8, RenderX2 + width, RenderY2 + 8);
+                    g.FillEllipse(Brushes.White, RenderX2 + width - 4, RenderY2 + 4, 7, 7);
                     g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY, 16, 16);
                     for (int l = 0; l < Data[5] - 1; l++) {
                         RenderX += 16;
                         g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX, RenderY, 16, 16);
                     }
                     g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 16, RenderY, 16, 16);
+                    RenderX = X * 16; RenderY = Y * 16;
+                    if (RenderX != RenderX2 || RenderY != RenderY2) {
+                        g.DrawImage(Properties.Resources.MovingPlatformLeftE, RenderX2, RenderY2, 16, 16);
+                        for (int l = 0; l < Data[5] - 1; l++) {
+                            RenderX2 += 16;
+                            g.DrawImage(Properties.Resources.MovingPlatformSectionE, RenderX2, RenderY2, 16, 16);
+                        }
+                        g.DrawImage(Properties.Resources.MovingPlatformRightE, RenderX2 + 16, RenderY2, 16, 16);
+                    }
+                    break;
+                case 70:
+                    if (Data[5] == 1) {
+                        g.DrawImage(Properties.Resources.SpinningLogL, RenderX - 56, RenderY, 128, 16);
+                    } else {
+                        g.DrawImage(Properties.Resources.SpinningLog, RenderX - 24, RenderY, 64, 16);
+                    }
                     break;
                 case 73:
                     g.DrawImage(Properties.Resources.HangingPlatform, RenderX, RenderY, 192, 32);
@@ -1153,6 +1221,9 @@ namespace NSMBe4
                 case 123:
                     g.DrawImage(Properties.Resources.FirePiranhaplant, RenderX - 8, RenderY + 2, 40, 30);
                     break;
+                case 124:
+                    g.DrawImage(Properties.Resources.GiantFirePiranhaplant, RenderX - 38, RenderY - 45, 79, 61);
+                    break;
                 case 126:
                     Bitmap img2 = null;
                     RenderX2 = RenderX - 16;
@@ -1201,6 +1272,25 @@ namespace NSMBe4
                         RenderY -= 16;
                     }
                     g.DrawImage(Properties.Resources.PokeyHead, RenderX, RenderY - 9, 18, 25);
+                    break;
+                case 141:
+                    g.DrawImage(Properties.Resources.SwellingGround, RenderX - 128, RenderY, 276, 128);
+                    if ((Data[2] & 0xF) == 0) {
+                        g.DrawImage(Properties.Resources.SwellingGroundOut, RenderX - 128, RenderY - 112, 276, 128);
+                    } else if ((Data[2] & 0xF) == 1) {
+                        g.DrawImage(Properties.Resources.SwellingGroundIn, RenderX - 128, RenderY, 276, 128);
+                    }
+                    break;
+                case 142:
+                    RenderX -= 8;
+                    RenderX2 = RenderX + (Data[2] / 16) * 16;
+                    RenderY2 = Data[2] % 16;
+                    if (RenderY2 >= 8)
+                        RenderY2 -= 16;
+                    RenderY2 = RenderY - RenderY2 * 16;
+                    g.DrawLine(Pens.White, RenderX + 8, RenderY + 8, RenderX2 + 8, RenderY2 + 8);
+                    g.DrawImage(Properties.Resources.TightRopeEnd, RenderX, RenderY, 15, 15);
+                    g.DrawImage(Properties.Resources.TightRopeEnd, RenderX2, RenderY2, 15, 15);
                     break;
                 case 144:
                     g.DrawImage(Properties.Resources.SpikedBlock, RenderX - 2, RenderY - 7, 19, 26);
@@ -1676,8 +1766,8 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.Door2, RenderX, RenderY - 32, 32, 48);
                     break;
                 case 298:
-                    int width = Data[5] % 0x10;
-                    int height = Data[5] / 0x10;
+                    width = Data[5] % 0x10;
+                    height = Data[5] / 0x10;
                     int spikes = Data[2] % 0x10;
                     if (spikes == 1 || spikes == 3) {
                         height -= 1;
@@ -1830,9 +1920,7 @@ namespace NSMBe4
             }
 
             if (!Level.ValidSprites[this.Type] && customRendered) {
-                SolidBrush sb = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
-                g.FillRectangle(sb, this.getRect());
-                sb.Dispose();
+                g.FillRectangle(invalidBrush, this.getRect());
             }
 
             return customRendered;

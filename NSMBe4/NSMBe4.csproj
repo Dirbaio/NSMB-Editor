@@ -625,6 +625,16 @@
     <None Include="Resources\Sprite Images\GiantHammerBro.PNG" />
     <None Include="Resources\Sprite Images\FireBro.PNG" />
     <None Include="Resources\Sprite Images\Kabomb.PNG" />
+    <None Include="Resources\Sprite Images\MovingPlatformLeftE.PNG" />
+    <None Include="Resources\Sprite Images\MovingPlatformRightE.PNG" />
+    <None Include="Resources\Sprite Images\MovingPlatformSectionE.PNG" />
+    <None Include="Resources\Sprite Images\SpinningLog.PNG" />
+    <None Include="Resources\Sprite Images\SpinningLogL.PNG" />
+    <None Include="Resources\Sprite Images\GiantFirePiranhaplant.PNG" />
+    <None Include="Resources\Sprite Images\SwellingGround.PNG" />
+    <None Include="Resources\Sprite Images\SwellingGroundIn.PNG" />
+    <None Include="Resources\Sprite Images\SwellingGroundOut.PNG" />
+    <None Include="Resources\Sprite Images\TightRopeEnd.PNG" />
     <Content Include="spritedata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
