@@ -276,6 +276,8 @@ namespace NSMBe4
                     CloneMode = false;
                     ResizeMode = false;
                     SelectedObjects = newObjects;
+                    lx = NewX;
+                    ly = NewY;
                 }
                 if (ResizeMode)
                 {
@@ -290,6 +292,8 @@ namespace NSMBe4
                             EdControl.UndoManager.Do(new SizeObjectAction(o, nx, ny));
                         }
                     }
+                    lx = NewX;
+                    ly = NewY;
                 }
                 else
                 {
@@ -310,10 +314,10 @@ namespace NSMBe4
                     } 
                     else
                         EdControl.UndoManager.Do(new MoveMultipleAction(SelectedObjects.ToArray(), nx, ny));
+                    lx += nx;
+                    ly += ny;
                 }
             }
-            lx = NewX;
-            ly = NewY;
         }
 
         public override void MouseUp()

@@ -125,7 +125,7 @@ namespace NSMBe4
             this.v = v;
             UpdateInfo();
             tableLayoutPanel2.Visible = v != null;
-            groupBox1.Visible = v != null && EditingViews;
+            tableLayoutPanel1.Visible = v != null && EditingViews;
         }
 
         private void position_ValueChanged(object sender, EventArgs e)
@@ -177,6 +177,11 @@ namespace NSMBe4
             EdControl.SelectObject(viewsList.SelectedItem);
             if(v != null)
                 EdControl.EnsurePosVisible(v.X / 16, v.Y / 16);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

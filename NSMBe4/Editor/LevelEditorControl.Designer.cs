@@ -66,14 +66,15 @@
             this.DrawingArea.Size = new System.Drawing.Size(429, 351);
             this.DrawingArea.TabIndex = 2;
             this.DrawingArea.TabStop = false;
-            this.DrawingArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseMove);
-            this.DrawingArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseDown);
             this.DrawingArea.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingArea_Paint);
+            this.DrawingArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseDown);
+            this.DrawingArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseMove);
             this.DrawingArea.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseUp);
             // 
             // dragTimer
             // 
-            this.dragTimer.Interval = 25;
+            this.dragTimer.Enabled = true;
+            this.dragTimer.Interval = 15;
             this.dragTimer.Tick += new System.EventHandler(this.dragTimer_Tick);
             // 
             // LevelEditorControl

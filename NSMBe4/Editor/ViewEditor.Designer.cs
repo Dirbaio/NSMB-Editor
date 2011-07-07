@@ -29,22 +29,29 @@
         private void InitializeComponent()
         {
             this.viewsList = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.camTop = new System.Windows.Forms.NumericUpDown();
             this.music = new System.Windows.Forms.ComboBox();
             this.unk1 = new System.Windows.Forms.NumericUpDown();
             this.unk2 = new System.Windows.Forms.NumericUpDown();
             this.unk3 = new System.Windows.Forms.NumericUpDown();
             this.light = new System.Windows.Forms.NumericUpDown();
             this.progressID = new System.Windows.Forms.NumericUpDown();
+            this.camTop = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.camBottom = new System.Windows.Forms.NumericUpDown();
+            this.camTopSpecial = new System.Windows.Forms.NumericUpDown();
+            this.camBottomSpecial = new System.Windows.Forms.NumericUpDown();
+            this.camStick = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -59,22 +66,17 @@
             this.addViewButton = new System.Windows.Forms.Button();
             this.deleteViewButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.camBottom = new System.Windows.Forms.NumericUpDown();
-            this.camTopSpecial = new System.Windows.Forms.NumericUpDown();
-            this.camBottomSpecial = new System.Windows.Forms.NumericUpDown();
-            this.camStick = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.camTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.light)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camTop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camBottom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camStick)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.width)).BeginInit();
@@ -82,10 +84,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.yPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.camBottom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camStick)).BeginInit();
             this.SuspendLayout();
             // 
             // viewsList
@@ -94,26 +92,12 @@
             this.viewsList.FormattingEnabled = true;
             this.viewsList.Location = new System.Drawing.Point(0, 0);
             this.viewsList.Name = "viewsList";
-            this.viewsList.Size = new System.Drawing.Size(280, 124);
+            this.viewsList.Size = new System.Drawing.Size(281, 258);
             this.viewsList.TabIndex = 0;
             this.viewsList.SelectedIndexChanged += new System.EventHandler(this.viewsList_SelectedIndexChanged);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(0, 228);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(280, 285);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "<groupBox1>";
-            // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.55556F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44444F));
@@ -139,7 +123,8 @@
             this.tableLayoutPanel1.Controls.Add(this.label14, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label16, 0, 4);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 19);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 258);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 11;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -153,18 +138,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(267, 260);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(281, 291);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "<label1>";
             // 
             // label2
             // 
@@ -220,15 +195,90 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 267);
+            this.label7.Location = new System.Drawing.Point(3, 269);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 0;
             this.label7.Text = "<label7>";
             // 
+            // music
+            // 
+            this.music.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.music.FormattingEnabled = true;
+            this.music.Location = new System.Drawing.Point(125, 133);
+            this.music.Name = "music";
+            this.music.Size = new System.Drawing.Size(121, 21);
+            this.music.TabIndex = 2;
+            this.music.SelectedIndexChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // unk1
+            // 
+            this.unk1.Location = new System.Drawing.Point(125, 160);
+            this.unk1.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.unk1.Name = "unk1";
+            this.unk1.Size = new System.Drawing.Size(121, 20);
+            this.unk1.TabIndex = 1;
+            this.unk1.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // unk2
+            // 
+            this.unk2.Location = new System.Drawing.Point(125, 186);
+            this.unk2.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.unk2.Name = "unk2";
+            this.unk2.Size = new System.Drawing.Size(121, 20);
+            this.unk2.TabIndex = 1;
+            this.unk2.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // unk3
+            // 
+            this.unk3.Location = new System.Drawing.Point(125, 212);
+            this.unk3.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.unk3.Name = "unk3";
+            this.unk3.Size = new System.Drawing.Size(121, 20);
+            this.unk3.TabIndex = 1;
+            this.unk3.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // light
+            // 
+            this.light.Location = new System.Drawing.Point(125, 238);
+            this.light.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.light.Name = "light";
+            this.light.Size = new System.Drawing.Size(121, 20);
+            this.light.TabIndex = 1;
+            this.light.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // progressID
+            // 
+            this.progressID.Location = new System.Drawing.Point(125, 264);
+            this.progressID.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.progressID.Name = "progressID";
+            this.progressID.Size = new System.Drawing.Size(121, 20);
+            this.progressID.TabIndex = 1;
+            this.progressID.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
             // camTop
             // 
-            this.camTop.Location = new System.Drawing.Point(119, 3);
+            this.camTop.Location = new System.Drawing.Point(125, 3);
             this.camTop.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -244,80 +294,122 @@
             this.camTop.TabIndex = 1;
             this.camTop.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
             // 
-            // music
+            // label1
             // 
-            this.music.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.music.FormattingEnabled = true;
-            this.music.Location = new System.Drawing.Point(119, 133);
-            this.music.Name = "music";
-            this.music.Size = new System.Drawing.Size(121, 21);
-            this.music.TabIndex = 2;
-            this.music.SelectedIndexChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "<label1>";
             // 
-            // unk1
+            // camBottom
             // 
-            this.unk1.Location = new System.Drawing.Point(119, 160);
-            this.unk1.Maximum = new decimal(new int[] {
+            this.camBottom.Location = new System.Drawing.Point(125, 29);
+            this.camBottom.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.camBottom.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.camBottom.Name = "camBottom";
+            this.camBottom.Size = new System.Drawing.Size(121, 20);
+            this.camBottom.TabIndex = 1;
+            this.camBottom.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // camTopSpecial
+            // 
+            this.camTopSpecial.Location = new System.Drawing.Point(125, 55);
+            this.camTopSpecial.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.camTopSpecial.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.camTopSpecial.Name = "camTopSpecial";
+            this.camTopSpecial.Size = new System.Drawing.Size(121, 20);
+            this.camTopSpecial.TabIndex = 1;
+            this.camTopSpecial.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // camBottomSpecial
+            // 
+            this.camBottomSpecial.Location = new System.Drawing.Point(125, 81);
+            this.camBottomSpecial.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.camBottomSpecial.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.camBottomSpecial.Name = "camBottomSpecial";
+            this.camBottomSpecial.Size = new System.Drawing.Size(121, 20);
+            this.camBottomSpecial.TabIndex = 1;
+            this.camBottomSpecial.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            // 
+            // camStick
+            // 
+            this.camStick.Location = new System.Drawing.Point(125, 107);
+            this.camStick.Maximum = new decimal(new int[] {
             65536,
             0,
             0,
             0});
-            this.unk1.Name = "unk1";
-            this.unk1.Size = new System.Drawing.Size(121, 20);
-            this.unk1.TabIndex = 1;
-            this.unk1.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            this.camStick.Name = "camStick";
+            this.camStick.Size = new System.Drawing.Size(121, 20);
+            this.camStick.TabIndex = 1;
+            this.camStick.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
             // 
-            // unk2
+            // label13
             // 
-            this.unk2.Location = new System.Drawing.Point(119, 186);
-            this.unk2.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.unk2.Name = "unk2";
-            this.unk2.Size = new System.Drawing.Size(121, 20);
-            this.unk2.TabIndex = 1;
-            this.unk2.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(3, 32);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(47, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "<label1>";
             // 
-            // unk3
+            // label14
             // 
-            this.unk3.Location = new System.Drawing.Point(119, 212);
-            this.unk3.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.unk3.Name = "unk3";
-            this.unk3.Size = new System.Drawing.Size(121, 20);
-            this.unk3.TabIndex = 1;
-            this.unk3.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(3, 58);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(47, 13);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "<label1>";
             // 
-            // light
+            // label15
             // 
-            this.light.Location = new System.Drawing.Point(119, 238);
-            this.light.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.light.Name = "light";
-            this.light.Size = new System.Drawing.Size(121, 20);
-            this.light.TabIndex = 1;
-            this.light.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 84);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(47, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "<label1>";
             // 
-            // progressID
+            // label16
             // 
-            this.progressID.Location = new System.Drawing.Point(119, 264);
-            this.progressID.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.progressID.Name = "progressID";
-            this.progressID.Size = new System.Drawing.Size(121, 20);
-            this.progressID.TabIndex = 1;
-            this.progressID.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
+            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(3, 110);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(47, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "<label1>";
             // 
             // tableLayoutPanel2
             // 
@@ -337,13 +429,13 @@
             this.tableLayoutPanel2.Controls.Add(this.yPos, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.viewID, 2, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 149);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 179);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(280, 79);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(281, 79);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // label8
@@ -410,7 +502,7 @@
             0,
             0});
             this.width.Name = "width";
-            this.width.Size = new System.Drawing.Size(64, 20);
+            this.width.Size = new System.Drawing.Size(65, 20);
             this.width.TabIndex = 1;
             this.width.ValueChanged += new System.EventHandler(this.position_ValueChanged);
             // 
@@ -424,7 +516,7 @@
             0,
             0});
             this.height.Name = "height";
-            this.height.Size = new System.Drawing.Size(64, 20);
+            this.height.Size = new System.Drawing.Size(65, 20);
             this.height.TabIndex = 1;
             this.height.ValueChanged += new System.EventHandler(this.position_ValueChanged);
             // 
@@ -463,14 +555,14 @@
             0,
             0});
             this.viewID.Name = "viewID";
-            this.viewID.Size = new System.Drawing.Size(134, 20);
+            this.viewID.Size = new System.Drawing.Size(135, 20);
             this.viewID.TabIndex = 1;
             this.viewID.ValueChanged += new System.EventHandler(this.position_ValueChanged);
             // 
             // addViewButton
             // 
             this.addViewButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.addViewButton.Location = new System.Drawing.Point(55, 3);
+            this.addViewButton.Location = new System.Drawing.Point(55, 2);
             this.addViewButton.Name = "addViewButton";
             this.addViewButton.Size = new System.Drawing.Size(82, 22);
             this.addViewButton.TabIndex = 3;
@@ -481,7 +573,7 @@
             // deleteViewButton
             // 
             this.deleteViewButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.deleteViewButton.Location = new System.Drawing.Point(143, 3);
+            this.deleteViewButton.Location = new System.Drawing.Point(143, 2);
             this.deleteViewButton.Name = "deleteViewButton";
             this.deleteViewButton.Size = new System.Drawing.Size(82, 22);
             this.deleteViewButton.TabIndex = 3;
@@ -494,137 +586,33 @@
             this.panel1.Controls.Add(this.addViewButton);
             this.panel1.Controls.Add(this.deleteViewButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 124);
+            this.panel1.Location = new System.Drawing.Point(0, 155);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 25);
+            this.panel1.Size = new System.Drawing.Size(281, 24);
             this.panel1.TabIndex = 4;
-            // 
-            // camBottom
-            // 
-            this.camBottom.Location = new System.Drawing.Point(119, 29);
-            this.camBottom.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.camBottom.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.camBottom.Name = "camBottom";
-            this.camBottom.Size = new System.Drawing.Size(121, 20);
-            this.camBottom.TabIndex = 1;
-            this.camBottom.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
-            // 
-            // camTopSpecial
-            // 
-            this.camTopSpecial.Location = new System.Drawing.Point(119, 55);
-            this.camTopSpecial.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.camTopSpecial.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.camTopSpecial.Name = "camTopSpecial";
-            this.camTopSpecial.Size = new System.Drawing.Size(121, 20);
-            this.camTopSpecial.TabIndex = 1;
-            this.camTopSpecial.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
-            // 
-            // camBottomSpecial
-            // 
-            this.camBottomSpecial.Location = new System.Drawing.Point(119, 81);
-            this.camBottomSpecial.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.camBottomSpecial.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.camBottomSpecial.Name = "camBottomSpecial";
-            this.camBottomSpecial.Size = new System.Drawing.Size(121, 20);
-            this.camBottomSpecial.TabIndex = 1;
-            this.camBottomSpecial.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
-            // 
-            // camStick
-            // 
-            this.camStick.Location = new System.Drawing.Point(119, 107);
-            this.camStick.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.camStick.Name = "camStick";
-            this.camStick.Size = new System.Drawing.Size(121, 20);
-            this.camStick.TabIndex = 1;
-            this.camStick.ValueChanged += new System.EventHandler(this.viewSettings_ValueChanged);
-            // 
-            // label13
-            // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 32);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "<label1>";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 58);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(47, 13);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "<label1>";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 84);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(47, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "<label1>";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 110);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(47, 13);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "<label1>";
             // 
             // ViewEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.viewsList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.viewsList);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ViewEditor";
-            this.Size = new System.Drawing.Size(280, 513);
-            this.groupBox1.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(281, 549);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.camTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.light)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camTop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camBottom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.camStick)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xPos)).EndInit();
@@ -633,10 +621,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.yPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.camBottom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camStick)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -644,7 +628,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox viewsList;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

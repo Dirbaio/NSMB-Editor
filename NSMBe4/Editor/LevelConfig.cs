@@ -308,9 +308,6 @@ namespace NSMBe4 {
             newData[2][2] = (byte)BGIndex; // nsc
             newData[2][3] = (byte)(BGIndex >> 8); // ncg
 
-            if (oldTileset != newData[0][0xC]) {
-                ReloadTileset();
-            }
 
             ComboBox[] checkthese = new ComboBox[] {
                 set1ComboBox, set2ComboBox, set3ComboBox, set4ComboBox,
@@ -328,6 +325,10 @@ namespace NSMBe4 {
             }
 
             EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData));
+            if (oldTileset != newData[0][0xC])
+            {
+                ReloadTileset();
+            }
 
             RefreshMainWindow();
             Close();
