@@ -353,5 +353,6 @@ namespace NSMBe4 {
             levelEditorControl1.SetEditionMode(bgdragem);
             uncheckModeButtons();
         }
+
     }
 }

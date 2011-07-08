@@ -45,12 +45,11 @@ namespace NSMBe4
             SSTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
             string[] spritelist = new string[324];
-            foreach (string sprite in LanguageManager.GetList("Sprites"))
+            int i = 0;
+            foreach (string sprite in SpriteData.spriteNames)
             {
-                string trimmedsprite = sprite.Trim();
-                if (trimmedsprite == "") continue;
-                int equalPos = trimmedsprite.IndexOf('=');
-                spritelist[int.Parse(trimmedsprite.Substring(0, equalPos))] = trimmedsprite.Substring(0, equalPos) + ": " + trimmedsprite.Substring(equalPos + 1);
+                spritelist[i] = i + ": "+sprite;
+                i++;
             }
 
             spriteListBox.Items.AddRange(spritelist);

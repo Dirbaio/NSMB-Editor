@@ -635,9 +635,6 @@
     <None Include="Resources\Sprite Images\SwellingGroundIn.PNG" />
     <None Include="Resources\Sprite Images\SwellingGroundOut.PNG" />
     <None Include="Resources\Sprite Images\TightRopeEnd.PNG" />
-    <Content Include="spritedata.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\Icons\zones.png" />
     <None Include="Resources\Icons\paths.png" />
     <None Include="Resources\Icons\views.png" />

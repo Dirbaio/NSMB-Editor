@@ -65,6 +65,7 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.updateSpriteDataButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -317,6 +318,7 @@ namespace NSMBe4 {
             this.groupBox1.Controls.Add(this.useMDI);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.languageListBox);
+            this.groupBox1.Controls.Add(this.updateSpriteDataButton);
             this.groupBox1.Controls.Add(this.changeLanguageButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
@@ -474,6 +476,18 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
+            // updateSpriteDataButton
+            // 
+            this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateSpriteDataButton.Location = new System.Drawing.Point(6, 197);
+            this.updateSpriteDataButton.Name = "updateSpriteDataButton";
+            this.updateSpriteDataButton.Size = new System.Drawing.Size(234, 23);
+            this.updateSpriteDataButton.TabIndex = 3;
+            this.updateSpriteDataButton.Text = "Update spritedata.txt";
+            this.updateSpriteDataButton.UseVisualStyleBackColor = true;
+            this.updateSpriteDataButton.Click += new System.EventHandler(this.updateSpriteDataButton_Click);
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -536,5 +550,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button insertRomButton;
         private System.Windows.Forms.CheckBox useMDI;
         private System.Windows.Forms.Button bootInsertButton;
+        private System.Windows.Forms.Button updateSpriteDataButton;
     }
 }

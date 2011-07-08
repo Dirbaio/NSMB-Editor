@@ -1,1263 +1,746 @@
-//SPRITE DATA FILE
-//NSMBe4 originally written by Treeki
-//This feature by Dirbaio
-//
+0;Crash sprite;0;This sprite makes the level crash.;0
+1;Crash sprite;0;This sprite makes the level crash.;0
+2;Crash sprite;0;This sprite makes the level crash.;0
+3;Crash sprite;0;This sprite makes the level crash.;0
+4;Crash sprite;0;This sprite makes the level crash.;0
+5;Crash sprite;0;This sprite makes the level crash.;0
+6;Crash sprite;0;This sprite makes the level crash.;0
+7;Crash sprite;0;This sprite makes the level crash.;0
+8;Crash sprite;0;This sprite makes the level crash.;0
+9;Crash sprite;0;This sprite makes the level crash.;0
+10;Nothing;0;;0
+11;Nothing;0;;0
+12;Nothing;0;;0
+13;Nothing;0;;0
+14;Nothing;0;;0
+15;Nothing;0;;0
+16;Nothing;0;;0
+17;Nothing;0;;0
+18;Nothing;0;;0
+19;Nothing;0;;0
+20;Nothing;0;;0
+21;Mega Goomba;0;;1
+    value;2-3;;Activator ID;
+22;Hammer Brother spawn point;0;;3
+    checkbox;9;1;Unknown;Probably Nothing
+    checkbox;10;1;Midway Point;
+    checkbox;11;1;Unknown;
+23;Tube Piranha Plant facing Top;0;Needs a pipe to work.;1
+    checkbox;11;1;Fire-spitting;
+24;Tube Piranha Plant facing Bottom;0;Needs a pipe to work. ;1
+    checkbox;11;1;Fire-spitting;
+25;Tube Piranha Plant facing Right;0;Needs a pipe to work.;1
+    checkbox;11;1;Fire-spitting;
+26;Tube Piranha Plant facing Left;0;Needs a pipe to work.;1
+    checkbox;11;1;Fire-spitting;
+27;Bullet Bill Launcher;0;;2
+    value;10;;Height;
+    list;9;0=Both,1=Left,2=Right;Shoot direction;
+28;Bob-Omb;0;;0
+29;Princess Peach;0;;0
+30;Monty Tank boss;0;;1
+    value;2-3;;Activator ID;
+31;Cheep Cheep;0;;2
+    list;11;0=Green (chases Mario),1=Jumping,2=Doesn t move;Type;
+    checkbox;8;1;Slower;
+32;End-of-Level Flag;0;;1
+    checkbox;4;1;Secret exit;
+33;Springboard;0;;2
+    checkbox;10;1;Offset 1/2 block right;
+    checkbox;11;1;Giant;
+34;Red Coin Ring;0;;1
+    value;2-3;;Target Event ID;
+35;Giant Bowser;0;and bowser jr?;0
+36;Thwomp;0;;0
+37;Spiny;0;;1
+    checkbox;9;3;Faster;
+38;Boo;0;;1
+    checkbox;11;1;Faster;
+39;Boss Activator;0;;2
+    value;2-3;;Activation ID;
+    value;10-11;;Unknown;
+40;Lakitu;0;This sprite spawns Lakitu once. Once it's killed, it will not respawn.@If you want it to respawn, use sprite Lakitu Spawner (183) instead.@If your Sprite Set doesn't have Bullet Bill/Bomb in it, the game will freeze.@;1
+    checkbox;9;;Spawn from BG;If set, makes Lakitu come from the BG like in sprite 183. 
+41;Bowser Battle P-Switch;0;;4
+    value;2-3;;Activator ID;
+    checkbox;6;1;Unk flag 1;
+    checkbox;10;1;Unk flag 2;
+    checkbox;11;1;Unk flag 3;
+42;Chain Chomp / Log;0;;1
+    checkbox;11;1;Have Chain Chomp;
+43;Unused Chain Chomp without log;0;Can be defeated by ground pounding on head;0
+44;Unused;0;;0
+45;Invisible coin brick;0;Only works when it's on top of an air block.;0
+46;Spiked Ball Activator;0;Activates a Spiked Ball when the green blocks pass over it.;1
+    value;11;;Spiked Ball ID;
+47;Lakithunder;0;;1
+    value;2-3;;Activator ID;
+48;Bubbles From Tube;0;;1
+    value;2-3;;Act. ID to disable;
+49;Upside Down Bubbles From Tube;0;;1
+    value;2-3;;Act. ID to disable;
+50;Right Bubbles From Tube;0;;1
+    value;2-3;;Act. ID to disable;
+51;Left Bubbles From Tube;0;;1
+    value;2-3;;Act. ID to disable;
+52;Buzzy Beetle;0;;1
+    list;11;0=Normal,1=Walk on roof/Start as rolling shell,2=Start as shell,3=Start as upside-down shell;Type;
+53;Dry Bones;0;;0
+54;Jumping Lava Fire Ball;0;The fireball jumps from the lava up to the position of the sprite.;0
+55;Bullet Bill;0;;2
+    list;10-11;0=No shooting,1=Straight at Mario,2=Position in Editor;Shooting Position;
+    value;8-9;;Zone ID;
+56;Rotating Fire Bar;0;;4
+    list;10;0=One bar,1=Two opposed bars;Bar style;
+    value;11;;Length in fireballs;
+    list;8;0=Counter-clockwise,1=Clockwise;Rotation direction;
+    value;9;;Speed;
+57;Coin / Coin in bubble;0;;4
+    list;11;0=Regular,1=In Bubble,2=3 In Bubble,3=Hops up-left,4=Drops,5=Hops,6=Moves Right,7=Moves up-left,8=From block,11=Hops high up-left;Type;
+    list;9;0=Left/In Front,1=Left Down/Behind,2=Left, More Down,7=Left, Down, Slow,10=Right,14=Up, Right, Fast;Direction/Behind Fence;
+    checkbox;6;1;Shift 1/2 block down;
+    checkbox;5;1;Shift 1/2 block right;
+58;Bowser boss;0;;1
+    value;2-3;;Activator ID;
+59;Hammer Brother;0;;0
+60;Nothing;0;;0
+61;Nothing;0;;0
+62;Unused Bowser boss;0;Game crashes after roaring animation if used anywhere other than World 8 Final Castle Area 3.@Try directly replacing used final boss sprite (including sprite data)@See how it reacts with activators ect@;0
+63;Skeleton Bowser;0;;2
+    value;2-3;;Activator ID;
+    value;0-1;;Unknown;
+64;Whomp;0;;2
+    checkbox;10;1;Wait for you;
+    checkbox;11;1;Giant;
+65;Cheep Skipper;0;;1
+    value;2-3;;Activator ID;
+66;P-Switch;0;;5
+    value;2-3;;Target Event ID;
+    value;10;;Unknown;
+    checkbox;11;1;Upside down;
+    value;9;;Unknown;
+    value;4-5;;Unknown;
+67;Shark (No generator);0;This sprite makes a Shark enemy that goes left and right. Useful if you want to make a Sushi enemy without generators.;0
+68;Vertical Moving Platform;0;;5
+    value;2-3;;Triggering Event ID;
+    value;10-11;;Width;
+    value;8-9;;Movement Distance;
+    list;6-7;0=Up,1=Down;Start Direction;
+    value;4-5;;Speed;
+69;Horizontal Moving Platform;0;;5
+    value;2-3;;Triggering Event ID;
+    value;10-11;;Width;
+    value;8-9;;Movement Distance;
+    list;6-7;0=Right,1=Left;Start Direction;
+    value;4-5;;Speed;
+70;Unused spinning log;0;;1
+    checkbox;11;;Longer;Makes the platform longer.
+71;Moving Stone Block;0;;0
+72;Moving Stone Block;0;;0
+73;Hanging Metal Platform;0;;1
+    list;11;0=A lot,1=Medium,2=A little;Tilt;
+74;Rock falling on touch;0;;0
+75;See-saw platform;0;;0
+76;Scale Platform;0;;3
+    value;10;;Left side rope height;
+    value;11;;Dist. between platforms;
+    value;9;;Right side rope height;
+77;Sinking Platform;0;;1
+    value;10-11;;Length;
+78;Moving Wood Platform on touch;0;;6
+    value;2-3;;Triggering Event ID;
+    value;11;;Length;
+    checkbox;9;1;Event Activated;
+    checkbox;6;1;Stop at top of screen?;
+    list;7;0=Up,1=Down,2=Right,3=Left;Direction;
+    list;4-5;0=Fast,1=Slow,2=Slower;Speed;
+79;3-Platform Automatic Stationary Spinner;0;It makes ice cream@BUT ONLY IF U HAX IT;2
+    checkbox;7;1;Clockwise rotation;
+    checkbox;5;1;Slower;
+80;Vertical Platform Generator;0;;2
+    list;6-7;0=Up,1=Down;Direction;
+    checkbox;4;1;Unknown flag;Used in the MvsL level.
+81;Nothing;0;;0
+82;Spinning Red Rectangle Platform;0;;3
+    value;2-3;;Activator ID;
+    list;9;0=Always spinning,1=Spin then stop,2=Spin when stood on;Type;
+    list;7;0=Counterclockwise,1=Clockwise;Direction;
+83;Self-activating ? block;0;Mushroom/Fireflower@Item comes out when you go near it.;0
+84;Nothing;0;;0
+85;Small Fence Flip;0;;0
+86;Spinning Red Triangle Platform;0;;3
+    value;2-3;;Activator ID;
+    list;9;0=Always spinning,1=Spin then stop,2=Spin when stood on;Type;
+    checkbox;7;1;Clockwise rotation;
+87;Nothing;0;;0
+88;Brick With P-Switch;0;;3
+    value;2-3;;Triggering event ID;
+    checkbox;9;1;Multi use;
+    value;6-7;;Unknown;
+89;Snailicorn;0;;0
+90;Wiggler;0;;1
+    checkbox;11;1;Bigger;
+91;Moving Wood Platform on Line;0;;6
+    value;2-3;;Activator ID;
+    value;10-11;;Unknown;
+    checkbox;6;1;Wait for Mario;
+    checkbox;7;1;Reversed dirction;
+    checkbox;4;1;Invisible?;
+    value;5;;Speed;
+92;Eel;0;This sprite will not spawn if none of the values are checked.;3
+    checkbox;7;1;Moves Right;
+    checkbox;10;1;Moves Left;Overrides move right setting
+    checkbox;11;1;Non-moving;Overrides other settings
+93;Arrow Sign;0;;3
+    list;10;0=West,1=Southwest,2=South,3=SouthEast,4=East,5=NorthEast,6=North,7=NorthWest;Direction;
+    list;11;0=Right,1=Left;Direction;
+    checkbox;7;1;Small;
+94;Swooper;0;;1
+    checkbox;11;1;Bigger;
+95;Spinning jump board;0;;2
+    value;8-9;;Height/speed?;
+    value;2-3;;Activator ID;
+96;Sea Weed;0;;0
+97;Nothing;0;;0
+98;Nothing;0;;0
+99;Manual Moving Wheel;0;;3
+    value;0-1;;Activator ID;
+    checkbox;6;1;Stick to line;
+    checkbox;4;1;Needs activator;
+100;Nothing;0;;0
+101;Nothing;0;;0
+102;Small Spiked Ball;0;;6
+    value;2-3;;Activator ID;
+    checkbox;10;1;Start going right;
+    value;11;;Speed;
+    value;8;;Speed 2?;
+    checkbox;9;1;Unknown Flag;
+    value;6-7;;Spiked Ball ID;For use with Spiked Ball Activator (46)
+103;Dorrie;0;;4
+    list;4-5;0=Right,1=Left,2=Towards Background,3=Away from background;Direction;2 and 3 don't function properly
+    value;6;;Size;Maximum of 3
+    value;10-11;;Start Node;FF=Appear Always, 00=Appear at level start, Anything else=Appear from midway
+    value;1-2;;Activator ID;Starts facing away from background and turns to actual direction when activated
+104;Tornado;0;;0
+105;Whirlpool;0;;1
+    checkbox;11;1;Shrink Away When Stop;
+106;Red Coin;0;;1
+    value;2-3;;Activator ID;
+107;Event Controller - "?" Switch (Orange);0;;6
+    value;2-3;;Target Event ID;
+    value;0-1;;Triggering Event ID;
+    checkbox;10-11;1;Flip upside down;
+    checkbox;8-9;1;Multi-use;
+    checkbox;6;1;Never time out;
+    checkbox;4;1;Affected by gravity;
+108;Red ! Switch;0;;6
+    value;2-3;;Triggering Event ID;
+    value;0-1;;Unknown;
+    checkbox;11;1;Flip upside down;
+    checkbox;9;1;Allow multiple hits;
+    value;6-7;;Unknown;
+    value;4-5;;Unknown;
+109;Amp (Electric Ball);0;;1
+    list;10-11;0=None,1=1/2 block right,2=1/2 block down,3=1/2 block right and down;Shift;
+110;Brick with Red ! switch;0;;0
+111;Giant Pink Floating Log;0;00 00 01 00 00 00 = Glitchy.@00 00 50 00 00 00 = Unknown.;2
+    value;6;Very glitchy. Do not use.;Glitchy;
+    value;5;No visible change.;Unknown Value;
+112;Nothing;0;;0
+113;Cheep-Chomp;0;;0
+114;Small flamethrower;0;This flamethrower will not recharge. If you want a recharging flamethrower, use 118.;1
+    list;11;0=Right,1=Left,2=Up,3=Down;Direction;
+115;Giant Spike Ball;0;;6
+    value;2-3;;Activator ID;
+    checkbox;10;1;Start going right;
+    value;11;;Speed;
+    value;8;;Speed 2?;
+    checkbox;9;1;Unknown Flag;
+    checkbox;7;1;Non-Moving;
+116;Water Bug;0;;2
+    checkbox;11;1;Dont move;
+    checkbox;9;1;Unknown Flag;
+117;Red ? Block;0;;1
+    value;10;Appears in Midway;Midway Point;
+118;Flamethrower;0;;1
+    list;11;0=Right,1=Left,2=Up,3=Down;Direction;
+119;Pendulum Platform;0;;3
+    value;5-6;;Speed;Default in-game is 83
+    list;7;0=Bottom going right,4=Right side,8=Bottom going left,15=Left side;Starting Position;
+    value;4;;Size;Default in-game is 3. Big sizes should not be used, especially since you can't use them.
+120;Piranha Plant;0;;0
+121;Nothing;0;;0
+122;Giant Piranha Plant;0;;0
+123;Fire Spitting Piranha Plant;0;;0
+124;Giant Fire Spitting Piranha Plant;0;Can't be defeated by shells unlike all other piranha plants (?)@So maybe slightly incomplete;0
+125;Nothing;0;;0
+126;Draw Bridge Platform;0;;6
+    list;11;0=Up position,1=Down position;Stop place;
+    checkbox;8;1;Move;
+    value;6;;Open time;Standard: 1
+    list;7;0=1,1=2,2=3,3=4,4=5,5=6,6=7,7=8,8=9: Straight Up;Maximum Angle;
+    value;4;;Length of side;
+    value;5;;Closed time;Standard: 1
+127;Giant 4 Spinning Platforms;0;;1
+    checkbox;7;1;Clockwise rotation;
+128;Warp Zone Pipe Cannon;0;;1
+    value;4;;Destination world;
+129;Boss Battle Key Location;0;;0
+130;Jumping Cheep Cheep;0;;1
+    checkbox;10;1;Cheep-Skipper;
+131;Midway Point  Vertical;0;;0
+132;Midway Point;0;;0
+133;Nothing;0;;0
+134;Nothing;0;;0
+135;Nothing;0;;0
+136;Pokey;0;;1
+    value;10-11;;Height;
+137;Nothing;0;;0
+138;Nothing;0;;0
+139;Nothing;0;;0
+140;Glitched boss key?;0;The sprite will "throw" to the right across 35 blocks in length a key. Grabbing it will crash the game. The sprite is spawned in-game after you defeat a boss. Might have to do something with sprite 129.;0
+141;Swelling Ground;0;;3
+    value;2-3;;Activator ID;
+    checkbox;4;1;Must be checked;
+    list;5;0=Up,1=Down;Direction;
+142;Tight Rope;0;;2
+    value;4;;Length;
+    value;5;;Height;
+143;Unused Rotating Spiked ? Block;0;;0
+144;Rotating Spiked ? Block;0;;1
+    list;10-11;0=Coin,1=Mushroom/flower,2=1-up;Contents;
+145;Unused Rotating Spiked ? Block;0;;0
+146;Ground Pound Gate;0;;0
+147;Bump from below Red Platform;0;;1
+    value;10-11;;Length;
+148;Goomba;0;;1
+    list;10-11;0=Normal, 1=Spinning(Air), 2=Rising(Pipe-Generator);Spawn;Lets the Goomba spwan different. 1 is spawned by Mega Mario's ground-pounding and 2 is spawned by pipe generators.
+149;Koopa Troopa;0;;1
+    list;10-11;0=Green,1=Red,2=Blue,3=Blue stay on ledge;Color;
+150;Koopa Paratroopa;0;;4
+    list;10;0=Straight line,1=Left-right,2=Up-down,3=Jumping;Direction;
+    list;11;0=Green,1=Red,2=Blue;Color;
+    list;8;0=Down/Left,1=Up/Right;Starting direction;
+    list;9;0=Midway, 1=Start Bottom / Left;Starting position;
+151;Nothing;0;;0
+152;Event Activator/Devactivator Block;0;;1
+    value;2-3;;Target Event ID;
+153;Nothing;0;;0
+154;Nothing;0;;0
+155;Warp to Level;0;;7
+    value;10;;Height in blocks;
+    value;9;;Width in blocks;
+    value;6;;Destination area;
+    value;11;;Dest. entrance;
+    list;7;0=Normal,1=When Climbing Vine,8=Fade Screen;Warp mode;
+    checkbox;4;1;Can enter as Mega Mario;
+    checkbox;5;1;Do no sound;
+156;Nothing;0;;0
+157;Fire Bro;0;;0
+158;Boomerang Bro;0;;0
+159;Nothing;0;;0
+160;Nothing;0;;0
+161;Nothing;0;;0
+162;Tilting Mushroom;0;;5
+    value;10-11;;Speed;
+    value;8;;Length;
+    value;9;;Tilt angle;
+    list;6;0=Doesn t,2=Does;Bouncing;
+    value;7;;Stalk height;
+163;Nothing;0;;0
+164;Nothing;0;;0
+165;Nothing;0;;0
+166;Nothing;0;;0
+167;Chained activators;0;;6
+    value;2-3;;Target ID;
+    value;0-1;;Source ID;
+    list;10;0=Never,1=On Source Activated,2=On Source Changed;On Event;
+    checkbox;11;1;Invert;
+    checkbox;6;1;Change Targ. timed;
+    value;4-5;;Time;
+168;Event Controller - "If" (Uses Locations);0;;5
+    value;2-3;;Target Event ID;
+    list;10;0=Activates Target,1=Deactivates Target,2=??? (used in 5-3 A2 + 73 A2);Switch Mode;Value 2 is maybe something to do with invincible star blue coin trail or not using any zones
+    list;8;0=Touching the Ground in the Location,1=In the Air in the Location,2=Inside the Location,7=???  (used in 5-3 A2 + 73 A2);Mario Status;Value 7 is maybe something to do with invincible star blue coin trail or not using any zones
+    value;6-7;;Enemy Zone ID;255 to ignore the status of this zone
+    value;4-5;;Mario Zone ID;255 to ignore the status of this zone
+169;Nothing;0;;0
+170;Nothing;0;;0
+171;Nothing;0;;0
+172;Nothing;0;;0
+173;Rope;0;;3
+    value;10;;Unknown, 0 or 6;
+    value;11;;Length in blocks;
+    checkbox;4-5;1;Don t move automatically;
+174;Moving Mushroom;0;;8
+    value;10;;Unknown;
+    value;11;;Bouncing Speed;
+    value;8;;Width in blocks;
+    value;9;;Degree of tilting;
+    value;6;;Unknown;
+    value;7;;Vertical offset;
+    checkbox;4;1;Falls when touched;
+    value;5;;Horizontal Speed;
+175;Unused Bouncing Bricks;0;;1
+    list;10;0= constant stretch, 1=cushion like, 2=solid;Behaviour;
+176;Nothing;0;;0
+177;Nothing;0;;0
+178;Nothing;0;;0
+179;Nothing;0;;0
+180;Koopa on Fence;0;;4
+    checkbox;10;1;Walk Vertically;
+    list;11;0=Green,1=Red;Color;
+    checkbox;8;1;Walk Faster;
+    checkbox;9;1;Start on back of fence;
+181;Nothing;0;;0
+182;Nothing;0;;0
+183;Lakitu Spawner;0;This sprite spawns Lakitu inside a Zone. If Lakitu is killed, it is respawned.;2
+    checkbox;10-11;1;Unknown flag;
+    value;8-9;;Zone ID;
+184;Nothing;0;;0
+185;Random Cheep-Cheep Generator;0;;3
+    value;8-9;Let spawn random generated Cheep-Cheep in the selected Zone.;Zone ID;
+    checkbox;10;;Unk flag 1;
+    checkbox;11;;Unk flag 2;
+186;Paragoomba;0;;0
+187;Manual Control Platform;0;;4
+    checkbox;10;1;Auto Start;
+    list;11;0=Left, Up, Right,1=Left, Down, Right,2=Left, Up, Right,3=Left, Right;Arrows;
+    checkbox;8;1;Disappear after a while;
+    list;6;0=When entering level at beginning,1=When entering level at midpoint;When to spawn;
+188;Nothing;0;;0
+189;Pipe cannon;0;If I remember correctly, there was a field that let you adjust the color. @Needs investigation;1
+    list;10-11;0=Far right,1=Far left,2=Medium right,3=Medium left,4=Straight up,5=Fast far left;Angle;
+190;Nothing;0;;0
+191;Hanging Bouncing ? Block;0;;2
+    list;11;0=Coin,1=Powerup,2=Star,3=1-up,4=Powerup,5=Mini Mushroom,6=Shell Powerup,7=Mega Mushroom,8=Mushroom;Item;
+    value;6;;Drop Length;
+192;Falling coin;0;;1
+    value;0-1;;ID to activate;Dissapears after the switch time has run out.
+193;Giant Dry Bones;0;;0
+194;Giant Thwomp;0;;0
+195;Scroll Control;0;;0
+196;Scroll Control;0;;0
+197;Tile creator/destroyer;0;;7
+    value;2-3;;Triggering Event ID;
+    value;10;;Width;
+    value;11;;Height;
+    list;9;0=Destroy,1=Create;Type;
+    checkbox;4;1;Stay on forever;
+    list;7;0=Solid,1=Checkerboard,2=Reverse Checkerboard;Pattern;
+    list;8;0=Red blocks,1=Bricks,2=Silver coins,3=Stone blocks,4=Wood blocks,6=Right facing red pipe top edge,7=Broken red pipe top right edge,F=Used ? block;Block Type;
+198;Vertical scroll stop left limit;0;;3
+    value;10-11;;Y shift (pixels);
+    value;8-9;;Unknown;
+    checkbox;4;1;Top limit;
+199;Vertical scroll stop right limit;0;;3
+    value;10-11;;Y shift (pixels);
+    value;8-9;;Unknown;
+    checkbox;4;1;Top limit;
+200;Nothing;0;;0
+201;Nothing;0;;0
+202;Nothing;0;;0
+203;Purple tilting muhroom;0;;0
+204;Jumping Fire Snake;0;;0
+205;Flame Chomp;0;;1
+    value;8-9;;Zone ID;
+206;Moving Sloped Ghost House Goo (16x3);0;;0
+207;Giant Cheep Cheep;0;;1
+    checkbox;11;1;Green (follows Mario);
+208;Nothing;0;;0
+209;Giant Hammer Bro;0;;0
+210;Vs. Battle Star;0;;1
+    value;10-11;;Star ID;These must be the same number of stars as in the original level. Each star must have a unique ID, starting from 1. If not, the game will hang.
+211;Blooper;0;;2
+    value;2-3;;Triggering Event ID;Appears when event is triggerd
+    checkbox;10-11;1;Tries to avoid Mario;Goes away from Mario
+212;Blooper Nanny;0;Never releases mini bloopers.;0
+213;Blooper, Mini-Blooper Spawn;0;;1
+    value;11;;Unknown;
+214;Nothing;0;;0
+215;Nothing;0;;0
+216;Nothing;0;;0
+217;Nothing;0;;0
+218;Auto Scroll Start;0;We have yet to find out how to get it to work.;4
+    value;10-11;;Path ID;
+    value;8-9;;Unknown;
+    value;6-7;;Unknown;
+    value;4-5;;Start-Node;
+219;Spiny Beetle;0;;2
+    list;10;0=Up,1=Left,2=Down,3=Right;Facing;
+    checkbox;11;1;Move left;
+220;Bowser Jr. boss;0;;3
+    list;10;0=Throws shells,1=Hops in shell after damage,2=Hops in shell after damage,3=Throws shells;Behavior;
+    checkbox;11;1;Unknown Flag;
+    value;8-9;;Unknown;
+221;Nothing;0;;0
+222;Mini Goomba;0;;2
+    checkbox;10;1;Shift 1/2 block right;
+    checkbox;11;1;Shift 1/2 block down;
+223;Flip Fence Side;0;;0
+224;Large Flip Fence Side;0;;0
+225;Nothing;0;;0
+226;Hanging Scuttle Bug;0;;1
+    value;10;;Drop height;
+227;Money Bag;0;;0
+228;Roulette Block;0;;1
+    checkbox;10;1;Have mini-mushroom;
+229;Petey Piranha;0;;0
+230;Nothing;0;;0
+231;Water;0;;7
+    value;2-3;;Triggering Event ID;The water Rises/Lowers when the event is activated/and maybe deactivated
+    checkbox;10;1;Allow Rise;
+    value;11;;Unknown;
+    value;8-9;;Height to Rise;
+    checkbox;6;1;Visible;
+    value;7;;Opacity;0 means it's invisible. 
+    checkbox;4-5;1;Rising/Falling Waves;
+232;Hanging ? Block;0;;3
+    value;2-3;;Triggering Event ID;
+    list;Coin  2:Po;64=Coin,65=Powerup,80=Star,81=Mushroom;Contents;
+    checkbox;5;1;Unknown Flag;
+233;Swinging Pole;0;;3
+    checkbox;10;1;Moving;
+    value;11;;Pole length;
+    checkbox;9;1;Start moving left;
+234;Lava;0;Needs water data added;0
+235;Star Coin;0;;4
+    value;0-1;;ID to activate;
+    list;10;0=None,1=1/2 block right,2=1/2 block left;Horizontal Shift;
+    list;11;0=None,1=1/2 block down,2=1/2 block up;Vertical Shift;
+    value;8-9;;Number;
+236;Spinning Square Platform;0;;5
+    value;2-3;;Act. ID to show;
+    checkbox;9;1;Pause, then move;
+    checkbox;7;1;Clockwise rotation;
+    checkbox;4;1;Shift 1/2 block down;
+    checkbox;5;1;Increase rotation speed/occurrences;
+237;Broozer;0;;0
+238;Purple Tilt Mushroom;0;;2
+    value;10;;Width;
+    value;11;;Unknown;
+239;Rising/Lowering Mushroom;0;;4
+    value;10;;Dist. to go down;
+    value;11;;Width;
+    checkbox;8;1;Return to original pos;
+    value;9;;Distance to go up;
+240;Nothing;0;;0
+241;Rotating Bullet Bill Cannon;0;;3
+    value;6-7;;Height;
+    checkbox;3;;Cannons to flip;individual bits indicate flipped cannons
+    checkbox;4;;Empty Spots;individual bits indicate empty spots
+242;Expand/Contract Mushroom;0;;3
+    checkbox;10;1;Start Expanded;
+    value;11;;Stalk Height;
+    checkbox;9;1;Small;
+243;Roof Spiny;0;;0
+244;Bouncing Mushroom;0;;3
+    list;10;0=None,1=1/2 block left,2=1/2 block right;Shift;
+    value;11;;Stalk Height;
+    value;8-9;;Unknown;
+245;Swelling Tube;0;;6
+    value;6;;Destination Area;
+    checkbox;7;1;Unknown Flag;Has something to do with moving pump to other side of tube
+    value;8;;Pump Y Distance from tube;
+    checkbox;9;1;Unknown Flag;Has something to do with moving pump to other side of tube
+    checkbox;10;;Pump X Distance from tube;
+    checkbox;11;;Destination Entrance;
+246;Spinning Barrel;0;;1
+    checkbox;11;1;Unknown Flag;
+247;Shark Generator;0;;1
+    value;8-9;;Zone ID;
+248;Balloon Boo;0;;2
+    value;8-9;;Zone ID;
+    checkbox;7;1;Unknown Flag;
+249;Wall Jump Platform;0;;4
+    value;11;;Width;
+    value;8;;Height;
+    checkbox;6;1;Wait for Mario;
+    value;5;;Speed;
+250;Crow;0;;0
+251;Giant Eel;0;;2
+    checkbox;10;1;Visible facing left;
+    checkbox;7;1;Visible facing right;
+252;Banzai Bill cannon;0;;0
+253;Nothing;0;;0
+254;Kab-omb;0;;1
+    checkbox;11;1;Unknown Flag;
+255;Junglekusa (Unused Jungle Image);0;The height of the Sprite is 4 blocks. It is counted by the block where it is placed downwards. The image is repeated sideways.;2
+    checkbox;4-5;;Swimmable;Area under Image is swimable, too.
+    value;10-11;;Scroll Up/Down;If swimmable, the Image doesn't move. If Minus values, it scrolls down, if plus values i scrolls up.
+256;Rotating Carry-Through-Wall Platform;0;;2
+    list;7;0=Left,1=Right;Start side;
+    checkbox;10;1;Unknown Flag;
+257;Cheep-Cheep with coin trail;0;;0
+258;Unused Spike bass;0;This Spike Bass does not require a water height.;0
+259;Poison Water;0;Probably has same sprite data as water?;0
+260;Fast Giant Down Shooting Spike;0;;4
+    value;10-11;;How long to stay out;
+    value;8-9;;How long to stay in;
+    value;6-7;;Speed;
+    checkbox;4;1;Slow start;
+261;Fast Giant Up Shooting Spike;0;;4
+    value;10-11;;How long to stay out;
+    value;8-9;;How long to stay in;
+    value;6-7;;Speed;
+    checkbox;4;1;Slow start;
+262;Fast Giant Left Shooting Spike;0;;4
+    value;10-11;;How long to stay out;
+    value;8-9;;How long to stay in;
+    value;6-7;;Speed;
+    checkbox;4;1;Slow start;
+263;Fast Giant Right Shooting Spike;0;;4
+    value;10-11;;How long to stay out;
+    value;8-9;;How long to stay in;
+    value;6-7;;Speed;
+    checkbox;4;1;Slow start;
+264;Increase chance of drops on Mega-Mario groundpound;0;Only increase the CHANCE to drop Goombas when Groundpounding.;1
+    value;8-9;;Zone ID;
+265;Ghost House Pointing Hands;0;;1
+    value;10-11;;ID of sprite;
+266;Invisible Fireball;0;Is an invisible fireball that will follow you if near; or fly a straight path from it was placed.;0
+267;Nothing;0;;0
+268;Underwater Bounce Ball;0;;0
+269;Giant Wiggler;0;;0
+270;Pipe being smashed;0;The effect will activate every time you get to the point were you can see the sprite.@This sprite gets spawned in-game every time you break a pipe as mega Mario.@@NOTE: There was sprite data controlling the size, color and behavior. Must investigate.;0
+271;Crow Generator;0;;0
+272;Falling Snow From Tree;0;;1
+    checkbox;11;1;Branch Left;
+273;Snowball Thrower;0;;0
+274;Sinking Snow;0;Length of 0 makes the game crash!;1
+    value;11;;Length;
+275;Jumping ? Block;0;;2
+    value;11;;Height;
+    list;9;0=Nothing,1=Coin,2=Powerup,3=1-up;Item;
+276;Scroll stop;0;;0
+277;Arrow;0;;2
+    checkbox;4;1;Unknown, maybe layer?;
+    list;5;0=North,1=NorthEast,2=East,3=SouthEast,4=South,5=SouthWest,6=West,7=NorthWest;Direction;
+278;Groundpound Ghost House Goo;0;;2
+    value;10;;Height;
+    value;11;;Width;
+279;1-Way Door;0;;1
+    list;11;0=Faces up, opens from left,1=Faces up, opens from right,2=Faces down, opens from left,3=Faces down, opens from right,4=Faces right, opens from bottom,5=Faces right, opens from top,6=Faces left, opens from bottom,7=Faces left, opens from top;Type;
+280;Camera scroll slow stop?;0;;0
+281;Pipe caterpillar guy (7-A);0;;1
+    checkbox;11;1;Come out downwards;
+282;Vine;0;Requires BOTH sprite sets "Vine" and "Rope".@If not, it crashes.;3
+    value;10;;Swing angle;
+    value;11;;Length;
+    checkbox;5;1;Dont restrict angle;
+283;Spike Bass;0;;3
+    checkbox;10;1;Move along line;
+    value;11;;Length;
+    checkbox;9;1;Attached to line;
+284;Pumpkin;0;;0
+285;Falling Scuttle Bug;0;;1
+    value;8-9;;Zone ID;
+286;Timed Event Activator;0;;3
+    value;2-3;;Start ID;
+    value;0-1;;End ID;
+    value;4-5;;Delay;
+287;Enemy-in-Pipe Generator;0;;2
+    list;10;0=Goomba,1=Bob-omb;Enemy;
+    list;11;0=Up,1=Down,2=Left,3=Right;Direction;
+288;Nothing;0;;0
+289;Expandable Block;0;;1
+    checkbox;11;1;Turn solid at 4th block;Unused
+290;Left Flying ? Block;0;;7
+    value;2-3;;Activator ID;
+    list;11;0=Coin,1=Shroom/Flower,2=Star,3=1-up,4=? Switch,5=P-Switch,6=! Switch,7=Vine with mario clone;Item;
+    list;8;0=Wave,1=Circular,2=Up-Down;Path;
+    checkbox;9;1;Go left;
+    value;6;;Time until reverse;
+    value;7;;Pointing hands ID?;
+    checkbox;4;1;Connect with pointing hands;
+291;Brick Block with ? Switch;0;;5
+    value;2-3;;Activator ID;
+    checkbox;11;1;Flip Upside-down;
+    checkbox;9;1;Allow multiple hits;
+    checkbox;6;1;Stay on forever;
+    checkbox;4;1;Unknown Flag;
+292;Event Activated Door;0;;3
+    value;2-3;;Triggering Event ID;
+    value;8-9;;Destination area;
+    value;10-11;;Dest. entrence;
+293;Scroll Stop Downward;0;;0
+294;Scroll Stop Downward;0;;0
+295;Mummy Pokey;0;;0
+296;Horizontal moving platform;0;Do not requires a sprite set.;4
+    value;4-5;;Width;
+    value;6-7;;Movement distance;
+    list;9;0=Right,1=Left;Start direction;
+    list;11;0=fast, 1=slow;Speed;
+297;Moving Stone Block;0;;0
+298;Moving stone block;0;;8
+    value;11;;Width;
+    value;10;;Height;
+    value;8;;Distance to move;
+    value;9;;Speed;
+    value;6;;Start delay;
+    value;7;;End delay;
+    checkbox;4;1;Horizontal movement;
+    list;5;0=None,1=Top,2=Bottom,3=Top and Bottom,4=Right,5=Left,6=Right and left;Spikes;
+299;Moving Green Blocks;0;Will annihlate any solid tile in its way.;5
+    value;10;;Path ID;If you don't have a matching ID, the game will freeze.
+    value;8;;Length;
+    checkbox;9;1;Spawn if Midpoint;
+    value;6-7;;Starting node;
+    value;4-5;;Allow fall;
+300;Rising Ghost Platform;0;;1
+    value;11;;Y-Shift (pixels);
+301;Toadsworth;0;What is the unused type? Well, it makes glitchy blocks that do nothing. Never use it.;1
+    list;10-11;0=1-Up Mushroom,1=Unused,2=Item,3=Mega Mushroom,4=Background Chooser;Type;1 is glitchy.
+302;Mushroom House Block;0;;2
+    checkbox;10;1;Unknown flag;
+    value;11;;ID;
+303;Spinning Chain with Spike Ball;0;;2
+    value;10;;Nothing;
+    value;11;;Nothing;
+304;Giant Falling Spike;0;;4
+    value;10;;Length;
+    value;8;;Leaving Speed;
+    value;7;;Fall delay;
+    value;5;;Unknown;
+305;Final Castle Create Loop;0;;2
+    value;8-9;;Width;Nybbles are reverse order
+    value;10-11;;ID;
+306;Final Castle Wrong Path;0;;2
+    value;10;;Height;Sprite is positioned at the bottom
+    value;11;;ID;
+307;Giant Rising Spike;0;;4
+    value;10;;Length;
+    value;8;;Leaving Speed;
+    value;7;;Fall delay;
+    value;5;;Unknown;
+308;Giant Left Shooting Spike;0;;4
+    value;10;;Length;
+    value;8;;Leaving Speed;
+    value;7;;Fall delay;
+    value;5;;Unknown;
+309;Giant Right Shooting Spike;0;;4
+    value;10;;Length;
+    value;8;;Leaving Speed;
+    value;7;;Fall delay;
+    value;5;;Unknown;
+310;Fog FG effect;0;;0
+311;Snow FG effect 1;0;;0
+312;Raising Platform;0;;0
+313;Snow FG effect 2;0;;0
+314;Snow FG effect 3;0;;0
+315;Cloud FG effect;0;;0
+316;Water FG effect 1;0;;0
+317;Water FG effect 2;0;;0
+318;Fire FG effect 1;0;;1
+    value;10-11;;Speed;
+319;Fire FG effect 2;0;;1
+    value;10-11;;Speed;
+320;Fire FG effect 3;0;;1
+    value;10-11;;Speed;
+321;Light FG effect 1;0;;0
+322;Light FG effect 2;0;;0
+323;Soft Cloud Platform;0;;1
+    value;10-11;;Length;Cloud extends from sprite position to the right.
 
-sprite 23 24
-value checkbox Fire-spitting
-3
-end sprite
 
-sprite 25 26 28 29 35 36 53 54 59 74
-value label This sprite has no sprite data
-end sprite
 
-sprite 27
-value number Height
-3.1
-value number Unknown
-4.1
-value list Shoot direction
-Both
-Left
-Right
-end list
-4.2
-end sprite
-
-sprite 30
-value number Activator ID
-1
-end sprite
-
-sprite 31
-value list Type
-Green (chases Mario)
-Jumping
-Doesn't move
-end list
-3.2
-value checkbox Slow Down
-4.1
-end sprite
-
-sprite 32
-value checkbox Secret exit
-6.1
-end sprite
-
-sprite 33
-value checkbox Offset 1/2 block right
-3.1
-value checkbox Giant
-3.2
-end sprite
-
-sprite 34
-value number Activation ID
-1
-end sprite
-
-sprite 37
-value list Speed
-Regular
-Regular
-Regular
-Faster
-end list
-4.2
-end sprite
-
-sprite 38
-value checkbox Faster
-3.2
-end sprite
-
-sprite 39
-value number Activation ID
-1
-value number Unknown
-3
-end sprite
-
-sprite 42
-value checkbox Have Chain Chomp
-3.2
-end sprite
-
-sprite 48 49 50 51
-value number Act. ID to disable
-1
-end sprite
-
-sprite 52
-value checkbox Stick to the roof
-3.1
-value checkbox Start as shell
-3.2
-end sprite
-
-sprite 55
-value number Unknown
-3
-value number Zone ID
-4
-end sprite
-
-sprite 56
-value checkbox Two opposed bars
-3.1
-value number Length in fireballs
-3.2
-value checkbox Go clockwise
-4.1
-value number Speed
-4.2
-end sprite
-
-sprite 64
-value checkbox Wait for you
-3.1
-value checkbox Giant
-3.2
-end sprite
-
-sprite 66
-value number Activation ID
-1
-value number Unknown
-3.1
-value checkbox Flip Upside down
-3.2
-value number Unknown
-4.2
-value number Unknown
-6
-end sprite
-
-sprite 68
-value number Activator ID
-1
-value number Length
-3 plus 1
-value number Travelling height
-4
-value checkbox Go Down
-5
-value number Speed
-6
-end sprite
-
-sprite 69
-value number Activator ID
-1
-value number Length
-3 plus 1
-value number Travelling height
-4
-value checkbox Go left
-5
-value number Speed
-6
-end sprite
-
-sprite 73
-value list Tilt
-A lot
-Medium
-A little
-end list
-3.2
-end sprite
-
-sprite 76
-value number Left side rope height
-3.1
-value number Dist. between platforms
-3.2
-value number Right side rope height
-4.2
-end sprite
-
-sprite 77
-value number Length
-3
-end sprite
-
-sprite 78
-value number Activator ID
-1
-value number Length in blocks
-3.2
-value list Display
-Show
-Hide until activated
-end list
-4.2
-value checkbox Stop at top of screen
-5.1
-value list Direction
-Up
-Down
-Right
-Left
-end list
-5.2
-value number Speed
-6
-end sprite
-
-sprite 79
-value checkbox Clockwise rotation
-5.2
-value checkbox Slow down
-6.2
-end sprite
-
-sprite 80
-value checkbox Platforms go down
-5
-value checkbox Unknown flag
-6.1
-end sprite
-
-sprite 82 86
-value number Activator ID
-1
-value list Type
-Always spinning
-Spin then stop
-Spin when stood on
-end list
-4.2
-value checkbox Clockwise rotation
-5.2
-end sprite
-
-sprite 88
-value number Activation ID
-1
-value checkbox Allow multiple hit
-4.2
-value number Unknown
-5
-end sprite
-
-sprite 90
-value checkbox Bigger
-3.2
-end sprite
-
-sprite 91
-value number Activator ID
-1
-value number Unknown
-3
-value checkbox Wait for Mario
-5.1
-value checkbox Reversed dirction
-5.2
-value checkbox Invisible?
-6.1
-value number Speed
-6.2
-end sprite
-
-sprite 92
-value checkbox Moves Right
-5.2
-value checkbox Moves Left
-3.1
-value checkbox Non-moving
-3.2
-end sprite
-
-sprite 93
-value list Direction
-West
-Southwest
-South
-East
-Northeast
-North
-Northwest
-end list
-3.1
-value checkbox X flip
-3.2
-value checkbox Small
-5.2
-end sprite
-
-sprite 94
-value checkbox Bigger
-3.2
-end sprite
-
-sprite 99
-value number Activator ID
-2
-value checkbox Stick to line
-5.1
-value checkbox Hide until activated
-6.1
-end sprite
-
-sprite 102
-value number Activator ID
-1
-value checkbox Start going right
-3.1
-value number Speed
-3.2
-value number Speed 2?
-4.1
-value checkbox Unknown Flag
-4.2
-value checkbox Non-Moving
-5.2
-end sprite
-
-sprite 106
-value number Activator ID
-1
-end sprite
-
-sprite 107
-value number Act. ID to activate
-1
-value number Act. ID to show
-2
-value checkbox Flip upside down
-3
-value checkbox Allow multiple hits
-4
-value checkbox Never time out
-5.1
-end sprite
-
-sprite 108
-value number Activation ID
-1
-value number Unknown
-2
-value checkbox Flip upside down
-3.2
-value checkbox Allow to hit multiple times
-4.2
-value number Unknown
-5
-value number Unknown
-6
-end sprite
-
-sprite 109
-value list Shift
-None
-1/2 block right
-1/2 block down
-1/2 block right and down
-end list
-3.1
-end sprite
-
-sprite 114
-value list Direction
-Right
-Left
-Up
-Down
-end list
-3.2
-end sprite
-
-sprite 115
-value number Activator ID
-1
-value checkbox Start going right
-3.1
-value number Speed
-3.2
-value number Speed 2?
-4.1
-value checkbox Unknown Flag
-4.2
-value checkbox Non-Moving
-5.2
-end sprite
-
-sprite 116
-value checkbox Dont move
-3.2
-value checkbox Unknown Flag
-4.2
-end sprite
-
-sprite 118
-value list Direction
-Right
-Left
-Up
-Down
-end list
-3.2
-end sprite
-
-sprite 119
-value number Speed (small amt)
-6.2
-value number Speed (large amt)
-5.1
-value list Starting Position
-Bottom going right
-unused
-unused
-unused
-Right side
-unused
-unused
-unused
-Bottom going left
-unused
-unused
-unused
-unused
-unused
-unused
-Left side
-end list
-5.2
-value number Size
-6.1
-end sprite
-
-sprite 126
-value list Stop place
-Up position
-Down position
-end list
-3.2
-value checkbox Move
-4.1
-value number How long to stay open
-5.1
-value list Maximum Angle
-1
-2
-3
-4
-5
-6
-7
-8
-9: Straight Up
-end list
-5.2
-value number Length of side
-6.1
-value number How long to stay closed
-6.2
-end sprite
-
-sprite 127
-value checkbox Clockwise rotation
-5.2
-end sprite
-
-sprite 128
-value number Destination world
-6.1
-end sprite
-
-sprite 130
-value checkbox Cheep-Skipper type
-3.1
-end sprite
-
-sprite 136
-value number Height
-3 plus 1
-end sprite
-
-sprite 141
-value number Activator ID
-1
-value checkbox Must check
-6.1
-value checkbox Go down
-6.2
-end sprite
-
-sprite 142
-value number Length
-6.1
-value number Height
-6.2 signed
-end sprite
-
-sprite 144
-value list Contents
-Coin
-Mushroom/flower
-end list
-3
-end sprite
-
-sprite 147
-value number Length
-3
-end sprite
-
-sprite 149
-value list Color
-Green
-Red
-Blue
-Blue stay on ledge
-end list
-3
-end sprite
-
-sprite 150
-value list Direction
-Straight line
-Left-right
-Up-down
-Jumping
-end list
-3.1
-value list Color
-Green
-Red
-Blue
-end list
-3.2
-value list Starting direction
-Down/Left
-Up/Right
-end list
-4.1
-value checkbox Unknown flag
-4.2
-end sprite
-
-sprite 152
-value number Activation ID
-1
-end sprite
-
-sprite 155
-value number Height in blocks
-3.1 plus 1
-value number Width in blocks
-4.2 plus 1
-value number Destination area
-5.1 plus 1
-value number Dest. entrance
-3.2
-value list Warp mode
-0: Normal
-1: Only when Mario climbs a vine
-2: Unused
-3: Unused
-4: Unused
-5: Unused
-6: Unused
-7: Unused
-8: Do Fading Screen Transition
-end list
-5.2
-value checkbox Can enter as Mega Mario
-6.1
-value checkbox Do no sound
-6.2
-end sprite
-
-sprite 162
-value number Speed
-3
-value number Length
-4.1
-value number Tilt angle
-4.2
-value list Bouncing
-Doesn't
-Doesn't
-Does
-end list
-5.1
-value number Stalk height
-5.2
-end sprite
-
-sprite 167
-value number Target ID
-1
-value number Source ID
-2
-value list On Event
-Never
-On Source Activated
-On Source Changed
-end list
-3.1
-value checkbox Invert
-3.2
-value checkbox Change Targ. timed
-5.1
-value number Time
-6
-end sprite
-
-sprite 168
-value number Activator ID
-1
-value number Unknown 1
-3.1
-value number Unknown 2
-4.1
-value number Unknown 3
-5
-value number Zone ID
-6
-end sprite
-
-sprite 173
-value number Unknown, 0 or 6
-3.1
-value number Length in blocks
-3.2 plus 4
-value checkbox Don't move automatically
-6
-end sprite
-
-sprite 174
-value number Unknown
-3.1
-value number Bouncing Speed
-3.2
-value number Width in blocks
-4.1
-value number Degree of tilting
-4.2
-value number Unknown
-5.1
-value number Vertical offset
-5.2
-value checkbox Falls when touched
-6.1
-value number Horizontal Speed
-6.2
-end sprite
-
-sprite 180
-value checkbox Walk Vertically
-3.1
-value list Color
-Green
-Red
-end list
-3.2
-value checkbox Walk Faster
-4.1
-value checkbox Start on back of fence
-4.2
-end sprite
-
-sprite 183
-value checkbox Unknown flag
-3
-value number Zone ID
-4
-end sprite
-
-sprite 187
-value checkbox Auto Start
-3.1
-value list Arrows
-Left, Up, Right 
-Left, Down, Right 
-Left, Up, Right 
-Left, Right
-end list
-3.2
-value checkbox Disappear after a while
-4.1
-value checkbox Hide
-5.1
-end sprite
-
-sprite 189
-value list Angle
-Far right
-Far left
-Medium right
-Medium left
-Straight up
-Fast far left
-end list
-3
-end sprite
-
-sprite 197
-value number Activator ID
-1
-value number Width
-3.1 plus 1
-value number Height
-3.2 plus 1
-value checkbox Create, not destroy
-4
-value checkbox Do not time out
-6.1
-end sprite
-
-sprite 198 199
-value number Y shift (pixels)
-3
-value number Unknown
-4
-value checkbox Top limit
-6.1	
-end sprite
-
-sprite 205
-value number Zone ID
-4
-end sprite
-
-sprite 207
-value checkbox Green (follows Mario)
-3.2
-end sprite
-
-sprite 210
-value number Star ID
-3
-end sprite
-
-sprite 211
-value number Activator ID
-1
-value checkbox Unknown flag
-3
-end sprite
-
-sprite 218
-value number Path ID
-3
-value number Unknown
-4
-value number Unknown
-5
-value number Unknown
-6
-end sprite
-
-sprite 219
-value list Facing
-Up
-Left
-Down
-Right
-end list
-3.1
-value checkbox Move left
-3.2
-end sprite
-
-sprite 220
-value list Behavior
-Throws shells
-Hops in shell after damage
-Hops in shell after damage
-Throws shells
-end list
-3.1
-value checkbox Unknown Flag
-3.2
-value number Unknown
-4
-end sprite
-
-sprite 222
-value checkbox Shift 1/2 block right
-3.1
-value checkbox Shift 1/2 block down
-3.2
-end sprite
-
-sprite 226
-value number Drop height
-3.1
-end sprite
-
-sprite 228
-value checkbox Have mini-mushroom
-3.1
-end sprite
-
-sprite 231
-value number Activator ID
-1
-value checkbox Allow Rise
-3.1
-value number Unknown
-3.2
-value number Height to Rise
-4
-value checkbox Visible
-5.1
-value list Brightness
-1: Very Bright
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16: Very Dark
-end list
-5.2
-value checkbox Rising/Falling Waves
-6
-end sprite
-
-sprite 232
-value number Activator ID to show
-1
-value list Contents
-1:Coin  2:Powerup
-1:Star  2:Mushroom
-end list
-3.1
-value checkbox Use 2nd item
-3.2
-value checkbox Unknown Flag
-6.2
-end sprite
-
-sprite 233
-value checkbox Moving
-3.1
-value number Pole length
-3.2
-value checkbox Start moving left
-4.2
-end sprite
-
-sprite 235
-value number ID to activate
-2
-value list Horizontal Shift
-None
-1/2 block right
-1/2 block left
-end list
-3.1
-value list Vertical Shift
-None
-1/2 block down
-1/2 block up
-end list
-3.2
-value number Number
-4
-end sprite
-
-sprite 236
-value number Act. ID to show
-1
-value checkbox Pause, then move
-4.2
-value checkbox Clockwise rotation
-5.2
-value checkbox Shift 1/2 block down
-6.1
-value checkbox Increase rotation speed/occurrences
-6.2
-end sprite
-
-sprite 238
-value number Width
-3.1
-value number Unknown
-3.2
-end sprite
-
-sprite 239
-value number Distance to go down
-3.1
-value number Width
-3.2
-value list After Mario Leaves
-Stay in same position
-Return to start position
-end list
-4.1
-value number Distance to go up
-4.2
-end sprite
-
-sprite 241
-value binary Cannons to flip
-3
-value binary Empty spots
-4
-value label Note: The 1st checkbox is the bottom cannon
-value number Height
-5 plus 1
-end sprite
-
-sprite 242
-value checkbox Start Expanded
-3.1
-value number Stalk Height
-3.2
-value checkbox Large
-4.2
-end sprite
-
-sprite 244
-value list Shift
-None
-1/2 block left
-1/2 block right
-end list
-3.1
-value number Stalk Height
-3.2
-value number Unknown
-4
-end sprite
-
-sprite 245
-value number Pump X dist from
-3 plus 16
-value label tube (in pixels)
-value number Pump Y dist from tube
-4 plus 16
-value label tube (in pixels)
-value checkbox Unknown Flag
-5.1
-value checkbox Unknown Flag
-5.2
-end sprite
-
-sprite 246
-value checkbox Unknown Flag
-3.2
-end sprite
-
-sprite 247
-value number Zone ID
-4
-end sprite
-
-sprite 248
-value number Zone ID
-4
-value checkbox Unknown Flag
-5.2
-end sprite
-
-sprite 249
-value checkbox Thick
-3.2
-value number Height
-4.2
-value checkbox Wait for Mario
-5.1
-value number Speed
-6.2
-end sprite
-
-sprite 251
-value checkbox Visible facing left
-3.1
-value checkbox Visible facing right
-5.2
-end sprite
-
-sprite 254
-value checkbox Unknown Flag
-3.2
-end sprite
-
-sprite 256
-value list Start side
-Left
-Right
-end list
-5.1
-end sprite
-
-sprite 260 261 262 263
-value number How long to stay out
-3
-value number How long to stay in
-4
-value number Speed
-5
-value checkbox Slow start
-6.1
-end sprite
-
-sprite 265
-value number ID of sprite
-3
-end sprite
-
-sprite 272
-value checkbox Branch Left
-3.2
-end sprite
-
-sprite 274
-value number Length
-3.2
-end sprite
-
-sprite 275
-value number Height
-3.2
-value list Item
-Nothing
-Coin
-Powerup
-1-up
-end list
-4.2
-end sprite
-
-sprite 277
-value checkbox Unknown
-6.1
-value list Direction
-North
-NorthEast
-East
-SouthEast
-South
-SouthWest
-West
-NorthWest
-end list
-6.2
-end sprite
-
-sprite 278
-value number Width
-3.1 plus 1
-value number Height
-3.2 plus 2
-end sprite
-
-sprite 279
-value list Type
-Faces up, opens from left
-Faces up, opens from right
-Faces down, opens from left
-Faces down, opens from right
-Faces right, opens from bottom
-Faces right, opens from top
-Faces left, opens from bottom
-Faces left, opens from top
-end list
-3.2
-end sprite
-
-sprite 281
-value checkbox Come out upwards
-3.2
-end sprite
-
-sprite 282
-value number Swing angle
-3.1
-value number Length
-3.2
-value checkbox Don't rescrict angle
-6.2
-end sprite
-
-sprite 283
-value checkbox Move along line
-3.1
-value number Length
-3.2
-value checkbox Attached to line
-4.2
-end sprite
-
-sprite 285
-value number Zone ID
-4
-end sprite
-
-sprite 286
-value number Start ID
-1
-value number End ID
-2
-value number Delay
-6
-end sprite
-
-sprite 287
-value list Enemy
-Goomba
-Bob-omb
-end list
-3.1
-value list Direction
-Up
-Down
-Left
-Right
-end list
-3.2
-end sprite
-
-sprite 289
-value checkbox Turn solid at 4th block
-3.2
-end sprite
-
-sprite 290
-value number Activator ID
-1
-value list Item
-Coin
-Powerup
-Star
-1-up
-Orange ? Switch
-P-Switch
-Red ! Switch
-Vine with mario
-end list
-3.2
-value list Path
-Wave
-Circular
-Up-Down
-end list
-4.1
-value checkbox Go left
-4.2
-value number Time until reverse
-5.1
-value number Pointing hands ID?
-5.2
-value checkbox Connect with pointing hands
-6.1
-end sprite
-
-sprite 291
-value number Activator ID
-1
-value checkbox Flip Upside-down
-3.2
-value label Note: Brick is detroyed when using this setting
-value checkbox Allow multiple hits
-4.2
-value checkbox Stay on forever
-5.1
-value checkbox Unknown Flag
-6.1
-end sprite
-
-sprite 292
-value number Activator ID
-1
-value number Destination area
-4
-value number Dest. entrence
-3
-end sprite
-
-sprite 298
-value number Width
-3.2 plus 1
-value number Height
-3.1 plus 1
-value number Distance to move
-4.1 signed
-value number Speed
-4.2
-value number Start delay
-5.1
-value number End delay
-5.2
-value checkbox Horizontal movement
-6.1
-value list Spikes
-None
-Top
-Bottom
-Top and Bottom
-Right
-Left
-Right and left
-end list
-6.2
-end sprite
-
-sprite 299
-value number Path ID
-3.1
-value number Length
-4.1 plus 3
-value checkbox Spawn if Midpoint
-4.2
-value number Starting node
-5
-value number Unknown
-6
-end sprite
-
-sprite 301
-value list Type
-1-Up Mushroom
-Ununsed
-Item
-Mega Mushroom
-Background Chooser
-end list
-3
-end sprite
-
-sprite 302
-value checkbox Unknown flag
-3.1
-value label Note: This is always set on the original levels
-value number ID
-3.2
-end sprite
-
-sprite 304 307 308 309
-value number length
-3.1
-value number Leaving Speed
-4.1
-value number Fall delay
-5.2
-value number Unknown
-6.2
-end sprite
-
-sprite 323
-value number Length
-3
-end sprite
-
-end file

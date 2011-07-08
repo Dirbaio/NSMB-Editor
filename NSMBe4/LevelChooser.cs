@@ -28,6 +28,7 @@ using System.Threading;
 using NSMBe4.DSFileSystem;
 using NSMBe4.NSBMD;
 using NSMBe4.Patcher;
+using System.Net;
 
 
 namespace NSMBe4 {
@@ -833,6 +834,12 @@ namespace NSMBe4 {
         private void makeclean_Click(object sender, EventArgs e)
         {
             PatchCompiler.cleanPatch(ROM.romfile.Directory);
+        }
+
+        private void updateSpriteDataButton_Click(object sender, EventArgs e)
+        {
+            WebClient Client = new WebClient();
+            Client.DownloadFile("http://board.dirbaio.net/spritedata.php", "spritedata.txt");
         }
     }
 }

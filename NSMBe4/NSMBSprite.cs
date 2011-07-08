@@ -24,7 +24,8 @@ using System.Windows.Forms;
 
 namespace NSMBe4
 {
-    public class NSMBSprite {
+    public class NSMBSprite 
+    {
         public int X;
         public int Y;
         public int Type;
