@@ -50,6 +50,7 @@ namespace NSMBe4 {
             this.useMDI = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
+            this.updateSpriteDataButton = new System.Windows.Forms.Button();
             this.changeLanguageButton = new System.Windows.Forms.Button();
             this.dumpMapButton = new System.Windows.Forms.Button();
             this.tilesetEditor = new System.Windows.Forms.Button();
@@ -65,7 +66,6 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.updateSpriteDataButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -357,6 +357,18 @@ namespace NSMBe4 {
             this.languageListBox.Size = new System.Drawing.Size(234, 95);
             this.languageListBox.TabIndex = 1;
             // 
+            // updateSpriteDataButton
+            // 
+            this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateSpriteDataButton.Location = new System.Drawing.Point(6, 197);
+            this.updateSpriteDataButton.Name = "updateSpriteDataButton";
+            this.updateSpriteDataButton.Size = new System.Drawing.Size(234, 23);
+            this.updateSpriteDataButton.TabIndex = 3;
+            this.updateSpriteDataButton.Text = "Update spritedata.txt";
+            this.updateSpriteDataButton.UseVisualStyleBackColor = true;
+            this.updateSpriteDataButton.Click += new System.EventHandler(this.updateSpriteDataButton_Click);
+            // 
             // changeLanguageButton
             // 
             this.changeLanguageButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -475,18 +487,6 @@ namespace NSMBe4 {
             // saveTextFileDialog
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
-            // 
-            // updateSpriteDataButton
-            // 
-            this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateSpriteDataButton.Location = new System.Drawing.Point(6, 197);
-            this.updateSpriteDataButton.Name = "updateSpriteDataButton";
-            this.updateSpriteDataButton.Size = new System.Drawing.Size(234, 23);
-            this.updateSpriteDataButton.TabIndex = 3;
-            this.updateSpriteDataButton.Text = "Update spritedata.txt";
-            this.updateSpriteDataButton.UseVisualStyleBackColor = true;
-            this.updateSpriteDataButton.Click += new System.EventHandler(this.updateSpriteDataButton_Click);
             // 
             // LevelChooser
             // 

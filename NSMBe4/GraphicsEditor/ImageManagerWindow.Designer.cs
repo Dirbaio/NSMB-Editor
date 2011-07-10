@@ -46,7 +46,7 @@
             this.ClientSize = new System.Drawing.Size(881, 484);
             this.Controls.Add(this.m);
             this.Name = "ImageManagerWindow";
-            this.Text = "x";
+            this.Text = "2D Texture Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageManagerWindow_FormClosing);
             this.ResumeLayout(false);
 

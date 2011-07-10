@@ -354,5 +354,9 @@ namespace NSMBe4 {
             uncheckModeButtons();
         }
 
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            PanelContainer.Invalidate(true);
+        }
     }
 }

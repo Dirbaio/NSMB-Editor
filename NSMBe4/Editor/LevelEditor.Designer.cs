@@ -494,10 +494,12 @@
             this.splitContainer1.Size = new System.Drawing.Size(1028, 551);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 12;
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // minimapControl1
             // 
             this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.minimapControl1.Enabled = false;
             this.minimapControl1.Location = new System.Drawing.Point(0, 0);
             this.minimapControl1.Name = "minimapControl1";
             this.minimapControl1.Size = new System.Drawing.Size(249, 128);

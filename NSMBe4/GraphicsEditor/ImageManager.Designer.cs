@@ -48,6 +48,7 @@
             this.exportAllBtn = new System.Windows.Forms.Button();
             this.importThisBtn = new System.Windows.Forms.Button();
             this.exportThisBtn = new System.Windows.Forms.Button();
+            this.importThisWithPalBtn = new System.Windows.Forms.Button();
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -65,7 +66,7 @@
             this.imageListBox.FormattingEnabled = true;
             this.imageListBox.Location = new System.Drawing.Point(0, 13);
             this.imageListBox.Name = "imageListBox";
-            this.imageListBox.Size = new System.Drawing.Size(243, 121);
+            this.imageListBox.Size = new System.Drawing.Size(243, 113);
             this.imageListBox.TabIndex = 1;
             this.imageListBox.SelectedIndexChanged += new System.EventHandler(this.imageListBox_SelectedIndexChanged);
             this.imageListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageListBox_MouseDown);
@@ -76,7 +77,7 @@
             this.paletteListBox.FormattingEnabled = true;
             this.paletteListBox.Location = new System.Drawing.Point(0, 13);
             this.paletteListBox.Name = "paletteListBox";
-            this.paletteListBox.Size = new System.Drawing.Size(243, 121);
+            this.paletteListBox.Size = new System.Drawing.Size(243, 114);
             this.paletteListBox.TabIndex = 2;
             this.paletteListBox.SelectedIndexChanged += new System.EventHandler(this.paletteListBox_SelectedIndexChanged);
             this.paletteListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paletteListBox_MouseDown);
@@ -89,7 +90,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(249, 431);
+            this.panel1.Size = new System.Drawing.Size(249, 508);
             this.panel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -104,7 +105,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 280);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 265);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // panel4
@@ -114,7 +115,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(243, 134);
+            this.panel4.Size = new System.Drawing.Size(243, 126);
             this.panel4.TabIndex = 5;
             // 
             // label2
@@ -123,18 +124,18 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
+            this.label2.Text = "Bitmaps";
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.paletteListBox);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 143);
+            this.panel3.Location = new System.Drawing.Point(3, 135);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(243, 134);
+            this.panel3.Size = new System.Drawing.Size(243, 127);
             this.panel3.TabIndex = 4;
             // 
             // label1
@@ -143,9 +144,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
+            this.label1.Text = "Palettes";
             // 
             // image2dOptions
             // 
@@ -155,7 +156,7 @@
             this.image2dOptions.Controls.Add(this.tileWidthNumber);
             this.image2dOptions.Controls.Add(this.label3);
             this.image2dOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.image2dOptions.Location = new System.Drawing.Point(0, 280);
+            this.image2dOptions.Location = new System.Drawing.Point(0, 265);
             this.image2dOptions.Name = "image2dOptions";
             this.image2dOptions.Size = new System.Drawing.Size(249, 87);
             this.image2dOptions.TabIndex = 3;
@@ -233,27 +234,28 @@
             this.panel2.Controls.Add(this.importAllBtn);
             this.panel2.Controls.Add(this.saveAllBtn);
             this.panel2.Controls.Add(this.exportAllBtn);
+            this.panel2.Controls.Add(this.importThisWithPalBtn);
             this.panel2.Controls.Add(this.importThisBtn);
             this.panel2.Controls.Add(this.exportThisBtn);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 367);
+            this.panel2.Location = new System.Drawing.Point(0, 352);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(249, 64);
+            this.panel2.Size = new System.Drawing.Size(249, 156);
             this.panel2.TabIndex = 5;
             // 
             // importAllBtn
             // 
-            this.importAllBtn.Location = new System.Drawing.Point(81, 32);
+            this.importAllBtn.Location = new System.Drawing.Point(3, 130);
             this.importAllBtn.Name = "importAllBtn";
-            this.importAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.importAllBtn.Size = new System.Drawing.Size(237, 23);
             this.importAllBtn.TabIndex = 0;
-            this.importAllBtn.Text = "Import all";
+            this.importAllBtn.Text = "Import all bitmaps with all palettes [BROKEN]";
             this.importAllBtn.UseVisualStyleBackColor = true;
             this.importAllBtn.Click += new System.EventHandler(this.importAllBtn_Click);
             // 
             // saveAllBtn
             // 
-            this.saveAllBtn.Location = new System.Drawing.Point(162, 3);
+            this.saveAllBtn.Location = new System.Drawing.Point(168, 3);
             this.saveAllBtn.Name = "saveAllBtn";
             this.saveAllBtn.Size = new System.Drawing.Size(75, 23);
             this.saveAllBtn.TabIndex = 0;
@@ -263,11 +265,11 @@
             // 
             // exportAllBtn
             // 
-            this.exportAllBtn.Location = new System.Drawing.Point(81, 3);
+            this.exportAllBtn.Location = new System.Drawing.Point(3, 101);
             this.exportAllBtn.Name = "exportAllBtn";
-            this.exportAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.exportAllBtn.Size = new System.Drawing.Size(237, 23);
             this.exportAllBtn.TabIndex = 0;
-            this.exportAllBtn.Text = "Export all";
+            this.exportAllBtn.Text = "Export all bitmaps with all palettes";
             this.exportAllBtn.UseVisualStyleBackColor = true;
             this.exportAllBtn.Click += new System.EventHandler(this.exportAllBtn_Click);
             // 
@@ -275,9 +277,9 @@
             // 
             this.importThisBtn.Location = new System.Drawing.Point(3, 32);
             this.importThisBtn.Name = "importThisBtn";
-            this.importThisBtn.Size = new System.Drawing.Size(75, 23);
+            this.importThisBtn.Size = new System.Drawing.Size(240, 23);
             this.importThisBtn.TabIndex = 0;
-            this.importThisBtn.Text = "Import this";
+            this.importThisBtn.Text = "Import this bitmap with existing palette";
             this.importThisBtn.UseVisualStyleBackColor = true;
             this.importThisBtn.Click += new System.EventHandler(this.importThisBtn_Click);
             // 
@@ -285,18 +287,28 @@
             // 
             this.exportThisBtn.Location = new System.Drawing.Point(3, 3);
             this.exportThisBtn.Name = "exportThisBtn";
-            this.exportThisBtn.Size = new System.Drawing.Size(75, 23);
+            this.exportThisBtn.Size = new System.Drawing.Size(116, 23);
             this.exportThisBtn.TabIndex = 0;
-            this.exportThisBtn.Text = "Export this";
+            this.exportThisBtn.Text = "Export this bitmap";
             this.exportThisBtn.UseVisualStyleBackColor = true;
             this.exportThisBtn.Click += new System.EventHandler(this.exportThisBtn_Click);
+            // 
+            // importThisWithPalBtn
+            // 
+            this.importThisWithPalBtn.Location = new System.Drawing.Point(3, 61);
+            this.importThisWithPalBtn.Name = "importThisWithPalBtn";
+            this.importThisWithPalBtn.Size = new System.Drawing.Size(240, 23);
+            this.importThisWithPalBtn.TabIndex = 0;
+            this.importThisWithPalBtn.Text = "Import this bitmap and recreate palette";
+            this.importThisWithPalBtn.UseVisualStyleBackColor = true;
+            this.importThisWithPalBtn.Click += new System.EventHandler(this.importThisWithPalBtn_Click);
             // 
             // graphicsEditor1
             // 
             this.graphicsEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.graphicsEditor1.Location = new System.Drawing.Point(249, 0);
             this.graphicsEditor1.Name = "graphicsEditor1";
-            this.graphicsEditor1.Size = new System.Drawing.Size(568, 431);
+            this.graphicsEditor1.Size = new System.Drawing.Size(568, 508);
             this.graphicsEditor1.TabIndex = 4;
             // 
             // ImageManager
@@ -306,7 +318,7 @@
             this.Controls.Add(this.graphicsEditor1);
             this.Controls.Add(this.panel1);
             this.Name = "ImageManager";
-            this.Size = new System.Drawing.Size(817, 431);
+            this.Size = new System.Drawing.Size(817, 508);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -345,5 +357,6 @@
         private System.Windows.Forms.Button exportThisBtn;
         private System.Windows.Forms.Button saveAllBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button importThisWithPalBtn;
     }
 }

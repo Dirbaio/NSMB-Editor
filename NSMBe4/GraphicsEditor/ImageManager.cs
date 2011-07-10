@@ -18,22 +18,31 @@ namespace NSMBe4
         public void addImage(PalettedImage i)
         {
             imageListBox.Items.Add(i);
+            if (imageListBox.Items.Count == 1)
+                imageListBox.SelectedItem = i;
         }
 
         public void addPalette(Palette p)
         {
             paletteListBox.Items.Add(p);
+            if (paletteListBox.Items.Count == 1)
+                paletteListBox.SelectedItem = p;
         }
 
-        private void imageListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void updateImage()
         {
-            if (Control.ModifierKeys == Keys.Control)
-                imageListBox.Items.Remove(imageListBox.SelectedItem);
+            setImageAndPalette(imageListBox.SelectedItem as PalettedImage, paletteListBox.SelectedItem as Palette);
+        }
 
-            updateImage();
-            PalettedImage i = imageListBox.SelectedItem as PalettedImage;
-            if(i is PixelPalettedImage)
-                graphicsEditor1.setImage(i as PixelPalettedImage);
+        private void setImageAndPalette(PalettedImage i, Palette p)
+        {
+            if (!(i is PixelPalettedImage)) return;
+            if (i == null || p == null) return;
+
+            Console.WriteLine(i + " " + p);
+
+            graphicsEditor1.setPalette(p);
+            graphicsEditor1.setImage(i as PixelPalettedImage);
 
             tileWidthNumber.Enabled = i is Image2D;
             tileOffsetNumber.Enabled = i is Image2D;
@@ -47,26 +56,29 @@ namespace NSMBe4
             }
         }
 
+        private void imageListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                (imageListBox.SelectedItem as PalettedImage).close();
+                imageListBox.Items.Remove(imageListBox.SelectedItem);
+            }
+            else
+                updateImage();
+
+        }
+
         private void paletteListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Control.ModifierKeys == Keys.Control)
+            {
+                (paletteListBox.SelectedItem as Palette).close();
                 paletteListBox.Items.Remove(paletteListBox.SelectedItem);
-            updateImage();
-            Palette p = paletteListBox.SelectedItem as Palette;
-            if (p == null) return;
-            graphicsEditor1.setPalette(p);
+            }
+            else
+                updateImage();
         }
 
-        public void updateImage()
-        {
-            PalettedImage i = imageListBox.SelectedItem as PalettedImage;
-            Palette p = paletteListBox.SelectedItem as Palette;
-
-            if (i == null) return;
-            if (p == null) return;
-
-//            pictureBox1.Image = i.render(p);
-        }
 
         public void close()
         {
@@ -163,12 +175,41 @@ namespace NSMBe4
 
         private void exportThisBtn_Click(object sender, EventArgs e)
         {
+            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, "Error: No image selected!"); return; }
+            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, "Error: No palette selected!"); return; }
 
+            SaveFileDialog ofd = new SaveFileDialog();
+            ofd.Filter = "PNG Files|*.png";
+            if (ofd.ShowDialog(this) == DialogResult.Cancel) return;
+
+            Bitmap b = (imageListBox.SelectedItem as PalettedImage).render(paletteListBox.SelectedItem as Palette);
+            b.Save(ofd.FileName);
         }
 
         private void importThisBtn_Click(object sender, EventArgs e)
         {
+            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, "Error: No image selected!"); return; }
+            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, "Error: No palette selected!"); return; }
 
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "PNG Files|*.png";
+            if (ofd.ShowDialog(this) == DialogResult.Cancel) return;
+
+            Bitmap b = new Bitmap(ofd.FileName);
+            (imageListBox.SelectedItem as PalettedImage).replaceWithPal(b, paletteListBox.SelectedItem as Palette);
+        }
+
+        private void importThisWithPalBtn_Click(object sender, EventArgs e)
+        {
+            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, "Error: No image selected!"); return; }
+            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, "Error: No palette selected!"); return; }
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "PNG Files|*.png";
+            if (ofd.ShowDialog(this) == DialogResult.Cancel) return;
+
+            Bitmap b = new Bitmap(ofd.FileName);
+            (imageListBox.SelectedItem as PalettedImage).replaceImgAndPal(b, paletteListBox.SelectedItem as Palette);
         }
 
         private void saveAllBtn_Click(object sender, EventArgs e)
@@ -184,6 +225,7 @@ namespace NSMBe4
                     (o as Palette).save();
             }
         }
+
 
     }
 }

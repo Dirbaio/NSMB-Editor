@@ -105,7 +105,9 @@ namespace NSMBe4.NSBMD
             str.seek(0x3D);
             textures = new Image3D[str.readByte()];
             str.skip((uint)(0xE + textures.Length * 4));
-            LevelChooser.showImgMgr();
+
+            ImageManagerWindow mgr = new ImageManagerWindow();
+            mgr.Text = f.name + " - Texture Editor";
 
             for (int i = 0; i < textures.Length; i++)
             {
@@ -145,7 +147,7 @@ namespace NSMBe4.NSBMD
             {
                 if(textures[i] == null) continue;
                 textures[i].name = str.ReadString(16);
-                LevelChooser.imgMgr.m.addImage(textures[i]);
+                mgr.m.addImage(textures[i]);
             }
 
 
@@ -178,15 +180,17 @@ namespace NSMBe4.NSBMD
                 for (int j = 0; j < extrapalcount; j++)
                 {
                     FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs+j*512, 512, palettes[i].name + ":"+i, null, LZd));
-                    LevelChooser.imgMgr.m.addPalette(pa);
+                    mgr.m.addPalette(pa);
                 }
                 int lastsize = palettes[i].size % 512;
                 if (lastsize != 0)
                 {
                     FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs+extrapalcount*512, lastsize, palettes[i].name+":"+extrapalcount, null, LZd));
-                    LevelChooser.imgMgr.m.addPalette(pa);
+                    mgr.m.addPalette(pa);
                 }
             }
+
+            mgr.Show();
 
 //            new ImagePreviewer(textures[0].render(palettes[0])).Show();
         }

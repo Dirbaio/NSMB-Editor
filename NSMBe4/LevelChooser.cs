@@ -47,6 +47,8 @@ namespace NSMBe4 {
             InitializeComponent();
         }
 
+        private bool mustExit = false;
+
         private void LevelChooser_Load(object sender, EventArgs e) {
             string path = "";
             string[] args = Environment.GetCommandLineArgs();
@@ -55,8 +57,7 @@ namespace NSMBe4 {
             } else {
                 openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
                 if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
-//                    Application.Exit();
-                    
+                    mustExit = true;
                     return;
                 } else
                     path = openROMDialog.FileName;
@@ -840,5 +841,6 @@ namespace NSMBe4 {
         {
             SpriteData.update();
         }
+
     }
 }
