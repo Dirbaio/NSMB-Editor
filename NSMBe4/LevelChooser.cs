@@ -838,8 +838,7 @@ namespace NSMBe4 {
 
         private void updateSpriteDataButton_Click(object sender, EventArgs e)
         {
-            WebClient Client = new WebClient();
-            Client.DownloadFile("http://board.dirbaio.net/spritedata.php", "spritedata.txt");
+            SpriteData.update();
         }
     }
 }

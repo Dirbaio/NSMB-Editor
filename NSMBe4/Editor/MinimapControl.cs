@@ -106,5 +106,10 @@ namespace NSMBe4
                 //ScrollEditor(ViewableArea.Location);
             }
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            return EdControl.ProcessCmdKeyHack(ref msg, keyData);
+        }
     }
 }

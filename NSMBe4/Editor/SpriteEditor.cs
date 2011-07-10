@@ -143,7 +143,10 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             if (s.Type != (int)spriteTypeUpDown.Value)
+            {
                 EdControl.UndoManager.Do(new ChangeSpriteTypeAction(s, (int)spriteTypeUpDown.Value));
+                UpdateDataEditor();
+            }
         }
 
         private void spriteListBox_SelectedIndexChanged(object sender, EventArgs e)

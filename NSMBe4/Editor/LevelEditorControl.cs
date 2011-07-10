@@ -213,6 +213,11 @@ namespace NSMBe4
         }
         #endregion
 
+        public bool ProcessCmdKeyHack(ref Message msg, Keys keyData)
+        {
+            return ProcessCmdKey(ref msg, keyData);
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             Console.Out.WriteLine(keyData);

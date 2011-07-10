@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using System.Net;
 
 namespace NSMBe4
 {
@@ -34,9 +35,23 @@ namespace NSMBe4
         string notes;
         public List<SpriteDataField> fields = new List<SpriteDataField>();
 
+        public static void update()
+        {
+            WebClient Client = new WebClient();
+            Client.DownloadFile("http://board.dirbaio.net/spritedata.php", "spritedata.txt");
+        }
+
         public static void Load()
         {
             datas = new Dictionary<int, SpriteData>();
+
+            if (!File.Exists("./spritedata.txt"))
+            {
+                if (MessageBox.Show("spritedata.txt not found. Do you want to download it?", "Hello!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    update();
+                }
+            }
 
             try
             {
@@ -98,7 +113,6 @@ namespace NSMBe4
                 f.name = field[3];
                 f.notes = field[4].Replace('@', '\n').Trim();
 
-                Console.WriteLine(field[2]);
                 switch (f.display)
                 {
                     case "list":
@@ -161,7 +175,7 @@ namespace NSMBe4
             public int getMin()
             {
                 if (display == "signedvalue")
-                    return -(1 << (getBitCount() - 1));
+                    return -((1 << (getBitCount()) - 1));
                 else
                     return 0;
             }
@@ -169,9 +183,9 @@ namespace NSMBe4
             public int getMax()
             {
                 if (display == "signedvalue")
-                    return 1 << (getBitCount() - 1) - 1;
+                    return (1 << (getBitCount() - 1)) - 1;
                 else
-                    return 1 << (getBitCount()) - 1;
+                    return (1 << (getBitCount())) - 1;
             }
 
             public int getValue(byte[] data)
@@ -188,6 +202,12 @@ namespace NSMBe4
                 {
                     res = res << 4 | nibbles[i];
                 }
+
+                if (display == "signedvalue" && res > getMax())
+                {
+                    res -= (1 << getBitCount());
+                }
+
                 return res;
             }
 
