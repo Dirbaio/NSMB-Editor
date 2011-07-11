@@ -47,6 +47,7 @@ namespace NSMBe4 {
             this.decompArm9Bin = new System.Windows.Forms.Button();
             this.mpPatch2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.autoUpdate = new System.Windows.Forms.CheckBox();
             this.useMDI = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
@@ -66,7 +67,6 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.autoUpdate = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -329,6 +329,17 @@ namespace NSMBe4 {
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
             // 
+            // autoUpdate
+            // 
+            this.autoUpdate.AutoSize = true;
+            this.autoUpdate.Location = new System.Drawing.Point(9, 226);
+            this.autoUpdate.Name = "autoUpdate";
+            this.autoUpdate.Size = new System.Drawing.Size(84, 17);
+            this.autoUpdate.TabIndex = 7;
+            this.autoUpdate.Text = "Auto-update";
+            this.autoUpdate.UseVisualStyleBackColor = true;
+            this.autoUpdate.CheckedChanged += new System.EventHandler(this.autoUpdate_CheckedChanged);
+            // 
             // useMDI
             // 
             this.useMDI.AutoSize = true;
@@ -489,16 +500,6 @@ namespace NSMBe4 {
             // saveTextFileDialog
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
-            // 
-            // autoUpdate
-            // 
-            this.autoUpdate.AutoSize = true;
-            this.autoUpdate.Location = new System.Drawing.Point(9, 226);
-            this.autoUpdate.Name = "autoUpdate";
-            this.autoUpdate.Size = new System.Drawing.Size(84, 17);
-            this.autoUpdate.TabIndex = 7;
-            this.autoUpdate.Text = "Auto-update";
-            this.autoUpdate.UseVisualStyleBackColor = true;
             // 
             // LevelChooser
             // 

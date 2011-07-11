@@ -805,6 +805,12 @@ namespace NSMBe4 {
             Properties.Settings.Default.Save();
         }
 
+        private void autoUpdate_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AutoUpdateSD = autoUpdate.Checked;
+            Properties.Settings.Default.Save();
+        }
+
         private void bootInsertButton_Click(object sender, EventArgs e)
         {
             DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName + "/loader");
@@ -842,6 +848,5 @@ namespace NSMBe4 {
         {
             SpriteData.update();
         }
-
     }
 }
