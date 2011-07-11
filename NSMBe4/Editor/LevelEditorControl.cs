@@ -303,8 +303,10 @@ namespace NSMBe4
                     scrollingDrag = true;
                     return;
                 }
-                if (e.Button == MouseButtons.Left)
+                if (e.Button == MouseButtons.Left) {
                     drag = true;
+                    this.Focus();
+                }
 
                 if (mode != null)
                     mode.MouseDown((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y/zoom) + vScrollBar.Value * 16);
