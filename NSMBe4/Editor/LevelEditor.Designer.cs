@@ -70,8 +70,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.minimapControl1 = new NSMBe4.MinimapControl();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -478,6 +478,14 @@
             this.panel2.Size = new System.Drawing.Size(249, 128);
             this.panel2.TabIndex = 11;
             // 
+            // minimapControl1
+            // 
+            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.minimapControl1.Location = new System.Drawing.Point(0, 0);
+            this.minimapControl1.Name = "minimapControl1";
+            this.minimapControl1.Size = new System.Drawing.Size(249, 128);
+            this.minimapControl1.TabIndex = 0;
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -495,15 +503,6 @@
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 12;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
-            // 
-            // minimapControl1
-            // 
-            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.minimapControl1.Enabled = false;
-            this.minimapControl1.Location = new System.Drawing.Point(0, 0);
-            this.minimapControl1.Name = "minimapControl1";
-            this.minimapControl1.Size = new System.Drawing.Size(249, 128);
-            this.minimapControl1.TabIndex = 0;
             // 
             // levelEditorControl1
             // 

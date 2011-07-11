@@ -28,6 +28,7 @@ namespace NSMBe4 {
         public GraphicsEditor() {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "GraphicsEditor");
+            ZoomLevel = 1;
         }
 
         public Bitmap DrawBuffer;
@@ -89,8 +90,8 @@ namespace NSMBe4 {
 
             DrawBuffer = new Bitmap(img.getWidth(), img.getHeight());
             ZoomCache = new Bitmap(img.getWidth() * 8, img.getHeight() * 8);
-            SetZoomLevel(1);
             RenderBuffer();
+            SetZoomLevel(ZoomLevel);
             RenderZoomCache();
             drawingBox.Invalidate();
         }

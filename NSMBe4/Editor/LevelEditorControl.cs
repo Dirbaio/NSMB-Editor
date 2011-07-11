@@ -168,6 +168,8 @@ namespace NSMBe4
             Rectangle ViewablePixels = new Rectangle(hScrollBar.Value * 16, vScrollBar.Value * 16, ViewableWidth * 16, ViewableHeight * 16);
             //Viewable.X += 4; Viewable.Y += 4; Viewable.Width -= 8; Viewable.Height -= 8;
 
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+
             e.Graphics.ScaleTransform(zoom, zoom);
             e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
 
@@ -184,7 +186,7 @@ namespace NSMBe4
             for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
                 Rectangle ObjRect = new Rectangle(Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
                 if (ObjRect.IntersectsWith(ViewableArea)) {
-                    Level.Objects[ObjIdx].Render(e.Graphics, ViewableArea.X, ViewableArea.Y, ViewableArea);
+                    Level.Objects[ObjIdx].Render(e.Graphics, ViewableArea.X, ViewableArea.Y, ViewableArea, zoom);
                 }
             }
 
