@@ -201,6 +201,8 @@ namespace NSMBe4 {
                 Application.Run(new MdiParentForm());
             else
                 Application.Run(new LevelChooser());
+            if (Properties.Settings.Default.AutoUpdateSD)
+                SpriteData.update();
         }
 
         public static byte[] compressImage(Bitmap b)

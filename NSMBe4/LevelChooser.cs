@@ -68,6 +68,7 @@ namespace NSMBe4 {
                 editLevelButton.Enabled = false;
                 hexEditLevelButton.Enabled = false;
                 useMDI.Checked = Properties.Settings.Default.mdi;
+                autoUpdate.Checked = Properties.Settings.Default.AutoUpdateSD;
 
                 ROM.load(path);
                 filesystemBrowser1.Load(ROM.FS);

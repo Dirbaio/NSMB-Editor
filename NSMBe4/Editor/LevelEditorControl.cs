@@ -191,7 +191,7 @@ namespace NSMBe4
             }
 
             foreach(NSMBSprite s in Level.Sprites)
-                if(ViewablePixels.IntersectsWith(s.getRect()))
+                if(ViewablePixels.IntersectsWith(s.getRect()) || s.AlwaysDraw())
                     s.Render(e.Graphics);
 
             foreach (NSMBView v in Level.Views)

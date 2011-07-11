@@ -66,6 +66,7 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.autoUpdate = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -315,6 +316,7 @@ namespace NSMBe4 {
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.autoUpdate);
             this.groupBox1.Controls.Add(this.useMDI);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.languageListBox);
@@ -488,6 +490,16 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
+            // autoUpdate
+            // 
+            this.autoUpdate.AutoSize = true;
+            this.autoUpdate.Location = new System.Drawing.Point(9, 226);
+            this.autoUpdate.Name = "autoUpdate";
+            this.autoUpdate.Size = new System.Drawing.Size(84, 17);
+            this.autoUpdate.TabIndex = 7;
+            this.autoUpdate.Text = "Auto-update";
+            this.autoUpdate.UseVisualStyleBackColor = true;
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -551,5 +563,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.CheckBox useMDI;
         private System.Windows.Forms.Button bootInsertButton;
         private System.Windows.Forms.Button updateSpriteDataButton;
+        private System.Windows.Forms.CheckBox autoUpdate;
     }
 }

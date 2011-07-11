@@ -50,6 +50,12 @@ namespace NSMBe4
             Array.Copy(s.Data, Data, 6);
         }
 
+        private int[] AlwaysDrawNums = {68, 69, 73, 141};
+
+        public bool AlwaysDraw() {
+            return Array.IndexOf(AlwaysDrawNums, this.Type) > -1;
+        }
+
         public Rectangle getRect() {
             int x = this.X * 16;
             int y = this.Y * 16;
