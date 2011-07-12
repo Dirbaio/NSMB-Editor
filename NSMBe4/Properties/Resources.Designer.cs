@@ -130,6 +130,20 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BlooperNanny {
+            get {
+                object obj = ResourceManager.GetObject("BlooperNanny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap BlooperWithMini {
+            get {
+                object obj = ResourceManager.GetObject("BlooperWithMini", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap BomOmb {
             get {
                 object obj = ResourceManager.GetObject("BomOmb", resourceCulture);
@@ -161,6 +175,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap BouncingMushroomStalk {
             get {
                 object obj = ResourceManager.GetObject("BouncingMushroomStalk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap BouncyBricks {
+            get {
+                object obj = ResourceManager.GetObject("BouncyBricks", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -795,9 +816,23 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Infinity {
+            get {
+                object obj = ResourceManager.GetObject("Infinity", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap JumpingFlame {
             get {
                 object obj = ResourceManager.GetObject("JumpingFlame", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Jungle {
+            get {
+                object obj = ResourceManager.GetObject("Jungle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1274,6 +1309,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap selectedarrows {
             get {
                 object obj = ResourceManager.GetObject("selectedarrows", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Shark {
+            get {
+                object obj = ResourceManager.GetObject("Shark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

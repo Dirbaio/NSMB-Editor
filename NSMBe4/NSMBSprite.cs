@@ -195,6 +195,10 @@ namespace NSMBe4
                         y -= 2;
                     height = 18;
                     break;
+                case 67:
+                    x -= 27; y -= 8;
+                    width = 71; height = 26;
+                    break;
                 case 68:
                 case 69:
                     width = Math.Max(16 * (Data[5] + 1), 32);
@@ -484,6 +488,10 @@ namespace NSMBe4
                     x -= 3; width = 8;
                     height = 16 * (Data[5] % 0x10 + 4);
                     break;
+                case 175:
+                    x -= 40; y -= 48;
+                    width = 96; height = 64;
+                    break;
                 case 180:
                     width = 18; height = 26;
                     break;
@@ -542,6 +550,14 @@ namespace NSMBe4
                 case 211:
                     y -= 16;
                     width = 26; height = 32;
+                    break;
+                case 212:
+                    y -= 16;
+                    width = 59; height = 32;
+                    break;
+                case 213:
+                    y -= 32; x -= 8;
+                    width = 42; height = 64;
                     break;
                 case 219:
                     switch (Data[5] / 0x10) {
@@ -655,6 +671,10 @@ namespace NSMBe4
                     x -= 16; y -= 8;
                     width = 48; height = 48;
                     break;
+                case 247:
+                    x -= 27; y -= 8;
+                    width = 71; height = 26;
+                    break;
                 case 248:
                     x -= 53; y -= 106;
                     width = 109; height = 108;
@@ -674,6 +694,9 @@ namespace NSMBe4
                 case 254:
                     y -= 3;
                     width = 16; height = 19;
+                    break;
+                case 255:
+                    width = 256; height = 64;
                     break;
                 case 256:
                     width = 96; height = 16;
@@ -988,6 +1011,9 @@ namespace NSMBe4
                     else
                         RenderY -= 2;
                     g.DrawImage(img, RenderX, RenderY, 16, 18);
+                    break;
+                case 67:
+                    g.DrawImage(Properties.Resources.Shark, RenderX - 27, RenderY - 8, 71, 26);
                     break;
                 case 68:
                 case 69:
@@ -1399,6 +1425,9 @@ namespace NSMBe4
                         RenderY += 16;
                     }
                     break;
+                case 175:
+                    g.DrawImage(Properties.Resources.BouncyBricks, RenderX - 40, RenderY - 48, 96, 64);
+                    break;
                 case 180:
                     if (Data[5] % 0x10 == 1)
                         img = Properties.Resources.FenceKoopaRed;
@@ -1469,6 +1498,12 @@ namespace NSMBe4
                     break;
                 case 211:
                     g.DrawImage(Properties.Resources.Blooper, RenderX, RenderY - 16, 26, 32);
+                    break;
+                case 212:
+                    g.DrawImage(Properties.Resources.BlooperNanny, RenderX, RenderY - 16, 59, 32);
+                    break;
+                case 213:
+                    g.DrawImage(Properties.Resources.BlooperWithMini, RenderX - 8, RenderY - 32, 42, 64);
                     break;
                 case 219:
                     switch (Data[5] / 0x10) {
@@ -1635,6 +1670,10 @@ namespace NSMBe4
                 case 246:
                     g.DrawImage(Properties.Resources.Barrel, RenderX - 16, RenderY - 8, 48, 49);
                     break;
+                case 247:
+                    g.DrawImage(Properties.Resources.Shark, RenderX - 27, RenderY - 8, 71, 26);
+                    g.DrawImage(Properties.Resources.Infinity, RenderX - 4, RenderY + 1, 21, 17);
+                    break;
                 case 248:
                     g.DrawImage(Properties.Resources.BalloonBoo, RenderX - 53, RenderY - 106, 109, 108);
                     break;
@@ -1661,6 +1700,9 @@ namespace NSMBe4
                     break;
                 case 254:
                     g.DrawImage(Properties.Resources.Kabomb, RenderX, RenderY - 3, 16, 19);
+                    break;
+                case 255:
+                    g.DrawImage(Properties.Resources.Jungle, RenderX, RenderY, 256, 64);
                     break;
                 case 256:
                     img = Properties.Resources.ThruWallPlatform;

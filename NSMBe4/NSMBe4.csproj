@@ -387,6 +387,12 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Sprite Images\BouncyBricks.PNG" />
+    <None Include="Resources\Sprite Images\Jungle.PNG" />
+    <None Include="Resources\Sprite Images\Shark.PNG" />
+    <None Include="Resources\Sprite Images\Infinity.PNG" />
+    <None Include="Resources\Sprite Images\BlooperWithMini.PNG" />
+    <None Include="Resources\Sprite Images\BlooperNanny.PNG" />
     <None Include="Resources\cross-script.png" />
     <None Include="Resources\cross-script-bright.png" />
     <None Include="Languages\English.ini">
