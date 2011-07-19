@@ -67,9 +67,9 @@
             this.spriteListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.spriteListBox.FormattingEnabled = true;
             this.spriteListBox.IntegralHeight = false;
-            this.spriteListBox.Location = new System.Drawing.Point(0, 133);
+            this.spriteListBox.Location = new System.Drawing.Point(0, 81);
             this.spriteListBox.Name = "spriteListBox";
-            this.spriteListBox.Size = new System.Drawing.Size(289, 262);
+            this.spriteListBox.Size = new System.Drawing.Size(289, 314);
             this.spriteListBox.TabIndex = 26;
             this.spriteListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.spriteListBox_DrawItem);
             this.spriteListBox.SelectedIndexChanged += new System.EventHandler(this.spriteListBox_SelectedIndexChanged);
@@ -223,7 +223,7 @@
             // 
             this.spriteDataPanel.AutoSize = true;
             this.spriteDataPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.spriteDataPanel.Location = new System.Drawing.Point(0, 100);
+            this.spriteDataPanel.Location = new System.Drawing.Point(0, 71);
             this.spriteDataPanel.MinimumSize = new System.Drawing.Size(10, 10);
             this.spriteDataPanel.Name = "spriteDataPanel";
             this.spriteDataPanel.Size = new System.Drawing.Size(289, 10);
@@ -248,7 +248,7 @@
             this.rawSpriteData.Controls.Add(this.spriteDataTextBox);
             this.rawSpriteData.Controls.Add(this.label10);
             this.rawSpriteData.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rawSpriteData.Location = new System.Drawing.Point(0, 71);
+            this.rawSpriteData.Location = new System.Drawing.Point(0, 81);
             this.rawSpriteData.MinimumSize = new System.Drawing.Size(10, 10);
             this.rawSpriteData.Name = "rawSpriteData";
             this.rawSpriteData.Size = new System.Drawing.Size(289, 29);
@@ -313,11 +313,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.spriteListBox);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.rawSpriteData);
+            this.Controls.Add(this.spriteListBox);
             this.Controls.Add(this.spriteDataPanel);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.rawSpriteData);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel3);
             this.Name = "SpriteEditor";

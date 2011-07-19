@@ -92,7 +92,7 @@ namespace NSMBe4
                 sed = new SpriteData.SpriteDataEditor(s, SpriteData.datas[s.Type], EdControl);
                 sed.Parent = spriteDataPanel;
                 spriteDataPanel.Visible = true;
-                rawSpriteData.Visible = false;
+                rawSpriteData.Visible = true;
             }
             else
             {
