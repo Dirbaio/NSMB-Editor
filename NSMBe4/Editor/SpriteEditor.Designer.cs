@@ -67,9 +67,9 @@
             this.spriteListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.spriteListBox.FormattingEnabled = true;
             this.spriteListBox.IntegralHeight = false;
-            this.spriteListBox.Location = new System.Drawing.Point(0, 81);
+            this.spriteListBox.Location = new System.Drawing.Point(0, 133);
             this.spriteListBox.Name = "spriteListBox";
-            this.spriteListBox.Size = new System.Drawing.Size(289, 314);
+            this.spriteListBox.Size = new System.Drawing.Size(289, 262);
             this.spriteListBox.TabIndex = 26;
             this.spriteListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.spriteListBox_DrawItem);
             this.spriteListBox.SelectedIndexChanged += new System.EventHandler(this.spriteListBox_SelectedIndexChanged);
@@ -313,9 +313,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.spriteListBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.rawSpriteData);
-            this.Controls.Add(this.spriteListBox);
             this.Controls.Add(this.spriteDataPanel);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.groupBox1);
