@@ -93,7 +93,6 @@
             this.spriteDataTextBox.TabIndex = 23;
             this.spriteDataTextBox.Text = "00 00 00 00 00 00";
             this.spriteDataTextBox.TextChanged += new System.EventHandler(this.spriteDataTextBox_TextChanged);
-            this.spriteDataTextBox.Enter += new System.EventHandler(this.spriteDataTextBox_Enter);
             // 
             // spriteTypeUpDown
             // 
@@ -229,7 +228,6 @@
             this.spriteDataPanel.Name = "spriteDataPanel";
             this.spriteDataPanel.Size = new System.Drawing.Size(289, 10);
             this.spriteDataPanel.TabIndex = 27;
-            this.spriteDataPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.spriteDataPanel_Paint);
             // 
             // panel1
             // 
@@ -240,7 +238,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(289, 23);
             this.panel1.TabIndex = 28;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // rawSpriteData
             // 
