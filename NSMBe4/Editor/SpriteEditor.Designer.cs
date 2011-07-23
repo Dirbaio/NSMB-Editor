@@ -93,6 +93,7 @@
             this.spriteDataTextBox.TabIndex = 23;
             this.spriteDataTextBox.Text = "00 00 00 00 00 00";
             this.spriteDataTextBox.TextChanged += new System.EventHandler(this.spriteDataTextBox_TextChanged);
+            this.spriteDataTextBox.Enter += new System.EventHandler(this.spriteDataTextBox_Enter);
             // 
             // spriteTypeUpDown
             // 
@@ -253,7 +254,6 @@
             this.rawSpriteData.Name = "rawSpriteData";
             this.rawSpriteData.Size = new System.Drawing.Size(289, 29);
             this.rawSpriteData.TabIndex = 29;
-            this.rawSpriteData.Visible = false;
             // 
             // panel2
             // 

@@ -76,6 +76,7 @@ namespace NSMBe4
 
             UpdateDataEditor();
             UpdateInfo();
+            
         }
 
         public void UpdateDataEditor()
@@ -83,7 +84,6 @@ namespace NSMBe4
             if (sed != null)
             {
                 sed.saveData(null, null);
-                spriteDataTextBox.Focus();
                 sed.Parent = null;
             }
             sed = null;
@@ -92,12 +92,10 @@ namespace NSMBe4
                 sed = new SpriteData.SpriteDataEditor(s, SpriteData.datas[s.Type], EdControl);
                 sed.Parent = spriteDataPanel;
                 spriteDataPanel.Visible = true;
-                rawSpriteData.Visible = true;
             }
             else
             {
                 spriteDataPanel.Visible = false;
-                rawSpriteData.Visible = true;
             }
         }
 
@@ -257,16 +255,5 @@ namespace NSMBe4
         {
             searchBox.Text = "";
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void spriteDataPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
     }
 }
