@@ -463,7 +463,7 @@ namespace NSMBe4
         {
             // Load Map16
             ByteArrayInputStream eMap16File = new ByteArrayInputStream(Map16File.getContents());
-            int Map16Count = (int)eMap16File.available() / 8;
+            int Map16Count = (int)eMap16File.available / 8;
             Map16 = new Map16Tile[Map16Count];
 
             Map16Buffer = new Bitmap(Map16Count * 16, 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
@@ -764,7 +764,11 @@ namespace NSMBe4
             public ObjectDefTile(ByteArrayInputStream inp, NSMBTileset t)
             {
                 this.t = t;
-                if (inp.available() < 1) return;
+                if (inp.available < 1) //This should never happen. But sometimes, it does.
+                {
+                    controlByte = 0xFF; //Simulate object end.
+                    return;
+                }
 
                 controlByte = inp.readByte();
 
@@ -811,7 +815,7 @@ namespace NSMBe4
 
             //read object index
             int obj = 0;
-            while (eObjIndexFile.available(4) && obj < Objects.Length)
+            while (eObjIndexFile.lengthAvailable(4) && obj < Objects.Length)
             {
                 Objects[obj] = new ObjectDef(this);
                 int offset = eObjIndexFile.readUShort();
@@ -844,6 +848,13 @@ namespace NSMBe4
             ObjIndexFile.replace(eObjIndexFile.getArray(), this);
         }
 
+        public class ObjectRenderingException : Exception
+        {
+            public ObjectRenderingException(string what) : base(what)
+            {
+            }
+        }
+
         public int[,] RenderObject(int ObjNum, int Width, int Height)
         {
             // First allocate an array
@@ -856,7 +867,11 @@ namespace NSMBe4
             ObjectDef obj = Objects[ObjNum];
 
             if (Objects[ObjNum].tiles.Count == 0)
-                return Dest;
+                throw new ObjectRenderingException("Objects can't be empty.");
+            
+            for(int i = 0; i < Objects[ObjNum].tiles.Count; i++)
+                if (Objects[ObjNum].tiles[i].Count == 0)
+                    throw new ObjectRenderingException("Objects can't have empty rows.");
 
             // Diagonal objects are rendered differently
             if ((Objects[ObjNum].tiles[0][0].controlByte & 0x80) != 0)

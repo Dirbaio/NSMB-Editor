@@ -141,13 +141,13 @@ namespace NSMBe4
             ByteArrayInputStream ViewBlock = new ByteArrayInputStream(Blocks[7]);
             ByteArrayInputStream CamBlock = new ByteArrayInputStream(Blocks[1]);
             Views = new List<NSMBView>();
-            while (ViewBlock.available(16))
+            while (ViewBlock.lengthAvailable(16))
                 Views.Add(NSMBView.read(ViewBlock, CamBlock));
 
             // Zones
             ByteArrayInputStream ZoneBlock = new ByteArrayInputStream(Blocks[8]);
             Zones = new List<NSMBView>();
-            while (ZoneBlock.available(12))
+            while (ZoneBlock.lengthAvailable(12))
                 Zones.Add(NSMBView.readZone(ZoneBlock));
 
             // Paths

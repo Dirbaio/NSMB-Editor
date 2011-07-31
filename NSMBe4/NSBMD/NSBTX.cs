@@ -59,7 +59,7 @@ namespace NSMBe4.NSBMD
             //ugly, but i'm lazy to implement it properly.
             bool found = false;
             int blockStart = 0;
-            while (str.available(4))
+            while (str.lengthAvailable(4))
             {
                 uint v = str.readUInt();
                 if (v == 0x30584554) // "TEX0"

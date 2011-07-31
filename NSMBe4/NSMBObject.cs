@@ -32,6 +32,9 @@ namespace NSMBe4
         public int Height;
         private int[,] CachedObj;
         private NSMBGraphics GFX;
+
+        private bool badObject;
+        private string error;
         
         public NSMBObject(int ObjNum, int Tileset, int X, int Y, int Width, int Height, NSMBGraphics GFX)
         {
@@ -63,15 +66,29 @@ namespace NSMBe4
             if (GFX == null)
                 return;
 
+            badObject = false;
+
             try
             {
                 CachedObj = GFX.Tilesets[Tileset].RenderObject(ObjNum, Width, Height);
             }
-            catch (Exception e) { Console.Out.WriteLine(e.StackTrace); }
+            catch (NSMBTileset.ObjectRenderingException e)
+            {
+                badObject = true;
+                error = e.Message;
+            }
         }
 
         public void Render(Graphics g, int XOffset, int YOffset, Rectangle Clip, float zoom)
         {
+            if (badObject)
+            {
+                g.DrawRectangle(new Pen(Color.Red, 4), new Rectangle(X * 16, Y * 16, Width * 16, Height * 16));
+                g.DrawLine(new Pen(Color.Red, 4), new Point(X * 16, (Y + Height) * 16), new Point((X + Width) * 16, (Y) * 16));
+                g.DrawLine(new Pen(Color.Red, 4), new Point((X+Width)* 16, (Y + Height) * 16), new Point((X) * 16, (Y) * 16));
+                return;
+            }
+
             if(zoom > 1)
             {
                 RectangleF Limits = new RectangleF(XOffset - X, YOffset - Y, Clip.Width, Clip.Height);
@@ -134,7 +151,16 @@ namespace NSMBe4
             }
         }
 
-        public void RenderPlain(Graphics g, int X, int Y) {
+        public void RenderPlain(Graphics g, int X, int Y)
+        {
+            if (badObject)
+            {
+                g.DrawRectangle(new Pen(Color.Red, 4), new Rectangle(X, Y , Width * 16, Height * 16));
+                g.DrawLine(new Pen(Color.Red, 4), new Point(X , Y + Height * 16), new Point(X + Width * 16, Y));
+                g.DrawLine(new Pen(Color.Red, 4), new Point(X + Width * 16, Y + Height * 16), new Point(X, Y));
+                return;
+            }
+
             // This is basically just RenderCachedObject from the tileset class, with some edits
             Rectangle srcRect = new Rectangle();
             Rectangle destRect = new Rectangle(X, Y, 16, 16);

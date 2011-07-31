@@ -79,10 +79,10 @@ namespace NSMBe4.DSFileSystem
             parent.childrenDirs.Add(dir);
 
             ByteArrayInputStream tbl = new ByteArrayInputStream(table.getContents());
-            arr = new OverlayFile[tbl.available() / 32];
+            arr = new OverlayFile[tbl.available / 32];
 
             int i = 0;
-            while (tbl.available(32))
+            while (tbl.lengthAvailable(32))
             {
                 uint ovId = tbl.readUInt();
                 uint ramAddr = tbl.readUInt();

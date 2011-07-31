@@ -151,7 +151,7 @@ namespace NSMBe4
             v.FlagpoleID = inp.readByte();
 
             cam.seek(0);
-            int camCount = (int)cam.available() / 24;
+            int camCount = (int)cam.available / 24;
 //            Console.Out.WriteLine("CamCount: " + camCount);
             int goodCam = -1;
             for (int i = 0; i < camCount; i++)

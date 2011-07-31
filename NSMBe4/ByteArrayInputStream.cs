@@ -48,14 +48,17 @@ namespace NSMBe4
             pos = savedPositions.Pop();
         }
 
-        public uint available()
+        public int available
         {
-            return (uint)(array.Length - pos - origin);
+            get
+            {
+                return (int)(array.Length - pos - origin);
+            }
         }
 
-        public bool available(int len)
+        public bool lengthAvailable(int len)
         {
-            return available() >= len;
+            return available >= len;
         }
 
         public byte readByte()
