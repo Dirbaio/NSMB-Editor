@@ -1,0 +1,15 @@
+Notes on Compiling NSMBe:
+
+Prerequesits:
+-Microsoft Visual Studio 2010
+-.NET Framework 2.0 or higher
+
+Compiling
+-Open "NSMBe4.sln" in Visual Studio.
+-Choose your compiling options*
+-Under "Build", choose "Build Solution", or Ctrl+Shift+B
+
+Locating your NSMBe Binary:
+If your Compiling Options were: Release, Any CPU
+-Your binary files will be located under NSMBe4/bin/Release
+Reference README.txt for the necessary NSMBe files

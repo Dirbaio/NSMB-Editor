@@ -404,6 +404,13 @@
     <None Include="Languages\Spanish.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="COMPILING.txt" />
+    <Content Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="README.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\french.txt" />
     <Content Include="Resources\Icons\brush.png" />
     <Content Include="Resources\Icons\eraser.png" />
