@@ -129,10 +129,13 @@ namespace NSMBe4.DSFileSystem
 
             if (bestSpace != null)
                 return bestSpace.fileBegin + bestSpace.fileSize + 10;
-            else if (allFiles[allFiles.Count - 1].fileBegin >= 0x1400000)
+            else //if (allFiles[allFiles.Count - 1].fileBegin >= 0x1400000)
                 return allFiles[allFiles.Count - 1].fileBegin + allFiles[allFiles.Count - 1].fileSize + 10;
-            else
-                return 0x1400000; //just add the file at the very end 
+//            else
+//                return 0x1400000; //just add the file at the very end 
+
+            //The 0x1400000 is not needed now. We now know what data was being overwritten: the RSA sig.
+            //See http://board.dirbaio.net/thread.php?id=185 for more details...
         }
 
         //yeah, i'm tired of looking through the dump myself ;)

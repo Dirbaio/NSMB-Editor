@@ -25,7 +25,8 @@ namespace NSMBe4.DSFileSystem
     public class NitroROMFilesystem : NitroFilesystem
     {
         public File arm7binFile, arm7ovFile, arm9ovFile, bannerFile;
-        public File arm9binFile; 
+        public File arm9binFile;
+        public File rsaSigFile;
 
         public HeaderFile headerFile;
         public OverlayFile[] arm7ovs, arm9ovs;
@@ -55,6 +56,18 @@ namespace NSMBe4.DSFileSystem
             arm7binFile.alignment = 0x200; //Not sure what should be used here...
             bannerFile = new BannerFile(this, mainDir, headerFile);
             bannerFile.alignment = 0x200; //Not sure what should be used here...
+
+            uint rsaOffs = headerFile.getUintAt(0x1000);
+
+            if (rsaOffs == 0)
+            {
+                rsaOffs = headerFile.getUintAt(0x80);
+                headerFile.setUintAt(0x1000, rsaOffs);
+            }
+
+            rsaSigFile = new File(this, mainDir, true, -1, "rsasig.bin", (int)rsaOffs, 136);
+            rsaSigFile.canChangeOffset = false;
+
             addFile(headerFile);
             mainDir.childrenFiles.Add(headerFile);
             addFile(arm9ovFile);
@@ -67,6 +80,9 @@ namespace NSMBe4.DSFileSystem
             mainDir.childrenFiles.Add(arm7binFile);
             addFile(bannerFile);
             mainDir.childrenFiles.Add(bannerFile);
+            addFile(rsaSigFile);
+            mainDir.childrenFiles.Add(rsaSigFile);
+
             loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile, out arm7ovs);
             loadOvTable("ARM9 Overlay Table", -98, mainDir, arm9ovFile, out arm9ovs);
             loadNamelessFiles(mainDir);

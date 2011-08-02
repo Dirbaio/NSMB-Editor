@@ -10,7 +10,6 @@ namespace NSMBe4.DSFileSystem
         public File ovTableFile;
         public uint ovTableOffs;
         public uint ovId, ramAddr, ramSize, bssSize, staticInitStart, staticInitEnd;
-        byte[] decompressedData;
 
         public bool isCompressed
         {
