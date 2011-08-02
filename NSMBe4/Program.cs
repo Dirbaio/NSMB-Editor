@@ -196,13 +196,36 @@ namespace NSMBe4 {
                 MessageBox.Show("File " + langFileName + " could not be found, so the language has defaulted to English.");
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
             }
+
             SpriteData.Load();
-            if (Properties.Settings.Default.mdi)
-                Application.Run(new MdiParentForm());
+
+            string path = "";
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (args.Length > 1)
+                path = args[1];
             else
-                Application.Run(new LevelChooser());
-            if (Properties.Settings.Default.AutoUpdateSD)
-                SpriteData.update();
+            {
+                OpenFileDialog openROMDialog = new OpenFileDialog();
+                openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
+                if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    path = openROMDialog.FileName;
+            }
+
+            if (path == "")
+            {
+            }
+            else
+            {
+                if (Properties.Settings.Default.mdi)
+                {
+                    Application.Run(new MdiParentForm(path));
+                }
+                else
+                    Application.Run(new LevelChooser(path));
+                if (Properties.Settings.Default.AutoUpdateSD)
+                    SpriteData.update();
+            }
         }
 
         public static byte[] compressImage(Bitmap b)

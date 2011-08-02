@@ -12,17 +12,22 @@ namespace NSMBe4
     {
         public static MdiParentForm instance = null;
 
-        public MdiParentForm()
+        string path;
+        public MdiParentForm(string path)
         {
+            this.path = path;
             InitializeComponent();
             instance = this;
         }
 
         private void MdiParentForm_Load(object sender, EventArgs e)
         {
-            LevelChooser lc = new LevelChooser();
+            LevelChooser lc = new LevelChooser(path);
             lc.MdiParent = this;
             lc.Show();
+            
+            //For some reason, without this, the MDI form is created behind other windows. WTF?
+            this.Activate();
         }
     }
 }

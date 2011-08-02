@@ -34,8 +34,6 @@ namespace NSMBe4 {
         public ViewsEditionMode vem, zem;
         public BackgroundDragEditionMode bgdragem;
 
-        public ObjectPickerControl opc;
-
         public ToolsForm tools;
         private List<ToolStripButton> EditionModeButtons;
 
@@ -94,9 +92,7 @@ namespace NSMBe4 {
             Level.enableWrite();
             levelEditorControl1.Initialise(GFX, Level, this);
 
-            opc = new ObjectPickerControl();
-            opc.Initialise(GFX);
-            oem = new ObjectsEditionMode(Level, levelEditorControl1, opc);
+            oem = new ObjectsEditionMode(Level, levelEditorControl1);
             eem = new EntrancesEditionMode(Level, levelEditorControl1);
             pem = new PathsEditionMode(Level, levelEditorControl1, Level.Paths);
             ppem = new PathsEditionMode(Level, levelEditorControl1, Level.ProgressPaths);
@@ -181,7 +177,8 @@ namespace NSMBe4 {
         private void LevelConfigForm_ReloadTileset() {
             GFX.LoadTilesets(Level.Blocks[0][0xC], Level.Blocks[2][2]);
             Level.ReRenderAll();
-            opc.ReRenderAll(1);
+
+            oem.ReloadObjectPicker();
             Invalidate(true);
         }
 

@@ -134,7 +134,7 @@ namespace NSMBe4.DSFileSystem
 //            else
 //                return 0x1400000; //just add the file at the very end 
 
-            //The 0x1400000 is not needed now. We now know what data was being overwritten: the RSA sig.
+            //The 0x1400000 hack is not needed anymore. We now know what data we were overwriting: the RSA sig.
             //See http://board.dirbaio.net/thread.php?id=185 for more details...
         }
 

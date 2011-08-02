@@ -731,6 +731,35 @@ namespace NSMBe4
                 }
                 outp.writeByte(0xFF); //end object
             }
+
+            public bool isSlopeObject()
+            {
+                if (tiles.Count == 0) return false;
+                if (tiles[0].Count == 0) return false;
+                return tiles[0][0].slopeControl;
+            }
+
+            public int getHeight()
+            {
+                int r = tiles.Count;
+                if (tiles.Count < 1) r = 1;
+                if(isSlopeObject()) r *= 2;
+                return r;
+            }
+
+            public int getWidth()
+            {
+                int w = 1;
+                foreach (List<ObjectDefTile> row in tiles)
+                {
+                    int tw = 0;
+                    foreach (ObjectDefTile tile in row)
+                        tw++;
+                    if (tw > w) w = tw;
+                }
+                if (isSlopeObject()) w *= 2;
+                return w;
+            }
         }
 
         public class ObjectDefTile

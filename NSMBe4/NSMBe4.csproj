@@ -177,8 +177,20 @@
     </Compile>
     <Compile Include="Editor\ObjectsEditionMode.cs" />
     <Compile Include="Editor\PathsEditionMode.cs" />
+    <Compile Include="ObjectPickerControlNew.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ObjectPickerControlNew.Designer.cs">
+      <DependentUpon>ObjectPickerControlNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Patcher\PatchCompiler.cs" />
     <Compile Include="Patcher\PatchMaker.cs" />
+    <Compile Include="PickerTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PickerTest.Designer.cs">
+      <DependentUpon>PickerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BinaryEdit.resx">
@@ -263,6 +275,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MdiParentForm.resx">
       <DependentUpon>MdiParentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectPickerControlNew.resx">
+      <DependentUpon>ObjectPickerControlNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PickerTest.resx">
+      <DependentUpon>PickerTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\Map16Editor.resx">
       <DependentUpon>Map16Editor.cs</DependentUpon>

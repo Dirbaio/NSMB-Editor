@@ -35,6 +35,8 @@ namespace NSMBe4 {
     public partial class LevelChooser : Form
     {
         public static ImageManagerWindow imgMgr;
+
+
         public static void showImgMgr()
         {
             if (imgMgr == null || imgMgr.IsDisposed)
@@ -43,68 +45,60 @@ namespace NSMBe4 {
             imgMgr.Show();
         }
 
-        public LevelChooser() {
+        string path;
+
+        public LevelChooser(string path)
+        {
             InitializeComponent();
+            this.path = path;
         }
 
         private bool mustExit = false;
 
         private void LevelChooser_Load(object sender, EventArgs e) {
-            string path = "";
-            string[] args = Environment.GetCommandLineArgs();
-            if (args.Length > 1) {
-                path = args[1];
-            } else {
-                openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
-                if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
-                    mustExit = true;
-                    return;
-                } else
-                    path = openROMDialog.FileName;
-            }
-            if (path != "") {
-                importLevelButton.Enabled = false;
-                exportLevelButton.Enabled = false;
-                editLevelButton.Enabled = false;
-                hexEditLevelButton.Enabled = false;
-                useMDI.Checked = Properties.Settings.Default.mdi;
-                autoUpdate.Checked = Properties.Settings.Default.AutoUpdateSD;
+            
+            importLevelButton.Enabled = false;
+            exportLevelButton.Enabled = false;
+            editLevelButton.Enabled = false;
+            hexEditLevelButton.Enabled = false;
+            useMDI.Checked = Properties.Settings.Default.mdi;
+            autoUpdate.Checked = Properties.Settings.Default.AutoUpdateSD;
 
-                ROM.load(path);
-                filesystemBrowser1.Load(ROM.FS);
+            ROM.load(path);
+            filesystemBrowser1.Load(ROM.FS);
 
-                LoadLevelNames();
+            LoadLevelNames();
 
-                LanguageManager.ApplyToContainer(this, "LevelChooser");
-                importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
-                exportLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
-                openPatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
-                savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
-                this.Activate();
-                //Get Language Files
-				string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
-                if (System.IO.Directory.Exists(langDir)) {
-                    string[] files = System.IO.Directory.GetFiles(langDir);
-                    for (int l = 0; l < files.Length; l++) {
-                        if (files[l].EndsWith(".ini")) {
-                            int startPos = files[l].LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1;
-                            languageListBox.Items.Add(files[l].Substring(startPos, files[l].LastIndexOf('.') - startPos));
-                        }
+            LanguageManager.ApplyToContainer(this, "LevelChooser");
+            importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
+            exportLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
+            openPatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
+            savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
+            this.Activate();
+            //Get Language Files
+			string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
+            if (System.IO.Directory.Exists(langDir)) {
+                string[] files = System.IO.Directory.GetFiles(langDir);
+                for (int l = 0; l < files.Length; l++) {
+                    if (files[l].EndsWith(".ini")) {
+                        int startPos = files[l].LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1;
+                        languageListBox.Items.Add(files[l].Substring(startPos, files[l].LastIndexOf('.') - startPos));
                     }
                 }
+            }
 
 
 //                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
 
                 
-                // this is for debugging?
-                /*ImageManagerWindow w = new ImageManagerWindow();
-                w.Show();
-                w.m.addImage(new Image2D(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncg.bin"), 256, false));
-                w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 0, 512, "pal", null, true)));
-                w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 512, 512, "pal2", null, true)));*/
+            // this is for debugging?
+            /*ImageManagerWindow w = new ImageManagerWindow();
+            w.Show();
+            w.m.addImage(new Image2D(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncg.bin"), 256, false));
+            w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 0, 512, "pal", null, true)));
+            w.m.addPalette(new FilePalette(new InlineFile(ROM.FS.getFileByName("d_2d_A_J_jyotyu_ncl.bin"), 512, 512, "pal2", null, true)));*/
                 
-            }
+            
             /*
             List<string> spriteNames = LanguageManager.GetList("Sprites");
             
@@ -172,6 +166,13 @@ namespace NSMBe4 {
             }*/
 
 //            new NSBTX(ROM.FS.getFileByName("I_dokan.nsbtx"));
+
+
+            /*
+            NSMBGraphics GFX = new NSMBGraphics();
+            GFX.LoadTilesets(0);
+
+            new PickerTest(GFX).Show();*/
         }
 
 

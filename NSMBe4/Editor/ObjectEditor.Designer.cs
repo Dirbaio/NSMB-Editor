@@ -39,23 +39,24 @@
             this.objHeightUpDown = new System.Windows.Forms.NumericUpDown();
             this.objYPosUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.objTypeUpDown = new System.Windows.Forms.NumericUpDown();
-            this.objTileset0Button = new System.Windows.Forms.RadioButton();
-            this.objTileset1Button = new System.Windows.Forms.RadioButton();
-            this.objTileset2Button = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.objectPickerPanel = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tileset0tab = new System.Windows.Forms.TabPage();
+            this.tileset0picker = new NSMBe4.ObjectPickerControlNew();
+            this.tileset1tab = new System.Windows.Forms.TabPage();
+            this.tileset1picker = new NSMBe4.ObjectPickerControlNew();
+            this.tileset2tab = new System.Windows.Forms.TabPage();
+            this.tileset2picker = new NSMBe4.ObjectPickerControlNew();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objXPosUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objWidthUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objHeightUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objYPosUpDown)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objTypeUpDown)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tileset0tab.SuspendLayout();
+            this.tileset1tab.SuspendLayout();
+            this.tileset2tab.SuspendLayout();
             this.SuspendLayout();
             // 
             // deleteObjectButton
@@ -218,97 +219,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "<label1>";
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.objTypeUpDown, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.objTileset0Button, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.objTileset1Button, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.objTileset2Button, 3, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 90);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(278, 51);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(61, 6);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "<label5>";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(61, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "<label6>";
-            // 
-            // objTypeUpDown
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.objTypeUpDown, 3);
-            this.objTypeUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objTypeUpDown.Location = new System.Drawing.Point(114, 28);
-            this.objTypeUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.objTypeUpDown.Name = "objTypeUpDown";
-            this.objTypeUpDown.Size = new System.Drawing.Size(161, 20);
-            this.objTypeUpDown.TabIndex = 2;
-            this.objTypeUpDown.ValueChanged += new System.EventHandler(this.objTypeUpDown_ValueChanged);
-            // 
-            // objTileset0Button
-            // 
-            this.objTileset0Button.AutoSize = true;
-            this.objTileset0Button.Location = new System.Drawing.Point(114, 3);
-            this.objTileset0Button.Name = "objTileset0Button";
-            this.objTileset0Button.Size = new System.Drawing.Size(31, 17);
-            this.objTileset0Button.TabIndex = 3;
-            this.objTileset0Button.Text = "0";
-            this.objTileset0Button.UseVisualStyleBackColor = true;
-            this.objTileset0Button.Click += new System.EventHandler(this.objTileset0Button_Click);
-            // 
-            // objTileset1Button
-            // 
-            this.objTileset1Button.AutoSize = true;
-            this.objTileset1Button.Location = new System.Drawing.Point(169, 3);
-            this.objTileset1Button.Name = "objTileset1Button";
-            this.objTileset1Button.Size = new System.Drawing.Size(31, 17);
-            this.objTileset1Button.TabIndex = 4;
-            this.objTileset1Button.Text = "1";
-            this.objTileset1Button.UseVisualStyleBackColor = true;
-            this.objTileset1Button.Click += new System.EventHandler(this.objTileset1Button_Click);
-            // 
-            // objTileset2Button
-            // 
-            this.objTileset2Button.AutoSize = true;
-            this.objTileset2Button.Location = new System.Drawing.Point(224, 3);
-            this.objTileset2Button.Name = "objTileset2Button";
-            this.objTileset2Button.Size = new System.Drawing.Size(31, 17);
-            this.objTileset2Button.TabIndex = 5;
-            this.objTileset2Button.Text = "2";
-            this.objTileset2Button.UseVisualStyleBackColor = true;
-            this.objTileset2Button.Click += new System.EventHandler(this.objTileset2Button_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.deleteObjectButton);
@@ -319,20 +229,82 @@
             this.panel1.Size = new System.Drawing.Size(278, 36);
             this.panel1.TabIndex = 13;
             // 
-            // objectPickerPanel
+            // tabControl1
             // 
-            this.objectPickerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectPickerPanel.Location = new System.Drawing.Point(0, 141);
-            this.objectPickerPanel.Name = "objectPickerPanel";
-            this.objectPickerPanel.Size = new System.Drawing.Size(278, 282);
-            this.objectPickerPanel.TabIndex = 14;
+            this.tabControl1.Controls.Add(this.tileset0tab);
+            this.tabControl1.Controls.Add(this.tileset1tab);
+            this.tabControl1.Controls.Add(this.tileset2tab);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 90);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(278, 333);
+            this.tabControl1.TabIndex = 15;
+            // 
+            // tileset0tab
+            // 
+            this.tileset0tab.Controls.Add(this.tileset0picker);
+            this.tileset0tab.Location = new System.Drawing.Point(4, 22);
+            this.tileset0tab.Name = "tileset0tab";
+            this.tileset0tab.Padding = new System.Windows.Forms.Padding(3);
+            this.tileset0tab.Size = new System.Drawing.Size(270, 307);
+            this.tileset0tab.TabIndex = 0;
+            this.tileset0tab.Text = "Tileset 0";
+            this.tileset0tab.UseVisualStyleBackColor = true;
+            // 
+            // tileset0picker
+            // 
+            this.tileset0picker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tileset0picker.Location = new System.Drawing.Point(3, 3);
+            this.tileset0picker.Name = "tileset0picker";
+            this.tileset0picker.Size = new System.Drawing.Size(264, 301);
+            this.tileset0picker.TabIndex = 0;
+            this.tileset0picker.ObjectSelected += new NSMBe4.ObjectPickerControlNew.ObjectSelectedDelegate(this.tileset0picker_ObjectSelected);
+            // 
+            // tileset1tab
+            // 
+            this.tileset1tab.Controls.Add(this.tileset1picker);
+            this.tileset1tab.Location = new System.Drawing.Point(4, 22);
+            this.tileset1tab.Name = "tileset1tab";
+            this.tileset1tab.Padding = new System.Windows.Forms.Padding(3);
+            this.tileset1tab.Size = new System.Drawing.Size(270, 307);
+            this.tileset1tab.TabIndex = 1;
+            this.tileset1tab.Text = "Tileset 1";
+            this.tileset1tab.UseVisualStyleBackColor = true;
+            // 
+            // tileset1picker
+            // 
+            this.tileset1picker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tileset1picker.Location = new System.Drawing.Point(3, 3);
+            this.tileset1picker.Name = "tileset1picker";
+            this.tileset1picker.Size = new System.Drawing.Size(264, 301);
+            this.tileset1picker.TabIndex = 1;
+            this.tileset1picker.ObjectSelected += new NSMBe4.ObjectPickerControlNew.ObjectSelectedDelegate(this.tileset1picker_ObjectSelected);
+            // 
+            // tileset2tab
+            // 
+            this.tileset2tab.Controls.Add(this.tileset2picker);
+            this.tileset2tab.Location = new System.Drawing.Point(4, 22);
+            this.tileset2tab.Name = "tileset2tab";
+            this.tileset2tab.Size = new System.Drawing.Size(270, 307);
+            this.tileset2tab.TabIndex = 2;
+            this.tileset2tab.Text = "Tileset 2";
+            this.tileset2tab.UseVisualStyleBackColor = true;
+            // 
+            // tileset2picker
+            // 
+            this.tileset2picker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tileset2picker.Location = new System.Drawing.Point(0, 0);
+            this.tileset2picker.Name = "tileset2picker";
+            this.tileset2picker.Size = new System.Drawing.Size(270, 307);
+            this.tileset2picker.TabIndex = 1;
+            this.tileset2picker.ObjectSelected += new NSMBe4.ObjectPickerControlNew.ObjectSelectedDelegate(this.tileset2picker_ObjectSelected);
             // 
             // ObjectEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.objectPickerPanel);
-            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.Name = "ObjectEditor";
@@ -343,10 +315,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.objWidthUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.objHeightUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.objYPosUpDown)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objTypeUpDown)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tileset0tab.ResumeLayout(false);
+            this.tileset1tab.ResumeLayout(false);
+            this.tileset2tab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -363,16 +336,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown objHeightUpDown;
         private System.Windows.Forms.NumericUpDown objYPosUpDown;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown objTypeUpDown;
-        private System.Windows.Forms.RadioButton objTileset0Button;
-        private System.Windows.Forms.RadioButton objTileset1Button;
-        private System.Windows.Forms.RadioButton objTileset2Button;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel objectPickerPanel;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tileset0tab;
+        private ObjectPickerControlNew tileset0picker;
+        private System.Windows.Forms.TabPage tileset1tab;
+        private ObjectPickerControlNew tileset1picker;
+        private System.Windows.Forms.TabPage tileset2tab;
+        private ObjectPickerControlNew tileset2picker;
 
     }
 }

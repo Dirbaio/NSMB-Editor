@@ -33,7 +33,7 @@ namespace NSMBe4
         private int[,] CachedObj;
         private NSMBGraphics GFX;
 
-        private bool badObject;
+        public bool badObject;
         private string error;
         
         public NSMBObject(int ObjNum, int Tileset, int X, int Y, int Width, int Height, NSMBGraphics GFX)

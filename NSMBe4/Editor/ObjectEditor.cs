@@ -30,37 +30,20 @@ namespace NSMBe4
         private NSMBObject o;
         private LevelEditorControl EdControl;
         private bool DataUpdateFlag = false;
-        private ObjectPickerControl objectPickerControl1;
 
-        public ObjectEditor(NSMBObject o, LevelEditorControl EdControl, ObjectPickerControl opc)
+
+        public ObjectEditor(NSMBObject o, LevelEditorControl EdControl)
         {
             InitializeComponent();
-            setOPC(opc);
             this.o = o;
             this.EdControl = EdControl;
             UpdateInfo();
             LanguageManager.ApplyToContainer(this, "ObjectEditor");
+            tileset0picker.Initialise(EdControl.GFX, 0);
+            tileset1picker.Initialise(EdControl.GFX, 1);
+            tileset2picker.Initialise(EdControl.GFX, 2);
         }
 
-        private void setOPC(ObjectPickerControl opc)
-        {
-            objectPickerControl1 = opc;
-
-            this.objectPickerControl1.Dock = DockStyle.Fill;
-            this.objectPickerControl1.Name = "objectPickerControl1";
-            this.objectPickerControl1.TabIndex = 1;
-            this.objectPickerControl1.ObjectSelected += new NSMBe4.ObjectPickerControl.ObjectSelectedDelegate(this.objectPickerControl1_ObjectSelected);
-            this.objectPickerPanel.Controls.Add(this.objectPickerControl1);
-
-        }
-
-        private void SetTileset(int T)
-        {
-            if (T != o.Tileset)
-                EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, T, o.ObjNum));
-            objectPickerControl1.CurrentTileset = T;
-            objectPickerControl1.Invalidate(true);
-        }
         public void SetObject(NSMBObject no)
         {
             o = no;
@@ -75,24 +58,24 @@ namespace NSMBe4
             objYPosUpDown.Value = o.Y;
             objWidthUpDown.Value = o.Width;
             objHeightUpDown.Value = o.Height;
+            
+            if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
+            if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
+            if (o.Tileset != 2) tileset2picker.selectObjectNumber(-1);
 
-            objTileset0Button.Checked = (o.Tileset == 0);
-            objTileset1Button.Checked = (o.Tileset == 1);
-            objTileset2Button.Checked = (o.Tileset == 2);
+            if (o.Tileset == 0) tileset0picker.selectObjectNumber(o.ObjNum);
+            if (o.Tileset == 1) tileset1picker.selectObjectNumber(o.ObjNum);
+            if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.ObjNum);
 
-            objTypeUpDown.Value = o.ObjNum;
-
-            objectPickerControl1.CurrentTileset = o.Tileset;
-            objectPickerControl1.SelectedObject = o.ObjNum;
-            objectPickerControl1.EnsureObjVisible((int)objTypeUpDown.Value);
-            objectPickerControl1.Invalidate(true);
+            tabControl1.SelectedIndex = o.Tileset;
+            
             DataUpdateFlag = false;
         }
 
         public void ReloadObjectPicker() {
-            objectPickerControl1.ReRenderAll(0);
-            objectPickerControl1.ReRenderAll(1);
-            objectPickerControl1.ReRenderAll(2);
+            tileset0picker.reload();
+            tileset1picker.reload();
+            tileset2picker.reload();
         }
 
         private void objXPosUpDown_ValueChanged(object sender, EventArgs e)
@@ -123,39 +106,6 @@ namespace NSMBe4
                 EdControl.UndoManager.Do(new SizeObjectAction(o, o.Width, (int)objHeightUpDown.Value));
         }
 
-        private void objTileset0Button_Click(object sender, EventArgs e)
-        {
-            SetTileset(0);
-        }
-
-        private void objTileset1Button_Click(object sender, EventArgs e)
-        {
-            SetTileset(1);
-        }
-
-        private void objTileset2Button_Click(object sender, EventArgs e)
-        {
-            SetTileset(2);
-        }
-
-        private void objTypeUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (DataUpdateFlag) return;
-            if ((int)objTypeUpDown.Value != o.ObjNum)
-                EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, o.Tileset, (int)objTypeUpDown.Value));
-            objectPickerControl1.SelectedObject = (int)objTypeUpDown.Value;
-            objectPickerControl1.EnsureObjVisible((int)objTypeUpDown.Value);
-            objectPickerControl1.Invalidate(true);
-        }
-
-        private void objectPickerControl1_ObjectSelected()
-        {
-            DataUpdateFlag = true;
-            objTypeUpDown.Value = objectPickerControl1.SelectedObject;
-            EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, o.Tileset, objectPickerControl1.SelectedObject));
-            DataUpdateFlag = false;
-        }
-
         private void addObjectButton_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
@@ -167,5 +117,30 @@ namespace NSMBe4
         {
             EdControl.UndoManager.Do(new RemoveObjectAction(o));
         }
+
+        private void setObjectType(int til, int obj)
+        {
+            if (til != 0) tileset0picker.selectObjectNumber(-1);
+            if (til != 1) tileset1picker.selectObjectNumber(-1);
+            if (til != 2) tileset2picker.selectObjectNumber(-1);
+
+            EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, til, obj));
+        }
+
+        private void tileset0picker_ObjectSelected()
+        {
+            setObjectType(0, tileset0picker.SelectedObject);
+        }
+
+        private void tileset1picker_ObjectSelected()
+        {
+            setObjectType(1, tileset1picker.SelectedObject);
+        }
+
+        private void tileset2picker_ObjectSelected()
+        {
+            setObjectType(2, tileset2picker.SelectedObject);
+        }
+
     }
 }

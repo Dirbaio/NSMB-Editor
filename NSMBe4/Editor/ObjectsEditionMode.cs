@@ -41,10 +41,10 @@ namespace NSMBe4
         SpriteEditor se;
         CreatePanel cp;
 
-        public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl, ObjectPickerControl opc)
+        public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
             : base(Level, EdControl)
         {
-            oe = new ObjectEditor(null, EdControl, opc);
+            oe = new ObjectEditor(null, EdControl);
             se = new SpriteEditor(null, EdControl);
             cp = new CreatePanel(EdControl);
             SetPanel(cp);
@@ -276,8 +276,8 @@ namespace NSMBe4
                     CloneMode = false;
                     ResizeMode = false;
                     SelectedObjects = newObjects;
-                    lx = NewX;
-                    ly = NewY;
+//                    lx = NewX;
+//                    ly = NewY;
                 }
                 if (ResizeMode)
                 {
@@ -287,8 +287,8 @@ namespace NSMBe4
                         if (SelectedObject is NSMBObject)
                         {
                             NSMBObject o = SelectedObject as NSMBObject;
-                            int nx = Math.Max(1, (x + DragXOff - o.X * 16) / 16);
-                            int ny = Math.Max(1, (y + DragYOff - o.Y * 16) / 16);
+                            int nx = Math.Max(1, o.Width + NewX - lx);
+                            int ny = Math.Max(1, o.Height + NewY - ly);
                             EdControl.UndoManager.Do(new SizeObjectAction(o, nx, ny));
                         }
                     }
