@@ -547,6 +547,9 @@ namespace NSMBe4
                     y -= 15; width = 26;
                     height = 31;
                     break;
+                case 210:
+                    width = 32; height = 32;
+                    break;
                 case 211:
                     y -= 16;
                     width = 26; height = 32;
@@ -1495,6 +1498,9 @@ namespace NSMBe4
                     break;
                 case 209:
                     g.DrawImage(Properties.Resources.GiantHammerBro, RenderX, RenderY - 15, 26, 31);
+                    break;
+                case 210:
+                    g.DrawImage(Properties.Resources.VSBattleStar, RenderX, RenderY, 32, 32);
                     break;
                 case 211:
                     g.DrawImage(Properties.Resources.Blooper, RenderX, RenderY - 16, 26, 32);

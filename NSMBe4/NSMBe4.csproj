@@ -89,6 +89,7 @@
     <Reference Include="Be.Windows.Forms.HexBox, Version=1.4.1.20144, Culture=neutral, PublicKeyToken=e0e5adf0ebc99863">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Be.Windows.Forms.HexBox.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -405,6 +406,8 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Sprite Images\VSBattleStar.PNG" />
+    <None Include="Resources\VSBattleStar.bmp" />
     <None Include="Resources\Sprite Images\BouncyBricks.PNG" />
     <None Include="Resources\Sprite Images\Jungle.PNG" />
     <None Include="Resources\Sprite Images\Shark.PNG" />
@@ -422,14 +425,12 @@
     <None Include="Languages\Spanish.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="COMPILING.txt" />
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\french.txt" />
     <Content Include="Resources\Icons\brush.png" />
     <Content Include="Resources\Icons\eraser.png" />
     <Content Include="Resources\Icons\fill.png" />
@@ -449,7 +450,6 @@
     <None Include="Resources\selectedarrows.png" />
     <None Include="Resources\image--arrow.png" />
     <None Include="Resources\image--plus.png" />
-    <Content Include="Resources\spanish.txt" />
     <Content Include="Resources\Icons\zoom.png" />
     <None Include="Resources\Sprite Images\Arrow.PNG" />
     <None Include="Resources\Sprite Images\ArrowRotate45.PNG" />

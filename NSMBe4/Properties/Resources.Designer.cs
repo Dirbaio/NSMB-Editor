@@ -1789,6 +1789,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap VSBattleStar {
+            get {
+                object obj = ResourceManager.GetObject("VSBattleStar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap WallJumpPlatformBlock {
             get {
                 object obj = ResourceManager.GetObject("WallJumpPlatformBlock", resourceCulture);
