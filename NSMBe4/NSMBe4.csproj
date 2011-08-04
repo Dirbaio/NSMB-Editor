@@ -406,6 +406,9 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Sprite Images\Brick.PNG" />
+    <None Include="Resources\Sprite Images\JumpingQBlock.PNG" />
+    <None Include="Resources\Sprite Images\JumpingQBlockOverrides.PNG" />
     <Content Include="Resources\Sprite Images\VSBattleStar.PNG" />
     <None Include="Resources\VSBattleStar.bmp" />
     <None Include="Resources\Sprite Images\BouncyBricks.PNG" />

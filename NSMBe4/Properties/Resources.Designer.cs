@@ -193,6 +193,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Brick {
+            get {
+                object obj = ResourceManager.GetObject("Brick", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Broozer {
             get {
                 object obj = ResourceManager.GetObject("Broozer", resourceCulture);
@@ -826,6 +833,20 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap JumpingFlame {
             get {
                 object obj = ResourceManager.GetObject("JumpingFlame", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap JumpingQBlock {
+            get {
+                object obj = ResourceManager.GetObject("JumpingQBlock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap JumpingQBlockOverrides {
+            get {
+                object obj = ResourceManager.GetObject("JumpingQBlockOverrides", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

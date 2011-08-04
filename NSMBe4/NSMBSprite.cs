@@ -50,7 +50,7 @@ namespace NSMBe4
             Array.Copy(s.Data, Data, 6);
         }
 
-        private int[] AlwaysDrawNums = {68, 69, 73, 141};
+        private int[] AlwaysDrawNums = {68, 69, 73, 141, 226};
 
         public bool AlwaysDraw() {
             return Array.IndexOf(AlwaysDrawNums, this.Type) > -1;
@@ -421,7 +421,7 @@ namespace NSMBe4
                     width = 22; height = 33;
                     break;
                 case 136:
-                    width = 18; height = 16 * (Data[5] + 2) + 7;
+                    width = 18; height = 16 * (Data[5] + 2) + 9;
                     y -= height - 16;
                     break;
                 case 141:
@@ -729,6 +729,10 @@ namespace NSMBe4
                 case 274:
                     x -= 16;
                     height = 35; width = (Data[5] % 0x10 + 3) * 16;
+                    break;
+                case 275:
+                    height = (Data[5] % 0x10) * 16 + 30;
+                    y -= height - 16;
                     break;
                 case 277:
                     width = 32; height = 32;
@@ -1354,7 +1358,7 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.Goomba, RenderX, RenderY - 2, 16, 18);
                     break;
                 case 149:
-                    switch (Data[5]) {
+                    switch (Data[5] % 0x10) {
                         case 1:
                             img = Properties.Resources.KoopaRed;
                             break;
@@ -1390,9 +1394,9 @@ namespace NSMBe4
                     rect.Offset(1, 1);
                     g.DrawRectangle(Pens.Black, rect);
                     rect.Offset(-1, -1);
-                    g.DrawRectangle(Pens.White, rect);
+                    g.DrawRectangle(Pens.Lime, rect);
                     g.DrawString(LanguageManager.Get("Sprites", "Warp"), NSMBGraphics.SmallInfoFont, Brushes.Black, RenderX + 1, RenderY + 1);
-                    g.DrawString(LanguageManager.Get("Sprites", "Warp"), NSMBGraphics.SmallInfoFont, Brushes.White, RenderX, RenderY);
+                    g.DrawString(LanguageManager.Get("Sprites", "Warp"), NSMBGraphics.SmallInfoFont, Brushes.Lime, RenderX, RenderY);
                     break;
                 case 157:
                     g.DrawImage(Properties.Resources.FireBro, RenderX, RenderY - 15, 18, 31);
@@ -1743,6 +1747,17 @@ namespace NSMBe4
                     }
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
                     g.DrawImage(img, RenderX, RenderY, 16, 35);
+                    break;
+                case 275:
+                    RenderY -= 14;
+                    g.DrawImage(Properties.Resources.JumpingQBlock, RenderX, RenderY, 16, 30);
+                    if ((Data[4] % 0x10) <= 3)
+                        g.DrawImage(Properties.Resources.JumpingQBlockOverrides.Clone(new Rectangle((Data[4] % 0x10) * 16, 0, 16, 16), 
+                            Properties.Resources.JumpingQBlockOverrides.PixelFormat), RenderX, RenderY + 3, 16, 16);
+                    for (int l = 0; l < Data[5] % 0x10; l++) {
+                        RenderY -= 16;
+                        g.DrawImage(Properties.Resources.Brick, RenderX, RenderY, 16, 16);
+                    }
                     break;
                 case 277:
                     int direction = Data[2] % 8;
