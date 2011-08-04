@@ -66,6 +66,7 @@ namespace NSMBe4
                     d = readFromStream(sr);
                 }
 
+                fs.Close();
                 sr.Close();
             }
             catch (Exception e)
@@ -73,8 +74,8 @@ namespace NSMBe4
                 MessageBox.Show("Error parsing spritedata.txt:\n" + e.Message + "\n"+e.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 datas.Clear();
             }
-        }
-
+        } 
+        aewfoaweijcoamweijfamoweifj
         public static SpriteData readFromStream(StreamReader sr)
         {
             string header = sr.ReadLine();
