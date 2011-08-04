@@ -1782,6 +1782,15 @@ namespace NSMBe4.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to SVN.
+        /// </summary>
+        internal static string version {
+            get {
+                return ResourceManager.GetString("version", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap views {
             get {
                 object obj = ResourceManager.GetObject("views", resourceCulture);

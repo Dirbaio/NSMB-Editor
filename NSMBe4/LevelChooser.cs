@@ -87,6 +87,7 @@ namespace NSMBe4 {
                 }
             }
 
+            this.Text = "NSMB Editor 5.2 " + Properties.Resources.version;
 
 //                new TextureEditor(ROM.FS.getFileByName("w2.nsbmd")).Show();
 

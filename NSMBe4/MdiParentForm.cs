@@ -18,6 +18,7 @@ namespace NSMBe4
             this.path = path;
             InitializeComponent();
             instance = this;
+            this.Text = "NSMB Editor 5.2 " + Properties.Resources.version;
         }
 
         private void MdiParentForm_Load(object sender, EventArgs e)
