@@ -374,32 +374,24 @@ namespace NSMBe4
                 mode.SelectObject(no);
         }
 
-        private object Clipboard = null;
-        private EditionMode ClipboardOriginMode;
-
         public void cut()
         {
-            object nc = mode.copy();
-            if (nc != null)
-                Clipboard = nc;
-
-            ClipboardOriginMode = mode;
+            copy();
             mode.DeleteObject();
         }
 
         public void copy()
         {
-            object nc = mode.copy();
-            if (nc != null)
-                Clipboard = nc;
-            ClipboardOriginMode = mode;
+            string str = mode.copy();
+            if (str.Length > 0)
+                Clipboard.SetText("NSMBeClip|" + str + "|");
         }
 
         public void paste()
         {
-            if (Clipboard != null){
-                SetEditionMode(ClipboardOriginMode);
-                mode.paste(Clipboard);
+            string str = Clipboard.GetText().Trim();
+            if (str.Length > 0 && str.StartsWith("NSMBeClip|") && str.EndsWith("|")) {
+                mode.paste(str.Substring(10, str.Length - 11));
                 mode.Refresh();
             }
         }

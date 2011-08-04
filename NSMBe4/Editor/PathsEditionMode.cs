@@ -184,17 +184,17 @@ namespace NSMBe4
                 EdControl.UndoManager.Do(new RemovePathAction(p));
         }
 
-        public override object copy()
+        public override string copy()
         {
             if (p == null)
-                return null;
-            return new NSMBPathPoint(n);
+                return "";
+            return n.ToString();
         }
 
-        public override void paste(object contents)
+        public override void paste(string contents)
         {
-            if (contents is NSMBPathPoint)
-                EdControl.UndoManager.Do(new AddPathNodeAction(contents as NSMBPathPoint, p.points.IndexOf(n) + 1));
+            int idx = 0;
+            EdControl.UndoManager.Do(new AddPathNodeAction(NSMBPathPoint.FromString(contents.Split(':'), ref idx, p), p.points.IndexOf(n) + 1));
         }
     }
 }

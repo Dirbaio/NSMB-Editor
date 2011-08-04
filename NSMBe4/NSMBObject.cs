@@ -181,5 +181,23 @@ namespace NSMBe4
                 destRect.Y = Y;
             }
         }
+
+        public override string ToString()
+        {
+            return String.Format("OBJ:{0}:{1}:{2}:{3}:{4}:{5}", X, Y, Width, Height, Tileset, ObjNum);
+        }
+
+        public static NSMBObject FromString(String[] strs, ref int idx, NSMBGraphics gfx) {
+            NSMBObject o = new NSMBObject(
+                int.Parse(strs[6 + idx]),
+                int.Parse(strs[5 + idx]),
+                int.Parse(strs[1 + idx]),
+                int.Parse(strs[2 + idx]),
+                int.Parse(strs[3 + idx]),
+                int.Parse(strs[4 + idx]),
+                gfx);
+            idx += 7;
+            return o;
+        }
     }
 }

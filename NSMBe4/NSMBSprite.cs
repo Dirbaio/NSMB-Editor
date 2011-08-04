@@ -2021,5 +2021,25 @@ namespace NSMBe4
         {
             return value ? 1 : -1;
         }
+
+        public override string ToString()
+        {
+            return String.Format("SPR:{0}:{1}:{2}:{3:X2}{4:X2}{5:X2}{6:X2}{7:X2}{8:X2}", X, Y, Type,
+                Data[0], Data[1], Data[2], Data[3], Data[4], Data[5]);
+        }
+
+        public static NSMBSprite FromString(string[] strs, ref int idx, NSMBLevel lvl)
+        {
+            NSMBSprite s = new NSMBSprite(lvl);
+            s.X = int.Parse(strs[1 + idx]);
+            s.Y = int.Parse(strs[2 + idx]);
+            s.Type = int.Parse(strs[3 + idx]);
+            s.Data = new byte[6];
+            for (int l = 0; l < 6; l++) {
+                s.Data[l] = byte.Parse(strs[4 + idx].Substring(l * 2, 2), System.Globalization.NumberStyles.HexNumber);
+            }
+            idx += 5;
+            return s;
+        }
     }
 }

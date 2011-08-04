@@ -115,22 +115,20 @@ namespace NSMBe4
             EdControl.UndoManager.merge = false;
         }
 
-        public override object copy()
+        public override string copy()
         {
-            return new NSMBEntrance(this.e);
+            return e.ToStringClip();
         }
 
-        public override void paste(object contents)
+        public override void paste(string contents)
         {
-            if (contents is NSMBEntrance)
-            {
-                NSMBEntrance newE = contents as NSMBEntrance;
-                Rectangle viewableRect = EdControl.ViewableArea;
-                newE.X = (viewableRect.Left * 16 + viewableRect.Right * 16) / 2;
-                newE.Y = (viewableRect.Top * 16 + viewableRect.Bottom * 16) / 2;
-                newE.Number = Level.getFreeEntranceNumber();
-                EdControl.UndoManager.Do(new AddEntranceAction(newE));
-            }
+            int idx = 0;
+            NSMBEntrance newE = NSMBEntrance.FromString(contents.Split(':'), ref idx);
+            Rectangle viewableRect = EdControl.ViewableArea;
+            newE.X = (viewableRect.Left * 16 + viewableRect.Right * 16) / 2;
+            newE.Y = (viewableRect.Top * 16 + viewableRect.Bottom * 16) / 2;
+            newE.Number = Level.getFreeEntranceNumber();
+            EdControl.UndoManager.Do(new AddEntranceAction(newE));
         }
 
         public override void DeleteObject()

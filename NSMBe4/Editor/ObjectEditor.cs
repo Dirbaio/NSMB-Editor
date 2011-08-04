@@ -28,7 +28,7 @@ namespace NSMBe4
     public partial class ObjectEditor : UserControl
     {
         private NSMBObject o;
-        private LevelEditorControl EdControl;
+        public LevelEditorControl EdControl;
         private bool DataUpdateFlag = false;
 
 

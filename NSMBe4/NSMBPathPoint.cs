@@ -88,5 +88,24 @@ namespace NSMBe4
             outn.writeUShort(Unknown5);
             outn.writeUShort(Unknown6);
         }
+
+        public override string ToString()
+        {
+            return String.Format("PTH:{0}:{1}:{2}:{3}:{4}:{5}:{6}:{7}", X, Y, Unknown1, Unknown2, Unknown3, Unknown4, Unknown5, Unknown6);
+        }
+
+        public static NSMBPathPoint FromString(string[] strs, ref int idx, NSMBPath p) {
+            NSMBPathPoint pt = new NSMBPathPoint(p);
+            pt.X = int.Parse(strs[1 + idx]);
+            pt.Y = int.Parse(strs[2 + idx]);
+            pt.Unknown1 = ushort.Parse(strs[3 + idx]);
+            pt.Unknown2 = ushort.Parse(strs[4 + idx]);
+            pt.Unknown3 = ushort.Parse(strs[5 + idx]);
+            pt.Unknown4 = ushort.Parse(strs[6 + idx]);
+            pt.Unknown5 = ushort.Parse(strs[7 + idx]);
+            pt.Unknown6 = ushort.Parse(strs[8 + idx]);
+            idx += 9;
+            return pt;
+        }
     }
 }

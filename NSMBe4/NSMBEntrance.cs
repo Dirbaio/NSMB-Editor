@@ -80,11 +80,37 @@ namespace NSMBe4
             g.DrawImage(Properties.Resources.entrances, new Rectangle(X, Y, 16, 16), new Rectangle(EntranceShowType * 16, EntranceArrowColour * 16, 16, 16), GraphicsUnit.Pixel);
         }
 
+        public string ToStringClip()
+        {
+            return String.Format("ENT:{0}:{1}:{2}:{3}:{4}:{5}:{6}:{7}:{8}:{9}:{10}:{11}:{12}", X, Y, CameraX, CameraY, Number, DestArea, 
+                ConnectedPipeID, DestEntrance, Type, Settings, Unknown1, EntryView, Unknown2);
+        }
+
         public override string ToString()
         {
- 	         return String.Format("{0}: {1} ({2},{3})", Number,
-                    LanguageManager.GetList("EntranceTypes")[Type],
-                    X, Y);
+            return String.Format("{0}: {1} ({2},{3})", Number,
+               LanguageManager.GetList("EntranceTypes")[Type],
+               X, Y);
+        }
+
+        public static NSMBEntrance FromString(string[] strs, ref int idx)
+        {
+            NSMBEntrance e = new NSMBEntrance();
+            e.X = int.Parse(strs[1 + idx]);
+            e.Y = int.Parse(strs[2 + idx]);
+            e.CameraX = int.Parse(strs[3 + idx]);
+            e.CameraY = int.Parse(strs[4 + idx]);
+            e.Number = int.Parse(strs[5 + idx]);
+            e.DestArea = int.Parse(strs[6 + idx]);
+            e.ConnectedPipeID = int.Parse(strs[7 + idx]);
+            e.DestEntrance = int.Parse(strs[8 + idx]);
+            e.Type = int.Parse(strs[9 + idx]);
+            e.Settings = int.Parse(strs[10 + idx]);
+            e.Unknown1 = int.Parse(strs[11 + idx]);
+            e.EntryView = int.Parse(strs[12 + idx]);
+            e.Unknown2 = int.Parse(strs[13 + idx]);
+            idx += 14;
+            return e;
         }
     }
 }

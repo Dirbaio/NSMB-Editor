@@ -144,22 +144,21 @@ namespace NSMBe4
             EdControl.UndoManager.merge = false;
         }
 
-        public override object copy()
+        public override string copy()
         {
-            return new NSMBView(v);
+            return v.ToStringClip();
         }
 
-        public override void paste(object contents)
+        public override void paste(string contents)
         {
-            if (contents is NSMBView)
-            {
-                NSMBView newV = contents as NSMBView;
-                if (newV.isZone)
-                    newV.Number = Level.getFreeViewNumber(Level.Zones);
-                else
-                    newV.Number = Level.getFreeViewNumber(Level.Views);
-                EdControl.UndoManager.Do(new AddViewAction(newV));
-            }
+            int idx = 0;
+            NSMBView newV = NSMBView.FromString(contents.Split(':'), ref idx);
+            newV.isZone = !EdVi;
+            if (newV.isZone)
+                newV.Number = Level.getFreeViewNumber(Level.Zones);
+            else
+                newV.Number = Level.getFreeViewNumber(Level.Views);
+            EdControl.UndoManager.Do(new AddViewAction(newV));
         }
 
         public override void DeleteObject()

@@ -358,7 +358,7 @@ namespace NSMBe4
 
         public override void Refresh()
         {
-            SelectObject(null);
+            //SelectObject(null);
         }
 
         public void RefreshDataEditor()
@@ -384,64 +384,74 @@ namespace NSMBe4
             SelectedObjects.Clear();
             EdControl.repaint();
         }
-        public override object copy()
+        public override string copy()
         {
             if (SelectedObjects == null)
-                return null;
+                return "";
             if (SelectedObjects.Count == 0)
-                return null;
+                return "";
 
-            List<object> copyList = new List<object>();
-            copyList.AddRange(SelectedObjects);
-            return copyList;
+            string str = "";
+            foreach (object o in SelectedObjects) {
+                str += o.ToString() + ":";
+            }
+            return str.Substring(0, str.Length - 1);
         }
 
-        public override void paste(object contents)
+        public override void paste(string contents)
         {
-            if (contents is List<object>)
-            {
-                if ((contents as List<object>).Count == 0)
-                    return;
-
-                EdControl.UndoManager.Perform(new AddMultipleAction(CloneList(contents as List<object>).ToArray()));
-                
-                //now place the new objects on the topleft corner
-
-                int XMin = Int32.MaxValue; //position of the objects
-                int YMin = Int32.MaxValue;
-
-                foreach (object oo in SelectedObjects)
-                {
-                    if (oo is NSMBObject)
-                    {
-                        NSMBObject o = oo as NSMBObject;
-
-                        if (o.X < XMin) XMin = o.X;
-                        if (o.Y < YMin) YMin = o.Y;
-                    }
-                    if (oo is NSMBSprite)
-                    {
-                        NSMBSprite o = oo as NSMBSprite;
-
-                        if (o.X < XMin) XMin = o.X;
-                        if (o.Y < YMin) YMin = o.Y;
-                    }
+            List<object> objs = new List<object>();
+            try {
+                string[] data = contents.Split(':');
+                int idx = 0;
+                while (idx < data.Length) {
+                    if (data[idx] == "OBJ") {
+                        objs.Add(NSMBObject.FromString(data, ref idx, oe.EdControl.GFX));
+                    } else if (data[idx] == "SPR") {
+                        objs.Add(NSMBSprite.FromString(data, ref idx, oe.EdControl.Level));
+                    } else
+                        idx++;
                 }
+            } catch { }
 
-                Rectangle va = EdControl.ViewableArea;
-                int XOffs = va.X - XMin; //Offset to move all the objects
-                int YOffs = va.Y - YMin; //so they are on the topleft corner
-                EdControl.UndoManager.Perform(new MoveMultipleAction(SelectedObjects.ToArray(), XOffs, YOffs));
+            if (objs.Count == 0) return;
+            
+            //now place the new objects on the topleft corner
+            int XMin = Int32.MaxValue; //position of the objects
+            int YMin = Int32.MaxValue;
 
-                if (SelectedObjects.Count == 1) {
-                    if (SelectedObjects[0] is NSMBObject)
-                        EdControl.UndoManager.Do(new AddObjectAction(SelectedObjects[0] as NSMBObject));
-                    else
-                        EdControl.UndoManager.Do(new AddSpriteAction(SelectedObjects[0] as NSMBSprite));
-                } else
-                    EdControl.UndoManager.Do(new AddMultipleAction(SelectedObjects.ToArray()));
-                UpdateSelectedBounds();
+            foreach (object oo in objs)
+            {
+                if (oo is NSMBObject)
+                {
+                    NSMBObject o = oo as NSMBObject;
+
+                    if (o.X < XMin) XMin = o.X;
+                    if (o.Y < YMin) YMin = o.Y;
+                }
+                if (oo is NSMBSprite)
+                {
+                    NSMBSprite o = oo as NSMBSprite;
+
+                    if (o.X < XMin) XMin = o.X;
+                    if (o.Y < YMin) YMin = o.Y;
+                }
             }
+
+            Rectangle va = EdControl.ViewableArea;
+            int XOffs = va.X - XMin; //Offset to move all the objects
+            int YOffs = va.Y - YMin; //so they are on the topleft corner
+            EdControl.UndoManager.Perform(new MoveMultipleAction(objs.ToArray(), XOffs, YOffs));
+
+            if (objs.Count == 1) {
+                if (objs[0] is NSMBObject)
+                    EdControl.UndoManager.Do(new AddObjectAction(objs[0] as NSMBObject));
+                else
+                    EdControl.UndoManager.Do(new AddSpriteAction(objs[0] as NSMBSprite));
+            } else
+                EdControl.UndoManager.Do(new AddMultipleAction(objs.ToArray()));
+            SelectObjects(objs.ToArray());
+            UpdateSelectedBounds();
         }
 
         //creates a clone of a list

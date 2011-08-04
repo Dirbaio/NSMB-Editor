@@ -50,12 +50,12 @@ namespace NSMBe4
         {
         }
 
-        public virtual object copy()
+        public virtual string copy()
         {
-            return null;
+            return "";
         }
 
-        public virtual void paste(object contents)
+        public virtual void paste(string contents)
         {
         }
     }

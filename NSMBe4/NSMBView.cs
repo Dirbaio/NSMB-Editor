@@ -208,9 +208,39 @@ namespace NSMBe4
             return v;
         }
 
+        public string ToStringClip()
+        {
+            return String.Format("VWZ:{0}:{1}:{2}:{3}:{4}:{5}:{6}:{7}:{8}:{9}:{10}:{11}:{12}:{13}:{14}:{15}", X, Y, Width, Height, Number,
+                Music, Unknown1, Unknown2, Unknown3, Lighting, FlagpoleID, CameraTop, CameraTopSpin, CameraBottom, CameraBottomSpin, CameraBottomStick);
+        }
+
         public override string ToString()
         {
             return string.Format(LanguageManager.Get("NSMBView", "ToString"), Number, X, Y, Width, Height);
         }
+
+        public static NSMBView FromString(string[] strs, ref int idx)
+        {
+            NSMBView v = new NSMBView();
+            v.X = int.Parse(strs[1 + idx]);
+            v.Y = int.Parse(strs[2 + idx]);
+            v.Width = int.Parse(strs[3 + idx]);
+            v.Height = int.Parse(strs[4 + idx]);
+            v.Number = int.Parse(strs[5 + idx]);
+            v.Music = int.Parse(strs[6 + idx]);
+            v.Unknown1 = int.Parse(strs[7 + idx]);
+            v.Unknown2 = int.Parse(strs[8 + idx]);
+            v.Unknown3 = int.Parse(strs[9 + idx]);
+            v.Lighting = int.Parse(strs[10 + idx]);
+            v.FlagpoleID = int.Parse(strs[11 + idx]);
+            v.CameraTop = int.Parse(strs[12 + idx]);
+            v.CameraTopSpin = int.Parse(strs[13 + idx]);
+            v.CameraBottom = int.Parse(strs[14 + idx]);
+            v.CameraBottomSpin = int.Parse(strs[15 + idx]);
+            v.CameraBottomStick = int.Parse(strs[16 + idx]);
+            idx += 17;
+            return v;
+        }
+
     }
 }
