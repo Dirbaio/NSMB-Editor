@@ -358,7 +358,7 @@ namespace NSMBe4
 
         public override void Refresh()
         {
-            //SelectObject(null);
+            UpdatePanel();
         }
 
         public void RefreshDataEditor()
