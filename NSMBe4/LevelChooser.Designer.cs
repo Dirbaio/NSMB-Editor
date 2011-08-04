@@ -25,7 +25,6 @@ namespace NSMBe4 {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelChooser));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -59,7 +58,6 @@ namespace NSMBe4 {
             this.patchImport = new System.Windows.Forms.Button();
             this.patchExport = new System.Windows.Forms.Button();
             this.dataFinderButton = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.openROMDialog = new System.Windows.Forms.OpenFileDialog();
             this.importLevelDialog = new System.Windows.Forms.OpenFileDialog();
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
@@ -465,14 +463,6 @@ namespace NSMBe4 {
             this.dataFinderButton.UseVisualStyleBackColor = true;
             this.dataFinderButton.Click += new System.EventHandler(this.dataFinderButton_Click);
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "folder.png");
-            this.imageList1.Images.SetKeyName(1, "folder_open.png");
-            this.imageList1.Images.SetKeyName(2, "document.png");
-            // 
             // openROMDialog
             // 
             this.openROMDialog.Filter = "Nintendo DS ROMs (*.nds)|*.nds|All files (*.*)|*.*";
@@ -533,7 +523,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button editLevelButton;
         private System.Windows.Forms.TreeView levelTreeView;
         private System.Windows.Forms.OpenFileDialog openROMDialog;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.OpenFileDialog importLevelDialog;
         private System.Windows.Forms.SaveFileDialog exportLevelDialog;
         private System.Windows.Forms.TabPage tabPage3;
