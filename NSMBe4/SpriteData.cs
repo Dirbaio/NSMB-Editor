@@ -75,7 +75,7 @@ namespace NSMBe4
                 datas.Clear();
             }
         } 
-        aewfoaweijcoamweijfamoweifj
+        
         public static SpriteData readFromStream(StreamReader sr)
         {
             string header = sr.ReadLine();
