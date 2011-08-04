@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilesystemBrowser));
             this.label1 = new System.Windows.Forms.Label();
             this.selectedFileInfo = new System.Windows.Forms.Label();
             this.decompressFileButton = new System.Windows.Forms.Button();
@@ -37,7 +35,6 @@
             this.replaceFileButton = new System.Windows.Forms.Button();
             this.extractFileButton = new System.Windows.Forms.Button();
             this.fileTreeView = new System.Windows.Forms.TreeView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.extractFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.replaceFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.hexEdButton = new System.Windows.Forms.Button();
@@ -115,23 +112,12 @@
             this.fileTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.fileTreeView.ImageIndex = 0;
-            this.fileTreeView.ImageList = this.imageList1;
             this.fileTreeView.Location = new System.Drawing.Point(3, 3);
             this.fileTreeView.Name = "fileTreeView";
-            this.fileTreeView.SelectedImageIndex = 0;
             this.fileTreeView.Size = new System.Drawing.Size(503, 238);
             this.fileTreeView.TabIndex = 8;
-            this.fileTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.fileTreeView_NodeMouseDoubleClick);
             this.fileTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.fileTreeView_AfterSelect);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "folder.png");
-            this.imageList1.Images.SetKeyName(1, "folder_open.png");
-            this.imageList1.Images.SetKeyName(2, "document.png");
+            this.fileTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.fileTreeView_NodeMouseDoubleClick);
             // 
             // extractFileDialog
             // 
@@ -206,7 +192,6 @@
         private System.Windows.Forms.TreeView fileTreeView;
         private System.Windows.Forms.SaveFileDialog extractFileDialog;
         private System.Windows.Forms.OpenFileDialog replaceFileDialog;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button hexEdButton;
         private System.Windows.Forms.Button compressWithHeaderButton;
         private System.Windows.Forms.Button decompressWithHeaderButton;

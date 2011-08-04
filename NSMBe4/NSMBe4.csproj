@@ -42,7 +42,6 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>4</WarningLevel>
@@ -83,13 +82,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Design" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System">
+    </Reference>
+    <Reference Include="System.Data">
+    </Reference>
+    <Reference Include="System.Deployment">
+    </Reference>
+    <Reference Include="System.Drawing">
+    </Reference>
+    <Reference Include="System.Drawing.Design">
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+    </Reference>
+    <Reference Include="System.Xml">
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByteArrayInputStream.cs" />
