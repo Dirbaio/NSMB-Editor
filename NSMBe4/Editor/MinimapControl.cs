@@ -27,7 +27,7 @@ namespace NSMBe4
 {
     public partial class MinimapControl : UserControl
     {
-
+        float scale = 0.5f;
         private NSMBLevel Level;
         private LevelEditorControl EdControl;
         private Brush UnviewableAreaBrush;
@@ -50,7 +50,8 @@ namespace NSMBe4
         {
             if (!loaded) return;
 
-            e.Graphics.Clear(Color.LightSlateGray);
+            e.Graphics.Clear(Color.DarkSlateGray);
+            e.Graphics.ScaleTransform(scale, scale);
             for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++)
             {
                 e.Graphics.FillRectangle(Brushes.White, Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
@@ -79,10 +80,13 @@ namespace NSMBe4
             if (e.Button == MouseButtons.Left)
             {
                 // Calculate new position
+
+                int xx = (int)(e.X / scale);
+                int yy = (int)(e.Y / scale);
                 Rectangle va = EdControl.ViewableArea;
                 Rectangle NewArea = new Rectangle(0, 0, va.Width, va.Height);
-                NewArea.X = e.X - (NewArea.Width / 2);
-                NewArea.Y = e.Y - (NewArea.Height / 2);
+                NewArea.X = xx - (NewArea.Width / 2);
+                NewArea.Y = yy - (NewArea.Height / 2);
                 // Make sure it's within bounds
                 if (NewArea.X < 0)
                 {

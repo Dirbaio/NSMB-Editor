@@ -9,21 +9,28 @@ namespace NSMBe4.DSFileSystem
         private int inlineOffs;
         private int inlineLen;
         private File parentFile;
-        private bool isLzCompressed;
+        private CompressionType comp;
+
+        public enum CompressionType : int
+        {
+            NoComp,
+            LZComp,
+            LZWithHeaderComp
+        }
 
         public InlineFile(File parent, int offs, int len, string name, Directory parentDir) :
-            this(parent, offs, len, name, parentDir, false)
+            this(parent, offs, len, name, parentDir, CompressionType.NoComp)
         {
 
         }
 
-        public InlineFile(File parent, int offs, int len, string name, Directory parentDir, bool isLzCompressed)
+        public InlineFile(File parent, int offs, int len, string name, Directory parentDir, CompressionType comp)
             :base(parent.parent, parentDir, parent.name+" - "+name + ":"+offs.ToString("X")+":"+len)
         {
             parentFile = parent;
             inlineOffs = offs;
             inlineLen = len;
-            this.isLzCompressed = isLzCompressed;
+            this.comp = comp;
             this.fixedFile = true;
             this.canChangeOffset = false;
             refreshOffsets();
@@ -31,9 +38,13 @@ namespace NSMBe4.DSFileSystem
 
         public override byte[] getContents()
         {
-            if (isLzCompressed)
+            if (comp != CompressionType.NoComp)
             {
-                byte[] data = ROM.LZ77_Decompress(parentFile.getContents());
+                byte[] data;
+                if(comp == CompressionType.LZWithHeaderComp)
+                    data = ROM.LZ77_Decompress(parentFile.getContents());
+                else
+                    data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
                 byte[] thisdata = new byte[inlineLen];
                 Array.Copy(data, inlineOffs, thisdata, 0, inlineLen);
                 return thisdata;
@@ -46,11 +57,15 @@ namespace NSMBe4.DSFileSystem
             if (!isAGoodEditor(editor))
                 throw new Exception("NOT CORRECT EDITOR " + name);
 
-            if (isLzCompressed)
+            if (comp != CompressionType.NoComp)
             {
-                byte[] olddata = ROM.LZ77_Decompress(parentFile.getContents());
-                Array.Copy(newFile, 0, olddata, inlineOffs, inlineLen);
-                parentFile.replace(ROM.LZ77_Compress(olddata), this);
+                byte[] data;
+                if (comp == CompressionType.LZWithHeaderComp)
+                    data = ROM.LZ77_Decompress(parentFile.getContents());
+                else
+                    data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
+                Array.Copy(newFile, 0, data, inlineOffs, inlineLen);
+                parentFile.replace(ROM.LZ77_Compress(data, comp == CompressionType.LZWithHeaderComp), this);
             }
             else base.replace(newFile, editor);
         }

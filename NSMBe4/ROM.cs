@@ -373,21 +373,28 @@ namespace NSMBe4 {
             return new int[2] { amountOfBytes, results[0] }; //lenght of data is first, then position
         }
 
-        static public unsafe byte[] LZ77_Compress(byte[] source)//Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
+        static public unsafe byte[] LZ77_Compress(byte[] source, bool header = false)//Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
         {
             fixed (byte* pointer = &source[0])
             {
-                return Compress(pointer, source.Length);
+                return Compress(pointer, source.Length, header);
             }
         }
 
-        static public unsafe byte[] Compress(byte* source, int lenght) //Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
+        static public unsafe byte[] Compress(byte* source, int lenght, bool header = false) //Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
         {
             int position = 0;
             int BlockSize = 8;
 
             List<byte> CompressedData = new List<byte>();
             CompressedData.Add(0x10);
+            if (header) //0x37375A4C
+            {
+                CompressedData.Add(0x4C);
+                CompressedData.Add(0x5A);
+                CompressedData.Add(0x37);
+                CompressedData.Add(0x37);
+            }
 
             {
                 byte* pointer = (byte*)&lenght;
@@ -466,6 +473,69 @@ namespace NSMBe4 {
             byte[] dest = new byte[DataLen];
             int i, j, xin, xout;
             xin = 4;
+            xout = 0;
+            int length, offset, windowOffset, data;
+            byte d;
+            while (DataLen > 0)
+            {
+                d = source[xin++];
+                if (d != 0)
+                {
+                    for (i = 0; i < 8; i++)
+                    {
+                        if ((d & 0x80) != 0)
+                        {
+                            data = ((source[xin] << 8) | source[xin + 1]);
+                            xin += 2;
+                            length = (data >> 12) + 3;
+                            offset = data & 0xFFF;
+                            windowOffset = xout - offset - 1;
+                            for (j = 0; j < length; j++)
+                            {
+                                dest[xout++] = dest[windowOffset++];
+                                DataLen--;
+                                if (DataLen == 0)
+                                {
+                                    return dest;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dest[xout++] = source[xin++];
+                            DataLen--;
+                            if (DataLen == 0)
+                            {
+                                return dest;
+                            }
+                        }
+                        d <<= 1;
+                    }
+                }
+                else
+                {
+                    for (i = 0; i < 8; i++)
+                    {
+                        dest[xout++] = source[xin++];
+                        DataLen--;
+                        if (DataLen == 0)
+                        {
+                            return dest;
+                        }
+                    }
+                }
+            }
+            return dest;
+        }
+
+        public static byte[] LZ77_DecompressWithHeader(byte[] source)
+        {
+            // This code converted from Elitemap 
+            int DataLen;
+            DataLen = source[5] | (source[6] << 8) | (source[7] << 16);
+            byte[] dest = new byte[DataLen];
+            int i, j, xin, xout;
+            xin = 8;
             xout = 0;
             int length, offset, windowOffset, data;
             byte d;

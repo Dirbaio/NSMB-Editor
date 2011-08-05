@@ -91,7 +91,7 @@ namespace NSMBe4
             int palLen = palSize;
             if (palOffs + palLen > pal.Length)
                 palLen = pal.Length - palOffs;
-            File ifl = new InlineFile(f, palOffs * 2, palLen * 2, f.name + " - "+i, null, true);
+            File ifl = new InlineFile(f, palOffs * 2, palLen * 2, f.name + " - "+i, null, InlineFile.CompressionType.LZComp);
             LevelChooser.showImgMgr();
             LevelChooser.imgMgr.m.addPalette(new FilePalette(ifl));
         }

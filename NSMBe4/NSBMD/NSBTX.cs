@@ -132,7 +132,7 @@ namespace NSMBe4.NSBMD
                 }
                 else
                 {
-                    textures[i] = new Image3D(new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd), color0, width, height, format);
+                    textures[i] = new Image3D(new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd?InlineFile.CompressionType.LZComp:InlineFile.CompressionType.NoComp), color0, width, height, format);
                 }
 
 //                textures[i] = new Texture(this, color0, width, height, format, offset, "");
@@ -179,13 +179,13 @@ namespace NSMBe4.NSBMD
                 int extrapalcount = (palettes[i].size) / 512;
                 for (int j = 0; j < extrapalcount; j++)
                 {
-                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs+j*512, 512, palettes[i].name + ":"+i, null, LZd));
+                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + j * 512, 512, palettes[i].name + ":" + i, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
                     mgr.m.addPalette(pa);
                 }
                 int lastsize = palettes[i].size % 512;
                 if (lastsize != 0)
                 {
-                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs+extrapalcount*512, lastsize, palettes[i].name+":"+extrapalcount, null, LZd));
+                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + extrapalcount * 512, lastsize, palettes[i].name + ":" + extrapalcount, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
                     mgr.m.addPalette(pa);
                 }
             }
