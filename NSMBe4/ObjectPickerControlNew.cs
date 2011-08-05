@@ -89,9 +89,13 @@ namespace NSMBe4
             Size = new Size(tileWidth * 16 + 16, y * 16);
             MaximumSize = new Size(tileWidth * 16 + 16, y * 16);*/
 
+            AutoScroll = false;
             AutoScrollMinSize = new Size(tileWidth * 16 + 16, y * 16);
-//            AutoScrollMinSize = new Size(2000, 2000);
+            AutoScroll = true;
+            AutoScrollMargin = new Size(0, 0);
+            //            AutoScrollMinSize = new Size(2000, 2000);
             Invalidate();
+            Refresh();
         }
 
         private void ObjectPickerControlNew_Load(object sender, EventArgs e)
@@ -168,10 +172,52 @@ namespace NSMBe4
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                AutoScrollPosition = new Point(-xScr + (xDown - e.X) * 2, -yScr + (yDown - e.Y)*2);
+                AutoScrollPosition = new Point(-xScr + (xDown - e.X) * 2, -yScr + (yDown - e.Y) * 2);
+                objectHovered(null);
+            }
+            else
+            {
+
+                int x = e.X - AutoScrollPosition.X;
+                int y = e.Y - AutoScrollPosition.Y;
+
+                bool hov = false;
+                foreach (NSMBObject obj in objects)
+                {
+                    Rectangle or = new Rectangle(obj.X * 16 + 8, obj.Y * 16 + 8, obj.Width * 16, obj.Height * 16);
+                    or.Inflate(8, 8);
+                    if (or.Contains(x, y))
+                    {
+                        objectHovered(obj);
+                        hov = true;
+                    }
+                }
+
+                if (!hov) objectHovered(null);
             }
         }
 
+        private NSMBObject hover = null;
+        void objectHovered(NSMBObject obj)
+        {
+            if (obj == hover) return;
+            hover = obj;
+
+            if (obj == null)
+                toolTip1.Hide(this);
+            else
+            {
+                int x = obj.X*16+8 + AutoScrollPosition.X;
+                int y = obj.Y*16+16 +obj.Height*16 + AutoScrollPosition.Y;
+                toolTip1.ToolTipTitle = "Object " + obj.ObjNum;
+                string text = "";
+                if (gfx.Tilesets[tileset].UseNotes && obj.ObjNum < gfx.Tilesets[tileset].ObjNotes.Length)
+                    text = gfx.Tilesets[tileset].ObjNotes[obj.ObjNum];
+
+                toolTip1.Show(text+" ", this, x, y);
+            }
+
+        }
         private void ObjectPickerControlNew_Resize(object sender, EventArgs e)
         {
             LoadObjects();
@@ -195,6 +241,11 @@ namespace NSMBe4
                 AutoScrollPosition = new Point(0, ny);
             }
             Invalidate();
+        }
+
+        private void ObjectPickerControlNew_MouseLeave(object sender, EventArgs e)
+        {
+            objectHovered(null);
         }
     }
 }

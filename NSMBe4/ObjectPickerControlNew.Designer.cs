@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipTitle = "LOL";
             // 
             // ObjectPickerControlNew
             // 
@@ -39,6 +45,7 @@
             this.Load += new System.EventHandler(this.ObjectPickerControlNew_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ObjectPickerControlNew_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ObjectPickerControlNew_MouseDown);
+            this.MouseLeave += new System.EventHandler(this.ObjectPickerControlNew_MouseLeave);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ObjectPickerControlNew_MouseMove);
             this.Resize += new System.EventHandler(this.ObjectPickerControlNew_Resize);
             this.ResumeLayout(false);
@@ -46,5 +53,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
