@@ -42,7 +42,7 @@ namespace NSMBe4
         {
             this.Level = Level;
             this.EdControl = EdControl;
-            UnviewableAreaBrush = new SolidBrush(Color.FromArgb(120, Color.DarkSlateGray.R, Color.DarkSlateGray.G, Color.DarkSlateGray.B));
+            UnviewableAreaBrush = new SolidBrush(Color.FromArgb(120, 255, 255, 255));
             loaded = true;
         }
 
@@ -50,8 +50,9 @@ namespace NSMBe4
         {
             if (!loaded) return;
 
-            e.Graphics.Clear(Color.DarkSlateGray);
             e.Graphics.ScaleTransform(scale, scale);
+            e.Graphics.Clear(SystemColors.ControlDark);
+            e.Graphics.FillRectangle(Brushes.DarkSlateGray, 0, 0, 512, 256);
             for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++)
             {
                 e.Graphics.FillRectangle(Brushes.White, Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
@@ -114,6 +115,16 @@ namespace NSMBe4
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             return EdControl.ProcessCmdKeyHack(ref msg, keyData);
+        }
+
+        private void MinimapControl_Resize(object sender, EventArgs e)
+        {
+            int width = Width;
+            int width2 = Height * 2;
+            if (width > width2)
+                width = width2;
+
+            scale = width / 512.0f;
         }
     }
 }

@@ -66,18 +66,20 @@
             this.removeBgButton = new System.Windows.Forms.ToolStripMenuItem();
             this.moveBGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelContainer = new System.Windows.Forms.Panel();
-            this.minimapPanel = new System.Windows.Forms.Panel();
-            this.minimapControl1 = new NSMBe4.MinimapControl();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.minimapControl1 = new NSMBe4.MinimapControl();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1.SuspendLayout();
-            this.minimapPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -274,31 +276,31 @@
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem13.Text = "800 %";
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem12.Text = "400 %";
             // 
             // toolStripMenuItem11
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem11.Text = "200 %";
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem10.Text = "150 %";
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem9.Text = "125 %";
             // 
             // toolStripMenuItem2
@@ -306,43 +308,43 @@
             this.toolStripMenuItem2.Checked = true;
             this.toolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem2.Text = "100 %";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem1.Text = "85 %";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem7.Text = "75 %";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem3.Text = "66 %";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem4.Text = "50 %";
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem5.Text = "33 %";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem6.Text = "25 %";
             // 
             // toolStripSeparator3
@@ -420,7 +422,7 @@
             this.setBgImageButton.Image = ((System.Drawing.Image)(resources.GetObject("setBgImageButton.Image")));
             this.setBgImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setBgImageButton.Name = "setBgImageButton";
-            this.setBgImageButton.Size = new System.Drawing.Size(152, 22);
+            this.setBgImageButton.Size = new System.Drawing.Size(132, 22);
             this.setBgImageButton.Text = "set BG";
             this.setBgImageButton.Click += new System.EventHandler(this.setBgImageButton_Click);
             // 
@@ -429,14 +431,14 @@
             this.removeBgButton.Image = ((System.Drawing.Image)(resources.GetObject("removeBgButton.Image")));
             this.removeBgButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.removeBgButton.Name = "removeBgButton";
-            this.removeBgButton.Size = new System.Drawing.Size(152, 22);
+            this.removeBgButton.Size = new System.Drawing.Size(132, 22);
             this.removeBgButton.Text = "remove BG";
             this.removeBgButton.Click += new System.EventHandler(this.removeBgButton_Click);
             // 
             // moveBGToolStripMenuItem
             // 
             this.moveBGToolStripMenuItem.Name = "moveBGToolStripMenuItem";
-            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.moveBGToolStripMenuItem.Text = "Move BG";
             this.moveBGToolStripMenuItem.Click += new System.EventHandler(this.moveBGToolStripMenuItem_Click);
             // 
@@ -448,23 +450,6 @@
             this.PanelContainer.Size = new System.Drawing.Size(249, 407);
             this.PanelContainer.TabIndex = 10;
             // 
-            // minimapPanel
-            // 
-            this.minimapPanel.Controls.Add(this.minimapControl1);
-            this.minimapPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.minimapPanel.Location = new System.Drawing.Point(0, 407);
-            this.minimapPanel.Name = "minimapPanel";
-            this.minimapPanel.Size = new System.Drawing.Size(249, 144);
-            this.minimapPanel.TabIndex = 11;
-            // 
-            // minimapControl1
-            // 
-            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.minimapControl1.Location = new System.Drawing.Point(0, 0);
-            this.minimapControl1.Name = "minimapControl1";
-            this.minimapControl1.Size = new System.Drawing.Size(249, 144);
-            this.minimapControl1.TabIndex = 0;
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -472,11 +457,10 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.PanelContainer);
-            this.panel1.Controls.Add(this.minimapPanel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(249, 551);
+            this.panel1.Size = new System.Drawing.Size(249, 407);
             this.panel1.TabIndex = 11;
             // 
             // splitContainer1
@@ -488,7 +472,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.panel1);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             // 
             // splitContainer1.Panel2
             // 
@@ -497,6 +481,14 @@
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 12;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            // 
+            // minimapControl1
+            // 
+            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.minimapControl1.Location = new System.Drawing.Point(0, 0);
+            this.minimapControl1.Name = "minimapControl1";
+            this.minimapControl1.Size = new System.Drawing.Size(249, 140);
+            this.minimapControl1.TabIndex = 0;
             // 
             // levelEditorControl1
             // 
@@ -507,6 +499,24 @@
             this.levelEditorControl1.Name = "levelEditorControl1";
             this.levelEditorControl1.Size = new System.Drawing.Size(775, 551);
             this.levelEditorControl1.TabIndex = 3;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.panel1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.minimapControl1);
+            this.splitContainer2.Size = new System.Drawing.Size(249, 551);
+            this.splitContainer2.SplitterDistance = 407;
+            this.splitContainer2.TabIndex = 4;
             // 
             // LevelEditor
             // 
@@ -522,11 +532,13 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelEditor_FormClosed);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.minimapPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -574,7 +586,6 @@
         private System.Windows.Forms.ToolStripMenuItem removeBgButton;
         private System.Windows.Forms.ToolStripMenuItem moveBGToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel minimapPanel;
         private MinimapControl minimapControl1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
@@ -582,6 +593,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 
