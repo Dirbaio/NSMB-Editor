@@ -84,19 +84,10 @@ namespace NSMBe4
 
             if(x != 0)
                 y += rowheight + 1;
-            /*
-            MinimumSize = new Size(tileWidth * 16 + 16, y * 16);
-            Size = new Size(tileWidth * 16 + 16, y * 16);
-            MaximumSize = new Size(tileWidth * 16 + 16, y * 16);*/
 
-            AutoScroll = false;
-            AutoScrollMinSize = new Size(tileWidth * 16 + 16, y * 16);
-            AutoScroll = true;
-            AutoScrollMargin = new Size(0, 0);
-
-            //            AutoScrollMinSize = new Size(2000, 2000);
+            int scrollheight = y * 16 - Height;
+            vScrollBar1.Maximum = scrollheight;
             Invalidate();
-            Refresh();
         }
 
         private void ObjectPickerControlNew_Load(object sender, EventArgs e)
@@ -109,10 +100,9 @@ namespace NSMBe4
             Rectangle rec = e.ClipRectangle;
 
             e.Graphics.FillRectangle(Brushes.White, rec);
-            rec.X -= AutoScrollPosition.X;
-            rec.Y -= AutoScrollPosition.Y;
+            rec.Y += vScrollBar1.Value;
             System.Drawing.Drawing2D.Matrix tr = e.Graphics.Transform;
-            e.Graphics.TranslateTransform(AutoScrollPosition.X, AutoScrollPosition.Y);
+            e.Graphics.TranslateTransform(0, -vScrollBar1.Value);
 
             foreach (NSMBObject obj in objects)
             {
@@ -135,8 +125,8 @@ namespace NSMBe4
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                int x = e.X - AutoScrollPosition.X;
-                int y = e.Y - AutoScrollPosition.Y;
+                int x = e.X;
+                int y = e.Y + vScrollBar1.Value;
 
                 int oldSel = SelectedObject;
 
@@ -162,10 +152,8 @@ namespace NSMBe4
             }
             else
             {
-                xDown = e.X;
                 yDown = e.Y;
-                xScr = AutoScrollPosition.X;
-                yScr = AutoScrollPosition.Y;
+                yScr = vScrollBar1.Value;
             }
         }
 
@@ -173,14 +161,19 @@ namespace NSMBe4
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                AutoScrollPosition = new Point(-xScr + (xDown - e.X) * 2, -yScr + (yDown - e.Y) * 2);
+                int newval = yScr - (e.Y - yDown)*2;
+                if (newval < vScrollBar1.Minimum) newval = vScrollBar1.Minimum;
+                if (newval > vScrollBar1.Maximum) newval = vScrollBar1.Maximum;
+
+                vScrollBar1.Value = newval;
                 objectHovered(null);
+                Invalidate();
             }
             else
             {
 
-                int x = e.X - AutoScrollPosition.X;
-                int y = e.Y - AutoScrollPosition.Y;
+                int x = e.X;
+                int y = e.Y + vScrollBar1.Value;
 
                 bool hov = false;
                 foreach (NSMBObject obj in objects)
@@ -208,8 +201,8 @@ namespace NSMBe4
                 toolTip1.Hide(this);
             else
             {
-                int x = obj.X*16+8 + AutoScrollPosition.X;
-                int y = obj.Y*16+16 +obj.Height*16 + AutoScrollPosition.Y;
+                int x = Width - 16;
+                int y = obj.Y * 16 - 8 + obj.Height * 8 - vScrollBar1.Value;
                 toolTip1.ToolTipTitle = "Object " + obj.ObjNum;
                 string text = "";
                 if (gfx.Tilesets[tileset].UseNotes && obj.ObjNum < gfx.Tilesets[tileset].ObjNotes.Length)
@@ -238,8 +231,11 @@ namespace NSMBe4
 
             if (selected != null && !selecting)
             {
-                int ny = selected.Y * 16 - Height / 2;
-                AutoScrollPosition = new Point(0, ny);
+                int newval = selected.Y * 16 - Height / 2;
+                if (newval < vScrollBar1.Minimum) newval = vScrollBar1.Minimum;
+                if (newval > vScrollBar1.Maximum) newval = vScrollBar1.Maximum;
+
+                vScrollBar1.Value = newval;
             }
             Invalidate();
         }
@@ -247,6 +243,11 @@ namespace NSMBe4
         private void ObjectPickerControlNew_MouseLeave(object sender, EventArgs e)
         {
             objectHovered(null);
+        }
+
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            Invalidate();
         }
     }
 }
