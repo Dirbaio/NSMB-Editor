@@ -250,6 +250,7 @@ namespace NSMBe4.DSFileSystem
                 if (f.getUintAt(0) != 0x37375A4C)
                 {
                     MessageBox.Show(LanguageManager.Get("Errors", "NoLZHeader"));
+                    f.endEdit(this);
                     return;
                 }
 

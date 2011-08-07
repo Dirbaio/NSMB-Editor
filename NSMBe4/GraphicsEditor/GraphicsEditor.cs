@@ -34,7 +34,8 @@ namespace NSMBe4 {
         public Bitmap DrawBuffer;
         private Bitmap ZoomCache;
 
-        private PixelPalettedImage img;
+        private PalettedImage img;
+        private PixelPalettedImage imgEdit;
         private Palette pal;
 
         private int ViewWidth;
@@ -84,8 +85,9 @@ namespace NSMBe4 {
 
         public ToolType Tool;
 
-        public void setImage(PixelPalettedImage img)
+        public void setImage(PalettedImage img)
         {
+            this.imgEdit = img as PixelPalettedImage;
             this.img = img;
 
             DrawBuffer = new Bitmap(img.getWidth(), img.getHeight());
@@ -145,15 +147,15 @@ namespace NSMBe4 {
         }
 
         private byte GetPixel(int x, int y) {
-            return (byte)img.getPixel(x, y);
+            return (byte)imgEdit.getPixel(x, y);
         }
 
         private void SetPixel(int x, int y, byte value)
         {
             if (x < 0 || x >= img.getWidth()) return;
             if (y < 0 || y >= img.getHeight()) return;
-            img.setPixel(x, y, value);
-            value = (byte)img.getPixel(x, y);
+            imgEdit.setPixel(x, y, value);
+            value = (byte)imgEdit.getPixel(x, y);
 
             Color PalValue = pal.getColorSafe(value);
 
@@ -261,9 +263,13 @@ namespace NSMBe4 {
         private void RenderBuffer()
         {
             if (img == null || pal == null) return;
+
+            DrawBuffer = img.render(pal);
+            /*
             for (int x = 0; x < img.getWidth(); x++)
                 for (int y = 0; y < img.getHeight(); y++)
-                    DrawBuffer.SetPixel(x, y, pal.getColorSafe(img.getPixel(x, y)));
+                    DrawBuffer.SetPixel(x, y, pal.getColorSafe(imgEdit.getPixel(x, y)));
+             */
         }
 
         private unsafe void RenderZoomCache()
@@ -437,19 +443,20 @@ namespace NSMBe4 {
         }
 
         private void drawingBox_MouseLeave(object sender, EventArgs e) {
-            if (img == null || pal == null) return;
             HoverX = -1;
             HoverY = -1;
             hoverStatus.Text = "";
         }
 
         private void HandleDraw(bool newclick, MouseEventArgs e) {
-            if (img == null || pal == null) return;
             Point pos = new Point(e.X / ZoomLevel, e.Y / ZoomLevel);
-            if (pos.X != HoverX || pos.Y != HoverY) {
+            if (pos.X != HoverX || pos.Y != HoverY)
+            {
                 hoverStatus.Text = string.Format(HoverStatusString, pos.X, pos.Y);
             }
             HoverX = pos.X; HoverY = pos.Y;
+
+            if (imgEdit == null || pal == null) return;
 
             if (Control.ModifierKeys == Keys.Control) {
                 if (newclick) {
@@ -511,7 +518,8 @@ namespace NSMBe4 {
             LastBrushY = clicked.Y;
         }
 
-        private void DoEraserTool(MouseEventArgs e, Point clicked, bool newclick) {
+        private void DoEraserTool(MouseEventArgs e, Point clicked, bool newclick)
+        {
             if (e.Button == MouseButtons.Left) {
                 byte old = GetPixel(clicked.X, clicked.Y);
 
@@ -530,9 +538,8 @@ namespace NSMBe4 {
             }
         }
 
-        private void DoPickTool(MouseEventArgs e, Point clicked) {
-            //Console.WriteLine("Picking " + GetOffsetFromPos(clicked.X, clicked.Y).ToString());
-            //Console.WriteLine("From " + clicked.X.ToString() + " " + clicked.Y.ToString());
+        private void DoPickTool(MouseEventArgs e, Point clicked)
+        {
             byte picked = GetPixel(clicked.X, clicked.Y);
 
             if (e.Button == MouseButtons.Left) {
@@ -546,7 +553,8 @@ namespace NSMBe4 {
             }
         }
 
-        private void DoFillTool(MouseEventArgs e, Point clicked) {
+        private void DoFillTool(MouseEventArgs e, Point clicked) 
+        {
             byte source = GetPixel(clicked.X, clicked.Y);
             byte dest = 0;
 

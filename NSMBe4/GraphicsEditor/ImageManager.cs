@@ -36,13 +36,13 @@ namespace NSMBe4
 
         private void setImageAndPalette(PalettedImage i, Palette p)
         {
-            if (!(i is PixelPalettedImage)) return;
+            if (!(i is PalettedImage)) return;
             if (i == null || p == null) return;
 
             Console.WriteLine(i + " " + p);
 
             graphicsEditor1.setPalette(p);
-            graphicsEditor1.setImage(i as PixelPalettedImage);
+            graphicsEditor1.setImage(i as PalettedImage);
 
             tileWidthNumber.Enabled = i is Image2D;
             tileOffsetNumber.Enabled = i is Image2D;

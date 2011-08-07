@@ -7,6 +7,8 @@ namespace NSMBe4
 {
     public abstract class PalettedImage
     {
+        public string name;
+        
         public abstract Bitmap render(Palette p);
         public abstract void replaceWithPal(Bitmap b, Palette p);
         public abstract void replaceImgAndPal(Bitmap b, Palette p);

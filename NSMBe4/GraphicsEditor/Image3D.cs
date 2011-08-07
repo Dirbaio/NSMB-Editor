@@ -13,7 +13,6 @@ namespace NSMBe4
         public bool color0Transp;
         public int width, height;
         public int format;
-        public string name;
 
         public byte bpp
         {
@@ -21,7 +20,7 @@ namespace NSMBe4
         }
 
         //                                 0  1  2  3  4  5  6  7
-        public static byte[] bpps  = new byte[] { 0, 8, 2, 4, 8, 0, 8, 16 };
+        public static byte[] bpps  = new byte[] { 0, 8, 2, 4, 8, 2, 8, 16 };
 
         public static string[] formatNames = {
                                           "Error?", //0

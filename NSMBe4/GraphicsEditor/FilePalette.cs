@@ -22,7 +22,8 @@ namespace NSMBe4
             this.name = name;
 
             pal = arrayToPalette(f.getContents());
-            pal[0] = Color.Transparent;
+            if(pal.Length != 0)
+                pal[0] = Color.Transparent;
         }
         public static Color[] arrayToPalette(byte[] data)
         {

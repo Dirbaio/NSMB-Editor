@@ -33,7 +33,7 @@ namespace NSMBe4.NSBMD
         int f5texDataOffset;
         int f5dataOffset;
 
-        Image3D[] textures;
+        PalettedImage[] textures;
         PaletteDef[] palettes;
         public ByteArrayInputStream str;
 
@@ -75,7 +75,7 @@ namespace NSMBe4.NSBMD
             str.seek(0);
             if (!found)
             {
-                textures = new Image3D[0];
+                textures = new PalettedImage[0];
                 palettes = new PaletteDef[0];
                 return;
             }
@@ -83,13 +83,13 @@ namespace NSMBe4.NSBMD
             Console.Out.WriteLine("\n");
             //Read stuff
             str.seek(0x14);
-            texDataOffset = str.readInt();
+            texDataOffset = str.readInt() + blockStart;
             Console.Out.WriteLine("Texdata " + texDataOffset.ToString("X8"));
 
             str.seek(0x24);
-            f5texDataOffset = str.readInt();
+            f5texDataOffset = str.readInt() + blockStart;
             Console.Out.WriteLine("f5Texdata " + f5texDataOffset.ToString("X8"));
-            f5dataOffset = str.readInt();
+            f5dataOffset = str.readInt() + blockStart;
             Console.Out.WriteLine("f5data " + f5dataOffset.ToString("X8"));
             
             str.seek(0x30);
@@ -103,15 +103,16 @@ namespace NSMBe4.NSBMD
 
             //Read texture definitions
             str.seek(0x3D);
-            textures = new Image3D[str.readByte()];
+            textures = new PalettedImage[str.readByte()];
             str.skip((uint)(0xE + textures.Length * 4));
 
             ImageManagerWindow mgr = new ImageManagerWindow();
             mgr.Text = f.name + " - Texture Editor";
 
+            bool hasFormat5 = false;
             for (int i = 0; i < textures.Length; i++)
             {
-                int offset = 8 * str.readUShort() + blockStart;
+                int offset = 8 * str.readUShort();
                 ushort param = str.readUShort();
                 int format = (param >> 10) & 7;
 
@@ -127,12 +128,20 @@ namespace NSMBe4.NSBMD
 
                 int size = width*height*Image3D.bpps[format]/8;
                 Console.Out.WriteLine(offset.ToString("X8") + " " + format + " " + width + "x" + height + " " + color0 + " LZ"+LZd);
+
+                InlineFile mainfile = new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp);
                 if (format == 5)
                 {
+                    hasFormat5 = true;
+                    int f5size = (width * height) / 16 * 2;
+                    InlineFile f5file = new InlineFile(f, f5dataOffset, f5size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp);
+
+                    f5dataOffset += f5size;
+                    textures[i] = new Image3Dformat5(mainfile, f5file, width, height);
                 }
                 else
                 {
-                    textures[i] = new Image3D(new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd?InlineFile.CompressionType.LZComp:InlineFile.CompressionType.NoComp), color0, width, height, format);
+                    textures[i] = new Image3D(mainfile, color0, width, height, format);
                 }
 
 //                textures[i] = new Texture(this, color0, width, height, format, offset, "");
@@ -165,6 +174,8 @@ namespace NSMBe4.NSBMD
                 palettes[i].offs = offset;
             }
 
+            Array.Sort(palettes);
+         
             for (int i = 0; i < palettes.Length; i++)
             {
                 palettes[i].name = str.ReadString(16);
@@ -176,17 +187,25 @@ namespace NSMBe4.NSBMD
 
             for (int i = 0; i < palettes.Length; i++)
             {
-                int extrapalcount = (palettes[i].size) / 512;
-                for (int j = 0; j < extrapalcount; j++)
+                if (hasFormat5)
                 {
-                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + j * 512, 512, palettes[i].name + ":" + i, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
+                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs, palettes[i].size, palettes[i].name, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
                     mgr.m.addPalette(pa);
                 }
-                int lastsize = palettes[i].size % 512;
-                if (lastsize != 0)
+                else
                 {
-                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + extrapalcount * 512, lastsize, palettes[i].name + ":" + extrapalcount, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
-                    mgr.m.addPalette(pa);
+                    int extrapalcount = (palettes[i].size) / 512;
+                    for (int j = 0; j < extrapalcount; j++)
+                    {
+                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + j * 512, 512, palettes[i].name + ":" + j, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
+                        mgr.m.addPalette(pa);
+                    }
+                    int lastsize = palettes[i].size % 512;
+                    if (lastsize != 0)
+                    {
+                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + extrapalcount * 512, lastsize, palettes[i].name + ":" + extrapalcount, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
+                        mgr.m.addPalette(pa);
+                    }
                 }
             }
 
@@ -205,10 +224,15 @@ namespace NSMBe4.NSBMD
             f.replace(data, this);
         }
 
-        class PaletteDef
+        class PaletteDef : IComparable<PaletteDef>
         {
             public int offs, size;
             public string name;
+
+            public int CompareTo(PaletteDef b)
+            {
+                return offs.CompareTo(b.offs);
+            }
         }
     }
 }

@@ -22,7 +22,6 @@ namespace NSMBe4.NSBMD
         {
             this.img = img;
 
-            Bitmap texel = new Bitmap(4, 4);
             int tx = img.Width / 4;
             int ty = img.Height / 4;
             palettes = new Color[tx*ty][];
@@ -30,25 +29,22 @@ namespace NSMBe4.NSBMD
             paletteNumbers = new int[tx, ty];
             paletteDiffs = new float[tx*ty, tx*ty];
 
-            Graphics texelGfx = Graphics.FromImage(texel);
             int palNum = 0;
-            for(int x = 0; x < img.Width / 4; x++)
-                for (int y = 0; y < img.Height / 4; y++)
+            for(int x = 0; x < tx; x++)
+                for (int y = 0; y < ty; y++)
                 {
-                    texelGfx.DrawImage(img, new Rectangle(0, 0, 4, 4),
-                        new Rectangle(x * 4, y * 4, 4, 4), GraphicsUnit.Pixel);
-
-                    palettes[palNum] = ImageIndexer.createPaletteForImage(texel);
+                    ImageIndexerFast iif = new ImageIndexerFast(img, x * 4, y * 4);
+                    palettes[palNum] = iif.palette;
                     paletteNumbers[x, y] = palNum;
                     paletteCounts[palNum] = 1;
                     int similar = calcPaletteDiffs(palNum);
-                    if (similar != -1)
+/*                    if (similar != -1)
                     {
                         paletteCounts[palNum] = 0;
                         paletteCounts[similar]++;
                         paletteNumbers[x, y] = similar;
                     }
-
+                    */
                     palNum++;
                 }
 
@@ -100,7 +96,7 @@ namespace NSMBe4.NSBMD
             {
                 if(paletteCounts[i] != 0)
                 {
-                    transparentToTheEnd(palettes[i]);
+                    //transparentToTheEnd(palettes[i]);
                     newPalNums[i] = currNum;
                     Array.Copy(palettes[i], 0, finalPalette, currNum*4, 4);
                     currNum++;
@@ -120,8 +116,9 @@ namespace NSMBe4.NSBMD
                         for (int xx = 0; xx < 4; xx++)
                         {
                             Color coll = img.GetPixel(x*4+xx, y*4+yy);
-                            byte col = (byte)ImageIndexer.closest(coll, 
-                                palettes[paletteNumbers[x, y]]);
+                            byte col = 3;
+                            if(coll != Color.Transparent)
+                                col = (byte)ImageIndexer.closest(coll, palettes[paletteNumbers[x, y]]);
 
                             b |= (byte)(pow * col);
                             pow *= 4;
@@ -143,6 +140,7 @@ namespace NSMBe4.NSBMD
 
         }
 
+        /*
         private void transparentToTheEnd(Color[] pal)
         {
             bool transpFound = false;
@@ -158,6 +156,7 @@ namespace NSMBe4.NSBMD
             if (transpFound)
                 pal[pal.Length - 1] = Color.Transparent;
         }
+        */
 
         public int calcPaletteDiffs(int pal)
         {
@@ -195,12 +194,33 @@ namespace NSMBe4.NSBMD
 
         public float palDifUni(Color[] a, Color[] b)
         {
+            bool aTransp = a[3] == Color.Transparent;
+            bool bTransp = b[3] == Color.Transparent;
+
+            if (aTransp != bTransp) return float.PositiveInfinity;
+
             float dif = 0;
-            for (int i = 0; i < a.Length; i++)
+            int len = aTransp ? 3 : 4;
+
+            bool[] sel = new bool[len];
+
+            for (int i = 0; i < len; i++)
             {
-                int ind = getClosestColorWithAlpha(a[i], b);
-                Color c = b[ind];
-                dif += ImageIndexer.colorDifference(c, a[i]);
+                Color c = a[i];
+                float diff = float.PositiveInfinity;
+                int i2 = -1;
+                for(int j = 0; j < len; j++)
+                {
+                    if(sel[j]) continue;
+                    float diff2 = ImageIndexer.colorDifference(c, b[j]);
+                    if (diff2 < diff || i2==-1)
+                    {
+                        i2 = j;
+                        diff = diff2;
+                    }
+                }
+                sel[i2] = true;
+                dif += diff;
             }
 
             return dif;

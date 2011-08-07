@@ -118,6 +118,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GraphicsEditor\Image3D.cs" />
+    <Compile Include="GraphicsEditor\Image3Dformat5.cs" />
+    <Compile Include="ImageIndexerFast.cs" />
     <Compile Include="ImagePreviewer.cs">
       <SubType>Form</SubType>
     </Compile>
