@@ -93,6 +93,7 @@ namespace NSMBe4
             AutoScrollMinSize = new Size(tileWidth * 16 + 16, y * 16);
             AutoScroll = true;
             AutoScrollMargin = new Size(0, 0);
+
             //            AutoScrollMinSize = new Size(2000, 2000);
             Invalidate();
             Refresh();
