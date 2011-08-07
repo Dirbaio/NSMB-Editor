@@ -37,7 +37,7 @@ namespace NSMBe4
             InitializeComponent();
             this.o = o;
             this.EdControl = EdControl;
-            UpdateInfo();
+            UpdateInfo(false);
             LanguageManager.ApplyToContainer(this, "ObjectEditor");
             tileset0picker.Initialise(EdControl.GFX, 0);
             tileset1picker.Initialise(EdControl.GFX, 1);
@@ -46,11 +46,12 @@ namespace NSMBe4
 
         public void SetObject(NSMBObject no)
         {
+            bool keep = o == no;
             o = no;
-            UpdateInfo();
+            UpdateInfo(keep);
         }
 
-        public void UpdateInfo()
+        public void UpdateInfo(bool keep)
         {
             if (o == null) return;
             DataUpdateFlag = true;
@@ -58,17 +59,19 @@ namespace NSMBe4
             objYPosUpDown.Value = o.Y;
             objWidthUpDown.Value = o.Width;
             objHeightUpDown.Value = o.Height;
-            
-            if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
-            if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
-            if (o.Tileset != 2) tileset2picker.selectObjectNumber(-1);
 
-            if (o.Tileset == 0) tileset0picker.selectObjectNumber(o.ObjNum);
-            if (o.Tileset == 1) tileset1picker.selectObjectNumber(o.ObjNum);
-            if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.ObjNum);
+            if (!keep)
+            {
+                if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
+                if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
+                if (o.Tileset != 2) tileset2picker.selectObjectNumber(-1);
 
-            tabControl1.SelectedIndex = o.Tileset;
-            
+                if (o.Tileset == 0) tileset0picker.selectObjectNumber(o.ObjNum);
+                if (o.Tileset == 1) tileset1picker.selectObjectNumber(o.ObjNum);
+                if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.ObjNum);
+
+                tabControl1.SelectedIndex = o.Tileset;
+            }
             DataUpdateFlag = false;
         }
 
