@@ -66,6 +66,7 @@
             this.DrawingArea.Size = new System.Drawing.Size(429, 351);
             this.DrawingArea.TabIndex = 2;
             this.DrawingArea.TabStop = false;
+            this.DrawingArea.SizeChanged += new System.EventHandler(this.DrawingArea_SizeChanged);
             this.DrawingArea.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingArea_Paint);
             this.DrawingArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseDown);
             this.DrawingArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawingArea_MouseMove);

@@ -30,6 +30,7 @@ namespace NSMBe4
         public UndoManager UndoManager;
         public Image bgImage;
         public int bgX, bgY;
+        public bool ignoreMouse = false;
 
         public LevelEditorControl() {
             InitializeComponent();
@@ -313,7 +314,17 @@ namespace NSMBe4
             }
         }
 
+        private void DrawingArea_SizeChanged(object sender, EventArgs e)
+        {
+            ignoreMouse = true;
+        }
+
         private void DrawingArea_MouseMove(object sender, MouseEventArgs e) {
+            if (ignoreMouse)
+            {
+                ignoreMouse = false;
+                return;
+            }
             int DragSpeed = (int)Math.Ceiling(16 * zoom);
 
             if (scrollingDrag)
