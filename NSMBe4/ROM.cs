@@ -387,7 +387,6 @@ namespace NSMBe4 {
             int BlockSize = 8;
 
             List<byte> CompressedData = new List<byte>();
-            CompressedData.Add(0x10);
             if (header) //0x37375A4C
             {
                 CompressedData.Add(0x4C);
@@ -395,6 +394,7 @@ namespace NSMBe4 {
                 CompressedData.Add(0x37);
                 CompressedData.Add(0x37);
             }
+            CompressedData.Add(0x10);
 
             {
                 byte* pointer = (byte*)&lenght;

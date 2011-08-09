@@ -129,12 +129,12 @@ namespace NSMBe4.NSBMD
                 int size = width*height*Image3D.bpps[format]/8;
                 Console.Out.WriteLine(offset.ToString("X8") + " " + format + " " + width + "x" + height + " " + color0 + " LZ"+LZd);
 
-                InlineFile mainfile = new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp);
+                InlineFile mainfile = new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp);
                 if (format == 5)
                 {
                     hasFormat5 = true;
                     int f5size = (width * height) / 16 * 2;
-                    InlineFile f5file = new InlineFile(f, f5dataOffset, f5size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp);
+                    InlineFile f5file = new InlineFile(f, f5dataOffset, f5size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp);
 
                     f5dataOffset += f5size;
                     textures[i] = new Image3Dformat5(mainfile, f5file, width, height);
@@ -189,7 +189,7 @@ namespace NSMBe4.NSBMD
             {
                 if (hasFormat5)
                 {
-                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs, palettes[i].size, palettes[i].name, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
+                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs, palettes[i].size, palettes[i].name, null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp));
                     mgr.m.addPalette(pa);
                 }
                 else
@@ -197,13 +197,13 @@ namespace NSMBe4.NSBMD
                     int extrapalcount = (palettes[i].size) / 512;
                     for (int j = 0; j < extrapalcount; j++)
                     {
-                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + j * 512, 512, palettes[i].name + ":" + j, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
+                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + j * 512, 512, palettes[i].name + ":" + j, null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp));
                         mgr.m.addPalette(pa);
                     }
                     int lastsize = palettes[i].size % 512;
                     if (lastsize != 0)
                     {
-                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + extrapalcount * 512, lastsize, palettes[i].name + ":" + extrapalcount, null, LZd ? InlineFile.CompressionType.LZComp : InlineFile.CompressionType.NoComp));
+                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + extrapalcount * 512, lastsize, palettes[i].name + ":" + extrapalcount, null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp));
                         mgr.m.addPalette(pa);
                     }
                 }

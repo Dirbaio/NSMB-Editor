@@ -68,8 +68,10 @@ namespace NSMBe4 {
             drawingBox.Invalidate();
         }
 
-        private void drawingBox_Paint(object sender, PaintEventArgs e) {
-            if (PalBuffer != null) {
+        private void drawingBox_Paint(object sender, PaintEventArgs e) 
+        {
+            if (PalBuffer != null) 
+            {
                 e.Graphics.DrawImage(PalBuffer, 0, 24);
 
                 Point FGPos = new Point(SelectedFG % 16 * 12 + 1, SelectedFG / 16 * 12 + 25);
@@ -85,12 +87,14 @@ namespace NSMBe4 {
                 e.Graphics.FillRectangle(Brushes.White, BGPos.X + 10, BGPos.Y + 8, 1, 3);
 
                 e.Graphics.FillRectangle(Brushes.Black, 21, 0, 64, 20);
-                e.Graphics.FillRectangle(new SolidBrush(pal.pal[SelectedFG]), 23, 2, 60, 16);
+                if (SelectedFG < pal.pal.Length)
+                    e.Graphics.FillRectangle(new SolidBrush(pal.pal[SelectedFG]), 23, 2, 60, 16);
 
                 e.Graphics.FillRectangle(Brushes.Black, 91, 4, 12, 12);
 
                 e.Graphics.FillRectangle(Brushes.Black, 109, 0, 64, 20);
-                e.Graphics.FillRectangle(new SolidBrush(pal.pal[SelectedBG]), 111, 2, 60, 16);
+                if (SelectedBG < pal.pal.Length)
+                    e.Graphics.FillRectangle(new SolidBrush(pal.pal[SelectedBG]), 111, 2, 60, 16);
             }
         }
 

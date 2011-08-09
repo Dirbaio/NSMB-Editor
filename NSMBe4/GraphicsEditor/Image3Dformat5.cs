@@ -114,5 +114,9 @@ namespace NSMBe4
         {
         }
 
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

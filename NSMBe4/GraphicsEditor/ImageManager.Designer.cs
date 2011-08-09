@@ -46,10 +46,11 @@
             this.importAllBtn = new System.Windows.Forms.Button();
             this.saveAllBtn = new System.Windows.Forms.Button();
             this.exportAllBtn = new System.Windows.Forms.Button();
+            this.importThisWithPalBtn = new System.Windows.Forms.Button();
             this.importThisBtn = new System.Windows.Forms.Button();
             this.exportThisBtn = new System.Windows.Forms.Button();
-            this.importThisWithPalBtn = new System.Windows.Forms.Button();
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
+            this.autopaletteCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -66,7 +67,7 @@
             this.imageListBox.FormattingEnabled = true;
             this.imageListBox.Location = new System.Drawing.Point(0, 13);
             this.imageListBox.Name = "imageListBox";
-            this.imageListBox.Size = new System.Drawing.Size(243, 113);
+            this.imageListBox.Size = new System.Drawing.Size(243, 98);
             this.imageListBox.TabIndex = 1;
             this.imageListBox.SelectedIndexChanged += new System.EventHandler(this.imageListBox_SelectedIndexChanged);
             this.imageListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageListBox_MouseDown);
@@ -77,7 +78,7 @@
             this.paletteListBox.FormattingEnabled = true;
             this.paletteListBox.Location = new System.Drawing.Point(0, 13);
             this.paletteListBox.Name = "paletteListBox";
-            this.paletteListBox.Size = new System.Drawing.Size(243, 114);
+            this.paletteListBox.Size = new System.Drawing.Size(243, 99);
             this.paletteListBox.TabIndex = 2;
             this.paletteListBox.SelectedIndexChanged += new System.EventHandler(this.paletteListBox_SelectedIndexChanged);
             this.paletteListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paletteListBox_MouseDown);
@@ -105,7 +106,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 265);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 235);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // panel4
@@ -115,7 +116,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(243, 126);
+            this.panel4.Size = new System.Drawing.Size(243, 111);
             this.panel4.TabIndex = 5;
             // 
             // label2
@@ -133,9 +134,9 @@
             this.panel3.Controls.Add(this.paletteListBox);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 135);
+            this.panel3.Location = new System.Drawing.Point(3, 120);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(243, 127);
+            this.panel3.Size = new System.Drawing.Size(243, 112);
             this.panel3.TabIndex = 4;
             // 
             // label1
@@ -156,7 +157,7 @@
             this.image2dOptions.Controls.Add(this.tileWidthNumber);
             this.image2dOptions.Controls.Add(this.label3);
             this.image2dOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.image2dOptions.Location = new System.Drawing.Point(0, 265);
+            this.image2dOptions.Location = new System.Drawing.Point(0, 235);
             this.image2dOptions.Name = "image2dOptions";
             this.image2dOptions.Size = new System.Drawing.Size(249, 87);
             this.image2dOptions.TabIndex = 3;
@@ -231,6 +232,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.autopaletteCheckBox);
             this.panel2.Controls.Add(this.importAllBtn);
             this.panel2.Controls.Add(this.saveAllBtn);
             this.panel2.Controls.Add(this.exportAllBtn);
@@ -238,9 +240,9 @@
             this.panel2.Controls.Add(this.importThisBtn);
             this.panel2.Controls.Add(this.exportThisBtn);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 352);
+            this.panel2.Location = new System.Drawing.Point(0, 322);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(249, 156);
+            this.panel2.Size = new System.Drawing.Size(249, 186);
             this.panel2.TabIndex = 5;
             // 
             // importAllBtn
@@ -273,6 +275,16 @@
             this.exportAllBtn.UseVisualStyleBackColor = true;
             this.exportAllBtn.Click += new System.EventHandler(this.exportAllBtn_Click);
             // 
+            // importThisWithPalBtn
+            // 
+            this.importThisWithPalBtn.Location = new System.Drawing.Point(3, 61);
+            this.importThisWithPalBtn.Name = "importThisWithPalBtn";
+            this.importThisWithPalBtn.Size = new System.Drawing.Size(240, 23);
+            this.importThisWithPalBtn.TabIndex = 0;
+            this.importThisWithPalBtn.Text = "Import this bitmap and recreate palette";
+            this.importThisWithPalBtn.UseVisualStyleBackColor = true;
+            this.importThisWithPalBtn.Click += new System.EventHandler(this.importThisWithPalBtn_Click);
+            // 
             // importThisBtn
             // 
             this.importThisBtn.Location = new System.Drawing.Point(3, 32);
@@ -293,16 +305,6 @@
             this.exportThisBtn.UseVisualStyleBackColor = true;
             this.exportThisBtn.Click += new System.EventHandler(this.exportThisBtn_Click);
             // 
-            // importThisWithPalBtn
-            // 
-            this.importThisWithPalBtn.Location = new System.Drawing.Point(3, 61);
-            this.importThisWithPalBtn.Name = "importThisWithPalBtn";
-            this.importThisWithPalBtn.Size = new System.Drawing.Size(240, 23);
-            this.importThisWithPalBtn.TabIndex = 0;
-            this.importThisWithPalBtn.Text = "Import this bitmap and recreate palette";
-            this.importThisWithPalBtn.UseVisualStyleBackColor = true;
-            this.importThisWithPalBtn.Click += new System.EventHandler(this.importThisWithPalBtn_Click);
-            // 
             // graphicsEditor1
             // 
             this.graphicsEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -310,6 +312,18 @@
             this.graphicsEditor1.Name = "graphicsEditor1";
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 508);
             this.graphicsEditor1.TabIndex = 4;
+            // 
+            // autopaletteCheckBox
+            // 
+            this.autopaletteCheckBox.AutoSize = true;
+            this.autopaletteCheckBox.Checked = true;
+            this.autopaletteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autopaletteCheckBox.Location = new System.Drawing.Point(6, 159);
+            this.autopaletteCheckBox.Name = "autopaletteCheckBox";
+            this.autopaletteCheckBox.Size = new System.Drawing.Size(114, 17);
+            this.autopaletteCheckBox.TabIndex = 3;
+            this.autopaletteCheckBox.Text = "Auto palette select";
+            this.autopaletteCheckBox.UseVisualStyleBackColor = true;
             // 
             // ImageManager
             // 
@@ -330,6 +344,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tileOffsetNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileWidthNumber)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -358,5 +373,6 @@
         private System.Windows.Forms.Button saveAllBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button importThisWithPalBtn;
+        private System.Windows.Forms.CheckBox autopaletteCheckBox;
     }
 }

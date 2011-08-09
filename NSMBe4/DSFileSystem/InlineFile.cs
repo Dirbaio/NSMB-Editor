@@ -42,9 +42,9 @@ namespace NSMBe4.DSFileSystem
             {
                 byte[] data;
                 if(comp == CompressionType.LZWithHeaderComp)
-                    data = ROM.LZ77_Decompress(parentFile.getContents());
-                else
                     data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
+                else
+                    data = ROM.LZ77_Decompress(parentFile.getContents());
                 byte[] thisdata = new byte[inlineLen];
                 Array.Copy(data, inlineOffs, thisdata, 0, inlineLen);
                 return thisdata;
@@ -61,9 +61,9 @@ namespace NSMBe4.DSFileSystem
             {
                 byte[] data;
                 if (comp == CompressionType.LZWithHeaderComp)
-                    data = ROM.LZ77_Decompress(parentFile.getContents());
-                else
                     data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
+                else
+                    data = ROM.LZ77_Decompress(parentFile.getContents());
                 Array.Copy(newFile, 0, data, inlineOffs, inlineLen);
                 parentFile.replace(ROM.LZ77_Compress(data, comp == CompressionType.LZWithHeaderComp), this);
             }

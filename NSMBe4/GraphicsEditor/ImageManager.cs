@@ -64,7 +64,16 @@ namespace NSMBe4
                 imageListBox.Items.Remove(imageListBox.SelectedItem);
             }
             else
+            {
                 updateImage();
+                if (autopaletteCheckBox.Checked)
+                {
+                    int i = imageListBox.SelectedIndex;
+                    if (i < 0) return;
+                    if (i >= paletteListBox.Items.Count) return;
+                    paletteListBox.SelectedIndex = i;
+                }
+            }            
 
         }
 
