@@ -68,16 +68,24 @@ namespace NSMBe4
             p.WriteLine("2/5: Computing tile differences...");
             for (int xt = 0; xt < 64*64; xt++)
             {
+                p.setValue(xt);
+                if (tiles[xt] == null) continue;
+
                 for (int yt = 0; yt < xt; yt++)
                 {
+                    if (tiles[yt] == null) continue;
                     float diff = tiles[xt].difference(tiles[yt]);
-                    TileDiff td = new TileDiff();
-                    td.diff = diff;
-                    td.t1 = xt;
-                    td.t2 = yt;
-                    diffs.Add(td);
+                    if (diff < 10)
+                        mergeTiles(xt, yt);
+                    else
+                    {
+                        TileDiff td = new TileDiff();
+                        td.diff = diff;
+                        td.t1 = xt;
+                        td.t2 = yt;
+                        diffs.Add(td);
+                    }
                 }
-                p.setValue(xt);
             }
 
 //            p.WriteLine("Tiles merged in first pass: " + (64 * 64 - countUsedTiles()) + " of " + 64 * 64);
@@ -106,16 +114,8 @@ namespace NSMBe4
                 if (tiles[t2] == null) continue;
                 if (t1 == t2) throw new Exception("Should never happen");
 
-                Console.Out.WriteLine("Used: " + countUsedTiles() + ", replacing " + t2 + " with " + t1 + ", diff " + td.diff);
-                tiles[t1].merge(tiles[t2]);
-//                fillDiffs(best1);
-                //fusionate them
-                for (int xt = 0; xt < 64; xt++)
-                    for (int yt = 0; yt < 64; yt++)
-                        if (tileMap[xt,yt] == t2)
-                            tileMap[xt,yt] = t1;
+                mergeTiles(t1, t2);
 
-                tiles[t2] = null;
                 used = countUsedTiles();
                 p.setValue(mustRemove - used + 320);
             }
@@ -172,6 +172,19 @@ namespace NSMBe4
             p.WriteLine("Done! You can close this window now.");
         }
 
+        private void mergeTiles(int t1, int t2)
+        {
+            Console.Out.WriteLine("Used: " + countUsedTiles() + ", replacing " + t2 + " with " + t1);
+            tiles[t1].merge(tiles[t2]);
+            //                fillDiffs(best1);
+            //fusionate them
+            for (int xt = 0; xt < 64; xt++)
+                for (int yt = 0; yt < 64; yt++)
+                    if (tileMap[xt, yt] == t2)
+                        tileMap[xt, yt] = t1;
+
+            tiles[t2] = null;
+        }
 
         private int countUsedTiles()
         {
