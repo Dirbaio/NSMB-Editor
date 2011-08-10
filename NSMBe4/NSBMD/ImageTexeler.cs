@@ -108,6 +108,17 @@ namespace NSMBe4.NSBMD
             for (int y = 0; y < ty; y++)
                 for (int x = 0; x < tx; x++)
                 {
+                    //Find out if texel has transparent.
+
+                    bool hasTransparent = false;
+                    for (int yy = 0; yy < 4; yy++)
+                        for (int xx = 0; xx < 4; xx++)
+                        {
+                            Color coll = img.GetPixel(x * 4 + xx, y * 4 + yy);
+                            if (coll.A < 128)
+                                hasTransparent = true;
+                        }
+
                     //WRITE THE IMAGE DATA
                     for (int yy = 0; yy < 4; yy++)
                     {
@@ -116,10 +127,16 @@ namespace NSMBe4.NSBMD
                         for (int xx = 0; xx < 4; xx++)
                         {
                             Color coll = img.GetPixel(x*4+xx, y*4+yy);
-                            byte col = 3;
-                            if(coll != Color.Transparent)
+                            byte col;
+                            if (coll.A < 128)
+                            {
+                                col = 3;
+                            }
+                            else
+                            {
                                 col = (byte)ImageIndexer.closest(coll, palettes[paletteNumbers[x, y]]);
-
+                                if (col == 3) col = 2;
+                            }
                             b |= (byte)(pow * col);
                             pow *= 4;
                         }
@@ -128,9 +145,8 @@ namespace NSMBe4.NSBMD
 
 
                     //WRITE THE FORMAT-5 SPECIFIC DATA
-                    //Todo: Now wasting all the Color 0's of all the palettes!!
                     ushort dat = (ushort)(newPalNums[paletteNumbers[x, y]] * 2);
-                    if(palettes[paletteNumbers[x, y]][3] != Color.Transparent)
+                    if(hasTransparent)
                         dat |= 2 << 14;
                     f5Dat.writeUShort(dat);
                 }

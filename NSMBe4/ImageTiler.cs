@@ -75,7 +75,7 @@ namespace NSMBe4
                 {
                     if (tiles[yt] == null) continue;
                     float diff = tiles[xt].difference(tiles[yt]);
-                    if (diff < 10)
+                    if (diff < 0.5)
                         mergeTiles(xt, yt);
                     else
                     {

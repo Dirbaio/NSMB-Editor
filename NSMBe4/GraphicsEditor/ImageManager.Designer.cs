@@ -43,6 +43,7 @@
             this.tileWidthNumber = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.autopaletteCheckBox = new System.Windows.Forms.CheckBox();
             this.importAllBtn = new System.Windows.Forms.Button();
             this.saveAllBtn = new System.Windows.Forms.Button();
             this.exportAllBtn = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.importThisBtn = new System.Windows.Forms.Button();
             this.exportThisBtn = new System.Windows.Forms.Button();
             this.graphicsEditor1 = new NSMBe4.GraphicsEditor();
-            this.autopaletteCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -245,6 +245,18 @@
             this.panel2.Size = new System.Drawing.Size(249, 186);
             this.panel2.TabIndex = 5;
             // 
+            // autopaletteCheckBox
+            // 
+            this.autopaletteCheckBox.AutoSize = true;
+            this.autopaletteCheckBox.Checked = true;
+            this.autopaletteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autopaletteCheckBox.Location = new System.Drawing.Point(6, 159);
+            this.autopaletteCheckBox.Name = "autopaletteCheckBox";
+            this.autopaletteCheckBox.Size = new System.Drawing.Size(114, 17);
+            this.autopaletteCheckBox.TabIndex = 3;
+            this.autopaletteCheckBox.Text = "Auto palette select";
+            this.autopaletteCheckBox.UseVisualStyleBackColor = true;
+            // 
             // importAllBtn
             // 
             this.importAllBtn.Location = new System.Drawing.Point(3, 130);
@@ -312,18 +324,6 @@
             this.graphicsEditor1.Name = "graphicsEditor1";
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 508);
             this.graphicsEditor1.TabIndex = 4;
-            // 
-            // autopaletteCheckBox
-            // 
-            this.autopaletteCheckBox.AutoSize = true;
-            this.autopaletteCheckBox.Checked = true;
-            this.autopaletteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autopaletteCheckBox.Location = new System.Drawing.Point(6, 159);
-            this.autopaletteCheckBox.Name = "autopaletteCheckBox";
-            this.autopaletteCheckBox.Size = new System.Drawing.Size(114, 17);
-            this.autopaletteCheckBox.TabIndex = 3;
-            this.autopaletteCheckBox.Text = "Auto palette select";
-            this.autopaletteCheckBox.UseVisualStyleBackColor = true;
             // 
             // ImageManager
             // 

@@ -59,7 +59,7 @@ namespace NSMBe4
             boxes = new List<Box>();
             boxes.Add(startBox);
 
-            if(haveTransparent) paletteCount--;
+//            if(haveTransparent) paletteCount--;
 
             while (boxes.Count < paletteCount)
             {
@@ -73,7 +73,6 @@ namespace NSMBe4
 
             //NOW CREATE THE PALETTE COLORS
             palette = new Color[4];
-            palette[3] = Color.Transparent;
 
             for (int i = 0; i < paletteCount; i++)
             {
