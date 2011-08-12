@@ -216,6 +216,7 @@ namespace NSMBe4
         {
             this.en = ne;
             UpdateInfo();
+            groupBox2.Visible = ne != null;
         }
 
         public void UpdateInfo()

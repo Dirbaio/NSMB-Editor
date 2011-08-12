@@ -69,9 +69,9 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.minimapControl1 = new NSMBe4.MinimapControl();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -447,7 +447,7 @@
             this.PanelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelContainer.Location = new System.Drawing.Point(0, 0);
             this.PanelContainer.Name = "PanelContainer";
-            this.PanelContainer.Size = new System.Drawing.Size(249, 407);
+            this.PanelContainer.Size = new System.Drawing.Size(249, 422);
             this.PanelContainer.TabIndex = 10;
             // 
             // openFileDialog1
@@ -460,7 +460,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(249, 407);
+            this.panel1.Size = new System.Drawing.Size(249, 422);
             this.panel1.TabIndex = 11;
             // 
             // splitContainer1
@@ -482,27 +482,10 @@
             this.splitContainer1.TabIndex = 12;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // minimapControl1
-            // 
-            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.minimapControl1.Location = new System.Drawing.Point(0, 0);
-            this.minimapControl1.Name = "minimapControl1";
-            this.minimapControl1.Size = new System.Drawing.Size(249, 140);
-            this.minimapControl1.TabIndex = 0;
-            // 
-            // levelEditorControl1
-            // 
-            this.levelEditorControl1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.levelEditorControl1.BackColor = System.Drawing.SystemColors.Control;
-            this.levelEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.levelEditorControl1.Location = new System.Drawing.Point(0, 0);
-            this.levelEditorControl1.Name = "levelEditorControl1";
-            this.levelEditorControl1.Size = new System.Drawing.Size(775, 551);
-            this.levelEditorControl1.TabIndex = 3;
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -515,8 +498,26 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.minimapControl1);
             this.splitContainer2.Size = new System.Drawing.Size(249, 551);
-            this.splitContainer2.SplitterDistance = 407;
+            this.splitContainer2.SplitterDistance = 422;
             this.splitContainer2.TabIndex = 4;
+            // 
+            // minimapControl1
+            // 
+            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.minimapControl1.Location = new System.Drawing.Point(0, 0);
+            this.minimapControl1.Name = "minimapControl1";
+            this.minimapControl1.Size = new System.Drawing.Size(249, 125);
+            this.minimapControl1.TabIndex = 0;
+            // 
+            // levelEditorControl1
+            // 
+            this.levelEditorControl1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.levelEditorControl1.BackColor = System.Drawing.SystemColors.Control;
+            this.levelEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.levelEditorControl1.Location = new System.Drawing.Point(0, 0);
+            this.levelEditorControl1.Name = "levelEditorControl1";
+            this.levelEditorControl1.Size = new System.Drawing.Size(775, 551);
+            this.levelEditorControl1.TabIndex = 3;
             // 
             // LevelEditor
             // 

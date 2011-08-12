@@ -92,7 +92,7 @@
             this.viewsList.FormattingEnabled = true;
             this.viewsList.Location = new System.Drawing.Point(0, 0);
             this.viewsList.Name = "viewsList";
-            this.viewsList.Size = new System.Drawing.Size(281, 258);
+            this.viewsList.Size = new System.Drawing.Size(281, 155);
             this.viewsList.TabIndex = 0;
             this.viewsList.SelectedIndexChanged += new System.EventHandler(this.viewsList_SelectedIndexChanged);
             // 
@@ -595,9 +595,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.viewsList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.viewsList);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ViewEditor";
             this.Size = new System.Drawing.Size(281, 549);
