@@ -51,17 +51,26 @@ namespace NSMBe4
         {
             if (act.cancel)
                 return;
+            bool merged = false;
             //Determine if the actions should be merged
             if (merge && UActions.Count > 0 && UActions.Peek().CanMerge && 
             UActions.Peek().GetType().Equals(act.GetType())) {
-                UActions.Peek().Merge(act);
-                if (act is MoveMultipleAction || act is MovePathAction) {
-                    act.SetEdControl(EdControl);
-                    act.DoRedo(false);
-                    act = null;
-                } else
-                    act = UActions.Peek();
-            } else {
+                Action pAct = UActions.Peek();
+                pAct.Merge(act);
+                merged = !pAct.MergeFailed;
+                pAct.MergeFailed = false;
+                if (merged) {
+                    if (act is MoveMultipleAction || act is MovePathAction)
+                    {
+                        act.SetEdControl(EdControl);
+                        act.DoRedo(false);
+                        act = null;
+                    }
+                    else
+                        act = UActions.Peek();
+                }
+            } 
+            if (!merged) {
                 act.SetEdControl(EdControl);
                 UActions.Push(act);
                 ToolStripMenuItem item = new ToolStripMenuItem(act.ToString());
@@ -203,6 +212,7 @@ namespace NSMBe4
             }
         }
         public virtual void Merge(Action act) { }
+        public bool MergeFailed = false;
         public void SetEdControl(LevelEditorControl EdControl)
         {
             this.EdControl = EdControl;
@@ -827,9 +837,21 @@ namespace NSMBe4
                 case 8: en.Settings = value; break;
             }
         }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+        public override void Merge(Action act) {
+            ChangeEntranceDataAction ceda = (act as ChangeEntranceDataAction);
+            if (ceda.PropNum != this.PropNum)
+                MergeFailed = true;
+            else
+                this.NewV = ceda.NewV;
+        }
         public override string ToString()
         {
-            return string.Format(LanguageManager.GetList("UndoActions")[16], LanguageManager.Get("EntranceEditor", PropNum + 5));
+            return string.Format(LanguageManager.GetList("UndoActions")[16], LanguageManager.Get("EntranceEditor", PropNum + 5).Replace(":", ""));
         }
     }
     #endregion
@@ -1234,8 +1256,7 @@ namespace NSMBe4
         {
             switch (PropNum)
             {
-                case 0: OrigV = view.Number; break;
-                case 1: throw new Exception("Blah");
+                case 1: OrigV = view.Number; break;
                 case 2: OrigV = view.Music; break;
                 case 3: OrigV = view.Unknown1; break;
                 case 4: OrigV = view.Unknown2; break;
@@ -1264,8 +1285,7 @@ namespace NSMBe4
         {
             switch (PropNum)
             {
-                case 0: view.Number = value; break;
-                case 1: throw new Exception("Blah");
+                case 1: view.Number = value; break;
                 case 2: view.Music = value; break;
                 case 3: view.Unknown1 = value; break;
                 case 4: view.Unknown2 = value; break;
@@ -1279,12 +1299,25 @@ namespace NSMBe4
                 case 12: view.CameraBottomStick = value; break;
             }
         }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+        public override void Merge(Action act)
+        {
+            ChangeViewDataAction cvda = (act as ChangeViewDataAction);
+            if (cvda.PropNum != this.PropNum)
+                MergeFailed = true;
+            else
+                this.NewV = cvda.NewV;
+        }
         public override string ToString()
         {
             if (view.isZone)
                 return LanguageManager.GetList("UndoActions")[34];
             else
-                return string.Format(LanguageManager.GetList("UndoActions")[29], PropNum);
+                return string.Format(LanguageManager.GetList("UndoActions")[29], LanguageManager.Get("ViewEditor", PropNum + 6).Replace(":", ""));
         }
     }
     #endregion

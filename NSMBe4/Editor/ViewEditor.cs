@@ -52,12 +52,15 @@ namespace NSMBe4
             nv.Height = 12 * 16;
             nv.Width = 16 * 16;
             nv.isZone = !EditingViews;
+            nv.Number = EdControl.Level.getFreeViewNumber(l);
             EdControl.UndoManager.Do(new AddViewAction(nv));
         }
 
         private void deleteViewButton_Click(object sender, EventArgs e)
         {
+            int selIdx = viewsList.SelectedIndex;
             EdControl.UndoManager.Do(new RemoveViewAction(v));
+            viewsList.SelectedIndex = Math.Min(selIdx, viewsList.Items.Count - 1);
         }
 
         public void delete()
@@ -119,13 +122,15 @@ namespace NSMBe4
             }
             DataUpdateFlag = false;
         }
-
+        bool MoveToPos = false;
         public void SetView(NSMBView v)
         {
+            MoveToPos = (this.v != v);
             this.v = v;
             UpdateInfo();
             tableLayoutPanel2.Visible = v != null;
             tableLayoutPanel1.Visible = v != null && EditingViews;
+            MoveToPos = false;
         }
 
         private void position_ValueChanged(object sender, EventArgs e)
@@ -137,7 +142,7 @@ namespace NSMBe4
             else if ((int)width.Value != v.Width || (int)height.Value != v.Height)
                 EdControl.UndoManager.Do(new SizeViewAction(v, (int)width.Value, (int)height.Value));
             else if ((int)viewID.Value != v.Number)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 0, (int)viewID.Value));
+                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 1, (int)viewID.Value));
             UpdateItem();
         }
 
@@ -175,7 +180,7 @@ namespace NSMBe4
             if (DataUpdateFlag) return;
 
             EdControl.SelectObject(viewsList.SelectedItem);
-            if(v != null)
+            if(v != null && MoveToPos)
                 EdControl.EnsurePosVisible(v.X / 16, v.Y / 16);
         }
 

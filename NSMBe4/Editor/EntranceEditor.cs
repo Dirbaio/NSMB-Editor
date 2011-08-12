@@ -204,7 +204,9 @@ namespace NSMBe4
 
         private void deleteEntranceButton_Click(object sender, EventArgs e)
         {
+            int selIdx = entranceListBox.SelectedIndex;
             EdControl.UndoManager.Do(new RemoveEntranceAction(en));
+            entranceListBox.SelectedIndex = Math.Min(selIdx, entranceListBox.Items.Count - 1);
         }
 
         public void delete()
