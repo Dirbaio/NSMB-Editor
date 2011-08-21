@@ -137,7 +137,10 @@ namespace NSMBe4
             Rectangle va = EdControl.ViewableArea;
             NSMBPath np = new NSMBPath();
             if (l == EdControl.Level.ProgressPaths)
-                np.isProgressPath = true;
+                np.id = EdControl.Level.getFreePathNumber(l, 1);
+            else
+                np.id = EdControl.Level.getFreePathNumber(l, 0);
+            np.isProgressPath = l == EdControl.Level.ProgressPaths;
 
             NSMBPathPoint npp = new NSMBPathPoint(np);
             npp.X = va.X * 16;
@@ -155,6 +158,10 @@ namespace NSMBe4
         private void clonePath_Click(object sender, EventArgs e)
         {
             NSMBPath np = new NSMBPath(p);
+            if (np.isProgressPath)
+                np.id = EdControl.Level.getFreePathNumber(l, 1);
+            else
+                np.id = EdControl.Level.getFreePathNumber(l, 0);
             EdControl.UndoManager.Do(new AddPathAction(np));
         }
     }

@@ -1108,9 +1108,22 @@ namespace NSMBe4
                 case 5: pn.Unknown6 = value; break;
             }
         }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+        public override void Merge(Action act)
+        {
+            ChangePathNodeData cpnd = (act as ChangePathNodeData);
+            if (cpnd.PropNum != this.PropNum)
+                MergeFailed = true;
+            else
+                this.NewV = cpnd.NewV;
+        }
         public override string ToString()
         {
-            return string.Format(LanguageManager.GetList("UndoActions")[24], LanguageManager.Get("PathEditor", PropNum + 7));
+            return string.Format(LanguageManager.GetList("UndoActions")[24], LanguageManager.Get("PathEditor", PropNum + 7).Replace(":", ""));
         }
     }
     #endregion

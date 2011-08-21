@@ -476,6 +476,17 @@ namespace NSMBe4
                 n++;
             }
         }
+        public int getFreePathNumber(List<NSMBPath> l, int startID)
+        {
+            int n = startID;
+
+            while (true)
+            {
+                if (!isPathNumberUsed(n, l))
+                    return n;
+                n++;
+            }
+        }
 
         private bool isEntranceNumberUsed(int n)
         {
@@ -493,6 +504,17 @@ namespace NSMBe4
             foreach (NSMBView e in l)
             {
                 if (e.Number == n)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool isPathNumberUsed(int n, List<NSMBPath> l)
+        {
+            foreach (NSMBPath p in l)
+            {
+                if (p.id == n)
                     return true;
             }
 
