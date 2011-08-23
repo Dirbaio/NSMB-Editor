@@ -71,18 +71,19 @@ namespace NSMBe4
                     path = openROMDialog.FileName;
             }
 
-            try
-            {
-                ROM.load(path);
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show("Could not open ROM file for writing. Is it open with other program?");
-                return;
-            }
 
             if (path != "")
             {
+                try
+                {
+                    ROM.load(path);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("Could not open ROM file for writing. Is it open with other program?");
+                    return;
+                }
+
                 if (Properties.Settings.Default.mdi)
                 {
                     Application.Run(new MdiParentForm());
