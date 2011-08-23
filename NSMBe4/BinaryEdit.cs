@@ -22,7 +22,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-
+ 
 namespace NSMBe4
 {
     public partial class BinaryEdit : UserControl
