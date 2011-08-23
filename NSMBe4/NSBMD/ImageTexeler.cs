@@ -146,7 +146,7 @@ namespace NSMBe4.NSBMD
 
                     //WRITE THE FORMAT-5 SPECIFIC DATA
                     ushort dat = (ushort)(newPalNums[paletteNumbers[x, y]] * 2);
-                    if(hasTransparent)
+                    if(!hasTransparent)
                         dat |= 2 << 14;
                     f5Dat.writeUShort(dat);
                 }

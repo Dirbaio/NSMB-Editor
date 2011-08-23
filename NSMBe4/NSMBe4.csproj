@@ -413,6 +413,14 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\file_ncg.png" />
+    <None Include="Resources\file_ncl.png" />
+    <None Include="Resources\file_nsbmd.png" />
+    <None Include="Resources\file_nsbtx.png" />
+    <None Include="Resources\file_nsc.png" />
+    <None Include="Resources\file_sdat.png" />
+    <None Include="Resources\calculator-scientific.png" />
+    <None Include="Resources\file_narc.png" />
     <Content Include="Resources\version.txt" />
     <None Include="Resources\Sprite Images\Brick.PNG" />
     <None Include="Resources\Sprite Images\JumpingQBlock.PNG" />

@@ -71,14 +71,24 @@ namespace NSMBe4
                     path = openROMDialog.FileName;
             }
 
-            if(path != "")
+            try
+            {
+                ROM.load(path);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Could not open ROM file for writing. Is it open with other program?");
+                return;
+            }
+
+            if (path != "")
             {
                 if (Properties.Settings.Default.mdi)
                 {
-                    Application.Run(new MdiParentForm(path));
+                    Application.Run(new MdiParentForm());
                 }
                 else
-                    Application.Run(new LevelChooser(path));
+                    Application.Run(new LevelChooser());
                 if (Properties.Settings.Default.AutoUpdateSD)
                     SpriteData.update();
             }

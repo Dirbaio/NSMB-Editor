@@ -265,7 +265,7 @@ namespace NSMBe4
                 foreach (SpriteDataField v in sd.fields)
                 {
                     Control c = CreateControlFor(v);
-                    c.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    c.Dock = DockStyle.Fill;
                     if (c is CheckBox || c is Label)
                     {
                         this.Controls.Add(c, 0, row);
@@ -359,6 +359,7 @@ namespace NSMBe4
                 if (c is NumericUpDown)
                     (c as NumericUpDown).Value = value;
             }
+            
             public void saveData(object sender, EventArgs e)
             {
                 byte[] d = s.Data.Clone() as byte[];

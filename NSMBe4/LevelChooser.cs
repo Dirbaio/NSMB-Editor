@@ -36,7 +36,6 @@ namespace NSMBe4 {
     {
         public static ImageManagerWindow imgMgr;
 
-
         public static void showImgMgr()
         {
             if (imgMgr == null || imgMgr.IsDisposed)
@@ -45,18 +44,13 @@ namespace NSMBe4 {
             imgMgr.Show();
         }
 
-        string path;
-
-        public LevelChooser(string path)
+        public LevelChooser()
         {
             InitializeComponent();
-            this.path = path;
         }
 
-        private bool mustExit = false;
-
-        private void LevelChooser_Load(object sender, EventArgs e) {
-            
+        private void LevelChooser_Load(object sender, EventArgs e)
+        {
             importLevelButton.Enabled = false;
             exportLevelButton.Enabled = false;
             editLevelButton.Enabled = false;
@@ -64,7 +58,6 @@ namespace NSMBe4 {
             useMDI.Checked = Properties.Settings.Default.mdi;
             autoUpdate.Checked = Properties.Settings.Default.AutoUpdateSD;
 
-            ROM.load(path);
             filesystemBrowser1.Load(ROM.FS);
 
             LoadLevelNames();

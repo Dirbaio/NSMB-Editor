@@ -93,9 +93,14 @@ namespace NSMBe4
 
         private void objectPickerControl1_ObjectSelected()
         {
-            if (t.Objects.Length <= objectPickerControl1.SelectedObject)
+            int sel = objectPickerControl1.SelectedObject;
+            if (t.Objects.Length <= sel)
                 return;
-            
+
+            for (int i = 0; i <= sel; i++)
+                if (t.Objects[i] == null)
+                    t.Objects[i] = new NSMBTileset.ObjectDef(t);
+
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
             if (tilesetObjectEditor1.descBox.Visible)
                 tilesetObjectEditor1.descBox.Text = descriptions[objectPickerControl1.SelectedObject].Substring(descriptions[objectPickerControl1.SelectedObject].IndexOf('=') + 1);

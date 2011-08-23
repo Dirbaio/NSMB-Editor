@@ -12,10 +12,8 @@ namespace NSMBe4
     {
         public static MdiParentForm instance = null;
 
-        string path;
-        public MdiParentForm(string path)
+        public MdiParentForm()
         {
-            this.path = path;
             InitializeComponent();
             instance = this;
             this.Text = "NSMB Editor 5.2 " + Properties.Resources.version;
@@ -23,7 +21,7 @@ namespace NSMBe4
 
         private void MdiParentForm_Load(object sender, EventArgs e)
         {
-            LevelChooser lc = new LevelChooser(path);
+            LevelChooser lc = new LevelChooser();
             lc.MdiParent = this;
             lc.Show();
             

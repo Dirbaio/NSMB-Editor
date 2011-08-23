@@ -123,6 +123,7 @@ namespace NSMBe4
             spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
             updating = false;
         }
+
         private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;

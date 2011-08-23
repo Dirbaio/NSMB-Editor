@@ -45,6 +45,23 @@ namespace NSMBe4.DSFileSystem
             decompressWithHeaderButton.Enabled = false;
             LanguageManager.ApplyToContainer(this, "FilesystemBrowser");
 
+
+            //The ImageList is created here rather than in Visual Studio
+            //because it looks like the Mono compiler can't handle ImageList resources.
+            //So, please don't create ImageLists using the Designer!!
+
+            fileTreeView.ImageList = new ImageList();
+            fileTreeView.ImageList.ColorDepth = ColorDepth.Depth32Bit;
+
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.folder_open);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file_narc);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file_ncg);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file_ncl);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file_nsc);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file_nsbmd);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file_nsbtx);
+            fileTreeView.ImageList.Images.Add(NSMBe4.Properties.Resources.file_sdat);
         }
 
         public new void Load(Filesystem fs)
@@ -58,11 +75,29 @@ namespace NSMBe4.DSFileSystem
             fileTreeView.Nodes.Add(main);
         }
 
+        private int getIconForFile(File f)
+        {
+            //TODO: More icons!
+
+            string name = f.name.ToLowerInvariant();
+
+            if (name.EndsWith(".narc")) return 2;
+            if (name.EndsWith("_ncg.bin")) return 3;
+            if (name.EndsWith("_ncl.bin")) return 4;
+            if (name.EndsWith("_nsc.bin")) return 5;
+
+            if (name.EndsWith(".nsbmd")) return 6;
+            if (name.EndsWith(".nsbtx")) return 7;
+            if (name.EndsWith(".sdat")) return 8;
+            return 1;
+        }
+
         private void loadDir(TreeNode node, Directory dir)
         {
             foreach (File f in dir.childrenFiles)
             {
-                TreeNode fileNode = new TreeNode(f.name, 2, 2);
+                int ic = getIconForFile(f);
+                TreeNode fileNode = new TreeNode(f.name, ic, ic);
                 fileNode.Tag = f;
                 node.Nodes.Add(fileNode);
             }
@@ -282,38 +317,27 @@ namespace NSMBe4.DSFileSystem
             String filename = f.name;
             filename = filename.ToLowerInvariant();
 
-            if (filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
+            try
             {
+
+                if (filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
                     new NSBTX(f);
+                else if (filename.EndsWith(".narc"))
+                    new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
+                else if (filename.EndsWith(".carc"))
+                    new FilesystemBrowserDialog(new NarcFilesystem(f, true)).Show();
+                else if (filename.Contains("_ncl.bin"))
+                    new PaletteViewer(f).Show();
+                else if (filename.Contains("_ncg.bin"))
+                {
+                    LevelChooser.showImgMgr();
+                    LevelChooser.imgMgr.m.addImage(new Image2D(f, 256, false));
+                }
             }
-            else if (filename.EndsWith(".narc"))
-                new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
-            else if (filename.EndsWith(".carc"))
-                new FilesystemBrowserDialog(new NarcFilesystem(f, true)).Show();
-            else if (filename.Contains("_ncl.bin"))
+            catch (AlreadyEditingException ex)
             {
-                new PaletteViewer(f).Show();
-                //                LevelChooser.showImgMgr();
-                //                LevelChooser.imgMgr.m.addPalette(new FilePalette(f));
+                MessageBox.Show(this, "This file is already being edited");
             }
-            else if (filename.Contains("_ncg.bin"))
-            {
-                LevelChooser.showImgMgr();
-                LevelChooser.imgMgr.m.addImage(new Image2D(f, 256, false));
-            }
-            /*
-            if (gv == null || gv.IsDisposed)
-                        gv = new GraphicsViewer();
-
-                    gv.Show();
-
-                    byte[] file = f.getContents();
-                    if (Control.ModifierKeys == Keys.Control)
-                        gv.SetPalette(file);
-                    else
-                        gv.SetFile(file);
-                    break;
-            }*/
         }
 
         private void hexEdButton_Click(object sender, EventArgs e)

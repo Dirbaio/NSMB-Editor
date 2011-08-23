@@ -270,6 +270,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap calculator_scientific {
+            get {
+                object obj = ResourceManager.GetObject("calculator_scientific", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ChainChomp {
             get {
                 object obj = ResourceManager.GetObject("ChainChomp", resourceCulture);
@@ -567,6 +574,55 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap file {
             get {
                 object obj = ResourceManager.GetObject("file", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap file_narc {
+            get {
+                object obj = ResourceManager.GetObject("file_narc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap file_ncg {
+            get {
+                object obj = ResourceManager.GetObject("file_ncg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap file_ncl {
+            get {
+                object obj = ResourceManager.GetObject("file_ncl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap file_nsbmd {
+            get {
+                object obj = ResourceManager.GetObject("file_nsbmd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap file_nsbtx {
+            get {
+                object obj = ResourceManager.GetObject("file_nsbtx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap file_nsc {
+            get {
+                object obj = ResourceManager.GetObject("file_nsc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap file_sdat {
+            get {
+                object obj = ResourceManager.GetObject("file_sdat", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
