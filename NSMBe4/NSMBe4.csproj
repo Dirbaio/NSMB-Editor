@@ -11,7 +11,7 @@
     <RootNamespace>NSMBe4</RootNamespace>
     <AssemblyName>NSMBe5</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>nsmbe3.ico</ApplicationIcon>
+    <ApplicationIcon>nsmbe.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <DelaySign>false</DelaySign>
     <StartupObject>NSMBe4.Program</StartupObject>
@@ -249,9 +249,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\ImageManagerWindow.resx">
       <DependentUpon>ImageManagerWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\PaletteViewer.resx">
       <DependentUpon>PaletteViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ImagePreviewer.resx">
       <DependentUpon>ImagePreviewer.cs</DependentUpon>
@@ -283,12 +285,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MdiParentForm.resx">
       <DependentUpon>MdiParentForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectPickerControlNew.resx">
       <DependentUpon>ObjectPickerControlNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PickerTest.resx">
       <DependentUpon>PickerTest.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\Map16Editor.resx">
       <DependentUpon>Map16Editor.cs</DependentUpon>
@@ -421,6 +425,7 @@
     <None Include="Resources\file_sdat.png" />
     <None Include="Resources\calculator-scientific.png" />
     <None Include="Resources\file_narc.png" />
+    <None Include="Resources\%24this.Icon.ico" />
     <Content Include="Resources\version.txt" />
     <None Include="Resources\Sprite Images\Brick.PNG" />
     <None Include="Resources\Sprite Images\JumpingQBlock.PNG" />
@@ -459,7 +464,7 @@
     <Content Include="Resources\Icons\undo.png" />
     <Content Include="Resources\Icons\zoomactual.png" />
     <Content Include="Resources\Icons\zoomout.png" />
-    <Content Include="nsmbe3.ico" />
+    <Content Include="nsmbe.ico" />
     <Content Include="Resources\english.txt" />
     <Content Include="Resources\Icons\find.png" />
     <Content Include="Resources\Icons\gfxeditor.png" />

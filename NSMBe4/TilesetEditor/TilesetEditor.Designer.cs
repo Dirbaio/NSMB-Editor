@@ -268,6 +268,7 @@
             this.ClientSize = new System.Drawing.Size(957, 561);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TilesetEditor";
             this.Text = "TilesetEditor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TilesetEditor_FormClosed);
