@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelHexEditor));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveBlockButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -106,10 +107,11 @@
             this.ClientSize = new System.Drawing.Size(667, 331);
             this.Controls.Add(this.hexBox1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelHexEditor";
             this.Text = "LevelHexEditor";
-            this.Load += new System.EventHandler(this.LevelHexEditor_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelHexEditor_FormClosed);
+            this.Load += new System.EventHandler(this.LevelHexEditor_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

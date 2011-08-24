@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphicsViewer));
             this.viewport = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.imageSizes = new System.Windows.Forms.ListBox();
@@ -124,6 +125,7 @@
             this.ClientSize = new System.Drawing.Size(650, 299);
             this.Controls.Add(this.viewport);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GraphicsViewer";
             this.Text = "<_TITLE>";
             ((System.ComponentModel.ISupportInitialize)(this.viewport)).EndInit();

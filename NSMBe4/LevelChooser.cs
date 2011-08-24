@@ -758,5 +758,10 @@ namespace NSMBe4 {
         {
             SpriteData.update();
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

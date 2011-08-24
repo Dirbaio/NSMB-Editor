@@ -104,7 +104,7 @@ namespace Be.Windows.Forms
         /// </summary>
         /// <param name="sender">the sender object</param>
         /// <param name="e">the event data</param>
-        void CutMenuItem_Click(object sender, EventArgs e) { this._hexBox.Copy(); }
+        void CutMenuItem_Click(object sender, EventArgs e) { this._hexBox.Cut(); }
         /// <summary>
         /// The handler for the "Copy"-Click event
         /// </summary>
@@ -116,7 +116,7 @@ namespace Be.Windows.Forms
         /// </summary>
         /// <param name="sender">the sender object</param>
         /// <param name="e">the event data</param>
-        void PasteMenuItem_Click(object sender, EventArgs e) { this._hexBox.Copy(); }
+        void PasteMenuItem_Click(object sender, EventArgs e) { this._hexBox.Paste(); }
         /// <summary>
         /// The handler for the "Select All"-Click event
         /// </summary>

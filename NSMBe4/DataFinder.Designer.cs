@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataFinder));
             this.outputTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.findBlockRadioButton = new System.Windows.Forms.RadioButton();
@@ -179,6 +180,7 @@
             this.Controls.Add(this.findBlockRadioButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.outputTextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DataFinder";
             this.Text = "<_TITLE>";
             this.Load += new System.EventHandler(this.DataFinder_Load);

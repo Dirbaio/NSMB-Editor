@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Be.Windows.Forms
 {
@@ -14,13 +15,13 @@ namespace Be.Windows.Forms
 		/// <summary>
 		/// Contains a byte collection.
 		/// </summary>
-		ByteCollection _bytes;
+		List<byte> _bytes;
 
 		/// <summary>
 		/// Initializes a new instance of the DynamicByteProvider class.
 		/// </summary>
 		/// <param name="data"></param>
-		public DynamicByteProvider(byte[] data) : this(new ByteCollection(data)) 
+		public DynamicByteProvider(byte[] data) : this(new List<Byte>(data)) 
 		{
 		}
 
@@ -28,7 +29,7 @@ namespace Be.Windows.Forms
 		/// Initializes a new instance of the DynamicByteProvider class.
 		/// </summary>
 		/// <param name="bytes"></param>
-		public DynamicByteProvider(ByteCollection bytes)
+		public DynamicByteProvider(List<Byte> bytes)
 		{
 			_bytes = bytes;
 		}
@@ -56,7 +57,7 @@ namespace Be.Windows.Forms
 		/// <summary>
 		/// Gets the byte collection.
 		/// </summary>
-		public ByteCollection Bytes
+		public List<Byte> Bytes
 		{
 			get { return _bytes; }
 		}
@@ -171,5 +172,6 @@ namespace Be.Windows.Forms
 			return true;
 		}
 		#endregion
-	}
+
+    }
 }

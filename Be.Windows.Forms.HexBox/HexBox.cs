@@ -802,7 +802,7 @@ namespace Be.Windows.Forms
                         _messageHandlers.Add(Keys.Right, new MessageDelegate(PreProcessWmKeyDown_Right)); // move right
                         _messageHandlers.Add(Keys.Down, new MessageDelegate(PreProcessWmKeyDown_Down)); // move down
                         _messageHandlers.Add(Keys.PageUp, new MessageDelegate(PreProcessWmKeyDown_PageUp)); // move pageup
-                        _messageHandlers.Add(Keys.PageDown | Keys.Shift, new MessageDelegate(PreProcessWmKeyDown_PageDown)); // move page down
+                        _messageHandlers.Add(Keys.PageDown, new MessageDelegate(PreProcessWmKeyDown_PageDown)); // move page down
                         _messageHandlers.Add(Keys.Left | Keys.Shift, new MessageDelegate(PreProcessWmKeyDown_ShiftLeft)); // move left with selection
                         _messageHandlers.Add(Keys.Up | Keys.Shift, new MessageDelegate(PreProcessWmKeyDown_ShiftUp)); // move up with selection
                         _messageHandlers.Add(Keys.Right | Keys.Shift, new MessageDelegate(PreProcessWmKeyDown_ShiftRight)); // move right with selection
@@ -2270,6 +2270,12 @@ namespace Be.Windows.Forms
 					ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
 					break;
 				}
+                default:
+                {
+                    // draw background
+                    e.Graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
+                    break;
+                }
 			}
 		}
 

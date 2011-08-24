@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressWindow));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.currentAction = new System.Windows.Forms.Label();
@@ -72,8 +73,9 @@
             this.Controls.Add(this.currentAction);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.textBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProgressWindow";
-            this.Text = "ProgressWindow";
+            this.Text = "Progress";
             this.ResumeLayout(false);
             this.PerformLayout();
 

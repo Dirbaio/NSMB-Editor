@@ -15,7 +15,7 @@ At first bootup time:
 You will be prompted to download spritedata.txt, if there isn't one already present. This is a necessary file for proper operation.
 
 Be.Windows.Forms.HexBox:
-Current version is: 146
+Current version is: 147
 
 Websites:
 http://board.dirbaio.net/index.php - The NSMB Hacking Domain, a.k.a NSMBe Forum

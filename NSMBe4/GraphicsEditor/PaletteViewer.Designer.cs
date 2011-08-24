@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaletteViewer));
             this.paletteList = new System.Windows.Forms.ListBox();
             this.is4bpp = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -46,7 +47,7 @@
             this.paletteList.FormattingEnabled = true;
             this.paletteList.Location = new System.Drawing.Point(0, 0);
             this.paletteList.Name = "paletteList";
-            this.paletteList.Size = new System.Drawing.Size(144, 264);
+            this.paletteList.Size = new System.Drawing.Size(144, 266);
             this.paletteList.TabIndex = 0;
             this.paletteList.SelectedIndexChanged += new System.EventHandler(this.paletteList_SelectedIndexChanged);
             // 
@@ -120,6 +121,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PaletteViewer";
             this.Text = "PaletteViewer";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
