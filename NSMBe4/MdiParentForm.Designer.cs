@@ -48,7 +48,7 @@
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // MdiParentForm
@@ -61,9 +61,11 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MdiParentForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "NSMB Editor 5.2";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MdiParentForm_FormClosed);
             this.Load += new System.EventHandler(this.MdiParentForm_Load);
+            this.SizeChanged += new System.EventHandler(this.MdiParentForm_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
