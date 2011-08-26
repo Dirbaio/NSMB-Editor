@@ -117,30 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="openROMDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="openROMDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </data>
-  <data name="importLevelDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="importLevelDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>407, 17</value>
-  </data>
-  <data name="exportLevelDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="exportLevelDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>558, 17</value>
-  </data>
-  <data name="savePatchDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="savePatchDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
-  </data>
-  <data name="openPatchDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="openPatchDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>158, 56</value>
-  </data>
-  <data name="openTextFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="openTextFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>251, 17</value>
-  </data>
-  <data name="saveTextFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="saveTextFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>303, 56</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>nsmbe.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAIAICAQAAEABADoAgAAJgAAABAQEAABAAQAKAEAAA4DAAAoAAAAIAAAAEAAAAABAAQAAAAAAIAC
+        AAAAAAAAAAAAAAAAAAAAAAAAABA4ABgwaACYAAAA+IgAAAAAkAAAALAAAGiwAFBoqAAAANAAIJj4AGiQ
+        0AB4qPAAAOj4AJDA+ADo+PgAAAAAAMZmZmZmZmZmZmZmZmZmZmbszMzMzMzMzMzMzMzMzMzG7GnMzMzM
+        zMzMzMzMzMxpxuxmzMzMzMzMl3d5zMzMZsbszMyQABnMl3eqqqzMzMzG7MzMAAAAd3qqqqqnnMzMxuzM
+        zJAAAXeqq7u6qnnMzMbszMzAAauqq7u7vXEHzMzG7MzMcBq7u7u73dcQAarMxuzMyQB7uqt3vd1wAHqq
+        rMbszMEAq6d6AK3dEBeru6rG7MlEQKunoQAb3arbu926xuyURER7qnAACtvjuqvdu8bsVERESroQABvb
+        4qzNu7zG7ERERVRFQAG92+KszMzMxuxERFVVVVVBqtvTvMzMzMbsVERVVVVVVVd6qqzMzMzG7JREVVVY
+        iIVVVVF8zMzMxuzJVEVViIiIhVWIiJzMzMbszMlFVYiIiIiFWIiInMzG7MzMlVWIiIiIiIWIiIjMxuzM
+        zMlVWIiIiIiIiIiJzMbszMzMhViIiIiIitzMzMzG7MzMzMVViIiIiI3szMzMxuzMzMzJVYiIiIiN7MzM
+        zMbszMzMzJVYiIiIiuzMzMzG7MzMzMzMhYiIiIiczMzMxuzMzMzMzMmIiIiJzMzMzMbsaczMzMzMyYiI
+        nMzMzGnG7GbMzMzMzMzMzMzMzMxmxuzMzMzMzMzMzMzMzMzMzMbu7u7u7u7u7u7u7u7u7u7sAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAoAAAAEAAAACAAAAABAAQAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAeAAwUGgACACoAEBo
+        kAAQANAAUFDoAFiQuABosNAAgICAAJiY8ACA0PAAmPD4AODg+AD4+PgAAAAAAP//IkREIv////JHiIh0
+        L///9Iu8y7hP//8EuAzAi0D/8AJ4LMKHIA9QEAR4h0ABBWMzERERETMWpjM1UzVTM2raU1rd3aU1ra1V
+        ru7u6lXa/Vbe7u7tZd/6Vt7u7u1lr/9mru7u6mb///Zq7u6mb////2aqqmb//////2Zm////8A///+AH
+        ///gB///wAP//4AB//8AAP//AAD//wAA//8AAP//AAD//4AB//+AAf//wAP//+AH///wD////D///w==
+</value>
   </data>
 </root>
