@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelConfig));
             this.cancelButton = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -90,7 +89,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.chkFreeScrolling = new System.Windows.Forms.CheckBox();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -672,11 +670,10 @@
             this.tableLayoutPanel2.Controls.Add(this.soundSetUpDown, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label15, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.chkFreeScrolling, 1, 7);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 9;
+            this.tableLayoutPanel2.RowCount = 8;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -685,7 +682,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(516, 500);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
@@ -847,17 +843,6 @@
             // 
             this.saveFileDialog2.Filter = "NSMB BGs|*.nmb|All files|*.*";
             // 
-            // chkFreeScrolling
-            // 
-            this.chkFreeScrolling.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.chkFreeScrolling.AutoSize = true;
-            this.chkFreeScrolling.Location = new System.Drawing.Point(261, 176);
-            this.chkFreeScrolling.Name = "chkFreeScrolling";
-            this.chkFreeScrolling.Size = new System.Drawing.Size(130, 17);
-            this.chkFreeScrolling.TabIndex = 7;
-            this.chkFreeScrolling.Text = "Always scroll vertically";
-            this.chkFreeScrolling.UseVisualStyleBackColor = true;
-            // 
             // LevelConfig
             // 
             this.AcceptButton = this.OKButton;
@@ -869,7 +854,6 @@
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.cancelButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LevelConfig";
@@ -962,6 +946,5 @@
         private System.Windows.Forms.Button bgTopLayerExportBG;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
-        private System.Windows.Forms.CheckBox chkFreeScrolling;
     }
 }

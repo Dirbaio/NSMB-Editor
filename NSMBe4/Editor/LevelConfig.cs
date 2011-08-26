@@ -96,7 +96,6 @@ namespace NSMBe4 {
             levelWrapCheckBox.Checked = ((Level.Blocks[0][2] & 0x20) != 0);
             forceMiniCheckBox.Checked = ((Level.Blocks[0][2] & 0x01) != 0);
             miniMarioPhysicsCheckBox.Checked = ((Level.Blocks[0][2] & 0x02) != 0);
-            chkFreeScrolling.Checked = (Level.Blocks[1][18] == 0xF);
 
             tilesetComboBox.SelectedIndex = Level.Blocks[0][0xC];
             int FGIndex = Level.Blocks[0][0x12];
@@ -286,7 +285,6 @@ namespace NSMBe4 {
             if (miniMarioPhysicsCheckBox.Checked)
                 settingsByte |= 0x02;
             newData[0][2] = settingsByte;
-            newData[1][18] = (byte)(chkFreeScrolling.Checked ? 0xF : 0);
 
             int oldTileset = newData[0][0xC];
 
