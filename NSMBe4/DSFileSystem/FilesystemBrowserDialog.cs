@@ -37,6 +37,8 @@ namespace NSMBe4.DSFileSystem
 
             this.fs = fs;
             filesystemBrowser1.Load(fs);
+
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void FilesystemBrowserDialog_FormClosed(object sender, FormClosedEventArgs e)

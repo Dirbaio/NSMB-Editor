@@ -71,6 +71,7 @@ namespace NSMBe4 {
                 for (int j = 0; j < pad; j++)
                     Levels[i] += " ";
             }
+            this.Icon = Properties.Resources.nsmbe;
         }
         private List<string> Levels;
         private List<string> LevelFiles;

@@ -65,6 +65,7 @@ namespace NSMBe4 {
                     target.Items.Add(trimmedname);
                 }
             }
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private NSMBLevel Level;

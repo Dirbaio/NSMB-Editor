@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelHexEditor));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveBlockButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -51,7 +50,7 @@
             this.saveBlockButton.Image = global::NSMBe4.Properties.Resources.save;
             this.saveBlockButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveBlockButton.Name = "saveBlockButton";
-            this.saveBlockButton.Size = new System.Drawing.Size(122, 22);
+            this.saveBlockButton.Size = new System.Drawing.Size(131, 22);
             this.saveBlockButton.Text = "<saveBlockButton>";
             this.saveBlockButton.Click += new System.EventHandler(this.saveBlockButton_Click);
             // 
@@ -63,7 +62,7 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(94, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(102, 22);
             this.toolStripLabel1.Text = "<toolStripLabel1>";
             // 
             // blockComboBox
@@ -107,7 +106,6 @@
             this.ClientSize = new System.Drawing.Size(667, 331);
             this.Controls.Add(this.hexBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelHexEditor";
             this.Text = "LevelHexEditor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelHexEditor_FormClosed);

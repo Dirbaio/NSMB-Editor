@@ -82,6 +82,7 @@ namespace NSMBe4
             tilesetObjectEditor1.descLbl.Visible = descExists;
             if (descExists)
                 descriptions = ROM.descriptions[TilesetID]; //Get the descriptions
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void graphicsEditor1_SaveGraphics() {

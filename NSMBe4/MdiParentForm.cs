@@ -23,6 +23,7 @@ namespace NSMBe4
                 this.Size = Properties.Settings.Default.MDIWindowSize;
                 if (Properties.Settings.Default.MDIWindowMax) this.WindowState = FormWindowState.Maximized;
             }
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void MdiParentForm_Load(object sender, EventArgs e)

@@ -24,6 +24,7 @@ namespace NSMBe4
                 is4bpp.Checked = true;
             updatePalettes();
             pictureBox1.Invalidate();
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         public void updatePalettes()

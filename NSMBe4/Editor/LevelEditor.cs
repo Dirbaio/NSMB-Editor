@@ -108,6 +108,7 @@ namespace NSMBe4 {
             levelEditorControl1.minimap = MinimapForm;
             MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), this.Text);
             minimapControl1.loadMinimap(Level, levelEditorControl1);
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void reloadTilesets_Click(object sender, EventArgs e) {

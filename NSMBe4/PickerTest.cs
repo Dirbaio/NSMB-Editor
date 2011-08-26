@@ -14,6 +14,7 @@ namespace NSMBe4
         {
             InitializeComponent();
             objectPickerControlNew1.Initialise(g, 1);
+            this.Icon = Properties.Resources.nsmbe;
         }
     }
 }

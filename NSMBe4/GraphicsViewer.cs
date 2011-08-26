@@ -52,6 +52,7 @@ namespace NSMBe4
             updatePaletteCount();
 
             LanguageManager.ApplyToContainer(this, "GraphicsViewer");
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void updatePaletteCount()

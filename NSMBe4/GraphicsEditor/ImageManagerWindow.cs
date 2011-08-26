@@ -14,6 +14,7 @@ namespace NSMBe4
         {
             InitializeComponent();
             this.MdiParent = MdiParentForm.instance;
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void ImageManagerWindow_FormClosing(object sender, FormClosingEventArgs e)

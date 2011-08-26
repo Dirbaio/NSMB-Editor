@@ -46,6 +46,7 @@ namespace NSMBe4
             }
 
             tilesetComboBox.Items.AddRange(parsedlist);
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void editJyotyuButton_Click(object sender, EventArgs e) {

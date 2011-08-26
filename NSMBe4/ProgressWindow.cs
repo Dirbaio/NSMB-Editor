@@ -33,6 +33,7 @@ namespace NSMBe4
             if (Properties.Settings.Default.mdi)
                 this.MdiParent = MdiParentForm.instance;
             this.Text = title;
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         public void SetMax(int max)

@@ -56,6 +56,7 @@ namespace NSMBe4
             }
 
             LoadBlock(0);
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void LevelHexEditor_Load(object sender, EventArgs e) {

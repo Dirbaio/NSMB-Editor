@@ -44,6 +44,7 @@ namespace NSMBe4.DSFileSystem
             this.Text = string.Format(LanguageManager.Get("FileHexEditor", "_TITLE"), f.name);
 
             hexBox1.ByteProvider = new DynamicByteProvider(f.getContents());
+            this.Icon = Properties.Resources.nsmbe;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
