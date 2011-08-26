@@ -4,531 +4,6 @@
         <name>Be.Windows.Forms.HexBox</name>
     </assembly>
     <members>
-        <member name="T:Be.Windows.Forms.ByteCollection">
-            <summary>
-            Represents a collection of bytes.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.#ctor">
-            <summary>
-            Initializes a new instance of ByteCollection class.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.#ctor(System.Byte[])">
-            <summary>
-            Initializes a new instance of ByteCollection class.
-            </summary>
-            <param name="bs">an array of bytes to add to collection</param>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.Add(System.Byte)">
-            <summary>
-            Adds a byte into the collection.
-            </summary>
-            <param name="b">the byte to add</param>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.AddRange(System.Byte[])">
-            <summary>
-            Adds a range of bytes to the collection.
-            </summary>
-            <param name="bs">the bytes to add</param>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.Remove(System.Byte)">
-            <summary>
-            Removes a byte from the collection.
-            </summary>
-            <param name="b">the byte to remove</param>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.RemoveRange(System.Int32,System.Int32)">
-            <summary>
-            Removes a range of bytes from the collection.
-            </summary>
-            <param name="index">the index of the start byte</param>
-            <param name="count">the count of the bytes to remove</param>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.InsertRange(System.Int32,System.Byte[])">
-            <summary>
-            Inserts a range of bytes to the collection.
-            </summary>
-            <param name="index">the index of start byte</param>
-            <param name="bs">an array of bytes to insert</param>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.GetBytes">
-            <summary>
-            Gets all bytes in the array
-            </summary>
-            <returns>an array of bytes.</returns>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.Insert(System.Int32,System.Byte)">
-            <summary>
-            Inserts a byte to the collection.
-            </summary>
-            <param name="index">the index</param>
-            <param name="b">a byte to insert</param>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.IndexOf(System.Byte)">
-            <summary>
-            Returns the index of the given byte.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.Contains(System.Byte)">
-            <summary>
-            Returns true, if the byte exists in the collection.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.CopyTo(System.Byte[],System.Int32)">
-            <summary>
-            Copies the content of the collection into the given array.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.ByteCollection.ToArray">
-            <summary>
-            Copies the content of the collection into an array.
-            </summary>
-            <returns>the array containing all bytes.</returns>
-        </member>
-        <member name="P:Be.Windows.Forms.ByteCollection.Item(System.Int32)">
-            <summary>
-            Gets or sets the value of a byte
-            </summary>
-        </member>
-        <member name="T:Be.Windows.Forms.FileByteProvider">
-            <summary>
-            Byte provider for (big) files.
-            </summary>
-        </member>
-        <member name="T:Be.Windows.Forms.IByteProvider">
-            <summary>
-            Defines a byte provider for HexBox control
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.ReadByte(System.Int64)">
-            <summary>
-            Reads a byte from the provider
-            </summary>
-            <param name="index">the index of the byte to read</param>
-            <returns>the byte to read</returns>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.WriteByte(System.Int64,System.Byte)">
-            <summary>
-            Writes a byte into the provider
-            </summary>
-            <param name="index">the index of the byte to write</param>
-            <param name="value">the byte to write</param>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.InsertBytes(System.Int64,System.Byte[])">
-            <summary>
-            Inserts bytes into the provider
-            </summary>
-            <param name="index"></param>
-            <param name="bs"></param>
-            <remarks>This method must raise the LengthChanged event.</remarks>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.DeleteBytes(System.Int64,System.Int64)">
-            <summary>
-            Deletes bytes from the provider
-            </summary>
-            <param name="index">the start index of the bytes to delete</param>
-            <param name="length">the length of the bytes to delete</param>
-            <remarks>This method must raise the LengthChanged event.</remarks>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.HasChanges">
-            <summary>
-            True, when changes are done.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.ApplyChanges">
-            <summary>
-            Applies changes.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.SupportsWriteByte">
-            <summary>
-            Returns a value if the WriteByte methods is supported by the provider.
-            </summary>
-            <returns>True, when it´s supported.</returns>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.SupportsInsertBytes">
-            <summary>
-            Returns a value if the InsertBytes methods is supported by the provider.
-            </summary>
-            <returns>True, when it´s supported.</returns>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteProvider.SupportsDeleteBytes">
-            <summary>
-            Returns a value if the DeleteBytes methods is supported by the provider.
-            </summary>
-            <returns>True, when it´s supported.</returns>
-        </member>
-        <member name="P:Be.Windows.Forms.IByteProvider.Length">
-            <summary>
-            Returns the total length of bytes the byte provider is providing.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.IByteProvider.LengthChanged">
-            <summary>
-            Occurs, when the Length property changed.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.IByteProvider.Changed">
-            <summary>
-            Occurs, when bytes are changed.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.FileByteProvider._writes">
-            <summary>
-            Contains all changes
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.FileByteProvider._fileName">
-            <summary>
-            Contains the file name.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.FileByteProvider._fileStream">
-            <summary>
-            Contains the file stream.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.FileByteProvider._readOnly">
-            <summary>
-            Read-only access.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the FileByteProvider class.
-            </summary>
-            <param name="fileName"></param>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.Finalize">
-            <summary>
-            Terminates the instance of the FileByteProvider class.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.OnChanged(System.EventArgs)">
-            <summary>
-            Raises the Changed event.
-            </summary>
-            <remarks>Never used.</remarks>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.HasChanges">
-            <summary>
-            Returns a value if there are some changes.
-            </summary>
-            <returns>true, if there are some changes</returns>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.ApplyChanges">
-            <summary>
-            Updates the file with all changes the write buffer contains.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.RejectChanges">
-            <summary>
-            Clears the write buffer and reject all changes made.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.ReadByte(System.Int64)">
-            <summary>
-            Reads a byte from the file.
-            </summary>
-            <param name="index">the index of the byte to read</param>
-            <returns>the byte</returns>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.WriteByte(System.Int64,System.Byte)">
-            <summary>
-            Writes a byte into write buffer
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.DeleteBytes(System.Int64,System.Int64)">
-            <summary>
-            Not supported
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.InsertBytes(System.Int64,System.Byte[])">
-            <summary>
-            Not supported
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.SupportsWriteByte">
-            <summary>
-            Returns true
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.SupportsInsertBytes">
-            <summary>
-            Returns false
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.SupportsDeleteBytes">
-            <summary>
-            Returns false
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.Dispose">
-            <summary>
-            Releases the file handle used by the FileByteProvider.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.FileByteProvider.Changed">
-            <summary>
-            Occurs, when the write buffer contains new changes.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.FileByteProvider.FileName">
-            <summary>
-            Gets the name of the file the byte provider is using.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.FileByteProvider.LengthChanged">
-            <summary>
-            Never used.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.FileByteProvider.Length">
-            <summary>
-            Gets the length of the file.
-            </summary>
-        </member>
-        <member name="T:Be.Windows.Forms.FileByteProvider.WriteCollection">
-            <summary>
-            Represents the write buffer class
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.WriteCollection.Add(System.Int64,System.Byte)">
-            <summary>
-            Adds a byte into the collection
-            </summary>
-            <param name="index">the index of the byte</param>
-            <param name="value">the value of the byte</param>
-        </member>
-        <member name="M:Be.Windows.Forms.FileByteProvider.WriteCollection.Contains(System.Int64)">
-            <summary>
-            Determines if a byte with the given index exists.
-            </summary>
-            <param name="index">the index of the byte</param>
-            <returns>true, if the is in the collection</returns>
-        </member>
-        <member name="P:Be.Windows.Forms.FileByteProvider.WriteCollection.Item(System.Int64)">
-            <summary>
-            Gets or sets a byte in the collection
-            </summary>
-        </member>
-        <member name="T:Be.Windows.Forms.DynamicFileByteProvider">
-            <summary>
-            Implements a fully editable byte provider for file data of any size.
-            </summary>
-            <remarks>
-            Only changes to the file are stored in memory with reads from the
-            original data occurring as required.
-            </remarks>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.#ctor(System.String)">
-            <summary>
-            Constructs a new <see cref="T:Be.Windows.Forms.DynamicFileByteProvider"/> instance.
-            </summary>
-            <param name="fileName">The name of the file from which bytes should be provided.</param>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.#ctor(System.String,System.Boolean)">
-            <summary>
-            Constructs a new <see cref="T:Be.Windows.Forms.DynamicFileByteProvider"/> instance.
-            </summary>
-            <param name="fileName">The name of the file from which bytes should be provided.</param>
-            <param name="readOnly">True, opens the file in read-only mode.</param>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.#ctor(System.IO.Stream)">
-            <summary>
-            Constructs a new <see cref="T:Be.Windows.Forms.DynamicFileByteProvider"/> instance.
-            </summary>
-            <param name="stream">the stream containing the data.</param>
-            <remarks>
-            The stream must supported seek operations.
-            </remarks>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.ReadByte(System.Int64)">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.ReadByte(System.Int64)"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.WriteByte(System.Int64,System.Byte)">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.WriteByte(System.Int64,System.Byte)"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.InsertBytes(System.Int64,System.Byte[])">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.InsertBytes(System.Int64,System.Byte[])"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.DeleteBytes(System.Int64,System.Int64)">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.DeleteBytes(System.Int64,System.Int64)"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.HasChanges">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.HasChanges"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.ApplyChanges">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.ApplyChanges"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.SupportsWriteByte">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.SupportsWriteByte"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.SupportsInsertBytes">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.SupportsInsertBytes"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.SupportsDeleteBytes">
-            <summary>
-            See <see cref="M:Be.Windows.Forms.IByteProvider.SupportsDeleteBytes"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.Finalize">
-            <summary>
-            See <see cref="M:System.Object.Finalize"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.Dispose">
-            <summary>
-            See <see cref="M:System.IDisposable.Dispose"/> for more information.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.DynamicFileByteProvider.LengthChanged">
-            <summary>
-            See <see cref="E:Be.Windows.Forms.IByteProvider.LengthChanged"/> for more information.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.DynamicFileByteProvider.Changed">
-            <summary>
-            See <see cref="E:Be.Windows.Forms.IByteProvider.Changed"/> for more information.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.DynamicFileByteProvider.Length">
-            <summary>
-            See <see cref="P:Be.Windows.Forms.IByteProvider.Length"/> for more information.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.DynamicFileByteProvider.ReadOnly">
-            <summary>
-            Gets a value, if the file is opened in read-only mode.
-            </summary>
-        </member>
-        <member name="T:Be.Windows.Forms.DynamicByteProvider">
-            <summary>
-            Byte provider for a small amount of data.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.DynamicByteProvider._hasChanges">
-            <summary>
-            Contains information about changes.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.DynamicByteProvider._bytes">
-            <summary>
-            Contains a byte collection.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.#ctor(System.Byte[])">
-            <summary>
-            Initializes a new instance of the DynamicByteProvider class.
-            </summary>
-            <param name="data"></param>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.#ctor(System.Collections.Generic.List{System.Byte})">
-            <summary>
-            Initializes a new instance of the DynamicByteProvider class.
-            </summary>
-            <param name="bytes"></param>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.OnChanged(System.EventArgs)">
-            <summary>
-            Raises the Changed event.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.OnLengthChanged(System.EventArgs)">
-            <summary>
-            Raises the LengthChanged event.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.HasChanges">
-            <summary>
-            True, when changes are done.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.ApplyChanges">
-            <summary>
-            Applies changes.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.ReadByte(System.Int64)">
-            <summary>
-            Reads a byte from the byte collection.
-            </summary>
-            <param name="index">the index of the byte to read</param>
-            <returns>the byte</returns>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.WriteByte(System.Int64,System.Byte)">
-            <summary>
-            Write a byte into the byte collection.
-            </summary>
-            <param name="index">the index of the byte to write.</param>
-            <param name="value">the byte</param>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.DeleteBytes(System.Int64,System.Int64)">
-            <summary>
-            Deletes bytes from the byte collection.
-            </summary>
-            <param name="index">the start index of the bytes to delete.</param>
-            <param name="length">the length of bytes to delete.</param>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.InsertBytes(System.Int64,System.Byte[])">
-            <summary>
-            Inserts byte into the byte collection.
-            </summary>
-            <param name="index">the start index of the bytes in the byte collection</param>
-            <param name="bs">the byte array to insert</param>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.SupportsWriteByte">
-            <summary>
-            Returns true
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.SupportsInsertBytes">
-            <summary>
-            Returns true
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DynamicByteProvider.SupportsDeleteBytes">
-            <summary>
-            Returns true
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.DynamicByteProvider.Bytes">
-            <summary>
-            Gets the byte collection.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.DynamicByteProvider.Changed">
-            <summary>
-            Occurs, when the write buffer contains new changes.
-            </summary>
-        </member>
-        <member name="E:Be.Windows.Forms.DynamicByteProvider.LengthChanged">
-            <summary>
-            Occurs, when InsertBytes or DeleteBytes method is called.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.DynamicByteProvider.Length">
-            <summary>
-            Gets the length of the bytes in the byte collection.
-            </summary>
-        </member>
         <member name="T:Be.Windows.Forms.HexCasing">
             <summary>
             Specifies the case of hex characters in the HexBox control
@@ -542,154 +17,6 @@
         <member name="F:Be.Windows.Forms.HexCasing.Lower">
             <summary>
             Converts all characters to lowercase.
-            </summary>
-        </member>
-        <member name="T:Be.Windows.Forms.BuiltInContextMenu">
-            <summary>
-            Defines a build-in ContextMenuStrip manager for HexBox control to show Copy, Cut, Paste menu in contextmenu of the control.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.BuiltInContextMenu._hexBox">
-            <summary>
-            Contains the HexBox control.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.BuiltInContextMenu._contextMenuStrip">
-            <summary>
-            Contains the ContextMenuStrip control.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.BuiltInContextMenu._cutToolStripMenuItem">
-            <summary>
-            Contains the "Cut"-ToolStripMenuItem object.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.BuiltInContextMenu._copyToolStripMenuItem">
-            <summary>
-            Contains the "Copy"-ToolStripMenuItem object.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.BuiltInContextMenu._pasteToolStripMenuItem">
-            <summary>
-            Contains the "Paste"-ToolStripMenuItem object.
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.BuiltInContextMenu._selectAllToolStripMenuItem">
-            <summary>
-            Contains the "Select All"-ToolStripMenuItem object.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.#ctor(Be.Windows.Forms.HexBox)">
-            <summary>
-            Initializes a new instance of BuildInContextMenu class.
-            </summary>
-            <param name="hexBox">the HexBox control</param>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.HexBox_ByteProviderChanged(System.Object,System.EventArgs)">
-            <summary>
-            If ByteProvider
-            </summary>
-            <param name="sender">the sender object</param>
-            <param name="e">the event data</param>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.CheckBuiltInContextMenu">
-            <summary>
-            Assigns the ContextMenuStrip control to the HexBox control.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.BuildInContextMenuStrip_Opening(System.Object,System.ComponentModel.CancelEventArgs)">
-            <summary>
-            Before opening the ContextMenuStrip, we manage the availability of the items.
-            </summary>
-            <param name="sender">the sender object</param>
-            <param name="e">the event data</param>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.CutMenuItem_Click(System.Object,System.EventArgs)">
-            <summary>
-            The handler for the "Cut"-Click event
-            </summary>
-            <param name="sender">the sender object</param>
-            <param name="e">the event data</param>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItem_Click(System.Object,System.EventArgs)">
-            <summary>
-            The handler for the "Copy"-Click event
-            </summary>
-            <param name="sender">the sender object</param>
-            <param name="e">the event data</param>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItem_Click(System.Object,System.EventArgs)">
-            <summary>
-            The handler for the "Paste"-Click event
-            </summary>
-            <param name="sender">the sender object</param>
-            <param name="e">the event data</param>
-        </member>
-        <member name="M:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItem_Click(System.Object,System.EventArgs)">
-            <summary>
-            The handler for the "Select All"-Click event
-            </summary>
-            <param name="sender">the sender object</param>
-            <param name="e">the event data</param>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItemText">
-            <summary>
-            Gets or sets the custom text of the "Copy" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CutMenuItemText">
-            <summary>
-            Gets or sets the custom text of the "Cut" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItemText">
-            <summary>
-            Gets or sets the custom text of the "Paste" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItemText">
-            <summary>
-            Gets or sets the custom text of the "Select All" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CutMenuItemTextInternal">
-            <summary>
-            Gets the text of the "Cut" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItemTextInternal">
-            <summary>
-            Gets the text of the "Copy" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItemTextInternal">
-            <summary>
-            Gets the text of the "Paste" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItemTextInternal">
-            <summary>
-            Gets the text of the "Select All" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CutMenuItemImage">
-            <summary>
-            Gets or sets the image of the "Cut" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItemImage">
-            <summary>
-            Gets or sets the image of the "Copy" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItemImage">
-            <summary>
-            Gets or sets the image of the "Paste" ContextMenuStrip item.
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItemImage">
-            <summary>
-            Gets or sets the image of the "Select All" ContextMenuStrip item.
             </summary>
         </member>
         <member name="T:Be.Windows.Forms.Properties.Resources">
@@ -707,105 +34,6 @@
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
-        </member>
-        <member name="T:Be.Windows.Forms.BytePositionInfo">
-            <summary>
-            Represents a position in the HexBox control
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.Util._designMode">
-            <summary>
-            Contains true, if we are in design mode of Visual Studio
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.Util.#cctor">
-            <summary>
-            Initializes an instance of Util class
-            </summary>
-        </member>
-        <member name="P:Be.Windows.Forms.Util.DesignMode">
-            <summary>
-            Gets true, if we are in design mode of Visual Studio
-            </summary>
-            <remarks>
-            In Visual Studio 2008 SP1 the designer is crashing sometimes on windows forms. 
-            The DesignMode property of Control class is buggy and cannot be used, so use our own implementation instead.
-            </remarks>
-        </member>
-        <member name="T:Be.Windows.Forms.IByteCharConverter">
-            <summary>
-            The interface for objects that can translate between characters and bytes.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteCharConverter.ToChar(System.Byte)">
-            <summary>
-            Returns the character to display for the byte passed across.
-            </summary>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Be.Windows.Forms.IByteCharConverter.ToByte(System.Char)">
-            <summary>
-            Returns the byte to use when the character passed across is entered during editing.
-            </summary>
-            <param name="c"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Be.Windows.Forms.DefaultByteCharConverter">
-            <summary>
-            The default <see cref="T:Be.Windows.Forms.IByteCharConverter"/> implementation.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.DefaultByteCharConverter.ToChar(System.Byte)">
-            <summary>
-            Returns the character to display for the byte passed across.
-            </summary>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Be.Windows.Forms.DefaultByteCharConverter.ToByte(System.Char)">
-            <summary>
-            Returns the byte to use for the character passed across.
-            </summary>
-            <param name="c"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Be.Windows.Forms.DefaultByteCharConverter.ToString">
-            <summary>
-            Returns a description of the byte char provider.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Be.Windows.Forms.EbcdicByteCharProvider">
-            <summary>
-            A byte char provider that can translate bytes encoded in codepage 500 EBCDIC
-            </summary>
-        </member>
-        <member name="F:Be.Windows.Forms.EbcdicByteCharProvider._ebcdicEncoding">
-            <summary>
-            The IBM EBCDIC code page 500 encoding. Note that this is not always supported by .NET,
-            the underlying platform has to provide support for it.
-            </summary>
-        </member>
-        <member name="M:Be.Windows.Forms.EbcdicByteCharProvider.ToChar(System.Byte)">
-            <summary>
-            Returns the EBCDIC character corresponding to the byte passed across.
-            </summary>
-            <param name="b"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Be.Windows.Forms.EbcdicByteCharProvider.ToByte(System.Char)">
-            <summary>
-            Returns the byte corresponding to the EBCDIC character passed across.
-            </summary>
-            <param name="c"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Be.Windows.Forms.EbcdicByteCharProvider.ToString">
-            <summary>
-            Returns a description of the byte char provider.
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:Be.Windows.Forms.HexBox">
             <summary>
@@ -1610,6 +838,778 @@
         <member name="T:Be.Windows.Forms.HexBox.StringKeyInterpreter">
             <summary>
             Handles user input such as mouse and keyboard input during string view edit
+            </summary>
+        </member>
+        <member name="T:Be.Windows.Forms.ByteCollection">
+            <summary>
+            Represents a collection of bytes.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.#ctor">
+            <summary>
+            Initializes a new instance of ByteCollection class.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.#ctor(System.Byte[])">
+            <summary>
+            Initializes a new instance of ByteCollection class.
+            </summary>
+            <param name="bs">an array of bytes to add to collection</param>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.Add(System.Byte)">
+            <summary>
+            Adds a byte into the collection.
+            </summary>
+            <param name="b">the byte to add</param>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.AddRange(System.Byte[])">
+            <summary>
+            Adds a range of bytes to the collection.
+            </summary>
+            <param name="bs">the bytes to add</param>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.Remove(System.Byte)">
+            <summary>
+            Removes a byte from the collection.
+            </summary>
+            <param name="b">the byte to remove</param>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+            Removes a range of bytes from the collection.
+            </summary>
+            <param name="index">the index of the start byte</param>
+            <param name="count">the count of the bytes to remove</param>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.InsertRange(System.Int32,System.Byte[])">
+            <summary>
+            Inserts a range of bytes to the collection.
+            </summary>
+            <param name="index">the index of start byte</param>
+            <param name="bs">an array of bytes to insert</param>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.GetBytes">
+            <summary>
+            Gets all bytes in the array
+            </summary>
+            <returns>an array of bytes.</returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.Insert(System.Int32,System.Byte)">
+            <summary>
+            Inserts a byte to the collection.
+            </summary>
+            <param name="index">the index</param>
+            <param name="b">a byte to insert</param>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.IndexOf(System.Byte)">
+            <summary>
+            Returns the index of the given byte.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.Contains(System.Byte)">
+            <summary>
+            Returns true, if the byte exists in the collection.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.CopyTo(System.Byte[],System.Int32)">
+            <summary>
+            Copies the content of the collection into the given array.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ByteCollection.ToArray">
+            <summary>
+            Copies the content of the collection into an array.
+            </summary>
+            <returns>the array containing all bytes.</returns>
+        </member>
+        <member name="P:Be.Windows.Forms.ByteCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the value of a byte
+            </summary>
+        </member>
+        <member name="T:Be.Windows.Forms.BuiltInContextMenu">
+            <summary>
+            Defines a build-in ContextMenuStrip manager for HexBox control to show Copy, Cut, Paste menu in contextmenu of the control.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.BuiltInContextMenu._hexBox">
+            <summary>
+            Contains the HexBox control.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.BuiltInContextMenu._contextMenuStrip">
+            <summary>
+            Contains the ContextMenuStrip control.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.BuiltInContextMenu._cutToolStripMenuItem">
+            <summary>
+            Contains the "Cut"-ToolStripMenuItem object.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.BuiltInContextMenu._copyToolStripMenuItem">
+            <summary>
+            Contains the "Copy"-ToolStripMenuItem object.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.BuiltInContextMenu._pasteToolStripMenuItem">
+            <summary>
+            Contains the "Paste"-ToolStripMenuItem object.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.BuiltInContextMenu._selectAllToolStripMenuItem">
+            <summary>
+            Contains the "Select All"-ToolStripMenuItem object.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.#ctor(Be.Windows.Forms.HexBox)">
+            <summary>
+            Initializes a new instance of BuildInContextMenu class.
+            </summary>
+            <param name="hexBox">the HexBox control</param>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.HexBox_ByteProviderChanged(System.Object,System.EventArgs)">
+            <summary>
+            If ByteProvider
+            </summary>
+            <param name="sender">the sender object</param>
+            <param name="e">the event data</param>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.CheckBuiltInContextMenu">
+            <summary>
+            Assigns the ContextMenuStrip control to the HexBox control.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.BuildInContextMenuStrip_Opening(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Before opening the ContextMenuStrip, we manage the availability of the items.
+            </summary>
+            <param name="sender">the sender object</param>
+            <param name="e">the event data</param>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.CutMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            The handler for the "Cut"-Click event
+            </summary>
+            <param name="sender">the sender object</param>
+            <param name="e">the event data</param>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            The handler for the "Copy"-Click event
+            </summary>
+            <param name="sender">the sender object</param>
+            <param name="e">the event data</param>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            The handler for the "Paste"-Click event
+            </summary>
+            <param name="sender">the sender object</param>
+            <param name="e">the event data</param>
+        </member>
+        <member name="M:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            The handler for the "Select All"-Click event
+            </summary>
+            <param name="sender">the sender object</param>
+            <param name="e">the event data</param>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItemText">
+            <summary>
+            Gets or sets the custom text of the "Copy" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CutMenuItemText">
+            <summary>
+            Gets or sets the custom text of the "Cut" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItemText">
+            <summary>
+            Gets or sets the custom text of the "Paste" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItemText">
+            <summary>
+            Gets or sets the custom text of the "Select All" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CutMenuItemTextInternal">
+            <summary>
+            Gets the text of the "Cut" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItemTextInternal">
+            <summary>
+            Gets the text of the "Copy" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItemTextInternal">
+            <summary>
+            Gets the text of the "Paste" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItemTextInternal">
+            <summary>
+            Gets the text of the "Select All" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CutMenuItemImage">
+            <summary>
+            Gets or sets the image of the "Cut" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.CopyMenuItemImage">
+            <summary>
+            Gets or sets the image of the "Copy" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.PasteMenuItemImage">
+            <summary>
+            Gets or sets the image of the "Paste" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.BuiltInContextMenu.SelectAllMenuItemImage">
+            <summary>
+            Gets or sets the image of the "Select All" ContextMenuStrip item.
+            </summary>
+        </member>
+        <member name="T:Be.Windows.Forms.BytePositionInfo">
+            <summary>
+            Represents a position in the HexBox control
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.Util._designMode">
+            <summary>
+            Contains true, if we are in design mode of Visual Studio
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.Util.#cctor">
+            <summary>
+            Initializes an instance of Util class
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.Util.DesignMode">
+            <summary>
+            Gets true, if we are in design mode of Visual Studio
+            </summary>
+            <remarks>
+            In Visual Studio 2008 SP1 the designer is crashing sometimes on windows forms. 
+            The DesignMode property of Control class is buggy and cannot be used, so use our own implementation instead.
+            </remarks>
+        </member>
+        <member name="T:Be.Windows.Forms.DynamicFileByteProvider">
+            <summary>
+            Implements a fully editable byte provider for file data of any size.
+            </summary>
+            <remarks>
+            Only changes to the file are stored in memory with reads from the
+            original data occurring as required.
+            </remarks>
+        </member>
+        <member name="T:Be.Windows.Forms.IByteProvider">
+            <summary>
+            Defines a byte provider for HexBox control
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.ReadByte(System.Int64)">
+            <summary>
+            Reads a byte from the provider
+            </summary>
+            <param name="index">the index of the byte to read</param>
+            <returns>the byte to read</returns>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.WriteByte(System.Int64,System.Byte)">
+            <summary>
+            Writes a byte into the provider
+            </summary>
+            <param name="index">the index of the byte to write</param>
+            <param name="value">the byte to write</param>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.InsertBytes(System.Int64,System.Byte[])">
+            <summary>
+            Inserts bytes into the provider
+            </summary>
+            <param name="index"></param>
+            <param name="bs"></param>
+            <remarks>This method must raise the LengthChanged event.</remarks>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.DeleteBytes(System.Int64,System.Int64)">
+            <summary>
+            Deletes bytes from the provider
+            </summary>
+            <param name="index">the start index of the bytes to delete</param>
+            <param name="length">the length of the bytes to delete</param>
+            <remarks>This method must raise the LengthChanged event.</remarks>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.HasChanges">
+            <summary>
+            True, when changes are done.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.ApplyChanges">
+            <summary>
+            Applies changes.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.SupportsWriteByte">
+            <summary>
+            Returns a value if the WriteByte methods is supported by the provider.
+            </summary>
+            <returns>True, when it´s supported.</returns>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.SupportsInsertBytes">
+            <summary>
+            Returns a value if the InsertBytes methods is supported by the provider.
+            </summary>
+            <returns>True, when it´s supported.</returns>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteProvider.SupportsDeleteBytes">
+            <summary>
+            Returns a value if the DeleteBytes methods is supported by the provider.
+            </summary>
+            <returns>True, when it´s supported.</returns>
+        </member>
+        <member name="P:Be.Windows.Forms.IByteProvider.Length">
+            <summary>
+            Returns the total length of bytes the byte provider is providing.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.IByteProvider.LengthChanged">
+            <summary>
+            Occurs, when the Length property changed.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.IByteProvider.Changed">
+            <summary>
+            Occurs, when bytes are changed.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.#ctor(System.String)">
+            <summary>
+            Constructs a new <see cref="T:Be.Windows.Forms.DynamicFileByteProvider"/> instance.
+            </summary>
+            <param name="fileName">The name of the file from which bytes should be provided.</param>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructs a new <see cref="T:Be.Windows.Forms.DynamicFileByteProvider"/> instance.
+            </summary>
+            <param name="fileName">The name of the file from which bytes should be provided.</param>
+            <param name="readOnly">True, opens the file in read-only mode.</param>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.#ctor(System.IO.Stream)">
+            <summary>
+            Constructs a new <see cref="T:Be.Windows.Forms.DynamicFileByteProvider"/> instance.
+            </summary>
+            <param name="stream">the stream containing the data.</param>
+            <remarks>
+            The stream must supported seek operations.
+            </remarks>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.ReadByte(System.Int64)">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.ReadByte(System.Int64)"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.WriteByte(System.Int64,System.Byte)">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.WriteByte(System.Int64,System.Byte)"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.InsertBytes(System.Int64,System.Byte[])">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.InsertBytes(System.Int64,System.Byte[])"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.DeleteBytes(System.Int64,System.Int64)">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.DeleteBytes(System.Int64,System.Int64)"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.HasChanges">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.HasChanges"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.ApplyChanges">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.ApplyChanges"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.SupportsWriteByte">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.SupportsWriteByte"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.SupportsInsertBytes">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.SupportsInsertBytes"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.SupportsDeleteBytes">
+            <summary>
+            See <see cref="M:Be.Windows.Forms.IByteProvider.SupportsDeleteBytes"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.Finalize">
+            <summary>
+            See <see cref="M:System.Object.Finalize"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicFileByteProvider.Dispose">
+            <summary>
+            See <see cref="M:System.IDisposable.Dispose"/> for more information.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.DynamicFileByteProvider.LengthChanged">
+            <summary>
+            See <see cref="E:Be.Windows.Forms.IByteProvider.LengthChanged"/> for more information.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.DynamicFileByteProvider.Changed">
+            <summary>
+            See <see cref="E:Be.Windows.Forms.IByteProvider.Changed"/> for more information.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.DynamicFileByteProvider.Length">
+            <summary>
+            See <see cref="P:Be.Windows.Forms.IByteProvider.Length"/> for more information.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.DynamicFileByteProvider.ReadOnly">
+            <summary>
+            Gets a value, if the file is opened in read-only mode.
+            </summary>
+        </member>
+        <member name="T:Be.Windows.Forms.DynamicByteProvider">
+            <summary>
+            Byte provider for a small amount of data.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.DynamicByteProvider._hasChanges">
+            <summary>
+            Contains information about changes.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.DynamicByteProvider._bytes">
+            <summary>
+            Contains a byte collection.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.#ctor(System.Byte[])">
+            <summary>
+            Initializes a new instance of the DynamicByteProvider class.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.#ctor(System.Collections.Generic.List{System.Byte})">
+            <summary>
+            Initializes a new instance of the DynamicByteProvider class.
+            </summary>
+            <param name="bytes"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.OnChanged(System.EventArgs)">
+            <summary>
+            Raises the Changed event.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.OnLengthChanged(System.EventArgs)">
+            <summary>
+            Raises the LengthChanged event.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.HasChanges">
+            <summary>
+            True, when changes are done.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.ApplyChanges">
+            <summary>
+            Applies changes.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.ReadByte(System.Int64)">
+            <summary>
+            Reads a byte from the byte collection.
+            </summary>
+            <param name="index">the index of the byte to read</param>
+            <returns>the byte</returns>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.WriteByte(System.Int64,System.Byte)">
+            <summary>
+            Write a byte into the byte collection.
+            </summary>
+            <param name="index">the index of the byte to write.</param>
+            <param name="value">the byte</param>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.DeleteBytes(System.Int64,System.Int64)">
+            <summary>
+            Deletes bytes from the byte collection.
+            </summary>
+            <param name="index">the start index of the bytes to delete.</param>
+            <param name="length">the length of bytes to delete.</param>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.InsertBytes(System.Int64,System.Byte[])">
+            <summary>
+            Inserts byte into the byte collection.
+            </summary>
+            <param name="index">the start index of the bytes in the byte collection</param>
+            <param name="bs">the byte array to insert</param>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.SupportsWriteByte">
+            <summary>
+            Returns true
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.SupportsInsertBytes">
+            <summary>
+            Returns true
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DynamicByteProvider.SupportsDeleteBytes">
+            <summary>
+            Returns true
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.DynamicByteProvider.Bytes">
+            <summary>
+            Gets the byte collection.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.DynamicByteProvider.Changed">
+            <summary>
+            Occurs, when the write buffer contains new changes.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.DynamicByteProvider.LengthChanged">
+            <summary>
+            Occurs, when InsertBytes or DeleteBytes method is called.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.DynamicByteProvider.Length">
+            <summary>
+            Gets the length of the bytes in the byte collection.
+            </summary>
+        </member>
+        <member name="T:Be.Windows.Forms.IByteCharConverter">
+            <summary>
+            The interface for objects that can translate between characters and bytes.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteCharConverter.ToChar(System.Byte)">
+            <summary>
+            Returns the character to display for the byte passed across.
+            </summary>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.IByteCharConverter.ToByte(System.Char)">
+            <summary>
+            Returns the byte to use when the character passed across is entered during editing.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Be.Windows.Forms.DefaultByteCharConverter">
+            <summary>
+            The default <see cref="T:Be.Windows.Forms.IByteCharConverter"/> implementation.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.DefaultByteCharConverter.ToChar(System.Byte)">
+            <summary>
+            Returns the character to display for the byte passed across.
+            </summary>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.DefaultByteCharConverter.ToByte(System.Char)">
+            <summary>
+            Returns the byte to use for the character passed across.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.DefaultByteCharConverter.ToString">
+            <summary>
+            Returns a description of the byte char provider.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Be.Windows.Forms.EbcdicByteCharProvider">
+            <summary>
+            A byte char provider that can translate bytes encoded in codepage 500 EBCDIC
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.EbcdicByteCharProvider._ebcdicEncoding">
+            <summary>
+            The IBM EBCDIC code page 500 encoding. Note that this is not always supported by .NET,
+            the underlying platform has to provide support for it.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.EbcdicByteCharProvider.ToChar(System.Byte)">
+            <summary>
+            Returns the EBCDIC character corresponding to the byte passed across.
+            </summary>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.EbcdicByteCharProvider.ToByte(System.Char)">
+            <summary>
+            Returns the byte corresponding to the EBCDIC character passed across.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.EbcdicByteCharProvider.ToString">
+            <summary>
+            Returns a description of the byte char provider.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Be.Windows.Forms.FileByteProvider">
+            <summary>
+            Byte provider for (big) files.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.FileByteProvider._writes">
+            <summary>
+            Contains all changes
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.FileByteProvider._fileName">
+            <summary>
+            Contains the file name.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.FileByteProvider._fileStream">
+            <summary>
+            Contains the file stream.
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.FileByteProvider._readOnly">
+            <summary>
+            Read-only access.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the FileByteProvider class.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.Finalize">
+            <summary>
+            Terminates the instance of the FileByteProvider class.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.OnChanged(System.EventArgs)">
+            <summary>
+            Raises the Changed event.
+            </summary>
+            <remarks>Never used.</remarks>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.HasChanges">
+            <summary>
+            Returns a value if there are some changes.
+            </summary>
+            <returns>true, if there are some changes</returns>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.ApplyChanges">
+            <summary>
+            Updates the file with all changes the write buffer contains.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.RejectChanges">
+            <summary>
+            Clears the write buffer and reject all changes made.
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.ReadByte(System.Int64)">
+            <summary>
+            Reads a byte from the file.
+            </summary>
+            <param name="index">the index of the byte to read</param>
+            <returns>the byte</returns>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.WriteByte(System.Int64,System.Byte)">
+            <summary>
+            Writes a byte into write buffer
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.DeleteBytes(System.Int64,System.Int64)">
+            <summary>
+            Not supported
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.InsertBytes(System.Int64,System.Byte[])">
+            <summary>
+            Not supported
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.SupportsWriteByte">
+            <summary>
+            Returns true
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.SupportsInsertBytes">
+            <summary>
+            Returns false
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.SupportsDeleteBytes">
+            <summary>
+            Returns false
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.Dispose">
+            <summary>
+            Releases the file handle used by the FileByteProvider.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.FileByteProvider.Changed">
+            <summary>
+            Occurs, when the write buffer contains new changes.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.FileByteProvider.FileName">
+            <summary>
+            Gets the name of the file the byte provider is using.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.FileByteProvider.LengthChanged">
+            <summary>
+            Never used.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.FileByteProvider.Length">
+            <summary>
+            Gets the length of the file.
+            </summary>
+        </member>
+        <member name="T:Be.Windows.Forms.FileByteProvider.WriteCollection">
+            <summary>
+            Represents the write buffer class
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.WriteCollection.Add(System.Int64,System.Byte)">
+            <summary>
+            Adds a byte into the collection
+            </summary>
+            <param name="index">the index of the byte</param>
+            <param name="value">the value of the byte</param>
+        </member>
+        <member name="M:Be.Windows.Forms.FileByteProvider.WriteCollection.Contains(System.Int64)">
+            <summary>
+            Determines if a byte with the given index exists.
+            </summary>
+            <param name="index">the index of the byte</param>
+            <returns>true, if the is in the collection</returns>
+        </member>
+        <member name="P:Be.Windows.Forms.FileByteProvider.WriteCollection.Item(System.Int64)">
+            <summary>
+            Gets or sets a byte in the collection
             </summary>
         </member>
     </members>

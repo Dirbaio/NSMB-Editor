@@ -1089,6 +1089,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Icon nsmbe {
+            get {
+                object obj = ResourceManager.GetObject("nsmbe", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap OneWayDoor {
             get {
                 object obj = ResourceManager.GetObject("OneWayDoor", resourceCulture);
