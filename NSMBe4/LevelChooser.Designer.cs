@@ -73,6 +73,9 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.label9 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -475,6 +478,9 @@ namespace NSMBe4 {
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.linkLabel2);
+            this.tabPage4.Controls.Add(this.linkLabel1);
+            this.tabPage4.Controls.Add(this.label9);
             this.tabPage4.Controls.Add(this.label8);
             this.tabPage4.Controls.Add(this.label7);
             this.tabPage4.Controls.Add(this.label6);
@@ -584,6 +590,38 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(22, 271);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 20);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Links:";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(23, 297);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(124, 13);
+            this.linkLabel1.TabIndex = 8;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "NSMBe on Google Code";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(23, 322);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(120, 13);
+            this.linkLabel2.TabIndex = 9;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "NSMB Hacking Domain";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -657,5 +695,8 @@ namespace NSMBe4 {
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label9;
     }
 }

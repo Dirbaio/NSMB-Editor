@@ -763,5 +763,15 @@ namespace NSMBe4 {
         {
 
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://code.google.com/p/nsmb-editor/");
+        }
+
+        private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://board.dirbaio.net/");
+        }
     }
 }
