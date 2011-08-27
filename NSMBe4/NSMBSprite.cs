@@ -33,8 +33,8 @@ namespace NSMBe4
         private NSMBLevel Level;
 
         private static SolidBrush invalidBrush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
-        public int x { get { return getRect().X; } set { X = value / snap; } }
-        public int y { get { return getRect().Y; } set { Y = value / snap; } }
+        public int x { get { return getRect().X; } set { X += (value - getRect().X) / snap; } }
+        public int y { get { return getRect().Y; } set { Y += (value - getRect().Y) / snap; } }
         public int width { get { return getRect().Width; } set { } }
         public int height { get { return getRect().Height; } set { } }
 

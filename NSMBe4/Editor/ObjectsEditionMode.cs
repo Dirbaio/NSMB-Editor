@@ -31,6 +31,7 @@ namespace NSMBe4
         int lx, ly; //last position
 
         int minBoundX, minBoundY; //the top left corner of the selected objects
+        int maxBoundX, maxBoundY; //the top left corner of the selected objects
         int minSizeX, minSizeY; //the minimum size of all resizable objects.
         int selectionSnap; //The max snap in the selection :P
 
@@ -80,7 +81,7 @@ namespace NSMBe4
         public override void RenderSelection(Graphics g)
         {
             if (SelectionRectangle != null && SelectMode)
-                g.DrawRectangle(Pens.LightBlue, SelectionRectangle.X, SelectionRectangle.Y, SelectionRectangle.Width, SelectionRectangle.Height);
+                g.DrawRectangle(Pens.LightBlue, SelectionRectangle);
 
             foreach (LevelItem o in SelectedObjects)
                 g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
@@ -95,13 +96,17 @@ namespace NSMBe4
         {
             minBoundX = Int32.MaxValue;
             minBoundY = Int32.MaxValue;
+            maxBoundX = 0;
+            maxBoundY = 0;
             minSizeX = Int32.MaxValue;
             minSizeY = Int32.MaxValue;
             selectionSnap = 1;
             foreach (LevelItem o in SelectedObjects)
             {
-                if (o.x < minBoundX) minBoundX = o.x;
-                if (o.y < minBoundY) minBoundY = o.y;
+                if (o.rx < minBoundX) minBoundX = o.rx;
+                if (o.ry < minBoundY) minBoundY = o.ry;
+                if (o.rx + o.rwidth > maxBoundX) maxBoundX = o.rx + o.rwidth;
+                if (o.ry + o.rheight > maxBoundY) maxBoundY = o.ry + o.rheight;
                 if (o.snap > selectionSnap) selectionSnap = o.snap;
 
                 if (o.isResizable)
@@ -126,36 +131,22 @@ namespace NSMBe4
             if (y1 > y2) { int aux = y1; y1 = y2; y2 = aux; }
             
             Rectangle r = new Rectangle(x1, y1, x2-x1, y2-y1);
-
+            SelectionRectangle = r;
             foreach (NSMBObject o in Level.Objects) selectIfInside(o, r);
             foreach (NSMBSprite o in Level.Sprites) selectIfInside(o, r);
-            
+
+            if (firstOnly && SelectedObjects.Count > 1)
+            {
+                LevelItem obj = SelectedObjects[SelectedObjects.Count - 1];
+                SelectedObjects.Clear();
+                SelectedObjects.Add(obj);
+            }
             UpdateSelectionBounds();
             EdControl.repaint();
         }
 
-        /*
-        private object GetFirst(int x, int y)
-        {
-            for (int l = Level.Sprites.Count - 1; l >= 0; l--)
-            {
-                LevelItem o = Level.Sprites[l];
-                if (o.x <= x && o.y <= y && o.x + o.width > x && o.y + o.height > y)
-                    return o;
-            }
-
-            for (int l = Level.Objects.Count - 1; l >= 0; l--)
-            {
-                LevelItem o = Level.Objects[l];
-                if (o.x <= x && o.y <= y && o.x + o.width > x && o.y + o.height > y)
-                    return o;
-            }
-            return null;
-        }*/
-
         private bool isInSelection(int x, int y)
         {
-
             foreach (LevelItem o in SelectedObjects)
             {
                 if (x >= o.x && x < o.x + o.width)
@@ -186,6 +177,8 @@ namespace NSMBe4
                 ResizeMode = Control.ModifierKeys == Keys.Shift;
                 CloneMode = Control.ModifierKeys == Keys.Control;
                 SelectMode = false;
+                lx -= selectionSnap / 2;
+                ly -= selectionSnap / 2;
             }
 
             EdControl.repaint();
@@ -201,6 +194,8 @@ namespace NSMBe4
             if(SelectMode)
             {
                 findSelectedObjects(x, y, dx, dy, false);
+                lx = x;
+                ly = y;
             }
             else
             {
@@ -219,8 +214,8 @@ namespace NSMBe4
                     int yDelta = y-ly;
                     if (xDelta <= -minSizeX + selectionSnap) xDelta = -minSizeX + selectionSnap;
                     if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
-                    xDelta -= xDelta % selectionSnap;
-                    yDelta -= yDelta % selectionSnap;
+                    xDelta &= ~(selectionSnap-1);
+                    yDelta &= ~(selectionSnap-1);
                     if (xDelta == 0 && yDelta == 0) return;
                     minSizeX += xDelta;
                     minSizeY += yDelta;
@@ -234,9 +229,9 @@ namespace NSMBe4
                     int yDelta = y-ly;
                     if(xDelta < -minBoundX) xDelta = -minBoundX;
                     if(yDelta < -minBoundY) yDelta = -minBoundY;
-                    xDelta -= xDelta % selectionSnap;
-                    yDelta -= yDelta % selectionSnap;
-                    if(xDelta == 0 && yDelta == 0) return;
+                    xDelta &= ~(selectionSnap - 1);
+                    yDelta &= ~(selectionSnap - 1);
+                    if (xDelta == 0 && yDelta == 0) return;
                     minBoundX += xDelta;
                     minBoundY += yDelta;
                     Console.WriteLine(xDelta + " " + yDelta);
