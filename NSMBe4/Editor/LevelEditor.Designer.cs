@@ -72,7 +72,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.minimapControl1 = new NSMBe4.MinimapControl();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
-            this.moveAllButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -97,7 +96,6 @@
             this.editProgressButton,
             this.editViewsButton,
             this.editZonesButton,
-            this.moveAllButton,
             this.toolStripSeparator2,
             this.undoButton,
             this.redoButton,
@@ -424,7 +422,7 @@
             this.setBgImageButton.Image = ((System.Drawing.Image)(resources.GetObject("setBgImageButton.Image")));
             this.setBgImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setBgImageButton.Name = "setBgImageButton";
-            this.setBgImageButton.Size = new System.Drawing.Size(152, 22);
+            this.setBgImageButton.Size = new System.Drawing.Size(132, 22);
             this.setBgImageButton.Text = "set BG";
             this.setBgImageButton.Click += new System.EventHandler(this.setBgImageButton_Click);
             // 
@@ -433,14 +431,14 @@
             this.removeBgButton.Image = ((System.Drawing.Image)(resources.GetObject("removeBgButton.Image")));
             this.removeBgButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.removeBgButton.Name = "removeBgButton";
-            this.removeBgButton.Size = new System.Drawing.Size(152, 22);
+            this.removeBgButton.Size = new System.Drawing.Size(132, 22);
             this.removeBgButton.Text = "remove BG";
             this.removeBgButton.Click += new System.EventHandler(this.removeBgButton_Click);
             // 
             // moveBGToolStripMenuItem
             // 
             this.moveBGToolStripMenuItem.Name = "moveBGToolStripMenuItem";
-            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.moveBGToolStripMenuItem.Text = "Move BG";
             this.moveBGToolStripMenuItem.Click += new System.EventHandler(this.moveBGToolStripMenuItem_Click);
             // 
@@ -521,16 +519,6 @@
             this.levelEditorControl1.Size = new System.Drawing.Size(775, 551);
             this.levelEditorControl1.TabIndex = 3;
             // 
-            // moveAllButton
-            // 
-            this.moveAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveAllButton.Image = ((System.Drawing.Image)(resources.GetObject("moveAllButton.Image")));
-            this.moveAllButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveAllButton.Name = "moveAllButton";
-            this.moveAllButton.Size = new System.Drawing.Size(23, 22);
-            this.moveAllButton.Text = "Move Everything";
-            this.moveAllButton.Click += new System.EventHandler(this.moveAllButton_Click);
-            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -607,7 +595,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ToolStripButton moveAllButton;
     }
 }
 

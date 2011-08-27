@@ -30,6 +30,7 @@ namespace NSMBe4
 
         private LevelEditorControl EdControl;
         private NSMBSprite foundSprite;
+        private NSMBObject foundObj;
 
         public ToolsForm(LevelEditorControl edc)
         {
@@ -109,6 +110,53 @@ namespace NSMBe4
 
             EdControl.UndoManager.Do(new ReplaceSpritesAction((int)SpriteNumber.Value, (int)newSpriteNumber.Value));
             MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "ReplacedSprites"), count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void objFindNext_Click(object sender, EventArgs e)
+        {
+            if (EdControl.Level.Objects.Count != 0) {
+                int startInd = -1;
+                if (foundObj != null && EdControl.Level.Objects.Contains(foundObj))
+                    startInd = EdControl.Level.Objects.IndexOf(foundObj);
+                int ind = (startInd + 1) % EdControl.Level.Objects.Count;
+
+                bool found = false;
+                while (ind != startInd && !found) {
+                    if (EdControl.Level.Objects[ind].Tileset == nudFindTileset.Value &&
+                        EdControl.Level.Objects[ind].ObjNum == nudFindObjNum.Value) {
+                        foundObj = EdControl.Level.Objects[ind];
+                        found = true;
+                    }
+                    ind = (ind + 1) % EdControl.Level.Objects.Count;
+                }
+
+                if (found) {
+                    EdControl.SelectObject(foundObj);
+                    EdControl.EnsurePosVisible(foundObj.X, foundObj.Y);
+                }
+                else
+                    MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void objCount_Click(object sender, EventArgs e)
+        {
+            int count = 0;
+            foreach (NSMBObject o in EdControl.Level.Objects)
+                if (o.Tileset == nudFindTileset.Value && o.ObjNum == nudFindObjNum.Value)
+                    count++;
+
+            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "SpriteCount"), SpriteNumber.Value, count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void objDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void objReplaceAll_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void ToolsForm_FormClosing(object sender, FormClosingEventArgs e)

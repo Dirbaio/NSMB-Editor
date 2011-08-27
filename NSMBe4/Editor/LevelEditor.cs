@@ -32,7 +32,6 @@ namespace NSMBe4 {
         public EntrancesEditionMode eem;
         public PathsEditionMode pem, ppem;
         public ViewsEditionMode vem, zem;
-        public MoveAllEditionMode moveallem;
         public BackgroundDragEditionMode bgdragem;
 
         public ToolsForm tools;
@@ -54,7 +53,6 @@ namespace NSMBe4 {
             EditionModeButtons.Add(editProgressButton);
             EditionModeButtons.Add(editViewsButton);
             EditionModeButtons.Add(editZonesButton);
-            EditionModeButtons.Add(moveAllButton);
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
             // these need to be added manually
@@ -100,7 +98,6 @@ namespace NSMBe4 {
             ppem = new PathsEditionMode(Level, levelEditorControl1, Level.ProgressPaths);
             vem = new ViewsEditionMode(Level, levelEditorControl1, true);
             zem = new ViewsEditionMode(Level, levelEditorControl1, false);
-            moveallem = new MoveAllEditionMode(Level, levelEditorControl1);
             bgdragem = new BackgroundDragEditionMode(Level, levelEditorControl1);
 
             levelEditorControl1.SetEditionMode(oem);
@@ -255,13 +252,6 @@ namespace NSMBe4 {
             levelEditorControl1.SetEditionMode(zem);
             uncheckModeButtons();
             editZonesButton.Checked = true;
-        }
-
-        private void moveAllButton_Click(object sender, EventArgs e)
-        {
-            levelEditorControl1.SetEditionMode(moveallem);
-            uncheckModeButtons();
-            moveAllButton.Checked = true;
         }
 
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {

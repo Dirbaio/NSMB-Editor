@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolsForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SpriteNumber = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,6 +41,22 @@
             this.spriteFindNext = new System.Windows.Forms.Button();
             this.spriteDelete = new System.Windows.Forms.Button();
             this.spriteCount = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.objFindNext = new System.Windows.Forms.Button();
+            this.objDelete = new System.Windows.Forms.Button();
+            this.objCount = new System.Windows.Forms.Button();
+            this.objReplaceBox = new System.Windows.Forms.GroupBox();
+            this.tableReplaceObj = new System.Windows.Forms.TableLayoutPanel();
+            this.nudReplaceObjNum = new System.Windows.Forms.NumericUpDown();
+            this.lblReplaceObjNum = new System.Windows.Forms.Label();
+            this.nudReplaceTS = new System.Windows.Forms.NumericUpDown();
+            this.lblReplaceTileset = new System.Windows.Forms.Label();
+            this.objReplaceAll = new System.Windows.Forms.Button();
+            this.tableFindObj = new System.Windows.Forms.TableLayoutPanel();
+            this.nudFindObjNum = new System.Windows.Forms.NumericUpDown();
+            this.lblFindObjNum = new System.Windows.Forms.Label();
+            this.nudFindTileset = new System.Windows.Forms.NumericUpDown();
+            this.lblFindTileset = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -54,6 +69,14 @@
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newSpriteNumber)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.objReplaceBox.SuspendLayout();
+            this.tableReplaceObj.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudReplaceObjNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudReplaceTS)).BeginInit();
+            this.tableFindObj.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFindObjNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFindTileset)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
@@ -100,11 +123,12 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(293, 184);
+            this.tabControl1.Size = new System.Drawing.Size(293, 216);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -117,7 +141,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(285, 158);
+            this.tabPage1.Size = new System.Drawing.Size(285, 190);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -212,6 +236,222 @@
             this.spriteCount.UseVisualStyleBackColor = true;
             this.spriteCount.Click += new System.EventHandler(this.spriteCount_Click);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.objFindNext);
+            this.tabPage2.Controls.Add(this.objDelete);
+            this.tabPage2.Controls.Add(this.objCount);
+            this.tabPage2.Controls.Add(this.objReplaceBox);
+            this.tabPage2.Controls.Add(this.tableFindObj);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(285, 190);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Find Objects";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // objFindNext
+            // 
+            this.objFindNext.Location = new System.Drawing.Point(11, 59);
+            this.objFindNext.Name = "objFindNext";
+            this.objFindNext.Size = new System.Drawing.Size(74, 22);
+            this.objFindNext.TabIndex = 9;
+            this.objFindNext.Text = "Find Next";
+            this.objFindNext.UseVisualStyleBackColor = true;
+            this.objFindNext.Click += new System.EventHandler(this.objFindNext_Click);
+            // 
+            // objDelete
+            // 
+            this.objDelete.Location = new System.Drawing.Point(168, 59);
+            this.objDelete.Name = "objDelete";
+            this.objDelete.Size = new System.Drawing.Size(74, 22);
+            this.objDelete.TabIndex = 8;
+            this.objDelete.Text = "Delete All";
+            this.objDelete.UseVisualStyleBackColor = true;
+            this.objDelete.Click += new System.EventHandler(this.objDelete_Click);
+            // 
+            // objCount
+            // 
+            this.objCount.Location = new System.Drawing.Point(88, 59);
+            this.objCount.Name = "objCount";
+            this.objCount.Size = new System.Drawing.Size(74, 22);
+            this.objCount.TabIndex = 7;
+            this.objCount.Text = "Count";
+            this.objCount.UseVisualStyleBackColor = true;
+            this.objCount.Click += new System.EventHandler(this.objCount_Click);
+            // 
+            // objReplaceBox
+            // 
+            this.objReplaceBox.Controls.Add(this.tableReplaceObj);
+            this.objReplaceBox.Controls.Add(this.objReplaceAll);
+            this.objReplaceBox.Location = new System.Drawing.Point(6, 87);
+            this.objReplaceBox.Name = "objReplaceBox";
+            this.objReplaceBox.Size = new System.Drawing.Size(270, 100);
+            this.objReplaceBox.TabIndex = 6;
+            this.objReplaceBox.TabStop = false;
+            this.objReplaceBox.Text = "Replace";
+            // 
+            // tableReplaceObj
+            // 
+            this.tableReplaceObj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableReplaceObj.ColumnCount = 2;
+            this.tableReplaceObj.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableReplaceObj.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableReplaceObj.Controls.Add(this.nudReplaceObjNum, 1, 1);
+            this.tableReplaceObj.Controls.Add(this.lblReplaceObjNum, 0, 1);
+            this.tableReplaceObj.Controls.Add(this.nudReplaceTS, 1, 0);
+            this.tableReplaceObj.Controls.Add(this.lblReplaceTileset, 0, 0);
+            this.tableReplaceObj.Location = new System.Drawing.Point(3, 19);
+            this.tableReplaceObj.Name = "tableReplaceObj";
+            this.tableReplaceObj.RowCount = 2;
+            this.tableReplaceObj.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableReplaceObj.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableReplaceObj.Size = new System.Drawing.Size(261, 50);
+            this.tableReplaceObj.TabIndex = 0;
+            // 
+            // nudReplaceObjNum
+            // 
+            this.nudReplaceObjNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudReplaceObjNum.Location = new System.Drawing.Point(133, 28);
+            this.nudReplaceObjNum.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudReplaceObjNum.Name = "nudReplaceObjNum";
+            this.nudReplaceObjNum.Size = new System.Drawing.Size(125, 20);
+            this.nudReplaceObjNum.TabIndex = 2;
+            // 
+            // lblReplaceObjNum
+            // 
+            this.lblReplaceObjNum.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblReplaceObjNum.AutoSize = true;
+            this.lblReplaceObjNum.Location = new System.Drawing.Point(3, 31);
+            this.lblReplaceObjNum.Name = "lblReplaceObjNum";
+            this.lblReplaceObjNum.Size = new System.Drawing.Size(66, 13);
+            this.lblReplaceObjNum.TabIndex = 2;
+            this.lblReplaceObjNum.Text = "Object Num.";
+            // 
+            // nudReplaceTS
+            // 
+            this.nudReplaceTS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudReplaceTS.Location = new System.Drawing.Point(133, 3);
+            this.nudReplaceTS.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.nudReplaceTS.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudReplaceTS.Name = "nudReplaceTS";
+            this.nudReplaceTS.Size = new System.Drawing.Size(125, 20);
+            this.nudReplaceTS.TabIndex = 1;
+            this.nudReplaceTS.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblReplaceTileset
+            // 
+            this.lblReplaceTileset.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblReplaceTileset.AutoSize = true;
+            this.lblReplaceTileset.Location = new System.Drawing.Point(3, 6);
+            this.lblReplaceTileset.Name = "lblReplaceTileset";
+            this.lblReplaceTileset.Size = new System.Drawing.Size(38, 13);
+            this.lblReplaceTileset.TabIndex = 0;
+            this.lblReplaceTileset.Text = "Tileset";
+            // 
+            // objReplaceAll
+            // 
+            this.objReplaceAll.Location = new System.Drawing.Point(3, 75);
+            this.objReplaceAll.Name = "objReplaceAll";
+            this.objReplaceAll.Size = new System.Drawing.Size(74, 22);
+            this.objReplaceAll.TabIndex = 0;
+            this.objReplaceAll.Text = "Replace All";
+            this.objReplaceAll.UseVisualStyleBackColor = true;
+            this.objReplaceAll.Click += new System.EventHandler(this.objReplaceAll_Click);
+            // 
+            // tableFindObj
+            // 
+            this.tableFindObj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableFindObj.ColumnCount = 2;
+            this.tableFindObj.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableFindObj.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableFindObj.Controls.Add(this.nudFindObjNum, 1, 1);
+            this.tableFindObj.Controls.Add(this.lblFindObjNum, 0, 1);
+            this.tableFindObj.Controls.Add(this.nudFindTileset, 1, 0);
+            this.tableFindObj.Controls.Add(this.lblFindTileset, 0, 0);
+            this.tableFindObj.Location = new System.Drawing.Point(8, 6);
+            this.tableFindObj.Name = "tableFindObj";
+            this.tableFindObj.RowCount = 2;
+            this.tableFindObj.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableFindObj.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableFindObj.Size = new System.Drawing.Size(271, 50);
+            this.tableFindObj.TabIndex = 2;
+            // 
+            // nudFindObjNum
+            // 
+            this.nudFindObjNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudFindObjNum.Location = new System.Drawing.Point(138, 28);
+            this.nudFindObjNum.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudFindObjNum.Name = "nudFindObjNum";
+            this.nudFindObjNum.Size = new System.Drawing.Size(130, 20);
+            this.nudFindObjNum.TabIndex = 7;
+            // 
+            // lblFindObjNum
+            // 
+            this.lblFindObjNum.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblFindObjNum.AutoSize = true;
+            this.lblFindObjNum.Location = new System.Drawing.Point(3, 31);
+            this.lblFindObjNum.Name = "lblFindObjNum";
+            this.lblFindObjNum.Size = new System.Drawing.Size(66, 13);
+            this.lblFindObjNum.TabIndex = 2;
+            this.lblFindObjNum.Text = "Object Num.";
+            // 
+            // nudFindTileset
+            // 
+            this.nudFindTileset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudFindTileset.Location = new System.Drawing.Point(138, 3);
+            this.nudFindTileset.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.nudFindTileset.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudFindTileset.Name = "nudFindTileset";
+            this.nudFindTileset.Size = new System.Drawing.Size(130, 20);
+            this.nudFindTileset.TabIndex = 1;
+            this.nudFindTileset.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblFindTileset
+            // 
+            this.lblFindTileset.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblFindTileset.AutoSize = true;
+            this.lblFindTileset.Location = new System.Drawing.Point(3, 6);
+            this.lblFindTileset.Name = "lblFindTileset";
+            this.lblFindTileset.Size = new System.Drawing.Size(38, 13);
+            this.lblFindTileset.TabIndex = 0;
+            this.lblFindTileset.Text = "Tileset";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(6, 72);
@@ -266,10 +506,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 184);
+            this.ClientSize = new System.Drawing.Size(293, 216);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ToolsForm";
@@ -285,6 +524,16 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newSpriteNumber)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.objReplaceBox.ResumeLayout(false);
+            this.tableReplaceObj.ResumeLayout(false);
+            this.tableReplaceObj.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudReplaceObjNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudReplaceTS)).EndInit();
+            this.tableFindObj.ResumeLayout(false);
+            this.tableFindObj.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFindObjNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFindTileset)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
@@ -311,5 +560,21 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button objFindNext;
+        private System.Windows.Forms.Button objDelete;
+        private System.Windows.Forms.Button objCount;
+        private System.Windows.Forms.GroupBox objReplaceBox;
+        private System.Windows.Forms.TableLayoutPanel tableReplaceObj;
+        private System.Windows.Forms.NumericUpDown nudReplaceObjNum;
+        private System.Windows.Forms.Label lblReplaceObjNum;
+        private System.Windows.Forms.NumericUpDown nudReplaceTS;
+        private System.Windows.Forms.Label lblReplaceTileset;
+        private System.Windows.Forms.Button objReplaceAll;
+        private System.Windows.Forms.TableLayoutPanel tableFindObj;
+        private System.Windows.Forms.NumericUpDown nudFindObjNum;
+        private System.Windows.Forms.Label lblFindObjNum;
+        private System.Windows.Forms.NumericUpDown nudFindTileset;
+        private System.Windows.Forms.Label lblFindTileset;
     }
 }

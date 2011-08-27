@@ -174,6 +174,72 @@ namespace NSMBe4
             CalculateSpriteModifiers();
         }
 
+        public void Remove(List<LevelItem> objs)
+        {
+            foreach (LevelItem obj in objs)
+                Remove(obj);
+        }
+
+        public void Remove(LevelItem obj)
+        {
+            if (obj is NSMBObject)
+                Objects.Remove(obj as NSMBObject);
+            if (obj is NSMBSprite)
+                Sprites.Remove(obj as NSMBSprite);
+            if (obj is NSMBEntrance)
+                Entrances.Remove(obj as NSMBEntrance);
+            if (obj is NSMBView) {
+                NSMBView v = obj as NSMBView;
+                if (v.isZone)
+                    Zones.Remove(v);
+                else
+                    Views.Remove(v);
+            }
+            if (obj is NSMBPathPoint) {
+                NSMBPathPoint pp = obj as NSMBPathPoint;
+                pp.parent.points.Remove(pp);
+                if (pp.parent.points.Count == 0) {
+                    if (pp.parent.isProgressPath)
+                        ProgressPaths.Remove(pp.parent);
+                    else
+                        Paths.Remove(pp.parent);
+                }
+            }
+        }
+
+        public void Add(List<LevelItem> objs)
+        {
+            foreach (LevelItem obj in objs)
+                Add(obj);
+        }
+
+        public void Add(LevelItem obj)
+        {
+            if (obj is NSMBObject)
+                Objects.Add(obj as NSMBObject);
+            if (obj is NSMBSprite)
+                Sprites.Add(obj as NSMBSprite);
+            if (obj is NSMBEntrance)
+                Entrances.Add(obj as NSMBEntrance);
+            if (obj is NSMBView)  {
+                NSMBView v = obj as NSMBView;
+                if (v.isZone)
+                    Zones.Add(v);
+                else
+                    Views.Add(v);
+            }
+            if (obj is NSMBPathPoint) {
+                NSMBPathPoint pp = obj as NSMBPathPoint;
+                pp.parent.points.Add(pp);
+                if (pp.parent.isProgressPath)
+                    if (!ProgressPaths.Contains(pp.parent))
+                        ProgressPaths.Add(pp.parent);
+                else
+                    if (!Paths.Contains(pp.parent))
+                        Paths.Remove(pp.parent);
+            }
+        }
+
         public void enableWrite()
         {
             try

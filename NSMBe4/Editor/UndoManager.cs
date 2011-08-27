@@ -1404,4 +1404,84 @@ namespace NSMBe4
         }
     }
     #endregion
+
+#region "Level Item"
+    public class LvlItemAction : Action
+    {
+        public List<LevelItem> objs;
+        public LvlItemAction(List<LevelItem> objs) {
+            this.objs = objs;
+            if (objs.Count == 0)
+                cancel = true;
+        }
+        public override void AfterAction() {
+            EdControl.mode.SelectObject(objs);
+        }
+    }
+    public class AddLvlItemAction : LvlItemAction
+    {
+        public AddLvlItemAction(List<LevelItem> objs) : base(objs) { }
+        public override void Undo()
+        {
+            EdControl.Level.Remove(objs);
+        }
+        public override void Redo()
+        {
+            EdControl.Level.Add(objs);
+        }
+    }
+    public class RemoveLvlItemAction : LvlItemAction
+    {
+        public RemoveLvlItemAction(List<LevelItem> objs) : base(objs) { }
+        public override void Undo()
+        {
+            EdControl.Level.Add(objs);
+        }
+        public override void Redo()
+        {
+            EdControl.Level.Remove(objs);
+        }
+    }
+    public class MoveLvlItemAction : LvlItemAction
+    {
+        int XDelta, YDelta;
+        public MoveLvlItemAction(List<LevelItem> objs, int XDelta, int YDelta)
+            : base(objs)
+        {
+            this.XDelta = XDelta;
+            this.YDelta = YDelta;
+        }
+        public MoveLvlItemAction(List<LevelItem> objs, LevelItem BaseObj, int NewX, int NewY)
+            : base(objs)
+        {
+            this.XDelta = NewX - BaseObj.x;
+            this.YDelta = NewY - BaseObj.y;
+        }
+        public override void Undo()
+        {
+            foreach (LevelItem obj in objs) {
+                obj.x -= XDelta;
+                obj.y -= YDelta;
+            }
+        }
+        public override void Redo()
+        {
+            foreach (LevelItem obj in objs) {
+                obj.x += XDelta;
+                obj.y += YDelta;
+            }
+        }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+        public override void Merge(Action act)
+        {
+            MoveLvlItemAction mlia = act as MoveLvlItemAction;
+            this.XDelta += mlia.XDelta;
+            this.YDelta += mlia.YDelta;
+        }
+    }
+#endregion
 }

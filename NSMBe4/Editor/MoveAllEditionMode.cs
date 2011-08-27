@@ -9,11 +9,26 @@ namespace NSMBe4
         public int minX = int.MaxValue;
         public int minY = int.MaxValue;
         public int DragXOff, DragYOff;
+        public MoveAllPanel pnl;
+        public bool viewMode = false;
+        public NSMBView dragView;
 
-        public MoveAllEditionMode(NSMBLevel l, LevelEditorControl edc) : base(l, edc) { }
+        public MoveAllEditionMode(NSMBLevel l, LevelEditorControl edc) : base(l, edc) {
+            pnl = new MoveAllPanel(this);
+        }
 
         public override void Refresh()
         {
+            SetPanel(pnl);
+
+        }
+
+        public override void MouseDown(int x, int y)
+        {
+            if (viewMode)
+                foreach (NSMBView v in Level.Views)
+                    if (v.X <= x && v.Y <= y && v.X + v.Width >= x && v.Y + v.Height >= y)
+                        dragView = v;
             foreach (NSMBObject o in Level.Objects) {
                 if (o.X < minX)
                     minX = o.X;
@@ -32,11 +47,13 @@ namespace NSMBe4
                 if (e.Y / 16 < minY)
                     minY = e.Y / 16;
             }
-            foreach (NSMBView v in Level.Views) {
-                if (v.X / 16 < minX)
-                    minX = v.X / 16;
-                if (v.Y / 16 < minY)
-                    minY = v.Y / 16;
+            if (!viewMode) {
+                foreach (NSMBView v in Level.Views) {
+                    if (v.X / 16 < minX)
+                        minX = v.X / 16;
+                    if (v.Y / 16 < minY)
+                        minY = v.Y / 16;
+                }
             }
             foreach (NSMBView v in Level.Zones) {
                 if (v.X / 16 < minX)
@@ -46,8 +63,10 @@ namespace NSMBe4
             }
             List<NSMBPath> pl = Level.Paths;
             for (int l = 0; l < 2; l++) {
-                foreach (NSMBPath p in pl) {
-                    foreach (NSMBPathPoint pp in p.points) {
+                foreach (NSMBPath p in pl)
+                {
+                    foreach (NSMBPathPoint pp in p.points)
+                    {
                         if (pp.X / 16 < minX)
                             minX = pp.X / 16;
                         if (pp.Y / 16 < minY)
@@ -56,10 +75,6 @@ namespace NSMBe4
                 }
                 pl = Level.ProgressPaths;
             }
-        }
-
-        public override void MouseDown(int x, int y)
-        {
             DragXOff = x;
             DragYOff = y;
         }
