@@ -60,7 +60,7 @@ namespace NSMBe4
                 merged = !pAct.MergeFailed;
                 pAct.MergeFailed = false;
                 if (merged) {
-                    if (act is MoveMultipleAction || act is MovePathAction)
+                    if (act is MoveMultipleAction || act is MovePathAction || act is MoveLvlItemAction || act is ResizeLvlItemAction)
                     {
                         act.SetEdControl(EdControl);
                         act.DoRedo(false);
@@ -1442,6 +1442,7 @@ namespace NSMBe4
             EdControl.Level.Remove(objs);
         }
     }
+
     public class MoveLvlItemAction : LvlItemAction
     {
         int XDelta, YDelta;
@@ -1479,6 +1480,48 @@ namespace NSMBe4
         public override void Merge(Action act)
         {
             MoveLvlItemAction mlia = act as MoveLvlItemAction;
+            this.XDelta += mlia.XDelta;
+            this.YDelta += mlia.YDelta;
+        }
+    }
+
+    public class ResizeLvlItemAction : LvlItemAction
+    {
+        int XDelta, YDelta;
+        public ResizeLvlItemAction(List<LevelItem> objs, int XDelta, int YDelta)
+            : base(objs)
+        {
+            this.XDelta = XDelta;
+            this.YDelta = YDelta;
+        }
+
+        public override void Undo()
+        {
+            foreach (LevelItem obj in objs) {
+                obj.width -= XDelta;
+                obj.height -= YDelta;
+                if (obj is NSMBObject)
+                    (obj as NSMBObject).UpdateObjCache();
+            }
+        }
+        public override void Redo()
+        {
+            foreach (LevelItem obj in objs) {
+                obj.width += XDelta;
+                obj.height += YDelta;
+                if (obj is NSMBObject)
+                    (obj as NSMBObject).UpdateObjCache();
+            }
+        }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+
+        public override void Merge(Action act)
+        {
+            ResizeLvlItemAction mlia = act as ResizeLvlItemAction;
             this.XDelta += mlia.XDelta;
             this.YDelta += mlia.YDelta;
         }

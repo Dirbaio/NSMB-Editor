@@ -27,15 +27,16 @@ namespace NSMBe4
     {
         bool ResizeMode, CloneMode, SelectMode;
         public bool RefreshDataEd;
-        int DragStartX, DragStartY;
-        int DragXOff, DragYOff;
-        object CurObj;
+        int dx, dy; //MouseDown position
+        int lx, ly; //last position
 
         int minBoundX, minBoundY; //the top left corner of the selected objects
+        int minSizeX, minSizeY; //the minimum size of all resizable objects.
+        int selectionSnap; //The max snap in the selection :P
 
         Rectangle SelectionRectangle;
 
-        List<object> SelectedObjects = new List<object>();
+        List<LevelItem> SelectedObjects = new List<LevelItem>();
 
         ObjectEditor oe;
         SpriteEditor se;
@@ -52,10 +53,10 @@ namespace NSMBe4
 
         public override void SelectObject(Object o)
         {
-            if ((o is NSMBSprite || o is NSMBObject) && (!SelectedObjects.Contains(o) || SelectedObjects.Count != 1))
+            if ((o is LevelItem ) && (!SelectedObjects.Contains(o as LevelItem) || SelectedObjects.Count != 1))
             {
                 SelectedObjects.Clear();
-                SelectedObjects.Add(o);
+                SelectedObjects.Add(o as LevelItem);
                 RefreshDataEd = false;
             }
             if (o == null)
@@ -68,139 +69,98 @@ namespace NSMBe4
         public void SelectObjects(object[] o)
         {
             SelectedObjects.Clear();
-            if (o != null)
-                SelectedObjects.AddRange(o);
+            foreach (object oo in o)
+            {
+                if (oo is LevelItem)
+                    SelectedObjects.Add(oo as LevelItem);
+            }
             UpdatePanel();
         }
 
         public override void RenderSelection(Graphics g)
         {
             if (SelectionRectangle != null && SelectMode)
-            {
-                g.DrawRectangle(Pens.LightBlue, SelectionRectangle.X*16, SelectionRectangle.Y*16, SelectionRectangle.Width*16, SelectionRectangle.Height*16);
-            }
-            foreach (object SelectedObject in SelectedObjects)
-            {
-                if (SelectedObject is NSMBObject)
-                {
-                    NSMBObject o = SelectedObject as NSMBObject;
-                    g.DrawRectangle(Pens.White, o.X * 16, o.Y * 16, o.Width * 16, o.Height * 16);
-                }
-                if (SelectedObject is NSMBSprite)
-                {
-                    NSMBSprite o = SelectedObject as NSMBSprite;
-                    g.DrawRectangle(Pens.White, o.getRect());
-                }
-            }
+                g.DrawRectangle(Pens.LightBlue, SelectionRectangle.X, SelectionRectangle.Y, SelectionRectangle.Width, SelectionRectangle.Height);
+
+            foreach (LevelItem o in SelectedObjects)
+                g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
         }
 
-        public void ReloadObjectPicker() {
+        public void ReloadObjectPicker()
+        {
             oe.ReloadObjectPicker();
         }
 
-        private void UpdateSelectedBounds()
+        private void UpdateSelectionBounds()
         {
             minBoundX = Int32.MaxValue;
             minBoundY = Int32.MaxValue;
-
-            foreach (object oo in SelectedObjects)
+            minSizeX = Int32.MaxValue;
+            minSizeY = Int32.MaxValue;
+            selectionSnap = 1;
+            foreach (LevelItem o in SelectedObjects)
             {
-                if (oo is NSMBObject)
+                if (o.x < minBoundX) minBoundX = o.x;
+                if (o.y < minBoundY) minBoundY = o.y;
+                if (o.snap > selectionSnap) selectionSnap = o.snap;
+
+                if (o.isResizable)
                 {
-                    NSMBObject o = oo as NSMBObject;
-                    if (o.X < minBoundX)
-                        minBoundX = o.X;
-                    if (o.Y < minBoundY)
-                        minBoundY = o.Y;
-                }
-                if (oo is NSMBSprite)
-                {
-                    NSMBSprite s = oo as NSMBSprite;
-                    if (s.X < minBoundX)
-                        minBoundX = s.X;
-                    if (s.Y < minBoundY)
-                        minBoundY = s.Y;
+                    if (o.width < minSizeX) minSizeX = o.width;
+                    if (o.height< minSizeY) minSizeY = o.height;
                 }
             }
         }
-        private void findSelectedObjects(int selXE, int selYE, bool firstOnly)
+
+        private void selectIfInside(LevelItem it, Rectangle r)
+        {
+            if (r.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)))
+                SelectedObjects.Add(it);
+        }
+
+        private void findSelectedObjects(int x1, int y1, int x2, int y2, bool firstOnly)
         {
             SelectedObjects.Clear();
-            int xs = DragStartX < selXE ? DragStartX:selXE;
-            int xb = DragStartX > selXE ? DragStartX:selXE;
-            int ys = DragStartY < selYE ? DragStartY:selYE;
-            int yb = DragStartY > selYE ? DragStartY:selYE;
 
-            if (SelectionRectangle == null)
-                SelectionRectangle = new Rectangle();
+            if (x1 > x2) { int aux = x1; x1 = x2; x2 = aux; }
+            if (y1 > y2) { int aux = y1; y1 = y2; y2 = aux; }
+            
+            Rectangle r = new Rectangle(x1, y1, x2-x1, y2-y1);
 
-            SelectionRectangle.X = xs;
-            SelectionRectangle.Y = ys;
-            SelectionRectangle.Width = xb-xs+1;
-            SelectionRectangle.Height = yb-ys+1;
-
-
-            Rectangle r = new Rectangle();
-            foreach (NSMBObject o in Level.Objects)
-            {
-                r.X = o.X;
-                r.Y = o.Y;
-                r.Height = o.Height;
-                r.Width = o.Width;
-
-                if (SelectionRectangle.IntersectsWith(r))
-                    SelectedObjects.Add(o);
-            }
-
-            foreach (NSMBSprite s in Level.Sprites)
-                if (SelectionRectangle.IntersectsWith(s.getRectB()))
-                    SelectedObjects.Add(s);
-
-            if (firstOnly && SelectedObjects.Count > 1)
-            {
-                object first = SelectedObjects[SelectedObjects.Count - 1];
-                SelectedObjects.Clear();
-                SelectedObjects.Add(first);
-            }
-
-            UpdateSelectedBounds();
+            foreach (NSMBObject o in Level.Objects) selectIfInside(o, r);
+            foreach (NSMBSprite o in Level.Sprites) selectIfInside(o, r);
+            
+            UpdateSelectionBounds();
             EdControl.repaint();
         }
 
+        /*
         private object GetFirst(int x, int y)
         {
             for (int l = Level.Sprites.Count - 1; l >= 0; l--)
-                if (Level.Sprites[l].getRectB().Contains(x, y))
-                    return Level.Sprites[l];
-            NSMBObject o;
-            for (int l = Level.Objects.Count - 1; l >= 0; l--) {
-                o = Level.Objects[l];
-                if (o.X <= x && o.Y <= y && o.X + o.Width > x && o.Y + o.Height > y)
+            {
+                LevelItem o = Level.Sprites[l];
+                if (o.x <= x && o.y <= y && o.x + o.width > x && o.y + o.height > y)
+                    return o;
+            }
+
+            for (int l = Level.Objects.Count - 1; l >= 0; l--)
+            {
+                LevelItem o = Level.Objects[l];
+                if (o.x <= x && o.y <= y && o.x + o.width > x && o.y + o.height > y)
                     return o;
             }
             return null;
-        }
+        }*/
 
         private bool isInSelection(int x, int y)
         {
 
-            foreach (object so in SelectedObjects)
+            foreach (LevelItem o in SelectedObjects)
             {
-                if (so is NSMBObject)
-                {
-                    NSMBObject o = so as NSMBObject;
-                    if (x >= o.X && x < o.X + o.Width)
-                        if (y >= o.Y && y < o.Y + o.Height)
-                            return true;
-                }
-                if (so is NSMBSprite)
-                {
-                    NSMBSprite s = so as NSMBSprite;
-                    Rectangle r = s.getRectB();
-                    if (x >= r.X && y < s.Y + r.Width)
-                        if (y >= r.Y && y < r.Y + r.Height)
-                            return true;
-                }
+                if (x >= o.x && x < o.x + o.width)
+                    if (y >= o.y && y < o.y + o.height)
+                        return true;
             }
 
             return false;
@@ -208,24 +168,18 @@ namespace NSMBe4
 
         public override void MouseDown(int x, int y)
         {
-            int xb = x / 16;
-            int yb = y / 16;
-            lx = xb;
-            ly = yb;
-            DragStartX = xb;
-            DragStartY = yb;
+            lx = x;
+            ly = y;
+            dx = x;
+            dy = y;
 
-            if (!isInSelection(xb, yb) || SelectedObjects.Count == 1)
+            if (!isInSelection(x, y) || SelectedObjects.Count == 1)
             {
                 // Select an object
-                NSMBSprite pSelectedSprite = null;
-                if (SelectedObjects.Count == 1 && SelectedObjects[0] is NSMBSprite)
-                    pSelectedSprite = SelectedObjects[0] as NSMBSprite;
-                findSelectedObjects(xb, yb, true);
-                if (SelectedObjects.Count == 1 && SelectedObjects[0] is NSMBSprite)
-                    RefreshDataEd = SelectedObjects[0] == pSelectedSprite;
+                findSelectedObjects(x, y, x, y, true);
                 SelectMode = SelectedObjects.Count == 0;
             }
+
             if (!SelectMode)
             {
                 //look if we are in resize mode...
@@ -233,89 +187,62 @@ namespace NSMBe4
                 CloneMode = Control.ModifierKeys == Keys.Control;
                 SelectMode = false;
             }
-            CurObj = GetFirst(xb, yb);
-            if (ResizeMode && SelectedObjects.Count == 1 && SelectedObjects[0] is NSMBObject) {
-                NSMBObject o = SelectedObjects[0] as NSMBObject;
-                DragXOff = (o.X + o.Width) * 16 - x;
-                DragYOff = (o.Y + o.Height) * 16 - y;
-            } else {
-                DragXOff = x - GetX(CurObj) * 16 - 8;
-                DragYOff = y - GetY(CurObj) * 16 - 8;
-            }
+
             EdControl.repaint();
             UpdatePanel();
         }
 
-        int lx, ly; //last position
 
         public override void MouseDrag(int x, int y)
         {
-            int NewX = x / 16;
-            int NewY = y / 16;
-
-            if(lx == NewX && ly == NewY) // don't clone objects if there is no visible movement
+            if(lx == x && ly == y) // don't clone objects if there is no visible movement
                 return;
-
 
             if(SelectMode)
             {
-                findSelectedObjects(NewX, NewY, false);
+                findSelectedObjects(x, y, dx, dy, false);
             }
             else
             {
                 if (CloneMode)
                 {
-                    List<object> newObjects = CloneList(SelectedObjects);
-                    if (newObjects.Count == 1) {
-                        if (newObjects[0] is NSMBObject)
-                            EdControl.UndoManager.Do(new AddObjectAction(newObjects[0] as NSMBObject));
-                        else
-                            EdControl.UndoManager.Do(new AddSpriteAction(newObjects[0] as NSMBSprite));
-                    } else
-                        EdControl.UndoManager.Do(new AddMultipleAction(newObjects.ToArray()));
+                    List<LevelItem> newObjects = CloneList(SelectedObjects);
+                    EdControl.UndoManager.Do(new AddLvlItemAction(newObjects));
+
                     CloneMode = false;
                     ResizeMode = false;
                     SelectedObjects = newObjects;
-//                    lx = NewX;
-//                    ly = NewY;
                 }
                 if (ResizeMode)
                 {
-                    if (SelectedObjects.Count == 1)
-                    {
-                        object SelectedObject = SelectedObjects[0];
-                        if (SelectedObject is NSMBObject)
-                        {
-                            NSMBObject o = SelectedObject as NSMBObject;
-                            int nx = Math.Max(1, o.Width + NewX - lx);
-                            int ny = Math.Max(1, o.Height + NewY - ly);
-                            EdControl.UndoManager.Do(new SizeObjectAction(o, nx, ny));
-                        }
-                    }
-                    lx = NewX;
-                    ly = NewY;
+                    int xDelta = x-lx;
+                    int yDelta = y-ly;
+                    if (xDelta <= -minSizeX + selectionSnap) xDelta = -minSizeX + selectionSnap;
+                    if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
+                    xDelta -= xDelta % selectionSnap;
+                    yDelta -= yDelta % selectionSnap;
+                    if (xDelta == 0 && yDelta == 0) return;
+                    minSizeX += xDelta;
+                    minSizeY += yDelta;
+                    EdControl.UndoManager.Do(new ResizeLvlItemAction(SelectedObjects, xDelta, yDelta));
+                    lx += xDelta;
+                    ly += yDelta;
                 }
                 else
                 {
-                    int nx = Math.Max(-minBoundX, NewX - lx);
-                    int ny = Math.Max(-minBoundY, NewY - ly);
-                    minBoundX += nx;
-                    minBoundY += ny;
-
-                    if (SelectedObjects.Count == 1)
-                    {
-                        if (SelectedObjects[0] is NSMBObject) {
-                            NSMBObject o = SelectedObjects[0] as NSMBObject;
-                            EdControl.UndoManager.Do(new MoveObjectAction(o, o.X+nx, o.Y+ny));
-                        } else {
-                            NSMBSprite s = SelectedObjects[0] as NSMBSprite;
-                            EdControl.UndoManager.Do(new MoveSpriteAction(s, s.X + nx, s.Y+ny));
-                        }
-                    } 
-                    else
-                        EdControl.UndoManager.Do(new MoveMultipleAction(SelectedObjects.ToArray(), nx, ny));
-                    lx += nx;
-                    ly += ny;
+                    int xDelta = x-lx;
+                    int yDelta = y-ly;
+                    if(xDelta < -minBoundX) xDelta = -minBoundX;
+                    if(yDelta < -minBoundY) yDelta = -minBoundY;
+                    xDelta -= xDelta % selectionSnap;
+                    yDelta -= yDelta % selectionSnap;
+                    if(xDelta == 0 && yDelta == 0) return;
+                    minBoundX += xDelta;
+                    minBoundY += yDelta;
+                    Console.WriteLine(xDelta + " " + yDelta);
+                    EdControl.UndoManager.Do(new MoveLvlItemAction(SelectedObjects, xDelta, yDelta));
+                    lx += xDelta;
+                    ly += yDelta;
                 }
             }
         }
@@ -451,15 +378,15 @@ namespace NSMBe4
             } else
                 EdControl.UndoManager.Do(new AddMultipleAction(objs.ToArray()));
             SelectObjects(objs.ToArray());
-            UpdateSelectedBounds();
+            UpdateSelectionBounds();
         }
 
         //creates a clone of a list
 
-        private List<object> CloneList(List<object> Objects)
+        private List<LevelItem> CloneList(List<LevelItem> Objects)
         {
-            List<object> newObjects = new List<object>();
-            foreach (object SelectedObject in Objects)
+            List<LevelItem> newObjects = new List<LevelItem>();
+            foreach (LevelItem SelectedObject in Objects)
             {
                 if (SelectedObject is NSMBObject)
                     newObjects.Add(new NSMBObject(SelectedObject as NSMBObject));

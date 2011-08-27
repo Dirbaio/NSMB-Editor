@@ -117,13 +117,6 @@
     <Compile Include="DataFinder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\MoveAllEditionMode.cs" />
-    <Compile Include="Editor\MoveAllPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Editor\MoveAllPanel.Designer.cs">
-      <DependentUpon>MoveAllPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="GraphicsEditor\Image3D.cs" />
     <Compile Include="GraphicsEditor\Image3Dformat5.cs" />
     <Compile Include="ImageIndexerFast.cs" />
@@ -133,7 +126,6 @@
     <Compile Include="ImagePreviewer.Designer.cs">
       <DependentUpon>ImagePreviewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="LevelItem.cs" />
     <Compile Include="LevelChooser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,9 +220,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\MoveAllPanel.resx">
-      <DependentUpon>MoveAllPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>
