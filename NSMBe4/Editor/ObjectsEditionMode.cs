@@ -141,6 +141,7 @@ namespace NSMBe4
                 SelectedObjects.Clear();
                 SelectedObjects.Add(obj);
             }
+
             UpdateSelectionBounds();
             EdControl.repaint();
         }
