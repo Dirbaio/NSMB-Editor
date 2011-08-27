@@ -74,7 +74,7 @@ namespace NSMBe4
             return p;
         }
 
-        public void Render(Graphics g, bool selected)
+        public void render(Graphics g, LevelEditorControl ed, bool selected)
         {
             if (points.Count <= 0)
                 return;
@@ -103,7 +103,7 @@ namespace NSMBe4
                 if (p == lp)
                     pe = Pens.Red;
 
-                p.Render(g, pe, num);
+                p.render(g, ed);
                 num++;
             }
         }

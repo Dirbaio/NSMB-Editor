@@ -24,7 +24,7 @@ using System.Windows.Forms;
 
 namespace NSMBe4
 {
-    public class NSMBSprite 
+    public class NSMBSprite : LevelItem
     {
         public int X;
         public int Y;
@@ -33,6 +33,18 @@ namespace NSMBe4
         private NSMBLevel Level;
 
         private static SolidBrush invalidBrush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
+        public int x { get { return getRect().X; } set { X = value / snap; } }
+        public int y { get { return getRect().Y; } set { Y = value / snap; } }
+        public int width { get { return getRect().Width; } set { } }
+        public int height { get { return getRect().Height; } set { } }
+
+        public int rx { get { return X * snap; } }
+        public int ry { get { return Y * snap; } }
+        public int rwidth { get { return 16; } }
+        public int rheight { get { return 16; } }
+
+        public bool isResizable { get { return false; } }
+        public int snap { get { return 16; } }
 
         public NSMBSprite(NSMBLevel Level)
         {
@@ -851,7 +863,8 @@ namespace NSMBe4
             return rect;
         }
 
-        public bool Render(Graphics g) {
+        public void render(Graphics g, LevelEditorControl ed)
+        {
             int RenderX = X * 16, RenderX2 = RenderX;
             int RenderY = Y * 16, RenderY2 = RenderY;
             int width, height;
@@ -1993,7 +2006,8 @@ namespace NSMBe4
                 g.FillRectangle(invalidBrush, this.getRect());
             }
 
-            return customRendered;
+            //I dunno what's this user for. ~Dirbaio
+//            return customRendered;
         }
 
         private static Bitmap RotateBitmap(Bitmap b, float angle)

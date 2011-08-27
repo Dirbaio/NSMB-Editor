@@ -22,7 +22,8 @@ using System.Drawing;
 
 namespace NSMBe4
 {
-    public class NSMBPathPoint {
+    public class NSMBPathPoint : LevelItem
+    {
         public int X;
         public int Y;
         public ushort Unknown1;
@@ -33,6 +34,20 @@ namespace NSMBe4
         public ushort Unknown6;
 
         public NSMBPath parent;
+
+        //LevelItem implementation.
+        public int x { get { return X * snap; } set { X = value / snap; } }
+        public int y { get { return Y * snap; } set { Y = value / snap; } }
+        public int width { get { return 16; } set { } }
+        public int height { get { return 16; } set { } }
+
+        public int rx { get { return X * snap; } }
+        public int ry { get { return Y * snap; } }
+        public int rwidth { get { return 16; } }
+        public int rheight { get { return 16; } }
+
+        public bool isResizable { get { return false; } }
+        public int snap { get { return 1; } }
 
         public NSMBPathPoint(NSMBPath p)
         {
@@ -52,7 +67,12 @@ namespace NSMBe4
             Unknown6 = p.Unknown6;
         }
 
-        public void Render(Graphics g, Pen p, int num) {
+        public void render(Graphics g, LevelEditorControl ed)
+        {
+            //TODO: Fix this shit.
+//        public void Render(Graphics g, Pen p, int num) {
+            Pen p = null;
+
             g.DrawImage(Properties.Resources.pathpoint, X + NSMBPath.XOffs, Y+NSMBPath.YOffs);
             if (p != null)
             {
@@ -60,7 +80,7 @@ namespace NSMBe4
                 g.DrawRectangle(p, X+1, Y+1, 14, 14);
 
             }
-            g.DrawString(num.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, X, Y);
+//            g.DrawString(num.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, X, Y);
         }
 
         public static NSMBPathPoint read(ByteArrayInputStream inp, NSMBPath parent)

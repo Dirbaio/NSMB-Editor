@@ -39,6 +39,21 @@ namespace NSMBe4
         public int EntryView;
         public int Unknown2;
 
+
+        //LevelItem implementation.
+        int x { get { return X * snap; } set { X = value / snap; } }
+        int y { get { return Y * snap; } set { Y = value / snap; } }
+        int width { get { return 16; } set { } }
+        int height { get { return 16; } set { } }
+
+        int rx { get { return X * snap; } }
+        int ry { get { return Y * snap; } }
+        int rwidth { get { return 16; } }
+        int rheight { get { return 16; } }
+
+        bool isResizable { get { return false; } }
+        int snap { get { return 1; } }
+
         public NSMBEntrance() { }
         public NSMBEntrance(NSMBEntrance e)
         {

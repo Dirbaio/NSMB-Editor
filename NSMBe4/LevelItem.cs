@@ -5,25 +5,35 @@ using System.Drawing;
 
 namespace NSMBe4
 {
-    interface LevelItem
+    public interface LevelItem
     {
-        public int x { get; set; }
-        public int y { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
+        int x { get; set; }
+        int y { get; set; }
+        int width { get; set; }
+        int height { get; set; }
+
+        //These are the "real" object rectangle.
+        //It is useful for knowing the real position and size,
+        //since the real position shouldn't go out of the level space.
+        //Though, the "drawn" position can. For example, see sprite End-of-level Flag.
+        int rx { get; }
+        int ry { get; }
+        int rwidth { get; }
+        int rheight { get; }
 
         //If it's not resizable, width.set and height.set just do nothing.
-        public bool isResizable { get; }
+        bool isResizable { get; }
 
         //Objects and sprites have snap 16, the others have snap 1.
         //x, y, width, height should always be multiples of snap.
         //Setting them to something that's not multiple of snap is OK, though.
-        public int snap { get; }
+        int snap { get; }
 
         //Renders the object itself.
-        public void render(Graphics g);
+        void render(Graphics g, LevelEditorControl ed);
 
         //Renders the white selection box around the object.
-        public void renderSelection(Graphics g);
+//        void render(Graphics g, LevelEditorControl ed);
+
     }
 }

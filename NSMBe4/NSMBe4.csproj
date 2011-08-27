@@ -127,6 +127,7 @@
     <Compile Include="ImagePreviewer.Designer.cs">
       <DependentUpon>ImagePreviewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="LevelItem.cs" />
     <Compile Include="LevelChooser.cs">
       <SubType>Form</SubType>
     </Compile>

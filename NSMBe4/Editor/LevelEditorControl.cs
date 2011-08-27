@@ -23,7 +23,7 @@ namespace NSMBe4
 {
     public partial class LevelEditorControl : UserControl
     {
-        private float zoom = 1;
+        public float zoom = 1;
         private bool drag = false;
         public LevelMinimap minimap;
         public MinimapControl minimapctrl;
@@ -187,27 +187,27 @@ namespace NSMBe4
             for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
                 Rectangle ObjRect = new Rectangle(Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
                 if (ObjRect.IntersectsWith(ViewableArea)) {
-                    Level.Objects[ObjIdx].Render(e.Graphics, ViewableArea.X, ViewableArea.Y, ViewableArea, zoom);
+                    Level.Objects[ObjIdx].render(e.Graphics, this);
                 }
             }
 
             foreach(NSMBSprite s in Level.Sprites)
                 if(ViewablePixels.IntersectsWith(s.getRect()) || s.AlwaysDraw())
-                    s.Render(e.Graphics);
+                    s.render(e.Graphics, this);
 
             foreach (NSMBView v in Level.Views)
-                v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
+                v.render(e.Graphics, this);
             foreach (NSMBView v in Level.Zones)
-                v.render(e.Graphics, ViewableArea.X, ViewableArea.Y);
-            
+                v.render(e.Graphics, this);
+
             foreach(NSMBEntrance n in Level.Entrances)
                 if(ViewablePixels.Contains(n.X, n.Y))
                     n.Render(e.Graphics);
 
             foreach (NSMBPath p in Level.Paths)
-                p.Render(e.Graphics, false);
+                p.render(e.Graphics, this, false);
             foreach (NSMBPath p in Level.ProgressPaths)
-                p.Render(e.Graphics, false);
+                p.render(e.Graphics, this, false);
 
             if (mode != null)
                 mode.RenderSelection(e.Graphics);

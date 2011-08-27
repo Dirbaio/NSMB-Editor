@@ -22,7 +22,8 @@ using System.Drawing;
 
 namespace NSMBe4
 {
-    public class NSMBView {
+    public class NSMBView : LevelItem
+    {
         public int X;
         public int Y;
         public int Width;
@@ -45,6 +46,20 @@ namespace NSMBe4
         // save two dictionary lookups every repaint
         private string ViewDesc = LanguageManager.Get("NSMBView", "ViewDesc");
         private string ZoneDesc = LanguageManager.Get("NSMBView", "ZoneDesc");
+
+        //LevelItem implementation.
+        public int x { get { return X * snap; } set { X = value / snap; } }
+        public int y { get { return Y * snap; } set { Y = value / snap; } }
+        public int width { get { return Width * snap; } set { Width = value / snap; } }
+        public int height { get { return Height * snap; } set { Height = value / snap; } }
+
+        public int rx { get { return X * snap; } }
+        public int ry { get { return Y * snap; } }
+        public int rwidth { get { return Width * snap; } }
+        public int rheight { get { return Height * snap; } }
+
+        public bool isResizable { get { return true; } }
+        public int snap { get { return 1; } }
 
         public NSMBView()
         { }
@@ -71,7 +86,7 @@ namespace NSMBe4
             CameraBottomStick = v.CameraBottomStick;
         }
 
-        public void render(Graphics g, int vx, int vy)
+        public void render(Graphics g, LevelEditorControl ed)
         {
             Pen p = Pens.LightSteelBlue;
             if (isZone)
@@ -80,6 +95,9 @@ namespace NSMBe4
             g.DrawRectangle(p, X, Y, Width - 1, Height - 1);
             g.DrawRectangle(p, X + 1, Y + 1, Width - 3, Height - 3);
 
+            //TODO: FIX
+            int vx = 0;
+            int vy = 0;
             if (X + Width > vx * 16 && Y + Height > vy * 16)
             {
                 int numx = X;
