@@ -748,9 +748,9 @@
             this.forceMiniCheckBox.AutoSize = true;
             this.forceMiniCheckBox.Location = new System.Drawing.Point(261, 130);
             this.forceMiniCheckBox.Name = "forceMiniCheckBox";
-            this.forceMiniCheckBox.Size = new System.Drawing.Size(99, 17);
+            this.forceMiniCheckBox.Size = new System.Drawing.Size(111, 17);
             this.forceMiniCheckBox.TabIndex = 6;
-            this.forceMiniCheckBox.Text = "force mini mario";
+            this.forceMiniCheckBox.Text = "<force mini mario>";
             this.forceMiniCheckBox.UseVisualStyleBackColor = true;
             // 
             // miniMarioPhysicsCheckBox
@@ -759,9 +759,9 @@
             this.miniMarioPhysicsCheckBox.AutoSize = true;
             this.miniMarioPhysicsCheckBox.Location = new System.Drawing.Point(261, 153);
             this.miniMarioPhysicsCheckBox.Name = "miniMarioPhysicsCheckBox";
-            this.miniMarioPhysicsCheckBox.Size = new System.Drawing.Size(110, 17);
+            this.miniMarioPhysicsCheckBox.Size = new System.Drawing.Size(122, 17);
             this.miniMarioPhysicsCheckBox.TabIndex = 6;
-            this.miniMarioPhysicsCheckBox.Text = "mini mario physics";
+            this.miniMarioPhysicsCheckBox.Text = "<mini mario physics>";
             this.miniMarioPhysicsCheckBox.UseVisualStyleBackColor = true;
             // 
             // midwayEntranceUpDown

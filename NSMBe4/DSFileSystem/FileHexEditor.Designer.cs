@@ -33,9 +33,9 @@
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.lblOffset = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.goButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,9 +68,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveButton,
             this.toolStripSeparator1,
-            this.toolStripLabel1,
+            this.lblOffset,
             this.toolStripTextBox1,
-            this.toolStripButton1});
+            this.goButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(749, 25);
@@ -82,26 +82,26 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripLabel1
+            // lblOffset
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(42, 22);
-            this.toolStripLabel1.Text = "Offset:";
+            this.lblOffset.Name = "lblOffset";
+            this.lblOffset.Size = new System.Drawing.Size(55, 22);
+            this.lblOffset.Text = "<Offset>";
             // 
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
             // 
-            // toolStripButton1
+            // goButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(26, 22);
-            this.toolStripButton1.Text = "Go";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.goButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.goButton.Image = ((System.Drawing.Image)(resources.GetObject("goButton.Image")));
+            this.goButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.goButton.Name = "goButton";
+            this.goButton.Size = new System.Drawing.Size(42, 22);
+            this.goButton.Text = "<Go>";
+            this.goButton.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // FileHexEditor
             // 
@@ -126,8 +126,8 @@
         private System.Windows.Forms.ToolStripButton saveButton;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel lblOffset;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton goButton;
     }
 }

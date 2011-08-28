@@ -457,41 +457,49 @@ namespace NSMBe4
         }
     }
 
-    // TODO: this |
-    //            v
-
-    //public class ChangeSpriteDataAction : SpriteAction
-    //{
-    //    byte[] OrigData, NewData;
-    //    public ChangeSpriteDataAction(NSMBSprite sprite, byte[] NewData) 
-    //        : base(sprite)
-    //    {
-    //        this.OrigData = sprite.Data.Clone() as byte[];
-    //        this.NewData = NewData;
-    //    }
-    //    public override void Undo()
-    //    {
-    //        sprite.Data = OrigData.Clone() as byte[];
-    //    }
-    //    public override void Redo()
-    //    {
-    //        sprite.Data = NewData.Clone() as byte[];
-    //    }
-    //    public override bool CanMerge {
-    //        get {
-    //            return true;
-    //        }
-    //    }
-    //    public override void Merge(Action act)
-    //    {
-    //        ChangeSpriteDataAction csda = act as ChangeSpriteDataAction;
-    //        this.NewData = csda.NewData;
-    //    }
-    //    public override string ToString()
-    //    {
-    //        return LanguageManager.GetList("UndoActions")[9];
-    //    }
-    //}
+    //Only works on one sprite for now
+    public class ChangeSpriteDataAction : LvlItemAction
+    {
+        byte[] OrigData, NewData;
+        public ChangeSpriteDataAction(List<LevelItem> objs, byte[] NewData) 
+            : base(objs)
+        {
+            for (int l = 0; l < objs.Count; l++)
+                if (objs[l] is NSMBSprite)
+                    OrigData = (objs[l] as NSMBSprite).Data.Clone() as byte[];
+                else {
+                    objs.RemoveAt(l);
+                    l--;
+                }
+            for (int l = 1; l < objs.Count; l++)
+                objs.RemoveAt(l);
+            if (objs.Count == 0)
+                cancel = true;
+            this.NewData = NewData;
+        }
+        public override void Undo()
+        {
+            (objs[0] as NSMBSprite).Data = OrigData.Clone() as byte[];
+        }
+        public override void Redo()
+        {
+            (objs[0] as NSMBSprite).Data = NewData.Clone() as byte[];
+        }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+        public override void Merge(Action act)
+        {
+            ChangeSpriteDataAction csda = act as ChangeSpriteDataAction;
+            this.NewData = csda.NewData;
+        }
+        public override string ToString()
+        {
+            return LanguageManager.GetList("UndoActions")[9];
+        }
+    }
     public class ChangeEntranceDataAction : LvlItemAction
     {
         int PropNum;
@@ -573,10 +581,13 @@ namespace NSMBe4
         public ChangePathIDAction(List<LevelItem> objs, int NewID)
             : base(objs)
         {
-            foreach (LevelItem obj in objs)
-                if (obj is NSMBPathPoint) {
-                    OrigID = (obj as NSMBPathPoint).parent.id;
+            for (int l = 0; l < objs.Count; l++)
+                if (objs[l] is NSMBPathPoint) {
+                    OrigID = (objs[l] as NSMBPathPoint).parent.id;
                     break;
+                } else {
+                    objs.RemoveAt(l);
+                    l--;
                 }
             for (int l = 1; l < objs.Count; l++)
                 objs.RemoveAt(l);
