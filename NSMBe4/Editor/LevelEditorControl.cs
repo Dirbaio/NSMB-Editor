@@ -436,10 +436,5 @@ namespace NSMBe4
             }
         }
 
-        public string[] getSpriteNames()
-        {
-            return editor.oem.getSpriteNames();
-        }
-
     }
 }

@@ -35,13 +35,13 @@ namespace NSMBe4
         public ObjectEditor(NSMBObject o, LevelEditorControl EdControl)
         {
             InitializeComponent();
-            this.o = o;
-            this.EdControl = EdControl;
-            UpdateInfo(false);
             LanguageManager.ApplyToContainer(this, "ObjectEditor");
             tileset0picker.Initialise(EdControl.GFX, 0);
             tileset1picker.Initialise(EdControl.GFX, 1);
             tileset2picker.Initialise(EdControl.GFX, 2);
+            this.o = o;
+            this.EdControl = EdControl;
+            UpdateInfo(false);
         }
 
         public void SetObject(NSMBObject no)

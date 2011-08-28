@@ -60,14 +60,18 @@ namespace NSMBe4
                 merged = !pAct.MergeFailed;
                 pAct.MergeFailed = false;
                 if (merged) {
-                    // I honestly can't remember what this was for...
-                    //if (act is MoveMultipleAction || act is MovePathAction || act is MoveLvlItemAction || act is ResizeLvlItemAction)
-                    //{
-                    //    act.SetEdControl(EdControl);
-                    //    act.DoRedo(false);
-                    //    act = null;
-                    //}
-                    //else
+                    // I honestly can't remember what this was for... ~Piranhaplant
+
+                    // This was for chained move actions. This way only the last move action is done (this is what we want)
+                    // And the merged action is saved.  ~Dirbaio
+
+                    if (act is MoveLvlItemAction || act is ResizeLvlItemAction)
+                    {
+                        act.SetEdControl(EdControl);
+                        act.DoRedo(false);
+                        act = null;
+                    }
+                    else
                         act = UActions.Peek();
                 }
             } 
