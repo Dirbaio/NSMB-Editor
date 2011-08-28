@@ -143,7 +143,7 @@ namespace NSMBe4
             gs.win = this;
 
             if (err)
-                if (MessageBox.Show("Question", "Some textures will not be imported/exported because they aren't compatible. Do you want to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                if (MessageBox.Show("Some textures will not be imported/exported because they aren't compatible. Do you want to continue?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return null;
 
             return gs;
