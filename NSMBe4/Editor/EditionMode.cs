@@ -34,8 +34,10 @@ namespace NSMBe4
             this.EdControl = EdControl;
         }
 
+        public UserControl p;
         public void SetPanel(UserControl p)
         {
+            this.p = p;
             EdControl.editor.SetPanel(p);
         }
 

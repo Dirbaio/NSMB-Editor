@@ -22,7 +22,8 @@ using System.Drawing;
 
 namespace NSMBe4
 {
-    public class NSMBEntrance {
+    public class NSMBEntrance : LevelItem
+    {
         //public byte[] Data;
 
         public int X;
@@ -41,18 +42,18 @@ namespace NSMBe4
 
 
         //LevelItem implementation.
-        int x { get { return X * snap; } set { X = value / snap; } }
-        int y { get { return Y * snap; } set { Y = value / snap; } }
-        int width { get { return 16; } set { } }
-        int height { get { return 16; } set { } }
+        public int x { get { return X * snap; } set { X = value / snap; } }
+        public int y { get { return Y * snap; } set { Y = value / snap; } }
+        public int width { get { return 16; } set { } }
+        public int height { get { return 16; } set { } }
 
-        int rx { get { return X * snap; } }
-        int ry { get { return Y * snap; } }
-        int rwidth { get { return 16; } }
-        int rheight { get { return 16; } }
+        public int rx { get { return X * snap; } }
+        public int ry { get { return Y * snap; } }
+        public int rwidth { get { return 16; } }
+        public int rheight { get { return 16; } }
 
-        bool isResizable { get { return false; } }
-        int snap { get { return 1; } }
+        public bool isResizable { get { return false; } }
+        public int snap { get { return 1; } }
 
         public NSMBEntrance() { }
         public NSMBEntrance(NSMBEntrance e)
@@ -72,7 +73,8 @@ namespace NSMBe4
             Unknown2 = e.Unknown2;
         }
 
-        public void Render(Graphics g) {
+        public void render(Graphics g, LevelEditorControl edControl)
+        {
             int EntranceShowType = 13;
             if (Type == 0) EntranceShowType = 0;
             if (Type == 2) EntranceShowType = 1;

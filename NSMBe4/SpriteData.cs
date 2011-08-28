@@ -383,8 +383,13 @@ namespace NSMBe4
                     sv.setValue(val, d);
                     index++;
                 }
-                //if (!updating && sender != null)
-                //    EdControl.UndoManager.Do(new ChangeSpriteDataAction(s, d));
+
+                if (!updating && sender != null)
+                {
+                    List<LevelItem> l = new List<LevelItem>();
+                    l.Add(s);
+                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(l, d));
+                }
             }
         }
     }

@@ -126,6 +126,7 @@ namespace NSMBe4
             SelectionRectangle = r;
             foreach (NSMBObject o in Level.Objects) selectIfInside(o, r);
             foreach (NSMBSprite o in Level.Sprites) selectIfInside(o, r);
+            foreach (NSMBEntrance o in Level.Entrances) selectIfInside(o, r);
 
             if (firstOnly && SelectedObjects.Count > 1)
             {
@@ -250,15 +251,29 @@ namespace NSMBe4
             if (SelectedObjects.Count == 1)
                 newSelected = SelectedObjects[0];
 
-            if(newSelected == lastSelected) return;
-            lastSelected = newSelected;
-
-            if (newSelected is NSMBSprite)
-                SetPanel(new SpriteEditor(newSelected as NSMBSprite, EdControl));
-            else if (newSelected is NSMBObject)
-                SetPanel(new ObjectEditor(newSelected as NSMBObject, EdControl));
+            if (newSelected == lastSelected)
+            {
+                if (p is SpriteEditor) (p as SpriteEditor).UpdateInfo();
+                if (p is ObjectEditor) (p as ObjectEditor).UpdateInfo(true);
+                if (p is EntranceEditor) (p as EntranceEditor).UpdateInfo();
+                if (p is ViewEditor) (p as ViewEditor).UpdateInfo();
+                if (p is PathEditor) (p as PathEditor).UpdateInfo();
+            }
             else
-                SetPanel(new CreatePanel(EdControl));
+            {
+                lastSelected = newSelected;
+
+                if (newSelected is NSMBSprite)
+                    SetPanel(new SpriteEditor(newSelected as NSMBSprite, EdControl));
+                else if (newSelected is NSMBObject)
+                    SetPanel(new ObjectEditor(newSelected as NSMBObject, EdControl));
+                else if (newSelected is NSMBEntrance)
+                    SetPanel(new EntranceEditor(newSelected as NSMBEntrance, EdControl));
+//                else if (newSelected is NSMBPathPoint)
+ //                   SetPanel(new PathEditor(newSelected as NSMBPathPoint, EdControl));
+                else
+                    SetPanel(new CreatePanel(EdControl));
+            }
         }
 
         public override void Refresh()

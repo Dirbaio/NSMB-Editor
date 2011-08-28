@@ -202,7 +202,7 @@ namespace NSMBe4
 
             foreach(NSMBEntrance n in Level.Entrances)
                 if(ViewablePixels.Contains(n.X, n.Y))
-                    n.Render(e.Graphics);
+                    n.render(e.Graphics, this);
 
             foreach (NSMBPath p in Level.Paths)
                 p.render(e.Graphics, this, false);

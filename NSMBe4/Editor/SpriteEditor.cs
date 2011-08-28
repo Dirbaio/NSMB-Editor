@@ -36,6 +36,13 @@ namespace NSMBe4
         public string[] allSprites = new string[324];
         private List<int> curSprites = new List<int>();
 
+        public List<LevelItem> makeList()
+        {
+            List<LevelItem> l = new List<LevelItem>();
+            l.Add(s);
+            return l;
+        }
+
         public SpriteEditor(NSMBSprite s, LevelEditorControl EdControl)
         {
             InitializeComponent();
@@ -57,6 +64,7 @@ namespace NSMBe4
             for (int l = 0; l <= 323; l++)
                 curSprites.Add(l);
 
+            UpdateDataEditor();
             UpdateInfo();
 
             LanguageManager.ApplyToContainer(this, "SpriteEditor");
@@ -90,6 +98,7 @@ namespace NSMBe4
             if (SpriteData.datas.ContainsKey(s.Type))
             {
                 sed = new SpriteData.SpriteDataEditor(s, SpriteData.datas[s.Type], EdControl);
+                sed.Dock = DockStyle.Fill;
                 sed.Parent = spriteDataPanel;
                 spriteDataPanel.Visible = true;
             }
@@ -127,15 +136,15 @@ namespace NSMBe4
         private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //if (s.X != (int)spriteXPosUpDown.Value)
-                //EdControl.UndoManager.Do(new MoveSpriteAction(s, (int)spriteXPosUpDown.Value, s.Y));
+            if (s.X != (int)spriteXPosUpDown.Value)
+                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)spriteXPosUpDown.Value - s.X, 0));
         }
 
         private void spriteYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //if (s.Y != (int)spriteYPosUpDown.Value)
-                //EdControl.UndoManager.Do(new MoveSpriteAction(s, s.X, (int)spriteYPosUpDown.Value));
+            if (s.Y != (int)spriteYPosUpDown.Value)
+                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)spriteYPosUpDown.Value-s.Y));
         }
 
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
@@ -143,7 +152,7 @@ namespace NSMBe4
             if (DataUpdateFlag) return;
             if (s.Type != (int)spriteTypeUpDown.Value)
             {
-                //EdControl.UndoManager.Do(new ChangeSpriteTypeAction(s, (int)spriteTypeUpDown.Value));
+                EdControl.UndoManager.Do(new ChangeSpriteTypeAction(makeList(), (int)spriteTypeUpDown.Value));
                 UpdateDataEditor();
             }
         }
@@ -163,12 +172,14 @@ namespace NSMBe4
             ns.Y = ViewableArea.Y;
             ns.Type = 0;
             ns.Data = new byte[6];
-            //EdControl.UndoManager.Do(new AddSpriteAction(ns));
+            List<LevelItem> l = new List<LevelItem>();
+            l.Add(ns);
+            EdControl.UndoManager.Do(new AddLvlItemAction(l));
         }
 
         private void deleteSpriteButton_Click(object sender, EventArgs e)
         {
-            //EdControl.UndoManager.Do(new RemoveSpriteAction(s));
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(makeList()));
         }
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -215,8 +226,8 @@ namespace NSMBe4
                 byte[] data = new byte[6];
                 for (int hexidx = 0; hexidx < 6; hexidx++)
                     data[hexidx] = byte.Parse(parseit.Substring(hexidx*2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                //if (!updating)
-                //    EdControl.UndoManager.Do(new ChangeSpriteDataAction(s, data));
+                if (!updating)
+                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(makeList(), data));
                 spriteDataTextBox.BackColor = SystemColors.Window;
             }
             else

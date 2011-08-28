@@ -81,44 +81,53 @@ namespace NSMBe4
             tileset2picker.reload();
         }
 
+        private List<LevelItem> makeList()
+        {
+            List<LevelItem> l = new List<LevelItem>();
+            l.Add(o);
+            return l;
+        }
+
         private void objXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //if ((int)objXPosUpDown.Value != o.X)
-                //EdControl.UndoManager.Do(new MoveObjectAction(o, (int)objXPosUpDown.Value, o.Y));
+            if ((int)objXPosUpDown.Value != o.X)
+                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)objXPosUpDown.Value-o.X, 0));
         }
 
         private void objYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //if ((int)objYPosUpDown.Value != o.Y)
-                //EdControl.UndoManager.Do(new MoveObjectAction(o, o.X, (int)objYPosUpDown.Value));
+            if ((int)objYPosUpDown.Value != o.Y)
+                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)objYPosUpDown.Value - o.Y));
         }
 
         private void objWidthUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //if ((int)objWidthUpDown.Value != o.Width)
-            //    EdControl.UndoManager.Do(new SizeObjectAction(o, (int)objWidthUpDown.Value, o.Height));
+            if ((int)objWidthUpDown.Value != o.Width)
+                EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), (int)objWidthUpDown.Value-o.Width, 0));
         }
 
         private void objHeightUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //if ((int)objHeightUpDown.Value != o.Height)
-            //    EdControl.UndoManager.Do(new SizeObjectAction(o, o.Width, (int)objHeightUpDown.Value));
+            if ((int)objHeightUpDown.Value != o.Height)
+                EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), 0, (int)objHeightUpDown.Value-o.Height));
         }
 
         private void addObjectButton_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBObject no = new NSMBObject(10, 0, ViewableArea.X, ViewableArea.Y, 1, 1, EdControl.GFX);
-            //EdControl.UndoManager.Do(new AddObjectAction(no));
+            List<LevelItem> l = new List<LevelItem>();
+            l.Add(no);
+            EdControl.UndoManager.Do(new AddLvlItemAction(l));
         }
 
         private void deleteObjectButton_Click(object sender, EventArgs e)
         {
-            //EdControl.UndoManager.Do(new RemoveObjectAction(o));
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(makeList()));  
         }
 
         private void setObjectType(int til, int obj)
@@ -127,7 +136,7 @@ namespace NSMBe4
             if (til != 1) tileset1picker.selectObjectNumber(-1);
             if (til != 2) tileset2picker.selectObjectNumber(-1);
 
-            //EdControl.UndoManager.Do(new ChangeObjectTypeAction(o, til, obj));
+            EdControl.UndoManager.Do(new ChangeObjectTypeAction(makeList(), til, obj));
         }
 
         private void tileset0picker_ObjectSelected()
