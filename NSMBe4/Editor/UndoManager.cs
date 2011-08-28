@@ -344,9 +344,9 @@ namespace NSMBe4
 
         public override void Merge(Action act)
         {
-            ResizeLvlItemAction mlia = act as ResizeLvlItemAction;
-            this.XDelta += mlia.XDelta;
-            this.YDelta += mlia.YDelta;
+            ResizeLvlItemAction rlia = act as ResizeLvlItemAction;
+            this.XDelta += rlia.XDelta;
+            this.YDelta += rlia.YDelta;
         }
     }
     #endregion
@@ -361,13 +361,15 @@ namespace NSMBe4
             NSMBObject o;
             OrigTS = new List<int>();
             OrigNum = new List<int>();
-            foreach (LevelItem obj in objs)
-                if (obj is NSMBObject) {
-                    o = obj as NSMBObject;
-                    OrigTS.Add(o.ObjNum);
+            for (int l = 0; l < objs.Count; l++)
+                if (objs[l] is NSMBObject) {
+                    o = objs[l] as NSMBObject;
+                    OrigTS.Add(o.Tileset);
                     OrigNum.Add(o.ObjNum);
-                } else
-                    objs.Remove(obj);
+                } else {
+                    objs.RemoveAt(l);
+                    l--;
+                }
             this.NewTS = NewTS;
             this.NewNum = NewNum;
         }
@@ -415,11 +417,14 @@ namespace NSMBe4
             : base(objs)
         {
             OrigType = new List<int>();
-            foreach (LevelItem obj in objs)
-                if (obj is NSMBSprite)
-                    OrigType.Add((obj as NSMBSprite).Type);
-                else
-                    objs.Remove(obj);
+            for (int l = 0; l < objs.Count; l++) {
+                if (objs[l] is NSMBSprite)
+                    OrigType.Add((objs[l] as NSMBSprite).Type);
+                else {
+                    objs.RemoveAt(l);
+                    l--;
+                }
+            }
             this.NewType = NewType;
         }
         public override void Undo()
@@ -494,11 +499,13 @@ namespace NSMBe4
             OrigV = new List<int>();
             this.NewV = NewV;
             this.PropNum = PropNum;
-            foreach (LevelItem obj in objs)
-                if (obj is NSMBEntrance)
-                    OrigV.Add(Read(obj as NSMBEntrance));
-                else
-                    objs.Remove(obj);
+            for (int l = 0; l < objs.Count; l++)
+                if (objs[l] is NSMBEntrance)
+                    OrigV.Add(Read(objs[l] as NSMBEntrance));
+                else {
+                    objs.RemoveAt(l);
+                    l--;
+                }
         }
         public override void Undo()
         {
@@ -563,8 +570,10 @@ namespace NSMBe4
             : base(objs)
         {
             foreach (LevelItem obj in objs)
-                if (obj is NSMBPathPoint)
+                if (obj is NSMBPathPoint) {
                     OrigID = (obj as NSMBPathPoint).parent.id;
+                    break;
+                }
             for (int l = 1; l < objs.Count; l++)
                 objs.RemoveAt(l);
             if (objs.Count == 0)
@@ -595,11 +604,13 @@ namespace NSMBe4
             OrigV = new List<ushort>();
             this.PropNum = PropNum;
             this.NewV = (ushort)NewV;
-            foreach (LevelItem obj in objs)
-                if (obj is NSMBPathPoint)
-                    OrigV.Add(Read(obj as NSMBPathPoint));
-                else
-                    objs.Remove(obj);
+            for (int l = 0; l < objs.Count; l++)
+                if (objs[l] is NSMBPathPoint)
+                    OrigV.Add(Read(objs[l] as NSMBPathPoint));
+                else {
+                    objs.RemoveAt(l);
+                    l--;
+                }
         }
         public override void Undo()
         {
@@ -663,11 +674,13 @@ namespace NSMBe4
             OrigV = new List<int>();
             this.PropNum = PropNum;
             this.NewV = NewV;
-            foreach (LevelItem obj in objs)
-                if (obj is NSMBView)
-                    OrigV.Add(Read(obj as NSMBView));
-                else
-                    objs.Remove(obj);
+            for (int l = 0; l < objs.Count; l++)
+                if (objs[l] is NSMBView)
+                    OrigV.Add(Read(objs[l] as NSMBView));
+                else {
+                    objs.RemoveAt(l);
+                    l--;
+                }
         }
         public override void Undo()
         {
