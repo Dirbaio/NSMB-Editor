@@ -106,7 +106,6 @@
     <Compile Include="Editor\EntranceEditor.Designer.cs">
       <DependentUpon>EntranceEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\EntrancesEditionMode.cs" />
     <Compile Include="Editor\CreatePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -185,7 +184,6 @@
       <DependentUpon>ObjectPickerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\ObjectsEditionMode.cs" />
-    <Compile Include="Editor\PathsEditionMode.cs" />
     <Compile Include="ObjectPickerControlNew.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -879,7 +877,6 @@
     <Compile Include="Editor\ViewEditor.Designer.cs">
       <DependentUpon>ViewEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\ViewsEditionMode.cs" />
     <None Include="Resources\pathpoint.png" />
     <None Include="Resources\sprite_invalid.png" />
     <None Include="Resources\Icons\config.png" />

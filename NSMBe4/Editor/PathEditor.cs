@@ -89,30 +89,30 @@ namespace NSMBe4
         private void data_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag || n == null) return;
-            if (n.Unknown1 != (int)unk1.Value)
-                EdControl.UndoManager.Do(new ChangePathNodeData(n, 0, (int)unk1.Value));
-            if (n.Unknown2 != (int)unk2.Value)
-                EdControl.UndoManager.Do(new ChangePathNodeData(n, 1, (int)unk2.Value));
-            if (n.Unknown3 != (int)unk3.Value)
-                EdControl.UndoManager.Do(new ChangePathNodeData(n, 2, (int)unk3.Value));
-            if (n.Unknown4 != (int)unk4.Value)
-                EdControl.UndoManager.Do(new ChangePathNodeData(n, 3, (int)unk4.Value));
-            if (n.Unknown5 != (int)unk5.Value)
-                EdControl.UndoManager.Do(new ChangePathNodeData(n, 4, (int)unk5.Value));
-            if (n.Unknown6 != (int)unk6.Value)
-                EdControl.UndoManager.Do(new ChangePathNodeData(n, 5, (int)unk6.Value));
+            //if (n.Unknown1 != (int)unk1.Value)
+            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 0, (int)unk1.Value));
+            //if (n.Unknown2 != (int)unk2.Value)
+            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 1, (int)unk2.Value));
+            //if (n.Unknown3 != (int)unk3.Value)
+            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 2, (int)unk3.Value));
+            //if (n.Unknown4 != (int)unk4.Value)
+            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 3, (int)unk4.Value));
+            //if (n.Unknown5 != (int)unk5.Value)
+            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 4, (int)unk5.Value));
+            //if (n.Unknown6 != (int)unk6.Value)
+            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 5, (int)unk6.Value));
         }
 
         private void position_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag || n == null) return;
-            EdControl.UndoManager.Do(new MovePathNodeAction(n, (int)nodeX.Value, (int)nodeY.Value));
+            //EdControl.UndoManager.Do(new MovePathNodeAction(n, (int)nodeX.Value, (int)nodeY.Value));
         }
 
         private void pathID_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag || n == null) return;
-            EdControl.UndoManager.Do(new ChangePathIDAction(p, (int)pathID.Value));
+            //EdControl.UndoManager.Do(new ChangePathIDAction(p, (int)pathID.Value));
             UpdateItem();
         }
 
@@ -146,13 +146,13 @@ namespace NSMBe4
             npp.X = va.X * 16;
             npp.Y = va.Y * 16;
             np.points.Add(npp);
-            EdControl.UndoManager.Do(new AddPathAction(np));
+            //EdControl.UndoManager.Do(new AddPathAction(np));
         }
 
         private void deletePath_Click(object sender, EventArgs e)
         {
             if (p == null) return;
-            EdControl.UndoManager.Do(new RemovePathAction(p));
+            //EdControl.UndoManager.Do(new RemovePathAction(p));
         }
 
         private void clonePath_Click(object sender, EventArgs e)
@@ -162,7 +162,7 @@ namespace NSMBe4
                 np.id = EdControl.Level.getFreePathNumber(l, 1);
             else
                 np.id = EdControl.Level.getFreePathNumber(l, 0);
-            EdControl.UndoManager.Do(new AddPathAction(np));
+            //EdControl.UndoManager.Do(new AddPathAction(np));
         }
     }
 }

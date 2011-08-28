@@ -127,15 +127,15 @@ namespace NSMBe4
         private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            if (s.X != (int)spriteXPosUpDown.Value)
-                EdControl.UndoManager.Do(new MoveSpriteAction(s, (int)spriteXPosUpDown.Value, s.Y));
+            //if (s.X != (int)spriteXPosUpDown.Value)
+                //EdControl.UndoManager.Do(new MoveSpriteAction(s, (int)spriteXPosUpDown.Value, s.Y));
         }
 
         private void spriteYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            if (s.Y != (int)spriteYPosUpDown.Value)
-                EdControl.UndoManager.Do(new MoveSpriteAction(s, s.X, (int)spriteYPosUpDown.Value));
+            //if (s.Y != (int)spriteYPosUpDown.Value)
+                //EdControl.UndoManager.Do(new MoveSpriteAction(s, s.X, (int)spriteYPosUpDown.Value));
         }
 
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
@@ -143,7 +143,7 @@ namespace NSMBe4
             if (DataUpdateFlag) return;
             if (s.Type != (int)spriteTypeUpDown.Value)
             {
-                EdControl.UndoManager.Do(new ChangeSpriteTypeAction(s, (int)spriteTypeUpDown.Value));
+                //EdControl.UndoManager.Do(new ChangeSpriteTypeAction(s, (int)spriteTypeUpDown.Value));
                 UpdateDataEditor();
             }
         }
@@ -163,12 +163,12 @@ namespace NSMBe4
             ns.Y = ViewableArea.Y;
             ns.Type = 0;
             ns.Data = new byte[6];
-            EdControl.UndoManager.Do(new AddSpriteAction(ns));
+            //EdControl.UndoManager.Do(new AddSpriteAction(ns));
         }
 
         private void deleteSpriteButton_Click(object sender, EventArgs e)
         {
-            EdControl.UndoManager.Do(new RemoveSpriteAction(s));
+            //EdControl.UndoManager.Do(new RemoveSpriteAction(s));
         }
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -215,8 +215,8 @@ namespace NSMBe4
                 byte[] data = new byte[6];
                 for (int hexidx = 0; hexidx < 6; hexidx++)
                     data[hexidx] = byte.Parse(parseit.Substring(hexidx*2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                if (!updating)
-                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(s, data));
+                //if (!updating)
+                //    EdControl.UndoManager.Do(new ChangeSpriteDataAction(s, data));
                 spriteDataTextBox.BackColor = SystemColors.Window;
             }
             else

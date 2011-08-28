@@ -29,9 +29,6 @@ namespace NSMBe4 {
     public partial class LevelEditor : Form {
 
         public ObjectsEditionMode oem;
-        public EntrancesEditionMode eem;
-        public PathsEditionMode pem, ppem;
-        public ViewsEditionMode vem, zem;
         public BackgroundDragEditionMode bgdragem;
 
         public ToolsForm tools;
@@ -48,11 +45,6 @@ namespace NSMBe4 {
 
             EditionModeButtons = new List<ToolStripButton>();
             EditionModeButtons.Add(editObjectsButton);
-            EditionModeButtons.Add(editEntrancesButton);
-            EditionModeButtons.Add(editPathsButton);
-            EditionModeButtons.Add(editProgressButton);
-            EditionModeButtons.Add(editViewsButton);
-            EditionModeButtons.Add(editZonesButton);
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
             // these need to be added manually
@@ -93,11 +85,6 @@ namespace NSMBe4 {
             levelEditorControl1.Initialise(GFX, Level, this);
 
             oem = new ObjectsEditionMode(Level, levelEditorControl1);
-            eem = new EntrancesEditionMode(Level, levelEditorControl1);
-            pem = new PathsEditionMode(Level, levelEditorControl1, Level.Paths);
-            ppem = new PathsEditionMode(Level, levelEditorControl1, Level.ProgressPaths);
-            vem = new ViewsEditionMode(Level, levelEditorControl1, true);
-            zem = new ViewsEditionMode(Level, levelEditorControl1, false);
             bgdragem = new BackgroundDragEditionMode(Level, levelEditorControl1);
 
             levelEditorControl1.SetEditionMode(oem);
@@ -221,46 +208,13 @@ namespace NSMBe4 {
             editObjectsButton.Checked = true;
         }
 
-        private void editEntrancesButton_Click(object sender, EventArgs e) {
-            levelEditorControl1.SetEditionMode(eem);
-            uncheckModeButtons();
-            editEntrancesButton.Checked = true;
-        }
-
-        private void editPathsButton_Click(object sender, EventArgs e) {
-            levelEditorControl1.SetEditionMode(pem);
-            uncheckModeButtons();
-            editPathsButton.Checked = true;
-        }
-        private void editProgressButton_Click(object sender, EventArgs e)
-        {
-            levelEditorControl1.SetEditionMode(ppem);
-            uncheckModeButtons();
-            editProgressButton.Checked = true;
-        }
-
-        private void editViewsButton_Click(object sender, EventArgs e)
-        {
-            levelEditorControl1.SetEditionMode(vem);
-            uncheckModeButtons();
-            editViewsButton.Checked = true;
-
-        }
-
-        private void editZonesButton_Click(object sender, EventArgs e)
-        {
-            levelEditorControl1.SetEditionMode(zem);
-            uncheckModeButtons();
-            editZonesButton.Checked = true;
-        }
-
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
             if (Level.Objects.Count == 0)
                 return;
             if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelObjects"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
                 return;
             }
-            levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Objects.ToArray()));
+            //levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Objects.ToArray()));
         }
 
         private void deleteAllSpritesToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -269,7 +223,7 @@ namespace NSMBe4 {
             if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelSprites"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
                 return;
             }
-            levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Sprites.ToArray()));
+            //levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Sprites.ToArray()));
         }
 
         private void spriteFinder_Click(object sender, EventArgs e)

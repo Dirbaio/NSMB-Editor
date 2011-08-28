@@ -97,7 +97,7 @@ namespace NSMBe4
                 if (s.Type == SpriteNumber.Value)
                     toDelete.Add(s);
 
-            EdControl.UndoManager.Do(new RemoveMultipleAction(toDelete.ToArray()));
+            //EdControl.UndoManager.Do(new RemoveMultipleAction(toDelete.ToArray()));
             MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "DeletedSprites"), toDelete.Count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -108,7 +108,7 @@ namespace NSMBe4
                 if (s.Type == SpriteNumber.Value)
                     count++;
 
-            EdControl.UndoManager.Do(new ReplaceSpritesAction((int)SpriteNumber.Value, (int)newSpriteNumber.Value));
+            //EdControl.UndoManager.Do(new ReplaceSpritesAction((int)SpriteNumber.Value, (int)newSpriteNumber.Value));
             MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "ReplacedSprites"), count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

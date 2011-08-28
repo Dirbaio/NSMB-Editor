@@ -31,11 +31,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.editObjectsButton = new System.Windows.Forms.ToolStripButton();
-            this.editEntrancesButton = new System.Windows.Forms.ToolStripButton();
-            this.editPathsButton = new System.Windows.Forms.ToolStripButton();
-            this.editProgressButton = new System.Windows.Forms.ToolStripButton();
-            this.editViewsButton = new System.Windows.Forms.ToolStripButton();
-            this.editZonesButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.undoButton = new System.Windows.Forms.ToolStripSplitButton();
             this.redoButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -91,11 +86,6 @@
             this.toolStripSeparator1,
             this.toolStripLabel1,
             this.editObjectsButton,
-            this.editEntrancesButton,
-            this.editPathsButton,
-            this.editProgressButton,
-            this.editViewsButton,
-            this.editZonesButton,
             this.toolStripSeparator2,
             this.undoButton,
             this.redoButton,
@@ -159,56 +149,6 @@
             this.editObjectsButton.Size = new System.Drawing.Size(23, 22);
             this.editObjectsButton.Text = "<editObjectsButton>";
             this.editObjectsButton.Click += new System.EventHandler(this.editObjectsButton_Click);
-            // 
-            // editEntrancesButton
-            // 
-            this.editEntrancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editEntrancesButton.Image = ((System.Drawing.Image)(resources.GetObject("editEntrancesButton.Image")));
-            this.editEntrancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editEntrancesButton.Name = "editEntrancesButton";
-            this.editEntrancesButton.Size = new System.Drawing.Size(23, 22);
-            this.editEntrancesButton.Text = "<editEntrancesButton>";
-            this.editEntrancesButton.Click += new System.EventHandler(this.editEntrancesButton_Click);
-            // 
-            // editPathsButton
-            // 
-            this.editPathsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editPathsButton.Image = ((System.Drawing.Image)(resources.GetObject("editPathsButton.Image")));
-            this.editPathsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editPathsButton.Name = "editPathsButton";
-            this.editPathsButton.Size = new System.Drawing.Size(23, 22);
-            this.editPathsButton.Text = "<editPathsButton>";
-            this.editPathsButton.Click += new System.EventHandler(this.editPathsButton_Click);
-            // 
-            // editProgressButton
-            // 
-            this.editProgressButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editProgressButton.Image = ((System.Drawing.Image)(resources.GetObject("editProgressButton.Image")));
-            this.editProgressButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editProgressButton.Name = "editProgressButton";
-            this.editProgressButton.Size = new System.Drawing.Size(23, 22);
-            this.editProgressButton.Text = "<editProgressButton>";
-            this.editProgressButton.Click += new System.EventHandler(this.editProgressButton_Click);
-            // 
-            // editViewsButton
-            // 
-            this.editViewsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editViewsButton.Image = ((System.Drawing.Image)(resources.GetObject("editViewsButton.Image")));
-            this.editViewsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editViewsButton.Name = "editViewsButton";
-            this.editViewsButton.Size = new System.Drawing.Size(23, 22);
-            this.editViewsButton.Text = "<editViewsButton>";
-            this.editViewsButton.Click += new System.EventHandler(this.editViewsButton_Click);
-            // 
-            // editZonesButton
-            // 
-            this.editZonesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editZonesButton.Image = ((System.Drawing.Image)(resources.GetObject("editZonesButton.Image")));
-            this.editZonesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editZonesButton.Name = "editZonesButton";
-            this.editZonesButton.Size = new System.Drawing.Size(23, 22);
-            this.editZonesButton.Text = "<editZonesButton>";
-            this.editZonesButton.Click += new System.EventHandler(this.editZonesButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -557,13 +497,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripButton editObjectsButton;
-        private System.Windows.Forms.ToolStripButton editEntrancesButton;
         private System.Windows.Forms.ToolStripButton levelConfigButton;
         private System.Windows.Forms.ToolStripMenuItem deleteAllObjectsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllSpritesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton editPathsButton;
         private System.Windows.Forms.Panel PanelContainer;
-        private System.Windows.Forms.ToolStripButton editViewsButton;
         private System.Windows.Forms.ToolStripButton spriteFinder;
         private System.Windows.Forms.ToolStripDropDownButton zoomMenu;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
@@ -573,11 +510,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripButton editZonesButton;
         private System.Windows.Forms.ToolStripButton editTileset;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem reloadTilesets;
-        private System.Windows.Forms.ToolStripButton editProgressButton;
         private System.Windows.Forms.ToolStripSplitButton undoButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSplitButton redoButton;

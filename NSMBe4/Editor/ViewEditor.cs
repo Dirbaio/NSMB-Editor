@@ -53,13 +53,13 @@ namespace NSMBe4
             nv.Width = 16 * 16;
             nv.isZone = !EditingViews;
             nv.Number = EdControl.Level.getFreeViewNumber(l);
-            EdControl.UndoManager.Do(new AddViewAction(nv));
+            //EdControl.UndoManager.Do(new AddViewAction(nv));
         }
 
         private void deleteViewButton_Click(object sender, EventArgs e)
         {
             int selIdx = viewsList.SelectedIndex;
-            EdControl.UndoManager.Do(new RemoveViewAction(v));
+            //EdControl.UndoManager.Do(new RemoveViewAction(v));
             viewsList.SelectedIndex = Math.Min(selIdx, viewsList.Items.Count - 1);
         }
 
@@ -137,12 +137,12 @@ namespace NSMBe4
         {
             if (v == null || DataUpdateFlag)
                 return;
-            if ((int)xPos.Value != v.X || (int)yPos.Value != v.Y)
-                EdControl.UndoManager.Do(new MoveViewAction(v, (int)xPos.Value, (int)yPos.Value));
-            else if ((int)width.Value != v.Width || (int)height.Value != v.Height)
-                EdControl.UndoManager.Do(new SizeViewAction(v, (int)width.Value, (int)height.Value));
-            else if ((int)viewID.Value != v.Number)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 1, (int)viewID.Value));
+            //if ((int)xPos.Value != v.X || (int)yPos.Value != v.Y)
+            //    EdControl.UndoManager.Do(new MoveViewAction(v, (int)xPos.Value, (int)yPos.Value));
+            //else if ((int)width.Value != v.Width || (int)height.Value != v.Height)
+            //    EdControl.UndoManager.Do(new SizeViewAction(v, (int)width.Value, (int)height.Value));
+            //else if ((int)viewID.Value != v.Number)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 1, (int)viewID.Value));
             UpdateItem();
         }
 
@@ -152,28 +152,28 @@ namespace NSMBe4
                 return;
 
             int newMusic = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-            if (v.Music != newMusic)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 2, newMusic));
-            if (v.Unknown1 != (int)unk1.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 3, (int)unk1.Value));
-            if (v.Unknown2 != (int)unk2.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 4, (int)unk2.Value));
-            if (v.Unknown3 != (int)unk3.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 5, (int)unk3.Value));
-            if (v.Lighting != (int)light.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 6, (int)light.Value));
-            if (v.FlagpoleID != (int)progressID.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 7, (int)progressID.Value));
-            if (v.CameraTop != (int)camTop.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 8, (int)camTop.Value));
-            if (v.CameraBottom != (int)camBottom.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 9, (int)camBottom.Value));
-            if (v.CameraTopSpin != (int)camTopSpecial.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 10, (int)camTopSpecial.Value));
-            if (v.CameraBottomSpin != (int)camBottomSpecial.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 11, (int)camBottomSpecial.Value));
-            if (v.CameraBottomStick != (int)camStick.Value)
-                EdControl.UndoManager.Do(new ChangeViewDataAction(v, 12, (int)camStick.Value));
+            //if (v.Music != newMusic)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 2, newMusic));
+            //if (v.Unknown1 != (int)unk1.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 3, (int)unk1.Value));
+            //if (v.Unknown2 != (int)unk2.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 4, (int)unk2.Value));
+            //if (v.Unknown3 != (int)unk3.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 5, (int)unk3.Value));
+            //if (v.Lighting != (int)light.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 6, (int)light.Value));
+            //if (v.FlagpoleID != (int)progressID.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 7, (int)progressID.Value));
+            //if (v.CameraTop != (int)camTop.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 8, (int)camTop.Value));
+            //if (v.CameraBottom != (int)camBottom.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 9, (int)camBottom.Value));
+            //if (v.CameraTopSpin != (int)camTopSpecial.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 10, (int)camTopSpecial.Value));
+            //if (v.CameraBottomSpin != (int)camBottomSpecial.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 11, (int)camBottomSpecial.Value));
+            //if (v.CameraBottomStick != (int)camStick.Value)
+            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 12, (int)camStick.Value));
         }
 
         private void viewsList_SelectedIndexChanged(object sender, EventArgs e) {

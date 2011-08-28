@@ -296,13 +296,13 @@ namespace NSMBe4
             if (SelectedObjects.Count == 0)
                 return;
 
-            if (SelectedObjects.Count == 1) {
-                if (SelectedObjects[0] is NSMBObject)
-                    EdControl.UndoManager.Do(new RemoveObjectAction(SelectedObjects[0] as NSMBObject));
-                else
-                    EdControl.UndoManager.Do(new RemoveSpriteAction(SelectedObjects[0] as NSMBSprite));
-            } else
-                EdControl.UndoManager.Do(new RemoveMultipleAction(SelectedObjects.ToArray()));
+            //if (SelectedObjects.Count == 1) {
+                //if (SelectedObjects[0] is NSMBObject)
+                    //EdControl.UndoManager.Do(new RemoveObjectAction(SelectedObjects[0] as NSMBObject));
+                //else
+                    //EdControl.UndoManager.Do(new RemoveSpriteAction(SelectedObjects[0] as NSMBSprite));
+            //} else
+                //EdControl.UndoManager.Do(new RemoveMultipleAction(SelectedObjects.ToArray()));
 
             SelectedObjects.Clear();
             EdControl.repaint();
@@ -364,15 +364,15 @@ namespace NSMBe4
             Rectangle va = EdControl.ViewableArea;
             int XOffs = va.X - XMin; //Offset to move all the objects
             int YOffs = va.Y - YMin; //so they are on the topleft corner
-            EdControl.UndoManager.Perform(new MoveMultipleAction(objs.ToArray(), XOffs, YOffs));
+            //EdControl.UndoManager.Perform(new MoveMultipleAction(objs.ToArray(), XOffs, YOffs));
 
-            if (objs.Count == 1) {
-                if (objs[0] is NSMBObject)
-                    EdControl.UndoManager.Do(new AddObjectAction(objs[0] as NSMBObject));
-                else
-                    EdControl.UndoManager.Do(new AddSpriteAction(objs[0] as NSMBSprite));
-            } else
-                EdControl.UndoManager.Do(new AddMultipleAction(objs.ToArray()));
+            //if (objs.Count == 1) {
+            //    if (objs[0] is NSMBObject)
+            //        EdControl.UndoManager.Do(new AddObjectAction(objs[0] as NSMBObject));
+            //    else
+            //        EdControl.UndoManager.Do(new AddSpriteAction(objs[0] as NSMBSprite));
+            //} else
+            //    EdControl.UndoManager.Do(new AddMultipleAction(objs.ToArray()));
             SelectObjects(objs.ToArray());
             UpdateSelectionBounds();
         }
