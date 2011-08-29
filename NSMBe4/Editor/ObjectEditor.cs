@@ -27,41 +27,45 @@ namespace NSMBe4
 {
     public partial class ObjectEditor : UserControl
     {
-        private NSMBObject o;
+        public List<LevelItem> SelectedObjects;
         public LevelEditorControl EdControl;
         private bool DataUpdateFlag = false;
 
-
-        public ObjectEditor(NSMBObject o, LevelEditorControl EdControl)
+        public ObjectEditor(LevelEditorControl EdControl)
         {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "ObjectEditor");
             tileset0picker.Initialise(EdControl.GFX, 0);
             tileset1picker.Initialise(EdControl.GFX, 1);
             tileset2picker.Initialise(EdControl.GFX, 2);
-            this.o = o;
             this.EdControl = EdControl;
-            UpdateInfo(false);
+            UpdateInfo();
         }
 
-        public void SetObject(NSMBObject no)
+        public void SelectObjects(List<LevelItem> objs)
         {
-            bool keep = o == no;
-            o = no;
-            UpdateInfo(keep);
+            SelectedObjects = objs;
+            UpdateInfo();
         }
 
-        public void UpdateInfo(bool keep)
+        public void UpdateInfo()
         {
-            if (o == null) return;
-            DataUpdateFlag = true;
-            objXPosUpDown.Value = o.X;
-            objYPosUpDown.Value = o.Y;
-            objWidthUpDown.Value = o.Width;
-            objHeightUpDown.Value = o.Height;
+            if (SelectedObjects == null) return;
+            NSMBObject o = null;
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBObject) {
+                    o = obj as NSMBObject;
+                    break;
+                }
 
-            if (!keep)
-            {
+            if (o != null) {
+                DataUpdateFlag = true;
+                // Removed because I don't know how to implement these with multiple selected objects. ~Piranhaplant
+                //objXPosUpDown.Value = o.X;
+                //objYPosUpDown.Value = o.Y;
+                //objWidthUpDown.Value = o.Width;
+                //objHeightUpDown.Value = o.Height;
+
                 if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
                 if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
                 if (o.Tileset != 2) tileset2picker.selectObjectNumber(-1);
@@ -71,8 +75,8 @@ namespace NSMBe4
                 if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.ObjNum);
 
                 tabControl1.SelectedIndex = o.Tileset;
+                DataUpdateFlag = false;
             }
-            DataUpdateFlag = false;
         }
 
         public void ReloadObjectPicker() {
@@ -81,53 +85,46 @@ namespace NSMBe4
             tileset2picker.reload();
         }
 
-        private List<LevelItem> makeList()
-        {
-            List<LevelItem> l = new List<LevelItem>();
-            l.Add(o);
-            return l;
-        }
+        // Removed because I don't know how to implement these with multiple selected objects. ~Piranhaplant
 
         private void objXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if ((int)objXPosUpDown.Value != o.X)
-                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)objXPosUpDown.Value-o.X, 0));
+        //    if (DataUpdateFlag) return;
+        //    if ((int)objXPosUpDown.Value != o.X)
+        //        EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)objXPosUpDown.Value-o.X, 0));
         }
 
         private void objYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if ((int)objYPosUpDown.Value != o.Y)
-                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)objYPosUpDown.Value - o.Y));
+        //    if (DataUpdateFlag) return;
+        //    if ((int)objYPosUpDown.Value != o.Y)
+        //        EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)objYPosUpDown.Value - o.Y));
         }
 
         private void objWidthUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if ((int)objWidthUpDown.Value != o.Width)
-                EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), (int)objWidthUpDown.Value-o.Width, 0));
+        //    if (DataUpdateFlag) return;
+        //    if ((int)objWidthUpDown.Value != o.Width)
+        //        EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), (int)objWidthUpDown.Value-o.Width, 0));
         }
 
         private void objHeightUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if ((int)objHeightUpDown.Value != o.Height)
-                EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), 0, (int)objHeightUpDown.Value-o.Height));
+        //    if (DataUpdateFlag) return;
+        //    if ((int)objHeightUpDown.Value != o.Height)
+        //        EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), 0, (int)objHeightUpDown.Value-o.Height));
         }
 
         private void addObjectButton_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBObject no = new NSMBObject(10, 0, ViewableArea.X, ViewableArea.Y, 1, 1, EdControl.GFX);
-            List<LevelItem> l = new List<LevelItem>();
-            l.Add(no);
-            EdControl.UndoManager.Do(new AddLvlItemAction(l));
+            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(no)));
         }
 
         private void deleteObjectButton_Click(object sender, EventArgs e)
         {
-            EdControl.UndoManager.Do(new RemoveLvlItemAction(makeList()));  
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));  
         }
 
         private void setObjectType(int til, int obj)
@@ -136,7 +133,7 @@ namespace NSMBe4
             if (til != 1) tileset1picker.selectObjectNumber(-1);
             if (til != 2) tileset2picker.selectObjectNumber(-1);
 
-            EdControl.UndoManager.Do(new ChangeObjectTypeAction(makeList(), til, obj));
+            EdControl.UndoManager.Do(new ChangeObjectTypeAction(SelectedObjects, til, obj));
         }
 
         private void tileset0picker_ObjectSelected()

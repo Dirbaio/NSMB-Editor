@@ -37,11 +37,15 @@ namespace NSMBe4
         Rectangle SelectionRectangle;
 
         List<LevelItem> SelectedObjects = new List<LevelItem>();
+        TabsPanel tabs;
 
         public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
             : base(Level, EdControl)
         {
-            SetPanel(new CreatePanel(EdControl));
+            //SetPanel(new CreatePanel(EdControl));
+            tabs = new TabsPanel(EdControl);
+            SetPanel(tabs);
+            tabs.Dock = DockStyle.Fill;
         }
 
         public override void SelectObject(Object o)
@@ -177,6 +181,7 @@ namespace NSMBe4
 
             EdControl.repaint();
             UpdatePanel();
+            tabs.SelectObjects(SelectedObjects);
         }
 
 
@@ -241,39 +246,42 @@ namespace NSMBe4
             SelectMode = false;
             EdControl.UndoManager.merge = false;
             EdControl.repaint();
+            tabs.SelectObjects(SelectedObjects);
         }
 
         LevelItem lastSelected = null;
 
         public void UpdatePanel()
         {
-            LevelItem newSelected = null;
-            if (SelectedObjects.Count == 1)
-                newSelected = SelectedObjects[0];
+            // This is completely incompatible with the new side panel ~Piranhaplant
 
-            if (newSelected == lastSelected)
-            {
-                if (p is SpriteEditor) (p as SpriteEditor).UpdateInfo();
-                if (p is ObjectEditor) (p as ObjectEditor).UpdateInfo(true);
-                if (p is EntranceEditor) (p as EntranceEditor).UpdateInfo();
-                if (p is ViewEditor) (p as ViewEditor).UpdateInfo();
-                if (p is PathEditor) (p as PathEditor).UpdateInfo();
-            }
-            else
-            {
-                lastSelected = newSelected;
+            //LevelItem newSelected = null;
+            //if (SelectedObjects.Count == 1)
+            //    newSelected = SelectedObjects[0];
 
-                if (newSelected is NSMBSprite)
-                    SetPanel(new SpriteEditor(newSelected as NSMBSprite, EdControl));
-                else if (newSelected is NSMBObject)
-                    SetPanel(new ObjectEditor(newSelected as NSMBObject, EdControl));
-                else if (newSelected is NSMBEntrance)
-                    SetPanel(new EntranceEditor(newSelected as NSMBEntrance, EdControl));
-//                else if (newSelected is NSMBPathPoint)
- //                   SetPanel(new PathEditor(newSelected as NSMBPathPoint, EdControl));
-                else
-                    SetPanel(new CreatePanel(EdControl));
-            }
+            //if (newSelected == lastSelected)
+            //{
+            //    if (p is SpriteEditor) (p as SpriteEditor).UpdateInfo();
+            //    if (p is ObjectEditor) (p as ObjectEditor).UpdateInfo();
+            //    if (p is EntranceEditor) (p as EntranceEditor).UpdateInfo();
+            //    if (p is ViewEditor) (p as ViewEditor).UpdateInfo();
+            //    if (p is PathEditor) (p as PathEditor).UpdateInfo();
+            //}
+            //else
+            //{
+            //    lastSelected = newSelected;
+
+            //    if (newSelected is NSMBSprite)
+            //        SetPanel(new SpriteEditor(newSelected as NSMBSprite, EdControl));
+            //    else if (newSelected is NSMBObject)
+            //        SetPanel(new ObjectEditor(newSelected as NSMBObject, EdControl));
+            //    else if (newSelected is NSMBEntrance)
+            //        SetPanel(new EntranceEditor(newSelected as NSMBEntrance, EdControl));
+            //    //                else if (newSelected is NSMBPathPoint)
+            //    //                   SetPanel(new PathEditor(newSelected as NSMBPathPoint, EdControl));
+            //    else
+            //        SetPanel(new CreatePanel(EdControl));
+            //}
         }
 
         public override void Refresh()

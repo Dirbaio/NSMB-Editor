@@ -27,14 +27,13 @@ namespace NSMBe4
 {
     public partial class EntranceEditor : UserControl
     {
-        NSMBEntrance en;
+        List<LevelItem> SelectedObjects;
         LevelEditorControl EdControl;
         bool DataUpdateFlag = false;
 
-        public EntranceEditor(NSMBEntrance e, LevelEditorControl ec)
+        public EntranceEditor(LevelEditorControl ec)
         {
             InitializeComponent();
-            en = e;
             EdControl = ec;
             UpdateList();
             if (entranceTypeComboBox.Items.Count == 0)
@@ -44,22 +43,27 @@ namespace NSMBe4
             LanguageManager.ApplyToContainer(this, "EntranceEditor");
         }
 
+        public void SelectObjects(List<LevelItem> objs)
+        {
+            SelectedObjects = objs;
+            UpdateInfo();
+        }
+
         public void UpdateList()
         {
             DataUpdateFlag = true;
             entranceListBox.Items.Clear();
             entranceListBox.Items.AddRange(EdControl.Level.Entrances.ToArray());
-            entranceListBox.SelectedItem = en;
             DataUpdateFlag = false;
         }
 
         public void UpdateItem()
         {
-            entranceListBox.SelectedItem = en;
-            if (en == null)
-                return;
-            if (entranceListBox.Items.Contains(en))
-                entranceListBox.Items[entranceListBox.Items.IndexOf(en)] = en;
+            //entranceListBox.SelectedItem = en;
+            //if (en == null)
+            //    return;
+            //if (entranceListBox.Items.Contains(en))
+            //    entranceListBox.Items[entranceListBox.Items.IndexOf(en)] = en;
         }
 
         private void entranceListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,7 +101,7 @@ namespace NSMBe4
         private void entranceTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 7, entranceTypeComboBox.SelectedIndex));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 7, entranceTypeComboBox.SelectedIndex));
 
             UpdateItem();
         }
@@ -105,87 +109,87 @@ namespace NSMBe4
         private void entranceCameraXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 0, (int)entranceCameraXPosUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 0, (int)entranceCameraXPosUpDown.Value));
         }
 
         private void entranceCameraYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 1, (int)entranceCameraYPosUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 1, (int)entranceCameraYPosUpDown.Value));
         }
 
         private void entranceNumberUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 2, (int)entranceNumberUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 2, (int)entranceNumberUpDown.Value));
             UpdateItem();
         }
 
         private void entranceDestAreaUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 3, (int)entranceDestAreaUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 3, (int)entranceDestAreaUpDown.Value));
         }
 
         private void entranceDestEntranceUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 4, (int)entranceDestEntranceUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 4, (int)entranceDestEntranceUpDown.Value));
         }
 
         private void entrancePipeIDUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 5, (int)entrancePipeIDUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 5, (int)entrancePipeIDUpDown.Value));
         }
 
         private void entranceViewUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 6, (int)entranceViewUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 6, (int)entranceViewUpDown.Value));
         }
 
         private void entranceSetting128_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            int v = en.Settings;
-            if (entranceSetting128.Checked)
-                v |= 128;
-            else
-                v &= 127;
+            //int v = en.Settings;
+            //if (entranceSetting128.Checked)
+            //    v |= 128;
+            //else
+            //    v &= 127;
             //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 8, v));
         }
 
         private void entranceSetting16_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            int v = en.Settings;
-            if (entranceSetting16.Checked)
-                v |= 16;
-            else
-                v &= 239;
+            //int v = en.Settings;
+            //if (entranceSetting16.Checked)
+            //    v |= 16;
+            //else
+            //    v &= 239;
             //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 9, v));
         }
 
         private void entranceSetting8_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            int v = en.Settings;
-            if (entranceSetting8.Checked)
-                v |= 8;
-            else
-                v &= 247;
+            //int v = en.Settings;
+            //if (entranceSetting8.Checked)
+            //    v |= 8;
+            //else
+            //    v &= 247;
             //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 10, v));
         }
 
         private void entranceSetting1_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            int v = en.Settings;
-            if (entranceSetting1.Checked)
-                v |= 1;
-            else
-                v &= 254;
+            //int v = en.Settings;
+            //if (entranceSetting1.Checked)
+            //    v |= 1;
+            //else
+            //    v &= 254;
             //EdControl.UndoManager.Do(new ChangeEntranceDataAction(en, 11, v));
         }
 
@@ -197,15 +201,15 @@ namespace NSMBe4
             ne.X = ViewableArea.X * 16;
             ne.Y = ViewableArea.Y * 16;
             ne.Number = EdControl.Level.getFreeEntranceNumber();
-            //EdControl.UndoManager.Do(new AddEntranceAction(ne));
+            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ne)));
         }
 
 
         private void deleteEntranceButton_Click(object sender, EventArgs e)
         {
-            int selIdx = entranceListBox.SelectedIndex;
-            //EdControl.UndoManager.Do(new RemoveEntranceAction(en));
-            entranceListBox.SelectedIndex = Math.Min(selIdx, entranceListBox.Items.Count - 1);
+            //int selIdx = entranceListBox.SelectedIndex;
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));
+            //entranceListBox.SelectedIndex = Math.Min(selIdx, entranceListBox.Items.Count - 1);
         }
 
         public void delete()
@@ -213,25 +217,25 @@ namespace NSMBe4
             deleteEntranceButton.PerformClick();
         }
 
-        public void SetEntrance(NSMBEntrance ne)
-        {
-            this.en = ne;
-            UpdateInfo();
-            groupBox2.Visible = ne != null;
-        }
-
         public void UpdateInfo()
         {
             DataUpdateFlag = true;
-            groupBox2.Visible = en != null;
-            entranceListBox.SelectedItem = en;
-            deleteEntranceButton.Enabled = en != null;
+            NSMBEntrance en = null;
+            groupBox2.Visible = SelectedObjects != null;
+            deleteEntranceButton.Enabled = SelectedObjects != null;
             UpdateList();
             DataUpdateFlag = false;
 
+            if (SelectedObjects == null) return;
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBEntrance) {
+                    en = obj as NSMBEntrance;
+                    break;
+                }
             if (en == null) return;
 
             DataUpdateFlag = true;
+            entranceListBox.SelectedItem = en;
             entranceXPosUpDown.Value = en.X;
             entranceYPosUpDown.Value = en.Y;
             entranceCameraXPosUpDown.Value = en.CameraX;

@@ -116,6 +116,12 @@
     <Compile Include="DataFinder.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Editor\TabsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\TabsPanel.Designer.cs">
+      <DependentUpon>TabsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GraphicsEditor\Image3D.cs" />
     <Compile Include="GraphicsEditor\Image3Dformat5.cs" />
     <Compile Include="ImageIndexerFast.cs" />
@@ -218,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\TabsPanel.resx">
+      <DependentUpon>TabsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>
@@ -416,6 +425,11 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\add.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\Icons\add.png" />
+    <None Include="Resources\Icons\bug.png" />
+    <None Include="Resources\Icons\paths_progress.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <None Include="Resources\file_ncg.png" />
     <None Include="Resources\file_ncl.png" />
