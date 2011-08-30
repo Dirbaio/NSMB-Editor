@@ -430,6 +430,9 @@
     <None Include="Resources\Icons\add.png" />
     <None Include="Resources\Icons\bug.png" />
     <None Include="Resources\Icons\paths_progress.png" />
+    <None Include="Resources\Sprite Images\BlueKoopaShell.png" />
+    <None Include="Resources\Sprite Images\GreenKoopaShell.png" />
+    <None Include="Resources\Sprite Images\RedKoopaShell.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <None Include="Resources\file_ncg.png" />
     <None Include="Resources\file_ncl.png" />

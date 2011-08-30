@@ -471,8 +471,17 @@ namespace NSMBe4
                     height = 18;
                     break;
                 case 149:
-                    y -= 13;
-                    height = 29;
+                    switch (Data[5] / 0x10)
+                    {
+                        case 1:
+                            width = 16;
+                            height = 16;
+                            break;
+                        default:
+                            y -= 13;
+                            height = 29;
+                            break;
+                    }
                     break;
                 case 150:
                     y -= 16;
@@ -1371,19 +1380,52 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.Goomba, RenderX, RenderY - 2, 16, 18);
                     break;
                 case 149:
-                    switch (Data[5] % 0x10) {
+                    switch (Data[5] % 0x10)
+                    {
                         case 1:
-                            img = Properties.Resources.KoopaRed;
+                            switch (Data[5] / 0x10)
+                            {
+                                case 1:
+                                    img = Properties.Resources.RedKoopaShell;
+                                    break;
+                                default:
+                                    img = Properties.Resources.KoopaRed;
+                                    break;
+                            }
                             break;
                         case 2:
                         case 3:
-                            img = Properties.Resources.KoopaBlue;
+                            switch (Data[5] / 0x10)
+                            {
+                                case 1:
+                                    img = Properties.Resources.BlueKoopaShell;
+                                    break;
+                                default:
+                                    img = Properties.Resources.KoopaBlue;
+                                    break;
+                            }
                             break;
                         default:
-                            img = Properties.Resources.KoopaGreen;
+                            switch (Data[5] / 0x10)
+                            {
+                                case 1:
+                                    img = Properties.Resources.GreenKoopaShell;
+                                    break;
+                                default:
+                                    img = Properties.Resources.KoopaGreen;
+                                    break;
+                            }
                             break;
                     }
-                    g.DrawImage(img, RenderX, RenderY - 13, 16, 29);
+                    switch (Data[5] / 0x10)
+                    {
+                        case 1:
+                            g.DrawImage(img, RenderX, RenderY, 16, 16);
+                            break;
+                        default:
+                            g.DrawImage(img, RenderX, RenderY - 13, 16, 29);
+                            break;
+                    }
                     break;
                 case 150:
                     switch (Data[5] % 0x10) {
