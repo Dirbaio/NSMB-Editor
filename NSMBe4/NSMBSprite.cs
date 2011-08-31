@@ -14,7 +14,6 @@
 *   You should have received a copy of the GNU General Public License
 *   along with NSMB Editor 5.  If not, see <http://www.gnu.org/licenses/>.
 */
-// 153/203
 
 using System;
 using System.Collections.Generic;
@@ -126,6 +125,7 @@ namespace NSMBe4
                 case 38:
                     width = 24; height = 20;
                     break;
+                //case 40: see 183
                 case 42:
                     y -= 48; height = 48;
                     if (Data[5] % 0x10 > 0) {
@@ -471,16 +471,9 @@ namespace NSMBe4
                     height = 18;
                     break;
                 case 149:
-                    switch (Data[5] / 0x10)
-                    {
-                        case 1:
-                            width = 16;
-                            height = 16;
-                            break;
-                        default:
-                            y -= 13;
-                            height = 29;
-                            break;
+                    if (Data[5] / 0x10 != 1){
+                        y -= 13;
+                        height = 29;
                     }
                     break;
                 case 150:
@@ -509,6 +502,11 @@ namespace NSMBe4
                     x -= 3; width = 8;
                     height = 16 * (Data[5] % 0x10 + 4);
                     break;
+                case 174:
+                    x -= 16 * (Data[4] / 0x10 + 1);
+                    width = 32 * (Data[4] / 0x10 + 2);
+                    height = 64;
+                    break;
                 case 175:
                     x -= 40; y -= 48;
                     width = 96; height = 64;
@@ -516,6 +514,7 @@ namespace NSMBe4
                 case 180:
                     width = 18; height = 26;
                     break;
+                case 40:
                 case 183:
                     y -= 23;
                     width = 26; height = 39;
@@ -622,6 +621,10 @@ namespace NSMBe4
                     break;
                 case 228:
                     width = 20; height = 20;
+                    break;
+                case 232:
+                    y -= 128;
+                    height += 128;
                     break;
                 case 233:
                     x -= 11; y -= 11;
@@ -947,6 +950,7 @@ namespace NSMBe4
                 case 38:
                     g.DrawImage(Properties.Resources.Boo, RenderX, RenderY, 24, 20);
                     break;
+                //case 40: see 183
                 case 42:
                     g.DrawImage(Properties.Resources.ChainChompLog, RenderX, RenderY - 48, 16, 48);
                     if (Data[5] % 0x10 > 0)
@@ -1383,49 +1387,29 @@ namespace NSMBe4
                     switch (Data[5] % 0x10)
                     {
                         case 1:
-                            switch (Data[5] / 0x10)
-                            {
-                                case 1:
-                                    img = Properties.Resources.RedKoopaShell;
-                                    break;
-                                default:
-                                    img = Properties.Resources.KoopaRed;
-                                    break;
-                            }
+                            if (Data[5] / 0x10 == 1)
+                                img = Properties.Resources.RedKoopaShell;
+                            else
+                                img = Properties.Resources.KoopaRed;
                             break;
                         case 2:
                         case 3:
-                            switch (Data[5] / 0x10)
-                            {
-                                case 1:
-                                    img = Properties.Resources.BlueKoopaShell;
-                                    break;
-                                default:
-                                    img = Properties.Resources.KoopaBlue;
-                                    break;
-                            }
+                            if (Data[5] / 0x10 == 1)
+                                img = Properties.Resources.BlueKoopaShell;
+                            else
+                                img = Properties.Resources.KoopaBlue;
                             break;
                         default:
-                            switch (Data[5] / 0x10)
-                            {
-                                case 1:
-                                    img = Properties.Resources.GreenKoopaShell;
-                                    break;
-                                default:
-                                    img = Properties.Resources.KoopaGreen;
-                                    break;
-                            }
+                            if (Data[5] / 0x10 == 1)
+                                img = Properties.Resources.GreenKoopaShell;
+                            else
+                                img = Properties.Resources.KoopaGreen;
                             break;
                     }
-                    switch (Data[5] / 0x10)
-                    {
-                        case 1:
-                            g.DrawImage(img, RenderX, RenderY, 16, 16);
-                            break;
-                        default:
-                            g.DrawImage(img, RenderX, RenderY - 13, 16, 29);
-                            break;
-                    }
+                    if (Data[5] / 0x10 == 1)
+                        g.DrawImage(img, RenderX, RenderY, 16, 16);
+                    else
+                        g.DrawImage(img, RenderX, RenderY - 13, 16, 29);
                     break;
                 case 150:
                     switch (Data[5] % 0x10) {
@@ -1487,6 +1471,26 @@ namespace NSMBe4
                         RenderY += 16;
                     }
                     break;
+                case 174:
+                    RenderY += 24;
+                    RenderX += 6;
+                    g.DrawImage(Properties.Resources.MushroomStalkTop, RenderX, RenderY, 20, 8);
+                    RenderY += 8;
+                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY, 20, 16);
+                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY + 16, 20, 16);
+                    RenderX = X * 16 - 16 * (Data[4] / 0x10 + 1);
+                    RenderY = RenderY2;
+                    img = Properties.Resources.MushroomEdge;
+                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    RenderX += 32;
+                    for (int l = 0; l < Data[4] / 0x10; l++)
+                    {
+                        g.DrawImage(Properties.Resources.MushroomSection, RenderX, RenderY, 32, 24);
+                        RenderX += 32;
+                    }
+                    img.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    break;
                 case 175:
                     g.DrawImage(Properties.Resources.BouncyBricks, RenderX - 40, RenderY - 48, 96, 64);
                     break;
@@ -1497,6 +1501,7 @@ namespace NSMBe4
                         img = Properties.Resources.FenceKoopaGreen;
                     g.DrawImage(img, RenderX, RenderY, 18, 26);
                     break;
+                case 40:
                 case 183:
                     g.DrawImage(Properties.Resources.Lakitu, RenderX, RenderY - 23, 26, 39);
                     break;
@@ -1520,8 +1525,8 @@ namespace NSMBe4
                     if (Data[5] % 0x10 <= 8)
                         g.DrawImage(Properties.Resources.HangingBlockOverrides.Clone(new Rectangle((Data[5] % 0x10) * 16, 
                         0, 16, 16), System.Drawing.Imaging.PixelFormat.DontCare), RenderX, RenderY + (RenderY2 - 5) * 16, 16, 16);
+                    g.DrawLine(Pens.White, RenderX + 7, RenderY + (RenderY2 - 5) * 16, RenderX + 7, RenderY - 80);
                     g.DrawLine(Pens.White, RenderX + 8, RenderY + (RenderY2 - 5) * 16, RenderX + 8, RenderY - 80);
-                    g.DrawLine(Pens.White, RenderX + 9, RenderY + (RenderY2 - 5) * 16, RenderX + 9, RenderY - 80);
                     break;
                 case 193:
                     g.DrawImage(Properties.Resources.DryBonesLarge, RenderX, RenderY - 28, 25, 44);
@@ -1607,6 +1612,11 @@ namespace NSMBe4
                     break;
                 case 228:
                     g.DrawImage(Properties.Resources.RouletteBlock, RenderX, RenderY, 20, 20);
+                    break;
+                case 232:
+                    g.DrawImage(Properties.Resources.QBlock, RenderX, RenderY, 16, 16);
+                    g.DrawLine(Pens.White, RenderX + 7, RenderY - 128, RenderX + 7, RenderY);
+                    g.DrawLine(Pens.White, RenderX + 8, RenderY - 128, RenderX + 8, RenderY);
                     break;
                 case 233:
                     for (int l = 0; l < Data[5] % 0x10 + 4; l++) {
