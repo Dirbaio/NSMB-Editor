@@ -39,7 +39,7 @@ _TITLE=NSMB Editor 5.2 SVN - by Treeki and Dirbaio
 tabPage1=ROM File Browser
 tabPage2=Level Listing
 tabPage3=Tools/Options
-tabPage4=Help
+tabPage4=About NSMBe
 
 ;Level Editor Tab
 importLevelButton=Import Level
@@ -199,8 +199,8 @@ entranceSetting1=Display on lower screen (entrances only)
 [FileHexEditor]
 _TITLE=Hex Editor - {0}
 saveButton=Save
-
-
+lblOffset=Offset:
+goButton=Go
 
 [FilesystemBrowser]
 label1=Selection Info:
@@ -397,6 +397,7 @@ importing=Importing Background. Please Wait...
 [TilesetEditor]
 _TITLE=Editing Tileset - {0}
 toolStripButton1=Save Tileset
+deleteAllButton=Del All
 tabPage1=Objects
 tabPage2=Map16
 tabPage3=Graphics
@@ -405,12 +406,14 @@ filenameLabel=PNG file:
 selectFileButton=Browse...
 importButton=Import
 exportButton=Export
+exportTilesetButton=Export Tileset
+importTilesetButton=Import Tileset
 newTilesGroupBox=Insert new tiles in:
 palette1RadioButton=Palette 1
 palette2RadioButton=Palette 2
 createDescriptions=Create Descriptions
 deleteDescriptions=Delete Descriptions
-
+setend=Set End
 
 [TilesetObjectEditor]
 label5=Object Editor
@@ -673,10 +676,10 @@ Unknown 4
 1-1|01|3
 1-2|02|3
 1-3|03|1
-Tower|07|3
+W1 Tower|07|3
 1-4|04|3
 1-5|05|2
-Castle|08|3
+W1 Castle|08|3
 1-A|06|2
 Cannon (W1 to W5)|09|1
 -World 2|B
@@ -684,19 +687,19 @@ Cannon (W1 to W5)|09|1
 2-2|02|2
 2-3|03|2
 2-4|04|2
-Tower|08|3
+W2 Tower|08|3
 2-5|05|2
 2-6|06|2
-Castle|09|3
+W2 Castle|09|3
 2-A|07|3
 Cannon (W2 to W5)|10|1
 -World 3|C
 3-1|01|2
 3-2|02|2
-Tower|08|2
+W3 Tower|08|2
 3-3|03|3
-Ghost House|07|3
-Castle|09|2
+W3 Ghost House|07|3
+W3 Castle|09|2
 3-A|04|3
 3-B|05|2
 3-C|06|2
@@ -705,22 +708,22 @@ Cannon (W3 to W6)|10|1
 4-1|01|1
 4-2|02|2
 4-3|03|2
-Tower|09|2
+W4 Tower|09|2
 4-4|04|2
-Ghost House|08|3
+W4 Ghost House|08|3
 4-5|05|3
 4-6|06|2
-Castle|10|2
+W4 Castle|10|2
 4-A|07|2
 Cannon (W4 to W7)|11|1
 -World 5|E
 5-1|01|1
 5-2|02|2
-Tower|09|2
+W5 Tower|09|2
 5-3|03|2
-Ghost House|08|3
+W5 Ghost House|08|3
 5-4|04|1
-Castle|10|2
+W5 Castle|10|2
 5-A|05|2
 5-B|06|1
 5-C|07|2
@@ -728,41 +731,41 @@ Cannon (W5 to W8)|11|1
 -World 6|F
 6-1|01|2
 6-2|02|2
-Tower 1|09|2
+W6 Tower 1|09|2
 6-3|03|2
 6-4|04|1
-Tower 2|10|2
+W6 Tower 2|10|2
 6-5|05|2
 6-6|06|3
-Castle|11|2
+W6 Castle|11|2
 6-A|07|2
 6-B|08|1
 Unused Cannon (W6 to W8)|12|1
 -World 7 (secret)|G
 7-1|01|1
-Ghost House|09|3
+W7 Ghost House|09|3
 7-2|02|2
 7-3|03|2
-Tower|10|2
+W7 Tower|10|2
 7-4|04|1
 7-5|05|3
 7-6|06|3
 7-7|07|1
 7-A|08|2
-Castle|11|2
+W7 Castle|11|2
 -World 8|H
 8-1|01|2
 8-2|02|3
-Tower 1|09|2
+W8 Tower 1|09|2
 8-3|03|2
 8-4|04|2
-Castle|11|2
+W8 Castle|11|2
 8-5|05|2
 8-6|06|2
 8-7|07|1
 8-8|08|2
-Tower 2|10|2
-Final Castle|12|3
+W8 Tower 2|10|2
+W8 Final Castle|12|3
 -Toad Houses|I
 1-Up Bonus Game|01|1
 Item Bonus Game|02|1
