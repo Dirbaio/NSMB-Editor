@@ -51,105 +51,80 @@ namespace NSMBe4
         {
             if (act.cancel)
                 return;
+
+            //First do the action. Only the *new* action
+            act.SetEdControl(EdControl);
+            act.Redo();
+            
+            //Then save the done action. Merge with previous actions if needed.
             bool merged = false;
             //Determine if the actions should be merged
-            if (merge && UActions.Count > 0 && UActions.Peek().CanMerge && 
-            UActions.Peek().GetType().Equals(act.GetType())) {
+            if (merge && UActions.Count > 0 && UActions.Peek().CanMerge && UActions.Peek().GetType().Equals(act.GetType()))
+            {
                 Action pAct = UActions.Peek();
-                pAct.Merge(act);
-                merged = !pAct.MergeFailed;
-                pAct.MergeFailed = false;
-                if (merged) {
-                    // I honestly can't remember what this was for... ~Piranhaplant
-
-                    // This was for chained move actions. This way only the last move action is done (this is what we want)
-                    // And the merged action is saved.  ~Dirbaio
-
-                    if (act is MoveLvlItemAction || act is ResizeLvlItemAction)
-                    {
-                        act.SetEdControl(EdControl);
-                        act.DoRedo(false);
-                        act = null;
-                    }
-                    else
-                        act = UActions.Peek();
-                }
-            } 
-            if (!merged) {
-                act.SetEdControl(EdControl);
+                merged = pAct.Merge(act);
+            }
+ 
+            //If we didn't merge the action we need to save the new action.
+            if (!merged) 
+            {
                 UActions.Push(act);
                 ToolStripMenuItem item = new ToolStripMenuItem(act.ToString());
                 item.MouseEnter += new EventHandler(updateActCount);
                 item.Click += new EventHandler(onUndoActions);
                 undo.DropDownItems.Insert(0, item);
             }
+
+            //Clear the redo buffer because we just did a new action.
             if (redo.DropDownItems.Count > 0) {
                 redo.DropDownItems.Clear();
                 RActions.Clear();
             }
+
+            //Always after doing an action.
+            EdControl.repaint();
+
+            //Now set some flags.
             undo.Enabled = true;
             redo.Enabled = false;
-            if (act != null)
-                act.DoRedo(false);
+
             merge = true;
             dirty = true;
         }
-        public void Perform(Action act)
-        {
-            act.SetEdControl(EdControl);
-            act.DoRedo(false);
-        }
+
         public void Clean()
         {
             dirty = false;
         }
-        private void onUndoLast(object sender, EventArgs e)
-        {
-            UndoLast(false);
-        }
 
-        public void UndoLast(bool multiple)
+
+        //These two functions actually do the undo/redo actions.
+        private void UndoLast()
         {
-            if (UActions.Count > 0) {
+            if (UActions.Count > 0)
+            {
                 undo.DropDownItems.RemoveAt(0);
                 ToolStripMenuItem item = new ToolStripMenuItem(UActions.Peek().ToString());
                 item.MouseEnter += new EventHandler(updateActCount);
                 item.Click += new EventHandler(onRedoActions);
                 redo.DropDownItems.Insert(0, item);
-                UActions.Peek().DoUndo(multiple);
+                UActions.Peek().Undo();
                 RActions.Push(UActions.Pop());
                 undo.Enabled = undo.DropDownItems.Count > 0;
                 redo.Enabled = true;
                 dirty = undo.Enabled;
             }
         }
-
-        private void onUndoActions(object sender, EventArgs e)
+        private void RedoLast()
         {
-            UndoActions(actionCount);
-        }
-
-        public void UndoActions(int count)
-        {
-            for (int l = 0; l < count; l++) {
-                UndoLast(l < count - 1);
-            }
-        }
-
-        private void onRedoLast(object sender, EventArgs e)
-        {
-            RedoLast(false);
-        }
-
-        public void RedoLast(bool multiple)
-        {
-            if (RActions.Count > 0) {
+            if (RActions.Count > 0)
+            {
                 redo.DropDownItems.RemoveAt(0);
                 ToolStripMenuItem item = new ToolStripMenuItem(RActions.Peek().ToString());
                 item.MouseEnter += new EventHandler(updateActCount);
                 item.Click += new EventHandler(onUndoActions);
                 undo.DropDownItems.Insert(0, item);
-                RActions.Peek().DoRedo(multiple);
+                RActions.Peek().Redo();
                 UActions.Push(RActions.Pop());
                 redo.Enabled = redo.DropDownItems.Count > 0;
                 undo.Enabled = true;
@@ -157,23 +132,43 @@ namespace NSMBe4
             }
         }
 
+        //Single undo/redo
+        public void onUndoLast(object sender, EventArgs e)
+        {
+            UndoLast();
+            EdControl.repaint();
+        }
+        public void onRedoLast(object sender, EventArgs e)
+        {
+            RedoLast();
+            EdControl.repaint();
+        }
+
+        //Multiple undo/redo
+        private void onUndoActions(object sender, EventArgs e)
+        {
+            for (int l = 0; l < actionCount; l++)
+                UndoLast();
+
+            EdControl.repaint();
+        }
         private void onRedoActions(object sender, EventArgs e)
         {
-            RedoActions(actionCount);
+            for (int l = 0; l < actionCount; l++)
+                RedoLast();
+
+            EdControl.repaint();
         }
 
-        public void RedoActions(int count)
-        {
-            for (int l = 0; l < count; l++) {
-                RedoLast(l < count - 1);
-            }
-        }
-
+        //This is called to know how many actions to undo/redo.
+        //So actionCount will always hold the number of actions when onUndoActions/onRedoActions is called.
         private void updateActCount(object sender, EventArgs e)
         {
             ToolStripMenuItem item = sender as ToolStripMenuItem;
             actionCount = (item.OwnerItem as ToolStripSplitButton).DropDownItems.IndexOf(item) + 1;
         }
+
+        //Helper functions? Here? :O
         public static byte[][] Clone(byte[][] data)
         {
             int len = data.GetLength(0);
@@ -194,10 +189,10 @@ namespace NSMBe4
     public class Action
     {
         public LevelEditorControl EdControl;
-        public NSMBLevel level;
         public bool cancel;
 
         public Action() { }
+        /*
         public void DoUndo(bool multiple)
         {
             this.Undo();
@@ -213,7 +208,7 @@ namespace NSMBe4
                 this.AfterAction();
                 EdControl.repaint();
             }
-        }
+        }*/
         public virtual void Undo() { }
         public virtual void Redo() { }
         public virtual void AfterAction() { }
@@ -223,21 +218,28 @@ namespace NSMBe4
                 return false;
             }
         }
-        public virtual void Merge(Action act) { }
-        public bool MergeFailed = false;
+
+        //Merge returns true if merge has been done successfully
+        public virtual bool Merge(Action act) { return false; }
+//        public bool MergeFailed = false;
+
         public void SetEdControl(LevelEditorControl EdControl)
         {
             this.EdControl = EdControl;
-            this.level = EdControl.Level;
             this.AfterSetEdControl();
         }
     }
+
     #region General Actions
     public class LvlItemAction : Action
     {
         public List<LevelItem> objs;
         public LvlItemAction(List<LevelItem> objs) {
-            this.objs = objs;
+
+            //This is important. We have to clone the list.
+            this.objs = new List<LevelItem>();
+            this.objs.AddRange(objs);
+
             if (objs.Count == 0)
                 cancel = true;
         }
@@ -245,6 +247,7 @@ namespace NSMBe4
             EdControl.mode.SelectObject(objs);
         }
     }
+
     public class AddLvlItemAction : LvlItemAction
     {
         public AddLvlItemAction(List<LevelItem> objs) : base(objs) { }
@@ -279,12 +282,15 @@ namespace NSMBe4
             this.XDelta = XDelta;
             this.YDelta = YDelta;
         }
+
+        /*
         public MoveLvlItemAction(List<LevelItem> objs, LevelItem BaseObj, int NewX, int NewY)
             : base(objs)
         {
             this.XDelta = NewX - BaseObj.x;
             this.YDelta = NewY - BaseObj.y;
-        }
+        }*/
+
         public override void Undo()
         {
             foreach (LevelItem obj in objs) {
@@ -304,11 +310,13 @@ namespace NSMBe4
                 return true;
             }
         }
-        public override void Merge(Action act)
+        public override bool Merge(Action act)
         {
             MoveLvlItemAction mlia = act as MoveLvlItemAction;
             this.XDelta += mlia.XDelta;
             this.YDelta += mlia.YDelta;
+
+            return true;
         }
     }
 
@@ -346,11 +354,13 @@ namespace NSMBe4
             }
         }
 
-        public override void Merge(Action act)
+        public override bool Merge(Action act)
         {
             ResizeLvlItemAction rlia = act as ResizeLvlItemAction;
             this.XDelta += rlia.XDelta;
             this.YDelta += rlia.YDelta;
+
+            return true;
         }
     }
     #endregion
@@ -359,8 +369,8 @@ namespace NSMBe4
     {
         List<int> OrigTS, OrigNum;
         int NewTS, NewNum;
-        public ChangeObjectTypeAction(List<LevelItem> objs, int NewTS, int NewNum)
-            : base(objs)
+        public ChangeObjectTypeAction(List<LevelItem> theobjs, int NewTS, int NewNum)
+            : base(theobjs)
         {
             NSMBObject o;
             OrigTS = new List<int>();
@@ -383,7 +393,7 @@ namespace NSMBe4
             for (int l = 0; l < objs.Count; l++) {
                 o = objs[l] as NSMBObject;
                 o.Tileset = OrigTS[l];
-                o.ObjNum = OrigTS[l];
+                o.ObjNum = OrigNum[l];
                 o.UpdateObjCache();
             }
         }
@@ -402,11 +412,13 @@ namespace NSMBe4
                 return true;
             }
         }
-        public override void Merge(Action act)
+        public override bool Merge(Action act)
         {
             ChangeObjectTypeAction cota = act as ChangeObjectTypeAction;
             this.NewTS = cota.NewTS;
             this.NewNum = cota.NewNum;
+
+            return true;
         }
         public override string ToString()
         {
@@ -446,10 +458,12 @@ namespace NSMBe4
                 return true;
             }
         }
-        public override void Merge(Action act)
+        public override bool Merge(Action act)
         {
             ChangeSpriteTypeAction csta = act as ChangeSpriteTypeAction;
             this.NewType = csta.NewType;
+
+            return true;
         }
         public override string ToString()
         {
@@ -490,10 +504,12 @@ namespace NSMBe4
                 return true;
             }
         }
-        public override void Merge(Action act)
+        public override bool Merge(Action act)
         {
             ChangeSpriteDataAction csda = act as ChangeSpriteDataAction;
             this.NewData = csda.NewData;
+
+            return true;
         }
         public override string ToString()
         {
@@ -563,12 +579,13 @@ namespace NSMBe4
                 return true;
             }
         }
-        public override void Merge(Action act) {
+        public override bool Merge(Action act) {
             ChangeEntranceDataAction ceda = (act as ChangeEntranceDataAction);
             if (ceda.PropNum != this.PropNum)
-                MergeFailed = true;
-            else
-                this.NewV = ceda.NewV;
+                return false;
+
+            this.NewV = ceda.NewV;
+            return true;
         }
         public override string ToString()
         {
@@ -665,13 +682,14 @@ namespace NSMBe4
                 return true;
             }
         }
-        public override void Merge(Action act)
+        public override bool Merge(Action act)
         {
             ChangePathNodeDataAction cpnd = (act as ChangePathNodeDataAction);
             if (cpnd.PropNum != this.PropNum)
-                MergeFailed = true;
-            else
-                this.NewV = cpnd.NewV;
+                return false;
+
+            this.NewV = cpnd.NewV;
+            return true;
         }
         public override string ToString()
         {
@@ -747,13 +765,14 @@ namespace NSMBe4
                 return true;
             }
         }
-        public override void Merge(Action act)
+        public override bool Merge(Action act)
         {
             ChangeViewDataAction cvda = (act as ChangeViewDataAction);
             if (cvda.PropNum != this.PropNum)
-                MergeFailed = true;
-            else
-                this.NewV = cvda.NewV;
+                return false;
+
+            this.NewV = cvda.NewV;
+            return true;
         }
         //public override string ToString()
         //{
@@ -786,10 +805,11 @@ namespace NSMBe4
         {
             this.oldData = UndoManager.Clone(EdControl.Level.Blocks);
         }
+        /*
         public override void AfterAction()
         {
             EdControl.Level.CalculateSpriteModifiers();
-        }
+        }*/
         public override string ToString()
         {
             return LanguageManager.GetList("UndoActions")[36];

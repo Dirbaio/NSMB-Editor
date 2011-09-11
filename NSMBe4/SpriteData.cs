@@ -53,7 +53,7 @@ namespace NSMBe4
                 }
             }
 
-            try
+//            try
             {
                 FileStream fs = new FileStream("./spritedata.txt", FileMode.Open, FileAccess.Read, FileShare.Read);
                 StreamReader sr = new StreamReader(fs);
@@ -69,11 +69,11 @@ namespace NSMBe4
                 fs.Close();
                 sr.Close();
             }
-            catch (Exception e)
+ /*           catch (Exception e)
             {
                 MessageBox.Show("Error parsing spritedata.txt:\n" + e.Message + "\n"+e.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 datas.Clear();
-            }
+            }*/
         } 
         
         public static SpriteData readFromStream(StreamReader sr)

@@ -246,12 +246,12 @@ namespace NSMBe4
             }
             if (keyData == (Keys.Control | Keys.Z))
             {
-                UndoManager.UndoLast(false);
+                UndoManager.onUndoLast(null, null);
                 return true;
             }
             if (keyData == (Keys.Control | Keys.Y))
             {
-                UndoManager.RedoLast(false);
+                UndoManager.onRedoLast(null, null);
                 return true;
             }
             if (keyData == (Keys.Delete))
