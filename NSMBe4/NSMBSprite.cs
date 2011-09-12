@@ -205,6 +205,8 @@ namespace NSMBe4
                 case 66:
                     if (Data[5] % 0x10 != 1)
                         y -= 2;
+                    if (Data[5] / 0x10 == 1)
+                        x += 8;
                     height = 18;
                     break;
                 case 67:
@@ -336,13 +338,11 @@ namespace NSMBe4
                 //case 106:
                 //    Red Coins don't need to be modified
                 case 107:
-                    if (Data[5] != 1)
-                        y -= 2;
-                    height = 18;
-                    break;
                 case 108:
                     if (Data[5] != 1)
                         y -= 2;
+                    if (Data[5] / 0x10 == 1)
+                        x += 8;
                     height = 18;
                     break;
                 case 109:
@@ -1043,6 +1043,8 @@ namespace NSMBe4
                         img.RotateFlip(RotateFlipType.Rotate180FlipNone);
                     else
                         RenderY -= 2;
+                    if (Data[5] / 0x10 == 1)
+                        RenderX += 8;
                     g.DrawImage(img, RenderX, RenderY, 16, 18);
                     break;
                 case 67:
@@ -1220,6 +1222,8 @@ namespace NSMBe4
                         img.RotateFlip(RotateFlipType.Rotate180FlipNone);
                     else
                         RenderY -= 2;
+                    if (Data[5] / 0x10 == 1)
+                        RenderX += 8;
                     g.DrawImage(img, RenderX, RenderY, 16, 18);
                     break;
                 case 108:
@@ -1228,6 +1232,8 @@ namespace NSMBe4
                         img.RotateFlip(RotateFlipType.Rotate180FlipNone);
                     else
                         RenderY -= 2;
+                    if (Data[5] / 0x10 == 1)
+                        RenderX += 8;
                     g.DrawImage(img, RenderX, RenderY, 16, 18);
                     break;
                 case 109:

@@ -232,6 +232,7 @@ namespace NSMBe4
                     en = obj as NSMBEntrance;
                     break;
                 }
+            deleteEntranceButton.Enabled = en != null;
             if (en == null) return;
 
             DataUpdateFlag = true;
