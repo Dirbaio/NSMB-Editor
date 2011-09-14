@@ -35,6 +35,7 @@ namespace NSMBe4
         public List<NSMBEntrance> Entrances;
         public List<NSMBView> Views, Zones;
         public List<NSMBPath> Paths, ProgressPaths;
+        public NSMBGraphics GFX;
 
         public bool[] ValidSprites;
 
@@ -44,6 +45,7 @@ namespace NSMBe4
         {
             this.LevelFile = levelFile;
             this.BGFile = bgFile;
+            this.GFX = GFX;
 
             int FilePos;
 

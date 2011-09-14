@@ -1137,6 +1137,10 @@ namespace NSMBe4
                 case 86:
                     g.DrawImage(Properties.Resources.SpinningTrianglePlatform, RenderX - 14, RenderY - 6, 44, 39);
                     break;
+                case 88:
+                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0x500, 0, 16, 16), GraphicsUnit.Pixel);
+                    g.DrawImage(Properties.Resources.PSwitch, RenderX + 2, RenderY + 1, 12, 14);
+                    break;
                 case 89:
                     g.DrawImage(Properties.Resources.Snailicorn, RenderX, RenderY - 16, 30, 32);
                     break;
@@ -1243,6 +1247,10 @@ namespace NSMBe4
                     if (shift == 2 || shift == 3)
                         RenderY += 8;
                     g.DrawImage(Properties.Resources.ElectricBall, RenderX - 6, RenderY - 6, 28, 27);
+                    break;
+                case 110:
+                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0x500, 0, 16, 16), GraphicsUnit.Pixel);
+                    g.DrawImage(Properties.Resources.RedSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 111:
                     g.DrawImage(Properties.Resources.Log, RenderX - 128, RenderY - 32, 256, 64);
@@ -1902,6 +1910,10 @@ namespace NSMBe4
                     if (Data[5] % 0x10 < 8)
                         g.DrawImage(Properties.Resources.FlyingQBlockOverrides.Clone(new Rectangle((Data[5] % 0x10)
                         * 16, 0, 16, 16), System.Drawing.Imaging.PixelFormat.DontCare), RenderX, RenderY, 16, 16);
+                    break;
+                case 291:
+                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0x500, 0, 16, 16), GraphicsUnit.Pixel);
+                    g.DrawImage(Properties.Resources.QSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 292:
                     g.DrawImage(Properties.Resources.Door2, RenderX, RenderY - 32, 32, 48);
