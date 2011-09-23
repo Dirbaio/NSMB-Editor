@@ -456,8 +456,8 @@ NotFound=No sprites found.
 [ViewEditor]
 addViewButton=Add
 deleteViewButton=Delete
-label8=X:
-label11=Y:
+label8=Y:
+label11=X:
 label10=Width:
 label9=Height:
 groupBox1=View settings
