@@ -254,6 +254,11 @@
             // entranceCameraYPosUpDown
             // 
             this.entranceCameraYPosUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.entranceCameraYPosUpDown.Increment = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
             this.entranceCameraYPosUpDown.Location = new System.Drawing.Point(143, 55);
             this.entranceCameraYPosUpDown.Maximum = new decimal(new int[] {
             4095,
@@ -268,6 +273,11 @@
             // entranceCameraXPosUpDown
             // 
             this.entranceCameraXPosUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.entranceCameraXPosUpDown.Increment = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
             this.entranceCameraXPosUpDown.Location = new System.Drawing.Point(143, 29);
             this.entranceCameraXPosUpDown.Maximum = new decimal(new int[] {
             8191,
