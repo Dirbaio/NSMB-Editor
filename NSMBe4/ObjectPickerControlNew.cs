@@ -87,6 +87,8 @@ namespace NSMBe4
 
             int scrollheight = y * 16 - Height + 16;
             vScrollBar1.Maximum = scrollheight;
+            //if (this.Height > 0)
+                //vScrollBar1.LargeChange = this.Height;
             Invalidate();
         }
 

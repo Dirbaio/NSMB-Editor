@@ -34,10 +34,12 @@ namespace NSMBe4
         int minSizeX, minSizeY; //the minimum size of all resizable objects.
         int selectionSnap; //The max snap in the selection :P
 
+        LevelItem selectTabType; //Used to swtich to the type of tab of the clicked object
+
         Rectangle SelectionRectangle;
 
         List<LevelItem> SelectedObjects = new List<LevelItem>();
-        TabsPanel tabs;
+        public TabsPanel tabs;
 
         public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
             : base(Level, EdControl)
@@ -55,10 +57,16 @@ namespace NSMBe4
                 SelectedObjects.Clear();
                 SelectedObjects.Add(o as LevelItem);
             }
+            if (o is List<LevelItem>)
+            {
+                SelectedObjects.Clear();
+                SelectedObjects.AddRange(o as List<LevelItem>);
+            }
             if (o == null)
             {
                 SelectedObjects.Clear();
             }
+            tabs.SelectObjects(SelectedObjects, null);
             UpdatePanel();
         }
 
@@ -145,13 +153,17 @@ namespace NSMBe4
 
         private bool isInSelection(int x, int y)
         {
-            foreach (LevelItem o in SelectedObjects)
-            {
+            //Search in reverse order so that the top object is selected
+            for (int l = SelectedObjects.Count - 1; l > -1; l--) {
+                LevelItem o = SelectedObjects[l];
                 if (x >= o.x && x < o.x + o.width)
                     if (y >= o.y && y < o.y + o.height)
+                    {
+                        selectTabType = o;
                         return true;
+                    }
             }
-
+            selectTabType = null;
             return false;
         }
 
@@ -162,7 +174,7 @@ namespace NSMBe4
             dx = x;
             dy = y;
 
-            if (!isInSelection(x, y) || SelectedObjects.Count == 1)
+            if (!isInSelection(x, y))
             {
                 // Select an object
                 findSelectedObjects(x, y, x, y, true);
@@ -174,14 +186,12 @@ namespace NSMBe4
                 //look if we are in resize mode...
                 ResizeMode = Control.ModifierKeys == Keys.Shift;
                 CloneMode = Control.ModifierKeys == Keys.Control;
-                SelectMode = false;
                 lx -= selectionSnap / 2;
                 ly -= selectionSnap / 2;
             }
 
             EdControl.repaint();
             UpdatePanel();
-            tabs.SelectObjects(SelectedObjects);
         }
 
 
@@ -246,13 +256,15 @@ namespace NSMBe4
             SelectMode = false;
             EdControl.UndoManager.merge = false;
             EdControl.repaint();
-            tabs.SelectObjects(SelectedObjects);
+            tabs.SelectObjects(SelectedObjects, selectTabType);
+            selectTabType = null;
         }
 
         LevelItem lastSelected = null;
 
         public void UpdatePanel()
         {
+            tabs.RefreshTabs();
             // This is completely incompatible with the new side panel ~Piranhaplant
 
             //LevelItem newSelected = null;

@@ -149,6 +149,7 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new ChangeEntranceDataAction(SelectedObjects, 6, (int)entranceViewUpDown.Value));
         }
 
+        // I have no clue how to handle these -Piranhaplant
         private void entranceSetting128_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
@@ -207,6 +208,8 @@ namespace NSMBe4
 
         private void deleteEntranceButton_Click(object sender, EventArgs e)
         {
+            // This button will probably be removed.
+
             //int selIdx = entranceListBox.SelectedIndex;
             EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));
             //entranceListBox.SelectedIndex = Math.Min(selIdx, entranceListBox.Items.Count - 1);

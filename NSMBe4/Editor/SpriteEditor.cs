@@ -27,26 +27,17 @@ namespace NSMBe4
 {
     public partial class SpriteEditor : UserControl
     {
-        public NSMBSprite s;
+        List<LevelItem> SelectedObjects;
         private LevelEditorControl EdControl;
-        private bool DataUpdateFlag = false;
         private byte[] SSTable;
         private bool updating = false;
 
         public string[] allSprites = new string[324];
         private List<int> curSprites = new List<int>();
 
-        public List<LevelItem> makeList()
-        {
-            List<LevelItem> l = new List<LevelItem>();
-            l.Add(s);
-            return l;
-        }
-
-        public SpriteEditor(NSMBSprite s, LevelEditorControl EdControl)
+        public SpriteEditor(LevelEditorControl EdControl)
         {
             InitializeComponent();
-            this.s = s;
             this.EdControl = EdControl;
 
             SSTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
@@ -72,19 +63,11 @@ namespace NSMBe4
 
         private SpriteData.SpriteDataEditor sed;
 
-        public void SetSprite(NSMBSprite ns)
+        public void SelectObjects(List<LevelItem> objs)
         {
-            if (ns == s)
-            {
-                UpdateInfo();
-                return;
-            }
-
-            this.s = ns;
-
-            UpdateDataEditor();
+            SelectedObjects = objs;
             UpdateInfo();
-            
+            UpdateDataEditor();
         }
 
         public void UpdateDataEditor()
@@ -95,9 +78,13 @@ namespace NSMBe4
                 sed.Parent = null;
             }
             sed = null;
-            if (SpriteData.datas.ContainsKey(s.Type))
+            if (SelectedObjects == null) return;
+
+            int type = getSpriteType();
+
+            if (type != -1 && SpriteData.datas.ContainsKey(type))
             {
-                sed = new SpriteData.SpriteDataEditor(s, SpriteData.datas[s.Type], EdControl);
+                sed = new SpriteData.SpriteDataEditor(SelectedObjects, SpriteData.datas[type], EdControl);
                 sed.Dock = DockStyle.Fill;
                 sed.Parent = spriteDataPanel;
                 spriteDataPanel.Visible = true;
@@ -116,51 +103,54 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            if (s == null) return;
+            if (SelectedObjects == null) return;
+            if (SelectedObjects.Count == 0) return;
             updating = true;
-            spriteXPosUpDown.Value = s.X;
-            spriteYPosUpDown.Value = s.Y;
-            spriteTypeUpDown.Value = s.Type;
-
-            byte[] SpriteData = s.Data;
-            spriteDataTextBox.Text = String.Format(
-                "{0:X2} {1:X2} {2:X2} {3:X2} {4:X2} {5:X2}",
-                SpriteData[0], SpriteData[1], SpriteData[2],
-                SpriteData[3], SpriteData[4], SpriteData[5]);
-            spriteDataTextBox.BackColor = SystemColors.Window;
-
-            spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
+            //spriteXPosUpDown.Value = s.X;
+            //spriteYPosUpDown.Value = s.Y;
+            int type = getSpriteType();
+            spriteTypeUpDown.Value = type > -1 ? type : 0;
+            byte[] SpriteData = null;
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBSprite) {
+                    SpriteData = (obj as NSMBSprite).Data;
+                    break;
+                }
+            if (SpriteData != null) {
+                spriteDataTextBox.Text = String.Format(
+                    "{0:X2} {1:X2} {2:X2} {3:X2} {4:X2} {5:X2}",
+                    SpriteData[0], SpriteData[1], SpriteData[2],
+                    SpriteData[3], SpriteData[4], SpriteData[5]);
+                spriteDataTextBox.BackColor = SystemColors.Window;
+            }
+            spriteListBox.SelectedIndex = curSprites.IndexOf(type);
             updating = false;
         }
 
         private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if (s.X != (int)spriteXPosUpDown.Value)
-                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)spriteXPosUpDown.Value - s.X, 0));
+            if (updating) return;
+            //if (s.X != (int)spriteXPosUpDown.Value)
+            //    EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)spriteXPosUpDown.Value - s.X, 0));
         }
 
         private void spriteYPosUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if (s.Y != (int)spriteYPosUpDown.Value)
-                EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)spriteYPosUpDown.Value-s.Y));
+            if (updating) return;
+            //if (s.Y != (int)spriteYPosUpDown.Value)
+            //    EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)spriteYPosUpDown.Value-s.Y));
         }
 
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if (s.Type != (int)spriteTypeUpDown.Value)
-            {
-                EdControl.UndoManager.Do(new ChangeSpriteTypeAction(makeList(), (int)spriteTypeUpDown.Value));
-                UpdateDataEditor();
-            }
+            if (updating) return;
+            EdControl.UndoManager.Do(new ChangeSpriteTypeAction(SelectedObjects, (int)spriteTypeUpDown.Value));
         }
 
         private void spriteListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag) return;
-            if (spriteListBox.SelectedIndex > -1 && curSprites[spriteListBox.SelectedIndex] != s.Type)
+            if (updating) return;
+            if (spriteListBox.SelectedIndex > -1)
                 spriteTypeUpDown.Value = curSprites[spriteListBox.SelectedIndex];
         }
 
@@ -179,7 +169,10 @@ namespace NSMBe4
 
         private void deleteSpriteButton_Click(object sender, EventArgs e)
         {
-            EdControl.UndoManager.Do(new RemoveLvlItemAction(makeList()));
+            // This button will probably be removed
+
+            //EdControl.UndoManager.Do(new RemoveLvlItemAction(makeList()));
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));
         }
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -214,7 +207,7 @@ namespace NSMBe4
 
         private void spriteDataTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag || !spriteDataTextBox.Visible)
+            if (updating || !spriteDataTextBox.Visible)
                 return;
 
             // validate
@@ -227,7 +220,7 @@ namespace NSMBe4
                 for (int hexidx = 0; hexidx < 6; hexidx++)
                     data[hexidx] = byte.Parse(parseit.Substring(hexidx*2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
                 if (!updating)
-                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(makeList(), data));
+                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(SelectedObjects, data));
                 spriteDataTextBox.BackColor = SystemColors.Window;
             }
             else
@@ -246,11 +239,24 @@ namespace NSMBe4
             for (int l = 0; l < curSprites.Count; l++)
                 items.Add(allSprites[curSprites[l]]);
             spriteListBox.Items.AddRange(items.ToArray());
-            spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
+            //spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
             if (curSprites.Count > 0)
                 searchBox.BackColor = SystemColors.Window;
             else
                 searchBox.BackColor = Color.Coral;
+        }
+
+        private int getSpriteType()
+        {
+            int type = -1;
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBSprite)
+                {
+                    NSMBSprite s = obj as NSMBSprite;
+                    if (type == -1) type = s.Type;
+                    if (type != s.Type) return -1;
+                }
+            return type;
         }
 
         private void clearSearch_MouseEnter(object sender, EventArgs e)

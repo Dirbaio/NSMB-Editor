@@ -40,7 +40,7 @@ namespace NSMBe4
 
             create = new CreatePanel(EdControl);
             objects = new ObjectEditor(EdControl);
-            //sprites = new SpriteEditor(EdControl);
+            sprites = new SpriteEditor(EdControl);
             entrances = new EntranceEditor(EdControl);
             //views = new ViewEditor(EdControl);
             //paths = new PathEditor(EdControl);
@@ -48,19 +48,25 @@ namespace NSMBe4
             SelectNone();
         }
 
-        public void SelectObjects(List<LevelItem> objs)
+        public void SelectObjects(List<LevelItem> objs, LevelItem selectedTabType)
         {
             SelectedObjs = objs;
             ClearTabs();
+            int tabIndex = -1;
             foreach (LevelItem obj in objs) {
                 if (obj is NSMBObject) AddTab(objects);
-                //if (obj is NSMBSprite) AddTab(sprites);
+                if (obj is NSMBSprite) AddTab(sprites);
                 if (obj is NSMBEntrance) AddTab(entrances);
                 //if (obj is NSMBView) AddTab(views);
                 //if (obj is NSMBPathPoint) AddTab(paths);
+
+                if (selectedTabType != null && obj.GetType() == selectedTabType.GetType() && tabIndex == -1)
+                    tabIndex = tabControl1.TabCount - 1;
             }
             if (tabControl1.TabCount == 0)
                 SelectNone();
+            if (tabIndex > -1)
+                tabControl1.SelectedIndex = tabIndex;
         }
 
         public void SelectNone()
@@ -68,6 +74,7 @@ namespace NSMBe4
             ClearTabs();
             AddTab(create);
             AddTab(entrances);
+            entrances.SelectObjects(null);
             //AddTab(views);
             //AddTab(paths);
         }
@@ -83,6 +90,7 @@ namespace NSMBe4
             if (!activeCtrls.Contains(ctrl)) {
                 if (ctrl is ObjectEditor) (ctrl as ObjectEditor).SelectObjects(SelectedObjs);
                 if (ctrl is EntranceEditor) (ctrl as EntranceEditor).SelectObjects(SelectedObjs);
+                if (ctrl is SpriteEditor) (ctrl as SpriteEditor).SelectObjects(SelectedObjs);
 
                 TabPage tp = new TabPage("");
                 tp.Controls.Add(ctrl);
@@ -90,6 +98,28 @@ namespace NSMBe4
                 tabControl1.TabPages.Add(tp);
                 activeCtrls.Add(ctrl);
             }
+        }
+
+        public void RefreshTabs()
+        {
+            foreach (Control ctrl in activeCtrls)
+            {
+                if (ctrl is ObjectEditor) (ctrl as ObjectEditor).UpdateInfo();
+                if (ctrl is EntranceEditor) (ctrl as EntranceEditor).UpdateInfo();
+                if (ctrl is SpriteEditor) (ctrl as SpriteEditor).UpdateInfo();
+            }
+        }
+
+        public void UpdateSpriteEditor()
+        {
+            foreach (Control ctrl in activeCtrls)
+                if (ctrl is SpriteEditor) (ctrl as SpriteEditor).UpdateDataEditor();
+        }
+
+        public void RefreshSpriteEditor()
+        {
+            foreach (Control ctrl in activeCtrls)
+                if (ctrl is SpriteEditor) (ctrl as SpriteEditor).RefreshDataEditor();
         }
     }
 }

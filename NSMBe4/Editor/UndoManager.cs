@@ -55,6 +55,8 @@ namespace NSMBe4
             //First do the action. Only the *new* action
             act.SetEdControl(EdControl);
             act.Redo();
+            act.AfterAction();
+            EdControl.mode.Refresh();
             
             //Then save the done action. Merge with previous actions if needed.
             bool merged = false;
@@ -109,6 +111,8 @@ namespace NSMBe4
                 item.Click += new EventHandler(onRedoActions);
                 redo.DropDownItems.Insert(0, item);
                 UActions.Peek().Undo();
+                UActions.Peek().AfterAction();
+                EdControl.mode.Refresh();
                 RActions.Push(UActions.Pop());
                 undo.Enabled = undo.DropDownItems.Count > 0;
                 redo.Enabled = true;
@@ -125,6 +129,8 @@ namespace NSMBe4
                 item.Click += new EventHandler(onUndoActions);
                 undo.DropDownItems.Insert(0, item);
                 RActions.Peek().Redo();
+                RActions.Peek().AfterAction();
+                EdControl.mode.Refresh();
                 UActions.Push(RActions.Pop());
                 redo.Enabled = redo.DropDownItems.Count > 0;
                 undo.Enabled = true;
@@ -149,14 +155,12 @@ namespace NSMBe4
         {
             for (int l = 0; l < actionCount; l++)
                 UndoLast();
-
             EdControl.repaint();
         }
         private void onRedoActions(object sender, EventArgs e)
         {
             for (int l = 0; l < actionCount; l++)
                 RedoLast();
-
             EdControl.repaint();
         }
 
@@ -192,23 +196,6 @@ namespace NSMBe4
         public bool cancel;
 
         public Action() { }
-        /*
-        public void DoUndo(bool multiple)
-        {
-            this.Undo();
-            if (this is ChangeSpriteTypeAction || !multiple) {
-                this.AfterAction();
-                EdControl.repaint();
-            }
-        }
-        public void DoRedo(bool multiple)
-        {
-            this.Redo();
-            if (this is ChangeSpriteTypeAction || !multiple) {
-                this.AfterAction();
-                EdControl.repaint();
-            }
-        }*/
         public virtual void Undo() { }
         public virtual void Redo() { }
         public virtual void AfterAction() { }
@@ -218,10 +205,10 @@ namespace NSMBe4
                 return false;
             }
         }
+        public virtual void SelectObjects() { }
 
         //Merge returns true if merge has been done successfully
         public virtual bool Merge(Action act) { return false; }
-//        public bool MergeFailed = false;
 
         public void SetEdControl(LevelEditorControl EdControl)
         {
@@ -243,8 +230,9 @@ namespace NSMBe4
             if (objs.Count == 0)
                 cancel = true;
         }
-        public override void AfterAction() {
-            EdControl.mode.SelectObject(objs);
+        public override void SelectObjects()
+        {
+            EdControl.SelectObject(objs);
         }
     }
 
@@ -465,39 +453,47 @@ namespace NSMBe4
 
             return true;
         }
+        public override void AfterAction()
+        {
+            if (EdControl.mode is ObjectsEditionMode)
+                (EdControl.mode as ObjectsEditionMode).tabs.UpdateSpriteEditor();
+        }
         public override string ToString()
         {
             return LanguageManager.GetList("UndoActions")[8];
         }
     }
 
-    //Only works on one sprite for now
+    //This always overwrites all of the sprite data
+    //not just the property that was changed
     public class ChangeSpriteDataAction : LvlItemAction
     {
-        byte[] OrigData, NewData;
+        byte[][] OrigData;
+        byte[] NewData;
         public ChangeSpriteDataAction(List<LevelItem> objs, byte[] NewData) 
             : base(objs)
         {
             for (int l = 0; l < objs.Count; l++)
-                if (objs[l] is NSMBSprite)
-                    OrigData = (objs[l] as NSMBSprite).Data.Clone() as byte[];
-                else {
+                if (!(objs[l] is NSMBSprite)) {
                     objs.RemoveAt(l);
                     l--;
                 }
-            for (int l = 1; l < objs.Count; l++)
-                objs.RemoveAt(l);
             if (objs.Count == 0)
                 cancel = true;
+            OrigData = new byte[objs.Count][];
+            for (int l = 0; l < objs.Count; l++)
+                OrigData[l] = (objs[l] as NSMBSprite).Data.Clone() as byte[];
             this.NewData = NewData;
         }
         public override void Undo()
         {
-            (objs[0] as NSMBSprite).Data = OrigData.Clone() as byte[];
+            for (int l = 0; l < objs.Count; l++)
+                (objs[l] as NSMBSprite).Data = OrigData[l].Clone() as byte[];
         }
         public override void Redo()
         {
-            (objs[0] as NSMBSprite).Data = NewData.Clone() as byte[];
+            foreach (LevelItem obj in objs)
+                (obj as NSMBSprite).Data = NewData.Clone() as byte[];
         }
         public override bool CanMerge {
             get {
@@ -510,6 +506,11 @@ namespace NSMBe4
             this.NewData = csda.NewData;
 
             return true;
+        }
+        public override void AfterAction()
+        {
+            if (EdControl.mode is ObjectsEditionMode)
+                (EdControl.mode as ObjectsEditionMode).tabs.RefreshSpriteEditor();
         }
         public override string ToString()
         {

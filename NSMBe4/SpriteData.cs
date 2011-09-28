@@ -238,12 +238,13 @@ namespace NSMBe4
         {
             Dictionary<SpriteDataField, Control> controls = new Dictionary<SpriteDataField, Control>();
 
+            List<LevelItem> sprites;
             NSMBSprite s;
             SpriteData sd;
             LevelEditorControl EdControl;
             public bool updating = false;
 
-            public SpriteDataEditor(NSMBSprite s, SpriteData sd, LevelEditorControl EdControl)
+            public SpriteDataEditor(List<LevelItem> sprites, SpriteData sd, LevelEditorControl EdControl)
             {
                 updating = true;
                 this.ColumnCount = 2;
@@ -256,7 +257,12 @@ namespace NSMBe4
                 foreach (RowStyle cs in this.RowStyles)
                     cs.SizeType = SizeType.AutoSize;
 
-                this.s = s;
+                this.sprites = sprites;
+                foreach (LevelItem obj in sprites)
+                    if (obj is NSMBSprite) {
+                        s = obj as NSMBSprite;
+                        break;
+                    }
                 this.sd = sd;
                 this.Dock = DockStyle.Fill;
                 this.EdControl = EdControl;
@@ -386,9 +392,7 @@ namespace NSMBe4
 
                 if (!updating && sender != null)
                 {
-                    List<LevelItem> l = new List<LevelItem>();
-                    l.Add(s);
-                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(l, d));
+                    EdControl.UndoManager.Do(new ChangeSpriteDataAction(sprites, d));
                 }
             }
         }
