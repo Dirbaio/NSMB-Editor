@@ -67,6 +67,7 @@ namespace NSMBe4
                 SelectNone();
             if (tabIndex > -1)
                 tabControl1.SelectedIndex = tabIndex;
+            EdControl.Focus();
         }
 
         public void SelectNone()
@@ -77,6 +78,7 @@ namespace NSMBe4
             entrances.SelectObjects(null);
             //AddTab(views);
             //AddTab(paths);
+            EdControl.Focus();
         }
 
         public void ClearTabs()

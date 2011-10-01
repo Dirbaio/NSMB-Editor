@@ -16,6 +16,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -259,36 +260,20 @@ namespace NSMBe4
                 delete();
                 return true;
             }
+            int xDelta = 0, yDelta = 0;
+            if (keyData == Keys.Up)
+                yDelta -= 1;
+            if (keyData == Keys.Down)
+                yDelta += 1;
+            if (keyData == Keys.Left)
+                xDelta -= 1;
+            if (keyData == Keys.Right)
+                xDelta += 1;
+            if (xDelta != 0 || yDelta != 0) {
+                mode.MoveObjects(xDelta, yDelta);
+                return true;
+            }
 
-
-
-            /*
-            if (keyData == Keys.Left || keyData == Keys.Up || keyData == Keys.Right || keyData == Keys.Down) {
-                int XDelta = 0;
-                int YDelta = 0;
-                if (keyData == Keys.Left) XDelta -= 1;
-                if (keyData == Keys.Right) XDelta += 1;
-                if (keyData == Keys.Up) YDelta -= 1;
-                if (keyData == Keys.Down) YDelta += 1;
-                if (SelectedObject != -1) {
-                    if (SelectedObjectType == ObjectType.Object) {
-                        Level.Objects[SelectedObject].X += XDelta;
-                        Level.Objects[SelectedObject].Y += YDelta;
-                    }
-                    if (SelectedObjectType == ObjectType.Sprite) {
-                        Level.Sprites[SelectedObject].X += XDelta;
-                        Level.Sprites[SelectedObject].Y += YDelta;
-                    }
-                    if (SelectedObjectType == ObjectType.Entrance) {
-                        Level.Entrances[SelectedObject].X += XDelta;
-                        Level.Entrances[SelectedObject].Y += YDelta;
-                    }
-                    DrawingArea.Invalidate();
-                    UpdateSelectedObjInfo();
-                    SetDirtyFlag();
-                    return true;
-                }
-            }*/
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -354,21 +339,25 @@ namespace NSMBe4
 
         public void EnsurePosVisible(int X, int Y) {
             Point NewPosition = new Point(ViewableArea.X, ViewableArea.Y);
-            if (X < ViewableArea.X) {
+            if (X < ViewableArea.X)
                 NewPosition.X = Math.Max(0, X - (ViewableWidth / 2));
-            }
-            if (X >= ViewableArea.Right) {
+            if (X >= ViewableArea.Right)
                 NewPosition.X = Math.Min(hScrollBar.Maximum, X - (ViewableWidth / 2));
-            }
-
-            if (Y < ViewableArea.Y) {
+            if (Y < ViewableArea.Y)
                 NewPosition.Y = Math.Max(0, Y - (ViewableHeight / 2));
-            }
-            if (Y >= ViewableArea.Bottom) {
+            if (Y >= ViewableArea.Bottom)
                 NewPosition.Y = Math.Min(vScrollBar.Maximum, Y - (ViewableHeight / 2));
-            }
 
             ScrollEditor(NewPosition);
+        }
+
+        public void ScrollToObjects(List<LevelItem> objs)
+        {
+            foreach (LevelItem obj in objs)
+                if (ViewableArea.IntersectsWith(new Rectangle(obj.x / 16, obj.y / 16, obj.width / 16, obj.height / 16)))
+                    return;
+            if (objs.Count > 0)
+                EnsurePosVisible(objs[0].x / 16, objs[0].y / 16);
         }
 
         public void ScrollEditor(Point NewPosition) {

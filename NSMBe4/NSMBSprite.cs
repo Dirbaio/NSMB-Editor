@@ -631,18 +631,10 @@ namespace NSMBe4
                     width = 22; height = (Data[5] % 0x10) * 16 + 75;
                     break;
                 case 235:
-                    switch (Data[5] / 0x10) {
-                        case 1:
-                            x += 8; break;
-                        case 2:
-                            x -= 8; break;
-                    }
-                    switch (Data[5] % 0x10) {
-                        case 1:
-                            y += 8; break;
-                        case 2:
-                            y -= 8; break;
-                    }
+                    if (Data[5] / 0x10 == 1)
+                        x += 8;
+                    if (Data[5] % 0x10 == 1)
+                        y += 8;
                     width = 32; height = 32;
                     break;
                 case 236:
@@ -1640,18 +1632,10 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.LineAttachment, RenderX2 - 11, RenderY2 - 11, 22, 22);
                     break;
                 case 235:
-                    switch (Data[5] / 0x10) {
-                        case 1:
-                            RenderX += 8; break;
-                        case 2:
-                            RenderX -= 8; break;
-                    }
-                    switch (Data[5] % 0x10) {
-                        case 1:
-                            RenderY += 8; break;
-                        case 2:
-                            RenderY -= 8; break;
-                    }
+                    if (Data[5] / 0x10 == 1)
+                        RenderX += 8;
+                    if (Data[5] % 0x10 == 1)
+                        RenderY += 8;
                     g.DrawImage(Properties.Resources.StarCoin, RenderX, RenderY, 32, 32);
                     break;
                 case 236:

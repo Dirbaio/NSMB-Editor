@@ -311,14 +311,13 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));
 
             SelectedObjects.Clear();
+            tabs.SelectNone();
             EdControl.repaint();
         }
 
         public override string copy()
         {
-            if (SelectedObjects == null)
-                return "";
-            if (SelectedObjects.Count == 0)
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
                 return "";
 
             string str = "";
@@ -384,6 +383,18 @@ namespace NSMBe4
             UpdateSelectionBounds();
         }
 
+        public override void MoveObjects(int xDelta, int yDelta)
+        {
+            xDelta *= selectionSnap;
+            yDelta *= selectionSnap;
+            if (minBoundX >= -xDelta && minBoundY >= -yDelta)
+            {
+                EdControl.UndoManager.Do(new MoveLvlItemAction(SelectedObjects, xDelta, yDelta));
+                minBoundX += xDelta;
+                minBoundY += yDelta;
+            }
+        }
+
         //creates a clone of a list
 
         private List<LevelItem> CloneList(List<LevelItem> Objects)
@@ -391,10 +402,11 @@ namespace NSMBe4
             List<LevelItem> newObjects = new List<LevelItem>();
             foreach (LevelItem SelectedObject in Objects)
             {
-                if (SelectedObject is NSMBObject)
-                    newObjects.Add(new NSMBObject(SelectedObject as NSMBObject));
-                else if (SelectedObject is NSMBSprite)
-                    newObjects.Add(new NSMBSprite(SelectedObject as NSMBSprite));
+                if (SelectedObject is NSMBObject) newObjects.Add(new NSMBObject(SelectedObject as NSMBObject));
+                if (SelectedObject is NSMBSprite) newObjects.Add(new NSMBSprite(SelectedObject as NSMBSprite));
+                if (SelectedObject is NSMBEntrance) newObjects.Add(new NSMBEntrance(SelectedObject as NSMBEntrance));
+                if (SelectedObject is NSMBView) newObjects.Add(new NSMBView(SelectedObject as NSMBView));
+                if (SelectedObject is NSMBPathPoint) newObjects.Add(new NSMBPathPoint(SelectedObject as NSMBPathPoint));
             }
 
             return newObjects;

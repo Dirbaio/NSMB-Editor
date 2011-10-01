@@ -60,11 +60,6 @@ namespace NSMBe4
 
             if (o != null) {
                 DataUpdateFlag = true;
-                // Removed because I don't know how to implement these with multiple selected objects. ~Piranhaplant
-                //objXPosUpDown.Value = o.X;
-                //objYPosUpDown.Value = o.Y;
-                //objWidthUpDown.Value = o.Width;
-                //objHeightUpDown.Value = o.Height;
 
                 if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
                 if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
@@ -85,36 +80,6 @@ namespace NSMBe4
             tileset2picker.reload();
         }
 
-        // Removed because I don't know how to implement these with multiple selected objects. ~Piranhaplant
-
-        private void objXPosUpDown_ValueChanged(object sender, EventArgs e)
-        {
-        //    if (DataUpdateFlag) return;
-        //    if ((int)objXPosUpDown.Value != o.X)
-        //        EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)objXPosUpDown.Value-o.X, 0));
-        }
-
-        private void objYPosUpDown_ValueChanged(object sender, EventArgs e)
-        {
-        //    if (DataUpdateFlag) return;
-        //    if ((int)objYPosUpDown.Value != o.Y)
-        //        EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)objYPosUpDown.Value - o.Y));
-        }
-
-        private void objWidthUpDown_ValueChanged(object sender, EventArgs e)
-        {
-        //    if (DataUpdateFlag) return;
-        //    if ((int)objWidthUpDown.Value != o.Width)
-        //        EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), (int)objWidthUpDown.Value-o.Width, 0));
-        }
-
-        private void objHeightUpDown_ValueChanged(object sender, EventArgs e)
-        {
-        //    if (DataUpdateFlag) return;
-        //    if ((int)objHeightUpDown.Value != o.Height)
-        //        EdControl.UndoManager.Do(new ResizeLvlItemAction(makeList(), 0, (int)objHeightUpDown.Value-o.Height));
-        }
-
         private void addObjectButton_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
@@ -124,7 +89,11 @@ namespace NSMBe4
 
         private void deleteObjectButton_Click(object sender, EventArgs e)
         {
-            EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));  
+            List<LevelItem> objs = new List<LevelItem>();
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBObject)
+                    objs.Add(obj as NSMBObject);
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(objs));  
         }
 
         private void setObjectType(int til, int obj)

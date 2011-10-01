@@ -55,17 +55,6 @@ namespace NSMBe4 {
 
             levelEditorControl1.LoadUndoManager(undoButton, redoButton);
 
-            // First off prepare the sprite list
-            string[] spritelist = new string[324];
-
-            foreach (string sprite in LanguageManager.GetList("Sprites"))
-            {
-                string trimmedsprite = sprite.Trim();
-                if (trimmedsprite == "") continue;
-                int equalPos = trimmedsprite.IndexOf('=');
-                spritelist[int.Parse(trimmedsprite.Substring(0, equalPos))] = trimmedsprite.Substring(0, equalPos) + ": " + trimmedsprite.Substring(equalPos + 1);
-            }
-
             File LevelFileID = ROM.FS.getFileByName(LevelFilename + ".bin");
             File LevelBGDatFileID = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
 

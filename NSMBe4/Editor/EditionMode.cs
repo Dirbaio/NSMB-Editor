@@ -60,5 +60,10 @@ namespace NSMBe4
         public virtual void paste(string contents)
         {
         }
+
+        public virtual void MoveObjects(int xDelta, int yDelta)
+        {
+
+        }
     }
 }

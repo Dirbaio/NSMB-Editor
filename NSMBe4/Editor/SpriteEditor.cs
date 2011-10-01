@@ -103,11 +103,8 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            if (SelectedObjects == null) return;
-            if (SelectedObjects.Count == 0) return;
+            if (SelectedObjects == null || SelectedObjects.Count == 0) return;
             updating = true;
-            //spriteXPosUpDown.Value = s.X;
-            //spriteYPosUpDown.Value = s.Y;
             int type = getSpriteType();
             spriteTypeUpDown.Value = type > -1 ? type : 0;
             byte[] SpriteData = null;
@@ -125,20 +122,6 @@ namespace NSMBe4
             }
             spriteListBox.SelectedIndex = curSprites.IndexOf(type);
             updating = false;
-        }
-
-        private void spriteXPosUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (updating) return;
-            //if (s.X != (int)spriteXPosUpDown.Value)
-            //    EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), (int)spriteXPosUpDown.Value - s.X, 0));
-        }
-
-        private void spriteYPosUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (updating) return;
-            //if (s.Y != (int)spriteYPosUpDown.Value)
-            //    EdControl.UndoManager.Do(new MoveLvlItemAction(makeList(), 0, (int)spriteYPosUpDown.Value-s.Y));
         }
 
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
@@ -162,17 +145,16 @@ namespace NSMBe4
             ns.Y = ViewableArea.Y;
             ns.Type = 0;
             ns.Data = new byte[6];
-            List<LevelItem> l = new List<LevelItem>();
-            l.Add(ns);
-            EdControl.UndoManager.Do(new AddLvlItemAction(l));
+            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ns)));
         }
 
         private void deleteSpriteButton_Click(object sender, EventArgs e)
         {
-            // This button will probably be removed
-
-            //EdControl.UndoManager.Do(new RemoveLvlItemAction(makeList()));
-            EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));
+            List<LevelItem> sprites = new List<LevelItem>();
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBSprite)
+                    sprites.Add(obj as NSMBSprite);
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(sprites));
         }
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -239,7 +221,7 @@ namespace NSMBe4
             for (int l = 0; l < curSprites.Count; l++)
                 items.Add(allSprites[curSprites[l]]);
             spriteListBox.Items.AddRange(items.ToArray());
-            //spriteListBox.SelectedIndex = curSprites.IndexOf(s.Type);
+            spriteListBox.SelectedIndex = curSprites.IndexOf(getSpriteType());
             if (curSprites.Count > 0)
                 searchBox.BackColor = SystemColors.Window;
             else

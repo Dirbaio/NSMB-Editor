@@ -357,19 +357,19 @@ namespace NSMBe4
     {
         List<int> OrigTS, OrigNum;
         int NewTS, NewNum;
-        public ChangeObjectTypeAction(List<LevelItem> theobjs, int NewTS, int NewNum)
-            : base(theobjs)
+        public ChangeObjectTypeAction(List<LevelItem> objs, int NewTS, int NewNum)
+            : base(objs)
         {
             NSMBObject o;
             OrigTS = new List<int>();
             OrigNum = new List<int>();
-            for (int l = 0; l < objs.Count; l++)
-                if (objs[l] is NSMBObject) {
-                    o = objs[l] as NSMBObject;
+            for (int l = 0; l < this.objs.Count; l++)
+                if (this.objs[l] is NSMBObject) {
+                    o = this.objs[l] as NSMBObject;
                     OrigTS.Add(o.Tileset);
                     OrigNum.Add(o.ObjNum);
                 } else {
-                    objs.RemoveAt(l);
+                    this.objs.RemoveAt(l);
                     l--;
                 }
             this.NewTS = NewTS;
@@ -421,11 +421,12 @@ namespace NSMBe4
             : base(objs)
         {
             OrigType = new List<int>();
-            for (int l = 0; l < objs.Count; l++) {
-                if (objs[l] is NSMBSprite)
-                    OrigType.Add((objs[l] as NSMBSprite).Type);
+            for (int l = 0; l < this.objs.Count; l++)
+            {
+                if (this.objs[l] is NSMBSprite)
+                    OrigType.Add((this.objs[l] as NSMBSprite).Type);
                 else {
-                    objs.RemoveAt(l);
+                    this.objs.RemoveAt(l);
                     l--;
                 }
             }
@@ -473,16 +474,17 @@ namespace NSMBe4
         public ChangeSpriteDataAction(List<LevelItem> objs, byte[] NewData) 
             : base(objs)
         {
-            for (int l = 0; l < objs.Count; l++)
-                if (!(objs[l] is NSMBSprite)) {
-                    objs.RemoveAt(l);
+            for (int l = 0; l < this.objs.Count; l++)
+                if (!(this.objs[l] is NSMBSprite))
+                {
+                    this.objs.RemoveAt(l);
                     l--;
                 }
-            if (objs.Count == 0)
+            if (this.objs.Count == 0)
                 cancel = true;
-            OrigData = new byte[objs.Count][];
-            for (int l = 0; l < objs.Count; l++)
-                OrigData[l] = (objs[l] as NSMBSprite).Data.Clone() as byte[];
+            OrigData = new byte[this.objs.Count][];
+            for (int l = 0; l < this.objs.Count; l++)
+                OrigData[l] = (this.objs[l] as NSMBSprite).Data.Clone() as byte[];
             this.NewData = NewData;
         }
         public override void Undo()
@@ -528,11 +530,11 @@ namespace NSMBe4
             OrigV = new List<int>();
             this.NewV = NewV;
             this.PropNum = PropNum;
-            for (int l = 0; l < objs.Count; l++)
-                if (objs[l] is NSMBEntrance)
-                    OrigV.Add(Read(objs[l] as NSMBEntrance));
+            for (int l = 0; l < this.objs.Count; l++)
+                if (this.objs[l] is NSMBEntrance)
+                    OrigV.Add(Read(this.objs[l] as NSMBEntrance));
                 else {
-                    objs.RemoveAt(l);
+                    this.objs.RemoveAt(l);
                     l--;
                 }
         }
@@ -593,23 +595,94 @@ namespace NSMBe4
             return string.Format(LanguageManager.GetList("UndoActions")[16], LanguageManager.Get("EntranceEditor", PropNum + 5).Replace(":", ""));
         }
     }
+    public class ChangeEntranceBitAction : LvlItemAction
+    {
+        int PropNum;
+        List<bool> OrigV;
+        bool NewV;
+        public ChangeEntranceBitAction(List<LevelItem> objs, int PropNum, bool NewV)
+            : base(objs)
+        {
+            OrigV = new List<bool>();
+            this.NewV = NewV;
+            this.PropNum = PropNum;
+            for (int l = 0; l < this.objs.Count; l++)
+                if (this.objs[l] is NSMBEntrance)
+                    OrigV.Add(Read(this.objs[l] as NSMBEntrance));
+                else {
+                    this.objs.RemoveAt(l);
+                    l--;
+                }
+        }
+        public override void Undo()
+        {
+            for (int l = 0; l < objs.Count; l++)
+                Write(objs[l] as NSMBEntrance, OrigV[l]);
+        }
+        public override void Redo()
+        {
+            foreach (LevelItem obj in objs)
+                Write(obj as NSMBEntrance, NewV);
+        }
+        private bool Read(NSMBEntrance e)
+        {
+            switch (PropNum) {
+                case 0: return (e.Settings & 128) != 0;
+                case 1: return (e.Settings & 16) != 0;
+                case 2: return (e.Settings & 8) != 0;
+                case 3: return (e.Settings & 1) != 0;
+            }
+            return false;
+        }
+        private void Write(NSMBEntrance e, bool value)
+        {
+            if (value)
+                switch (PropNum) {
+                    case 0: e.Settings |= 128; break;
+                    case 1: e.Settings |= 16; break;
+                    case 2: e.Settings |= 8; break;
+                    case 3: e.Settings |= 1; break;
+                }
+            else
+                switch (PropNum) {
+                    case 0: e.Settings &= 127; break;
+                    case 1: e.Settings &= 239; break;
+                    case 2: e.Settings &= 247; break;
+                    case 3: e.Settings &= 254; break;
+                }
+        }
+        public override bool CanMerge {
+            get {
+                return true;
+            }
+        }
+        public override bool Merge(Action act) {
+            ChangeEntranceBitAction ceba = (act as ChangeEntranceBitAction);
+            if (ceba.PropNum != this.PropNum)
+                return false;
+
+            this.NewV = ceba.NewV;
+            return true;
+        }
+    }
     public class ChangePathIDAction : LvlItemAction
     {
         int OrigID, NewID;
         public ChangePathIDAction(List<LevelItem> objs, int NewID)
             : base(objs)
         {
-            for (int l = 0; l < objs.Count; l++)
-                if (objs[l] is NSMBPathPoint) {
-                    OrigID = (objs[l] as NSMBPathPoint).parent.id;
+            for (int l = 0; l < this.objs.Count; l++)
+                if (this.objs[l] is NSMBPathPoint)
+                {
+                    OrigID = (this.objs[l] as NSMBPathPoint).parent.id;
                     break;
                 } else {
-                    objs.RemoveAt(l);
+                    this.objs.RemoveAt(l);
                     l--;
                 }
-            for (int l = 1; l < objs.Count; l++)
-                objs.RemoveAt(l);
-            if (objs.Count == 0)
+            for (int l = 1; l < this.objs.Count; l++)
+                this.objs.RemoveAt(l);
+            if (this.objs.Count == 0)
                 this.cancel = true;
             this.NewID = NewID;
         }
@@ -637,11 +710,11 @@ namespace NSMBe4
             OrigV = new List<ushort>();
             this.PropNum = PropNum;
             this.NewV = (ushort)NewV;
-            for (int l = 0; l < objs.Count; l++)
-                if (objs[l] is NSMBPathPoint)
-                    OrigV.Add(Read(objs[l] as NSMBPathPoint));
+            for (int l = 0; l < this.objs.Count; l++)
+                if (this.objs[l] is NSMBPathPoint)
+                    OrigV.Add(Read(this.objs[l] as NSMBPathPoint));
                 else {
-                    objs.RemoveAt(l);
+                    this.objs.RemoveAt(l);
                     l--;
                 }
         }
@@ -708,11 +781,11 @@ namespace NSMBe4
             OrigV = new List<int>();
             this.PropNum = PropNum;
             this.NewV = NewV;
-            for (int l = 0; l < objs.Count; l++)
-                if (objs[l] is NSMBView)
-                    OrigV.Add(Read(objs[l] as NSMBView));
+            for (int l = 0; l < this.objs.Count; l++)
+                if (this.objs[l] is NSMBView)
+                    OrigV.Add(Read(this.objs[l] as NSMBView));
                 else {
-                    objs.RemoveAt(l);
+                    this.objs.RemoveAt(l);
                     l--;
                 }
         }
