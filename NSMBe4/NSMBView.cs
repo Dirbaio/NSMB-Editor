@@ -95,9 +95,10 @@ namespace NSMBe4
             g.DrawRectangle(p, X, Y, Width - 1, Height - 1);
             g.DrawRectangle(p, X + 1, Y + 1, Width - 3, Height - 3);
 
-            //TODO: FIX
-            int vx = 0;
-            int vy = 0;
+            Rectangle ViewableArea = ed.ViewableArea;
+
+            int vx = ViewableArea.X;
+            int vy = ViewableArea.Y;
             if (X + Width > vx * 16 && Y + Height > vy * 16)
             {
                 int numx = X;

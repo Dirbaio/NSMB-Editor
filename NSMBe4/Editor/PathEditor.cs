@@ -28,141 +28,155 @@ namespace NSMBe4
     public partial class PathEditor : UserControl
     {
         private LevelEditorControl EdControl;
-        private NSMBPath p;
-        private NSMBPathPoint n;
         private bool DataUpdateFlag = false;
-        List<NSMBPath> l;
+        List<LevelItem> SelectedObjects;
+        List<NSMBPath> lst;
 
         public PathEditor(LevelEditorControl EdControl, List<NSMBPath> l)
         {
-            this.l = l;
             InitializeComponent();
+            this.lst = l;
             LanguageManager.ApplyToContainer(this, "PathEditor");
             this.EdControl = EdControl;
             UpdateList();
+        }
+
+        public void SelectObjects(List<LevelItem> objs)
+        {
+            SelectedObjects = objs;
+            UpdateInfo();
         }
 
         public void UpdateList()
         {
             DataUpdateFlag = true;
             pathsList.Items.Clear();
-            pathsList.Items.AddRange(l.ToArray());
-            pathsList.SelectedItem = p;
+            pathsList.Items.AddRange(lst.ToArray());
             DataUpdateFlag = false;
-        }
-
-        public void UpdateItem()
-        {
-            pathsList.SelectedItem = p;
-            if (p == null)
-                return;
-            if(pathsList.Items.Contains(p))
-                pathsList.Items[pathsList.Items.IndexOf(p)] = p;
         }
 
         public void UpdateInfo()
         {
             DataUpdateFlag = true;
-            UpdateItem();
-            deletePath.Enabled = p != null;
-            clonePath.Enabled = deletePath.Enabled;
+            NSMBPathPoint pp = null;
+            deletePath.Enabled = SelectedObjects != null;
+            groupBox1.Visible = deletePath.Enabled;
+            groupBox2.Visible = deletePath.Enabled;
+            UpdateList();
 
-            groupBox1.Visible = p != null;
-            if (p != null)
-                pathID.Value = p.id;
+            if (SelectedObjects == null) return;
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBPathPoint) {
+                    pp = obj as NSMBPathPoint;
+                    break;
+                }
+            deletePath.Enabled = pp != null;
+            if (pp == null) return;
+            DataUpdateFlag = true;
+            List<NSMBPath> paths = new List<NSMBPath>();
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBPathPoint) {
+                    NSMBPath p = (obj as NSMBPathPoint).parent;
+                    if (lst.Contains(p) && !paths.Contains(p))
+                        paths.Add(p);
+                }
+            foreach (NSMBPath p in paths)
+                pathsList.SelectedIndices.Add(lst.IndexOf(p));
 
-            groupBox2.Visible = n != null;
-            if (n != null)
-            {
-                nodeX.Value = n.X;
-                nodeY.Value = n.Y;
-                unk1.Value = n.Unknown1;
-                unk2.Value = n.Unknown2;
-                unk3.Value = n.Unknown3;
-                unk4.Value = n.Unknown4;
-                unk5.Value = n.Unknown5;
-                unk6.Value = n.Unknown6;
-            }
+            pathID.Value = pp.parent.id;
+            unk1.Value = pp.Unknown1;
+            unk2.Value = pp.Unknown2;
+            unk3.Value = pp.Unknown3;
+            unk4.Value = pp.Unknown4;
+            unk5.Value = pp.Unknown5;
+            unk6.Value = pp.Unknown6;
             DataUpdateFlag = false;
-        }
-
-        private void data_ValueChanged(object sender, EventArgs e)
-        {
-            if (DataUpdateFlag || n == null) return;
-            //if (n.Unknown1 != (int)unk1.Value)
-            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 0, (int)unk1.Value));
-            //if (n.Unknown2 != (int)unk2.Value)
-            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 1, (int)unk2.Value));
-            //if (n.Unknown3 != (int)unk3.Value)
-            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 2, (int)unk3.Value));
-            //if (n.Unknown4 != (int)unk4.Value)
-            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 3, (int)unk4.Value));
-            //if (n.Unknown5 != (int)unk5.Value)
-            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 4, (int)unk5.Value));
-            //if (n.Unknown6 != (int)unk6.Value)
-            //    EdControl.UndoManager.Do(new ChangePathNodeData(n, 5, (int)unk6.Value));
-        }
-
-        private void position_ValueChanged(object sender, EventArgs e)
-        {
-            if (DataUpdateFlag || n == null) return;
-            //EdControl.UndoManager.Do(new MovePathNodeAction(n, (int)nodeX.Value, (int)nodeY.Value));
         }
 
         private void pathID_ValueChanged(object sender, EventArgs e)
         {
-            if (DataUpdateFlag || n == null) return;
-            //EdControl.UndoManager.Do(new ChangePathIDAction(p, (int)pathID.Value));
-            UpdateItem();
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangePathIDAction(SelectedObjects, (int)pathID.Value));
+        }
+
+        private void unk1_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangePathNodeDataAction(SelectedObjects, 0, (int)unk1.Value));
+        }
+
+        private void unk2_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangePathNodeDataAction(SelectedObjects, 1, (int)unk2.Value));
+        }
+
+        private void unk3_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangePathNodeDataAction(SelectedObjects, 2, (int)unk3.Value));
+        }
+
+        private void unk4_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangePathNodeDataAction(SelectedObjects, 3, (int)unk4.Value));
+        }
+
+        private void unk5_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangePathNodeDataAction(SelectedObjects, 4, (int)unk5.Value));
+        }
+
+        private void unk6_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangePathNodeDataAction(SelectedObjects, 5, (int)unk6.Value));
         }
 
         private void pathsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            if(pathsList.SelectedItem != null)
-                setNode(pathsList.SelectedItem as NSMBPath, ((NSMBPath)pathsList.SelectedItem).points[0]);
-        }
-
-        public void setNode(NSMBPath np, NSMBPathPoint nn)
-        {
-            this.p = np;
-            this.n = nn;
-            if (nn != null) EdControl.EnsurePosVisible(nn.X / 16, nn.Y / 16);
-
-            UpdateInfo();
+            DataUpdateFlag = true;
+            List<LevelItem> pts = new List<LevelItem>();
+            for (int l = 0; l < pathsList.SelectedIndices.Count; l++)
+                foreach (NSMBPathPoint pp in lst[l].points)
+                    pts.Add(pp);
+            if (pts.Count == 0)
+                EdControl.SelectObject(null);
+            else
+            {
+                EdControl.SelectObject(pts);
+                EdControl.ScrollToObjects(pts);
+            }
+            DataUpdateFlag = false;
+            EdControl.repaint();
         }
 
         private void addPath_Click(object sender, EventArgs e)
         {
             Rectangle va = EdControl.ViewableArea;
             NSMBPath np = new NSMBPath();
-            if (l == EdControl.Level.ProgressPaths)
-                np.id = EdControl.Level.getFreePathNumber(l, 1);
+            if (lst == EdControl.Level.ProgressPaths)
+                np.id = EdControl.Level.getFreePathNumber(lst, 1);
             else
-                np.id = EdControl.Level.getFreePathNumber(l, 0);
-            np.isProgressPath = l == EdControl.Level.ProgressPaths;
+                np.id = EdControl.Level.getFreePathNumber(lst, 0);
+            np.isProgressPath = lst == EdControl.Level.ProgressPaths;
 
             NSMBPathPoint npp = new NSMBPathPoint(np);
             npp.X = va.X * 16;
             npp.Y = va.Y * 16;
-            np.points.Add(npp);
-            //EdControl.UndoManager.Do(new AddPathAction(np));
+            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(npp)));
         }
 
         private void deletePath_Click(object sender, EventArgs e)
         {
-            if (p == null) return;
-            //EdControl.UndoManager.Do(new RemovePathAction(p));
-        }
-
-        private void clonePath_Click(object sender, EventArgs e)
-        {
-            NSMBPath np = new NSMBPath(p);
-            if (np.isProgressPath)
-                np.id = EdControl.Level.getFreePathNumber(l, 1);
-            else
-                np.id = EdControl.Level.getFreePathNumber(l, 0);
-            //EdControl.UndoManager.Do(new AddPathAction(np));
+            List<LevelItem> points = new List<LevelItem>();
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBPathPoint)
+                    points.Add(obj);
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(points));
         }
     }
 }

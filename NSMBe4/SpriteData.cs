@@ -38,7 +38,12 @@ namespace NSMBe4
         public static void update()
         {
             WebClient Client = new WebClient();
-            Client.DownloadFile("http://board.dirbaio.net/spritedata.php", "spritedata.txt");
+            //System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
+            //System.Net.NetworkInformation.PingReply result = p.Send("www.dirbaio.net");
+            //if (result.Status == System.Net.NetworkInformation.IPStatus.Success)
+                Client.DownloadFile("http://board.dirbaio.net/spritedata.php", "spritedata.txt");
+            //else
+            //    MessageBox.Show("Error downloading spritedata.txt.");
         }
 
         public static void Load()

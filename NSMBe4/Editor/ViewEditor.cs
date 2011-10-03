@@ -28,19 +28,25 @@ namespace NSMBe4
     public partial class ViewEditor : UserControl
     {
         LevelEditorControl EdControl;
-        List<NSMBView> l;
-        NSMBView v;
+        List<NSMBView> lst;
+        List<LevelItem> SelectedObjects;
         bool EditingViews, DataUpdateFlag;
 
         public ViewEditor(LevelEditorControl EdControl, List<NSMBView> l, bool EdVi)
         {
             InitializeComponent();
             this.EdControl = EdControl;
-            this.l = l;
+            this.lst = l;
             EditingViews = EdVi;
             LanguageManager.ApplyToContainer(this, "ViewEditor");
             music.Items.AddRange(LanguageManager.GetList("Music").ToArray());
             UpdateList();
+        }
+
+        public void SelectObjects(List<LevelItem> objs)
+        {
+            SelectedObjects = objs;
+            UpdateInfo();
         }
 
         private void addViewButton_Click(object sender, EventArgs e)
@@ -52,15 +58,17 @@ namespace NSMBe4
             nv.Height = 12 * 16;
             nv.Width = 16 * 16;
             nv.isZone = !EditingViews;
-            nv.Number = EdControl.Level.getFreeViewNumber(l);
-            //EdControl.UndoManager.Do(new AddViewAction(nv));
+            nv.Number = EdControl.Level.getFreeViewNumber(lst);
+            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(nv)));
         }
 
         private void deleteViewButton_Click(object sender, EventArgs e)
         {
-            int selIdx = viewsList.SelectedIndex;
-            //EdControl.UndoManager.Do(new RemoveViewAction(v));
-            viewsList.SelectedIndex = Math.Min(selIdx, viewsList.Items.Count - 1);
+            List<LevelItem> views = new List<LevelItem>();
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBView && (obj as NSMBView).isZone != EditingViews)
+                    views.Add(obj);
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(views));
         }
 
         public void delete()
@@ -70,123 +78,145 @@ namespace NSMBe4
 
         public void UpdateList()
         {
-            viewsList.Items.Clear();
-            viewsList.Items.AddRange(l.ToArray());
-            viewsList.SelectedItem = v;
-        }
-
-        public void UpdateItem()
-        {
             DataUpdateFlag = true;
-            viewsList.SelectedItem = v;
+            viewsList.Items.Clear();
+            viewsList.Items.AddRange(lst.ToArray());
             DataUpdateFlag = false;
-            if (v == null)
-                return;
-            if (viewsList.Items.Contains(v))
-                viewsList.Items[viewsList.Items.IndexOf(v)] = v;
         }
 
         public void UpdateInfo()
         {
             DataUpdateFlag = true;
+            NSMBView v = null;
+            tableLayoutPanel1.Visible = SelectedObjects != null;
+            deleteViewButton.Enabled = SelectedObjects != null;
             UpdateList();
-            viewsList.SelectedItem = v;
 
-            if (v != null)
-            {
-                xPos.Value = v.X;
-                yPos.Value = v.Y;
-                width.Value = v.Width;
-                height.Value = v.Height;
-                viewID.Value = v.Number;
-
-                music.SelectedIndex = 0;
-                for (int findmusic = 0; findmusic < music.Items.Count; findmusic++) {
-                    int check = int.Parse((music.Items[findmusic] as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                    if (check == v.Music) {
-                        music.SelectedIndex = findmusic;
-                        break;
-                    }
+            if (SelectedObjects == null) return;
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBView && (obj as NSMBView).isZone != EditingViews) {
+                    v = obj as NSMBView;
+                    break;
                 }
-                unk1.Value = v.Unknown1;
-                unk2.Value = v.Unknown2;
-                unk3.Value = v.Unknown3;
-                light.Value = v.Lighting;
-                progressID.Value = v.FlagpoleID;
+            deleteViewButton.Enabled = v != null;
+            if (v == null) return;
+            DataUpdateFlag = true;
 
-                camTop.Value = v.CameraTop;
-                camTopSpecial.Value = v.CameraTopSpin;
-                camBottom.Value = v.CameraBottom;
-                camBottomSpecial.Value = v.CameraBottomSpin;
-                camStick.Value = v.CameraBottomStick;
+            foreach (LevelItem obj in SelectedObjects)
+                if (obj is NSMBView && (obj as NSMBView).isZone != EditingViews)
+                    viewsList.SelectedIndices.Add(lst.IndexOf(obj as NSMBView));
+            viewID.Value = v.Number;
+
+            music.SelectedIndex = 0;
+            for (int findmusic = 0; findmusic < music.Items.Count; findmusic++) {
+                int check = int.Parse((music.Items[findmusic] as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+                if (check == v.Music) {
+                    music.SelectedIndex = findmusic;
+                    break;
+                }
             }
+            unk1.Value = v.Unknown1;
+            unk2.Value = v.Unknown2;
+            unk3.Value = v.Unknown3;
+            light.Value = v.Lighting;
+            progressID.Value = v.FlagpoleID;
+
+            camTop.Value = v.CameraTop;
+            camTopSpecial.Value = v.CameraTopSpin;
+            camBottom.Value = v.CameraBottom;
+            camBottomSpecial.Value = v.CameraBottomSpin;
+            camStick.Value = v.CameraBottomStick;
             DataUpdateFlag = false;
-        }
-        bool MoveToPos = false;
-        public void SetView(NSMBView v)
-        {
-            MoveToPos = (this.v != v);
-            this.v = v;
-            UpdateInfo();
-            tableLayoutPanel2.Visible = v != null;
-            tableLayoutPanel1.Visible = v != null && EditingViews;
-            MoveToPos = false;
-        }
-
-        private void position_ValueChanged(object sender, EventArgs e)
-        {
-            if (v == null || DataUpdateFlag)
-                return;
-            //if ((int)xPos.Value != v.X || (int)yPos.Value != v.Y)
-            //    EdControl.UndoManager.Do(new MoveViewAction(v, (int)xPos.Value, (int)yPos.Value));
-            //else if ((int)width.Value != v.Width || (int)height.Value != v.Height)
-            //    EdControl.UndoManager.Do(new SizeViewAction(v, (int)width.Value, (int)height.Value));
-            //else if ((int)viewID.Value != v.Number)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 1, (int)viewID.Value));
-            UpdateItem();
-        }
-
-        private void viewSettings_ValueChanged(object sender, EventArgs e)
-        {
-            if (v == null || DataUpdateFlag)
-                return;
-
-            int newMusic = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-            //if (v.Music != newMusic)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 2, newMusic));
-            //if (v.Unknown1 != (int)unk1.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 3, (int)unk1.Value));
-            //if (v.Unknown2 != (int)unk2.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 4, (int)unk2.Value));
-            //if (v.Unknown3 != (int)unk3.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 5, (int)unk3.Value));
-            //if (v.Lighting != (int)light.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 6, (int)light.Value));
-            //if (v.FlagpoleID != (int)progressID.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 7, (int)progressID.Value));
-            //if (v.CameraTop != (int)camTop.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 8, (int)camTop.Value));
-            //if (v.CameraBottom != (int)camBottom.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 9, (int)camBottom.Value));
-            //if (v.CameraTopSpin != (int)camTopSpecial.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 10, (int)camTopSpecial.Value));
-            //if (v.CameraBottomSpin != (int)camBottomSpecial.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 11, (int)camBottomSpecial.Value));
-            //if (v.CameraBottomStick != (int)camStick.Value)
-            //    EdControl.UndoManager.Do(new ChangeViewDataAction(v, 12, (int)camStick.Value));
         }
 
         private void viewsList_SelectedIndexChanged(object sender, EventArgs e) {
             if (DataUpdateFlag) return;
-
-            EdControl.SelectObject(viewsList.SelectedItem);
-            if(v != null && MoveToPos)
-                EdControl.EnsurePosVisible(v.X / 16, v.Y / 16);
+            DataUpdateFlag = true;
+            List<LevelItem> views = new List<LevelItem>();
+            for (int l = 0; l < viewsList.SelectedIndices.Count; l++)
+                views.Add(lst[viewsList.SelectedIndices[l]]);
+            if (views.Count == 0)
+                EdControl.SelectObject(null);
+            else
+            {
+                EdControl.SelectObject(views);
+                EdControl.ScrollToObjects(views);
+            }
+            DataUpdateFlag = false;
+            EdControl.repaint();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void viewID_ValueChanged(object sender, EventArgs e)
         {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 1, (int)viewID.Value));
+        }
 
+        private void music_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            int newMusic = int.Parse((music.SelectedItem as string).Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 2, newMusic));
+        }
+
+        private void unk1_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 3, (int)unk1.Value));
+        }
+
+        private void unk2_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 4, (int)unk2.Value));
+        }
+
+        private void unk3_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 5, (int)unk3.Value));
+        }
+
+        private void light_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 6, (int)light.Value));
+        }
+
+        private void progressID_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 7, (int)progressID.Value));
+        }
+
+        private void camTop_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 8, (int)camTop.Value));
+        }
+
+        private void camBottom_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 9, (int)camBottom.Value));
+        }
+
+        private void camTopSpecial_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 10, (int)camTopSpecial.Value));
+        }
+
+        private void camBottomSpecial_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 11, (int)camBottomSpecial.Value));
+        }
+
+        private void camStick_ValueChanged(object sender, EventArgs e)
+        {
+            if (DataUpdateFlag) return;
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 12, (int)camStick.Value));
         }
     }
 }

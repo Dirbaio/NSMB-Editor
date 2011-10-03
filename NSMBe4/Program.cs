@@ -56,6 +56,8 @@ namespace NSMBe4
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
             }
 
+            if (Properties.Settings.Default.AutoUpdateSD)
+                SpriteData.update();
             SpriteData.Load();  
 
             string path = "";
@@ -85,13 +87,9 @@ namespace NSMBe4
                 }
 
                 if (Properties.Settings.Default.mdi)
-                {
                     Application.Run(new MdiParentForm());
-                }
                 else
                     Application.Run(new LevelChooser());
-                if (Properties.Settings.Default.AutoUpdateSD)
-                    SpriteData.update();
             }
         }
 

@@ -238,7 +238,7 @@ namespace NSMBe4
                         ProgressPaths.Add(pp.parent);
                 else
                     if (!Paths.Contains(pp.parent))
-                        Paths.Remove(pp.parent);
+                        Paths.Add(pp.parent);
             }
         }
 

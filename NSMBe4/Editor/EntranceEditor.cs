@@ -38,8 +38,6 @@ namespace NSMBe4
             UpdateList();
             if (entranceTypeComboBox.Items.Count == 0)
                 entranceTypeComboBox.Items.AddRange(LanguageManager.GetList("EntranceTypes").ToArray());
-
-            deleteEntranceButton.Enabled = false;
             LanguageManager.ApplyToContainer(this, "EntranceEditor");
         }
 
@@ -61,7 +59,6 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             DataUpdateFlag = true;
-            int ind = entranceListBox.SelectedIndex;
             List<LevelItem> ents = new List<LevelItem>();
             for (int l = 0; l < entranceListBox.SelectedIndices.Count; l++)
                 ents.Add(EdControl.Level.Entrances[entranceListBox.SelectedIndices[l]]);
@@ -181,7 +178,6 @@ namespace NSMBe4
             groupBox2.Visible = SelectedObjects != null;
             deleteEntranceButton.Enabled = SelectedObjects != null;
             UpdateList();
-            DataUpdateFlag = false;
 
             if (SelectedObjects == null) return;
             foreach (LevelItem obj in SelectedObjects)
@@ -191,8 +187,8 @@ namespace NSMBe4
                 }
             deleteEntranceButton.Enabled = en != null;
             if (en == null) return;
-
             DataUpdateFlag = true;
+
             foreach (LevelItem obj in SelectedObjects)
                 if (obj is NSMBEntrance)
                     entranceListBox.SelectedIndices.Add(EdControl.Level.Entrances.IndexOf(obj as NSMBEntrance));

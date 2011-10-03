@@ -70,17 +70,6 @@ namespace NSMBe4
             UpdatePanel();
         }
 
-        public void SelectObjects(object[] o)
-        {
-            SelectedObjects.Clear();
-            foreach (object oo in o)
-            {
-                if (oo is LevelItem)
-                    SelectedObjects.Add(oo as LevelItem);
-            }
-            UpdatePanel();
-        }
-
         public override void RenderSelection(Graphics g)
         {
             if (SelectionRectangle != null && SelectMode)
@@ -139,6 +128,12 @@ namespace NSMBe4
             foreach (NSMBObject o in Level.Objects) selectIfInside(o, r);
             foreach (NSMBSprite o in Level.Sprites) selectIfInside(o, r);
             foreach (NSMBEntrance o in Level.Entrances) selectIfInside(o, r);
+            foreach (NSMBPath p in Level.Paths)
+                foreach (NSMBPathPoint pp in p.points)
+                    selectIfInside(pp, r);
+            foreach (NSMBPath p in Level.ProgressPaths)
+                foreach (NSMBPathPoint pp in p.points)
+                    selectIfInside(pp, r);
 
             if (firstOnly && SelectedObjects.Count > 1)
             {
@@ -221,10 +216,11 @@ namespace NSMBe4
                 {
                     int xDelta = x-lx;
                     int yDelta = y-ly;
+                    //This causes errors with views, zones, and paths
                     if (xDelta <= -minSizeX + selectionSnap) xDelta = -minSizeX + selectionSnap;
                     if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
                     xDelta &= ~(selectionSnap-1);
-                    yDelta &= ~(selectionSnap-1);
+                    yDelta &= ~(selectionSnap - 1);
                     if (xDelta == 0 && yDelta == 0) return;
                     minSizeX += xDelta;
                     minSizeY += yDelta;
@@ -234,8 +230,10 @@ namespace NSMBe4
                 }
                 else
                 {
+                    //Console.Out.WriteLine("lx: " + lx + "; ly: " + ly + "; minBoundX: " + minBoundX + "; minBoundY: " + minBoundY + "; x: " + x + "; y: " + y);
                     int xDelta = x-lx;
                     int yDelta = y-ly;
+                    //This causes errors with views, zones, and paths
                     if(xDelta < -minBoundX) xDelta = -minBoundX;
                     if(yDelta < -minBoundY) yDelta = -minBoundY;
                     xDelta &= ~(selectionSnap - 1);
@@ -243,7 +241,6 @@ namespace NSMBe4
                     if (xDelta == 0 && yDelta == 0) return;
                     minBoundX += xDelta;
                     minBoundY += yDelta;
-                    Console.WriteLine(xDelta + " " + yDelta);
                     EdControl.UndoManager.Do(new MoveLvlItemAction(SelectedObjects, xDelta, yDelta));
                     lx += xDelta;
                     ly += yDelta;
@@ -379,7 +376,7 @@ namespace NSMBe4
             //        EdControl.UndoManager.Do(new AddSpriteAction(objs[0] as NSMBSprite));
             //} else
             //    EdControl.UndoManager.Do(new AddMultipleAction(objs.ToArray()));
-            SelectObjects(objs.ToArray());
+            //SelectObjects(objs.ToArray());
             UpdateSelectionBounds();
         }
 

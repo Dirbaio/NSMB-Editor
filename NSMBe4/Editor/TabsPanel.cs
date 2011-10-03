@@ -19,7 +19,9 @@ namespace NSMBe4
         public SpriteEditor sprites;
         public EntranceEditor entrances;
         public ViewEditor views;
+        public ViewEditor zones;
         public PathEditor paths;
+        public PathEditor progresspaths;
 
         public List<Control> activeCtrls = new List<Control>();
 
@@ -42,8 +44,10 @@ namespace NSMBe4
             objects = new ObjectEditor(EdControl);
             sprites = new SpriteEditor(EdControl);
             entrances = new EntranceEditor(EdControl);
-            //views = new ViewEditor(EdControl);
-            //paths = new PathEditor(EdControl);
+            views = new ViewEditor(EdControl, EdControl.Level.Views, true);
+            zones = new ViewEditor(EdControl, EdControl.Level.Zones, false);
+            paths = new PathEditor(EdControl, EdControl.Level.Paths);
+            progresspaths = new PathEditor(EdControl, EdControl.Level.ProgressPaths);
 
             SelectNone();
         }
@@ -57,8 +61,20 @@ namespace NSMBe4
                 if (obj is NSMBObject) AddTab(objects);
                 if (obj is NSMBSprite) AddTab(sprites);
                 if (obj is NSMBEntrance) AddTab(entrances);
-                //if (obj is NSMBView) AddTab(views);
-                //if (obj is NSMBPathPoint) AddTab(paths);
+                if (obj is NSMBView) {
+                    NSMBView v = obj as NSMBView;
+                    if (v.isZone)
+                        AddTab(zones);
+                    else
+                        AddTab(views);
+                }
+                if (obj is NSMBPathPoint) {
+                    NSMBPathPoint pp = obj as NSMBPathPoint;
+                    if (pp.parent.isProgressPath)
+                        AddTab(progresspaths);
+                    else
+                        AddTab(paths);
+                }
 
                 if (selectedTabType != null && obj.GetType() == selectedTabType.GetType() && tabIndex == -1)
                     tabIndex = tabControl1.TabCount - 1;
@@ -75,9 +91,16 @@ namespace NSMBe4
             ClearTabs();
             AddTab(create);
             AddTab(entrances);
+            AddTab(views);
+            AddTab(zones);
+            AddTab(paths);
+            AddTab(progresspaths);
+
             entrances.SelectObjects(null);
-            //AddTab(views);
-            //AddTab(paths);
+            views.SelectObjects(null);
+            zones.SelectObjects(null);
+            paths.SelectObjects(null);
+            progresspaths.SelectObjects(null);
             EdControl.Focus();
         }
 
@@ -93,6 +116,8 @@ namespace NSMBe4
                 if (ctrl is ObjectEditor) (ctrl as ObjectEditor).SelectObjects(SelectedObjs);
                 if (ctrl is EntranceEditor) (ctrl as EntranceEditor).SelectObjects(SelectedObjs);
                 if (ctrl is SpriteEditor) (ctrl as SpriteEditor).SelectObjects(SelectedObjs);
+                if (ctrl is ViewEditor) (ctrl as ViewEditor).SelectObjects(SelectedObjs);
+                if (ctrl is PathEditor) (ctrl as PathEditor).SelectObjects(SelectedObjs);
 
                 TabPage tp = new TabPage("");
                 tp.Controls.Add(ctrl);
@@ -109,6 +134,7 @@ namespace NSMBe4
                 if (ctrl is ObjectEditor) (ctrl as ObjectEditor).UpdateInfo();
                 if (ctrl is EntranceEditor) (ctrl as EntranceEditor).UpdateInfo();
                 if (ctrl is SpriteEditor) (ctrl as SpriteEditor).UpdateInfo();
+                if (ctrl is ViewEditor) (ctrl as ViewEditor).UpdateInfo();
             }
         }
 

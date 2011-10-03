@@ -366,6 +366,7 @@
             // deleteEntranceButton
             // 
             this.deleteEntranceButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.deleteEntranceButton.Enabled = false;
             this.deleteEntranceButton.Location = new System.Drawing.Point(150, 152);
             this.deleteEntranceButton.Name = "deleteEntranceButton";
             this.deleteEntranceButton.Size = new System.Drawing.Size(93, 23);
