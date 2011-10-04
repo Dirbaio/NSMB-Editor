@@ -135,6 +135,7 @@ namespace NSMBe4
                 if (ctrl is EntranceEditor) (ctrl as EntranceEditor).UpdateInfo();
                 if (ctrl is SpriteEditor) (ctrl as SpriteEditor).UpdateInfo();
                 if (ctrl is ViewEditor) (ctrl as ViewEditor).UpdateInfo();
+                if (ctrl is PathEditor) (ctrl as PathEditor).UpdateInfo();
             }
         }
 

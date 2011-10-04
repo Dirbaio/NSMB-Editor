@@ -10,12 +10,12 @@ namespace NSMBe4
 
         public override void MouseDrag(int x, int y)
         {
-            EdControl.dsScreenX = Math.Max(0, x - 128);
-            EdControl.dsScreenY = Math.Max(0, y - 96);
+            EdControl.dsScreenX = x - 128;
+            EdControl.dsScreenY = y - 96;
             if (System.Windows.Forms.Control.ModifierKeys == System.Windows.Forms.Keys.Shift)
             {
-                EdControl.dsScreenX = (EdControl.dsScreenX / 16) * 16;
-                EdControl.dsScreenY = (EdControl.dsScreenY / 16) * 16;
+                EdControl.dsScreenX = ((EdControl.dsScreenX + 8) / 16) * 16;
+                EdControl.dsScreenY = ((EdControl.dsScreenY + 8) / 16) * 16;
             }
             EdControl.repaint();
         }

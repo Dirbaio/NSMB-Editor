@@ -233,12 +233,13 @@ namespace NSMBe4
             if (obj is NSMBPathPoint) {
                 NSMBPathPoint pp = obj as NSMBPathPoint;
                 pp.parent.points.Add(pp);
-                if (pp.parent.isProgressPath)
+                if (pp.parent.isProgressPath) {
                     if (!ProgressPaths.Contains(pp.parent))
                         ProgressPaths.Add(pp.parent);
-                else
+                } else {
                     if (!Paths.Contains(pp.parent))
                         Paths.Add(pp.parent);
+                }
             }
         }
 

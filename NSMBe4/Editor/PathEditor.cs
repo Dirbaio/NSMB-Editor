@@ -29,6 +29,7 @@ namespace NSMBe4
     {
         private LevelEditorControl EdControl;
         private bool DataUpdateFlag = false;
+        private bool isProgress;
         List<LevelItem> SelectedObjects;
         List<NSMBPath> lst;
 
@@ -36,6 +37,7 @@ namespace NSMBe4
         {
             InitializeComponent();
             this.lst = l;
+            isProgress = l == EdControl.Level.ProgressPaths;
             LanguageManager.ApplyToContainer(this, "PathEditor");
             this.EdControl = EdControl;
             UpdateList();
@@ -60,8 +62,7 @@ namespace NSMBe4
             DataUpdateFlag = true;
             NSMBPathPoint pp = null;
             deletePath.Enabled = SelectedObjects != null;
-            groupBox1.Visible = deletePath.Enabled;
-            groupBox2.Visible = deletePath.Enabled;
+            panel2.Visible = deletePath.Enabled;
             UpdateList();
 
             if (SelectedObjects == null) return;
@@ -158,11 +159,11 @@ namespace NSMBe4
         {
             Rectangle va = EdControl.ViewableArea;
             NSMBPath np = new NSMBPath();
-            if (lst == EdControl.Level.ProgressPaths)
+            if (isProgress)
                 np.id = EdControl.Level.getFreePathNumber(lst, 1);
             else
                 np.id = EdControl.Level.getFreePathNumber(lst, 0);
-            np.isProgressPath = lst == EdControl.Level.ProgressPaths;
+            np.isProgressPath = isProgress;
 
             NSMBPathPoint npp = new NSMBPathPoint(np);
             npp.X = va.X * 16;

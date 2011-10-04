@@ -52,6 +52,8 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pathID)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -65,12 +67,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.unk6)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // addPath
             // 
             this.addPath.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.addPath.Location = new System.Drawing.Point(47, 180);
+            this.addPath.Location = new System.Drawing.Point(47, 169);
             this.addPath.Name = "addPath";
             this.addPath.Size = new System.Drawing.Size(75, 21);
             this.addPath.TabIndex = 0;
@@ -81,7 +85,7 @@
             // deletePath
             // 
             this.deletePath.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.deletePath.Location = new System.Drawing.Point(128, 180);
+            this.deletePath.Location = new System.Drawing.Point(128, 169);
             this.deletePath.Name = "deletePath";
             this.deletePath.Size = new System.Drawing.Size(75, 21);
             this.deletePath.TabIndex = 0;
@@ -136,16 +140,17 @@
             this.pathsList.FormattingEnabled = true;
             this.pathsList.Location = new System.Drawing.Point(3, 3);
             this.pathsList.Name = "pathsList";
-            this.pathsList.Size = new System.Drawing.Size(244, 173);
+            this.pathsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.pathsList.Size = new System.Drawing.Size(244, 160);
             this.pathsList.TabIndex = 2;
             this.pathsList.SelectedIndexChanged += new System.EventHandler(this.pathsList_SelectedIndexChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 204);
+            this.groupBox1.Location = new System.Drawing.Point(6, 8);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(241, 53);
             this.groupBox1.TabIndex = 3;
@@ -154,10 +159,10 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox2.Location = new System.Drawing.Point(3, 263);
+            this.groupBox2.Location = new System.Drawing.Point(3, 67);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(244, 183);
             this.groupBox2.TabIndex = 4;
@@ -371,15 +376,33 @@
             this.numericUpDown6.Size = new System.Drawing.Size(53, 20);
             this.numericUpDown6.TabIndex = 1;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.deletePath);
+            this.panel1.Controls.Add(this.addPath);
+            this.panel1.Controls.Add(this.pathsList);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(250, 196);
+            this.panel1.TabIndex = 5;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox2);
+            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 196);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(250, 253);
+            this.panel2.TabIndex = 3;
+            // 
             // PathEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.addPath);
-            this.Controls.Add(this.deletePath);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.pathsList);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.Name = "PathEditor";
             this.Size = new System.Drawing.Size(250, 449);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -398,6 +421,8 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -428,5 +453,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

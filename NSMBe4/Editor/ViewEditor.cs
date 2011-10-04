@@ -88,8 +88,9 @@ namespace NSMBe4
         {
             DataUpdateFlag = true;
             NSMBView v = null;
-            tableLayoutPanel1.Visible = SelectedObjects != null;
-            deleteViewButton.Enabled = SelectedObjects != null;
+            tableLayoutPanel2.Visible = SelectedObjects != null;
+            tableLayoutPanel1.Visible = tableLayoutPanel2.Visible && EditingViews;
+            deleteViewButton.Enabled = tableLayoutPanel2.Visible;
             UpdateList();
 
             if (SelectedObjects == null) return;
