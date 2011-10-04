@@ -60,6 +60,9 @@
             this.setBgImageButton = new System.Windows.Forms.ToolStripMenuItem();
             this.removeBgButton = new System.Windows.Forms.ToolStripMenuItem();
             this.moveBGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.showScreen = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveScreen = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelContainer = new System.Windows.Forms.Panel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -95,7 +98,8 @@
             this.toolStripSeparator3,
             this.editTileset,
             this.optionsMenu,
-            this.toolStripDropDownButton1});
+            this.toolStripDropDownButton1,
+            this.toolStripDropDownButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1028, 25);
@@ -382,6 +386,33 @@
             this.moveBGToolStripMenuItem.Text = "Move BG";
             this.moveBGToolStripMenuItem.Click += new System.EventHandler(this.moveBGToolStripMenuItem_Click);
             // 
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showScreen,
+            this.moveScreen});
+            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton2.Text = "toolStripDropDownButton2";
+            // 
+            // showScreen
+            // 
+            this.showScreen.CheckOnClick = true;
+            this.showScreen.Name = "showScreen";
+            this.showScreen.Size = new System.Drawing.Size(164, 22);
+            this.showScreen.Text = "Show Screen Size";
+            this.showScreen.Click += new System.EventHandler(this.showScreen_Click);
+            // 
+            // moveScreen
+            // 
+            this.moveScreen.Name = "moveScreen";
+            this.moveScreen.Size = new System.Drawing.Size(164, 22);
+            this.moveScreen.Text = "Move Screen";
+            this.moveScreen.Click += new System.EventHandler(this.moveScreen_Click);
+            // 
             // PanelContainer
             // 
             this.PanelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -530,6 +561,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripMenuItem showScreen;
+        private System.Windows.Forms.ToolStripMenuItem moveScreen;
     }
 }
 

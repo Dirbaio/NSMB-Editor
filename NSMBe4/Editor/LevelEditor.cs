@@ -30,6 +30,7 @@ namespace NSMBe4 {
 
         public ObjectsEditionMode oem;
         public BackgroundDragEditionMode bgdragem;
+        public ScreenEditionMode screenem;
 
         public ToolsForm tools;
         private List<ToolStripButton> EditionModeButtons;
@@ -75,6 +76,7 @@ namespace NSMBe4 {
 
             oem = new ObjectsEditionMode(Level, levelEditorControl1);
             bgdragem = new BackgroundDragEditionMode(Level, levelEditorControl1);
+            screenem = new ScreenEditionMode(Level, levelEditorControl1);
 
             levelEditorControl1.SetEditionMode(oem);
             levelEditorControl1.minimapctrl = minimapControl1;
@@ -298,6 +300,20 @@ namespace NSMBe4 {
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             PanelContainer.Invalidate(true);
+        }
+
+        private void showScreen_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.showDSScreen = showScreen.Checked;
+            levelEditorControl1.repaint();
+        }
+
+        private void moveScreen_Click(object sender, EventArgs e)
+        {
+            showScreen.Checked = true;
+            levelEditorControl1.showDSScreen = true;
+            levelEditorControl1.SetEditionMode(screenem);
+            uncheckModeButtons();
         }
     }
 }

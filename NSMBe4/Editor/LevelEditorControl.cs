@@ -31,6 +31,8 @@ namespace NSMBe4
         public UndoManager UndoManager;
         public Image bgImage;
         public int bgX, bgY;
+        public int dsScreenX, dsScreenY;
+        public bool showDSScreen = false;
         public bool ignoreMouse = false;
 
         public LevelEditorControl() {
@@ -212,6 +214,13 @@ namespace NSMBe4
 
             if (mode != null)
                 mode.RenderSelection(e.Graphics);
+
+            // DS Screen preview
+            if (showDSScreen) {
+                e.Graphics.DrawRectangle(Pens.BlueViolet, dsScreenX, dsScreenY, 256, 192);
+                e.Graphics.DrawLine(Pens.BlueViolet, dsScreenX + 128, dsScreenY, dsScreenX + 128, dsScreenY + 192);
+                e.Graphics.DrawLine(Pens.BlueViolet, dsScreenX, dsScreenY + 96, dsScreenX + 256, dsScreenY + 96);
+            }
 
             e.Graphics.TranslateTransform(hScrollBar.Value * 16, vScrollBar.Value * 16);
         }
