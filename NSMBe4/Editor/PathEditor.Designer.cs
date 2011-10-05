@@ -138,10 +138,10 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pathsList.FormattingEnabled = true;
-            this.pathsList.Location = new System.Drawing.Point(3, 3);
+            this.pathsList.Location = new System.Drawing.Point(0, 0);
             this.pathsList.Name = "pathsList";
             this.pathsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.pathsList.Size = new System.Drawing.Size(244, 160);
+            this.pathsList.Size = new System.Drawing.Size(250, 160);
             this.pathsList.TabIndex = 2;
             this.pathsList.SelectedIndexChanged += new System.EventHandler(this.pathsList_SelectedIndexChanged);
             // 

@@ -142,12 +142,11 @@ namespace NSMBe4
             DataUpdateFlag = true;
             List<LevelItem> pts = new List<LevelItem>();
             for (int l = 0; l < pathsList.SelectedIndices.Count; l++)
-                foreach (NSMBPathPoint pp in lst[l].points)
+                foreach (NSMBPathPoint pp in lst[pathsList.SelectedIndices[l]].points)
                     pts.Add(pp);
             if (pts.Count == 0)
                 EdControl.SelectObject(null);
-            else
-            {
+            else {
                 EdControl.SelectObject(pts);
                 EdControl.ScrollToObjects(pts);
             }

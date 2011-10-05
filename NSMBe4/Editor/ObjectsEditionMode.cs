@@ -67,6 +67,7 @@ namespace NSMBe4
                 SelectedObjects.Clear();
             }
             tabs.SelectObjects(SelectedObjects, null);
+            UpdateSelectionBounds();
             UpdatePanel();
         }
 

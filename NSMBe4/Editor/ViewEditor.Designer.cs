@@ -81,7 +81,7 @@
             this.viewsList.Location = new System.Drawing.Point(0, 0);
             this.viewsList.Name = "viewsList";
             this.viewsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.viewsList.Size = new System.Drawing.Size(281, 177);
+            this.viewsList.Size = new System.Drawing.Size(281, 125);
             this.viewsList.TabIndex = 0;
             this.viewsList.SelectedIndexChanged += new System.EventHandler(this.viewsList_SelectedIndexChanged);
             // 
@@ -475,9 +475,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.viewsList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.viewsList);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ViewEditor";
             this.Size = new System.Drawing.Size(281, 465);

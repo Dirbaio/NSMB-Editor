@@ -23,6 +23,8 @@ namespace NSMBe4
         public PathEditor paths;
         public PathEditor progresspaths;
 
+        public Control[] controls;
+
         public List<Control> activeCtrls = new List<Control>();
 
         public TabsPanel(LevelEditorControl EdControl) {
@@ -30,6 +32,7 @@ namespace NSMBe4
             this.EdControl = EdControl;
 
             images = new ImageList();
+            images.ColorDepth = ColorDepth.Depth32Bit;
             images.Images.Add(Properties.Resources.add);
             images.Images.Add(Properties.Resources.block);
             images.Images.Add(Properties.Resources.bug);
@@ -48,6 +51,7 @@ namespace NSMBe4
             zones = new ViewEditor(EdControl, EdControl.Level.Zones, false);
             paths = new PathEditor(EdControl, EdControl.Level.Paths);
             progresspaths = new PathEditor(EdControl, EdControl.Level.ProgressPaths);
+            controls = new Control[] {create, objects, sprites, entrances, views, zones, paths, progresspaths};
 
             SelectNone();
         }
@@ -120,6 +124,7 @@ namespace NSMBe4
                 if (ctrl is PathEditor) (ctrl as PathEditor).SelectObjects(SelectedObjs);
 
                 TabPage tp = new TabPage("");
+                tp.ImageIndex = Array.IndexOf(controls, ctrl);
                 tp.Controls.Add(ctrl);
                 ctrl.Dock = DockStyle.Fill;
                 tabControl1.TabPages.Add(tp);
