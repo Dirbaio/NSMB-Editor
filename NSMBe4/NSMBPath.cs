@@ -76,7 +76,7 @@ namespace NSMBe4
 
         public void render(Graphics g, LevelEditorControl ed, bool selected)
         {
-            if (points.Count <= 0)
+            if (points.Count == 0)
                 return;
 
             bool first = true;

@@ -45,7 +45,7 @@ namespace NSMBe4
         {
             if (EdControl.Level.Sprites.Count == 0)
             {
-                MessageBox.Show(LanguageManager.Get("ToolsForm", "NoSprites"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show(LanguageManager.Get("ToolsForm", "NoSprites"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -75,41 +75,19 @@ namespace NSMBe4
                 EdControl.SelectObject(foundSprite);
                 EdControl.EnsurePosVisible(foundSprite.X, foundSprite.Y);
             }
-            else
-                MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //else
+                //MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void spriteCount_Click(object sender, EventArgs e)
+        private void sprSelectAll_Click(object sender, EventArgs e)
         {
-            int count = 0;
+            List<LevelItem> sprites = new List<LevelItem>();
             foreach (NSMBSprite s in EdControl.Level.Sprites)
                 if (s.Type == SpriteNumber.Value)
-                    count++;
-
-            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "SpriteCount"), SpriteNumber.Value, count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void spriteDelete_Click(object sender, EventArgs e)
-        {
-            List<NSMBSprite> toDelete = new List<NSMBSprite>();
-
-            foreach (NSMBSprite s in EdControl.Level.Sprites)
-                if (s.Type == SpriteNumber.Value)
-                    toDelete.Add(s);
-
-            //EdControl.UndoManager.Do(new RemoveMultipleAction(toDelete.ToArray()));
-            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "DeletedSprites"), toDelete.Count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void spriteReplaceAll_Click(object sender, EventArgs e)
-        {
-            int count = 0;
-            foreach (NSMBSprite s in EdControl.Level.Sprites)
-                if (s.Type == SpriteNumber.Value)
-                    count++;
-
-            //EdControl.UndoManager.Do(new ReplaceSpritesAction((int)SpriteNumber.Value, (int)newSpriteNumber.Value));
-            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "ReplacedSprites"), count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    sprites.Add(s);
+            EdControl.SelectObject(sprites);
+            EdControl.ScrollToObjects(sprites);
+            EdControl.repaint();
         }
 
         private void objFindNext_Click(object sender, EventArgs e)
@@ -134,29 +112,20 @@ namespace NSMBe4
                     EdControl.SelectObject(foundObj);
                     EdControl.EnsurePosVisible(foundObj.X, foundObj.Y);
                 }
-                else
-                    MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //else
+                    //MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private void objCount_Click(object sender, EventArgs e)
+        private void objSelectAll_Click(object sender, EventArgs e)
         {
-            int count = 0;
+            List<LevelItem> objs = new List<LevelItem>();
             foreach (NSMBObject o in EdControl.Level.Objects)
                 if (o.Tileset == nudFindTileset.Value && o.ObjNum == nudFindObjNum.Value)
-                    count++;
-
-            MessageBox.Show(string.Format(LanguageManager.Get("ToolsForm", "SpriteCount"), SpriteNumber.Value, count), LanguageManager.Get("General", "Completed"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void objDelete_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void objReplaceAll_Click(object sender, EventArgs e)
-        {
-
+                    objs.Add(o);
+            EdControl.SelectObject(objs);
+            EdControl.ScrollToObjects(objs);
+            EdControl.repaint();
         }
 
         private void ToolsForm_FormClosing(object sender, FormClosingEventArgs e)

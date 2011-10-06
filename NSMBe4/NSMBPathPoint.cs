@@ -69,9 +69,12 @@ namespace NSMBe4
 
         public void render(Graphics g, LevelEditorControl ed)
         {
-            //TODO: Fix this shit.
-//        public void Render(Graphics g, Pen p, int num) {
             Pen p = null;
+            int num = parent.points.IndexOf(this);
+            if (num == 0)
+                p = Pens.Green;
+            if (num == parent.points.Count - 1)
+                p = Pens.Red;
 
             g.DrawImage(Properties.Resources.pathpoint, X + NSMBPath.XOffs, Y+NSMBPath.YOffs);
             if (p != null)
@@ -80,7 +83,7 @@ namespace NSMBe4
                 g.DrawRectangle(p, X+1, Y+1, 14, 14);
 
             }
-//            g.DrawString(num.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, X, Y);
+            g.DrawString(num.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, X, Y);
         }
 
         public static NSMBPathPoint read(ByteArrayInputStream inp, NSMBPath parent)
