@@ -115,6 +115,8 @@ namespace NSMBe4
                 case 34:
                     x -= 7; y -= 26;
                     width = 30; height = 42;
+                    if (Data[5] / 0x10 == 1)
+                        x += 8;
                     break;
                 case 36:
                     width = 32; height = 36;
@@ -304,6 +306,10 @@ namespace NSMBe4
                     }
                     x -= (width - 16) / 2;
                     y -= (height - 16);
+                    if (Data[4] / 0x10 == 1)
+                        x += 8;
+                    if (Data[4] % 0x10 == 1)
+                        y += 8;
                     break;
                 case 94:
                     if (Data[5] % 0x10 == 1) {
@@ -938,6 +944,8 @@ namespace NSMBe4
                     g.DrawImage(img, RenderX, RenderY, img.Width, img.Height);
                     break;
                 case 34:
+                    if (Data[5] / 0x10 == 1)
+                        RenderX += 8;
                     g.DrawImage(Properties.Resources.RedCoinRing, RenderX - 7, RenderY - 26, 30, 42);
                     break;
                 case 36:
@@ -1188,6 +1196,10 @@ namespace NSMBe4
                         RenderX += (img.Width / 9) * BtoI(Data[5] / 0x10 > 4);
                         RenderY += (img.Width / 9) * BtoI(Data[5] / 0x10 == 3 || Data[5] / 0x10 == 5);
                     }
+                    if (Data[4] / 0x10 == 1)
+                        RenderX += 8;
+                    if (Data[4] % 0x10 == 1)
+                        RenderY += 8;
                     g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16), img.Width, img.Height);
                     break;
                 case 94:
