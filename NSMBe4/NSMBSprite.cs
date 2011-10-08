@@ -1193,8 +1193,8 @@ namespace NSMBe4
                     if (Data[3] % 0x10 == 1)
                         img = new Bitmap(img, 24, 24);
                     if (Data[5] / 0x10 % 2 == 1) {
-                        RenderX += (img.Width / 9) * BtoI(Data[5] / 0x10 > 4);
-                        RenderY += (img.Width / 9) * BtoI(Data[5] / 0x10 == 3 || Data[5] / 0x10 == 5);
+                        RenderX += (img.Width / 9) * ((Data[5] / 0x10 > 4) ? 1 : -1);
+                        RenderY += (img.Width / 9) * ((Data[5] / 0x10 == 3 || Data[5] / 0x10 == 5) ? 1 : -1);
                     }
                     if (Data[4] / 0x10 == 1)
                         RenderX += 8;
@@ -2081,11 +2081,6 @@ namespace NSMBe4
                 g.DrawImage(b, 0, 0, width + width / b.Width / 2, height + height / b.Height / 2);
             }
             return newImg;
-        }
-
-        private static int BtoI(bool value)
-        {
-            return value ? 1 : -1;
         }
 
         public override string ToString()

@@ -255,6 +255,8 @@ namespace NSMBe4
 
         private void deleteDescriptions_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Are you sure you want to delete all descriptions for this tileset?", "Delete descriptions?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                return;
             try {
                 if (!descExists) return;
                 System.IO.StreamReader s = new System.IO.StreamReader(ROM.DescriptionPath);
