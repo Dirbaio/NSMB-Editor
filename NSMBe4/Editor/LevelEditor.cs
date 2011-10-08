@@ -37,6 +37,15 @@ namespace NSMBe4 {
 
         public LevelEditor(string LevelFilename) {
             InitializeComponent();
+
+            //This is supposed to reduce flickering on stuff like the side panel...
+            //But it doesn't :(
+            this.SetStyle(
+              ControlStyles.AllPaintingInWmPaint|
+              ControlStyles.UserPaint |
+              ControlStyles.DoubleBuffer, true); 
+            
+
             if (Properties.Settings.Default.mdi)
                 this.MdiParent = MdiParentForm.instance;
             this.LevelFilename = LevelFilename;
@@ -113,9 +122,11 @@ namespace NSMBe4 {
 
             if (SelectedPanel != null)
                 SelectedPanel.Parent = null;
+            np.Dock = DockStyle.Fill;
             np.Size = PanelContainer.Size;
-            np.Location = new Point(0, 0);
-            np.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+//            np.Size = PanelContainer.Size;
+//            np.Location = new Point(0, 0);
+//            np.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             SelectedPanel = np;
             if (SelectedPanel != null)
                 SelectedPanel.Parent = PanelContainer;
@@ -302,18 +313,11 @@ namespace NSMBe4 {
             PanelContainer.Invalidate(true);
         }
 
-        private void showScreen_Click(object sender, EventArgs e)
+        private void dsScreenShowButton_Click(object sender, EventArgs e)
         {
-            levelEditorControl1.showDSScreen = showScreen.Checked;
+            levelEditorControl1.showDSScreen = dsScreenShowButton.Checked;
             levelEditorControl1.repaint();
         }
 
-        private void moveScreen_Click(object sender, EventArgs e)
-        {
-            showScreen.Checked = true;
-            levelEditorControl1.showDSScreen = true;
-            levelEditorControl1.SetEditionMode(screenem);
-            uncheckModeButtons();
-        }
     }
 }

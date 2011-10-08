@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace NSMBe4
 {
@@ -16,7 +17,18 @@ namespace NSMBe4
         {
             InitializeComponent();
             instance = this;
-            this.Text = "NSMB Editor 5.2 " + Properties.Resources.version;
+            /*
+            foreach (Control c in this.Controls)
+            {
+                if (c is MdiClient)
+                {
+                    (c as MdiClient).BackColor = Color.Black;
+                    (c as MdiClient).BackgroundImage = Properties.Resources.BulletBillCannonTop;
+                    (c as MdiClient).BackgroundImageLayout = ImageLayout.Center; 
+                }
+            } */
+            
+            this.Text = "NSMB Editor 5.2 " + Properties.Resources.version.Trim();
             if (Properties.Settings.Default.MDIWindowInit)
             {
                 this.Location = Properties.Settings.Default.MDIWindowPos;
@@ -25,6 +37,7 @@ namespace NSMBe4
             }
             this.Icon = Properties.Resources.nsmbe;
         }
+
 
         private void MdiParentForm_Load(object sender, EventArgs e)
         {

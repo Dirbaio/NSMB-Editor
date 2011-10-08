@@ -25,9 +25,12 @@ namespace NSMBe4
 {
     public class ObjectsEditionMode:EditionMode
     {
-        bool ResizeMode, CloneMode, SelectMode;
+        bool CloneMode, SelectMode;
         int dx, dy; //MouseDown position
         int lx, ly; //last position
+        
+        ResizeType horResize = ResizeType.ResizeNone;
+        ResizeType vertResize = ResizeType.ResizeNone;
 
         int minBoundX, minBoundY; //the top left corner of the selected objects
         int maxBoundX, maxBoundY; //the top left corner of the selected objects
@@ -71,13 +74,32 @@ namespace NSMBe4
             UpdatePanel();
         }
 
+        private void drawResizeKnob(Graphics g, int x, int y)
+        {
+            g.FillRectangle(Brushes.White, x - 3, y - 3, 6, 6);
+            g.DrawRectangle(Pens.Black, x - 3, y - 3, 6, 6);
+        }
         public override void RenderSelection(Graphics g)
         {
             if (SelectionRectangle != null && SelectMode)
                 g.DrawRectangle(Pens.LightBlue, SelectionRectangle);
 
             foreach (LevelItem o in SelectedObjects)
+            {
                 g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
+                g.DrawRectangle(Pens.Black, o.x-1, o.y-1, o.width+2, o.height+2);
+                if (o.isResizable)
+                {
+                    drawResizeKnob(g, o.x, o.y);
+                    drawResizeKnob(g, o.x, o.y + o.height);
+                    drawResizeKnob(g, o.x, o.y + o.height / 2);
+                    drawResizeKnob(g, o.x + o.width, o.y);
+                    drawResizeKnob(g, o.x + o.width, o.y + o.height);
+                    drawResizeKnob(g, o.x + o.width, o.y + o.height / 2);
+                    drawResizeKnob(g, o.x + o.width / 2, o.y);
+                    drawResizeKnob(g, o.x + o.width / 2, o.y + o.height);
+                }
+            }
         }
 
         public void ReloadObjectPicker()
@@ -170,7 +192,9 @@ namespace NSMBe4
             dx = x;
             dy = y;
 
-            if (!isInSelection(x, y))
+            bool drag = false;
+            getActionAtPos(x, y, out drag, out vertResize, out horResize);
+            if (!drag)
             {
                 // Select an object
                 findSelectedObjects(x, y, x, y, true);
@@ -179,8 +203,6 @@ namespace NSMBe4
 
             if (!SelectMode)
             {
-                //look if we are in resize mode...
-                ResizeMode = Control.ModifierKeys == Keys.Shift;
                 CloneMode = Control.ModifierKeys == Keys.Control;
                 lx -= selectionSnap / 2;
                 ly -= selectionSnap / 2;
@@ -210,43 +232,131 @@ namespace NSMBe4
                     EdControl.UndoManager.Do(new AddLvlItemAction(newObjects));
 
                     CloneMode = false;
-                    ResizeMode = false;
+                    vertResize = ResizeType.ResizeNone;
+                    horResize = ResizeType.ResizeNone;
+
                     SelectedObjects = newObjects;
                 }
-                if (ResizeMode)
+
+                if (horResize == ResizeType.ResizeNone && vertResize == ResizeType.ResizeNone)
                 {
                     int xDelta = x-lx;
                     int yDelta = y-ly;
                     //This causes errors with views, zones, and paths
-                    if (xDelta <= -minSizeX + selectionSnap) xDelta = -minSizeX + selectionSnap;
-                    if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
-                    xDelta &= ~(selectionSnap-1);
-                    yDelta &= ~(selectionSnap - 1);
-                    if (xDelta == 0 && yDelta == 0) return;
-                    minSizeX += xDelta;
-                    minSizeY += yDelta;
-                    EdControl.UndoManager.Do(new ResizeLvlItemAction(SelectedObjects, xDelta, yDelta));
-                    lx += xDelta;
-                    ly += yDelta;
-                }
-                else
-                {
-                    //Console.Out.WriteLine("lx: " + lx + "; ly: " + ly + "; minBoundX: " + minBoundX + "; minBoundY: " + minBoundY + "; x: " + x + "; y: " + y);
-                    int xDelta = x-lx;
-                    int yDelta = y-ly;
-                    //This causes errors with views, zones, and paths
-                    if(xDelta < -minBoundX) xDelta = -minBoundX;
-                    if(yDelta < -minBoundY) yDelta = -minBoundY;
+                    if (xDelta < -minBoundX) xDelta = -minBoundX;
+                    if (yDelta < -minBoundY) yDelta = -minBoundY;
                     xDelta &= ~(selectionSnap - 1);
                     yDelta &= ~(selectionSnap - 1);
                     if (xDelta == 0 && yDelta == 0) return;
                     minBoundX += xDelta;
                     minBoundY += yDelta;
-                    EdControl.UndoManager.Do(new MoveLvlItemAction(SelectedObjects, xDelta, yDelta));
+                    EdControl.UndoManager.Do(new MoveResizeLvlItemAction(SelectedObjects, xDelta, yDelta));
+                    lx += xDelta;
+                    ly += yDelta;
+                }
+                else
+                {
+                    int xDelta = x-lx;
+                    int yDelta = y-ly;
+
+                    int xMoveDelta = 0;
+                    int xResizeDelta = 0;
+                    int yMoveDelta = 0;
+                    int yResizeDelta = 0;
+
+                    xDelta &= ~(selectionSnap - 1);
+                    yDelta &= ~(selectionSnap - 1);
+                    if (xDelta == 0 && yDelta == 0) return;
+
+                    if (horResize == ResizeType.ResizeBegin)
+                    {
+                        if (-xDelta <= -minSizeX + selectionSnap) xDelta = -(-minSizeX + selectionSnap);
+                        if (xDelta < -minBoundX) xDelta = -minBoundX;
+                        xMoveDelta = xDelta;
+                        xResizeDelta = -xDelta;
+                    }
+                    if (vertResize == ResizeType.ResizeBegin)
+                    {
+                        if (-yDelta <= -minSizeY + selectionSnap) yDelta = -(-minSizeY + selectionSnap);
+                        if (yDelta < -minBoundY) yDelta = -minBoundY;
+                        yMoveDelta = yDelta;
+                        yResizeDelta = -yDelta;
+                    }
+                    if (horResize == ResizeType.ResizeEnd)
+                    {
+                        if (xDelta <= -minSizeX + selectionSnap) xDelta = -minSizeX + selectionSnap;
+                        xResizeDelta = xDelta;
+                    }
+                    if (vertResize == ResizeType.ResizeEnd)
+                    {
+                        if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
+                        yResizeDelta = yDelta;
+                    }
+
+                    minBoundX += xMoveDelta;
+                    minBoundY += yMoveDelta;
+                    minSizeX += xResizeDelta;
+                    minSizeY += yResizeDelta;
+                    EdControl.UndoManager.Do(new MoveResizeLvlItemAction(SelectedObjects, xMoveDelta, yMoveDelta, xResizeDelta, yResizeDelta));
                     lx += xDelta;
                     ly += yDelta;
                 }
             }
+        }
+
+        enum ResizeType
+        {
+            ResizeBegin,
+            ResizeNone,
+            ResizeEnd
+        };
+
+        private void getActionAtPos(int x, int y, out bool drag, out ResizeType vert, out ResizeType hor)
+        {
+            drag = false;
+
+            hor = ResizeType.ResizeNone;
+            vert = ResizeType.ResizeNone;
+
+            for (int l = SelectedObjects.Count - 1; l > -1; l--)
+            {
+                LevelItem o = SelectedObjects[l];
+
+                if (o.isResizable)
+                {
+                    drag = true;
+
+                    if (x >= o.x - 8 && x <= o.x + 4)
+                        hor = ResizeType.ResizeBegin;
+                    else if (x >= o.x + o.width - 4 && x <= o.x + o.width + 8)
+                        hor = ResizeType.ResizeEnd;
+                    else if (x >= o.x && x <= o.x + o.width)
+                        hor = ResizeType.ResizeNone;
+                    else drag = false;
+
+                    if (y >= o.y - 8 && y <= o.y + 4)
+                        vert = ResizeType.ResizeBegin;
+                    else if (y >= o.y + o.height - 4 && y <= o.y + o.height + 8)
+                        vert = ResizeType.ResizeEnd;
+                    else if (y >= o.y && y <= o.y + o.height)
+                        vert = ResizeType.ResizeNone;
+                    else drag = false;
+                }
+                else
+                {
+                    hor = ResizeType.ResizeNone;
+                    vert = ResizeType.ResizeNone;
+
+                    drag = false;
+
+                    if (x >= o.x && x < o.x + o.width)
+                        if (y >= o.y && y < o.y + o.height)
+                            drag = true;
+                }
+
+
+                if (drag) return;
+            } 
         }
 
         public override void MouseUp()
@@ -256,6 +366,34 @@ namespace NSMBe4
             EdControl.repaint();
             tabs.SelectObjects(SelectedObjects, selectTabType);
             selectTabType = null;
+        }
+
+        private Cursor getCursorForPos(int x, int y)
+        {
+            bool drag;
+            ResizeType vert;
+            ResizeType hor;
+
+            getActionAtPos(x, y, out drag, out vert, out hor);
+
+            if (!drag) return Cursors.Default;
+
+            if (vert == ResizeType.ResizeBegin && hor == ResizeType.ResizeBegin) return Cursors.SizeNWSE;
+            if (vert == ResizeType.ResizeEnd && hor == ResizeType.ResizeEnd) return Cursors.SizeNWSE;
+
+            if (vert == ResizeType.ResizeBegin && hor == ResizeType.ResizeEnd) return Cursors.SizeNESW;
+            if (vert == ResizeType.ResizeEnd && hor == ResizeType.ResizeBegin) return Cursors.SizeNESW;
+
+            if (vert == ResizeType.ResizeNone && hor == ResizeType.ResizeNone) return Cursors.Default;
+            if (vert == ResizeType.ResizeNone) return Cursors.SizeWE;
+            if (hor == ResizeType.ResizeNone) return Cursors.SizeNS;
+
+            return Cursors.Default;
+        }
+
+        public override void MouseMove(int x, int y)
+        {
+            EdControl.Cursor = getCursorForPos(x, y);
         }
 
         LevelItem lastSelected = null;
@@ -387,7 +525,7 @@ namespace NSMBe4
             yDelta *= selectionSnap;
             if (minBoundX >= -xDelta && minBoundY >= -yDelta)
             {
-                EdControl.UndoManager.Do(new MoveLvlItemAction(SelectedObjects, xDelta, yDelta));
+                EdControl.UndoManager.Do(new MoveResizeLvlItemAction(SelectedObjects, xDelta, yDelta));
                 minBoundX += xDelta;
                 minBoundY += yDelta;
             }

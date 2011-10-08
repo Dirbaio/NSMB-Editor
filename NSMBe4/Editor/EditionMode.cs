@@ -44,6 +44,8 @@ namespace NSMBe4
         public abstract void MouseDown(int x, int y);
         public abstract void MouseDrag(int x, int y);
         public virtual void MouseUp() { }
+        public virtual void MouseMove(int x, int y) { }
+
         public abstract void RenderSelection(Graphics g);
         public abstract void SelectObject(Object o);
         public abstract void Refresh();

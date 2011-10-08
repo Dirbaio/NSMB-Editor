@@ -80,7 +80,7 @@ namespace NSMBe4 {
                 }
             }
 
-            this.Text = "NSMB Editor 5.2 " + Properties.Resources.version;
+            this.Text = "NSMB Editor 5.2 " + Properties.Resources.version.Trim();
             this.Icon = Properties.Resources.nsmbe;
         }
 

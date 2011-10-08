@@ -321,6 +321,9 @@ namespace NSMBe4
             }
             int DragSpeed = (int)Math.Ceiling(16 * zoom);
 
+            int xx = (int)(e.X / zoom) + hScrollBar.Value * 16;
+            int yy = (int)(e.Y / zoom) + vScrollBar.Value * 16;
+
             if (scrollingDrag)
             {
                 int NewX = e.X;
@@ -338,12 +341,18 @@ namespace NSMBe4
                     DragStartY += (YDelta * DragSpeed);
                     ScrollEditor(NewPosition);
                 }
-            } 
-            else if (e.Button == MouseButtons.Left && Ready && mode != null) {
-                mode.MouseDrag((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y / zoom) + vScrollBar.Value * 16);
             }
+            else if (e.Button == MouseButtons.Left && Ready && mode != null)
+                mode.MouseDrag(xx, yy);
+            else
+                mode.MouseMove(xx, yy);
 
-
+            if (showDSScreen)
+            {
+                dsScreenX = xx-128;
+                dsScreenY = yy-96;
+                repaint();
+            }
         }
 
         public void EnsurePosVisible(int X, int Y) {

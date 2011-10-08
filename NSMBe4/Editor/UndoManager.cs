@@ -261,29 +261,38 @@ namespace NSMBe4
         }
     }
 
-    public class MoveLvlItemAction : LvlItemAction
+    public class MoveResizeLvlItemAction : LvlItemAction
     {
         int XDelta, YDelta;
-        public MoveLvlItemAction(List<LevelItem> objs, int XDelta, int YDelta)
+        int XSDelta, YSDelta;
+
+        public MoveResizeLvlItemAction(List<LevelItem> objs, int XDelta, int YDelta, int XSDelta, int YSDelta)
             : base(objs)
         {
             this.XDelta = XDelta;
             this.YDelta = YDelta;
+            this.XSDelta = XSDelta;
+            this.YSDelta = YSDelta;
         }
 
-        /*
-        public MoveLvlItemAction(List<LevelItem> objs, LevelItem BaseObj, int NewX, int NewY)
+        public MoveResizeLvlItemAction(List<LevelItem> objs, int XDelta, int YDelta)
             : base(objs)
         {
-            this.XDelta = NewX - BaseObj.x;
-            this.YDelta = NewY - BaseObj.y;
-        }*/
+            this.XDelta = XDelta;
+            this.YDelta = YDelta;
+            this.XSDelta = 0;
+            this.YSDelta = 0;
+        }
 
         public override void Undo()
         {
             foreach (LevelItem obj in objs) {
                 obj.x -= XDelta;
                 obj.y -= YDelta;
+                obj.width -= XSDelta;
+                obj.height -= YSDelta;
+                if (obj is NSMBObject && (this.XSDelta != 0 || this.YSDelta != 0))
+                    (obj as NSMBObject).UpdateObjCache();
             }
         }
         public override void Redo()
@@ -291,6 +300,10 @@ namespace NSMBe4
             foreach (LevelItem obj in objs) {
                 obj.x += XDelta;
                 obj.y += YDelta;
+                obj.width += XSDelta;
+                obj.height += YSDelta;
+                if (obj is NSMBObject && (this.XSDelta != 0 || this.YSDelta != 0))
+                    (obj as NSMBObject).UpdateObjCache();
             }
         }
         public override bool CanMerge {
@@ -300,9 +313,11 @@ namespace NSMBe4
         }
         public override bool Merge(Action act)
         {
-            MoveLvlItemAction mlia = act as MoveLvlItemAction;
+            MoveResizeLvlItemAction mlia = act as MoveResizeLvlItemAction;
             this.XDelta += mlia.XDelta;
             this.YDelta += mlia.YDelta;
+            this.XSDelta += mlia.XSDelta;
+            this.YSDelta += mlia.YSDelta;
 
             return true;
         }
