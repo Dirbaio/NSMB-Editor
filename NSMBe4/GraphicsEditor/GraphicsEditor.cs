@@ -544,12 +544,12 @@ namespace NSMBe4 {
 
             if (e.Button == MouseButtons.Left) {
                 palettePicker1.SelectedFG = picked;
-                palettePicker1.Invalidate();
+                palettePicker1.Invalidate(true);
             }
 
             if (e.Button == MouseButtons.Right) {
                 palettePicker1.SelectedBG = picked;
-                palettePicker1.Invalidate();
+                palettePicker1.Invalidate(true);
             }
         }
 
