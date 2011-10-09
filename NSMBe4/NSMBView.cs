@@ -110,8 +110,13 @@ namespace NSMBe4
                     numy = vy * 16;
                 if (isZone)
                     numy += 16;
-                g.DrawString(string.Format((isZone ? ZoneDesc : ViewDesc), Number), NSMBGraphics.InfoFont, Brushes.White, (float)numx, (float)numy);
+                g.DrawString(GetDisplayString(), NSMBGraphics.InfoFont, Brushes.White, (float)numx, (float)numy);
             }
+        }
+
+        public string GetDisplayString()
+        {
+            return string.Format((isZone ? ZoneDesc : ViewDesc), Number);
         }
 
         public void renderSelected(Graphics g)

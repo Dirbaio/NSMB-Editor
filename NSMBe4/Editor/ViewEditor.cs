@@ -88,9 +88,9 @@ namespace NSMBe4
         {
             DataUpdateFlag = true;
             NSMBView v = null;
-            tableLayoutPanel2.Visible = SelectedObjects != null;
-            tableLayoutPanel1.Visible = tableLayoutPanel2.Visible && EditingViews;
-            deleteViewButton.Enabled = tableLayoutPanel2.Visible;
+            panel2.Visible = SelectedObjects != null;
+            tableLayoutPanel1.Visible = panel2.Visible && EditingViews;
+            deleteViewButton.Enabled = panel2.Visible;
             UpdateList();
 
             if (SelectedObjects == null) return;
@@ -218,6 +218,17 @@ namespace NSMBe4
         {
             if (DataUpdateFlag) return;
             EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 12, (int)camStick.Value));
+        }
+
+        private void selectContents_Click(object sender, EventArgs e)
+        {
+            List<LevelItem> selObjs2 = new List<LevelItem>();
+            selObjs2.AddRange(SelectedObjects);
+            foreach (LevelItem obj in selObjs2)
+                if (obj is NSMBView && (obj as NSMBView).isZone != EditingViews) {
+                    if (EdControl.mode is ObjectsEditionMode)
+                        (EdControl.mode as ObjectsEditionMode).findSelectedObjects(obj.x, obj.y, obj.x + obj.width, obj.y + obj.height, false, false);
+                }
         }
     }
 }

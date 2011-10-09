@@ -137,15 +137,27 @@ namespace NSMBe4
 
         private void selectIfInside(LevelItem it, Rectangle r)
         {
-            if (r.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)))
-                SelectedObjects.Add(it);
+            if (it is NSMBView)
+            {
+                Rectangle visible = EdControl.ViewableArea;
+                visible = new Rectangle(visible.X * 16, visible.Y * 16, visible.Width * 16, visible.Height * 16);
+                if (!visible.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)))
+                    return;
+                NSMBView v = it as NSMBView;
+                Rectangle viewText = new Rectangle(new Point(Math.Max(v.x, visible.X), Math.Max(v.y, visible.Y) + (v.isZone ? 16 : 0)), TextRenderer.MeasureText(v.GetDisplayString(), NSMBGraphics.SmallInfoFont));
+                if (r.IntersectsWith(viewText) && !SelectedObjects.Contains(it))
+                    SelectedObjects.Add(it);
+            }
+            else if (r.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)) && !SelectedObjects.Contains(it))
+                    SelectedObjects.Add(it);
 
             
         }
 
-        private void findSelectedObjects(int x1, int y1, int x2, int y2, bool firstOnly)
+        public void findSelectedObjects(int x1, int y1, int x2, int y2, bool firstOnly, bool clearSelection)
         {
-            SelectedObjects.Clear();
+            if (clearSelection)
+                SelectedObjects.Clear();
 
             if (x1 > x2) { int aux = x1; x1 = x2; x2 = aux; }
             if (y1 > y2) { int aux = y1; y1 = y2; y2 = aux; }
@@ -155,6 +167,8 @@ namespace NSMBe4
             foreach (NSMBObject o in Level.Objects) selectIfInside(o, r);
             foreach (NSMBSprite o in Level.Sprites) selectIfInside(o, r);
             foreach (NSMBEntrance o in Level.Entrances) selectIfInside(o, r);
+            foreach (NSMBView v in Level.Views) selectIfInside(v, r);
+            foreach (NSMBView z in Level.Zones) selectIfInside(z, r);
             foreach (NSMBPath p in Level.Paths)
                 foreach (NSMBPathPoint pp in p.points)
                     selectIfInside(pp, r);
@@ -201,7 +215,7 @@ namespace NSMBe4
             if (!drag)
             {
                 // Select an object
-                findSelectedObjects(x, y, x, y, true);
+                findSelectedObjects(x, y, x, y, true, true);
                 SelectMode = SelectedObjects.Count == 0;
             }
 
@@ -224,7 +238,7 @@ namespace NSMBe4
 
             if(SelectMode)
             {
-                findSelectedObjects(x, y, dx, dy, false);
+                findSelectedObjects(x, y, dx, dy, false, true);
                 lx = x;
                 ly = y;
             }
