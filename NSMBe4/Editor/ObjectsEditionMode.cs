@@ -88,6 +88,28 @@ namespace NSMBe4
 
             foreach (LevelItem o in SelectedObjects)
             {
+                if (o is NSMBView)
+                {
+                    Color c;
+                    if ((o as NSMBView).isZone)
+                        c = Color.LightGreen;
+                    else
+                        c = Color.White;
+
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(80, c)), o.x, o.y, o.width, o.height);
+
+
+                    Rectangle visible = EdControl.ViewableArea;
+                    visible = new Rectangle(visible.X * 16, visible.Y * 16, visible.Width * 16, visible.Height * 16);
+                    if (visible.IntersectsWith(new Rectangle(o.x, o.y, o.width, o.height)))
+                    {
+                        NSMBView v = o as NSMBView;
+                        Rectangle viewText = new Rectangle(new Point(Math.Max(v.x, visible.X), Math.Max(v.y, visible.Y) + (v.isZone ? 16 : 0)), TextRenderer.MeasureText(v.GetDisplayString(), NSMBGraphics.SmallInfoFont));
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(80, c)), viewText);
+                        g.DrawRectangle(Pens.White, viewText);
+                    }
+                }
+
                 g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
                 g.DrawRectangle(Pens.Black, o.x-1, o.y-1, o.width+2, o.height+2);
                 if (o.isResizable)
@@ -101,6 +123,7 @@ namespace NSMBe4
                     drawResizeKnob(g, o.x + o.width / 2, o.y);
                     drawResizeKnob(g, o.x + o.width / 2, o.y + o.height);
                 }
+
             }
         }
 
@@ -217,6 +240,22 @@ namespace NSMBe4
                 // Select an object
                 findSelectedObjects(x, y, x, y, true, true);
                 SelectMode = SelectedObjects.Count == 0;
+            }
+            else if (vertResize == ResizeType.ResizeNone && horResize == ResizeType.ResizeNone)
+            {
+                List<LevelItem> selectedObjectsBack = new List<LevelItem>();
+                selectedObjectsBack.AddRange(SelectedObjects);
+
+                // Select an object
+                findSelectedObjects(x, y, x, y, true, true);
+
+                if (SelectedObjects.Count == 0)
+                    SelectMode = true;
+                else
+                {
+                    if(selectedObjectsBack.Contains(SelectedObjects[0]))
+                        SelectedObjects = selectedObjectsBack;
+                }
             }
 
             if (!SelectMode)
