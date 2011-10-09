@@ -25,6 +25,8 @@ namespace NSMBe4
 {
     public class ObjectsEditionMode:EditionMode
     {
+        public bool snapTo8Pixels = true;
+
         bool CloneMode, SelectMode;
         int dx, dy; //MouseDown position
         int lx, ly; //last position
@@ -108,7 +110,7 @@ namespace NSMBe4
             //This is called when changing tilesets and like.
         }
 
-        private void UpdateSelectionBounds()
+        public void UpdateSelectionBounds()
         {
             minBoundX = Int32.MaxValue;
             minBoundY = Int32.MaxValue;
@@ -116,7 +118,7 @@ namespace NSMBe4
             maxBoundY = 0;
             minSizeX = Int32.MaxValue;
             minSizeY = Int32.MaxValue;
-            selectionSnap = 1;
+            selectionSnap = snapTo8Pixels?8:1;
             foreach (LevelItem o in SelectedObjects)
             {
                 if (o.rx < minBoundX) minBoundX = o.rx;
@@ -137,6 +139,8 @@ namespace NSMBe4
         {
             if (r.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)))
                 SelectedObjects.Add(it);
+
+            
         }
 
         private void findSelectedObjects(int x1, int y1, int x2, int y2, bool firstOnly)
@@ -253,6 +257,12 @@ namespace NSMBe4
                     EdControl.UndoManager.Do(new MoveResizeLvlItemAction(SelectedObjects, xDelta, yDelta));
                     lx += xDelta;
                     ly += yDelta;
+                
+                    //Force align =D
+                    foreach (LevelItem o in SelectedObjects)
+                        if (o.rx % selectionSnap != 0 || o.ry % selectionSnap != 0 || o.rwidth % selectionSnap != 0 || o.rheight % selectionSnap != 0)
+                            EdControl.UndoManager.Do(new MoveResizeLvlItemAction(UndoManager.ObjToList(o), -o.rx % selectionSnap, -o.ry % selectionSnap, -o.rwidth % selectionSnap, -o.rheight % selectionSnap));
+
                 }
                 else
                 {

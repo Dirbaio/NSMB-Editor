@@ -47,6 +47,16 @@ namespace NSMBe4
             redo.ButtonClick += new EventHandler(onRedoLast);
         }
 
+        private bool equalLists(List<LevelItem> a, List<LevelItem> b)
+        {
+            if (a.Count != b.Count) return false;
+
+            for (int i = 0; i < a.Count; i++)
+                if (a[i] != b[i]) return false;
+
+            return true;
+        }
+
         public void Do(Action act)
         {
             if (act.cancel)
@@ -64,7 +74,10 @@ namespace NSMBe4
             if (merge && UActions.Count > 0 && UActions.Peek().CanMerge && UActions.Peek().GetType().Equals(act.GetType()))
             {
                 Action pAct = UActions.Peek();
-                merged = pAct.Merge(act);
+                if (pAct is LvlItemAction && act is LvlItemAction && !equalLists((pAct as LvlItemAction).objs, (act as LvlItemAction).objs))
+                    merged = false;
+                else
+                    merged = pAct.Merge(act);
             }
  
             //If we didn't merge the action we need to save the new action.
@@ -322,7 +335,7 @@ namespace NSMBe4
             return true;
         }
     }
-
+    /*
     public class ResizeLvlItemAction : LvlItemAction
     {
         int XDelta, YDelta;
@@ -365,7 +378,7 @@ namespace NSMBe4
 
             return true;
         }
-    }
+    }*/
     #endregion
     #region Specific Actions
     public class ChangeObjectTypeAction : LvlItemAction

@@ -29,11 +29,11 @@ namespace NSMBe4 {
     public partial class LevelEditor : Form {
 
         public ObjectsEditionMode oem;
+
+        //TODO: Kill this shit!
         public BackgroundDragEditionMode bgdragem;
-        public ScreenEditionMode screenem;
 
         public ToolsForm tools;
-        private List<ToolStripButton> EditionModeButtons;
 
         public LevelEditor(string LevelFilename) {
             InitializeComponent();
@@ -49,12 +49,8 @@ namespace NSMBe4 {
             if (Properties.Settings.Default.mdi)
                 this.MdiParent = MdiParentForm.instance;
             this.LevelFilename = LevelFilename;
-            editObjectsButton.Checked = true;
 
             smallBlockOverlaysToolStripMenuItem.Checked = Properties.Settings.Default.SmallBlockOverlays;
-
-            EditionModeButtons = new List<ToolStripButton>();
-            EditionModeButtons.Add(editObjectsButton);
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
             // these need to be added manually
@@ -85,7 +81,6 @@ namespace NSMBe4 {
 
             oem = new ObjectsEditionMode(Level, levelEditorControl1);
             bgdragem = new BackgroundDragEditionMode(Level, levelEditorControl1);
-            screenem = new ScreenEditionMode(Level, levelEditorControl1);
 
             levelEditorControl1.SetEditionMode(oem);
             levelEditorControl1.minimapctrl = minimapControl1;
@@ -198,18 +193,6 @@ namespace NSMBe4 {
             Invalidate(true);
         }
 
-        private void uncheckModeButtons()
-        {
-            foreach (ToolStripButton b in EditionModeButtons)
-                b.Checked = false;
-        }
-        
-        private void editObjectsButton_Click(object sender, EventArgs e) {
-            levelEditorControl1.SetEditionMode(oem);
-            uncheckModeButtons();
-            editObjectsButton.Checked = true;
-        }
-
         private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
             if (Level.Objects.Count == 0)
                 return;
@@ -304,8 +287,9 @@ namespace NSMBe4 {
 
         private void moveBGToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //TODO: Fix this shit
             levelEditorControl1.SetEditionMode(bgdragem);
-            uncheckModeButtons();
+//            uncheckModeButtons();
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -317,6 +301,12 @@ namespace NSMBe4 {
         {
             levelEditorControl1.showDSScreen = dsScreenShowButton.Checked;
             levelEditorControl1.repaint();
+        }
+
+        private void snapToggleButton_Click(object sender, EventArgs e)
+        {
+            oem.snapTo8Pixels = snapToggleButton.Checked;
+            oem.UpdateSelectionBounds();
         }
 
     }
