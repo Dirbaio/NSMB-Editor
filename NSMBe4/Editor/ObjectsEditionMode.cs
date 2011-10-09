@@ -256,6 +256,8 @@ namespace NSMBe4
                     if(selectedObjectsBack.Contains(SelectedObjects[0]))
                         SelectedObjects = selectedObjectsBack;
                 }
+                UpdateSelectionBounds();
+                EdControl.repaint();
             }
 
             if (!SelectMode)
