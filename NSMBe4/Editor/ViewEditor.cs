@@ -80,7 +80,8 @@ namespace NSMBe4
         {
             DataUpdateFlag = true;
             viewsList.Items.Clear();
-            viewsList.Items.AddRange(lst.ToArray());
+            foreach (NSMBView v in lst)
+                viewsList.Items.Add(v.ToStringNormal());
             DataUpdateFlag = false;
         }
 

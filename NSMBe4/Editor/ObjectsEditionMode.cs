@@ -301,7 +301,6 @@ namespace NSMBe4
                 {
                     int xDelta = x-lx;
                     int yDelta = y-ly;
-                    //This causes errors with views, zones, and paths
                     if (xDelta < -minBoundX) xDelta = -minBoundX;
                     if (yDelta < -minBoundY) yDelta = -minBoundY;
                     xDelta &= ~(selectionSnap - 1);
@@ -504,9 +503,7 @@ namespace NSMBe4
 
         public override void DeleteObject()
         {
-            if (SelectedObjects == null)
-                return;
-            if (SelectedObjects.Count == 0)
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
                 return;
             
             EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));
@@ -522,66 +519,62 @@ namespace NSMBe4
                 return "";
 
             string str = "";
-            foreach (object o in SelectedObjects) {
-                str += o.ToString() + ":";
+            foreach (LevelItem obj in SelectedObjects) {
+                str += obj.ToString() + ":";
             }
             return str.Substring(0, str.Length - 1);
         }
 
         public override void paste(string contents)
         {
-            List<object> objs = new List<object>();
+            List<LevelItem> objs = new List<LevelItem>();
             try {
                 string[] data = contents.Split(':');
                 int idx = 0;
                 while (idx < data.Length) {
-                    if (data[idx] == "OBJ") {
-                        objs.Add(NSMBObject.FromString(data, ref idx, EdControl.GFX));
-                    } else if (data[idx] == "SPR") {
-                        objs.Add(NSMBSprite.FromString(data, ref idx, EdControl.Level));
-                    } else
-                        idx++;
+                    LevelItem obj = FromString(data, ref idx);
+                    if (obj != null)
+                        objs.Add(obj);
                 }
             } catch { }
 
             if (objs.Count == 0) return;
-            
+
+            EdControl.UndoManager.Do(new AddLvlItemAction(objs));
             //now place the new objects on the topleft corner
-            int XMin = Int32.MaxValue; //position of the objects
-            int YMin = Int32.MaxValue;
-
-            foreach (object oo in objs)
-            {
-                if (oo is NSMBObject)
-                {
-                    NSMBObject o = oo as NSMBObject;
-
-                    if (o.X < XMin) XMin = o.X;
-                    if (o.Y < YMin) YMin = o.Y;
-                }
-                if (oo is NSMBSprite)
-                {
-                    NSMBSprite o = oo as NSMBSprite;
-
-                    if (o.X < XMin) XMin = o.X;
-                    if (o.Y < YMin) YMin = o.Y;
-                }
-            }
-
-            Rectangle va = EdControl.ViewableArea;
-            int XOffs = va.X - XMin; //Offset to move all the objects
-            int YOffs = va.Y - YMin; //so they are on the topleft corner
-            //EdControl.UndoManager.Perform(new MoveMultipleAction(objs.ToArray(), XOffs, YOffs));
-
-            //if (objs.Count == 1) {
-            //    if (objs[0] is NSMBObject)
-            //        EdControl.UndoManager.Do(new AddObjectAction(objs[0] as NSMBObject));
-            //    else
-            //        EdControl.UndoManager.Do(new AddSpriteAction(objs[0] as NSMBSprite));
-            //} else
-            //    EdControl.UndoManager.Do(new AddMultipleAction(objs.ToArray()));
-            //SelectObjects(objs.ToArray());
+            Rectangle viewableArea = EdControl.ViewableArea;
+            SelectedObjects = objs;
             UpdateSelectionBounds();
+            int XDelta = (viewableArea.X - (minBoundX / 16)) * 16;
+            int YDelta = (viewableArea.Y - (minBoundY / 16)) * 16;
+            foreach (LevelItem obj in SelectedObjects) {
+                obj.x += XDelta;
+                obj.y += YDelta;
+            }
+            minBoundX += XDelta;
+            minBoundY += YDelta;
+        }
+
+        LevelItem FromString(String[] strs, ref int idx)
+        {
+            switch (strs[idx])
+            {
+                case "OBJ":
+                    return NSMBObject.FromString(strs, ref idx, EdControl.Level.GFX);
+                case "SPR":
+                    return NSMBSprite.FromString(strs, ref idx, EdControl.Level);
+                case "ENT":
+                    return NSMBEntrance.FromString(strs, ref idx, EdControl.Level);
+                case "VIW":
+                case "ZON":
+                    return NSMBView.FromString(strs, ref idx, EdControl.Level);
+                // TODO: copy and paste with paths/path points
+                //case "PTH":
+                //    break;
+                default:
+                    idx++;
+                    return null;
+            }
         }
 
         public override void MoveObjects(int xDelta, int yDelta)

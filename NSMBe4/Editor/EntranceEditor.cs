@@ -51,7 +51,8 @@ namespace NSMBe4
         {
             DataUpdateFlag = true;
             entranceListBox.Items.Clear();
-            entranceListBox.Items.AddRange(EdControl.Level.Entrances.ToArray());
+            foreach (NSMBEntrance e in EdControl.Level.Entrances)
+                entranceListBox.Items.Add(e.ToStringNormal());
             DataUpdateFlag = false;
         }
 

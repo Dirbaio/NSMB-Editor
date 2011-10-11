@@ -557,7 +557,7 @@ namespace NSMBe4
             }
         }
 
-        private bool isEntranceNumberUsed(int n)
+        public bool isEntranceNumberUsed(int n)
         {
             foreach (NSMBEntrance e in Entrances)
             {
@@ -568,7 +568,7 @@ namespace NSMBe4
             return false;
         }
 
-        private bool isViewNumberUsed(int n, List<NSMBView> l)
+        public bool isViewNumberUsed(int n, List<NSMBView> l)
         {
             foreach (NSMBView e in l)
             {
@@ -579,7 +579,7 @@ namespace NSMBe4
             return false;
         }
 
-        private bool isPathNumberUsed(int n, List<NSMBPath> l)
+        public bool isPathNumberUsed(int n, List<NSMBPath> l)
         {
             foreach (NSMBPath p in l)
             {
