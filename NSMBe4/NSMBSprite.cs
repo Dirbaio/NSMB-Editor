@@ -624,7 +624,8 @@ namespace NSMBe4
                     width = 192; height = 64;
                     break;
                 case 226:
-                    x -= 14; y += 80;
+                    y += (Data[5] & 0xF0) + 64;
+                    x -= 14;
                     width = 44; height = 37;
                     break;
                 case 227:
@@ -1610,8 +1611,10 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.FlipGateLarge, RenderX, RenderY, 192, 64);
                     break;
                 case 226:
-                    g.DrawImage(Properties.Resources.HangingScuttleBug, RenderX - 14, RenderY + 80, 44, 37);
-                    g.DrawLine(new Pen(Color.White, 2), RenderX + 8, RenderY, RenderX + 8, RenderY + 82);
+                    RenderY += (Data[5] & 0xF0) + 64;
+                    g.DrawLine(Pens.White, RenderX + 7, RenderY2, RenderX + 7, RenderY);
+                    g.DrawLine(Pens.White, RenderX + 8, RenderY2, RenderX + 8, RenderY);
+                    g.DrawImage(Properties.Resources.HangingScuttleBug, RenderX - 14, RenderY, 44, 37);
                     break;
                 case 227:
                     g.DrawImage(Properties.Resources.MoneyBag, RenderX, RenderY - 5, 23, 21);
