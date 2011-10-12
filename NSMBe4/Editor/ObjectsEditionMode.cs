@@ -49,7 +49,6 @@ namespace NSMBe4
         public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
             : base(Level, EdControl)
         {
-            //SetPanel(new CreatePanel(EdControl));
             tabs = new TabsPanel(EdControl);
             SetPanel(tabs);
             tabs.Dock = DockStyle.Fill;
@@ -97,16 +96,13 @@ namespace NSMBe4
                         c = Color.White;
 
                     g.FillRectangle(new SolidBrush(Color.FromArgb(80, c)), o.x, o.y, o.width, o.height);
-
-
-                    Rectangle visible = EdControl.ViewableArea;
-                    visible = new Rectangle(visible.X * 16, visible.Y * 16, visible.Width * 16, visible.Height * 16);
-                    if (visible.IntersectsWith(new Rectangle(o.x, o.y, o.width, o.height)))
+                    Rectangle viewText = GetViewTextRect(o);
+                    if (viewText != Rectangle.Empty)
                     {
-                        NSMBView v = o as NSMBView;
-                        Rectangle viewText = new Rectangle(new Point(Math.Max(v.x, visible.X), Math.Max(v.y, visible.Y) + (v.isZone ? 16 : 0)), TextRenderer.MeasureText(v.GetDisplayString(), NSMBGraphics.SmallInfoFont));
-                        g.FillRectangle(new SolidBrush(Color.FromArgb(80, c)), viewText);
+                        SolidBrush fill = new SolidBrush(Color.FromArgb(80, c));
+                        g.FillRectangle(fill, viewText);
                         g.DrawRectangle(Pens.White, viewText);
+                        fill.Dispose();
                     }
                 }
 
@@ -162,19 +158,23 @@ namespace NSMBe4
         {
             if (it is NSMBView)
             {
-                Rectangle visible = EdControl.ViewableArea;
-                visible = new Rectangle(visible.X * 16, visible.Y * 16, visible.Width * 16, visible.Height * 16);
-                if (!visible.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)))
-                    return;
-                NSMBView v = it as NSMBView;
-                Rectangle viewText = new Rectangle(new Point(Math.Max(v.x, visible.X), Math.Max(v.y, visible.Y) + (v.isZone ? 16 : 0)), TextRenderer.MeasureText(v.GetDisplayString(), NSMBGraphics.SmallInfoFont));
+                Rectangle viewText = GetViewTextRect(it);
                 if (r.IntersectsWith(viewText) && !SelectedObjects.Contains(it))
                     SelectedObjects.Add(it);
             }
             else if (r.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)) && !SelectedObjects.Contains(it))
                     SelectedObjects.Add(it);
+        }
 
-            
+        private Rectangle GetViewTextRect(LevelItem view)
+        {
+            Rectangle visible = EdControl.ViewableArea;
+            visible = new Rectangle(visible.X * 16, visible.Y * 16, visible.Width * 16, visible.Height * 16);
+            if (!visible.IntersectsWith(new Rectangle(view.x, view.y, view.width, view.height)))
+                return Rectangle.Empty;
+            NSMBView v = view as NSMBView;
+            Rectangle viewText = new Rectangle(new Point(Math.Max(v.x, visible.X), Math.Max(v.y, visible.Y) + (v.isZone ? 16 : 0)), TextRenderer.MeasureText(v.GetDisplayString(), NSMBGraphics.SmallInfoFont));
+            return viewText;
         }
 
         public void findSelectedObjects(int x1, int y1, int x2, int y2, bool firstOnly, bool clearSelection)
@@ -405,6 +405,9 @@ namespace NSMBe4
                     else if (y >= o.y && y <= o.y + o.height)
                         vert = ResizeType.ResizeNone;
                     else drag = false;
+                    //Only display move cursor on views if cursor is over text
+                    if (vert == ResizeType.ResizeNone && hor == ResizeType.ResizeNone && o is NSMBView && !GetViewTextRect(o).Contains(x, y))
+                        drag = false;
                 }
                 else
                 {
@@ -448,7 +451,7 @@ namespace NSMBe4
             if (vert == ResizeType.ResizeBegin && hor == ResizeType.ResizeEnd) return Cursors.SizeNESW;
             if (vert == ResizeType.ResizeEnd && hor == ResizeType.ResizeBegin) return Cursors.SizeNESW;
 
-            if (vert == ResizeType.ResizeNone && hor == ResizeType.ResizeNone) return Cursors.Default;
+            if (vert == ResizeType.ResizeNone && hor == ResizeType.ResizeNone) return Cursors.SizeAll;
             if (vert == ResizeType.ResizeNone) return Cursors.SizeWE;
             if (hor == ResizeType.ResizeNone) return Cursors.SizeNS;
 
@@ -465,35 +468,6 @@ namespace NSMBe4
         public void UpdatePanel()
         {
             tabs.RefreshTabs();
-            // This is completely incompatible with the new side panel ~Piranhaplant
-
-            //LevelItem newSelected = null;
-            //if (SelectedObjects.Count == 1)
-            //    newSelected = SelectedObjects[0];
-
-            //if (newSelected == lastSelected)
-            //{
-            //    if (p is SpriteEditor) (p as SpriteEditor).UpdateInfo();
-            //    if (p is ObjectEditor) (p as ObjectEditor).UpdateInfo();
-            //    if (p is EntranceEditor) (p as EntranceEditor).UpdateInfo();
-            //    if (p is ViewEditor) (p as ViewEditor).UpdateInfo();
-            //    if (p is PathEditor) (p as PathEditor).UpdateInfo();
-            //}
-            //else
-            //{
-            //    lastSelected = newSelected;
-
-            //    if (newSelected is NSMBSprite)
-            //        SetPanel(new SpriteEditor(newSelected as NSMBSprite, EdControl));
-            //    else if (newSelected is NSMBObject)
-            //        SetPanel(new ObjectEditor(newSelected as NSMBObject, EdControl));
-            //    else if (newSelected is NSMBEntrance)
-            //        SetPanel(new EntranceEditor(newSelected as NSMBEntrance, EdControl));
-            //    //                else if (newSelected is NSMBPathPoint)
-            //    //                   SetPanel(new PathEditor(newSelected as NSMBPathPoint, EdControl));
-            //    else
-            //        SetPanel(new CreatePanel(EdControl));
-            //}
         }
 
         public override void Refresh()
