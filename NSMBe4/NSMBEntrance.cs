@@ -75,14 +75,6 @@ namespace NSMBe4
 
         public void render(Graphics g, LevelEditorControl edControl)
         {
-            int EntranceShowType = 13;
-            if (Type == 0) EntranceShowType = 0;
-            if (Type == 2) EntranceShowType = 1;
-            if (Type >= 3 && Type <= 6) EntranceShowType = Type - 1;
-            if (Type == 8) EntranceShowType = 6;
-            if (Type >= 16 && Type <= 19) EntranceShowType = Type - 9;
-            if (Type == 20) EntranceShowType = 11;
-            if (Type == 21) EntranceShowType = 12;
 
             int EntranceArrowColour = 0;
             // connected pipes have the grey blob (or did, it's kind of pointless)
@@ -94,7 +86,7 @@ namespace NSMBe4
                 EntranceArrowColour = 1;
             }
 
-            g.DrawImage(Properties.Resources.entrances, new Rectangle(X, Y, 16, 16), new Rectangle(EntranceShowType * 16, EntranceArrowColour * 16, 16, 16), GraphicsUnit.Pixel);
+            g.DrawImage(Properties.Resources.entrances, new Rectangle(X, Y, 16, 16), new Rectangle(Math.Min(Type, 25) * 16, EntranceArrowColour * 16, 16, 16), GraphicsUnit.Pixel);
         }
 
         public override string ToString()

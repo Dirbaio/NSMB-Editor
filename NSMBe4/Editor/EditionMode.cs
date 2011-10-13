@@ -50,6 +50,11 @@ namespace NSMBe4
         public abstract void SelectObject(Object o);
         public abstract void Refresh();
 
+        public virtual void SelectAll()
+        {
+            
+        }
+
         public virtual void DeleteObject()
         {
         }

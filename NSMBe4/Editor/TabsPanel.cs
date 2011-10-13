@@ -58,6 +58,11 @@ namespace NSMBe4
 
         public void SelectObjects(List<LevelItem> objs, LevelItem selectedTabType)
         {
+            if (objs.Contains(selectedTabType))
+            {
+                objs.Remove(selectedTabType);
+                objs.Insert(0, selectedTabType);
+            }
             SelectedObjs = objs;
             ClearTabs();
             int tabIndex = -1;

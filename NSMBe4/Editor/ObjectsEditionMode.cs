@@ -75,6 +75,24 @@ namespace NSMBe4
             UpdatePanel();
         }
 
+        public override void SelectAll()
+        {
+            SelectedObjects.Clear();
+            foreach (NSMBObject o in EdControl.Level.Objects) SelectedObjects.Add(o);
+            foreach (NSMBSprite s in EdControl.Level.Sprites) SelectedObjects.Add(s);
+            foreach (NSMBEntrance e in EdControl.Level.Entrances) SelectedObjects.Add(e);
+            foreach (NSMBView v in EdControl.Level.Views) SelectedObjects.Add(v);
+            foreach (NSMBView z in EdControl.Level.Zones) SelectedObjects.Add(z);
+            foreach (NSMBPath p in EdControl.Level.Paths)
+                foreach (NSMBPathPoint pp in p.points)
+                    SelectedObjects.Add(pp);
+            foreach (NSMBPath p in EdControl.Level.ProgressPaths)
+                foreach (NSMBPathPoint pp in p.points)
+                    SelectedObjects.Add(pp);
+            UpdateSelectionBounds();
+            EdControl.repaint();
+        }
+
         private void drawResizeKnob(Graphics g, int x, int y)
         {
             g.FillRectangle(Brushes.White, x - 3, y - 3, 6, 6);

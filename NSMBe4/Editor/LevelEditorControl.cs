@@ -264,6 +264,11 @@ namespace NSMBe4
                 UndoManager.onRedoLast(null, null);
                 return true;
             }
+            if (keyData == (Keys.Control | Keys.A))
+            {
+                mode.SelectAll();
+                return true;
+            }
             if (keyData == (Keys.Delete))
             {
                 delete();

@@ -116,7 +116,6 @@
     <Compile Include="DataFinder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\ScreenEditionMode.cs" />
     <Compile Include="Editor\TabsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
