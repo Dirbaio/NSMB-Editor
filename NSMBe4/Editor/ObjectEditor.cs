@@ -85,6 +85,7 @@ namespace NSMBe4
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBObject no = new NSMBObject(10, 0, ViewableArea.X, ViewableArea.Y, 1, 1, EdControl.GFX);
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(no)));
+            EdControl.mode.SelectObject(no);
         }
 
         private void deleteObjectButton_Click(object sender, EventArgs e)
@@ -93,7 +94,9 @@ namespace NSMBe4
             foreach (LevelItem obj in SelectedObjects)
                 if (obj is NSMBObject)
                     objs.Add(obj as NSMBObject);
-            EdControl.UndoManager.Do(new RemoveLvlItemAction(objs));  
+            foreach (LevelItem obj in objs)
+                SelectedObjects.Remove(obj);
+            EdControl.UndoManager.Do(new RemoveLvlItemAction(objs));
         }
 
         private void setObjectType(int til, int obj)

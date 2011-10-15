@@ -168,6 +168,7 @@ namespace NSMBe4
             npp.X = va.X * 16;
             npp.Y = va.Y * 16;
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(npp)));
+            EdControl.mode.SelectObject(npp);
         }
 
         private void deletePath_Click(object sender, EventArgs e)
@@ -176,6 +177,8 @@ namespace NSMBe4
             foreach (LevelItem obj in SelectedObjects)
                 if (obj is NSMBPathPoint)
                     points.Add(obj);
+            foreach (LevelItem obj in points)
+                SelectedObjects.Remove(obj);
             EdControl.UndoManager.Do(new RemoveLvlItemAction(points));
         }
     }

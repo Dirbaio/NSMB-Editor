@@ -89,6 +89,7 @@ namespace NSMBe4
             foreach (NSMBPath p in EdControl.Level.ProgressPaths)
                 foreach (NSMBPathPoint pp in p.points)
                     SelectedObjects.Add(pp);
+            tabs.SelectObjects(SelectedObjects, null);
             UpdateSelectionBounds();
             EdControl.repaint();
         }

@@ -155,6 +155,7 @@ namespace NSMBe4
             ne.Y = ViewableArea.Y * 16;
             ne.Number = EdControl.Level.getFreeEntranceNumber();
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ne)));
+            EdControl.mode.SelectObject(ne);
         }
 
 
@@ -164,6 +165,8 @@ namespace NSMBe4
             foreach (LevelItem obj in SelectedObjects)
                 if (obj is NSMBEntrance)
                     ents.Add(obj);
+            foreach (LevelItem obj in ents)
+                SelectedObjects.Remove(obj);
             EdControl.UndoManager.Do(new RemoveLvlItemAction(ents));
         }
 

@@ -60,6 +60,7 @@ namespace NSMBe4
             nv.isZone = !EditingViews;
             nv.Number = EdControl.Level.getFreeViewNumber(lst);
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(nv)));
+            EdControl.mode.SelectObject(nv);
         }
 
         private void deleteViewButton_Click(object sender, EventArgs e)
@@ -68,6 +69,8 @@ namespace NSMBe4
             foreach (LevelItem obj in SelectedObjects)
                 if (obj is NSMBView && (obj as NSMBView).isZone != EditingViews)
                     views.Add(obj);
+            foreach (LevelItem obj in views)
+                SelectedObjects.Remove(obj);
             EdControl.UndoManager.Do(new RemoveLvlItemAction(views));
         }
 

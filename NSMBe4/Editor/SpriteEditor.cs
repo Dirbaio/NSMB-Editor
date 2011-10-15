@@ -146,6 +146,7 @@ namespace NSMBe4
             ns.Type = 0;
             ns.Data = new byte[6];
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ns)));
+            EdControl.mode.SelectObject(ns);
         }
 
         private void deleteSpriteButton_Click(object sender, EventArgs e)
@@ -154,6 +155,8 @@ namespace NSMBe4
             foreach (LevelItem obj in SelectedObjects)
                 if (obj is NSMBSprite)
                     sprites.Add(obj as NSMBSprite);
+            foreach (LevelItem obj in sprites)
+                SelectedObjects.Remove(obj);
             EdControl.UndoManager.Do(new RemoveLvlItemAction(sprites));
         }
 
