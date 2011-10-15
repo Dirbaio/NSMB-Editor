@@ -107,7 +107,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(451, 550);
+            this.cancelButton.Location = new System.Drawing.Point(451, 346);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 4;
@@ -118,7 +118,7 @@
             // OKButton
             // 
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OKButton.Location = new System.Drawing.Point(370, 550);
+            this.OKButton.Location = new System.Drawing.Point(370, 346);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 5;
@@ -273,7 +273,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(522, 506);
+            this.tabPage3.Size = new System.Drawing.Size(522, 302);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -387,7 +387,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(522, 506);
+            this.tabPage2.Size = new System.Drawing.Size(522, 302);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -605,7 +605,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.Location = new System.Drawing.Point(9, 249);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(507, 253);
+            this.label16.Size = new System.Drawing.Size(507, 49);
             this.label16.TabIndex = 3;
             this.label16.Text = "label16";
             // 
@@ -649,7 +649,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(522, 506);
+            this.tabPage1.Size = new System.Drawing.Size(522, 302);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -682,7 +682,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(516, 500);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(516, 296);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // label2
@@ -822,7 +822,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(530, 532);
+            this.tabControl1.Size = new System.Drawing.Size(530, 328);
             this.tabControl1.TabIndex = 6;
             // 
             // openFileDialog1
@@ -849,7 +849,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(554, 585);
+            this.ClientSize = new System.Drawing.Size(554, 381);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.cancelButton);

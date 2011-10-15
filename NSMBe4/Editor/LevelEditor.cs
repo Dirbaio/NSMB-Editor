@@ -217,17 +217,17 @@ namespace NSMBe4 {
             tools.BringToFront();
         }
 
-        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cutButton_Click(object sender, EventArgs e)
         {
             levelEditorControl1.cut();
         }
 
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void copyButton_Click(object sender, EventArgs e)
         {
             levelEditorControl1.copy();
         }
 
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void pasteButton_Click(object sender, EventArgs e)
         {
             levelEditorControl1.paste();
         }
