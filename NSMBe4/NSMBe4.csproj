@@ -711,7 +711,8 @@
     <None Include="Resources\Icons\zones.png" />
     <None Include="Resources\Icons\paths.png" />
     <None Include="Resources\Icons\views.png" />
-    <Compile Include="TileMap.cs" />
+    <Compile Include="TilemapEditor\Tilemap.cs" />
+    <Compile Include="TilemapEditor\Tileset.cs" />
     <Compile Include="TilesetEditor\AlreadyEditingException.cs" />
     <Compile Include="BinaryEdit.cs">
       <SubType>UserControl</SubType>

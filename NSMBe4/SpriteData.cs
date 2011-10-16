@@ -35,13 +35,43 @@ namespace NSMBe4
         string notes;
         public List<SpriteDataField> fields = new List<SpriteDataField>();
 
+        public static string DownloadWebPage(string Url)
+        {
+            // Open a connection
+            HttpWebRequest WebRequestObject = (HttpWebRequest)HttpWebRequest.Create(Url);
+
+            // You can also specify additional header values like 
+            // the user agent or the referer:
+            WebRequestObject.UserAgent = "NSMBe/5.2";
+            WebRequestObject.Referer = "http://www.example.com/";
+
+            // Request response:
+            WebResponse Response = WebRequestObject.GetResponse();
+
+            // Open data stream:
+            Stream WebStream = Response.GetResponseStream();
+
+            // Create reader object:
+            StreamReader Reader = new StreamReader(WebStream);
+
+            // Read the entire stream content:
+            string PageContent = Reader.ReadToEnd();
+
+            // Cleanup
+            Reader.Close();
+            WebStream.Close();
+            Response.Close();
+
+            return PageContent;
+        }
+
         public static void update()
         {
             WebClient Client = new WebClient();
             //System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
             //System.Net.NetworkInformation.PingReply result = p.Send("www.dirbaio.net");
             //if (result.Status == System.Net.NetworkInformation.IPStatus.Success)
-                Client.DownloadFile("http://board.dirbaio.net/spritedata.php", "spritedata.txt");
+                Client.DownloadFile("http://nsmbhd.net/spritedata.php", "spritedata.txt");
             //else
             //    MessageBox.Show("Error downloading spritedata.txt.");
         }
@@ -58,7 +88,7 @@ namespace NSMBe4
                 }
             }
 
-//            try
+            try
             {
                 FileStream fs = new FileStream("./spritedata.txt", FileMode.Open, FileAccess.Read, FileShare.Read);
                 StreamReader sr = new StreamReader(fs);
@@ -74,11 +104,11 @@ namespace NSMBe4
                 fs.Close();
                 sr.Close();
             }
- /*           catch (Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("Error parsing spritedata.txt:\n" + e.Message + "\n"+e.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 datas.Clear();
-            }*/
+            }
         } 
         
         public static SpriteData readFromStream(StreamReader sr)
