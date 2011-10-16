@@ -117,7 +117,7 @@ namespace NSMBe4 {
             // hexEditLevelButton
             // 
             this.hexEditLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.hexEditLevelButton.Location = new System.Drawing.Point(345, 293);
+            this.hexEditLevelButton.Location = new System.Drawing.Point(345, 420);
             this.hexEditLevelButton.Name = "hexEditLevelButton";
             this.hexEditLevelButton.Size = new System.Drawing.Size(66, 23);
             this.hexEditLevelButton.TabIndex = 4;
@@ -128,7 +128,7 @@ namespace NSMBe4 {
             // exportLevelButton
             // 
             this.exportLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exportLevelButton.Location = new System.Drawing.Point(88, 293);
+            this.exportLevelButton.Location = new System.Drawing.Point(88, 420);
             this.exportLevelButton.Name = "exportLevelButton";
             this.exportLevelButton.Size = new System.Drawing.Size(75, 23);
             this.exportLevelButton.TabIndex = 3;
@@ -139,7 +139,7 @@ namespace NSMBe4 {
             // importLevelButton
             // 
             this.importLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.importLevelButton.Location = new System.Drawing.Point(7, 293);
+            this.importLevelButton.Location = new System.Drawing.Point(7, 420);
             this.importLevelButton.Name = "importLevelButton";
             this.importLevelButton.Size = new System.Drawing.Size(75, 23);
             this.importLevelButton.TabIndex = 2;
@@ -150,7 +150,7 @@ namespace NSMBe4 {
             // editLevelButton
             // 
             this.editLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editLevelButton.Location = new System.Drawing.Point(417, 293);
+            this.editLevelButton.Location = new System.Drawing.Point(417, 420);
             this.editLevelButton.Name = "editLevelButton";
             this.editLevelButton.Size = new System.Drawing.Size(75, 23);
             this.editLevelButton.TabIndex = 1;
@@ -165,7 +165,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.levelTreeView.Location = new System.Drawing.Point(6, 6);
             this.levelTreeView.Name = "levelTreeView";
-            this.levelTreeView.Size = new System.Drawing.Size(486, 281);
+            this.levelTreeView.Size = new System.Drawing.Size(486, 408);
             this.levelTreeView.TabIndex = 0;
             this.levelTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.levelTreeView_AfterSelect);
             this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);

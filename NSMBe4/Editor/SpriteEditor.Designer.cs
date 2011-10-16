@@ -38,8 +38,9 @@
             this.spriteDataPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rawSpriteData = new System.Windows.Forms.Panel();
+            this.clearSpriteData = new NSMBe4.XButton();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.clearSearch = new System.Windows.Forms.PictureBox();
+            this.clearSearch = new NSMBe4.XButton();
             this.search = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -47,7 +48,6 @@
             this.panel1.SuspendLayout();
             this.rawSpriteData.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.clearSearch)).BeginInit();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +79,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.spriteDataTextBox.Location = new System.Drawing.Point(105, 6);
             this.spriteDataTextBox.Name = "spriteDataTextBox";
-            this.spriteDataTextBox.Size = new System.Drawing.Size(181, 20);
+            this.spriteDataTextBox.Size = new System.Drawing.Size(157, 20);
             this.spriteDataTextBox.TabIndex = 23;
             this.spriteDataTextBox.Text = "00 00 00 00 00 00";
             this.spriteDataTextBox.TextChanged += new System.EventHandler(this.spriteDataTextBox_TextChanged);
@@ -95,7 +95,7 @@
             0,
             0});
             this.spriteTypeUpDown.Name = "spriteTypeUpDown";
-            this.spriteTypeUpDown.Size = new System.Drawing.Size(181, 20);
+            this.spriteTypeUpDown.Size = new System.Drawing.Size(176, 20);
             this.spriteTypeUpDown.TabIndex = 22;
             this.spriteTypeUpDown.ValueChanged += new System.EventHandler(this.spriteTypeUpDown_ValueChanged);
             // 
@@ -154,6 +154,7 @@
             // 
             this.rawSpriteData.AutoSize = true;
             this.rawSpriteData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.rawSpriteData.Controls.Add(this.clearSpriteData);
             this.rawSpriteData.Controls.Add(this.spriteDataTextBox);
             this.rawSpriteData.Controls.Add(this.label10);
             this.rawSpriteData.Dock = System.Windows.Forms.DockStyle.Top;
@@ -162,6 +163,15 @@
             this.rawSpriteData.Name = "rawSpriteData";
             this.rawSpriteData.Size = new System.Drawing.Size(289, 29);
             this.rawSpriteData.TabIndex = 29;
+            // 
+            // clearSpriteData
+            // 
+            this.clearSpriteData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearSpriteData.Location = new System.Drawing.Point(268, 7);
+            this.clearSpriteData.Name = "clearSpriteData";
+            this.clearSpriteData.Size = new System.Drawing.Size(16, 16);
+            this.clearSpriteData.TabIndex = 23;
+            this.clearSpriteData.Click += new System.EventHandler(this.clearSpriteData_Click);
             // 
             // panel2
             // 
@@ -176,16 +186,12 @@
             // 
             // clearSearch
             // 
-            this.clearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearSearch.Image = global::NSMBe4.Properties.Resources.cross_script;
-            this.clearSearch.Location = new System.Drawing.Point(268, 6);
+            this.clearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearSearch.Location = new System.Drawing.Point(268, 5);
             this.clearSearch.Name = "clearSearch";
             this.clearSearch.Size = new System.Drawing.Size(16, 16);
             this.clearSearch.TabIndex = 26;
-            this.clearSearch.TabStop = false;
             this.clearSearch.Click += new System.EventHandler(this.clearSearch_Click);
-            this.clearSearch.MouseEnter += new System.EventHandler(this.clearSearch_MouseEnter);
-            this.clearSearch.MouseLeave += new System.EventHandler(this.clearSearch_MouseLeave);
             // 
             // search
             // 
@@ -235,7 +241,6 @@
             this.rawSpriteData.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.clearSearch)).EndInit();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -257,8 +262,9 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label search;
-        private System.Windows.Forms.PictureBox clearSearch;
         private System.Windows.Forms.Panel panel3;
+        private XButton clearSearch;
+        private XButton clearSpriteData;
 
     }
 }

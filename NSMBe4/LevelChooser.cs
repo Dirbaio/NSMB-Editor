@@ -137,7 +137,7 @@ namespace NSMBe4 {
         private void editLevelButton_Click(object sender, EventArgs e)
         {
             // Make a caption
-            string EditorCaption = LanguageManager.Get("General", "EditingSomething") + " ";
+            string EditorCaption = "";
 
             if (levelTreeView.SelectedNode.Parent.Parent == null) {
                 EditorCaption += levelTreeView.SelectedNode.Text;
@@ -148,8 +148,7 @@ namespace NSMBe4 {
             // Open it
             try
             {
-                LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag);
-                NewEditor.Text = EditorCaption;
+                LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag, EditorCaption);
                 NewEditor.Show();
             }
             catch (AlreadyEditingException)

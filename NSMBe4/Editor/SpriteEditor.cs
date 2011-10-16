@@ -244,19 +244,15 @@ namespace NSMBe4
             return type;
         }
 
-        private void clearSearch_MouseEnter(object sender, EventArgs e)
-        {
-            clearSearch.Image = Properties.Resources.cross_script_bright;
-        }
-
-        private void clearSearch_MouseLeave(object sender, EventArgs e)
-        {
-            clearSearch.Image = Properties.Resources.cross_script;
-        }
-
         private void clearSearch_Click(object sender, EventArgs e)
         {
             searchBox.Text = "";
+        }
+
+        private void clearSpriteData_Click(object sender, EventArgs e)
+        {
+            byte[] emptyData = new byte[6];
+            EdControl.UndoManager.Do(new ChangeSpriteDataAction(SelectedObjects, emptyData));
         }
     }
 }

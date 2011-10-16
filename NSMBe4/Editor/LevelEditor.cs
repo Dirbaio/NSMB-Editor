@@ -35,7 +35,7 @@ namespace NSMBe4 {
 
         public ToolsForm tools;
 
-        public LevelEditor(string LevelFilename) {
+        public LevelEditor(string LevelFilename, string LevelName) {
             InitializeComponent();
 
             //This is supposed to reduce flickering on stuff like the side panel...
@@ -53,11 +53,10 @@ namespace NSMBe4 {
             smallBlockOverlaysToolStripMenuItem.Checked = Properties.Settings.Default.SmallBlockOverlays;
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
+            this.Text = LanguageManager.Get("General", "EditingSomething") + " " + LevelName;
             // these need to be added manually
             reloadTilesets.Text = LanguageManager.Get("LevelEditor", "reloadTilesets");
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
-            deleteAllObjectsToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllObjectsToolStripMenuItem");
-            deleteAllSpritesToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "deleteAllSpritesToolStripMenuItem");
 
             levelEditorControl1.LoadUndoManager(undoButton, redoButton);
 
@@ -88,7 +87,7 @@ namespace NSMBe4 {
             tools = new ToolsForm(levelEditorControl1);
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);
             levelEditorControl1.minimap = MinimapForm;
-            MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), this.Text);
+            MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), LevelName);
             minimapControl1.loadMinimap(Level, levelEditorControl1);
             this.Icon = Properties.Resources.nsmbe;
         }
@@ -191,24 +190,6 @@ namespace NSMBe4 {
             Properties.Settings.Default.Save();
             Level.ReRenderAll();
             Invalidate(true);
-        }
-
-        private void deleteAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Level.Objects.Count == 0)
-                return;
-            if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelObjects"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
-                return;
-            }
-            //levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Objects.ToArray()));
-        }
-
-        private void deleteAllSpritesToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Level.Sprites.Count == 0)
-                return;
-            if (MessageBox.Show(LanguageManager.Get("LevelEditor", "ConfirmDelSprites"), LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
-                return;
-            }
-            //levelEditorControl1.UndoManager.Do(new RemoveMultipleAction(Level.Sprites.ToArray()));
         }
 
         private void spriteFinder_Click(object sender, EventArgs e)

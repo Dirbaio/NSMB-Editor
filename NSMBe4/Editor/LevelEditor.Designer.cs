@@ -58,8 +58,6 @@
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.reloadTilesets = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllSpritesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.setBgImageButton = new System.Windows.Forms.ToolStripMenuItem();
             this.removeBgButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -361,9 +359,7 @@
             this.optionsMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.optionsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reloadTilesets,
-            this.smallBlockOverlaysToolStripMenuItem,
-            this.deleteAllObjectsToolStripMenuItem,
-            this.deleteAllSpritesToolStripMenuItem});
+            this.smallBlockOverlaysToolStripMenuItem});
             this.optionsMenu.Image = ((System.Drawing.Image)(resources.GetObject("optionsMenu.Image")));
             this.optionsMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.optionsMenu.Name = "optionsMenu";
@@ -384,20 +380,6 @@
             this.smallBlockOverlaysToolStripMenuItem.Text = "<smallBlockOverlaysToolStripMenuItem>";
             this.smallBlockOverlaysToolStripMenuItem.Click += new System.EventHandler(this.smallBlockOverlaysToolStripMenuItem_Click);
             // 
-            // deleteAllObjectsToolStripMenuItem
-            // 
-            this.deleteAllObjectsToolStripMenuItem.Name = "deleteAllObjectsToolStripMenuItem";
-            this.deleteAllObjectsToolStripMenuItem.Size = new System.Drawing.Size(295, 22);
-            this.deleteAllObjectsToolStripMenuItem.Text = "<deleteAllObjectsToolStripMenuItem>";
-            this.deleteAllObjectsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllObjectsToolStripMenuItem_Click);
-            // 
-            // deleteAllSpritesToolStripMenuItem
-            // 
-            this.deleteAllSpritesToolStripMenuItem.Name = "deleteAllSpritesToolStripMenuItem";
-            this.deleteAllSpritesToolStripMenuItem.Size = new System.Drawing.Size(295, 22);
-            this.deleteAllSpritesToolStripMenuItem.Text = "<deleteAllSpritesToolStripMenuItem>";
-            this.deleteAllSpritesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllSpritesToolStripMenuItem_Click);
-            // 
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -415,7 +397,7 @@
             // 
             this.setBgImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setBgImageButton.Name = "setBgImageButton";
-            this.setBgImageButton.Size = new System.Drawing.Size(152, 22);
+            this.setBgImageButton.Size = new System.Drawing.Size(135, 22);
             this.setBgImageButton.Text = "Set BG";
             this.setBgImageButton.Click += new System.EventHandler(this.setBgImageButton_Click);
             // 
@@ -423,14 +405,14 @@
             // 
             this.removeBgButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.removeBgButton.Name = "removeBgButton";
-            this.removeBgButton.Size = new System.Drawing.Size(152, 22);
+            this.removeBgButton.Size = new System.Drawing.Size(135, 22);
             this.removeBgButton.Text = "Remove BG";
             this.removeBgButton.Click += new System.EventHandler(this.removeBgButton_Click);
             // 
             // moveBGToolStripMenuItem
             // 
             this.moveBGToolStripMenuItem.Name = "moveBGToolStripMenuItem";
-            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.moveBGToolStripMenuItem.Text = "Move BG";
             this.moveBGToolStripMenuItem.Click += new System.EventHandler(this.moveBGToolStripMenuItem_Click);
             // 
@@ -548,8 +530,6 @@
         private System.Windows.Forms.ToolStripMenuItem smallBlockOverlaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton levelConfigButton;
-        private System.Windows.Forms.ToolStripMenuItem deleteAllObjectsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteAllSpritesToolStripMenuItem;
         private System.Windows.Forms.Panel PanelContainer;
         private System.Windows.Forms.ToolStripButton spriteFinder;
         private System.Windows.Forms.ToolStripDropDownButton zoomMenu;
