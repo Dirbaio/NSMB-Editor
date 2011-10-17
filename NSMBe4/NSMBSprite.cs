@@ -217,7 +217,7 @@ namespace NSMBe4
                     break;
                 case 68:
                 case 69:
-                    width = Math.Max(16 * (Data[5] + 1), 32);
+                    width = Math.Max(16 * (Data[5] % 0x10 + 1), 32);
                     break;
                 case 70:
                     if (Data[5] % 0x10 == 1) {
@@ -245,7 +245,7 @@ namespace NSMBe4
                     break;
                 case 77:
                 case 78:
-                    width = Data[5];
+                    width = Data[5] % 0x10;
                     int s = 2;
                     if (this.Type == 78) {
                         width = Math.Max(0, width - 1);
@@ -1060,19 +1060,19 @@ namespace NSMBe4
                     break;
                 case 68:
                 case 69:
-                    int dist = Data[4] * 16;
-                    if (Data[3] == 1)
+                    int dist = (Data[4] % 0x10) * 16;
+                    if (Data[3] % 0x10 == 1)
                         dist = -dist;
                     if (this.Type == 68) {
                         RenderY2 -= dist;
                     } else {
                         RenderX2 += dist;
                     }
-                    width = Math.Max(16 * (Data[5] + 1), 32) / 2;
+                    width = Math.Max(16 * (Data[5] % 0x10 + 1), 32) / 2;
                     g.DrawLine(Pens.White, RenderX + width, RenderY + 8, RenderX2 + width, RenderY2 + 8);
                     g.FillEllipse(Brushes.White, RenderX2 + width - 4, RenderY2 + 4, 7, 7);
                     g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY, 16, 16);
-                    for (int l = 0; l < Data[5] - 1; l++) {
+                    for (int l = 0; l < Data[5] % 0x10 - 1; l++) {
                         RenderX += 16;
                         g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX, RenderY, 16, 16);
                     }
@@ -1080,7 +1080,7 @@ namespace NSMBe4
                     RenderX = X * 16; RenderY = Y * 16;
                     if (RenderX != RenderX2 || RenderY != RenderY2) {
                         g.DrawImage(Properties.Resources.MovingPlatformLeftE, RenderX2, RenderY2, 16, 16);
-                        for (int l = 0; l < Data[5] - 1; l++) {
+                        for (int l = 0; l < Data[5] % 0x10 - 1; l++) {
                             RenderX2 += 16;
                             g.DrawImage(Properties.Resources.MovingPlatformSectionE, RenderX2, RenderY2, 16, 16);
                         }
@@ -1127,7 +1127,7 @@ namespace NSMBe4
                     break;
                 case 77:
                 case 78:
-                    int w = Data[5], s = 2;
+                    int w = Data[5] % 0x10, s = 2;
                     if (this.Type == 78) { w = Math.Max(0, w - 1); s = 1; RenderX -= 8; }
                     RenderX -= (w * s + 1) * 8;
                     g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY, 16, 16);
