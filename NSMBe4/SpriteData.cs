@@ -281,16 +281,17 @@ namespace NSMBe4
 
             public SpriteDataEditor(List<LevelItem> sprites, SpriteData sd, LevelEditorControl EdControl)
             {
+                this.SizeChanged += new EventHandler(this_SizeChanged);
                 updating = true;
                 this.ColumnCount = 2;
+                //Talbe layout panel doesn't automatically create row or column styles
+                this.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+                this.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
                 this.RowCount = sd.fields.Count;
+                for (int l = 0; l < this.RowCount; l++)
+                    this.RowStyles.Add(new RowStyle(SizeType.Absolute));
                 this.AutoSize = true;
                 this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-
-                foreach (ColumnStyle cs in this.ColumnStyles)
-                    cs.SizeType = SizeType.AutoSize;
-                foreach (RowStyle cs in this.RowStyles)
-                    cs.SizeType = SizeType.AutoSize;
 
                 this.sprites = sprites;
                 foreach (LevelItem obj in sprites)
@@ -306,25 +307,47 @@ namespace NSMBe4
                 foreach (SpriteDataField v in sd.fields)
                 {
                     Control c = CreateControlFor(v);
-                    c.Dock = DockStyle.Fill;
+                    c.Anchor = AnchorStyles.Left | AnchorStyles.Right;
                     if (c is CheckBox || c is Label)
                     {
+                        c.Font = new System.Drawing.Font(c.Font.FontFamily, c.Font.Size * 0.9F);
                         this.Controls.Add(c, 0, row);
+                        this.RowStyles[row].Height = 25;
                         this.SetColumnSpan(c, 2);
                     }
                     else {
                         this.Controls.Add(c, 1, row);
                         Label l = new Label();
+                        l.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                         l.Text = v.name;
-                        l.Anchor = AnchorStyles.Left;
-                        l.AutoSize = false;
+                        l.Font = new System.Drawing.Font(l.Font.FontFamily, l.Font.Size * 0.9F);
+                        l.Dock = DockStyle.Right;
+                        l.MaximumSize = new System.Drawing.Size(100, 0);
                         l.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        l.Dock = DockStyle.Fill;
                         this.Controls.Add(l, 0, row);
+                        this.RowStyles[row].Height = Math.Max(l.PreferredHeight, c.Height + 4);
                     }
                     row++;
                     controls.Add(v, c);
                 }
                 updating = false;
+            }
+
+            public void this_SizeChanged(object sender, EventArgs e)
+            {
+                Console.Out.WriteLine(this.Width.ToString());
+                if (this.Width != 200) {
+                    for (int l = 0; l < this.RowCount; l++)
+                    {
+                        Control ctrl = this.GetControlFromPosition(0, l);
+                        if (ctrl is Label)
+                        {
+                            ctrl.MaximumSize = new System.Drawing.Size(this.Width / 2, 0);
+                            this.RowStyles[l].Height = Math.Max(ctrl.PreferredSize.Height, this.GetControlFromPosition(1, l).Height + 4);
+                        }
+                    }
+                }
             }
 
             public void UpdateData()

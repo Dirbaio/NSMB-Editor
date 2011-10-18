@@ -85,8 +85,9 @@ namespace NSMBe4
             if (type != -1 && SpriteData.datas.ContainsKey(type))
             {
                 sed = new SpriteData.SpriteDataEditor(SelectedObjects, SpriteData.datas[type], EdControl);
+                spriteDataPanel.Controls.Add(sed);
                 sed.Dock = DockStyle.Fill;
-                sed.Parent = spriteDataPanel;
+                //sed.Parent = spriteDataPanel;
                 spriteDataPanel.Visible = true;
             }
             else
