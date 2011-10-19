@@ -1131,6 +1131,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap note {
+            get {
+                object obj = ResourceManager.GetObject("note", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Icon nsmbe {
             get {
                 object obj = ResourceManager.GetObject("nsmbe", resourceCulture);

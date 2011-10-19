@@ -443,6 +443,7 @@
     <None Include="Resources\Icons\copy.png" />
     <None Include="Resources\Icons\cut.png" />
     <None Include="Resources\Icons\paste.png" />
+    <None Include="Resources\Icons\note.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <None Include="Resources\file_ncg.png" />
     <None Include="Resources\file_ncl.png" />

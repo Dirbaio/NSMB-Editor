@@ -279,14 +279,18 @@ namespace NSMBe4
             LevelEditorControl EdControl;
             public bool updating = false;
 
+            ToolTip notes;
+
             public SpriteDataEditor(List<LevelItem> sprites, SpriteData sd, LevelEditorControl EdControl)
             {
                 this.SizeChanged += new EventHandler(this_SizeChanged);
+                notes = new ToolTip();
                 updating = true;
-                this.ColumnCount = 2;
+                this.ColumnCount = 3;
                 //Talbe layout panel doesn't automatically create row or column styles
                 this.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
                 this.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+                this.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
                 this.RowCount = sd.fields.Count;
                 for (int l = 0; l < this.RowCount; l++)
                     this.RowStyles.Add(new RowStyle(SizeType.Absolute));
@@ -313,20 +317,33 @@ namespace NSMBe4
                         c.Font = new System.Drawing.Font(c.Font.FontFamily, c.Font.Size * 0.9F);
                         this.Controls.Add(c, 0, row);
                         this.RowStyles[row].Height = 25;
-                        this.SetColumnSpan(c, 2);
+                        if (v.notes == "")
+                            this.SetColumnSpan(c, 3);
+                        else
+                        {
+                            PictureBox pic = CreateNotesCtrl();
+                            this.Controls.Add(pic, 2, row);
+                            notes.SetToolTip(pic, v.notes);
+                        }
                     }
                     else {
                         this.Controls.Add(c, 1, row);
                         Label l = new Label();
-                        l.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                         l.Text = v.name;
                         l.Font = new System.Drawing.Font(l.Font.FontFamily, l.Font.Size * 0.9F);
-                        l.Dock = DockStyle.Right;
-                        l.MaximumSize = new System.Drawing.Size(100, 0);
                         l.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        l.Dock = DockStyle.Fill;
+                        l.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
                         this.Controls.Add(l, 0, row);
-                        this.RowStyles[row].Height = Math.Max(l.PreferredHeight, c.Height + 4);
+                        this.RowStyles[row].Height = 25;
+                        if (v.notes == "")
+                            this.SetColumnSpan(c, 2);
+                        else
+                        {
+                            PictureBox pic = CreateNotesCtrl();
+                            this.Controls.Add(pic, 2, row);
+                            notes.SetToolTip(pic, v.notes);
+                        }
+                        
                     }
                     row++;
                     controls.Add(v, c);
@@ -334,20 +351,28 @@ namespace NSMBe4
                 updating = false;
             }
 
+            private PictureBox CreateNotesCtrl()
+            {
+                PictureBox pic = new PictureBox();
+                pic.Size = new System.Drawing.Size(16, 16);
+                pic.Image = Properties.Resources.note;
+                pic.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                return pic;
+            }
+
             public void this_SizeChanged(object sender, EventArgs e)
             {
                 Console.Out.WriteLine(this.Width.ToString());
-                if (this.Width != 200) {
+                if (this.Width != 200)
                     for (int l = 0; l < this.RowCount; l++)
                     {
                         Control ctrl = this.GetControlFromPosition(0, l);
                         if (ctrl is Label)
                         {
                             ctrl.MaximumSize = new System.Drawing.Size(this.Width / 2, 0);
-                            this.RowStyles[l].Height = Math.Max(ctrl.PreferredSize.Height, this.GetControlFromPosition(1, l).Height + 4);
+                            this.RowStyles[l].Height = Math.Max(ctrl.PreferredSize.Height, this.GetControlFromPosition(1, l).Height) + 4;
                         }
                     }
-                }
             }
 
             public void UpdateData()
