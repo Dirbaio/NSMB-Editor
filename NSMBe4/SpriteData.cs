@@ -210,18 +210,22 @@ namespace NSMBe4
 
             public int getMin()
             {
+                int value = 0;
                 if (display == "signedvalue")
-                    return -((1 << (getBitCount()) - 1));
-                else
-                    return 0;
+                    value = -((1 << (getBitCount()) - 1));
+                if (display == "value" || display == "signedvalue")
+                    value += this.data;
+                return value;
             }
 
             public int getMax()
             {
+                int value = (1 << (getBitCount())) - 1;
                 if (display == "signedvalue")
-                    return (1 << (getBitCount() - 1)) - 1;
-                else
-                    return (1 << (getBitCount())) - 1;
+                    value = (1 << (getBitCount() - 1)) - 1;
+                if (display == "value" || display == "signedvalue")
+                    value += this.data;
+                return value;
             }
 
             public int getValue(byte[] data)
@@ -244,6 +248,12 @@ namespace NSMBe4
                     res -= (1 << getBitCount());
                 }
 
+                if (display == "value" || display == "signedvalue")
+                    res += this.data;
+
+                if (display == "checkbox")
+                    res /= this.data;
+
                 return res;
             }
 
@@ -255,6 +265,12 @@ namespace NSMBe4
                     nibbles[2 * i] = (byte)(data[i] >> 4);
                     nibbles[2 * i + 1] = (byte)(data[i] & 0xF);
                 }
+
+                if (display == "value" || display == "signedvalue")
+                    b -= this.data;
+
+                if (display == "checkbox")
+                    b *= this.data;
 
                 for (int i = endNibble; i >= startNibble; i--)
                 {
