@@ -34,6 +34,8 @@ namespace NSMBe4
         public int qy = -1;
         int tileCount;
         public bool map16Editing = false;
+        public float zoom = 1f;
+        private bool zoomUpdate = false;
 
         public Map16Picker()
         {
@@ -54,6 +56,15 @@ namespace NSMBe4
             pictureBox1.Invalidate(true);
         }
 
+        public void SetZoom(float zoom)
+        {
+            this.zoom = zoom;
+            zoomUpdate = true;
+            pictureBox1.Size = new Size((int)(map16Image.Width * zoom), (int)(map16Image.Height * zoom));
+            zoomUpdate = false;
+            pictureBox1.Invalidate(true);
+        }
+
         public void selectTile(int tile)
         {
             selx = tile % 16;
@@ -65,8 +76,8 @@ namespace NSMBe4
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             
-            int tx = e.X / 16;
-            int ty = e.Y / 16;
+            int tx = (int)(e.X / 16 / zoom);
+            int ty = (int)(e.Y / 16 / zoom);
             int t = ty * 16 + tx;
             if (t >= 0 && t < tileCount)
             {
@@ -86,18 +97,18 @@ namespace NSMBe4
         {
             if (map16Image == null)
                 return;
-
-            e.Graphics.DrawImage(map16Image, 0, 0);
-            e.Graphics.DrawRectangle(Pens.White, selx * 16, sely * 16, 16, 16);
-            e.Graphics.DrawRectangle(Pens.White, hovx * 16, hovy * 16, 16, 16);
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            e.Graphics.DrawImage(map16Image, 0f, 0f, map16Image.Width * zoom, map16Image.Height * zoom);
+            e.Graphics.DrawRectangle(Pens.White, selx * 16 * zoom, sely * 16 * zoom, 16 * zoom, 16 * zoom);
+            e.Graphics.DrawRectangle(Pens.White, hovx * 16 * zoom, hovy * 16 * zoom, 16 * zoom, 16 * zoom);
             if (qx != -1)
-                e.Graphics.DrawRectangle(Pens.Yellow, selx * 16+qx*8, sely * 16+qy*8, 8, 8);
+                e.Graphics.DrawRectangle(Pens.Yellow, selx * 16 * zoom + qx * 8 * zoom, sely * 16 * zoom + qy * 8 * zoom, 8 * zoom, 8 * zoom);
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            hovx = e.X / 16;
-            hovy = e.Y / 16;
+            hovx = (int)(e.X / 16 / zoom);
+            hovy = (int)(e.Y / 16 / zoom);
             pictureBox1.Invalidate(true);
         }
 
@@ -106,6 +117,45 @@ namespace NSMBe4
             hovx = -1;
             hovy = -1;
             pictureBox1.Invalidate(true);
+        }
+
+        private void zoomIn_Click(object sender, EventArgs e)
+        {
+            if (zoom < 8)
+            {
+                SetZoom(zoom + 1f);
+                zoomOut.Enabled = true;
+                zoomActualSize.Enabled = true;
+                if (zoom == 8)
+                    zoomIn.Enabled = false;
+            }
+        }
+
+        private void zoomActualSize_Click(object sender, EventArgs e)
+        {
+            SetZoom(1f);
+            zoomIn.Enabled = true;
+            zoomActualSize.Enabled = false;
+            zoomOut.Enabled = false;
+        }
+
+        private void zoomOut_Click(object sender, EventArgs e)
+        {
+            if (zoom > 1)
+            {
+                SetZoom(zoom - 1f);
+                zoomIn.Enabled = true;
+                if (zoom == 1) {
+                    zoomOut.Enabled = false;
+                    zoomActualSize.Enabled = false;
+                }
+            }
+        }
+
+        private void pictureBox1_SizeChanged(object sender, EventArgs e)
+        {
+            if (zoomUpdate) return;
+            pictureBox1.Size = new Size((int)(map16Image.Width * zoom), (int)(map16Image.Height * zoom));
         }
     }
 }
