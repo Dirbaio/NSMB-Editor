@@ -119,6 +119,7 @@ namespace NSMBe4
             pictureBox1.Invalidate(true);
         }
 
+
         private void zoomIn_Click(object sender, EventArgs e)
         {
             if (zoom < 8)

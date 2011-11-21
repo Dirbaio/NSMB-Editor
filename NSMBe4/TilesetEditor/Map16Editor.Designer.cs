@@ -32,7 +32,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tileBehavior = new NSMBe4.ByteArrayEditor();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.yFlip = new System.Windows.Forms.CheckBox();
@@ -49,8 +48,10 @@
             this.editQ3 = new System.Windows.Forms.Button();
             this.editQ2 = new System.Windows.Forms.Button();
             this.editQ4 = new System.Windows.Forms.Button();
+            this.tileBehavior = new NSMBe4.ByteArrayEditor();
             this.tilePicker1 = new NSMBe4.TilePicker();
             this.map16Picker1 = new NSMBe4.Map16Picker();
+            this.clearSelected = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -71,7 +72,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(282, 224);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(423, 248);
+            this.panel1.Size = new System.Drawing.Size(423, 257);
             this.panel1.TabIndex = 2;
             // 
             // groupBox4
@@ -79,10 +80,11 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.clearSelected);
             this.groupBox4.Controls.Add(this.button1);
             this.groupBox4.Location = new System.Drawing.Point(6, 172);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(414, 73);
+            this.groupBox4.Size = new System.Drawing.Size(414, 82);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "<groupBox4>";
@@ -108,16 +110,6 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "<groupBox3>";
-            // 
-            // tileBehavior
-            // 
-            this.tileBehavior.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tileBehavior.Location = new System.Drawing.Point(6, 19);
-            this.tileBehavior.Name = "tileBehavior";
-            this.tileBehavior.Size = new System.Drawing.Size(402, 27);
-            this.tileBehavior.TabIndex = 3;
             // 
             // groupBox2
             // 
@@ -319,6 +311,16 @@
             this.editQ4.UseVisualStyleBackColor = true;
             this.editQ4.Click += new System.EventHandler(this.editQ4_Click);
             // 
+            // tileBehavior
+            // 
+            this.tileBehavior.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tileBehavior.Location = new System.Drawing.Point(6, 19);
+            this.tileBehavior.Name = "tileBehavior";
+            this.tileBehavior.Size = new System.Drawing.Size(402, 27);
+            this.tileBehavior.TabIndex = 3;
+            // 
             // tilePicker1
             // 
             this.tilePicker1.AutoSize = true;
@@ -338,9 +340,19 @@
             this.map16Picker1.Location = new System.Drawing.Point(0, 0);
             this.map16Picker1.MinimumSize = new System.Drawing.Size(282, 187);
             this.map16Picker1.Name = "map16Picker1";
-            this.map16Picker1.Size = new System.Drawing.Size(282, 472);
+            this.map16Picker1.Size = new System.Drawing.Size(282, 481);
             this.map16Picker1.TabIndex = 0;
             this.map16Picker1.TileSelected += new NSMBe4.Map16Picker.TileSelectedd(this.map16Picker1_TileSelected);
+            // 
+            // clearSelected
+            // 
+            this.clearSelected.Location = new System.Drawing.Point(6, 48);
+            this.clearSelected.Name = "clearSelected";
+            this.clearSelected.Size = new System.Drawing.Size(119, 23);
+            this.clearSelected.TabIndex = 1;
+            this.clearSelected.Text = "<Clear Selected Tile>";
+            this.clearSelected.UseVisualStyleBackColor = true;
+            this.clearSelected.Click += new System.EventHandler(this.clearSelected_Click);
             // 
             // Map16Editor
             // 
@@ -350,7 +362,7 @@
             this.Controls.Add(this.tilePicker1);
             this.Controls.Add(this.map16Picker1);
             this.Name = "Map16Editor";
-            this.Size = new System.Drawing.Size(705, 472);
+            this.Size = new System.Drawing.Size(705, 481);
             this.panel1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -391,5 +403,6 @@
         private System.Windows.Forms.CheckBox yFlip;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button clearSelected;
     }
 }

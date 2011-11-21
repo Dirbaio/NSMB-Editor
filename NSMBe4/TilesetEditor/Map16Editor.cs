@@ -329,5 +329,15 @@ namespace NSMBe4
             map16Picker1.qy = qy;
             map16Picker1.selectTile(selTileNum);
         }
+
+        private void clearSelected_Click(object sender, EventArgs e)
+        {
+            if (selTile == null) return;
+            selTile.topLeft.TileNum = -1;
+            selTile.topRight.TileNum = -1;
+            selTile.bottomLeft.TileNum = -1;
+            selTile.bottomRight.TileNum = -1;
+            repaint();
+        }
     }
 }
