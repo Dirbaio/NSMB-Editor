@@ -155,7 +155,7 @@ namespace NSMBe4
 
         private void pictureBox1_SizeChanged(object sender, EventArgs e)
         {
-            if (zoomUpdate) return;
+            if (zoomUpdate || map16Image == null) return;
             pictureBox1.Size = new Size((int)(map16Image.Width * zoom), (int)(map16Image.Height * zoom));
         }
     }
