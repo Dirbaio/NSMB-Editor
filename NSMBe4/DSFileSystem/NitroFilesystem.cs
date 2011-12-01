@@ -45,10 +45,10 @@ namespace NSMBe4.DSFileSystem
             mainDir.childrenFiles.Add(fatFile);
 
             freeSpaceDelimiter = fntFile;
+
             //read the fnt
             ByteArrayInputStream fnt = new ByteArrayInputStream(fntFile.getContents());
-            //            fnt.dumpAsciiData();
-
+            
             loadDir(fnt, "root", 0xF000, mainDir);
             
         }

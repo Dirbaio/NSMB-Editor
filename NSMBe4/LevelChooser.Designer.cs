@@ -344,7 +344,7 @@ namespace NSMBe4 {
             this.autoUpdate.AutoSize = true;
             this.autoUpdate.Location = new System.Drawing.Point(9, 226);
             this.autoUpdate.Name = "autoUpdate";
-            this.autoUpdate.Size = new System.Drawing.Size(84, 17);
+            this.autoUpdate.Size = new System.Drawing.Size(86, 17);
             this.autoUpdate.TabIndex = 7;
             this.autoUpdate.Text = "Auto-update";
             this.autoUpdate.UseVisualStyleBackColor = true;
@@ -355,7 +355,7 @@ namespace NSMBe4 {
             this.useMDI.AutoSize = true;
             this.useMDI.Location = new System.Drawing.Point(9, 174);
             this.useMDI.Name = "useMDI";
-            this.useMDI.Size = new System.Drawing.Size(58, 17);
+            this.useMDI.Size = new System.Drawing.Size(60, 17);
             this.useMDI.TabIndex = 6;
             this.useMDI.Text = "<MDI>";
             this.useMDI.UseVisualStyleBackColor = true;

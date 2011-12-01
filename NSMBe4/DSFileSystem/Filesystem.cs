@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Drawing;
 
 namespace NSMBe4.DSFileSystem
 {
@@ -98,6 +99,19 @@ namespace NSMBe4.DSFileSystem
 //            dirsByName.Add(d.name, d);
         }
 
+        int alignUp(int what, int align)
+        {
+            if (what % align != 0)
+                what += align - what % align;
+            return what;
+        }
+        int alignDown(int what, int align)
+        {
+            what -= what % align;
+            return what;
+        }
+
+
         //Tries to find LEN bytes of continuous unused space AFTER the freeSpaceDelimiter (usually fat or fnt)
         public int findFreeSpace(int len, int align)
         {
@@ -105,39 +119,36 @@ namespace NSMBe4.DSFileSystem
 
             File bestSpace = null;
             int bestSpaceLeft = int.MaxValue;
+            int bestSpaceBegin = -1;
 
             for (int i = allFiles.IndexOf(freeSpaceDelimiter); i < allFiles.Count - 1; i++)
             {
                 int spBegin = allFiles[i].fileBegin + allFiles[i].fileSize; //- 1 + 1;
-                if (spBegin % align != 0)
-                    spBegin += align - spBegin % align;
+                spBegin = alignUp(spBegin, align);
 
-                int spEnd = allFiles[i + 1].fileBegin - 1;
-                if (spEnd % align != 0)
-                    spEnd -= spEnd % align;
-                int spSize = spEnd - spBegin + 1;
+                int spEnd = allFiles[i + 1].fileBegin;
+                spEnd = alignDown(spEnd, align);
+
+                int spSize = spEnd - spBegin;
+
                 if (spSize >= len)
                 {
-                    int spLeft = len - spSize;
-                    if (spLeft < bestSpaceLeft && (allFiles[i].fileBegin >= 0x1400000))
+                    int spLeft = spSize - len;
+                    if (spLeft < bestSpaceLeft)
                     {
                         bestSpaceLeft = spLeft;
                         bestSpace = allFiles[i];
+                        bestSpaceBegin = spBegin;
                     }
                 }
             }
 
             if (bestSpace != null)
-                return bestSpace.fileBegin + bestSpace.fileSize + 10;
-            else //if (allFiles[allFiles.Count - 1].fileBegin >= 0x1400000)
-                return allFiles[allFiles.Count - 1].fileBegin + allFiles[allFiles.Count - 1].fileSize + 10;
-//            else
-//                return 0x1400000; //just add the file at the very end 
-
-            //The 0x1400000 hack is not needed anymore. We now know what data we were overwriting: the RSA sig.
-            //See http://board.dirbaio.net/thread.php?id=185 for more details...
+                return bestSpaceBegin;
+            else
+                return alignUp(allFiles[allFiles.Count - 1].fileBegin + allFiles[allFiles.Count - 1].fileSize, align);
         }
-
+        
         //yeah, i'm tired of looking through the dump myself ;)
         public bool findErrors()
         {
@@ -248,6 +259,46 @@ namespace NSMBe4.DSFileSystem
         {
             if (viewer != null && !viewer.IsDisposed)
                 viewer.Load(this);
+        }
+
+        public Bitmap renderFilesystemMap()
+        {
+            int height = 4096;
+            int width = 256;
+            int div = 256;
+            Bitmap b = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage(b);
+            g.FillRectangle(Brushes.Black, 0, 0, 1024, height);
+
+            for (int i = 0; i < allFiles.Count; i++)
+            {
+                int start = allFiles[i].fileBegin/ div;
+                int size = (allFiles[i].fileSize+div-1) / div;
+                for (int j = 0; j < size; j++)
+                {
+                    int x = start + j;
+                    if (x >= width * height) continue;
+                    int y = x / width;
+                    x %= width;
+                    Color c = allFiles[i].id < 0 ? (i%2 == 0?Color.Crimson: Color.Coral): (i%2 == 0?Color.LightBlue: Color.LightCyan);
+                    b.SetPixel(x, y, c);
+                }
+            }
+            return b;
+        }
+        public void replaceRandomFiles()
+        {
+            Random r = new Random();
+            for (int i = 0; i < 200; i++)
+            {
+                File f = allFiles[r.Next(allFiles.Count)];
+                if (f.id < 180) continue;
+
+                byte[] newd = new byte[r.Next(1024*10)];
+                f.beginEdit(this);
+                f.replace(newd, this);
+                f.endEdit(this);
+            }
         }
     }
 }
