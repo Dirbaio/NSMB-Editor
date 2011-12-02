@@ -61,7 +61,8 @@ namespace NSMBe4
             Array.Copy(s.Data, Data, 6);
         }
 
-        private int[] AlwaysDrawNums = {68, 69, 73, 141, 226};
+        private static int[] AlwaysDrawNums = { 68, 69, 73, 141, 226 };
+        private static int[] TileCreateNums = { 0x670, 0x500, 0, 0x1B0, 0x190, 0x670, 0xC50, 0xD70, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x180 };
 
         public bool AlwaysDraw() {
             return Array.IndexOf(AlwaysDrawNums, this.Type) > -1;
@@ -859,6 +860,11 @@ namespace NSMBe4
                     x -= 128;
                     width = 144; height = 64;
                     break;
+                case 312:
+                    width = (Data[5] % 0x10 + 2) * 16;
+                    x -= (width - 16) / 2;
+                    height = (Data[5] & 0xF0) + 49;
+                    break;
                 case 323:
                     height = 32;
                     width = 32 * (Data[5] + 2);
@@ -1115,8 +1121,8 @@ namespace NSMBe4
                     Pen rope = new Pen(Color.FromArgb(49, 24, 74));
                     g.DrawLine(Pens.White, RenderX + 8, RenderY - 9, RenderX2 + 2, RenderY - 9);
                     g.DrawLine(rope, RenderX + 9, RenderY - 8, RenderX2 + 1, RenderY - 8);
-                    RenderY2 = RenderY + 16 * (Data[5] / 0x10) - 8;
-                    int RenderY3 = RenderY + 16 * (Data[4] % 0x10) - 8;
+                    RenderY2 = RenderY + 16 * (Data[4] % 0x10) - 8;
+                    int RenderY3 = RenderY + 16 * (Data[5] / 0x10) - 8;
                     g.DrawLine(Pens.White, RenderX - 1, RenderY, RenderX - 1, RenderY2 - 1);
                     g.DrawLine(rope, RenderX, RenderY + 1, RenderX, RenderY2 - 1);
                     g.DrawLine(Pens.White, RenderX2 + 9, RenderY + 3, RenderX2 + 9, RenderY3 - 1);
@@ -1542,14 +1548,28 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.GiantThwomp, RenderX, RenderY, 64, 74);
                     break;
                 case 197:
+                    RenderY2 = Data[4] / 0x10;
+                    width = Data[3] % 0x10;
+                    height = Data[4] % 0x10;
                     for (int l = 1; l <= Math.Max(1, Data[5] % 0x10); l++) {
                         for (int m = 1; m <= Math.Max(1, Data[5] / 0x10); m++) {
-                            g.DrawImage(Properties.Resources.SwitchBlock2, RenderX, RenderY, 16, 16);
+                            if (width == 0 || width == 1 && l % 2 == m % 2 || width == 2 && l % 2 != m % 2) //Checkerboard pattern
+                            {
+                                if (height == 0)
+                                    g.DrawImage(Properties.Resources.DestroyTile, RenderX, RenderY, 16, 16);
+                                else
+                                    if (RenderY2 == 2)
+                                        g.DrawImage(Properties.Resources.tileoverrides, new Rectangle(RenderX, RenderY, 16, 16), new Rectangle(2160, 0, 16, 16), GraphicsUnit.Pixel);
+                                    else
+                                        g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(TileCreateNums[RenderY2], 0, 16, 16), GraphicsUnit.Pixel);
+                            }
                             RenderX += 16;
                         }
                         RenderY += 16;
                         RenderX = RenderX2;
                     }
+                    if (height == 0)
+                        g.DrawRectangle(Pens.Black, this.getRect());
                     break;
                 case 204:
                     g.DrawImage(Properties.Resources.JumpingFlame, RenderX, RenderY - 7, 27, 23);
@@ -2036,6 +2056,23 @@ namespace NSMBe4
                     img = Properties.Resources.GiantSpike;
                     img.RotateFlip(RotateFlipType.Rotate270FlipNone);
                     g.DrawImage(img, RenderX - 128, RenderY, 144, 64);
+                    break;
+                case 312:
+                    img = Properties.Resources.GreenMushroomEdge;
+                    img.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                    width = Data[5] % 0x10 + 1;
+                    RenderX -= width * 8;
+                    g.DrawImage(Properties.Resources.GreenMushroomEdge, RenderX, RenderY, 16, 24);
+                    for (int l = 0; l <= width - 2; l++) {
+                        RenderX += 16;
+                        g.DrawImage(Properties.Resources.GreenMushroomMiddle, RenderX, RenderY, 16, 24);
+                    }
+                    g.DrawImage(img, RenderX + 16, RenderY, 16, 24);
+                    g.DrawImage(Properties.Resources.GreenMushroomStalkTop, RenderX2, RenderY + 24, 16, 25);
+                    for (int l = 0; l < Data[5] / 0x10; l++) {
+                        g.DrawImage(Properties.Resources.GreenMushroomStalk, RenderX2, RenderY + 49, 16, 16);
+                        RenderY += 16;
+                    }
                     break;
                 case 323:
                     g.DrawImage(Properties.Resources.CloudLeftEdge, RenderX, RenderY, 16, 26);

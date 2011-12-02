@@ -424,6 +424,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap DestroyTile {
+            get {
+                object obj = ResourceManager.GetObject("DestroyTile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap door {
             get {
                 object obj = ResourceManager.GetObject("door", resourceCulture);
@@ -847,6 +854,34 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap GreenKoopaShell {
             get {
                 object obj = ResourceManager.GetObject("GreenKoopaShell", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GreenMushroomEdge {
+            get {
+                object obj = ResourceManager.GetObject("GreenMushroomEdge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GreenMushroomMiddle {
+            get {
+                object obj = ResourceManager.GetObject("GreenMushroomMiddle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GreenMushroomStalk {
+            get {
+                object obj = ResourceManager.GetObject("GreenMushroomStalk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GreenMushroomStalkTop {
+            get {
+                object obj = ResourceManager.GetObject("GreenMushroomStalkTop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

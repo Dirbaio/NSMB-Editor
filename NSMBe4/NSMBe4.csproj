@@ -444,6 +444,11 @@
     <None Include="Resources\Icons\cut.png" />
     <None Include="Resources\Icons\paste.png" />
     <None Include="Resources\Icons\note.png" />
+    <None Include="Resources\Sprite Images\DestroyTile.PNG" />
+    <None Include="Resources\Sprite Images\GreenMushroomEdge.PNG" />
+    <None Include="Resources\Sprite Images\GreenMushroomMiddle.PNG" />
+    <None Include="Resources\Sprite Images\GreenMushroomStalk.PNG" />
+    <None Include="Resources\Sprite Images\GreenMushroomStalkTop.PNG" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <None Include="Resources\file_ncg.png" />
     <None Include="Resources\file_ncl.png" />

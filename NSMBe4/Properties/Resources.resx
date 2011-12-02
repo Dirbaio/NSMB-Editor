@@ -984,8 +984,23 @@
   <data name="paste" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\paste.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="note" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\note.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DestroyTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DestroyTile.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GreenMushroomEdge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\GreenMushroomEdge.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenMushroomMiddle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\GreenMushroomMiddle.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenMushroomStalk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\GreenMushroomStalk.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenMushroomStalkTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\GreenMushroomStalkTop.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
