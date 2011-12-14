@@ -36,15 +36,9 @@ namespace NSMBe4.DSFileSystem
         {
             InitializeComponent();
 
-            extractFileButton.Enabled = false;
-            replaceFileButton.Enabled = false;
-            compressFileButton.Enabled = false;
-            decompressFileButton.Enabled = false;
-            hexEdButton.Enabled = false;
-            compressWithHeaderButton.Enabled = false;
-            decompressWithHeaderButton.Enabled = false;
             LanguageManager.ApplyToContainer(this, "FilesystemBrowser");
 
+            UpdateFileInfo();
 
             //The ImageList is created here rather than in Visual Studio
             //because it looks like the Mono compiler can't handle ImageList resources.
@@ -121,29 +115,35 @@ namespace NSMBe4.DSFileSystem
             TreeNode n = fileTreeView.SelectedNode;
 
             string StatusMsg;
-            if (n.Tag is Directory)
+            bool e;
+
+            if (n == null)
+            {
+                e = false;
+                StatusMsg = "No file selected";
+            }
+            else if (n.Tag is Directory)
             {
                 StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FolderStatus"), n.Text, (n.Tag as Directory).id);
-                extractFileButton.Enabled = false;
-                replaceFileButton.Enabled = false;
-                compressFileButton.Enabled = false;
-                decompressFileButton.Enabled = false;
-                hexEdButton.Enabled = false;
-                compressWithHeaderButton.Enabled = false;
-                decompressWithHeaderButton.Enabled = false;
+                e = false;
             }
             else
             {
                 File f = n.Tag as File;
                 StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FileStatus"), f.fileBegin.ToString("X"), f.fileSize.ToString(), f.id);
-                extractFileButton.Enabled = true;
-                replaceFileButton.Enabled = true;
-                compressFileButton.Enabled = true;
-                decompressFileButton.Enabled = true;
-                hexEdButton.Enabled = true;
-                compressWithHeaderButton.Enabled = true;
-                decompressWithHeaderButton.Enabled = true;
+                e = true;
             }
+
+
+            extractFileButton.Enabled = e;
+            replaceFileButton.Enabled = e;
+            compressFileButton.Enabled = e;
+            decompressFileButton.Enabled = e;
+            hexEdButton.Enabled = e;
+            compressWithHeaderButton.Enabled = e;
+            decompressWithHeaderButton.Enabled = e;
+            decompressOverlayButton.Enabled = e;
+
             selectedFileInfo.Text = StatusMsg;
         }
 
@@ -353,6 +353,16 @@ namespace NSMBe4.DSFileSystem
                 MessageBox.Show(LanguageManager.Get("Errors", "File"));
                 return;
             }     
+        }
+
+        private void decompressOverlayButton_Click(object sender, EventArgs e)
+        {
+            OverlayFile f = fileTreeView.SelectedNode.Tag as OverlayFile;
+
+            if(f == null)
+                MessageBox.Show("Error: Not an overlay file");
+
+            f.decompress();
         }
     }
 }

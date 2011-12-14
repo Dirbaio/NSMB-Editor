@@ -40,6 +40,7 @@
             this.hexEdButton = new System.Windows.Forms.Button();
             this.compressWithHeaderButton = new System.Windows.Forms.Button();
             this.decompressWithHeaderButton = new System.Windows.Forms.Button();
+            this.decompressOverlayButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -160,6 +161,17 @@
             this.decompressWithHeaderButton.UseVisualStyleBackColor = true;
             this.decompressWithHeaderButton.Click += new System.EventHandler(this.decompressWithHeaderButton_Click);
             // 
+            // decompressOverlayButton
+            // 
+            this.decompressOverlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.decompressOverlayButton.Location = new System.Drawing.Point(20, 289);
+            this.decompressOverlayButton.Name = "decompressOverlayButton";
+            this.decompressOverlayButton.Size = new System.Drawing.Size(125, 23);
+            this.decompressOverlayButton.TabIndex = 11;
+            this.decompressOverlayButton.Text = "Decompress overlay";
+            this.decompressOverlayButton.UseVisualStyleBackColor = true;
+            this.decompressOverlayButton.Click += new System.EventHandler(this.decompressOverlayButton_Click);
+            // 
             // FilesystemBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -168,6 +180,7 @@
             this.Controls.Add(this.selectedFileInfo);
             this.Controls.Add(this.decompressWithHeaderButton);
             this.Controls.Add(this.decompressFileButton);
+            this.Controls.Add(this.decompressOverlayButton);
             this.Controls.Add(this.compressWithHeaderButton);
             this.Controls.Add(this.hexEdButton);
             this.Controls.Add(this.compressFileButton);
@@ -195,5 +208,6 @@
         private System.Windows.Forms.Button hexEdButton;
         private System.Windows.Forms.Button compressWithHeaderButton;
         private System.Windows.Forms.Button decompressWithHeaderButton;
+        private System.Windows.Forms.Button decompressOverlayButton;
     }
 }
