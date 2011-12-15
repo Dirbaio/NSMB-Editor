@@ -76,6 +76,7 @@ namespace NSMBe4.DSFileSystem
             string name = f.name.ToLowerInvariant();
 
             if (name.EndsWith(".narc")) return 2;
+            if (name.EndsWith(".carc")) return 2;
             if (name.EndsWith("_ncg.bin")) return 3;
             if (name.EndsWith("_ncl.bin")) return 4;
             if (name.EndsWith("_nsc.bin")) return 5;

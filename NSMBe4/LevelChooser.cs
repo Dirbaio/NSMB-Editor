@@ -443,6 +443,7 @@ namespace NSMBe4 {
             MessageBox.Show(LanguageManager.Get("General", "Completed"));
         }
 
+        /*
         private void patchNarcTilesets(string narc, string level, string prefix, string lowername, string uppername, string nscprefix, bool hasFG)
         {
             NSMBLevel lvl = new NSMBLevel(ROM.FS.getFileByName(level+".bin"), ROM.FS.getFileByName(level+"_bgdat.bin"), null);
@@ -461,7 +462,8 @@ namespace NSMBe4 {
             NarcReplace(narc, "d_2d_I_M_free_nohara_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_FG_NCG));
             NarcReplace(narc, "d_2d_I_M_free_nohara_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_FG_NCL));
 
-        }
+        }*/
+
         private void mpPatch2_Click(object sender, EventArgs e)
         {
             NSMBLevel lvl = new NSMBLevel(ROM.FS.getFileByName("J01_1.bin"), ROM.FS.getFileByName("J01_1_bgdat.bin"), null);
@@ -547,7 +549,9 @@ namespace NSMBe4 {
             MessageBox.Show(LanguageManager.Get("General", "Completed"));
         }
 
-        private void NarcReplace(string NarcName, string f1, string f2) { }
+        //WTF was this for?!
+        //private void NarcReplace(string NarcName, string f1, string f2) { }
+
         private void NarcReplace(string NarcName, string f1, ushort f2)
         {
             NarcFilesystem fs = new NarcFilesystem(ROM.FS.getFileByName(NarcName));
@@ -583,7 +587,8 @@ namespace NSMBe4 {
 
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
-//            ROM.FS.arm9binFile.decompress();
+            Arm9BinaryHandler bh = new Arm9BinaryHandler(ROM.FS);
+            bh.decompress();
         }
 
         private void padarm7bin_Click(object sender, EventArgs e)
@@ -770,7 +775,7 @@ namespace NSMBe4 {
 
         private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://board.dirbaio.net/");
+            System.Diagnostics.Process.Start("http://nsmbhd.net/");
         }
 
     }

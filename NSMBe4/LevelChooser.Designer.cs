@@ -498,7 +498,7 @@ namespace NSMBe4 {
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(23, 322);
+            this.linkLabel2.Location = new System.Drawing.Point(22, 322);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(120, 13);
             this.linkLabel2.TabIndex = 9;
