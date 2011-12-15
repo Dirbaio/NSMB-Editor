@@ -57,38 +57,40 @@ namespace NSMBe4 {
         public static Dictionary<int, List<string>> descriptions;
         public static string DescriptionPath;
 
+        public static bool isNSMBRom = true;
+        public static string romInternalName;
+        public static string romGamecode;
+
         public static void load(String filename)
         {
             ROM.filename = filename;
             FS = new NitroROMFilesystem(filename);
             romfile = new System.IO.FileInfo(filename);
 
-            LoadDescriptions();
-            LoadOverlay0();
 
-            if (Overlay0 != null)
-            {
-                if (Overlay0[28] == 0x84)
-                    Region = Origin.US;
-                else if (Overlay0[28] == 0x64)
-                    Region = Origin.EU;
-                else if (Overlay0[28] == 0x04)
-                    Region = Origin.JP;
-                else if (Overlay0[28] == 0xC4)
-                    Region = Origin.KR;
-                else
-                {
-                    Region = Origin.US;
-                    System.Windows.Forms.MessageBox.Show(LanguageManager.Get("General", "UnknownRegion"), LanguageManager.Get("General", "Warning"), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
-                }
-            }
+            ByteArrayInputStream header = new ByteArrayInputStream(FS.headerFile.getContents());
+            romInternalName = header.ReadString(12);
+            romGamecode = header.ReadString(4);
+
+            if (romGamecode == "A2DE")
+                Region = Origin.US;
+            else if (romGamecode == "A2DP")
+                Region = Origin.EU;
+            else if (romGamecode == "A2DJ")
+                Region = Origin.JP;
+            else if (romGamecode == "A2DK")
+                Region = Origin.KR;
             else
             {
-                Region = Origin.US;
-                System.Windows.Forms.MessageBox.Show(LanguageManager.Get("General", "UnknownRegion"), LanguageManager.Get("General", "Warning"), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                isNSMBRom = false;
+                Region = Origin.UNK;
             }
 
-//            SaveOverlay0();
+            if (isNSMBRom)
+            {
+                LoadDescriptions();
+                LoadOverlay0();
+            }
         }
 
         public static void close()
@@ -146,7 +148,7 @@ namespace NSMBe4 {
         }
 
         public enum Origin {
-            US = 0, EU = 1, JP = 2, KR = 3
+            US = 0, EU = 1, JP = 2, KR = 3, UNK = 4
         }
 
         public static Origin Region = Origin.US;

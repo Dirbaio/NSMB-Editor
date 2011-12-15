@@ -82,6 +82,12 @@ namespace NSMBe4 {
 
             this.Text = "NSMB Editor 5.2 " + Properties.Resources.version.Trim();
             this.Icon = Properties.Resources.nsmbe;
+
+            if (!ROM.isNSMBRom)
+            {
+                tabControl1.TabPages.Remove(tabPage2);
+                nsmbToolsGroupbox.Enabled = false;
+            }
         }
 
 
@@ -777,6 +783,17 @@ namespace NSMBe4 {
         {
             System.Diagnostics.Process.Start("http://nsmbhd.net/");
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }
