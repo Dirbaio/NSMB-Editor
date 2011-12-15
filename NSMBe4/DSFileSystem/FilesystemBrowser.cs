@@ -179,15 +179,33 @@ namespace NSMBe4.DSFileSystem
                 
             string FileName = f.name;
             replaceFileDialog.FileName = FileName;
-            if (replaceFileDialog.ShowDialog() == DialogResult.OK)
+            if (replaceFileDialog.ShowDialog() != DialogResult.OK)
             {
-                string SrcFileName = replaceFileDialog.FileName;
-                FileStream rfs = new FileStream(SrcFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                byte[] TempFile = new byte[rfs.Length];
-                rfs.Read(TempFile, 0, (int)rfs.Length);
-                rfs.Dispose();
-                f.replace(TempFile, this);
+                UpdateFileInfo();
+                f.endEdit(this);
+                return;
             }
+
+            if(f is OverlayFile)
+            {
+                DialogResult r = MessageBox.Show("You're importing an overlay file. Is it a compressed overlay?\n\n(Overlays are compressed by default, so it probably is unless you decompressed it)", "Something", MessageBoxButtons.YesNoCancel);
+                if(r == DialogResult.Cancel)
+                {
+                    UpdateFileInfo();
+                    f.endEdit(this);
+                    return;
+                }
+
+                (f as OverlayFile).isCompressed = r == DialogResult.Yes;
+            }
+
+            string SrcFileName = replaceFileDialog.FileName;
+            FileStream rfs = new FileStream(SrcFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            byte[] TempFile = new byte[rfs.Length];
+            rfs.Read(TempFile, 0, (int)rfs.Length);
+            rfs.Dispose();
+            f.replace(TempFile, this);
+
             UpdateFileInfo();
             f.endEdit(this);
         }
@@ -359,8 +377,11 @@ namespace NSMBe4.DSFileSystem
         {
             OverlayFile f = fileTreeView.SelectedNode.Tag as OverlayFile;
 
-            if(f == null)
+            if (f == null)
                 MessageBox.Show("Error: Not an overlay file");
+
+            if (!f.isCompressed)
+                MessageBox.Show("Error: Overlay file is already decompressed");
 
             f.decompress();
         }
