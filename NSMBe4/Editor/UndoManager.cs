@@ -308,6 +308,7 @@ namespace NSMBe4
                     (obj as NSMBObject).UpdateObjCache();
             }
         }
+
         public override void Redo()
         {
             foreach (LevelItem obj in objs) {
@@ -319,6 +320,7 @@ namespace NSMBe4
                     (obj as NSMBObject).UpdateObjCache();
             }
         }
+
         public override bool CanMerge {
             get {
                 return true;

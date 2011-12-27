@@ -32,24 +32,24 @@ namespace NSMBe4
         int hovx = -1, hovy = -1;
         int tileCount;
 
+        public delegate void TileSelectedd(int tile, bool second);
+        public event TileSelectedd TileSelected;
+
+        NSMBTileset t;
+
         public TilePicker()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.Selectable, true);
         }
 
-        public delegate void TileSelectedd(int tile, bool second);
-        public event TileSelectedd TileSelected;
-        public delegate void QuarterChangedd(int dx, int dy);
-        public event QuarterChangedd QuarterChanged;
-
-        NSMBTileset t;
-
         public void SetTileset(NSMBTileset t)
         {
             this.t = t;
-            tileCount = t.TilesetBuffer.Width / 8;
-            tilesetImage = GraphicsViewer.CutImage(t.TilesetBuffer, 256, 2);
+
+            tilesetImage = t.graphics.render(t.palette1);
+            tileCount = 10;
+
             pictureBox1.Size = tilesetImage.Size;
             pictureBox1.Invalidate(true);
         }
@@ -110,17 +110,7 @@ namespace NSMBe4
 
         private void TilePicker_KeyPress(object sender, KeyPressEventArgs e)
         {
-//            Console.Out.WriteLine("Key pressed: " + e.KeyChar);
-            if(QuarterChanged == null) return;
 
-            if (e.KeyChar == 'a' || e.KeyChar == 'A')
-                QuarterChanged(-1, 0);
-            if (e.KeyChar == 'w' || e.KeyChar == 'W')
-                QuarterChanged(0, -1);
-            if (e.KeyChar == 's' || e.KeyChar == 'S')
-                QuarterChanged(0, 1);
-            if (e.KeyChar == 'd' || e.KeyChar == 'D')
-                QuarterChanged(1, 0);
         }
 
     }

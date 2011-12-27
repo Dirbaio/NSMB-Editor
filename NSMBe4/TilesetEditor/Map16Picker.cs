@@ -51,7 +51,7 @@ namespace NSMBe4
         {
             this.t = t;
             tileCount = t.Map16Buffer.Width / 16;
-            map16Image = GraphicsViewer.CutImage(t.Map16Buffer, 256, 1);
+            map16Image = Image2D.CutImage(t.Map16Buffer, 256, 1);
             pictureBox1.Size = map16Image.Size;
             pictureBox1.Invalidate(true);
         }
@@ -84,7 +84,8 @@ namespace NSMBe4
                 if (Control.ModifierKeys == Keys.Control && map16Editing)
                 {
                     int ot = selx + sely * 16;
-                    Array.Copy(this.t.TileBehaviors[ot], this.t.TileBehaviors[t], 4);
+                    //FIXME
+//                    Array.Copy(this.t.TileBehaviors[ot], this.t.TileBehaviors[t], 4);
                 }
                 selx = tx;
                 sely = ty;

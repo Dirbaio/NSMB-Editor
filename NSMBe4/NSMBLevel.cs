@@ -41,6 +41,8 @@ namespace NSMBe4
 
         private bool editing = false;
 
+        public int[,] levelTilemap = new int[512, 256];
+
         public NSMBLevel(File levelFile, File bgFile, NSMBGraphics GFX)
         {
             this.LevelFile = levelFile;
@@ -48,6 +50,12 @@ namespace NSMBe4
             this.GFX = GFX;
 
             int FilePos;
+
+            for(int x = 0; x < 512; x++)
+                for (int y = 0; y < 256; y++)
+                {
+                    levelTilemap[x,y] = (x + y) % 512; 
+                }
 
             // Level loading time yay.
             // Since I don't know the format for every block, I will just load them raw.

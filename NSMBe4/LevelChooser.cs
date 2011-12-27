@@ -88,6 +88,8 @@ namespace NSMBe4 {
                 tabControl1.TabPages.Remove(tabPage2);
                 nsmbToolsGroupbox.Enabled = false;
             }
+
+            new LevelEditor("A01_1", "LOL").Show();
         }
 
 

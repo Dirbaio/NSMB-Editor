@@ -18,13 +18,13 @@ namespace NSMBe4
         public FilePalette(File f, string name)
         {
             this.f = f;
-            f.beginEdit(this);
             this.name = name;
 
             pal = arrayToPalette(f.getContents());
             if(pal.Length != 0)
                 pal[0] = Color.Transparent;
         }
+
         public static Color[] arrayToPalette(byte[] data)
         {
             ByteArrayInputStream ii = new ByteArrayInputStream(data);
@@ -34,6 +34,11 @@ namespace NSMBe4
                 pal[i] = NSMBTileset.fromRGB15(ii.readUShort());
             }
             return pal;
+        }
+
+        public override void beginEdit()
+        {
+            f.beginEdit(this);
         }
 
         public override void save()
@@ -46,7 +51,7 @@ namespace NSMBe4
 
         }
 
-        public override void close()
+        public override void endEdit()
         {
             f.endEdit(this);
         }
