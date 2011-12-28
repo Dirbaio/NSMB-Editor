@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using NSMBe4.DSFileSystem;
+using System.Drawing;
 
 
 namespace NSMBe4
@@ -182,6 +183,26 @@ namespace NSMBe4
 
 
             CalculateSpriteModifiers();
+            repaintTilemap(0, 0, 512, 256);
+        }
+
+        public void repaintTilemap(int x, int y, int w, int h)
+        {
+            if (w == 0) return;
+            if (h == 0) return;
+
+            for (int xx = 0; xx < w; xx++)
+                for (int yy = 0; yy < h; yy++)
+                    levelTilemap[xx + x, yy + y] = -1;
+
+            Rectangle r = new Rectangle(x, y, w, h);
+            
+            for (int ObjIdx = 0; ObjIdx < Objects.Count; ObjIdx++) {
+                Rectangle ObjRect = new Rectangle(Objects[ObjIdx].X, Objects[ObjIdx].Y, Objects[ObjIdx].Width, Objects[ObjIdx].Height);
+                if (ObjRect.IntersectsWith(r)) {
+                    Objects[ObjIdx].renderTilemap(levelTilemap);
+                }
+            }
         }
 
         public void Remove(List<LevelItem> objs)

@@ -76,6 +76,11 @@ namespace NSMBe4
             UpdateObjCache();
         }
 
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(X, Y, Width, Height);
+        }
+
         public void UpdateObjCache() {
             if (GFX == null)
                 return;
@@ -105,11 +110,11 @@ namespace NSMBe4
             {
                 g.DrawRectangle(new Pen(Color.Red, 4), new Rectangle(X * 16, Y * 16, Width * 16, Height * 16));
                 g.DrawLine(new Pen(Color.Red, 4), new Point(X * 16, (Y + Height) * 16), new Point((X + Width) * 16, (Y) * 16));
-                g.DrawLine(new Pen(Color.Red, 4), new Point((X+Width)* 16, (Y + Height) * 16), new Point((X) * 16, (Y) * 16));
+                g.DrawLine(new Pen(Color.Red, 4), new Point((X + Width) * 16, (Y + Height) * 16), new Point((X) * 16, (Y) * 16));
                 return;
             }
 
-            if(ed.zoom > 1)
+            if (ed.zoom > 1)
             {
                 RectangleF srcRect = new RectangleF(0, 0, 16, 16);
                 RectangleF destRect = new RectangleF(X << 4, Y << 4, 16, 16);
@@ -123,18 +128,18 @@ namespace NSMBe4
                         destRect.X = (X + xx) << 4;
                         destRect.Y = (Y + yy) << 4;
 
-                        srcRect.X = (t%16)*16-0.5f;
-                        srcRect.Y = (t/16)*16-0.5f;
+                        srcRect.X = (t % 16) * 16 - 0.5f;
+                        srcRect.Y = (t / 16) * 16 - 0.5f;
 
                         g.DrawImage(GFX.Tilesets[Tileset].Map16Buffer, destRect.X, destRect.Y, srcRect, GraphicsUnit.Pixel);
 
-                        if(!GFX.Tilesets[Tileset].UseOverrides) continue;
+                        if (!GFX.Tilesets[Tileset].UseOverrides) continue;
                         int t2 = GFX.Tilesets[Tileset].Overrides[t];
                         if (t2 == -1) continue;
                         if (t2 == 0) continue;
 
-                        srcRect.X = t2 * 16-0.5f;
-                        srcRect.Y = 0-0.5f;
+                        srcRect.X = t2 * 16 - 0.5f;
+                        srcRect.Y = 0 - 0.5f;
 
                         g.DrawImage(GFX.Tilesets[Tileset].OverrideBitmap, destRect.X, destRect.Y, srcRect, GraphicsUnit.Pixel);
                     }
@@ -153,12 +158,12 @@ namespace NSMBe4
                         destRect.X = (X + xx) << 4;
                         destRect.Y = (Y + yy) << 4;
 
-                        srcRect.X = (t%16)*16;
-                        srcRect.Y = (t/16)*16;
+                        srcRect.X = (t % 16) * 16;
+                        srcRect.Y = (t / 16) * 16;
 
                         g.DrawImage(GFX.Tilesets[Tileset].Map16Buffer, destRect.X, destRect.Y, srcRect, GraphicsUnit.Pixel);
 
-                        if(!GFX.Tilesets[Tileset].UseOverrides) continue;
+                        if (!GFX.Tilesets[Tileset].UseOverrides) continue;
                         int t2 = GFX.Tilesets[Tileset].Overrides[t];
                         if (t2 == -1) continue;
                         if (t2 == 0) continue;
@@ -171,6 +176,24 @@ namespace NSMBe4
             }
         }
 
+
+        public void renderTilemap(int[,] tilemap)
+        {
+            for (int xx = 0; xx < CachedObj.GetLength(0); xx++)
+                for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
+                {
+                    int t = CachedObj[xx, yy];
+                    if (t == -1) continue;
+
+                    if (Tileset == 1)
+                        t += 256;
+                    else if (Tileset == 2)
+                        t += 256 * 4;
+
+                    tilemap[X + xx, Y + yy] = t;
+                }
+        }
+
         public void RenderPlain(Graphics g, int X, int Y)
         {
             if (badObject)
@@ -181,7 +204,7 @@ namespace NSMBe4
                 return;
             }
             Rectangle srcRect = new Rectangle(0, 0, 16, 16);
-            Rectangle destRect = new Rectangle(X << 4, Y << 4, 16, 16);
+            Rectangle destRect = new Rectangle(X, Y, 16, 16);
 
             for (int xx = 0; xx < CachedObj.GetLength(0); xx++)
                 for (int yy = 0; yy < CachedObj.GetLength(1); yy++)

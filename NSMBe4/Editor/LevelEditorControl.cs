@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace NSMBe4
 {
@@ -326,32 +327,43 @@ namespace NSMBe4
 
         Bitmap tileCache;
         Rectangle tileCacheRect;
+        int[,] tilemapRendered = new int[512, 256];
+
         private void updateTileCache()
         {
             Rectangle oldCacheRect = tileCacheRect;
             tileCacheRect = ViewableArea;
             Bitmap oldCache = tileCache;
 
-//            if (oldCacheRect.Width != ViewableArea.Width || oldCacheRect.Height != ViewableArea.Height)
-//            {
+            if(oldCacheRect != tileCacheRect)
                 tileCache = new Bitmap(ViewableArea.Width * 16, ViewableArea.Height * 16);
-  //          }
 
             Graphics g = Graphics.FromImage(tileCache);
-            if(oldCache != null)
+            if(oldCache != null && oldCacheRect != tileCacheRect)
                 g.DrawImage(oldCache, (oldCacheRect.X - tileCacheRect.X) * 16, (oldCacheRect.Y - tileCacheRect.Y) * 16);
 
+
+            g.CompositingMode = CompositingMode.SourceCopy;    
 
             Rectangle srcRect = new Rectangle(0, 0, 16, 16);
             Rectangle destRect = new Rectangle(0, 0, 16, 16);
             for (int xx = 0; xx < ViewableWidth; xx++)
                 for (int yy = 0; yy < ViewableHeight; yy++)
                 {
-                    if (oldCacheRect.Contains(xx + tileCacheRect.X, yy + tileCacheRect.Y))
-                        continue;
-
                     int t = Level.levelTilemap[xx + ViewableArea.X, yy + ViewableArea.Y];
-                    if (t == -1) continue;
+                    bool eq = t == tilemapRendered[xx + ViewableArea.X, yy + ViewableArea.Y];
+
+                    if (oldCacheRect.Contains(xx + tileCacheRect.X, yy + tileCacheRect.Y) && eq)
+                        continue;
+                    tilemapRendered[xx + ViewableArea.X, yy + ViewableArea.Y] = t;
+
+                    if (t == -1)
+                    {
+                        destRect.X = xx * 16;
+                        destRect.Y = yy * 16;
+                        g.FillRectangle(Brushes.Transparent, destRect);
+                        continue;
+                    }
 
                     int tileset = 0;
                     if (t >= 256 * 4)
