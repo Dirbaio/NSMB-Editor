@@ -142,8 +142,8 @@ namespace NSMBe4
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBSprite ns = new NSMBSprite(EdControl.Level);
-            ns.X = ViewableArea.X;
-            ns.Y = ViewableArea.Y;
+            ns.X = ViewableArea.X + ViewableArea.Width / 2;
+            ns.Y = ViewableArea.Y + ViewableArea.Height / 2;
             ns.Type = 0;
             ns.Data = new byte[6];
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ns)));

@@ -53,8 +53,8 @@ namespace NSMBe4
         {
             NSMBView nv = new NSMBView();
             Rectangle va = EdControl.ViewableArea;
-            nv.X = va.X * 16;
-            nv.Y = va.Y * 16;
+            nv.X = (va.X + (va.Width - 16) / 2) * 16;
+            nv.Y = (va.Y + (va.Height - 12) / 2) * 16;
             nv.Height = 12 * 16;
             nv.Width = 16 * 16;
             nv.isZone = !EditingViews;
