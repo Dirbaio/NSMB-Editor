@@ -166,6 +166,7 @@ namespace NSMBe4
             DrawingArea.Invalidate();
         }
 
+        int repa = 0;
         private void DrawingArea_Paint(object sender, PaintEventArgs e) 
         {
             if (!Ready) return;
@@ -180,6 +181,8 @@ namespace NSMBe4
 
             e.Graphics.ScaleTransform(zoom, zoom);
             e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
+
+            Console.WriteLine("REPAINT "+repa++);
 
             if (bgImage != null)
                 e.Graphics.DrawImage(bgImage, bgX, bgY);

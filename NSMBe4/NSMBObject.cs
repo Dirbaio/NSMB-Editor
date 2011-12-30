@@ -212,8 +212,8 @@ namespace NSMBe4
                     int t = CachedObj[xx, yy];
                     if (t == -1) continue;
 
-                    destRect.X = X + xx << 4;
-                    destRect.Y = Y + yy << 4;
+                    destRect.X = X + xx *16;
+                    destRect.Y = Y + yy *16;
 
                     srcRect.X = (t % 16) * 16;
                     srcRect.Y = (t / 16) * 16;
