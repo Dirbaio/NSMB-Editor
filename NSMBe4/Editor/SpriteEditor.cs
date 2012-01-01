@@ -32,7 +32,7 @@ namespace NSMBe4
         private byte[] SSTable;
         private bool updating = false;
 
-        public string[] allSprites = new string[324];
+        public string[] allSprites = new string[ROM.SpriteCount];
         private List<int> curSprites = new List<int>();
 
         public SpriteEditor(LevelEditorControl EdControl)
@@ -42,7 +42,7 @@ namespace NSMBe4
 
             SSTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
-            string[] spritelist = new string[324];
+            string[] spritelist = new string[ROM.SpriteCount];
             int i = 0;
             foreach (string sprite in SpriteData.spriteNames)
             {
@@ -52,13 +52,14 @@ namespace NSMBe4
 
             spriteListBox.Items.AddRange(spritelist);
             spriteListBox.Items.CopyTo(allSprites, 0);
-            for (int l = 0; l <= 323; l++)
+            for (int l = 0; l < ROM.SpriteCount; l++)
                 curSprites.Add(l);
 
             UpdateDataEditor();
             UpdateInfo();
 
             LanguageManager.ApplyToContainer(this, "SpriteEditor");
+            spriteTypeUpDown.Maximum = ROM.SpriteCount - 1;
         }
 
         private SpriteData.SpriteDataEditor sed;

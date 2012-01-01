@@ -61,6 +61,8 @@ namespace NSMBe4 {
         public static string romInternalName;
         public static string romGamecode;
 
+        public const int SpriteCount = 326;
+
         public static void load(String filename)
         {
             ROM.filename = filename;
@@ -199,7 +201,7 @@ namespace NSMBe4 {
         public static int[] FileSizes = {
                                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, //Don't include tables
                                             0x400, //Jyotyu_CHK
-                                            0x288, //Modifiers
+                                            ROM.SpriteCount*2, //Modifiers
                                         };
 
         public static ushort GetFileIDFromTable(int id, Data datatype) {

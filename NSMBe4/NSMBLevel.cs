@@ -459,10 +459,10 @@ namespace NSMBe4
 
 
         public void CalculateSpriteModifiers() {
-            ValidSprites = new bool[324];
+            ValidSprites = new bool[ROM.SpriteCount];
             byte[] ModifierTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
-            for (int idx = 0; idx < 324; idx++) {
+            for (int idx = 0; idx < ROM.SpriteCount; idx++) {
                 int ModifierOffset = ModifierTable[idx << 1];
                 int ModifierValue = ModifierTable[(idx << 1) + 1];
                 if (ModifierValue == 0) {

@@ -182,8 +182,6 @@ namespace NSMBe4
             e.Graphics.ScaleTransform(zoom, zoom);
             e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
 
-            Console.WriteLine("REPAINT "+repa++);
-
             if (bgImage != null)
                 e.Graphics.DrawImage(bgImage, bgX, bgY);
 
@@ -332,7 +330,12 @@ namespace NSMBe4
         Rectangle tileCacheRect;
         int[,] tilemapRendered = new int[512, 256];
 
-        private void updateTileCache()
+        public void updateTileCache()
+        {
+            updateTileCache(false);
+        }
+
+        public void updateTileCache(bool repaintAll)
         {
             Rectangle oldCacheRect = tileCacheRect;
             tileCacheRect = ViewableArea;
@@ -345,9 +348,6 @@ namespace NSMBe4
             if(oldCache != null && oldCacheRect != tileCacheRect)
                 g.DrawImage(oldCache, (oldCacheRect.X - tileCacheRect.X) * 16, (oldCacheRect.Y - tileCacheRect.Y) * 16);
 
-
-            g.CompositingMode = CompositingMode.SourceCopy;    
-
             Rectangle srcRect = new Rectangle(0, 0, 16, 16);
             Rectangle destRect = new Rectangle(0, 0, 16, 16);
             for (int xx = 0; xx < ViewableWidth; xx++)
@@ -356,10 +356,11 @@ namespace NSMBe4
                     int t = Level.levelTilemap[xx + ViewableArea.X, yy + ViewableArea.Y];
                     bool eq = t == tilemapRendered[xx + ViewableArea.X, yy + ViewableArea.Y];
 
-                    if (oldCacheRect.Contains(xx + tileCacheRect.X, yy + tileCacheRect.Y) && eq)
+                    if (oldCacheRect.Contains(xx + tileCacheRect.X, yy + tileCacheRect.Y) && eq && !repaintAll)
                         continue;
                     tilemapRendered[xx + ViewableArea.X, yy + ViewableArea.Y] = t;
 
+                    g.CompositingMode = CompositingMode.SourceCopy;
                     if (t == -1)
                     {
                         destRect.X = xx * 16;
@@ -384,6 +385,7 @@ namespace NSMBe4
                     srcRect.Y = (t / 16) * 16;
                     destRect.X = xx * 16;
                     destRect.Y = yy * 16;
+                    g.CompositingMode = CompositingMode.SourceOver;
                     g.DrawImage(GFX.Tilesets[tileset].Map16Buffer, xx * 16, yy * 16, srcRect, GraphicsUnit.Pixel);
 
                     if (!GFX.Tilesets[tileset].UseOverrides) continue;

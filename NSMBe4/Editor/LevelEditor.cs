@@ -189,6 +189,7 @@ namespace NSMBe4 {
             Properties.Settings.Default.SmallBlockOverlays = smallBlockOverlaysToolStripMenuItem.Checked;
             Properties.Settings.Default.Save();
             Level.ReRenderAll();
+            levelEditorControl1.updateTileCache(true);
             Invalidate(true);
         }
 
