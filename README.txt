@@ -18,7 +18,7 @@ Be.Windows.Forms.HexBox:
 Current version is: 147
 
 Websites:
-http://board.dirbaio.net/index.php - The NSMB Hacking Domain, a.k.a NSMBe Forum
+http://nsmbhd.net/ - The NSMB Hacking Domain, a.k.a NSMBe Forum
 http://code.google.com/p/nsmb-editor/ - NSMBe Project Page
 
 Credits:
