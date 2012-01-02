@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.entranceSetting1 = new System.Windows.Forms.CheckBox();
             this.entranceTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -53,7 +52,6 @@
             this.addEntranceButton = new System.Windows.Forms.Button();
             this.entranceListBox = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entranceViewUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entrancePipeIDUpDown)).BeginInit();
@@ -65,21 +63,10 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.tableLayoutPanel5);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(0, 178);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(293, 330);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "<groupBox2>";
-            // 
             // tableLayoutPanel5
             // 
-            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.AutoSize = true;
+            this.tableLayoutPanel5.CausesValidation = false;
             this.tableLayoutPanel5.ColumnCount = 2;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -102,7 +89,8 @@
             this.tableLayoutPanel5.Controls.Add(this.label15, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.entranceNumberUpDown, 1, 3);
             this.tableLayoutPanel5.Controls.Add(this.label16, 1, 1);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(6, 19);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 204);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 12;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
@@ -118,7 +106,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(281, 304);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(293, 304);
             this.tableLayoutPanel5.TabIndex = 10;
             // 
             // entranceSetting1
@@ -128,7 +116,7 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting1, 2);
             this.entranceSetting1.Location = new System.Drawing.Point(3, 283);
             this.entranceSetting1.Name = "entranceSetting1";
-            this.entranceSetting1.Size = new System.Drawing.Size(119, 17);
+            this.entranceSetting1.Size = new System.Drawing.Size(121, 17);
             this.entranceSetting1.TabIndex = 21;
             this.entranceSetting1.Text = "<entranceSetting1>";
             this.entranceSetting1.UseVisualStyleBackColor = true;
@@ -142,21 +130,21 @@
             this.entranceTypeComboBox.FormattingEnabled = true;
             this.entranceTypeComboBox.Location = new System.Drawing.Point(3, 3);
             this.entranceTypeComboBox.Name = "entranceTypeComboBox";
-            this.entranceTypeComboBox.Size = new System.Drawing.Size(275, 21);
+            this.entranceTypeComboBox.Size = new System.Drawing.Size(287, 21);
             this.entranceTypeComboBox.TabIndex = 3;
             this.entranceTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.entranceTypeComboBox_SelectedIndexChanged);
             // 
             // entranceViewUpDown
             // 
             this.entranceViewUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entranceViewUpDown.Location = new System.Drawing.Point(143, 185);
+            this.entranceViewUpDown.Location = new System.Drawing.Point(149, 185);
             this.entranceViewUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.entranceViewUpDown.Name = "entranceViewUpDown";
-            this.entranceViewUpDown.Size = new System.Drawing.Size(135, 20);
+            this.entranceViewUpDown.Size = new System.Drawing.Size(141, 20);
             this.entranceViewUpDown.TabIndex = 17;
             this.entranceViewUpDown.ValueChanged += new System.EventHandler(this.entranceViewUpDown_ValueChanged);
             // 
@@ -164,7 +152,7 @@
             // 
             this.label21.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(84, 188);
+            this.label21.Location = new System.Drawing.Point(90, 188);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(53, 13);
             this.label21.TabIndex = 16;
@@ -173,14 +161,14 @@
             // entrancePipeIDUpDown
             // 
             this.entrancePipeIDUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entrancePipeIDUpDown.Location = new System.Drawing.Point(143, 159);
+            this.entrancePipeIDUpDown.Location = new System.Drawing.Point(149, 159);
             this.entrancePipeIDUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.entrancePipeIDUpDown.Name = "entrancePipeIDUpDown";
-            this.entrancePipeIDUpDown.Size = new System.Drawing.Size(135, 20);
+            this.entrancePipeIDUpDown.Size = new System.Drawing.Size(141, 20);
             this.entrancePipeIDUpDown.TabIndex = 15;
             this.entrancePipeIDUpDown.ValueChanged += new System.EventHandler(this.entrancePipeIDUpDown_ValueChanged);
             // 
@@ -188,7 +176,7 @@
             // 
             this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(84, 162);
+            this.label20.Location = new System.Drawing.Point(90, 162);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(53, 13);
             this.label20.TabIndex = 14;
@@ -197,14 +185,14 @@
             // entranceDestEntranceUpDown
             // 
             this.entranceDestEntranceUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entranceDestEntranceUpDown.Location = new System.Drawing.Point(143, 133);
+            this.entranceDestEntranceUpDown.Location = new System.Drawing.Point(149, 133);
             this.entranceDestEntranceUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.entranceDestEntranceUpDown.Name = "entranceDestEntranceUpDown";
-            this.entranceDestEntranceUpDown.Size = new System.Drawing.Size(135, 20);
+            this.entranceDestEntranceUpDown.Size = new System.Drawing.Size(141, 20);
             this.entranceDestEntranceUpDown.TabIndex = 13;
             this.entranceDestEntranceUpDown.ValueChanged += new System.EventHandler(this.entranceDestEntranceUpDown_ValueChanged);
             // 
@@ -212,7 +200,7 @@
             // 
             this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(84, 136);
+            this.label19.Location = new System.Drawing.Point(90, 136);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(53, 13);
             this.label19.TabIndex = 12;
@@ -221,14 +209,14 @@
             // entranceDestAreaUpDown
             // 
             this.entranceDestAreaUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entranceDestAreaUpDown.Location = new System.Drawing.Point(143, 107);
+            this.entranceDestAreaUpDown.Location = new System.Drawing.Point(149, 107);
             this.entranceDestAreaUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.entranceDestAreaUpDown.Name = "entranceDestAreaUpDown";
-            this.entranceDestAreaUpDown.Size = new System.Drawing.Size(135, 20);
+            this.entranceDestAreaUpDown.Size = new System.Drawing.Size(141, 20);
             this.entranceDestAreaUpDown.TabIndex = 11;
             this.entranceDestAreaUpDown.ValueChanged += new System.EventHandler(this.entranceDestAreaUpDown_ValueChanged);
             // 
@@ -236,7 +224,7 @@
             // 
             this.label18.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(84, 110);
+            this.label18.Location = new System.Drawing.Point(90, 110);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(53, 13);
             this.label18.TabIndex = 10;
@@ -250,14 +238,14 @@
             0,
             0,
             0});
-            this.entranceCameraYPosUpDown.Location = new System.Drawing.Point(143, 55);
+            this.entranceCameraYPosUpDown.Location = new System.Drawing.Point(149, 55);
             this.entranceCameraYPosUpDown.Maximum = new decimal(new int[] {
             4095,
             0,
             0,
             0});
             this.entranceCameraYPosUpDown.Name = "entranceCameraYPosUpDown";
-            this.entranceCameraYPosUpDown.Size = new System.Drawing.Size(135, 20);
+            this.entranceCameraYPosUpDown.Size = new System.Drawing.Size(141, 20);
             this.entranceCameraYPosUpDown.TabIndex = 7;
             this.entranceCameraYPosUpDown.ValueChanged += new System.EventHandler(this.entranceCameraYPosUpDown_ValueChanged);
             // 
@@ -269,14 +257,14 @@
             0,
             0,
             0});
-            this.entranceCameraXPosUpDown.Location = new System.Drawing.Point(143, 29);
+            this.entranceCameraXPosUpDown.Location = new System.Drawing.Point(149, 29);
             this.entranceCameraXPosUpDown.Maximum = new decimal(new int[] {
             8191,
             0,
             0,
             0});
             this.entranceCameraXPosUpDown.Name = "entranceCameraXPosUpDown";
-            this.entranceCameraXPosUpDown.Size = new System.Drawing.Size(135, 20);
+            this.entranceCameraXPosUpDown.Size = new System.Drawing.Size(141, 20);
             this.entranceCameraXPosUpDown.TabIndex = 5;
             this.entranceCameraXPosUpDown.ValueChanged += new System.EventHandler(this.entranceCameraXPosUpDown_ValueChanged);
             // 
@@ -287,7 +275,7 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting128, 2);
             this.entranceSetting128.Location = new System.Drawing.Point(3, 211);
             this.entranceSetting128.Name = "entranceSetting128";
-            this.entranceSetting128.Size = new System.Drawing.Size(131, 17);
+            this.entranceSetting128.Size = new System.Drawing.Size(133, 17);
             this.entranceSetting128.TabIndex = 18;
             this.entranceSetting128.Text = "<entranceSetting128>";
             this.entranceSetting128.UseVisualStyleBackColor = true;
@@ -300,7 +288,7 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting16, 2);
             this.entranceSetting16.Location = new System.Drawing.Point(3, 235);
             this.entranceSetting16.Name = "entranceSetting16";
-            this.entranceSetting16.Size = new System.Drawing.Size(125, 17);
+            this.entranceSetting16.Size = new System.Drawing.Size(127, 17);
             this.entranceSetting16.TabIndex = 19;
             this.entranceSetting16.Text = "<entranceSetting16>";
             this.entranceSetting16.UseVisualStyleBackColor = true;
@@ -313,7 +301,7 @@
             this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting8, 2);
             this.entranceSetting8.Location = new System.Drawing.Point(3, 259);
             this.entranceSetting8.Name = "entranceSetting8";
-            this.entranceSetting8.Size = new System.Drawing.Size(119, 17);
+            this.entranceSetting8.Size = new System.Drawing.Size(121, 17);
             this.entranceSetting8.TabIndex = 20;
             this.entranceSetting8.Text = "<entranceSetting8>";
             this.entranceSetting8.UseVisualStyleBackColor = true;
@@ -323,7 +311,7 @@
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(84, 84);
+            this.label17.Location = new System.Drawing.Point(90, 84);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(53, 13);
             this.label17.TabIndex = 8;
@@ -333,7 +321,7 @@
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(84, 32);
+            this.label15.Location = new System.Drawing.Point(90, 32);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(53, 13);
             this.label15.TabIndex = 4;
@@ -342,14 +330,14 @@
             // entranceNumberUpDown
             // 
             this.entranceNumberUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entranceNumberUpDown.Location = new System.Drawing.Point(143, 81);
+            this.entranceNumberUpDown.Location = new System.Drawing.Point(149, 81);
             this.entranceNumberUpDown.Maximum = new decimal(new int[] {
             8191,
             0,
             0,
             0});
             this.entranceNumberUpDown.Name = "entranceNumberUpDown";
-            this.entranceNumberUpDown.Size = new System.Drawing.Size(135, 20);
+            this.entranceNumberUpDown.Size = new System.Drawing.Size(141, 20);
             this.entranceNumberUpDown.TabIndex = 9;
             this.entranceNumberUpDown.ValueChanged += new System.EventHandler(this.entranceNumberUpDown_ValueChanged);
             // 
@@ -357,7 +345,7 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(84, 58);
+            this.label16.Location = new System.Drawing.Point(90, 58);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(53, 13);
             this.label16.TabIndex = 6;
@@ -367,7 +355,7 @@
             // 
             this.deleteEntranceButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.deleteEntranceButton.Enabled = false;
-            this.deleteEntranceButton.Location = new System.Drawing.Point(150, 152);
+            this.deleteEntranceButton.Location = new System.Drawing.Point(149, 6);
             this.deleteEntranceButton.Name = "deleteEntranceButton";
             this.deleteEntranceButton.Size = new System.Drawing.Size(93, 23);
             this.deleteEntranceButton.TabIndex = 6;
@@ -378,7 +366,7 @@
             // addEntranceButton
             // 
             this.addEntranceButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.addEntranceButton.Location = new System.Drawing.Point(51, 152);
+            this.addEntranceButton.Location = new System.Drawing.Point(50, 6);
             this.addEntranceButton.Name = "addEntranceButton";
             this.addEntranceButton.Size = new System.Drawing.Size(93, 23);
             this.addEntranceButton.TabIndex = 5;
@@ -388,37 +376,34 @@
             // 
             // entranceListBox
             // 
-            this.entranceListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.entranceListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.entranceListBox.FormattingEnabled = true;
             this.entranceListBox.Location = new System.Drawing.Point(0, 0);
             this.entranceListBox.Name = "entranceListBox";
             this.entranceListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.entranceListBox.Size = new System.Drawing.Size(293, 147);
+            this.entranceListBox.Size = new System.Drawing.Size(293, 169);
             this.entranceListBox.TabIndex = 4;
             this.entranceListBox.SelectedIndexChanged += new System.EventHandler(this.entranceListBox_SelectedIndexChanged);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.entranceListBox);
             this.panel1.Controls.Add(this.deleteEntranceButton);
             this.panel1.Controls.Add(this.addEntranceButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 169);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(293, 178);
+            this.panel1.Size = new System.Drawing.Size(293, 35);
             this.panel1.TabIndex = 8;
             // 
             // EntranceEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.entranceListBox);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.tableLayoutPanel5);
             this.Name = "EntranceEditor";
             this.Size = new System.Drawing.Size(293, 508);
-            this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entranceViewUpDown)).EndInit();
@@ -430,12 +415,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.entranceNumberUpDown)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.CheckBox entranceSetting1;
         private System.Windows.Forms.ComboBox entranceTypeComboBox;
