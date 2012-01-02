@@ -49,7 +49,7 @@ namespace NSMBe4
         {
             this.t = t;
             tileCount = t.TilesetBuffer.Width / 8;
-            tilesetImage = GraphicsViewer.CutImage(t.TilesetBuffer, 256, 2);
+            tilesetImage = Image2D.CutImage(t.TilesetBuffer, 256, 2);
             pictureBox1.Size = tilesetImage.Size;
             pictureBox1.Invalidate(true);
         }
