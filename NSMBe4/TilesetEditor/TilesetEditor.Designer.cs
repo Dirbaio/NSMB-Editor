@@ -34,8 +34,7 @@
             this.tilesetObjectEditor1 = new NSMBe4.TilesetObjectEditor();
             this.objectPickerControl1 = new NSMBe4.ObjectPickerControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.imageManager1 = new NSMBe4.ImageManager();
+            this.map16Editor1 = new NSMBe4.Map16Editor();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -56,7 +55,7 @@
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +63,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
@@ -106,6 +104,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.map16Editor1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -113,24 +112,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             // 
-            // tabPage3
+            // map16Editor1
             // 
-            this.tabPage3.Controls.Add(this.imageManager1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(949, 510);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // imageManager1
-            // 
-            this.imageManager1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageManager1.Location = new System.Drawing.Point(3, 3);
-            this.imageManager1.Name = "imageManager1";
-            this.imageManager1.Size = new System.Drawing.Size(943, 504);
-            this.imageManager1.TabIndex = 0;
+            this.map16Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.map16Editor1.Location = new System.Drawing.Point(3, 3);
+            this.map16Editor1.Name = "map16Editor1";
+            this.map16Editor1.Size = new System.Drawing.Size(943, 504);
+            this.map16Editor1.TabIndex = 0;
+            this.map16Editor1.mustRepaintObjects += new NSMBe4.Map16Editor.mustRepaintObjectsD(this.mustRepaintObjects);
             // 
             // toolStrip1
             // 
@@ -173,7 +162,7 @@
             this.deleteAllButton.Image = global::NSMBe4.Properties.Resources.cross_script;
             this.deleteAllButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteAllButton.Name = "deleteAllButton";
-            this.deleteAllButton.Size = new System.Drawing.Size(72, 22);
+            this.deleteAllButton.Size = new System.Drawing.Size(77, 22);
             this.deleteAllButton.Text = "<Del All>";
             this.deleteAllButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -187,7 +176,7 @@
             this.exportButton.Image = global::NSMBe4.Properties.Resources.image__arrow;
             this.exportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(75, 22);
+            this.exportButton.Size = new System.Drawing.Size(76, 22);
             this.exportButton.Text = "<Export>";
             this.exportButton.Click += new System.EventHandler(this.exportButton_Click_1);
             // 
@@ -196,7 +185,7 @@
             this.importButton.Image = global::NSMBe4.Properties.Resources.image__plus;
             this.importButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(75, 22);
+            this.importButton.Size = new System.Drawing.Size(79, 22);
             this.importButton.Text = "<Import>";
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
@@ -210,7 +199,7 @@
             this.exportTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("exportTilesetButton.Image")));
             this.exportTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportTilesetButton.Name = "exportTilesetButton";
-            this.exportTilesetButton.Size = new System.Drawing.Size(107, 22);
+            this.exportTilesetButton.Size = new System.Drawing.Size(110, 22);
             this.exportTilesetButton.Text = "<export tileset>";
             this.exportTilesetButton.Click += new System.EventHandler(this.exportTilesetButton_Click);
             // 
@@ -219,7 +208,7 @@
             this.importTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("importTilesetButton.Image")));
             this.importTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importTilesetButton.Name = "importTilesetButton";
-            this.importTilesetButton.Size = new System.Drawing.Size(105, 22);
+            this.importTilesetButton.Size = new System.Drawing.Size(113, 22);
             this.importTilesetButton.Text = "<import tileset>";
             this.importTilesetButton.Click += new System.EventHandler(this.importTilesetButton_Click);
             // 
@@ -233,7 +222,7 @@
             this.createDescriptions.Image = global::NSMBe4.Properties.Resources.textfield_add;
             this.createDescriptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.createDescriptions.Name = "createDescriptions";
-            this.createDescriptions.Size = new System.Drawing.Size(100, 22);
+            this.createDescriptions.Size = new System.Drawing.Size(107, 22);
             this.createDescriptions.Text = "<descriptions>";
             this.createDescriptions.Click += new System.EventHandler(this.createDescriptions_Click);
             // 
@@ -242,7 +231,7 @@
             this.deleteDescriptions.Image = global::NSMBe4.Properties.Resources.cross_script;
             this.deleteDescriptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteDescriptions.Name = "deleteDescriptions";
-            this.deleteDescriptions.Size = new System.Drawing.Size(133, 22);
+            this.deleteDescriptions.Size = new System.Drawing.Size(142, 22);
             this.deleteDescriptions.Text = "<delete descriptions>";
             this.deleteDescriptions.Click += new System.EventHandler(this.deleteDescriptions_Click);
             // 
@@ -251,7 +240,7 @@
             this.setend.Image = global::NSMBe4.Properties.Resources.cross_script;
             this.setend.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setend.Name = "setend";
-            this.setend.Size = new System.Drawing.Size(79, 22);
+            this.setend.Size = new System.Drawing.Size(81, 22);
             this.setend.Text = "<set end>";
             this.setend.ToolTipText = "makes the selected block the last in the tileset";
             this.setend.Click += new System.EventHandler(this.setend_Click);
@@ -285,7 +274,7 @@
             this.Load += new System.EventHandler(this.TilesetEditor_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -302,6 +291,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private TilesetObjectEditor tilesetObjectEditor1;
         private System.Windows.Forms.TabPage tabPage2;
+        private Map16Editor map16Editor1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripButton deleteAllButton;
         private System.Windows.Forms.ToolStripButton importButton;
@@ -318,7 +308,5 @@
         private System.Windows.Forms.ToolStripButton createDescriptions;
         private System.Windows.Forms.ToolStripButton deleteDescriptions;
         private System.Windows.Forms.ToolStripButton setend;
-        private System.Windows.Forms.TabPage tabPage3;
-        private ImageManager imageManager1;
     }
 }

@@ -165,8 +165,8 @@ namespace NSMBe4
             np.isProgressPath = isProgress;
 
             NSMBPathPoint npp = new NSMBPathPoint(np);
-            npp.X = (va.X + va.Width / 2) * 16;
-            npp.Y = (va.Y + va.Height / 2) * 16;
+            npp.X = va.X * 16;
+            npp.Y = va.Y * 16;
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(npp)));
             EdControl.mode.SelectObject(npp);
         }

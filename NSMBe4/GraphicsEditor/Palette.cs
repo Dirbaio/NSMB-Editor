@@ -9,9 +9,8 @@ namespace NSMBe4
     {
         public Color[] pal;
 
-        public abstract void beginEdit();
         public abstract void save();
-        public abstract void endEdit();
+        public abstract void close();
 
         public int getClosestColor(Color c)
         {

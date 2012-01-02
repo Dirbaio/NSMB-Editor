@@ -29,6 +29,7 @@ namespace NSMBe4.DSFileSystem
 {
     public partial class FilesystemBrowser : UserControl
     {
+        public static GraphicsViewer gv;
         private Filesystem fs;
 
         public FilesystemBrowser()

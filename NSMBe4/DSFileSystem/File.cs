@@ -337,6 +337,7 @@ namespace NSMBe4.DSFileSystem
             return ed == editedBy;
         }
 
+
         public bool isAddrInFile(int addr)
         {
             return addr >= fileBegin && addr < fileBegin + fileSize;

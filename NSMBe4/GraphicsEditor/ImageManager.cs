@@ -60,7 +60,7 @@ namespace NSMBe4
         {
             if (Control.ModifierKeys == Keys.Control)
             {
-                (imageListBox.SelectedItem as PalettedImage).endEdit();
+                (imageListBox.SelectedItem as PalettedImage).close();
                 imageListBox.Items.Remove(imageListBox.SelectedItem);
             }
             else
@@ -81,7 +81,7 @@ namespace NSMBe4
         {
             if (Control.ModifierKeys == Keys.Control)
             {
-                (paletteListBox.SelectedItem as Palette).endEdit();
+                (paletteListBox.SelectedItem as Palette).close();
                 paletteListBox.Items.Remove(paletteListBox.SelectedItem);
             }
             else
@@ -92,9 +92,9 @@ namespace NSMBe4
         public void close()
         {
             foreach (object o in imageListBox.Items)
-                (o as PalettedImage).endEdit();
+                (o as PalettedImage).close();
             foreach (object o in paletteListBox.Items)
-                (o as Palette).endEdit();
+                (o as Palette).close();
         }
 
         private void imageListBox_MouseDown(object sender, MouseEventArgs e)

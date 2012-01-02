@@ -16,8 +16,7 @@ namespace NSMBe4
         public abstract void save();
         public abstract int getWidth();
         public abstract int getHeight();
-        public abstract void beginEdit();
-        public abstract void endEdit();
+        public abstract void close();
 
         //These two must return raw data representing the whole image
         //Used for undo/redo in the GraphicsEditor

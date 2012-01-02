@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 
 namespace NSMBe4
 {
@@ -69,9 +68,7 @@ namespace NSMBe4
             vScrollBar.Visible = true;
             ViewableArea = new Rectangle();
             UpdateScrollbars();
-            remakeTileCache();
             DrawingArea.Invalidate();
-
         }
 
         public void SetEditionMode(EditionMode nm)
@@ -166,9 +163,7 @@ namespace NSMBe4
             DrawingArea.Invalidate();
         }
 
-        int repa = 0;
-        private void DrawingArea_Paint(object sender, PaintEventArgs e) 
-        {
+        private void DrawingArea_Paint(object sender, PaintEventArgs e) {
             if (!Ready) return;
             minimap.Invalidate(true);
             minimapctrl.Invalidate(true);
@@ -190,21 +185,13 @@ namespace NSMBe4
                 for (int y = ViewableBlocks.Y / 16; y <= (ViewableBlocks.Height + ViewableBlocks.Y) / 16; y++)
                     e.Graphics.DrawRectangle(Pens.LightGray, x * 256, y * 256, 256, 256);
 
-            
+
             //RENDER OBJECTS
-/*            for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
+            for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
                 Rectangle ObjRect = new Rectangle(Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
                 if (ObjRect.IntersectsWith(ViewableArea)) {
                     Level.Objects[ObjIdx].render(e.Graphics, this);
                 }
-            }*/
-
-
-            if (tileCache != null)
-            {
-                updateTileCache();
-
-                e.Graphics.DrawImage(tileCache, hScrollBar.Value * 16, vScrollBar.Value * 16);
             }
 
             foreach(NSMBSprite s in Level.Sprites)
@@ -324,89 +311,6 @@ namespace NSMBe4
                 if (mode != null)
                     mode.MouseDown((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y/zoom) + vScrollBar.Value * 16);
             }
-        }
-
-        Bitmap tileCache;
-        Rectangle tileCacheRect;
-        int[,] tilemapRendered = new int[512, 256];
-
-        public void updateTileCache()
-        {
-            updateTileCache(false);
-        }
-
-        public void updateTileCache(bool repaintAll)
-        {
-            Rectangle oldCacheRect = tileCacheRect;
-            tileCacheRect = ViewableArea;
-            Bitmap oldCache = tileCache;
-
-            if(oldCacheRect != tileCacheRect)
-                tileCache = new Bitmap(ViewableArea.Width * 16, ViewableArea.Height * 16);
-
-            Graphics g = Graphics.FromImage(tileCache);
-            if(oldCache != null && oldCacheRect != tileCacheRect)
-                g.DrawImage(oldCache, (oldCacheRect.X - tileCacheRect.X) * 16, (oldCacheRect.Y - tileCacheRect.Y) * 16);
-
-            Rectangle srcRect = new Rectangle(0, 0, 16, 16);
-            Rectangle destRect = new Rectangle(0, 0, 16, 16);
-            for (int xx = 0; xx < ViewableWidth; xx++)
-                for (int yy = 0; yy < ViewableHeight; yy++)
-                {
-                    int t = Level.levelTilemap[xx + ViewableArea.X, yy + ViewableArea.Y];
-                    bool eq = t == tilemapRendered[xx + ViewableArea.X, yy + ViewableArea.Y];
-
-                    if (oldCacheRect.Contains(xx + tileCacheRect.X, yy + tileCacheRect.Y) && eq && !repaintAll)
-                        continue;
-                    tilemapRendered[xx + ViewableArea.X, yy + ViewableArea.Y] = t;
-
-                    g.CompositingMode = CompositingMode.SourceCopy;
-                    if (t == -1)
-                    {
-                        destRect.X = xx * 16;
-                        destRect.Y = yy * 16;
-                        g.FillRectangle(Brushes.Transparent, destRect);
-                        continue;
-                    }
-
-                    int tileset = 0;
-                    if (t >= 256 * 4)
-                    {
-                        t -= 256 * 4;
-                        tileset = 2;
-                    }
-                    else if (t >= 256)
-                    {
-                        t -= 256;
-                        tileset = 1;
-                    }
-
-                    srcRect.X = (t % 16) * 16;
-                    srcRect.Y = (t / 16) * 16;
-                    destRect.X = xx * 16;
-                    destRect.Y = yy * 16;
-                    g.CompositingMode = CompositingMode.SourceOver;
-                    g.DrawImage(GFX.Tilesets[tileset].Map16Buffer, xx * 16, yy * 16, srcRect, GraphicsUnit.Pixel);
-
-                    if (!GFX.Tilesets[tileset].UseOverrides) continue;
-                    int t2 = GFX.Tilesets[tileset].Overrides[t];
-                    if (t2 == -1) continue;
-                    if (t2 == 0) continue;
-
-                    srcRect.X = t2 * 16;
-                    srcRect.Y = 0;
-
-                    g.DrawImage(GFX.Tilesets[tileset].OverrideBitmap, destRect, srcRect, GraphicsUnit.Pixel);
-                }
-        }
-
-        private void remakeTileCache()
-        {
-            if (ViewableArea.Width == 0 || ViewableArea.Height == 0) return;
-
-            tileCache = new Bitmap(ViewableArea.Width * 16, ViewableArea.Height * 16);
-            Graphics g = Graphics.FromImage(tileCache);
-
         }
 
         private void DrawingArea_SizeChanged(object sender, EventArgs e)

@@ -39,7 +39,7 @@ namespace NSMBe4
         private void CreateObject_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
-            NSMBObject no = new NSMBObject(10, 0, ViewableArea.X + ViewableArea.Width / 2, ViewableArea.Y + ViewableArea.Height / 2, 1, 1, EdControl.GFX);
+            NSMBObject no = new NSMBObject(10, 0, ViewableArea.X, ViewableArea.Y, 1, 1, EdControl.GFX);
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(no)));
             EdControl.mode.SelectObject(no);
         }
@@ -48,8 +48,8 @@ namespace NSMBe4
         {
             Rectangle ViewableArea = EdControl.ViewableArea;
             NSMBSprite ns = new NSMBSprite(EdControl.Level);
-            ns.X = ViewableArea.X + ViewableArea.Width / 2;
-            ns.Y = ViewableArea.Y + ViewableArea.Height / 2;
+            ns.X = ViewableArea.X;
+            ns.Y = ViewableArea.Y;
             ns.Type = 0;
             ns.Data = new byte[6];
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ns)));

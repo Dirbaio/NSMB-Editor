@@ -151,8 +151,8 @@ namespace NSMBe4
             Rectangle ViewableArea = EdControl.ViewableArea;
 
             NSMBEntrance ne = new NSMBEntrance();
-            ne.X = (ViewableArea.X + ViewableArea.Width / 2) * 16;
-            ne.Y = (ViewableArea.Y + ViewableArea.Height / 2) * 16;
+            ne.X = ViewableArea.X * 16;
+            ne.Y = ViewableArea.Y * 16;
             ne.Number = EdControl.Level.getFreeEntranceNumber();
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ne)));
             EdControl.mode.SelectObject(ne);

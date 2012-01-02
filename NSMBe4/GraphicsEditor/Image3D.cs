@@ -41,7 +41,7 @@ namespace NSMBe4
             this.height = height;
             this.format = format;
 
-//            f.beginEdit(this);
+            f.beginEdit(this);
             data = f.getContents();
         }
 
@@ -148,13 +148,9 @@ namespace NSMBe4
             f.replace(data, this);
         }
 
-        public override void endEdit()
+        public override void close()
         {
             f.endEdit(this);
-        }
-        public override void beginEdit()
-        {
-            f.beginEdit(this);
         }
 
 

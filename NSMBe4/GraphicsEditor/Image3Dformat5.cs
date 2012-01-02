@@ -17,8 +17,8 @@ namespace NSMBe4
         {
             this.f = f;
             this.f5 = f5;
-//            f.beginEdit(this);
-//            f5.beginEdit(this);
+            f.beginEdit(this);
+            f5.beginEdit(this);
             this.width = width;
             this.height = height;
         }
@@ -80,16 +80,10 @@ namespace NSMBe4
             return b;
         }
 
-        public override void endEdit()
+        public override void close()
         {
             f.endEdit(this);
             f5.endEdit(this);
-        }
-
-        public override void beginEdit()
-        {
-            f.beginEdit(this);
-            f5.beginEdit(this);
         }
 
         public override void replaceWithPal(Bitmap b, Palette p)

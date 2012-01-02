@@ -73,8 +73,7 @@ namespace NSMBe4
 
             // Patch in a bunch of overrides to the normal tileset
             // Now works directly on the map16 data
-            Tilesets[0].UseOverrides = true;
-            Tilesets[0].Overrides[36] = 135;
+            Tilesets[0].EditorOverrides[36] = 135;
             Tilesets[0].Overrides[112] = 26;
             Tilesets[0].Overrides[113] = 27;
             Tilesets[0].Overrides[114] = 53;
@@ -190,7 +189,7 @@ namespace NSMBe4
             Tilesets[0].Overrides[253] = 60;
             Tilesets[0].Overrides[254] = 64;
             Tilesets[0].Overrides[255] = 62;
-//            Tilesets[0].repaintAllMap16();
+            Tilesets[0].repaintAllMap16();
 
             RepatchBlocks(Properties.Settings.Default.SmallBlockOverlays);
 
@@ -225,20 +224,20 @@ namespace NSMBe4
         public void RepatchBlocks(bool type) {
             /* Question blocks */
             for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++) {
-                Tilesets[0].Overrides[BlockIdx + 64] = (short)(BlockIdx + (type ? 89 : 73));
+                Tilesets[0].EditorOverrides[BlockIdx + 64] = (short)(BlockIdx + (type ? 89 : 73));
             }
 
-            Tilesets[0].Overrides[48] = (short)(type ? 103 : 87);
-            Tilesets[0].Overrides[49] = (short)(type ? 104 : 88);
+            Tilesets[0].EditorOverrides[48] = (short)(type ? 103 : 87);
+            Tilesets[0].EditorOverrides[49] = (short)(type ? 104 : 88);
 
             /* Brick blocks */
             for (int BlockIdx = 0; BlockIdx < 9; BlockIdx++) {
-                Tilesets[0].Overrides[BlockIdx + 80] = (short)(BlockIdx + (type ? 114 : 105));
+                Tilesets[0].EditorOverrides[BlockIdx + 80] = (short)(BlockIdx + (type ? 114 : 105));
             }
 
             /* Invisible blocks */
             for (int BlockIdx = 0; BlockIdx < 6; BlockIdx++) {
-                Tilesets[0].Overrides[BlockIdx + 176] = (short)(BlockIdx + (type ? 129 : 123));
+                Tilesets[0].EditorOverrides[BlockIdx + 176] = (short)(BlockIdx + (type ? 129 : 123));
             }
         }
 
@@ -259,10 +258,10 @@ namespace NSMBe4
         }
 
         public void close()
-        {/*
+        {
             Tilesets[0].close();
             Tilesets[1].close();
-            Tilesets[2].close();*/
+            Tilesets[2].close();
         }
 
         public NSMBTileset[] Tilesets;

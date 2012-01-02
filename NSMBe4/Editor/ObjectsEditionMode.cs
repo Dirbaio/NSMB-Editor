@@ -375,7 +375,6 @@ namespace NSMBe4
                         if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
                         yResizeDelta = yDelta;
                     }
-                    if (xMoveDelta == 0 && yMoveDelta == 0 && xResizeDelta == 0 && yResizeDelta == 0) return;
 
                     minBoundX += xMoveDelta;
                     minBoundY += yMoveDelta;
