@@ -50,9 +50,6 @@ using System.Runtime.InteropServices;
 
 namespace NSMBe4 {
     public static class ROM {
-
-        public const int SpriteCount = 326;
-
         public static byte[] Overlay0;
         public static NitroROMFilesystem FS;
         public static string filename;
@@ -63,6 +60,8 @@ namespace NSMBe4 {
         public static bool isNSMBRom = true;
         public static string romInternalName;
         public static string romGamecode;
+
+        public const int SpriteCount = 326;
 
         public static void load(String filename)
         {

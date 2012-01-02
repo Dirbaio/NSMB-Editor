@@ -243,9 +243,38 @@ namespace NSMBe4
             if (objs.Count == 0)
                 cancel = true;
         }
+
         public override void SelectObjects()
         {
             EdControl.SelectObject(objs);
+        }
+
+        protected Rectangle getObjectRectangle()
+        {
+            bool found = false;
+            Rectangle r = new Rectangle(0, 0, 0, 0);
+
+            foreach (LevelItem i in objs)
+            {
+                NSMBObject o = i as NSMBObject;
+                if (o == null) continue;
+
+                if (found)
+                {
+                    r = Rectangle.Union(r, o.getRectangle());
+                }
+                else r = o.getRectangle();
+                found = true;
+            }
+
+            return r;
+        }
+
+
+        protected void repaintObjectRectangle()
+        {
+            Rectangle r = getObjectRectangle();
+            EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
         }
     }
 
@@ -255,10 +284,12 @@ namespace NSMBe4
         public override void Undo()
         {
             EdControl.Level.Remove(objs);
+            repaintObjectRectangle();
         }
         public override void Redo()
         {
             EdControl.Level.Add(objs);
+            repaintObjectRectangle();
         }
     }
     public class RemoveLvlItemAction : LvlItemAction
@@ -267,10 +298,12 @@ namespace NSMBe4
         public override void Undo()
         {
             EdControl.Level.Add(objs);
+            repaintObjectRectangle();
         }
         public override void Redo()
         {
             EdControl.Level.Remove(objs);
+            repaintObjectRectangle();
         }
     }
 
@@ -299,7 +332,10 @@ namespace NSMBe4
 
         public override void Undo()
         {
-            foreach (LevelItem obj in objs) {
+            Rectangle r = getObjectRectangle();
+
+            foreach (LevelItem obj in objs)
+            {
                 obj.x -= XDelta;
                 obj.y -= YDelta;
                 obj.width -= XSDelta;
@@ -307,10 +343,16 @@ namespace NSMBe4
                 if (obj is NSMBObject && (this.XSDelta != 0 || this.YSDelta != 0))
                     (obj as NSMBObject).UpdateObjCache();
             }
+
+            r = Rectangle.Union(r, getObjectRectangle());
+            EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
         }
+
         public override void Redo()
         {
-            foreach (LevelItem obj in objs) {
+            Rectangle r = getObjectRectangle();
+            foreach (LevelItem obj in objs)
+            {
                 obj.x += XDelta;
                 obj.y += YDelta;
                 obj.width += XSDelta;
@@ -318,7 +360,10 @@ namespace NSMBe4
                 if (obj is NSMBObject && (this.XSDelta != 0 || this.YSDelta != 0))
                     (obj as NSMBObject).UpdateObjCache();
             }
+            r = Rectangle.Union(r, getObjectRectangle());
+            EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
         }
+
         public override bool CanMerge {
             get {
                 return true;
@@ -412,6 +457,7 @@ namespace NSMBe4
                 o.ObjNum = OrigNum[l];
                 o.UpdateObjCache();
             }
+            repaintObjectRectangle();
         }
         public override void Redo()
         {
@@ -422,6 +468,7 @@ namespace NSMBe4
                 o.ObjNum = NewNum;
                 o.UpdateObjCache();
             }
+            repaintObjectRectangle();
         }
         public override bool CanMerge {
             get {

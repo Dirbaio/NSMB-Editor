@@ -206,6 +206,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TilemapEditor\Map16Tilemap.cs" />
     <Compile Include="XButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -308,10 +309,6 @@
       <DependentUpon>PickerTest.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilesetEditor\Map16Editor.resx">
-      <DependentUpon>Map16Editor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\Map16Picker.resx">
       <DependentUpon>Map16Picker.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -340,10 +337,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GraphicsViewer.resx">
-      <DependentUpon>GraphicsViewer.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
@@ -835,14 +828,6 @@
     </Compile>
     <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
-    <Compile Include="NSBMD\Palette.cs" />
-    <Compile Include="NSBMD\Texture.cs" />
-    <Compile Include="TilesetEditor\Map16Editor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TilesetEditor\Map16Editor.Designer.cs">
-      <DependentUpon>Map16Editor.cs</DependentUpon>
-    </Compile>
     <Compile Include="TilesetEditor\Map16Picker.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -867,12 +852,6 @@
     </Compile>
     <Compile Include="ProgressWindow.Designer.cs">
       <DependentUpon>ProgressWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GraphicsViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GraphicsViewer.Designer.cs">
-      <DependentUpon>GraphicsViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="SpriteData.cs" />
     <Compile Include="TilesetEditor\TilePicker.cs">

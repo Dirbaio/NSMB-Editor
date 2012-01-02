@@ -63,13 +63,13 @@ namespace NSMBe4
             }
 
             t = g.Tilesets[TilesetNumber];
-            t.enableWrite();
+//            t.enableWrite();
 
             objectPickerControl1.Initialise(g);
             objectPickerControl1.CurrentTileset = TilesetNumber;
 
             tilesetObjectEditor1.load(g, TilesetNumber);
-            map16Editor1.load(t);
+//            map16Editor1.load(t);
 //            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
 
             //FIXME
@@ -89,7 +89,7 @@ namespace NSMBe4
 //            t.ResetGraphics(graphicsEditor1.GFXData);
             objectPickerControl1.ReRenderAll(TilesetNumber);
             tilesetObjectEditor1.redrawThings();
-            map16Editor1.redrawThings();
+//            map16Editor1.redrawThings();
         }
 
         private void objectPickerControl1_ObjectSelected()
@@ -144,7 +144,7 @@ namespace NSMBe4
         {
             objectPickerControl1.ReRenderAll(TilesetNumber);
             tilesetObjectEditor1.redrawThings();
-            map16Editor1.redrawThings();
+//            map16Editor1.redrawThings();
         }
 
         private void TilesetEditor_FormClosed(object sender, FormClosedEventArgs e)
@@ -157,6 +157,10 @@ namespace NSMBe4
             if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelAll"), "NSMB Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 t.Objects = new NSMBTileset.ObjectDef[256];
+
+                //FIXME
+
+                /*
                 foreach (NSMBTileset.Map16Tile tile in t.Map16)
                     tile.makeEmpty();
                 foreach (byte[] beh in t.TileBehaviors)
@@ -165,8 +169,8 @@ namespace NSMBe4
                     beh[1] = 0;
                     beh[2] = 0;
                     beh[3] = 0;
-                }
-                t.repaintAllMap16();
+                }*/
+//                t.repaintAllMap16();
                 mustRepaintObjects();
             }
         }
