@@ -837,15 +837,7 @@
     </Compile>
     <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
-<<<<<<< HEAD
-=======
-    <Compile Include="TilesetEditor\Map16Editor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TilesetEditor\Map16Editor.Designer.cs">
-      <DependentUpon>Map16Editor.cs</DependentUpon>
-    </Compile>
->>>>>>> master
+
     <Compile Include="TilesetEditor\Map16Picker.cs">
       <SubType>UserControl</SubType>
     </Compile>
