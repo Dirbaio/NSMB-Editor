@@ -304,6 +304,7 @@ namespace NSMBe4
             }
             else
             {
+                UpdateSelectionBounds();
                 if (CloneMode)
                 {
                     List<LevelItem> newObjects = CloneList(SelectedObjects);
