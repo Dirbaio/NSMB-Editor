@@ -57,8 +57,7 @@
             this.addViewButton = new System.Windows.Forms.Button();
             this.deleteViewButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.TableLayoutPanel();
             this.selectContents = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).BeginInit();
@@ -73,7 +72,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.camStick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).BeginInit();
             this.panel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,12 +82,13 @@
             this.viewsList.Location = new System.Drawing.Point(0, 0);
             this.viewsList.Name = "viewsList";
             this.viewsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.viewsList.Size = new System.Drawing.Size(281, 96);
+            this.viewsList.Size = new System.Drawing.Size(277, 148);
             this.viewsList.TabIndex = 0;
             this.viewsList.SelectedIndexChanged += new System.EventHandler(this.viewsList_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.55556F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44444F));
@@ -116,7 +115,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label16, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 177);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 232);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 12;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -131,7 +130,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(281, 288);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(277, 287);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
@@ -188,7 +187,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 268);
+            this.label7.Location = new System.Drawing.Point(3, 267);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 0;
@@ -198,7 +197,7 @@
             // 
             this.music.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.music.FormattingEnabled = true;
-            this.music.Location = new System.Drawing.Point(125, 133);
+            this.music.Location = new System.Drawing.Point(123, 133);
             this.music.Name = "music";
             this.music.Size = new System.Drawing.Size(121, 21);
             this.music.TabIndex = 2;
@@ -206,7 +205,7 @@
             // 
             // unk1
             // 
-            this.unk1.Location = new System.Drawing.Point(125, 160);
+            this.unk1.Location = new System.Drawing.Point(123, 160);
             this.unk1.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -219,7 +218,7 @@
             // 
             // unk2
             // 
-            this.unk2.Location = new System.Drawing.Point(125, 186);
+            this.unk2.Location = new System.Drawing.Point(123, 186);
             this.unk2.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -232,7 +231,7 @@
             // 
             // unk3
             // 
-            this.unk3.Location = new System.Drawing.Point(125, 212);
+            this.unk3.Location = new System.Drawing.Point(123, 212);
             this.unk3.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -245,7 +244,7 @@
             // 
             // light
             // 
-            this.light.Location = new System.Drawing.Point(125, 238);
+            this.light.Location = new System.Drawing.Point(123, 238);
             this.light.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -258,7 +257,7 @@
             // 
             // progressID
             // 
-            this.progressID.Location = new System.Drawing.Point(125, 264);
+            this.progressID.Location = new System.Drawing.Point(123, 264);
             this.progressID.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -271,7 +270,7 @@
             // 
             // camTop
             // 
-            this.camTop.Location = new System.Drawing.Point(125, 3);
+            this.camTop.Location = new System.Drawing.Point(123, 3);
             this.camTop.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -299,7 +298,7 @@
             // 
             // camBottom
             // 
-            this.camBottom.Location = new System.Drawing.Point(125, 29);
+            this.camBottom.Location = new System.Drawing.Point(123, 29);
             this.camBottom.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -317,7 +316,7 @@
             // 
             // camTopSpecial
             // 
-            this.camTopSpecial.Location = new System.Drawing.Point(125, 55);
+            this.camTopSpecial.Location = new System.Drawing.Point(123, 55);
             this.camTopSpecial.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -335,7 +334,7 @@
             // 
             // camBottomSpecial
             // 
-            this.camBottomSpecial.Location = new System.Drawing.Point(125, 81);
+            this.camBottomSpecial.Location = new System.Drawing.Point(123, 81);
             this.camBottomSpecial.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -353,7 +352,7 @@
             // 
             // camStick
             // 
-            this.camStick.Location = new System.Drawing.Point(125, 107);
+            this.camStick.Location = new System.Drawing.Point(123, 107);
             this.camStick.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -408,7 +407,7 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 6);
+            this.label12.Location = new System.Drawing.Point(3, 8);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 13);
             this.label12.TabIndex = 0;
@@ -416,7 +415,7 @@
             // 
             // viewID
             // 
-            this.viewID.Location = new System.Drawing.Point(125, 3);
+            this.viewID.Location = new System.Drawing.Point(123, 3);
             this.viewID.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -430,7 +429,7 @@
             // addViewButton
             // 
             this.addViewButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.addViewButton.Location = new System.Drawing.Point(55, 2);
+            this.addViewButton.Location = new System.Drawing.Point(53, 2);
             this.addViewButton.Name = "addViewButton";
             this.addViewButton.Size = new System.Drawing.Size(82, 22);
             this.addViewButton.TabIndex = 3;
@@ -441,7 +440,7 @@
             // deleteViewButton
             // 
             this.deleteViewButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.deleteViewButton.Location = new System.Drawing.Point(143, 2);
+            this.deleteViewButton.Location = new System.Drawing.Point(141, 2);
             this.deleteViewButton.Name = "deleteViewButton";
             this.deleteViewButton.Size = new System.Drawing.Size(82, 22);
             this.deleteViewButton.TabIndex = 3;
@@ -454,43 +453,35 @@
             this.panel1.Controls.Add(this.deleteViewButton);
             this.panel1.Controls.Add(this.addViewButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 96);
+            this.panel1.Location = new System.Drawing.Point(0, 148);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 26);
+            this.panel1.Size = new System.Drawing.Size(277, 26);
             this.panel1.TabIndex = 4;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.56F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44F));
-            this.tableLayoutPanel2.Controls.Add(this.viewID, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 28);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(281, 27);
-            this.tableLayoutPanel2.TabIndex = 5;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.selectContents);
-            this.panel2.Controls.Add(this.tableLayoutPanel2);
+            this.panel2.AutoSize = true;
+            this.panel2.ColumnCount = 2;
+            this.panel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.56F));
+            this.panel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44F));
+            this.panel2.Controls.Add(this.selectContents, 1, 1);
+            this.panel2.Controls.Add(this.viewID, 1, 0);
+            this.panel2.Controls.Add(this.label12, 0, 0);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 122);
+            this.panel2.Location = new System.Drawing.Point(0, 174);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(281, 55);
-            this.panel2.TabIndex = 6;
+            this.panel2.RowCount = 2;
+            this.panel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.panel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.panel2.Size = new System.Drawing.Size(277, 58);
+            this.panel2.TabIndex = 5;
             // 
             // selectContents
             // 
-            this.selectContents.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.selectContents.Location = new System.Drawing.Point(79, 4);
+            this.selectContents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selectContents.Location = new System.Drawing.Point(123, 32);
             this.selectContents.Name = "selectContents";
-            this.selectContents.Size = new System.Drawing.Size(123, 23);
+            this.selectContents.Size = new System.Drawing.Size(151, 23);
             this.selectContents.TabIndex = 0;
             this.selectContents.Text = "<Select Contents>";
             this.selectContents.UseVisualStyleBackColor = true;
@@ -505,7 +496,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ViewEditor";
-            this.Size = new System.Drawing.Size(281, 465);
+            this.Size = new System.Drawing.Size(277, 519);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).EndInit();
@@ -520,10 +511,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.camStick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -558,8 +549,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TableLayoutPanel panel2;
         private System.Windows.Forms.Button selectContents;
     }
 }

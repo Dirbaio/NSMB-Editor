@@ -100,6 +100,12 @@
   <ItemGroup>
     <Compile Include="ByteArrayInputStream.cs" />
     <Compile Include="DSFileSystem\Arm9BinaryHandler.cs" />
+    <Compile Include="Editor\CoordinateViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\CoordinateViewer.Designer.cs">
+      <DependentUpon>CoordinateViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\EntranceEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DSFileSystem\FilesystemBrowserDialog.resx">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\CoordinateViewer.resx">
+      <DependentUpon>CoordinateViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>
@@ -828,6 +837,15 @@
     </Compile>
     <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="TilesetEditor\Map16Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor\Map16Editor.Designer.cs">
+      <DependentUpon>Map16Editor.cs</DependentUpon>
+    </Compile>
+>>>>>>> master
     <Compile Include="TilesetEditor\Map16Picker.cs">
       <SubType>UserControl</SubType>
     </Compile>

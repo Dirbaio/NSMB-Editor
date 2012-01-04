@@ -37,7 +37,7 @@ namespace NSMBe4 {
 
         public LevelEditor(string LevelFilename, string LevelName) {
             InitializeComponent();
-
+            coordinateViewer1.EdControl = levelEditorControl1;
             //This is supposed to reduce flickering on stuff like the side panel...
             //But it doesn't :(
             this.SetStyle(

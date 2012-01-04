@@ -179,7 +179,7 @@ namespace NSMBe4
         {
             DataUpdateFlag = true;
             NSMBEntrance en = null;
-            groupBox2.Visible = SelectedObjects != null;
+            tableLayoutPanel5.Visible = SelectedObjects != null;
             deleteEntranceButton.Enabled = SelectedObjects != null;
             UpdateList();
 
