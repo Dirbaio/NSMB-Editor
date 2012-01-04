@@ -15,6 +15,8 @@ namespace NSMBe4.Editor
             InitializeComponent();
             xUpDown.Maximum = 512 * 16;
             yUpDown.Maximum = 256 * 16;
+            widthUpDown.Minimum = 1;
+            heightUpDown.Minimum = 1;
             widthUpDown.Maximum = 512 * 16;
             heightUpDown.Maximum = 256 * 16;
         }
@@ -51,7 +53,7 @@ namespace NSMBe4.Editor
 
         private void anyUpDownValueChanged(object sender, EventArgs e)
         {
-            if (updating) return;
+            if (updating || it == null) return;
 
             EdControl.UndoManager.Do(new MoveResizeLvlItemAction(UndoManager.ObjToList(it),
                 (int)(xUpDown.Value * it.snap - it.rx),
