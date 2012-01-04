@@ -87,7 +87,7 @@ namespace NSMBe4.TilemapEditor
         {
             updateBuffers();
 
-            Bitmap res = new Bitmap(width * 8, height * 8);
+            Bitmap res = new Bitmap(width * 8, height * 8, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Graphics resg = Graphics.FromImage(res);
 
             for(int x = 0; x < width; x++)

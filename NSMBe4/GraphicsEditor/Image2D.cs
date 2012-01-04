@@ -196,37 +196,5 @@ namespace NSMBe4
             return b;
         }
 
-
-        public static Bitmap CutImage(Image im, int width, int blockrows)
-        {
-            int blocksize = im.Height / blockrows;
-            int blockcount = im.Width / blocksize;
-
-            int cols = width / blocksize;
-            int rows = blockcount / cols;
-
-            Bitmap b = new Bitmap(cols * blocksize, rows * blocksize * blockrows);
-            Graphics g = Graphics.FromImage(b);
-            g.Clear(Color.Gray);
-
-            Rectangle SourceRect = new Rectangle(0, 0, cols * blocksize, blocksize);
-            Rectangle DestRect = new Rectangle(0, 0, cols * blocksize, blocksize);
-
-
-            for (int r = 0; r < blockrows; r++)
-            {
-                SourceRect.Y = r * blocksize;
-                for (int i = 0; i < rows; i++)
-                {
-                    SourceRect.X = i * cols * blocksize;
-                    DestRect.Y = i * blocksize + r * rows * blocksize;
-
-                    g.DrawImage(im, DestRect, SourceRect, GraphicsUnit.Pixel);
-                }
-            }
-
-            return b;
-        }
-
     }
 }

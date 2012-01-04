@@ -342,8 +342,9 @@ namespace NSMBe4
             Bitmap oldCache = tileCache;
 
             if(oldCacheRect != tileCacheRect)
-                tileCache = new Bitmap(ViewableArea.Width * 16, ViewableArea.Height * 16);
+                tileCache = new Bitmap(ViewableArea.Width * 16, ViewableArea.Height * 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
+            Console.WriteLine(tileCache.PixelFormat);
             Graphics g = Graphics.FromImage(tileCache);
             if(oldCache != null && oldCacheRect != tileCacheRect)
                 g.DrawImage(oldCache, (oldCacheRect.X - tileCacheRect.X) * 16, (oldCacheRect.Y - tileCacheRect.Y) * 16);
@@ -385,7 +386,6 @@ namespace NSMBe4
                     srcRect.Y = (t / 16) * 16;
                     destRect.X = xx * 16;
                     destRect.Y = yy * 16;
-                    g.CompositingMode = CompositingMode.SourceOver;
                     g.DrawImage(GFX.Tilesets[tileset].Map16Buffer, xx * 16, yy * 16, srcRect, GraphicsUnit.Pixel);
 
                     if (!GFX.Tilesets[tileset].UseOverrides) continue;
@@ -396,6 +396,7 @@ namespace NSMBe4
                     srcRect.X = t2 * 16;
                     srcRect.Y = 0;
 
+                    g.CompositingMode = CompositingMode.SourceOver;
                     g.DrawImage(GFX.Tilesets[tileset].OverrideBitmap, destRect, srcRect, GraphicsUnit.Pixel);
                 }
         }
