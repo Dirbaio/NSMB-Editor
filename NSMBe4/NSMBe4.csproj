@@ -100,6 +100,12 @@
   <ItemGroup>
     <Compile Include="ByteArrayInputStream.cs" />
     <Compile Include="DSFileSystem\Arm9BinaryHandler.cs" />
+    <Compile Include="Editor\CoordinateViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\CoordinateViewer.Designer.cs">
+      <DependentUpon>CoordinateViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\EntranceEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -228,6 +234,9 @@
     <EmbeddedResource Include="DSFileSystem\FilesystemBrowserDialog.resx">
       <DependentUpon>FilesystemBrowserDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Editor\CoordinateViewer.resx">
+      <DependentUpon>CoordinateViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -340,10 +349,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GraphicsViewer.resx">
-      <DependentUpon>GraphicsViewer.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\SpriteEditor.resx">
       <DependentUpon>SpriteEditor.cs</DependentUpon>
@@ -835,8 +840,6 @@
     </Compile>
     <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
-    <Compile Include="NSBMD\Palette.cs" />
-    <Compile Include="NSBMD\Texture.cs" />
     <Compile Include="TilesetEditor\Map16Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -867,12 +870,6 @@
     </Compile>
     <Compile Include="ProgressWindow.Designer.cs">
       <DependentUpon>ProgressWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GraphicsViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GraphicsViewer.Designer.cs">
-      <DependentUpon>GraphicsViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="SpriteData.cs" />
     <Compile Include="TilesetEditor\TilePicker.cs">

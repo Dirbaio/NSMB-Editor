@@ -137,12 +137,12 @@ namespace NSMBe4 {
         private void tilesetPreviewButton_Click(object sender, EventArgs e) {
             ushort GFXFileID = ROM.GetFileIDFromTable(tilesetComboBox.SelectedIndex, ROM.Data.Table_TS_NCG);
             ushort PalFileID = ROM.GetFileIDFromTable(tilesetComboBox.SelectedIndex, ROM.Data.Table_TS_NCL);
-
+            /*
             GraphicsViewer gv = new GraphicsViewer();
             gv.SetPreferredWidth(256);
             gv.SetFile(ROM.FS.getFileById(GFXFileID).getContents());
             gv.SetPalette(ROM.FS.getFileById(PalFileID).getContents());
-            gv.Show();
+            gv.Show();*/
         }
 
         private void bgTopLayerPreviewButton_Click(object sender, EventArgs e) {

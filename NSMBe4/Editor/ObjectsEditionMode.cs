@@ -304,6 +304,7 @@ namespace NSMBe4
             }
             else
             {
+                UpdateSelectionBounds();
                 if (CloneMode)
                 {
                     List<LevelItem> newObjects = CloneList(SelectedObjects);
@@ -482,11 +483,13 @@ namespace NSMBe4
             EdControl.Cursor = getCursorForPos(x, y);
         }
 
-        LevelItem lastSelected = null;
-
         public void UpdatePanel()
         {
             tabs.RefreshTabs();
+            if(SelectedObjects.Count == 1)
+                EdControl.editor.coordinateViewer1.setLevelItem(SelectedObjects[0]);
+            else
+                EdControl.editor.coordinateViewer1.setLevelItem(null);
         }
 
         public override void Refresh()
