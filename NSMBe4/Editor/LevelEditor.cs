@@ -174,9 +174,7 @@ namespace NSMBe4 {
             if (MinimapForm != null) {
                 MinimapForm.Close();
             }
-            if (LevelConfigForm != null) {
-                LevelConfigForm.Close();
-            }
+
             if (tools != null)
                 tools.Close();
             GFX.close();

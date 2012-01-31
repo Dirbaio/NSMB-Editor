@@ -144,7 +144,7 @@
       <DependentUpon>LevelChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\LevelConfig.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Editor\LevelConfig.Designer.cs">
       <DependentUpon>LevelConfig.cs</DependentUpon>
