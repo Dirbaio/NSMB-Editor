@@ -193,6 +193,7 @@ namespace NSMBe4
 
             Bitmap b = (imageListBox.SelectedItem as PalettedImage).render(paletteListBox.SelectedItem as Palette);
             b.Save(ofd.FileName);
+            b.Dispose();
         }
 
         private void importThisBtn_Click(object sender, EventArgs e)
@@ -206,6 +207,7 @@ namespace NSMBe4
 
             Bitmap b = new Bitmap(ofd.FileName);
             (imageListBox.SelectedItem as PalettedImage).replaceWithPal(b, paletteListBox.SelectedItem as Palette);
+            b.Dispose();
         }
 
         private void importThisWithPalBtn_Click(object sender, EventArgs e)
