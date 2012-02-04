@@ -87,7 +87,9 @@ namespace NSMBe4 {
             }
         }
 
+        bool updating = false;
         public void LoadSettings() {
+            updating = true;
             startEntranceUpDown.Value = Level.Blocks[0][0];
             midwayEntranceUpDown.Value = Level.Blocks[0][1];
             timeLimitUpDown.Value = Level.Blocks[0][4] | (Level.Blocks[0][5] << 8);
@@ -129,7 +131,7 @@ namespace NSMBe4 {
                     }
                 }
             }
-
+            updating = false;
         }
 
         #region Previews
@@ -267,7 +269,8 @@ namespace NSMBe4 {
         }
         #endregion
 
-        private void OKButton_Click(object sender, EventArgs e) {
+        private void saveSettings() {
+            if (updating) return;
             byte[][] newData = UndoManager.Clone(Level.Blocks);
             newData[0][0] = (byte)startEntranceUpDown.Value;
             newData[0][1] = (byte)midwayEntranceUpDown.Value;
@@ -654,6 +657,16 @@ namespace NSMBe4 {
             string filename = openFileDialog2.FileName;
  
             importBackground(GFXFile, PalFile, LayoutFile, filename);
+        }
+
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            saveSettings();
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

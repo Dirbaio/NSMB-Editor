@@ -65,6 +65,7 @@ namespace NSMBe4
 
             config = new LevelConfig(EdControl);
             config.LoadSettings();
+            EdControl.config = config;
 
             controls = new Control[] { config, create, objects, sprites, entrances, views, zones, paths, progresspaths };
 

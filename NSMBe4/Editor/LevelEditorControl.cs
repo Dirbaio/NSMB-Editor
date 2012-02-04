@@ -35,6 +35,8 @@ namespace NSMBe4
         public bool showDSScreen = false;
         public bool ignoreMouse = false;
 
+        public LevelConfig config;
+
         public LevelEditorControl() {
             InitializeComponent();
             Ready = false;
