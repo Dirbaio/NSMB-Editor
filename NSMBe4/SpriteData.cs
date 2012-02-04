@@ -295,12 +295,9 @@ namespace NSMBe4
             LevelEditorControl EdControl;
             public bool updating = false;
 
-            ToolTip notes;
-
             public SpriteDataEditor(List<LevelItem> sprites, SpriteData sd, LevelEditorControl EdControl)
             {
                 this.SizeChanged += new EventHandler(this_SizeChanged);
-                notes = new ToolTip();
                 updating = true;
                 this.ColumnCount = 3;
                 //Talbe layout panel doesn't automatically create row or column styles
@@ -337,9 +334,9 @@ namespace NSMBe4
                             this.SetColumnSpan(c, 3);
                         else
                         {
-                            PictureBox pic = CreateNotesCtrl();
-                            this.Controls.Add(pic, 2, row);
-                            notes.SetToolTip(pic, v.notes);
+                            NotesCtrl note = new NotesCtrl();
+                            this.Controls.Add(note, 2, row);
+                            note.Text = v.notes;
                         }
                     }
                     else {
@@ -355,9 +352,9 @@ namespace NSMBe4
                             this.SetColumnSpan(c, 2);
                         else
                         {
-                            PictureBox pic = CreateNotesCtrl();
-                            this.Controls.Add(pic, 2, row);
-                            notes.SetToolTip(pic, v.notes);
+                            NotesCtrl note = new NotesCtrl();
+                            this.Controls.Add(note, 2, row);
+                            note.Text = v.notes;
                         }
                         
                     }
@@ -365,15 +362,6 @@ namespace NSMBe4
                     controls.Add(v, c);
                 }
                 updating = false;
-            }
-
-            private PictureBox CreateNotesCtrl()
-            {
-                PictureBox pic = new PictureBox();
-                pic.Size = new System.Drawing.Size(16, 16);
-                pic.Image = Properties.Resources.note;
-                pic.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                return pic;
             }
 
             public void this_SizeChanged(object sender, EventArgs e)
