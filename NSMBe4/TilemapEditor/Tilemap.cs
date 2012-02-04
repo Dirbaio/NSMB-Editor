@@ -90,13 +90,29 @@ namespace NSMBe4.TilemapEditor
             Bitmap res = new Bitmap(width * 8, height * 8, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Graphics resg = Graphics.FromImage(res);
 
+            Bitmap tile = new Bitmap(8, 8, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            Graphics tileg = Graphics.FromImage(tile);
+            tileg.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+
             for(int x = 0; x < width; x++)
                 for (int y = 0; y < height; y++)
                 {
                     Tile t = tiles[x, y];
                     if (t.palNum >= palettes.Length) continue;
                     if (t.palNum < 0) continue;
-                    resg.DrawImage(buffers[t.palNum], x * 8, y * 8, Image2D.getTileRectangle(buffers[t.palNum], 8, t.tileNum), GraphicsUnit.Pixel);
+                    if (t.hflip == false && t.vflip == false)
+                        resg.DrawImage(buffers[t.palNum], x * 8, y * 8, Image2D.getTileRectangle(buffers[t.palNum], 8, t.tileNum), GraphicsUnit.Pixel);
+                    else
+                    {
+                        tileg.DrawImage(buffers[t.palNum], 0, 0, Image2D.getTileRectangle(buffers[t.palNum], 8, t.tileNum), GraphicsUnit.Pixel);
+                        if (t.hflip == true && t.vflip == false)
+                            tile.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                        else if (t.hflip == false && t.vflip == true)
+                            tile.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                        else if (t.hflip == true && t.vflip == true)
+                            tile.RotateFlip(RotateFlipType.RotateNoneFlipXY);
+                        resg.DrawImage(tile, x * 8, y * 8);
+                    }
                 }
 
             return res;
