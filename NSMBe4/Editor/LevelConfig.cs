@@ -326,11 +326,9 @@ namespace NSMBe4 {
 
             EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData));
             if (oldTileset != newData[0][0xC])
-            {
-                ReloadTileset();
-            }
-
-            RefreshMainWindow();
+                EdControl.editor.LevelConfigForm_ReloadTileset();
+            else
+                EdControl.Invalidate();
         }
 
         private void bgTopLayerExportButton_Click(object sender, EventArgs e)

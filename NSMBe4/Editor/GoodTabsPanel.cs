@@ -64,6 +64,7 @@ namespace NSMBe4
             progresspaths = new PathEditor(EdControl, EdControl.Level.ProgressPaths);
 
             config = new LevelConfig(EdControl);
+            config.LoadSettings();
 
             controls = new Control[] { config, create, objects, sprites, entrances, views, zones, paths, progresspaths };
 

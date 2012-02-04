@@ -158,7 +158,7 @@ namespace NSMBe4 {
             LevelConfigForm.Show();
         }
 
-        private void LevelConfigForm_ReloadTileset() {
+        public void LevelConfigForm_ReloadTileset() {
             GFX.LoadTilesets(Level.Blocks[0][0xC], Level.Blocks[2][2]);
             Level.ReRenderAll();
 
