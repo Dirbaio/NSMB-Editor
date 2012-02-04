@@ -26,13 +26,12 @@ using NSMBe4.DSFileSystem;
 
 
 namespace NSMBe4 {
-    public partial class LevelConfig : Form {
+    public partial class LevelConfig : UserControl {
         public LevelConfig(LevelEditorControl EdControl) {
             InitializeComponent();
             this.EdControl = EdControl;
             this.Level = EdControl.Level;
-            if (Properties.Settings.Default.mdi)
-                this.MdiParent = MdiParentForm.instance;
+
             tabControl1.SelectTab(0);
 
             LanguageManager.ApplyToContainer(this, "LevelConfig");
@@ -65,7 +64,7 @@ namespace NSMBe4 {
                     target.Items.Add(trimmedname);
                 }
             }
-            this.Icon = Properties.Resources.nsmbe;
+
         }
 
         private NSMBLevel Level;
@@ -326,11 +325,6 @@ namespace NSMBe4 {
             }
 
             RefreshMainWindow();
-            Close();
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e) {
-            Close();
         }
 
         private void bgTopLayerExportButton_Click(object sender, EventArgs e)
