@@ -78,7 +78,7 @@
             this.spriteDataTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.spriteDataTextBox.Location = new System.Drawing.Point(107, 3);
             this.spriteDataTextBox.Name = "spriteDataTextBox";
-            this.spriteDataTextBox.Size = new System.Drawing.Size(151, 20);
+            this.spriteDataTextBox.Size = new System.Drawing.Size(150, 20);
             this.spriteDataTextBox.TabIndex = 23;
             this.spriteDataTextBox.Text = "00 00 00 00 00 00";
             this.spriteDataTextBox.TextChanged += new System.EventHandler(this.spriteDataTextBox_TextChanged);
@@ -93,7 +93,7 @@
             0,
             0});
             this.spriteTypeUpDown.Name = "spriteTypeUpDown";
-            this.spriteTypeUpDown.Size = new System.Drawing.Size(151, 20);
+            this.spriteTypeUpDown.Size = new System.Drawing.Size(150, 20);
             this.spriteTypeUpDown.TabIndex = 22;
             this.spriteTypeUpDown.ValueChanged += new System.EventHandler(this.spriteTypeUpDown_ValueChanged);
             // 
@@ -154,7 +154,7 @@
             this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.searchBox.Location = new System.Drawing.Point(81, 3);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(177, 20);
+            this.searchBox.Size = new System.Drawing.Size(176, 20);
             this.searchBox.TabIndex = 0;
             this.searchBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -167,22 +167,23 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(282, 26);
             this.panel3.TabIndex = 23;
+            this.panel3.Visible = false;
             // 
             // clearSpriteData
             // 
             this.clearSpriteData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearSpriteData.Location = new System.Drawing.Point(264, 5);
+            this.clearSpriteData.Location = new System.Drawing.Point(263, 5);
             this.clearSpriteData.Name = "clearSpriteData";
-            this.clearSpriteData.Size = new System.Drawing.Size(15, 16);
+            this.clearSpriteData.Size = new System.Drawing.Size(16, 16);
             this.clearSpriteData.TabIndex = 23;
             this.clearSpriteData.Click += new System.EventHandler(this.clearSpriteData_Click);
             // 
             // clearSearch
             // 
             this.clearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearSearch.Location = new System.Drawing.Point(264, 5);
+            this.clearSearch.Location = new System.Drawing.Point(263, 5);
             this.clearSearch.Name = "clearSearch";
-            this.clearSearch.Size = new System.Drawing.Size(15, 16);
+            this.clearSearch.Size = new System.Drawing.Size(16, 16);
             this.clearSearch.TabIndex = 26;
             this.clearSearch.Click += new System.EventHandler(this.clearSearch_Click);
             // 
@@ -192,7 +193,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel1.Controls.Add(this.clearSpriteData, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.spriteTypeUpDown, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.spriteDataTextBox, 1, 0);
@@ -213,7 +214,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel2.Controls.Add(this.clearSearch, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.search, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.searchBox, 1, 0);
