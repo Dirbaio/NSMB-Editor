@@ -26,7 +26,16 @@ namespace NSMBe4
 
         public Control[] controls;
 
-        public List<Control> activeCtrls = new List<Control>();
+        enum ItemType
+        {
+            Object = 2,
+            Sprite = 3,
+            Entrance = 4,
+            View = 5,
+            Zone = 6,
+            Path = 7,
+            ProgressPath = 8
+        }
 
         public GoodTabsPanel(LevelEditorControl EdControl) {
             InitializeComponent();
@@ -34,6 +43,7 @@ namespace NSMBe4
 
             images = new ImageList();
             images.ColorDepth = ColorDepth.Depth32Bit;
+            images.Images.Add(Properties.Resources.config);
             images.Images.Add(Properties.Resources.add);
             images.Images.Add(Properties.Resources.block);
             images.Images.Add(Properties.Resources.bug);
@@ -57,40 +67,47 @@ namespace NSMBe4
 
             controls = new Control[] { config, create, objects, sprites, entrances, views, zones, paths, progresspaths };
 
-            AddTab(config);
             foreach (Control c in controls)
                 AddTab(c);
 
+            //Select nothing
+            SelectObjects(new List<LevelItem>());
         }
 
         public void AddTab(Control ctrl)
         {
-            if (!activeCtrls.Contains(ctrl)) {
-                if (ctrl is ObjectEditor) (ctrl as ObjectEditor).SelectObjects(SelectedObjs);
-                if (ctrl is EntranceEditor) (ctrl as EntranceEditor).SelectObjects(SelectedObjs);
-                if (ctrl is SpriteEditor) (ctrl as SpriteEditor).SelectObjects(SelectedObjs);
-                if (ctrl is ViewEditor) (ctrl as ViewEditor).SelectObjects(SelectedObjs);
-                if (ctrl is PathEditor) (ctrl as PathEditor).SelectObjects(SelectedObjs);
-
-                TabPage tp = new TabPage("");
-                tp.ImageIndex = Array.IndexOf(controls, ctrl);
-                tp.Controls.Add(ctrl);
-                ctrl.Dock = DockStyle.Fill;
-                tabControl1.TabPages.Add(tp);
-                activeCtrls.Add(ctrl);
-            }
+            TabPage tp = new TabPage("");
+            tp.ImageIndex = Array.IndexOf(controls, ctrl);
+            tp.Controls.Add(ctrl);
+            ctrl.Dock = DockStyle.Fill;
+            tabControl1.TabPages.Add(tp);
         }
 
         public void SelectObjects(List<LevelItem> SelectedObjs)
         {
-            objects.SelectObjects(SelectedObjs);
-            sprites.SelectObjects(SelectedObjs);
-            entrances.SelectObjects(SelectedObjs);
-            views.SelectObjects(SelectedObjs);
-            zones.SelectObjects(SelectedObjs);
-            paths.SelectObjects(SelectedObjs);
-            progresspaths.SelectObjects(SelectedObjs);
+            objects.SelectObjects(filter(SelectedObjs, ItemType.Object ));
+            sprites.SelectObjects(filter(SelectedObjs, ItemType.Sprite ));
+            entrances.SelectObjects(filter(SelectedObjs, ItemType.Entrance ));
+            views.SelectObjects(filter(SelectedObjs, ItemType.View ));
+            zones.SelectObjects(filter(SelectedObjs, ItemType.Zone ));
+            paths.SelectObjects(filter(SelectedObjs, ItemType.Path ));
+            progresspaths.SelectObjects(filter(SelectedObjs, ItemType.ProgressPath ));
 
+            //Wow I got the same as the shit below, but only in 5 lines!
+            bool[] has = new bool[9];
+            foreach (LevelItem it in SelectedObjs)
+                has[(int)typeOfItem(it)] = true;
+
+            if (SelectedObjs.Count == 0)
+                tabControl1.SelectedIndex = 1;
+            else
+                if (!has[tabControl1.SelectedIndex])
+                    tabControl1.SelectedIndex = Array.IndexOf(has, true);
+
+            objects.Visible = has[(int)ItemType.Object];
+            sprites.Visible = has[(int)ItemType.Sprite];
+
+            /*
             bool hasObjects = false;
             bool hasSprites = false;
             bool hasEntrances = false;
@@ -125,10 +142,9 @@ namespace NSMBe4
             else if (hasViews) select(views);
             else if (hasZones) select(zones);
             else if (hasPaths) select(paths);
-            else if (hasProgressPaths) select(progresspaths);
-    
+            else if (hasProgressPaths) select(progresspaths);*/
         }
-
+        /*
         private void select(Control c)
         {
             int ind = 0;
@@ -136,7 +152,7 @@ namespace NSMBe4
                 if (controls[i] == c) ind = i;
 
             tabControl1.SelectedIndex = ind;
-        }
+        }*/
 
         public void UpdateInfo()
         {
@@ -149,16 +165,30 @@ namespace NSMBe4
             progresspaths.UpdateInfo();
         }
 
-        public void UpdateSpriteEditor()
+        private ItemType typeOfItem(LevelItem it)
         {
-            foreach (Control ctrl in activeCtrls)
-                if (ctrl is SpriteEditor) (ctrl as SpriteEditor).UpdateDataEditor();
+            if (it is NSMBObject) return ItemType.Object;
+            if (it is NSMBSprite) return ItemType.Sprite;
+            if (it is NSMBEntrance) return ItemType.Entrance;
+            if (it is NSMBView && !(it as NSMBView).isZone) return ItemType.View;
+            if (it is NSMBView && (it as NSMBView).isZone) return ItemType.Zone;
+            if (it is NSMBPath && !(it as NSMBPath).isProgressPath) return ItemType.Path;
+            if (it is NSMBPath && (it as NSMBPath).isProgressPath) return ItemType.ProgressPath;
+            if (it is NSMBPathPoint && !(it as NSMBPathPoint).parent.isProgressPath) return ItemType.Path;
+            if (it is NSMBPathPoint && (it as NSMBPathPoint).parent.isProgressPath) return ItemType.ProgressPath;
+
+            throw new Exception("me dunno wat type can i has!"); //rofl
         }
 
-        public void RefreshSpriteEditor()
+        private List<LevelItem> filter(List<LevelItem> l, ItemType t)
         {
-            foreach (Control ctrl in activeCtrls)
-                if (ctrl is SpriteEditor) (ctrl as SpriteEditor).RefreshDataEditor();
+            List<LevelItem> res = new List<LevelItem>();
+
+            foreach (LevelItem it in l)
+                if (typeOfItem(it) == t)
+                    res.Add(it);
+
+            return res;
         }
     }
 }

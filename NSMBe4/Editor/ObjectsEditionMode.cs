@@ -259,8 +259,6 @@ namespace NSMBe4
                 // Select an object
                 findSelectedObjects(x, y, x, y, true, true);
                 SelectMode = SelectedObjects.Count == 0;
-                if(!SelectMode)
-                    tabs.SelectObjects(SelectedObjects);
             }
             else if (vertResize == ResizeType.ResizeNone && horResize == ResizeType.ResizeNone)
             {
@@ -276,7 +274,6 @@ namespace NSMBe4
                 {
                     if(selectedObjectsBack.Contains(SelectedObjects[0]))
                         SelectedObjects = selectedObjectsBack;
-                    tabs.SelectObjects(SelectedObjects);
                 }
                 UpdateSelectionBounds();
                 EdControl.repaint();
@@ -290,6 +287,8 @@ namespace NSMBe4
             }
 
             EdControl.repaint();
+
+            tabs.SelectObjects(SelectedObjects);
             UpdatePanel();
         }
 
@@ -454,8 +453,7 @@ namespace NSMBe4
             SelectMode = false;
             EdControl.UndoManager.merge = false;
             EdControl.repaint();
-            if(SelectMode)
-                tabs.SelectObjects(SelectedObjects);
+            tabs.SelectObjects(SelectedObjects);
             selectTabType = null;
         }
 
