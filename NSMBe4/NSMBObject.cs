@@ -177,21 +177,44 @@ namespace NSMBe4
         }
 
 
-        public void renderTilemap(int[,] tilemap)
+        public void renderTilemap(int[,] tilemap, Rectangle bounds)
         {
-            for (int xx = 0; xx < CachedObj.GetLength(0); xx++)
-                for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
-                {
-                    int t = CachedObj[xx, yy];
-                    if (t == -1) continue;
+            if (ObjNum == 0 && Tileset == 0)
+            {
+                for (int xx = 0; xx < Width; xx++)
+                    for (int yy = 0; yy < Height; yy++)
+                        tilemap[X + xx, Y + yy] = 0;
+                return;
+            }
+            
 
-                    if (Tileset == 1)
-                        t += 256;
-                    else if (Tileset == 2)
-                        t += 256 * 4;
+            int xmin = Math.Max(X, bounds.X);
+            int ymin = Math.Max(Y, bounds.Y);
+            int xmax = Math.Min(X+Width, bounds.X+bounds.Width);
+            int ymax = Math.Min(Y+Height, bounds.Y+bounds.Height);
 
-                    tilemap[X + xx, Y + yy] = t;
-                }
+            if (ObjNum == 0 && Tileset == 0)
+            {
+                for (int xx = xmin; xx < xmax; xx++)
+                    for (int yy = ymin; yy < ymax; yy++)
+                        tilemap[xx, yy] = 0;
+            }
+            else
+            {
+                for (int xx = xmin; xx < xmax; xx++)
+                    for (int yy = ymin; yy < ymax; yy++)
+                    {
+                        int t = CachedObj[xx - X, yy - Y];
+                        if (t == -1) continue;
+
+                        if (Tileset == 1)
+                            t += 256;
+                        else if (Tileset == 2)
+                            t += 256 * 4;
+
+                        tilemap[xx, yy] = t;
+                    }
+            }
         }
 
         public void RenderPlain(Graphics g, int X, int Y)

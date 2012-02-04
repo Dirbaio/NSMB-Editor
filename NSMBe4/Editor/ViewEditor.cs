@@ -52,7 +52,7 @@ namespace NSMBe4
         private void addViewButton_Click(object sender, EventArgs e)
         {
             NSMBView nv = new NSMBView();
-            Rectangle va = EdControl.ViewableArea;
+            Rectangle va = EdControl.ViewableBlocks;
             nv.X = (va.X + (va.Width - 16) / 2) * 16;
             nv.Y = (va.Y + (va.Height - 12) / 2) * 16;
             nv.Height = 12 * 16;

@@ -200,7 +200,7 @@ namespace NSMBe4
             for (int ObjIdx = 0; ObjIdx < Objects.Count; ObjIdx++) {
                 Rectangle ObjRect = new Rectangle(Objects[ObjIdx].X, Objects[ObjIdx].Y, Objects[ObjIdx].Width, Objects[ObjIdx].Height);
                 if (ObjRect.IntersectsWith(r)) {
-                    Objects[ObjIdx].renderTilemap(levelTilemap);
+                    Objects[ObjIdx].renderTilemap(levelTilemap, r);
                 }
             }
         }

@@ -73,7 +73,7 @@ namespace NSMBe4
             if (found)
             {
                 EdControl.SelectObject(foundSprite);
-                EdControl.EnsurePosVisible(foundSprite.X, foundSprite.Y);
+                EdControl.EnsureBlockVisible(foundSprite.X, foundSprite.Y);
             }
             //else
                 //MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -110,7 +110,7 @@ namespace NSMBe4
 
                 if (found) {
                     EdControl.SelectObject(foundObj);
-                    EdControl.EnsurePosVisible(foundObj.X, foundObj.Y);
+                    EdControl.EnsureBlockVisible(foundObj.X, foundObj.Y);
                 }
                 //else
                     //MessageBox.Show(LanguageManager.Get("ToolsForm", "NotFound"), LanguageManager.Get("General", "Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
