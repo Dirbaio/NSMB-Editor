@@ -44,12 +44,12 @@ namespace NSMBe4
         Rectangle SelectionRectangle;
 
         List<LevelItem> SelectedObjects = new List<LevelItem>();
-        public TabsPanel tabs;
+        public GoodTabsPanel tabs;
 
         public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
             : base(Level, EdControl)
         {
-            tabs = new TabsPanel(EdControl);
+            tabs = new GoodTabsPanel(EdControl);
             SetPanel(tabs);
             tabs.Dock = DockStyle.Fill;
         }
@@ -70,7 +70,7 @@ namespace NSMBe4
             {
                 SelectedObjects.Clear();
             }
-            tabs.SelectObjects(SelectedObjects, null);
+            tabs.SelectObjects(SelectedObjects);
             UpdateSelectionBounds();
             UpdatePanel();
         }
@@ -89,7 +89,7 @@ namespace NSMBe4
             foreach (NSMBPath p in EdControl.Level.ProgressPaths)
                 foreach (NSMBPathPoint pp in p.points)
                     SelectedObjects.Add(pp);
-            tabs.SelectObjects(SelectedObjects, null);
+            tabs.SelectObjects(SelectedObjects);
             UpdateSelectionBounds();
             EdControl.repaint();
         }
@@ -287,6 +287,8 @@ namespace NSMBe4
             }
 
             EdControl.repaint();
+
+            tabs.SelectObjects(SelectedObjects);
             UpdatePanel();
         }
 
@@ -452,7 +454,7 @@ namespace NSMBe4
             SelectMode = false;
             EdControl.UndoManager.merge = false;
             EdControl.repaint();
-            tabs.SelectObjects(SelectedObjects, selectTabType);
+            tabs.SelectObjects(SelectedObjects);
             selectTabType = null;
         }
 
@@ -486,7 +488,7 @@ namespace NSMBe4
 
         public void UpdatePanel()
         {
-            tabs.RefreshTabs();
+            tabs.UpdateInfo();
             if(SelectedObjects.Count == 1)
                 EdControl.editor.coordinateViewer1.setLevelItem(SelectedObjects[0]);
             else
@@ -506,7 +508,7 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new RemoveLvlItemAction(SelectedObjects));
 
             SelectedObjects.Clear();
-            tabs.SelectNone();
+            tabs.SelectObjects(new List<LevelItem>());
             EdControl.repaint();
         }
 

@@ -39,6 +39,8 @@ namespace NSMBe4
         public Rectangle ViewablePixels;
         public Rectangle ViewableBlocks;
 
+        public LevelConfig config;
+
         public LevelEditorControl() {
             InitializeComponent();
             Ready = false;
