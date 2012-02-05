@@ -92,12 +92,22 @@ namespace NSMBe4
         {
             DataUpdateFlag = true;
             NSMBView v = null;
-            panel2.Visible = (SelectedObjects != null);
-            //TODO: Fix this bug
-            if (panel2.Visible != (SelectedObjects != null))
-                Console.WriteLine("Panel 2 failed to be set to visible");
-            tableLayoutPanel1.Visible = panel2.Visible && EditingViews;
-            deleteViewButton.Enabled = panel2.Visible;
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
+            {
+                panel2.Hide();
+                tableLayoutPanel1.Hide();
+                deleteViewButton.Enabled = false;
+            }
+            else
+            {
+                panel2.Show();
+                deleteViewButton.Enabled = true;
+                if (EditingViews)
+                    tableLayoutPanel1.Show();
+                else
+                    tableLayoutPanel1.Hide();
+            }
+
             UpdateList();
 
             if (SelectedObjects == null) return;

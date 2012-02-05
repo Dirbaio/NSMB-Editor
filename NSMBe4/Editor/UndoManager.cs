@@ -485,7 +485,7 @@ namespace NSMBe4
         public override void AfterAction()
         {
             if (EdControl.mode is ObjectsEditionMode)
-                (EdControl.mode as ObjectsEditionMode).tabs.UpdateSpriteEditor();
+                (EdControl.mode as ObjectsEditionMode).tabs.UpdateInfo();
         }
         public override string ToString()
         {
@@ -540,7 +540,7 @@ namespace NSMBe4
         public override void AfterAction()
         {
             if (EdControl.mode is ObjectsEditionMode)
-                (EdControl.mode as ObjectsEditionMode).tabs.RefreshSpriteEditor();
+                (EdControl.mode as ObjectsEditionMode).tabs.UpdateInfo();
         }
         public override string ToString()
         {
@@ -897,11 +897,13 @@ namespace NSMBe4
         {
             EdControl.Level.Blocks = UndoManager.Clone(oldData);
             EdControl.Level.CalculateSpriteModifiers();
+            EdControl.config.LoadSettings();
         }
         public override void Redo()
         {
             EdControl.Level.Blocks = UndoManager.Clone(newData);
             EdControl.Level.CalculateSpriteModifiers();
+            EdControl.config.LoadSettings();
         }
         public override void AfterSetEdControl()
         {

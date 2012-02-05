@@ -26,13 +26,12 @@ using NSMBe4.DSFileSystem;
 
 
 namespace NSMBe4 {
-    public partial class LevelConfig : Form {
+    public partial class LevelConfig : UserControl {
         public LevelConfig(LevelEditorControl EdControl) {
             InitializeComponent();
             this.EdControl = EdControl;
             this.Level = EdControl.Level;
-            if (Properties.Settings.Default.mdi)
-                this.MdiParent = MdiParentForm.instance;
+
             tabControl1.SelectTab(0);
 
             LanguageManager.ApplyToContainer(this, "LevelConfig");
@@ -65,7 +64,7 @@ namespace NSMBe4 {
                     target.Items.Add(trimmedname);
                 }
             }
-            this.Icon = Properties.Resources.nsmbe;
+
         }
 
         private NSMBLevel Level;
@@ -88,7 +87,9 @@ namespace NSMBe4 {
             }
         }
 
+        bool updating = false;
         public void LoadSettings() {
+            updating = true;
             startEntranceUpDown.Value = Level.Blocks[0][0];
             midwayEntranceUpDown.Value = Level.Blocks[0][1];
             timeLimitUpDown.Value = Level.Blocks[0][4] | (Level.Blocks[0][5] << 8);
@@ -130,7 +131,7 @@ namespace NSMBe4 {
                     }
                 }
             }
-
+            updating = false;
         }
 
         #region Previews
@@ -268,7 +269,8 @@ namespace NSMBe4 {
         }
         #endregion
 
-        private void OKButton_Click(object sender, EventArgs e) {
+        private void saveSettings() {
+            if (updating) return;
             byte[][] newData = UndoManager.Clone(Level.Blocks);
             newData[0][0] = (byte)startEntranceUpDown.Value;
             newData[0][1] = (byte)midwayEntranceUpDown.Value;
@@ -327,16 +329,9 @@ namespace NSMBe4 {
 
             EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData));
             if (oldTileset != newData[0][0xC])
-            {
-                ReloadTileset();
-            }
-
-            RefreshMainWindow();
-            Close();
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e) {
-            Close();
+                EdControl.editor.LevelConfigForm_ReloadTileset();
+            else
+                EdControl.Invalidate();
         }
 
         private void bgTopLayerExportButton_Click(object sender, EventArgs e)
@@ -662,6 +657,16 @@ namespace NSMBe4 {
             string filename = openFileDialog2.FileName;
  
             importBackground(GFXFile, PalFile, LayoutFile, filename);
+        }
+
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            saveSettings();
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

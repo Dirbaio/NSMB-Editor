@@ -122,6 +122,12 @@
     <Compile Include="DataFinder.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Editor\GoodTabsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\GoodTabsPanel.Designer.cs">
+      <DependentUpon>GoodTabsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\TabsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -144,7 +150,7 @@
       <DependentUpon>LevelChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\LevelConfig.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Editor\LevelConfig.Designer.cs">
       <DependentUpon>LevelConfig.cs</DependentUpon>
@@ -242,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\CoordinateViewer.resx">
       <DependentUpon>CoordinateViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\GoodTabsPanel.resx">
+      <DependentUpon>GoodTabsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>

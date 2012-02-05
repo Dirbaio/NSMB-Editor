@@ -1,6 +1,6 @@
 ﻿namespace NSMBe4
 {
-    partial class TabsPanel
+    partial class GoodTabsPanel
     {
         /// <summary> 
         /// Required designer variable.
