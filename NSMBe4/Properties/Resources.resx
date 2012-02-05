@@ -990,7 +990,6 @@
   <data name="DestroyTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite Images\DestroyTile.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="GreenMushroomEdge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite Images\GreenMushroomEdge.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1002,5 +1001,15 @@
   </data>
   <data name="GreenMushroomStalkTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite Images\GreenMushroomStalkTop.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="arrow_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\arrow_down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieAway" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieAway.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieTowards" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieTowards.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
