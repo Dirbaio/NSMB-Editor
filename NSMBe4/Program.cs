@@ -56,8 +56,11 @@ namespace NSMBe4
                 LanguageManager.Load(Properties.Resources.english.Split('\n'));
             }
 
+            //This makes the editor behave BAD when no internet. 
+            /*
             if (Properties.Settings.Default.AutoUpdateSD)
-                SpriteData.update();
+                SpriteData.update();*/
+
             SpriteData.Load();  
 
             string path = "";

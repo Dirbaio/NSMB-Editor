@@ -43,7 +43,7 @@ namespace NSMBe4
             // You can also specify additional header values like 
             // the user agent or the referer:
             WebRequestObject.UserAgent = "NSMBe/5.2";
-            WebRequestObject.Referer = "http://www.example.com/";
+            WebRequestObject.Referer = "";
 
             // Request response:
             WebResponse Response = WebRequestObject.GetResponse();
@@ -67,13 +67,22 @@ namespace NSMBe4
 
         public static void update()
         {
-            WebClient Client = new WebClient();
-            //System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
-            //System.Net.NetworkInformation.PingReply result = p.Send("www.dirbaio.net");
-            //if (result.Status == System.Net.NetworkInformation.IPStatus.Success)
-                Client.DownloadFile("http://nsmbhd.net/spritedata.php", "spritedata.txt");
-            //else
-            //    MessageBox.Show("Error downloading spritedata.txt.");
+            try
+            {
+                string data = DownloadWebPage("http://nsmbhd.net/spritedata.php");
+                
+                if (data.Trim() == "")
+                    throw new Exception("Got empty data");
+
+                FileStream fs = new FileStream("spritedata.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.Write(data);
+                fs.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error updating the sprite data file: "+e.Message);
+            }
         }
 
         public static void Load()

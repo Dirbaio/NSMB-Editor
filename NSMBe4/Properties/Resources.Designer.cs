@@ -74,6 +74,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap arrow_down {
+            get {
+                object obj = ResourceManager.GetObject("arrow_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ArrowRotate45 {
             get {
                 object obj = ResourceManager.GetObject("ArrowRotate45", resourceCulture);
@@ -448,6 +455,20 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap Dorrie {
             get {
                 object obj = ResourceManager.GetObject("Dorrie", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DorrieAway {
+            get {
+                object obj = ResourceManager.GetObject("DorrieAway", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DorrieTowards {
+            get {
+                object obj = ResourceManager.GetObject("DorrieTowards", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

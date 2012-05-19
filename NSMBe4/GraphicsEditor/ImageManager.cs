@@ -221,6 +221,7 @@ namespace NSMBe4
 
             Bitmap b = new Bitmap(ofd.FileName);
             (imageListBox.SelectedItem as PalettedImage).replaceImgAndPal(b, paletteListBox.SelectedItem as Palette);
+            b.Dispose();
         }
 
         private void saveAllBtn_Click(object sender, EventArgs e)

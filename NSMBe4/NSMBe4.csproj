@@ -469,6 +469,9 @@
     <None Include="Resources\Sprite Images\GreenMushroomMiddle.PNG" />
     <None Include="Resources\Sprite Images\GreenMushroomStalk.PNG" />
     <None Include="Resources\Sprite Images\GreenMushroomStalkTop.PNG" />
+    <None Include="Resources\Icons\arrow_down.png" />
+    <None Include="Resources\Sprite Images\DorrieAway.PNG" />
+    <None Include="Resources\Sprite Images\DorrieTowards.PNG" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <None Include="Resources\file_ncg.png" />
     <None Include="Resources\file_ncl.png" />
