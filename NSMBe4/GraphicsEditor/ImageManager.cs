@@ -224,7 +224,19 @@ namespace NSMBe4
             b.Dispose();
         }
 
+        public delegate void SomethingSavedD();
+        public event SomethingSavedD SomethingSaved;
+
         private void saveAllBtn_Click(object sender, EventArgs e)
+        {
+            saveAll();
+
+            if (SomethingSaved != null)
+                SomethingSaved();
+
+        }
+
+        public void saveAll()
         {
             foreach (object o in imageListBox.Items)
             {
@@ -236,6 +248,12 @@ namespace NSMBe4
                 if (o is Palette)
                     (o as Palette).save();
             }
+        }
+
+        private void graphicsEditor1_SomethingSaved()
+        {
+            if (SomethingSaved != null)
+                SomethingSaved();
         }
 
 

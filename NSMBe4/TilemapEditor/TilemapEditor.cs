@@ -10,6 +10,8 @@ namespace NSMBe4.TilemapEditor
 {
     public partial class TilemapEditor : UserControl
     {
+        Tilemap t;
+
         public TilemapEditor()
         {
             InitializeComponent();
@@ -17,9 +19,16 @@ namespace NSMBe4.TilemapEditor
 
         public void load(Tilemap t)
         {
+            this.t = t;
+
             tilePicker1.init(t.buffers, 8);
             tilemapEditorControl1.picker = tilePicker1;
             tilemapEditorControl1.load(t);
+        }
+
+        public void reload()
+        {
+            tilePicker1.init(t.buffers, 8);
         }
 
         private void uncheckButtons()

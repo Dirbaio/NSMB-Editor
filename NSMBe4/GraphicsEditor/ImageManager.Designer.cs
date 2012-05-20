@@ -167,7 +167,7 @@
             this.fourBppCheckBox.AutoSize = true;
             this.fourBppCheckBox.Location = new System.Drawing.Point(44, 57);
             this.fourBppCheckBox.Name = "fourBppCheckBox";
-            this.fourBppCheckBox.Size = new System.Drawing.Size(121, 17);
+            this.fourBppCheckBox.Size = new System.Drawing.Size(119, 17);
             this.fourBppCheckBox.TabIndex = 2;
             this.fourBppCheckBox.Text = "View in 4bpp format";
             this.fourBppCheckBox.UseVisualStyleBackColor = true;
@@ -252,7 +252,7 @@
             this.autopaletteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autopaletteCheckBox.Location = new System.Drawing.Point(6, 159);
             this.autopaletteCheckBox.Name = "autopaletteCheckBox";
-            this.autopaletteCheckBox.Size = new System.Drawing.Size(116, 17);
+            this.autopaletteCheckBox.Size = new System.Drawing.Size(114, 17);
             this.autopaletteCheckBox.TabIndex = 3;
             this.autopaletteCheckBox.Text = "Auto palette select";
             this.autopaletteCheckBox.UseVisualStyleBackColor = true;
@@ -324,6 +324,7 @@
             this.graphicsEditor1.Name = "graphicsEditor1";
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 508);
             this.graphicsEditor1.TabIndex = 4;
+            this.graphicsEditor1.SomethingSaved += new NSMBe4.GraphicsEditor.SomethingSavedD(this.graphicsEditor1_SomethingSaved);
             // 
             // ImageManager
             // 

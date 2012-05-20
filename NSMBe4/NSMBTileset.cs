@@ -284,7 +284,7 @@ namespace NSMBe4
 
         public void beginEdit()
         {
-            Console.WriteLine("Begin edit tileset");
+
             try
             {
                 palette1.beginEdit();
@@ -403,7 +403,6 @@ namespace NSMBe4
         }
 
         #endregion
-
         #region Objects
         public class ObjectDef
         {
@@ -983,7 +982,33 @@ namespace NSMBe4
 
         public void importTileset(string filename)
         {
-            save();
+            try
+            {
+                PalFile.beginEdit(this);
+                GFXFile.beginEdit(this);
+                Map16File.beginEdit(this);
+                ObjFile.beginEdit(this);
+                ObjIndexFile.beginEdit(this);
+                if (TileBehaviorFile != null)
+                    TileBehaviorFile.beginEdit(this);
+            }
+            catch (AlreadyEditingException ex)
+            {
+                if (PalFile.beingEditedBy(this))
+                    PalFile.endEdit(this);
+                if (GFXFile.beingEditedBy(this))
+                    GFXFile.endEdit(this);
+                if (Map16File.beingEditedBy(this))
+                    Map16File.endEdit(this);
+                if (ObjFile.beingEditedBy(this))
+                    ObjFile.endEdit(this);
+                if (ObjIndexFile.beingEditedBy(this))
+                    ObjIndexFile.endEdit(this);
+                if (TileBehaviorFile != null)
+                    if (TileBehaviorFile.beingEditedBy(this))
+                        TileBehaviorFile.endEdit(this);
+                throw ex;
+            }
 
             System.IO.BinaryReader br = new System.IO.BinaryReader(
                 new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read));
@@ -1005,7 +1030,14 @@ namespace NSMBe4
             if (TileBehaviorFile != null)
                 readFileContents(TileBehaviorFile, br);
             br.Close();
-            load();
+
+            PalFile.endEdit(this);
+            GFXFile.endEdit(this);
+            Map16File.endEdit(this);
+            ObjFile.endEdit(this);
+            ObjIndexFile.endEdit(this);
+            if (TileBehaviorFile != null)
+                TileBehaviorFile.endEdit(this);
         }
 
         void readFileContents(File f, System.IO.BinaryReader br)

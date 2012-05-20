@@ -195,6 +195,9 @@ namespace NSMBe4
 
             return b;
         }
-
+        public override string ToString()
+        {
+            return f.name;
+        }
     }
 }

@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TilesetEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tilesetObjectEditor1 = new NSMBe4.TilesetObjectEditor();
             this.objectPickerControl1 = new NSMBe4.ObjectPickerControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tilemapEditor1 = new NSMBe4.TilemapEditor.TilemapEditor();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.imageManager1 = new NSMBe4.ImageManager();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tileBehaviorPicker = new NSMBe4.TilePicker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tileBehaviorEditor = new NSMBe4.ByteArrayEditor();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteAllButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportButton = new System.Windows.Forms.ToolStripButton();
-            this.importButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportTilesetButton = new System.Windows.Forms.ToolStripButton();
-            this.importTilesetButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.createDescriptions = new System.Windows.Forms.ToolStripButton();
             this.deleteDescriptions = new System.Windows.Forms.ToolStripButton();
             this.setend = new System.Windows.Forms.ToolStripButton();
@@ -54,11 +54,13 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.tilemapEditor1 = new NSMBe4.TilemapEditor.TilemapEditor();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +69,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
@@ -116,6 +119,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             // 
+            // tilemapEditor1
+            // 
+            this.tilemapEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tilemapEditor1.Location = new System.Drawing.Point(3, 3);
+            this.tilemapEditor1.Name = "tilemapEditor1";
+            this.tilemapEditor1.Size = new System.Drawing.Size(943, 504);
+            this.tilemapEditor1.TabIndex = 0;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.imageManager1);
@@ -134,6 +145,66 @@
             this.imageManager1.Name = "imageManager1";
             this.imageManager1.Size = new System.Drawing.Size(943, 504);
             this.imageManager1.TabIndex = 0;
+            this.imageManager1.SomethingSaved += new NSMBe4.ImageManager.SomethingSavedD(this.imageManager1_SomethingSaved);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.panel2);
+            this.tabPage5.Controls.Add(this.panel1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(949, 510);
+            this.tabPage5.TabIndex = 3;
+            this.tabPage5.Text = "Tile behaviors";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.tileBehaviorPicker);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 31);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(943, 476);
+            this.panel2.TabIndex = 2;
+            // 
+            // tileBehaviorPicker
+            // 
+            this.tileBehaviorPicker.AutoSize = true;
+            this.tileBehaviorPicker.Location = new System.Drawing.Point(3, 4);
+            this.tileBehaviorPicker.MinimumSize = new System.Drawing.Size(256, 224);
+            this.tileBehaviorPicker.Name = "tileBehaviorPicker";
+            this.tileBehaviorPicker.Size = new System.Drawing.Size(256, 224);
+            this.tileBehaviorPicker.TabIndex = 0;
+            this.tileBehaviorPicker.TileSelected += new NSMBe4.TilePicker.TileSelectedd(this.tileBehaviorPicker_TileSelected);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.tileBehaviorEditor);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(943, 28);
+            this.panel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Behavior: ";
+            // 
+            // tileBehaviorEditor
+            // 
+            this.tileBehaviorEditor.Location = new System.Drawing.Point(64, 3);
+            this.tileBehaviorEditor.Name = "tileBehaviorEditor";
+            this.tileBehaviorEditor.Size = new System.Drawing.Size(319, 23);
+            this.tileBehaviorEditor.TabIndex = 0;
+            this.tileBehaviorEditor.ValueChanged += new NSMBe4.ByteArrayEditor.ValueChangedD(this.tileBehaviorEditor_ValueChanged);
             // 
             // toolStrip1
             // 
@@ -141,13 +212,7 @@
             this.toolStripButton1,
             this.toolStripSeparator1,
             this.deleteAllButton,
-            this.toolStripSeparator2,
-            this.exportButton,
-            this.importButton,
             this.toolStripSeparator3,
-            this.exportTilesetButton,
-            this.importTilesetButton,
-            this.toolStripSeparator4,
             this.createDescriptions,
             this.deleteDescriptions,
             this.setend});
@@ -180,56 +245,10 @@
             this.deleteAllButton.Text = "<Del All>";
             this.deleteAllButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // exportButton
-            // 
-            this.exportButton.Image = global::NSMBe4.Properties.Resources.image__arrow;
-            this.exportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(76, 22);
-            this.exportButton.Text = "<Export>";
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click_1);
-            // 
-            // importButton
-            // 
-            this.importButton.Image = global::NSMBe4.Properties.Resources.image__plus;
-            this.importButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(79, 22);
-            this.importButton.Text = "<Import>";
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // exportTilesetButton
-            // 
-            this.exportTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("exportTilesetButton.Image")));
-            this.exportTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.exportTilesetButton.Name = "exportTilesetButton";
-            this.exportTilesetButton.Size = new System.Drawing.Size(110, 22);
-            this.exportTilesetButton.Text = "<export tileset>";
-            this.exportTilesetButton.Click += new System.EventHandler(this.exportTilesetButton_Click);
-            // 
-            // importTilesetButton
-            // 
-            this.importTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("importTilesetButton.Image")));
-            this.importTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.importTilesetButton.Name = "importTilesetButton";
-            this.importTilesetButton.Size = new System.Drawing.Size(113, 22);
-            this.importTilesetButton.Text = "<import tileset>";
-            this.importTilesetButton.Click += new System.EventHandler(this.importTilesetButton_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // createDescriptions
             // 
@@ -275,14 +294,6 @@
             // 
             this.saveFileDialog2.Filter = "NSMB Tilesets|*.nmt";
             // 
-            // tilemapEditor1
-            // 
-            this.tilemapEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tilemapEditor1.Location = new System.Drawing.Point(3, 3);
-            this.tilemapEditor1.Name = "tilemapEditor1";
-            this.tilemapEditor1.Size = new System.Drawing.Size(943, 504);
-            this.tilemapEditor1.TabIndex = 0;
-            // 
             // TilesetEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,6 +309,11 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -316,22 +332,22 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripButton deleteAllButton;
-        private System.Windows.Forms.ToolStripButton importButton;
-        private System.Windows.Forms.ToolStripButton exportButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton exportTilesetButton;
-        private System.Windows.Forms.ToolStripButton importTilesetButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton createDescriptions;
         private System.Windows.Forms.ToolStripButton deleteDescriptions;
         private System.Windows.Forms.ToolStripButton setend;
         private System.Windows.Forms.TabPage tabPage3;
         private ImageManager imageManager1;
         private TilemapEditor.TilemapEditor tilemapEditor1;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Panel panel2;
+        private TilePicker tileBehaviorPicker;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private ByteArrayEditor tileBehaviorEditor;
     }
 }

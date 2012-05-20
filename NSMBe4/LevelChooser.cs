@@ -86,6 +86,7 @@ namespace NSMBe4 {
             if (!ROM.isNSMBRom)
             {
                 tabControl1.TabPages.Remove(tabPage2);
+                tabControl1.TabPages.Remove(tabPage5);
                 nsmbToolsGroupbox.Enabled = false;
             }
 

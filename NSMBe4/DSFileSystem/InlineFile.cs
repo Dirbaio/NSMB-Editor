@@ -25,7 +25,7 @@ namespace NSMBe4.DSFileSystem
         }
 
         public InlineFile(File parent, int offs, int len, string name, Directory parentDir, CompressionType comp)
-            :base(parent.parent, parentDir, parent.name+" - "+name + ":"+offs.ToString("X")+":"+len)
+            : base(parent.parent, parentDir, parent.name + " - " + name + ":" + offs.ToString("X") + ":" + len.ToString("X"))
         {
             parentFile = parent;
             inlineOffs = offs;

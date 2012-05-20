@@ -243,6 +243,12 @@
     <Compile Include="TilemapEditor\TilemapEditorTest.Designer.cs">
       <DependentUpon>TilemapEditorTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="TilesetEditor\TilesetList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor\TilesetList.Designer.cs">
+      <DependentUpon>TilesetList.cs</DependentUpon>
+    </Compile>
     <Compile Include="XButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -408,6 +414,9 @@
     <EmbeddedResource Include="TilesetEditor\TilesetEditor.resx">
       <DependentUpon>TilesetEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetEditor\TilesetList.resx">
+      <DependentUpon>TilesetList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\TilesetObjectEditor.resx">
       <DependentUpon>TilesetObjectEditor.cs</DependentUpon>
