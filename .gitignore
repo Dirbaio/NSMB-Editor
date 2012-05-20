@@ -1,0 +1,10 @@
+*.exe
+*.dll
+*.pdb
+NSMBe4/bin
+NSMBe4/obj
+NSMBe4.suo
+Be.Windows.Forms.HexBox/obj/
+Be.Windows.Forms.HexBox/Be.Windows.Forms.HexBox.xml
+NSMBe4/Be.Windows.Forms.HexBox.xml
+
