@@ -15,8 +15,13 @@ namespace NSMBe4
             InitializeComponent();
         }
 
+        public bool standalone = false;
+
         public void addImage(PalettedImage i)
         {
+            if (standalone)
+                i.beginEdit();
+
             imageListBox.Items.Add(i);
             if (imageListBox.Items.Count == 1)
                 imageListBox.SelectedItem = i;
@@ -24,6 +29,9 @@ namespace NSMBe4
 
         public void addPalette(Palette p)
         {
+            if (standalone)
+                p.beginEdit();
+
             paletteListBox.Items.Add(p);
             if (paletteListBox.Items.Count == 1)
                 paletteListBox.SelectedItem = p;
@@ -87,7 +95,6 @@ namespace NSMBe4
             else
                 updateImage();
         }
-
 
         public void close()
         {

@@ -90,7 +90,7 @@ namespace NSMBe4 {
                 nsmbToolsGroupbox.Enabled = false;
             }
 
-            new LevelEditor("A01_1", "LOL").Show();
+//            new LevelEditor("A01_1", "LOL").Show();
         }
 
 
