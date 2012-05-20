@@ -54,8 +54,10 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.tilemapEditor1 = new NSMBe4.TilemapEditor.TilemapEditor();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -106,6 +108,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.tilemapEditor1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -173,7 +176,7 @@
             this.deleteAllButton.Image = global::NSMBe4.Properties.Resources.cross_script;
             this.deleteAllButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteAllButton.Name = "deleteAllButton";
-            this.deleteAllButton.Size = new System.Drawing.Size(72, 22);
+            this.deleteAllButton.Size = new System.Drawing.Size(77, 22);
             this.deleteAllButton.Text = "<Del All>";
             this.deleteAllButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -187,7 +190,7 @@
             this.exportButton.Image = global::NSMBe4.Properties.Resources.image__arrow;
             this.exportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(75, 22);
+            this.exportButton.Size = new System.Drawing.Size(76, 22);
             this.exportButton.Text = "<Export>";
             this.exportButton.Click += new System.EventHandler(this.exportButton_Click_1);
             // 
@@ -196,7 +199,7 @@
             this.importButton.Image = global::NSMBe4.Properties.Resources.image__plus;
             this.importButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(75, 22);
+            this.importButton.Size = new System.Drawing.Size(79, 22);
             this.importButton.Text = "<Import>";
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
@@ -210,7 +213,7 @@
             this.exportTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("exportTilesetButton.Image")));
             this.exportTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportTilesetButton.Name = "exportTilesetButton";
-            this.exportTilesetButton.Size = new System.Drawing.Size(107, 22);
+            this.exportTilesetButton.Size = new System.Drawing.Size(110, 22);
             this.exportTilesetButton.Text = "<export tileset>";
             this.exportTilesetButton.Click += new System.EventHandler(this.exportTilesetButton_Click);
             // 
@@ -219,7 +222,7 @@
             this.importTilesetButton.Image = ((System.Drawing.Image)(resources.GetObject("importTilesetButton.Image")));
             this.importTilesetButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importTilesetButton.Name = "importTilesetButton";
-            this.importTilesetButton.Size = new System.Drawing.Size(105, 22);
+            this.importTilesetButton.Size = new System.Drawing.Size(113, 22);
             this.importTilesetButton.Text = "<import tileset>";
             this.importTilesetButton.Click += new System.EventHandler(this.importTilesetButton_Click);
             // 
@@ -233,7 +236,7 @@
             this.createDescriptions.Image = global::NSMBe4.Properties.Resources.textfield_add;
             this.createDescriptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.createDescriptions.Name = "createDescriptions";
-            this.createDescriptions.Size = new System.Drawing.Size(100, 22);
+            this.createDescriptions.Size = new System.Drawing.Size(107, 22);
             this.createDescriptions.Text = "<descriptions>";
             this.createDescriptions.Click += new System.EventHandler(this.createDescriptions_Click);
             // 
@@ -242,7 +245,7 @@
             this.deleteDescriptions.Image = global::NSMBe4.Properties.Resources.cross_script;
             this.deleteDescriptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteDescriptions.Name = "deleteDescriptions";
-            this.deleteDescriptions.Size = new System.Drawing.Size(133, 22);
+            this.deleteDescriptions.Size = new System.Drawing.Size(142, 22);
             this.deleteDescriptions.Text = "<delete descriptions>";
             this.deleteDescriptions.Click += new System.EventHandler(this.deleteDescriptions_Click);
             // 
@@ -251,7 +254,7 @@
             this.setend.Image = global::NSMBe4.Properties.Resources.cross_script;
             this.setend.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setend.Name = "setend";
-            this.setend.Size = new System.Drawing.Size(79, 22);
+            this.setend.Size = new System.Drawing.Size(81, 22);
             this.setend.Text = "<set end>";
             this.setend.ToolTipText = "makes the selected block the last in the tileset";
             this.setend.Click += new System.EventHandler(this.setend_Click);
@@ -272,6 +275,14 @@
             // 
             this.saveFileDialog2.Filter = "NSMB Tilesets|*.nmt";
             // 
+            // tilemapEditor1
+            // 
+            this.tilemapEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tilemapEditor1.Location = new System.Drawing.Point(3, 3);
+            this.tilemapEditor1.Name = "tilemapEditor1";
+            this.tilemapEditor1.Size = new System.Drawing.Size(943, 504);
+            this.tilemapEditor1.TabIndex = 0;
+            // 
             // TilesetEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,6 +296,7 @@
             this.Load += new System.EventHandler(this.TilesetEditor_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -320,5 +332,6 @@
         private System.Windows.Forms.ToolStripButton setend;
         private System.Windows.Forms.TabPage tabPage3;
         private ImageManager imageManager1;
+        private TilemapEditor.TilemapEditor tilemapEditor1;
     }
 }

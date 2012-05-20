@@ -4,7 +4,7 @@ using System.Text;
 using NSMBe4.DSFileSystem;
 using System.Drawing;
 
-namespace NSMBe4.TilemapEditor
+namespace NSMBe4
 {
     public abstract class Tilemap
     {
@@ -68,6 +68,7 @@ namespace NSMBe4.TilemapEditor
                 int y = i / width;
                 os.writeUShort(tileToShort(tiles[x, y]));
             }
+            f.replace(os.getArray(), this);
         }
 
         public Tile getTileAtPos(int x, int y)
@@ -83,25 +84,53 @@ namespace NSMBe4.TilemapEditor
                 buffers[i] = tileset.render(palettes[i]);
         }
 
+        public Bitmap buffer;
+        Graphics bufferGx;
+
+        Bitmap tile;
+        Graphics tileg;
+
         public Bitmap render()
         {
+            if(buffers == null)
+                updateBuffers();
+
+            if (buffer == null)
+            {
+                buffer = new Bitmap(width * 8, height * 8, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                bufferGx = Graphics.FromImage(buffer);
+                bufferGx.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+
+                tile = new Bitmap(8, 8, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                tileg = Graphics.FromImage(tile);
+                tileg.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+            }
+
+            reRenderAll();
+
+            return buffer;
+        }
+
+        public Bitmap reRenderAll()
+        {
             updateBuffers();
+            return reRender(0, 0, width, height);
+        }
 
-            Bitmap res = new Bitmap(width * 8, height * 8, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-            Graphics resg = Graphics.FromImage(res);
-
-            Bitmap tile = new Bitmap(8, 8, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-            Graphics tileg = Graphics.FromImage(tile);
-            tileg.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-
-            for(int x = 0; x < width; x++)
-                for (int y = 0; y < height; y++)
+        public Bitmap reRender(int xMin, int yMin, int width, int height)
+        {
+            for (int x = xMin; x < xMin+width; x++)
+                for (int y = yMin; y < yMin+height; y++)
                 {
+                    if (x >= this.width) continue;
+                    if (y >= this.height) continue;
                     Tile t = tiles[x, y];
+                    if (t.tileNum == -1)
+                        bufferGx.FillRectangle(Brushes.Transparent, x * 8, y * 8, 8, 8);
                     if (t.palNum >= palettes.Length) continue;
                     if (t.palNum < 0) continue;
                     if (t.hflip == false && t.vflip == false)
-                        resg.DrawImage(buffers[t.palNum], x * 8, y * 8, Image2D.getTileRectangle(buffers[t.palNum], 8, t.tileNum), GraphicsUnit.Pixel);
+                        bufferGx.DrawImage(buffers[t.palNum], x * 8, y * 8, Image2D.getTileRectangle(buffers[t.palNum], 8, t.tileNum), GraphicsUnit.Pixel);
                     else
                     {
                         tileg.DrawImage(buffers[t.palNum], 0, 0, Image2D.getTileRectangle(buffers[t.palNum], 8, t.tileNum), GraphicsUnit.Pixel);
@@ -111,18 +140,18 @@ namespace NSMBe4.TilemapEditor
                             tile.RotateFlip(RotateFlipType.RotateNoneFlipY);
                         else if (t.hflip == true && t.vflip == true)
                             tile.RotateFlip(RotateFlipType.RotateNoneFlipXY);
-                        resg.DrawImage(tile, x * 8, y * 8);
+                        bufferGx.DrawImage(tile, x * 8, y * 8);
                     }
                 }
-
-            return res;
+            return buffer;
         }
 
         public ushort tileToShort(Tile t)
         {
             ushort res = 0;
 
-            res |= (ushort)((t.tileNum + tileOffset) & 0x3FF);
+            if(t.tileNum != -1)
+                res |= (ushort)((t.tileNum + tileOffset) & 0x3FF);
             res |= (ushort)((t.hflip ? 1 : 0) << 10);
             res |= (ushort)((t.vflip ? 1 : 0) << 11);
             res |= (ushort)(((t.palNum + paletteOffset) & 0x00F) << 12);
@@ -135,6 +164,9 @@ namespace NSMBe4.TilemapEditor
             Tile res = new Tile();
 
             res.tileNum = (u & 0x3FF) - tileOffset;
+            if (res.tileNum < 0)
+                res.tileNum = -1;
+
             res.hflip = ((u >> 10) & 1) == 1;
             res.vflip = ((u >> 11) & 1) == 1;
             res.palNum = ((u >> 12) & 0xF) - paletteOffset;
@@ -142,7 +174,7 @@ namespace NSMBe4.TilemapEditor
             return res;
         }
 
-        public class Tile
+        public struct Tile
         {
             public int tileNum;
             public int palNum;

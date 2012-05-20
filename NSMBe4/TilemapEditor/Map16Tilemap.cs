@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NSMBe4.DSFileSystem;
 
-namespace NSMBe4.TilemapEditor
+namespace NSMBe4
 {
     public class Map16Tilemap : Tilemap
     {
@@ -27,6 +27,30 @@ namespace NSMBe4.TilemapEditor
                 tiles[x, y+1] = shortToTile(b.readUShort());
                 tiles[x+1, y+1] = shortToTile(b.readUShort());
             }
+        }
+
+        public override void  save()
+        {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+            for (int i = 0; i < f.fileSize / 8; i++)
+            {
+                int x = (i % (width/2))*2;
+                int y = (i / (width/2))*2;
+                os.writeUShort(tileToShort(tiles[x, y]));
+                os.writeUShort(tileToShort(tiles[x+1, y]));
+                os.writeUShort(tileToShort(tiles[x, y+1]));
+                os.writeUShort(tileToShort(tiles[x+1, y+1]));
+            }
+            
+            for (int i = 0; i < f.fileSize / 2; i++)
+            {
+                int x = i % width;
+                int y = i / width;
+                os.writeUShort(tileToShort(tiles[x, y]));
+            }
+
+            f.replace(os.getArray(), this);
         }
 
         public int getMap16TileCount()

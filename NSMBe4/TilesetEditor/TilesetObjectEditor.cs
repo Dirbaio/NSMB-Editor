@@ -87,7 +87,7 @@ namespace NSMBe4
         {
             this.tnum = TilesetNumber;
             this.tls = g.Tilesets[tnum];
-            map16Picker1.SetTileset(tls);
+            tilePicker1.init(new Bitmap[] { tls.map16.buffer }, 16);
             previewObject = new NSMBObject(0, tnum, 0, 0, 6, 6, g);
         }
 
@@ -114,7 +114,7 @@ namespace NSMBe4
                     }
                     else if (!t.emptyTile)
                     {
-                        g.DrawImage(tls.Map16Buffer, x, y, new Rectangle(t.tileID * 16, 0, 16, 16), GraphicsUnit.Pixel);
+                        g.DrawImage(tls.Map16Buffer, x, y, Image2D.getTileRectangle(tls.Map16Buffer, 16, t.tileID), GraphicsUnit.Pixel);
                         if ((t.controlByte & 1) != 0)
                             g.DrawRectangle(Pens.Red, x, y, 15, 15);
                         if ((t.controlByte & 2) != 0)
@@ -123,7 +123,6 @@ namespace NSMBe4
                     if (t == selTile)
                         g.DrawRectangle(Pens.White, x, y, 15, 15);
                     x += 16;
-
                 }
                 g.DrawString((y / 16) + "", NSMBGraphics.InfoFont, Brushes.White, 0, y);
                 if(selRow == row && selTile == null)
@@ -217,7 +216,7 @@ namespace NSMBe4
             DataUpdateFlag = true;
             map16Tile.Value = selTile.tileID;
             controlByte.Value = selTile.controlByte;
-            map16Picker1.selectTile(selTile.tileID);
+//            map16Picker1.selectTile(selTile.tileID);
             groupBox1.Visible = selTile != null;
 
             DataUpdateFlag = false;
@@ -231,7 +230,7 @@ namespace NSMBe4
                 return;
 
             selTile.tileID = (int)map16Tile.Value;
-            map16Picker1.selectTile(selTile.tileID);
+//            map16Picker1.selectTile(selTile.tileID);
             repaint();
         }
 
@@ -294,17 +293,22 @@ namespace NSMBe4
 
         private void newLineButton_Click(object sender, EventArgs e)
         {
+            newLine();
+        }
+
+        private void newLine()
+        {
             if (selRow == null)
                 return;
 
-            obj.tiles.Insert(obj.tiles.IndexOf(selRow)+1, new List<NSMBTileset.ObjectDefTile>());
+            obj.tiles.Insert(obj.tiles.IndexOf(selRow) + 1, new List<NSMBTileset.ObjectDefTile>());
             selRow = obj.tiles[obj.tiles.IndexOf(selRow) + 1];
             repaint();
         }
 
         public void redrawThings()
         {
-            map16Picker1.SetTileset(tls);
+            tilePicker1.init(new Bitmap[] { tls.map16.buffer }, 16);
         }
 
         private void emptyTileButton_Click(object sender, EventArgs e) {
@@ -362,6 +366,21 @@ namespace NSMBe4
                 }
             }
             repaint();
+        }
+
+        private void tilePicker1_TileSelected(int selTileNum, int selTilePal, int selTileWidth, int selTileHeight)
+        {
+            for (int y = 0; y < selTileHeight; y++)
+            {
+                if (y != 0)
+                    newLine();
+                for(int x = 0; x < selTileWidth; x++)
+                {
+                    NSMBTileset.ObjectDefTile tile = new NSMBTileset.ObjectDefTile(tls);
+                    tile.tileID = selTileNum + x + y * tilePicker1.bufferWidth;
+                    insertTile(tile);
+                }
+            }
         }
 
     }

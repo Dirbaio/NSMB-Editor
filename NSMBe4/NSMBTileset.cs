@@ -254,7 +254,11 @@ namespace NSMBe4
             map16 = new Map16Tilemap(Map16File, 32, graphics, new Palette[] { palette1, palette2 }, Map16TileOffset, Map16PaletteOffset);
             Overrides = new short[map16.getMap16TileCount()];
             Map16Buffer = map16.render();
-
+            /*
+            TilemapEditorTest t = new TilemapEditorTest();
+            t.load(map16);
+            t.Show();
+            */
             //Tile Behaviors
             loadTileBehaviors();
 
@@ -280,6 +284,7 @@ namespace NSMBe4
 
         public void beginEdit()
         {
+            Console.WriteLine("Begin edit tileset");
             try
             {
                 palette1.beginEdit();

@@ -63,13 +63,19 @@ namespace NSMBe4
             }
 
             t = g.Tilesets[TilesetNumber];
-//            t.enableWrite();
+            t.beginEdit();
 
             objectPickerControl1.Initialise(g);
             objectPickerControl1.CurrentTileset = TilesetNumber;
 
             tilesetObjectEditor1.load(g, TilesetNumber);
-//            map16Editor1.load(t);
+            tilemapEditor1.load(t.map16);
+
+            imageManager1.addImage(t.graphics);
+            imageManager1.addPalette(t.palette1);
+            imageManager1.addPalette(t.palette2);
+
+            //            map16Editor1.load(t);
 //            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
 
             //FIXME
@@ -149,6 +155,7 @@ namespace NSMBe4
 
         private void TilesetEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
+            t.endEdit();
             g.close();
         }
 
