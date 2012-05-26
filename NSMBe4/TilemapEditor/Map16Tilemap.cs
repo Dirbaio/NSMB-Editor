@@ -42,13 +42,6 @@ namespace NSMBe4
                 os.writeUShort(tileToShort(tiles[x, y+1]));
                 os.writeUShort(tileToShort(tiles[x+1, y+1]));
             }
-            
-            for (int i = 0; i < f.fileSize / 2; i++)
-            {
-                int x = i % width;
-                int y = i / width;
-                os.writeUShort(tileToShort(tiles[x, y]));
-            }
 
             f.replace(os.getArray(), this);
         }
