@@ -32,10 +32,10 @@ namespace NSMBe4 {
             this.importLevelButton = new System.Windows.Forms.Button();
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tilesetList1 = new NSMBe4.TilesetList();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.patchesGroupbox = new System.Windows.Forms.GroupBox();
             this.patchExport = new System.Windows.Forms.Button();
@@ -74,16 +74,19 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.backgroundList1 = new NSMBe4.BackgroundList();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.patchesGroupbox.SuspendLayout();
             this.nsmbToolsGroupbox.SuspendLayout();
             this.asmToolsGroupbox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -93,6 +96,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -173,25 +177,6 @@ namespace NSMBe4 {
             this.levelTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.levelTreeView_AfterSelect);
             this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.filesystemBrowser1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(542, 452);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "<tabPage1>";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // filesystemBrowser1
-            // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 446);
-            this.filesystemBrowser1.TabIndex = 0;
-            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.tilesetList1);
@@ -210,6 +195,25 @@ namespace NSMBe4 {
             this.tilesetList1.Name = "tilesetList1";
             this.tilesetList1.Size = new System.Drawing.Size(536, 446);
             this.tilesetList1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.filesystemBrowser1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(542, 452);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "<tabPage1>";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 446);
+            this.filesystemBrowser1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -600,6 +604,24 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.backgroundList1);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(542, 452);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Backgrounds";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // backgroundList1
+            // 
+            this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.backgroundList1.Location = new System.Drawing.Point(0, 0);
+            this.backgroundList1.Name = "backgroundList1";
+            this.backgroundList1.Size = new System.Drawing.Size(542, 452);
+            this.backgroundList1.TabIndex = 0;
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -612,8 +634,8 @@ namespace NSMBe4 {
             this.Load += new System.EventHandler(this.LevelChooser_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.patchesGroupbox.ResumeLayout(false);
             this.nsmbToolsGroupbox.ResumeLayout(false);
@@ -622,6 +644,7 @@ namespace NSMBe4 {
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -677,5 +700,7 @@ namespace NSMBe4 {
         private System.Windows.Forms.GroupBox nsmbToolsGroupbox;
         private System.Windows.Forms.TabPage tabPage5;
         private TilesetList tilesetList1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private BackgroundList backgroundList1;
     }
 }

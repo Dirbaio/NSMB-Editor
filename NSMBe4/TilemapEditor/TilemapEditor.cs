@@ -20,7 +20,7 @@ namespace NSMBe4.TilemapEditor
         public void load(Tilemap t)
         {
             this.t = t;
-
+            panel1.Width = t.width * 8 + 30;
             tilePicker1.init(t.buffers, 8);
             tilemapEditorControl1.picker = tilePicker1;
             tilemapEditorControl1.load(t);
@@ -73,6 +73,16 @@ namespace NSMBe4.TilemapEditor
             tilemapEditorControl1.mode = TilemapEditorControl.EditionMode.PASTE;
             uncheckButtons();
             pasteToolButton.Checked = true;
+        }
+
+        public void showSaveButton()
+        {
+            saveButton.Visible = true;
+            toolStripSeparator1.Visible = true;
+        }
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            t.save();
         }
     }
 }

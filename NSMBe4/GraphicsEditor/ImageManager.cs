@@ -27,6 +27,22 @@ namespace NSMBe4
                 imageListBox.SelectedItem = i;
         }
 
+        public Image2D getSelectedImage()
+        {
+            return imageListBox.SelectedItem as Image2D;
+        }
+
+        public Palette[] getPalettes()
+        {
+            List<Palette> res = new List<Palette>();
+
+            foreach (object o in paletteListBox.Items)
+                if (o is Palette)
+                    res.Add(o as Palette);
+
+            return res.ToArray();
+        }
+
         public void addPalette(Palette p)
         {
             if (standalone)

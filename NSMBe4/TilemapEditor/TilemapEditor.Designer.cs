@@ -39,6 +39,8 @@
             this.yFlipToolButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolButton = new System.Windows.Forms.ToolStripButton();
+            this.saveButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -86,6 +88,8 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveButton,
+            this.toolStripSeparator1,
             this.drawToolButton,
             this.xFlipToolButton,
             this.yFlipToolButton,
@@ -101,7 +105,7 @@
             // 
             this.drawToolButton.CheckOnClick = true;
             this.drawToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.drawToolButton.Image = ((System.Drawing.Image)(resources.GetObject("drawToolButton.Image")));
+            this.drawToolButton.Image = global::NSMBe4.Properties.Resources.brush;
             this.drawToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.drawToolButton.Name = "drawToolButton";
             this.drawToolButton.Size = new System.Drawing.Size(23, 22);
@@ -134,7 +138,7 @@
             // 
             this.copyToolButton.CheckOnClick = true;
             this.copyToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolButton.Image")));
+            this.copyToolButton.Image = global::NSMBe4.Properties.Resources.copy;
             this.copyToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolButton.Name = "copyToolButton";
             this.copyToolButton.Size = new System.Drawing.Size(23, 22);
@@ -145,12 +149,29 @@
             // 
             this.pasteToolButton.CheckOnClick = true;
             this.pasteToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolButton.Image")));
+            this.pasteToolButton.Image = global::NSMBe4.Properties.Resources.paste;
             this.pasteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolButton.Name = "pasteToolButton";
             this.pasteToolButton.Size = new System.Drawing.Size(23, 22);
             this.pasteToolButton.Text = "Paste";
             this.pasteToolButton.Click += new System.EventHandler(this.pasteToolButton_Click);
+            // 
+            // saveButton
+            // 
+            this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveButton.Image = global::NSMBe4.Properties.Resources.save;
+            this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(23, 22);
+            this.saveButton.Text = "Save";
+            this.saveButton.Visible = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Visible = false;
             // 
             // TilemapEditor
             // 
@@ -184,5 +205,7 @@
         private System.Windows.Forms.ToolStripButton yFlipToolButton;
         private System.Windows.Forms.ToolStripButton copyToolButton;
         private System.Windows.Forms.ToolStripButton pasteToolButton;
+        private System.Windows.Forms.ToolStripButton saveButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

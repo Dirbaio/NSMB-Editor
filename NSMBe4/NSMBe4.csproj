@@ -134,6 +134,7 @@
     <Compile Include="Editor\TabsPanel.Designer.cs">
       <DependentUpon>TabsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphicsEditor\EnpgImage2D.cs" />
     <Compile Include="GraphicsEditor\Image3D.cs" />
     <Compile Include="GraphicsEditor\Image3Dformat5.cs" />
     <Compile Include="ImageIndexerFast.cs" />
@@ -237,11 +238,17 @@
     <Compile Include="TilemapEditor\TilemapEditor.Designer.cs">
       <DependentUpon>TilemapEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="TilemapEditor\TilemapEditorTest.cs">
+    <Compile Include="TilemapEditor\TilemapEditorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TilemapEditor\TilemapEditorTest.Designer.cs">
-      <DependentUpon>TilemapEditorTest.cs</DependentUpon>
+    <Compile Include="TilemapEditor\TilemapEditorWindow.Designer.cs">
+      <DependentUpon>TilemapEditorWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TilesetEditor\BackgroundList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor\BackgroundList.Designer.cs">
+      <DependentUpon>BackgroundList.cs</DependentUpon>
     </Compile>
     <Compile Include="TilesetEditor\TilesetList.cs">
       <SubType>UserControl</SubType>
@@ -367,8 +374,11 @@
     <EmbeddedResource Include="TilemapEditor\TilemapEditor.resx">
       <DependentUpon>TilemapEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilemapEditor\TilemapEditorTest.resx">
-      <DependentUpon>TilemapEditorTest.cs</DependentUpon>
+    <EmbeddedResource Include="TilemapEditor\TilemapEditorWindow.resx">
+      <DependentUpon>TilemapEditorWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetEditor\BackgroundList.resx">
+      <DependentUpon>BackgroundList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\Map16Picker.resx">
       <DependentUpon>Map16Picker.cs</DependentUpon>

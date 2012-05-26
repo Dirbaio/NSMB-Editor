@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace NSMBe4
 {
-    public abstract class Tilemap
+    public class Tilemap
     {
         public Tile[,] tiles;
         public int width, height;

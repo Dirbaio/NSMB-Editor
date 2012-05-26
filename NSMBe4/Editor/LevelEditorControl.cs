@@ -34,6 +34,7 @@ namespace NSMBe4
         public int bgX, bgY;
         public int dsScreenX, dsScreenY;
         public bool showDSScreen = false;
+        public bool showGrid = false;
         public bool ignoreMouse = false;
 
         public Rectangle ViewablePixels;
@@ -110,8 +111,8 @@ namespace NSMBe4
 
             ViewableBlocks.X = ViewablePixels.X / 16;
             ViewableBlocks.Y = ViewablePixels.Y / 16;
-            ViewableBlocks.Width = (ViewablePixels.Width + 15) / 16;
-            ViewableBlocks.Height = (ViewablePixels.Height + 15) / 16;
+            ViewableBlocks.Width = (ViewablePixels.Width + 15) / 16+1;
+            ViewableBlocks.Height = (ViewablePixels.Height + 15) / 16+1;
         }
 
         private void LevelEditorControl_Resize(object sender, EventArgs e) {
@@ -187,8 +188,16 @@ namespace NSMBe4
             if (bgImage != null)
                 e.Graphics.DrawImage(bgImage, bgX, bgY);
 
+            if (showGrid)
+            {
+                for (int x = ViewableBlocks.X; x <= ViewableBlocks.Width + ViewableBlocks.X; x++)
+                    e.Graphics.DrawLine(Pens.DarkSlateGray, x * 16, ViewablePixels.Y, x * 16, ViewablePixels.Y+ViewablePixels.Height);
+                for (int y = ViewableBlocks.Y; y <= ViewableBlocks.Height + ViewableBlocks.Y; y++)
+                    e.Graphics.DrawLine(Pens.DarkSlateGray, ViewablePixels.X, y * 16, ViewablePixels.X + ViewablePixels.Width, y * 16);
+            }
+
             //RENDER PANNING BLOCKS GRID
-            for(int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width+ViewableBlocks.X)/16; x++)
+            for (int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width + ViewableBlocks.X) / 16; x++)
                 for (int y = ViewableBlocks.Y / 16; y <= (ViewableBlocks.Height + ViewableBlocks.Y) / 16; y++)
                     e.Graphics.DrawRectangle(Pens.LightGray, x * 256, y * 256, 256, 256);
 
@@ -219,7 +228,7 @@ namespace NSMBe4
                 v.render(e.Graphics, this);
 
             foreach(NSMBEntrance n in Level.Entrances)
-                if(ViewablePixels.Contains(n.X, n.Y))
+                if(ViewablePixels.IntersectsWith(new Rectangle(n.x, n.y, n.width, n.height)))
                     n.render(e.Graphics, this);
 
             foreach (NSMBPath p in Level.Paths)
@@ -432,8 +441,8 @@ namespace NSMBe4
             {
                 int NewX = e.X;
                 int NewY = e.Y;
-                int XDelta = (NewX - DragStartX);
-                int YDelta = (NewY - DragStartY);
+                int XDelta = (int)((NewX - DragStartX)/zoom);
+                int YDelta = (int)((NewY - DragStartY)/zoom);
                 if (XDelta != 0 || YDelta != 0)
                 {
                     Point NewPosition = new Point(ViewablePixels.X - XDelta, ViewablePixels.Y - YDelta);

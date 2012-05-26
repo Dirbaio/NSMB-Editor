@@ -87,6 +87,7 @@ namespace NSMBe4 {
             {
                 tabControl1.TabPages.Remove(tabPage2);
                 tabControl1.TabPages.Remove(tabPage5);
+                tabControl1.TabPages.Remove(tabPage6);
                 nsmbToolsGroupbox.Enabled = false;
             }
 

@@ -9,7 +9,7 @@ namespace NSMBe4
     public class Image2D : PixelPalettedImage
     {
         private File f;
-        private byte[] data;
+        protected byte[] data;
         private byte[] rawdata;
         public int width;
         public int tileOffset;
@@ -31,10 +31,16 @@ namespace NSMBe4
         }
 
         public Image2D(File f, int width, bool is4bpp)
+            :this(f, width, is4bpp, true)
+        {
+        }
+
+        public Image2D(File f, int width, bool is4bpp, bool isLZCompressed)
         {
             this.f = f;
             this.is4bppI = is4bpp;
             this.width = width;
+            this.isLZCompressed = isLZCompressed;
             reload();
         }
 

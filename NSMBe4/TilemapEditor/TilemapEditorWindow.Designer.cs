@@ -1,6 +1,6 @@
 ﻿namespace NSMBe4.TilemapEditor
 {
-    partial class TilemapEditorTest
+    partial class TilemapEditorWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -36,17 +36,18 @@
             this.tilemapEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tilemapEditor1.Location = new System.Drawing.Point(0, 0);
             this.tilemapEditor1.Name = "tilemapEditor1";
-            this.tilemapEditor1.Size = new System.Drawing.Size(720, 434);
+            this.tilemapEditor1.Size = new System.Drawing.Size(921, 589);
             this.tilemapEditor1.TabIndex = 0;
             // 
-            // TilemapEditorTest
+            // TilemapEditorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 434);
+            this.ClientSize = new System.Drawing.Size(921, 589);
             this.Controls.Add(this.tilemapEditor1);
-            this.Name = "TilemapEditorTest";
+            this.Name = "TilemapEditorWindow";
             this.Text = "TilemapEditorTest";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TilemapEditorWindow_FormClosing);
             this.ResumeLayout(false);
 
         }

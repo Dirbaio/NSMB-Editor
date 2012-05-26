@@ -289,5 +289,11 @@ namespace NSMBe4 {
             oem.UpdateSelectionBounds();
         }
 
+        private void showGridButton_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.showGrid = showGridButton.Checked;
+            levelEditorControl1.repaint();
+        }
+
     }
 }
