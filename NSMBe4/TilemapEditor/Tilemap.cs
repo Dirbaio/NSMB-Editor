@@ -14,6 +14,7 @@ namespace NSMBe4
 
         public Palette[] palettes;
         public Image2D tileset;
+        public int tileCount;
 
         public Bitmap[] buffers;
 
@@ -29,6 +30,7 @@ namespace NSMBe4
 
             this.tileset = i;
             this.palettes = pals;
+            this.tileCount = tileset.getWidth() * tileset.getHeight() / 64;
 
             load();
         }
@@ -125,8 +127,12 @@ namespace NSMBe4
                     if (x >= this.width) continue;
                     if (y >= this.height) continue;
                     Tile t = tiles[x, y];
-                    if (t.tileNum == -1)
+
+                    if (t.tileNum < 0 || t.tileNum >= tileCount)
+                    {
                         bufferGx.FillRectangle(Brushes.Transparent, x * 8, y * 8, 8, 8);
+                        continue;
+                    }
                     if (t.palNum >= palettes.Length) continue;
                     if (t.palNum < 0) continue;
                     if (t.hflip == false && t.vflip == false)
