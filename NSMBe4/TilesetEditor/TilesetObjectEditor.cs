@@ -312,7 +312,9 @@ namespace NSMBe4
         }
 
         private void emptyTileButton_Click(object sender, EventArgs e) {
-            insertTile(new NSMBTileset.ObjectDefTile(tls));
+            NSMBTileset.ObjectDefTile t = new NSMBTileset.ObjectDefTile(tls);
+            t.tileID = -1;
+            insertTile(t);
         }
 
         private void slopeControlButton_Click(object sender, EventArgs e) {
