@@ -95,7 +95,7 @@ namespace NSMBe4
             int ct = 0;
             foreach (MultiColor c in freqTable.Keys)
                 if (c.someTransparent()) ct++;
-            Console.Out.WriteLine("Transparent: " + ct);
+//            Console.Out.WriteLine("Transparent: " + ct);
 
 
             Dictionary<MultiColor, int> newFreqTable = new Dictionary<MultiColor, int>();
@@ -127,7 +127,7 @@ namespace NSMBe4
             ct = 0;
             foreach (MultiColor c in freqTable.Keys)
                 if (c.someTransparent()) ct++;
-            Console.Out.WriteLine("Transparent2: " + ct);
+//            Console.Out.WriteLine("Transparent2: " + ct);
 
             // NOW CREATE THE PALETTE ZONES
             Box startBox = shrinkBox(new Box(boxColorCount));
@@ -136,7 +136,7 @@ namespace NSMBe4
 
             while (boxes.Count < (useAlpha ? paletteCount - 1 : paletteCount))
             {
-                Console.Out.WriteLine(boxes.Count);
+//                Console.Out.WriteLine(boxes.Count);
                 Box bo = getDominantBox();
                 if (bo == null)
                     break;
@@ -299,7 +299,7 @@ namespace NSMBe4
             if (m == values[0].b)
                 m++;
 
-            Console.Out.Write("Split: " + b + " ");
+//            Console.Out.Write("Split: " + b + " ");
             Box nb = new Box(b);
             nb.setDimMax(dim, (byte)(m-1));
             b.setDimMin(dim, m);

@@ -33,12 +33,16 @@
             this.importTilesetBtn = new System.Windows.Forms.Button();
             this.editTilesetBtn = new System.Windows.Forms.Button();
             this.tilesetListBox = new System.Windows.Forms.ListBox();
+            this.importPNGButton = new System.Windows.Forms.Button();
+            this.exportPNGButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.Controls.Add(this.exportPNGButton);
+            this.flowLayoutPanel1.Controls.Add(this.importPNGButton);
             this.flowLayoutPanel1.Controls.Add(this.exportTilesetBtn);
             this.flowLayoutPanel1.Controls.Add(this.importTilesetBtn);
             this.flowLayoutPanel1.Controls.Add(this.editTilesetBtn);
@@ -51,7 +55,7 @@
             // 
             // exportTilesetBtn
             // 
-            this.exportTilesetBtn.Location = new System.Drawing.Point(373, 3);
+            this.exportTilesetBtn.Location = new System.Drawing.Point(211, 3);
             this.exportTilesetBtn.Name = "exportTilesetBtn";
             this.exportTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.exportTilesetBtn.TabIndex = 0;
@@ -61,7 +65,7 @@
             // 
             // importTilesetBtn
             // 
-            this.importTilesetBtn.Location = new System.Drawing.Point(292, 3);
+            this.importTilesetBtn.Location = new System.Drawing.Point(130, 3);
             this.importTilesetBtn.Name = "importTilesetBtn";
             this.importTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.importTilesetBtn.TabIndex = 1;
@@ -71,7 +75,7 @@
             // 
             // editTilesetBtn
             // 
-            this.editTilesetBtn.Location = new System.Drawing.Point(211, 3);
+            this.editTilesetBtn.Location = new System.Drawing.Point(49, 3);
             this.editTilesetBtn.Name = "editTilesetBtn";
             this.editTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.editTilesetBtn.TabIndex = 2;
@@ -89,13 +93,32 @@
             this.tilesetListBox.TabIndex = 1;
             this.tilesetListBox.DoubleClick += new System.EventHandler(this.tilesetListBox_DoubleClick);
             // 
-            // TilesetList
+            // importPNGButton
+            // 
+            this.importPNGButton.Location = new System.Drawing.Point(292, 3);
+            this.importPNGButton.Name = "importPNGButton";
+            this.importPNGButton.Size = new System.Drawing.Size(75, 23);
+            this.importPNGButton.TabIndex = 3;
+            this.importPNGButton.Text = "Import PNG";
+            this.importPNGButton.UseVisualStyleBackColor = true;
+            this.importPNGButton.Click += new System.EventHandler(this.importPNGButton_Click);
+            // 
+            // exportPNGButton
+            // 
+            this.exportPNGButton.Location = new System.Drawing.Point(373, 3);
+            this.exportPNGButton.Name = "exportPNGButton";
+            this.exportPNGButton.Size = new System.Drawing.Size(75, 23);
+            this.exportPNGButton.TabIndex = 4;
+            this.exportPNGButton.Text = "Export PNG";
+            this.exportPNGButton.Click += new System.EventHandler(this.exportPNGButton_Click);
+            // 
+            // BackgroundList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tilesetListBox);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Name = "TilesetList";
+            this.Name = "BackgroundList";
             this.Size = new System.Drawing.Size(451, 301);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -110,5 +133,7 @@
         private System.Windows.Forms.Button importTilesetBtn;
         private System.Windows.Forms.Button editTilesetBtn;
         private System.Windows.Forms.ListBox tilesetListBox;
+        private System.Windows.Forms.Button exportPNGButton;
+        private System.Windows.Forms.Button importPNGButton;
     }
 }
