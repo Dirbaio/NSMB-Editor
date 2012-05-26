@@ -49,6 +49,7 @@ namespace NSMBe4
             vScrollBar.Visible = false;
             MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
             DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+            this.SetStyle(ControlStyles.Selectable, true);
             //dragTimer.Start();
         }
 
@@ -329,7 +330,7 @@ namespace NSMBe4
                 }
                 if (e.Button == MouseButtons.Left) {
                     drag = true;
-                    this.Focus();
+                    Console.WriteLine(this.Focus());
                 }
 
                 if (mode != null)

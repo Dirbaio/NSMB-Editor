@@ -95,10 +95,7 @@ namespace NSMBe4 {
         private void reloadTilesets_Click(object sender, EventArgs e) {
             byte TilesetID = Level.Blocks[0][0x0C];
             byte BGNSCID = Level.Blocks[2][2];
-            GFX.LoadTilesets(TilesetID, BGNSCID);
-            oem.ReloadObjectPicker();
-            Level.ReRenderAll();
-            Refresh();
+            LevelConfigForm_ReloadTileset();
         }
 
         private LevelMinimap MinimapForm;
@@ -161,6 +158,10 @@ namespace NSMBe4 {
         public void LevelConfigForm_ReloadTileset() {
             GFX.LoadTilesets(Level.Blocks[0][0xC], Level.Blocks[2][2]);
             Level.ReRenderAll();
+
+            Level.repaintAllTilemap();
+            levelEditorControl1.updateTileCache(true);
+            levelEditorControl1.repaint();
 
             oem.ReloadObjectPicker();
             Invalidate(true);

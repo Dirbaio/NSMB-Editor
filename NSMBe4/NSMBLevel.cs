@@ -183,6 +183,11 @@ namespace NSMBe4
 
 
             CalculateSpriteModifiers();
+            repaintAllTilemap();
+        }
+
+        public void repaintAllTilemap()
+        {
             repaintTilemap(0, 0, 512, 256);
         }
 

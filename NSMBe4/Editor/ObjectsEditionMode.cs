@@ -144,6 +144,9 @@ namespace NSMBe4
 
         public void ReloadObjectPicker()
         {
+            tabs.objects.tileset0picker.reload();
+            tabs.objects.tileset1picker.reload();
+            tabs.objects.tileset2picker.reload();
             //TODO: Fix.
             //This is called when changing tilesets and like.
         }

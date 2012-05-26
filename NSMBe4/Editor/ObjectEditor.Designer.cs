@@ -126,7 +126,7 @@
             this.tileset1picker.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tileset1picker.Location = new System.Drawing.Point(3, 3);
             this.tileset1picker.Name = "tileset1picker";
-            this.tileset1picker.Size = new System.Drawing.Size(264, 301);
+            this.tileset1picker.Size = new System.Drawing.Size(264, 355);
             this.tileset1picker.TabIndex = 1;
             this.tileset1picker.ObjectSelected += new NSMBe4.ObjectPickerControlNew.ObjectSelectedDelegate(this.tileset1picker_ObjectSelected);
             // 
@@ -145,7 +145,7 @@
             this.tileset2picker.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tileset2picker.Location = new System.Drawing.Point(0, 0);
             this.tileset2picker.Name = "tileset2picker";
-            this.tileset2picker.Size = new System.Drawing.Size(270, 307);
+            this.tileset2picker.Size = new System.Drawing.Size(270, 361);
             this.tileset2picker.TabIndex = 1;
             this.tileset2picker.ObjectSelected += new NSMBe4.ObjectPickerControlNew.ObjectSelectedDelegate(this.tileset2picker_ObjectSelected);
             // 
@@ -173,11 +173,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tileset0tab;
-        private ObjectPickerControlNew tileset0picker;
         private System.Windows.Forms.TabPage tileset1tab;
-        private ObjectPickerControlNew tileset1picker;
         private System.Windows.Forms.TabPage tileset2tab;
-        private ObjectPickerControlNew tileset2picker;
+        public ObjectPickerControlNew tileset0picker;
+        public ObjectPickerControlNew tileset1picker;
+        public ObjectPickerControlNew tileset2picker;
 
     }
 }

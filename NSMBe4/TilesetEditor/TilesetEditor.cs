@@ -104,7 +104,7 @@ namespace NSMBe4
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
             if (tilesetObjectEditor1.descBox.Visible)
                 tilesetObjectEditor1.descBox.Text = descriptions[objectPickerControl1.SelectedObject].Substring(descriptions[objectPickerControl1.SelectedObject].IndexOf('=') + 1);
-            
+            objectPickerControl1.ReRenderAll(TilesetNumber);
         }
 
 

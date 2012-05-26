@@ -268,8 +268,6 @@ namespace NSMBe4 {
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             saveSettings();
-            EdControl.updateTileCache(true);
-            EdControl.repaint();
         }
     }
 }
