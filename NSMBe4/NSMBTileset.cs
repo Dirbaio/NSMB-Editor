@@ -959,7 +959,6 @@ namespace NSMBe4
 
         public void exportTileset(string filename)
         {
-            save();
 
             System.IO.BinaryWriter bw = new System.IO.BinaryWriter(
                 new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write));

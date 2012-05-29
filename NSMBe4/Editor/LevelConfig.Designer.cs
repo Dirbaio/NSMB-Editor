@@ -396,7 +396,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(282, 418);
+            this.tabPage2.Size = new System.Drawing.Size(243, 418);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -408,7 +408,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(3, 122);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(276, 74);
+            this.groupBox3.Size = new System.Drawing.Size(237, 74);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "<groupBox3>";
@@ -416,7 +416,7 @@
             // bgBottomLayerPreviewButton
             // 
             this.bgBottomLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgBottomLayerPreviewButton.Location = new System.Drawing.Point(195, 43);
+            this.bgBottomLayerPreviewButton.Location = new System.Drawing.Point(156, 43);
             this.bgBottomLayerPreviewButton.Name = "bgBottomLayerPreviewButton";
             this.bgBottomLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.bgBottomLayerPreviewButton.TabIndex = 1;
@@ -431,7 +431,7 @@
             this.bgBottomLayerComboBox.FormattingEnabled = true;
             this.bgBottomLayerComboBox.Location = new System.Drawing.Point(3, 16);
             this.bgBottomLayerComboBox.Name = "bgBottomLayerComboBox";
-            this.bgBottomLayerComboBox.Size = new System.Drawing.Size(270, 21);
+            this.bgBottomLayerComboBox.Size = new System.Drawing.Size(231, 21);
             this.bgBottomLayerComboBox.TabIndex = 0;
             this.bgBottomLayerComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
@@ -442,7 +442,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(3, 49);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(276, 73);
+            this.groupBox2.Size = new System.Drawing.Size(237, 73);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "<groupBox2>";
@@ -450,7 +450,7 @@
             // bgTopLayerPreviewButton
             // 
             this.bgTopLayerPreviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bgTopLayerPreviewButton.Location = new System.Drawing.Point(195, 43);
+            this.bgTopLayerPreviewButton.Location = new System.Drawing.Point(156, 43);
             this.bgTopLayerPreviewButton.Name = "bgTopLayerPreviewButton";
             this.bgTopLayerPreviewButton.Size = new System.Drawing.Size(75, 21);
             this.bgTopLayerPreviewButton.TabIndex = 1;
@@ -465,7 +465,7 @@
             this.bgTopLayerComboBox.FormattingEnabled = true;
             this.bgTopLayerComboBox.Location = new System.Drawing.Point(3, 16);
             this.bgTopLayerComboBox.Name = "bgTopLayerComboBox";
-            this.bgTopLayerComboBox.Size = new System.Drawing.Size(270, 21);
+            this.bgTopLayerComboBox.Size = new System.Drawing.Size(231, 21);
             this.bgTopLayerComboBox.TabIndex = 0;
             this.bgTopLayerComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
@@ -475,7 +475,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(276, 46);
+            this.groupBox1.Size = new System.Drawing.Size(237, 46);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -487,7 +487,7 @@
             this.tilesetComboBox.FormattingEnabled = true;
             this.tilesetComboBox.Location = new System.Drawing.Point(3, 16);
             this.tilesetComboBox.Name = "tilesetComboBox";
-            this.tilesetComboBox.Size = new System.Drawing.Size(270, 21);
+            this.tilesetComboBox.Size = new System.Drawing.Size(231, 21);
             this.tilesetComboBox.TabIndex = 0;
             this.tilesetComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
@@ -497,7 +497,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(282, 418);
+            this.tabPage1.Size = new System.Drawing.Size(243, 418);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -530,7 +530,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(276, 412);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(237, 412);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // label2
@@ -563,7 +563,7 @@
             0,
             0});
             this.timeLimitUpDown.Name = "timeLimitUpDown";
-            this.timeLimitUpDown.Size = new System.Drawing.Size(217, 20);
+            this.timeLimitUpDown.Size = new System.Drawing.Size(178, 20);
             this.timeLimitUpDown.TabIndex = 0;
             this.timeLimitUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
@@ -577,7 +577,7 @@
             0,
             0});
             this.startEntranceUpDown.Name = "startEntranceUpDown";
-            this.startEntranceUpDown.Size = new System.Drawing.Size(217, 20);
+            this.startEntranceUpDown.Size = new System.Drawing.Size(178, 20);
             this.startEntranceUpDown.TabIndex = 4;
             this.startEntranceUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
@@ -627,7 +627,7 @@
             0,
             0});
             this.midwayEntranceUpDown.Name = "midwayEntranceUpDown";
-            this.midwayEntranceUpDown.Size = new System.Drawing.Size(217, 20);
+            this.midwayEntranceUpDown.Size = new System.Drawing.Size(178, 20);
             this.midwayEntranceUpDown.TabIndex = 5;
             this.midwayEntranceUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
@@ -642,7 +642,7 @@
             0,
             0});
             this.soundSetUpDown.Name = "soundSetUpDown";
-            this.soundSetUpDown.Size = new System.Drawing.Size(217, 20);
+            this.soundSetUpDown.Size = new System.Drawing.Size(178, 20);
             this.soundSetUpDown.TabIndex = 5;
             this.soundSetUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
