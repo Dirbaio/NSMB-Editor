@@ -24,6 +24,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using NSMBe4.NSBMD;
+using NSMBe4.TilemapEditor;
 
 namespace NSMBe4.DSFileSystem
 {
@@ -337,7 +338,14 @@ namespace NSMBe4.DSFileSystem
 
             try
             {
-
+                if (filename.EndsWith(".enpg"))
+                {
+                    LevelChooser.showImgMgr();
+                    File imgFile = new InlineFile(f, 0, 0x10000, f.name, null, InlineFile.CompressionType.LZComp);
+                    File palFile = new InlineFile(f, 0x10000, 0x200, f.name, null, InlineFile.CompressionType.LZComp);
+                    LevelChooser.imgMgr.m.addImage(new EnpgImage2D(imgFile));
+                    LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
+                }
                 if (filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
                     new NSBTX(f);
                 else if (filename.EndsWith(".narc"))
@@ -346,6 +354,18 @@ namespace NSMBe4.DSFileSystem
                     new FilesystemBrowserDialog(new NarcFilesystem(f, true)).Show();
                 else if (filename.Contains("_ncl.bin"))
                     new PaletteViewer(f).Show();
+                else if (filename.Contains("_nsc.bin"))
+                {
+                    if (LevelChooser.imgMgr == null) return;
+                    Image2D img = LevelChooser.imgMgr.m.getSelectedImage();
+                    Palette[] pals = LevelChooser.imgMgr.m.getPalettes();
+                    if (img == null) return;
+                    if (pals == null) return;
+                    if (pals.Length == 0) return;
+
+                    Tilemap t = new Tilemap(f, 32, img, pals, 0, 0);
+                    new TilemapEditorWindow(t).Show();
+                }
                 else if (filename.Contains("_ncg.bin"))
                 {
                     LevelChooser.showImgMgr();

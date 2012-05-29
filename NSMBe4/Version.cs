@@ -6,7 +6,7 @@ namespace NSMBe4
 {
     public class Version
     {
-        private static string rev = "$Rev$";
+        private static string rev = "$Rev: 147 $";
 
         public static string getRevision()
         {

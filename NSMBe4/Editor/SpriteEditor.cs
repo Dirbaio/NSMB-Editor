@@ -141,10 +141,10 @@ namespace NSMBe4
 
         private void addSpriteButton_Click(object sender, EventArgs e)
         {
-            Rectangle ViewableArea = EdControl.ViewableArea;
+            Rectangle ViewableBlocks = EdControl.ViewableBlocks;
             NSMBSprite ns = new NSMBSprite(EdControl.Level);
-            ns.X = ViewableArea.X + ViewableArea.Width / 2;
-            ns.Y = ViewableArea.Y + ViewableArea.Height / 2;
+            ns.X = ViewableBlocks.X + ViewableBlocks.Width / 2;
+            ns.Y = ViewableBlocks.Y + ViewableBlocks.Height / 2;
             ns.Type = 0;
             ns.Data = new byte[6];
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ns)));

@@ -82,8 +82,8 @@ namespace NSMBe4
 
         private void addObjectButton_Click(object sender, EventArgs e)
         {
-            Rectangle ViewableArea = EdControl.ViewableArea;
-            NSMBObject no = new NSMBObject(10, 0, ViewableArea.X + ViewableArea.Width / 2, ViewableArea.Y + ViewableArea.Height / 2, 1, 1, EdControl.GFX);
+            Rectangle ViewableBlocks = EdControl.ViewableBlocks;
+            NSMBObject no = new NSMBObject(10, 0, ViewableBlocks.X + ViewableBlocks.Width / 2, ViewableBlocks.Y + ViewableBlocks.Height / 2, 1, 1, EdControl.GFX);
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(no)));
             EdControl.mode.SelectObject(no);
         }

@@ -23,6 +23,7 @@ using System.Drawing.Drawing2D;
 using NSMBe4.DSFileSystem;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using NSMBe4.TilemapEditor;
 
 /**
  * 
@@ -158,6 +159,7 @@ namespace NSMBe4
         public File TileBehaviorFile;
 
         public int TilesetNumber; // 0 for Jyotyu, 1 for Normal, 2 for SubUnit
+
         public int Map16TileOffset
         {
             get
@@ -195,30 +197,33 @@ namespace NSMBe4
             }
         }
 
+        //Palettes
+        public Palette palette1;
+        public Palette palette2;
+
+        //Graphics
+        public Image2D graphics;
+
+        //Map16
+        public Map16Tilemap map16;
+
         public Bitmap Map16Buffer;
+        private bool overrideFlag;
         public bool UseOverrides;
-        public Bitmap OverrideBitmap;
+        public Bitmap OverrideBitmap = Properties.Resources.tileoverrides;
 
         public short[] Overrides;
-        public short[] EditorOverrides;
 
+        //Tile behaviors 
+        public int[] TileBehaviors;
+
+        //Objects
         public bool UseNotes;
         public string[] ObjNotes;
 
         public int objectCount = 256;
         public ObjectDef[] Objects;
 
-        public Map16Tile[] Map16;
-
-        public byte[][] TileBehaviors;
-
-        public Bitmap TilesetBuffer;
-
-        public Color[] Palette;
-        public byte[] RawGFXData;
-
-        private Graphics Map16Graphics;
-        private bool overrideFlag;
 
         public NSMBTileset(File GFXFile, File PalFile, File Map16File, File ObjFile, File ObjIndexFile, File TileBehaviorFile, bool OverrideFlag, int TilesetNumber)
         {
@@ -238,33 +243,29 @@ namespace NSMBe4
 
         public void load()
         {
+            //Palettes
+            palette1 = new FilePalette(new InlineFile(PalFile, 0, 512, "Palette 1", null, InlineFile.CompressionType.LZComp));
+            palette2 = new FilePalette(new InlineFile(PalFile, 512, 512, "Palette 1", null, InlineFile.CompressionType.LZComp));
 
-            Console.Out.WriteLine("Load Tileset: " + GFXFile + ", " + PalFile + ", " + Map16File + ", " + ObjFile + ", " + ObjIndexFile);
+            //Graphics
+            graphics = new Image2D(GFXFile, 256, false);
 
-            // First get the palette out
-            byte[] ePalFile = ROM.LZ77_Decompress(PalFile.getContents());
-            Palette = new Color[512];
-
-            for (int PalIdx = 0; PalIdx < 512; PalIdx++)
-            {
-                Palette[PalIdx] = fromRGB15((ushort)(ePalFile[PalIdx * 2] + (ePalFile[(PalIdx * 2) + 1] << 8)));
-            }
-
-            //Palette[0] = Color.Fuchsia;
-            //Palette[256] = Color.Fuchsia;
-            Palette[0] = Color.LightSlateGray;
-            Palette[256] = Color.LightSlateGray;
-
-            // Load graphics
-            SetGraphics(ROM.LZ77_Decompress(GFXFile.getContents()));
-
-            loadMap16();
+            //Map16
+            map16 = new Map16Tilemap(Map16File, 32, graphics, new Palette[] { palette1, palette2 }, Map16TileOffset, Map16PaletteOffset);
+            Overrides = new short[map16.getMap16TileCount()];
+            Map16Buffer = map16.render();
+            /*
+            TilemapEditorTest t = new TilemapEditorTest();
+            t.load(map16);
+            t.Show();
+            */
+            //Tile Behaviors
             loadTileBehaviors();
 
-            // Finally the object file.
+            //Objects
             loadObjects();
 
-            // Finally, load overrides
+/*            // Finally, load overrides
             if (overrideFlag)
             {
                 UseOverrides = true;
@@ -278,38 +279,19 @@ namespace NSMBe4
                     Overrides[idx] = -1;
                     EditorOverrides[idx] = -1;
                 }
-            }
+            }*/
         }
 
-        public void close()
-        {
-            if (!editing)
-                return;
-            editing = false;
-
-            GFXFile.endEdit(this);
-            PalFile.endEdit(this);
-            Map16File.endEdit(this);
-            ObjFile.endEdit(this);
-            ObjIndexFile.endEdit(this);
-            if(TileBehaviorFile != null)
-                TileBehaviorFile.endEdit(this);
-        }
-
-        ~NSMBTileset()
-        {
-            if(editing)
-                close();
-        }
-
-        public void enableWrite()
+        public void beginEdit()
         {
 
             try
             {
-                GFXFile.beginEdit(this);
-                PalFile.beginEdit(this);
-                Map16File.beginEdit(this);
+                palette1.beginEdit();
+                palette2.beginEdit();
+                graphics.beginEdit();
+                map16.beginEdit();
+
                 ObjFile.beginEdit(this);
                 ObjIndexFile.beginEdit(this);
                 if (TileBehaviorFile != null)
@@ -317,12 +299,15 @@ namespace NSMBe4
             }
             catch (AlreadyEditingException ex)
             {
-                if (GFXFile.beingEditedBy(this))
-                    GFXFile.endEdit(this);
-                if (PalFile.beingEditedBy(this))
-                    PalFile.endEdit(this);
-                if (Map16File.beingEditedBy(this))
-                    Map16File.endEdit(this);
+                try
+                {
+                    palette1.endEdit();
+                    palette2.endEdit();
+                    graphics.endEdit();
+                    map16.endEdit();
+                }
+                catch (Exception e) { }
+
                 if (ObjFile.beingEditedBy(this))
                     ObjFile.endEdit(this);
                 if (ObjIndexFile.beingEditedBy(this))
@@ -332,44 +317,30 @@ namespace NSMBe4
                         TileBehaviorFile.endEdit(this);
                 throw ex;
             }
-            editing = true;
         }
 
         public void save()
         {
+            palette1.save();
+            palette2.save();
+            graphics.save();
+            map16.save();
+
             saveObjects();
-            saveMap16();
             saveTileBehaviors();
-
-            byte[] CompGFXData = ROM.LZ77_Compress(RawGFXData);
-            GFXFile.replace(CompGFXData, this);
-
-            savePalette();
         }
 
-        public void SetGraphics(byte[] GFXData)
+        public void endEdit()
         {
-            RawGFXData = GFXData;
-            int TileCount = GFXData.Length / 64;
-            TilesetBuffer = new Bitmap(TileCount * 8, 16);
+            palette1.endEdit();
+            palette2.endEdit();
+            graphics.endEdit();
+            map16.endEdit();
 
-            int FilePos = 0;
-            for (int TileIdx = 0; TileIdx < TileCount; TileIdx++) {
-                int TileSrcX = TileIdx * 8;
-                for (int TileY = 0; TileY < 8; TileY++) {
-                    for (int TileX = 0; TileX < 8; TileX++) {
-                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY, Palette[GFXData[FilePos]]);
-                        TilesetBuffer.SetPixel(TileSrcX + TileX, TileY + 8, Palette[GFXData[FilePos] + 256]);
-                        FilePos++;
-                    }
-                }
-            }
-        }
-
-        public void ResetGraphics(byte[] d)
-        {
-            SetGraphics(d);
-            repaintAllMap16();
+            ObjFile.endEdit(this);
+            ObjIndexFile.endEdit(this);
+            if (TileBehaviorFile != null)
+                TileBehaviorFile.endEdit(this);
         }
 
         public static ushort toRGB15(Color c)
@@ -394,288 +365,41 @@ namespace NSMBe4
             return Color.FromArgb(cR, cG, cB);
         }
 
-        public static byte[] paletteToRawData(Color[] pal)
-        {
-            ByteArrayOutputStream file = new ByteArrayOutputStream();
-            for (int i = 0; i < pal.Length; i++)
-            {
-                file.writeUShort(toRGB15(pal[i]));
-            }
-            return file.getArray();
-        }
-
-        private void savePalette()
-        {
-            byte[] data = paletteToRawData(Palette);
-            PalFile.replace(ROM.LZ77_Compress(data), this);
-        }
-
 
         #region Tile Behaviors
         private void loadTileBehaviors()
         {
-            byte[] tileBehaviorsFile = null;
+            byte[] x = null;
 
             if (TilesetNumber == 0)
             {
-                tileBehaviorsFile = ROM.GetInlineFile(ROM.Data.File_Jyotyu_CHK);
+                x = ROM.GetInlineFile(ROM.Data.File_Jyotyu_CHK);
             }
             else if (TilesetNumber == 1 || TilesetNumber == 2)
             {
-                tileBehaviorsFile = TileBehaviorFile.getContents();
+                x = TileBehaviorFile.getContents();
             }
 
-            if (tileBehaviorsFile != null) {
-                TileBehaviors = new byte[Map16.Length][];
-                for (int i = 0; i < Map16.Length; i++) {
-                    TileBehaviors[i] = new byte[4];
-                    Array.Copy(tileBehaviorsFile, i * 4, TileBehaviors[i], 0, 4);
-                }
-            }
+            ByteArrayInputStream inp = new ByteArrayInputStream(x);
+
+            int len = inp.available / 4;
+            TileBehaviors = new int[len];
+
+            for (int i = 0; i < len; i++)
+                TileBehaviors[i] = inp.readInt();
         }
 
         private void saveTileBehaviors()
         {
             ByteArrayOutputStream file = new ByteArrayOutputStream();
-            for (int i = 0; i < Map16.Length; i++)
-                file.write(TileBehaviors[i]);
+            for (int i = 0; i < TileBehaviors.Length; i++)
+                file.writeInt(TileBehaviors[i]);
 
             if (TilesetNumber == 0) {
                 ROM.ReplaceInlineFile(ROM.Data.File_Jyotyu_CHK, file.getArray());
             } else if (TilesetNumber == 1 || TilesetNumber == 2) {
                 TileBehaviorFile.replace(file.getArray(), this);
             }
-        }
-
-        #endregion
-        #region Map16
-
-        private void saveMap16()
-        {
-            ByteArrayOutputStream file = new ByteArrayOutputStream();
-            foreach (Map16Tile t in Map16)
-                t.save(file);
-
-            Map16File.replace(file.getArray(), this);
-        }
-
-        private void loadMap16()
-        {
-            // Load Map16
-            ByteArrayInputStream eMap16File = new ByteArrayInputStream(Map16File.getContents());
-            int Map16Count = (int)eMap16File.available / 8;
-            Map16 = new Map16Tile[Map16Count];
-
-            Map16Buffer = new Bitmap(Map16Count * 16, 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
-            Map16Graphics = Graphics.FromImage(Map16Buffer);
-
-
-            for (int Map16Idx = 0; Map16Idx < Map16Count; Map16Idx++)
-            {
-                Map16[Map16Idx] = new Map16Tile(eMap16File, this);
-            }
-            repaintAllMap16();
-        }
-
-
-        public void repaintAllMap16()
-        {
-            if(Map16Graphics != null)
-                Map16Graphics.Clear(Color.LightSlateGray);
-            for (int Map16Idx = 0; Map16Idx < Map16.Length; Map16Idx++)
-                RenderMap16Tile(Map16Idx);
-        }
-
-        private void RenderMap16Quarter(Map16Quarter q, int x, int y)
-        {
-            int TileNum = q.TileNum;
-
-            Rectangle SrcRect = new Rectangle(TileNum*8, q.secondPalette ? 8 : 0, 8, 8);
-            Rectangle DestRect = new Rectangle(x, y, 8, 8);
-            Map16Graphics.FillRectangle(Brushes.LightSlateGray, DestRect);
-
-            if (q.TileByte != 0 || q.ControlByte != 0)
-            {
-                Bitmap tile = new Bitmap(8, 8);
-                Graphics g = Graphics.FromImage(tile);
-                g.DrawImage(TilesetBuffer, new Rectangle(0, 0, 8, 8), SrcRect, GraphicsUnit.Pixel);
-                if ((q.ControlByte & 4) != 0)
-                    tile.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                if ((q.ControlByte & 8) != 0)
-                    tile.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                Map16Graphics.DrawImage(tile, DestRect, new Rectangle(0, 0, 8, 8), GraphicsUnit.Pixel);
-            }
-        }
-
-        public void RenderMap16Tile(int Map16Idx)
-        {
-            Map16Tile t = Map16[Map16Idx];
-            int x = Map16Idx*16;
-            RenderMap16Quarter(t.topLeft, x, 0);
-            RenderMap16Quarter(t.topRight, x + 8, 0);
-            RenderMap16Quarter(t.bottomLeft, x, 8);
-            RenderMap16Quarter(t.bottomRight, x + 8, 8);
-
-            if (UseOverrides && Overrides[Map16Idx] > -1)
-            {
-                Map16Graphics.DrawImage(OverrideBitmap, new Rectangle(Map16Idx << 4, 0, 16, 16), new Rectangle(Overrides[Map16Idx] << 4, 0, 16, 16), GraphicsUnit.Pixel);
-            }
-
-        }
-
-        public class Map16Tile
-        {
-            public Map16Quarter topLeft, topRight, bottomLeft, bottomRight;
-            NSMBTileset t;
-            public Map16Tile(NSMBTileset t)
-            {
-                this.t = t;
-            }
-            public Map16Tile(ByteArrayInputStream inp, NSMBTileset t)
-            {
-                this.t = t;
-                topLeft = new Map16Quarter(inp, t);
-                topRight = new Map16Quarter(inp, t);
-                bottomLeft = new Map16Quarter(inp, t);
-                bottomRight = new Map16Quarter(inp, t);
-            }
-
-            public void save(ByteArrayOutputStream outp)
-            {
-                topLeft.save(outp);
-                topRight.save(outp);
-                bottomLeft.save(outp);
-                bottomRight.save(outp);
-            }
-
-            public void makeEmpty()
-            {
-                topLeft.ControlByte = 0;
-                topLeft.TileByte = 0;
-                topRight.ControlByte = 0;
-                topRight.TileByte = 0;
-                bottomLeft.ControlByte = 0;
-                bottomLeft.TileByte = 0;
-                bottomRight.ControlByte = 0;
-                bottomRight.TileByte = 0;
-            }
-        }
-
-        public class Map16Quarter
-        {
-            private NSMBTileset t;
-
-            private byte ControlByteF;
-
-            public byte ControlByte
-            {
-                get { return ControlByteF; }
-                set { ControlByteF = value;}
-            }
-            private byte TileByteF;
-            public byte TileByte
-            {
-                get{return TileByteF;}
-                set{TileByteF = value;}
-            }
-
-            public int TileNum
-            {
-                get
-                {
-                    if (TileByte == 0 && ControlByte == 0)
-                        return -1;
-
-                    return (TileByteF | ((ControlByte & 3) << 8))-t.Map16TileOffset;
-                }
-                set
-                {
-                    if (value == -1)
-                    {
-                        ControlByte = 0;
-                        TileByte = 0;
-                        return;
-                    }
-
-                    value += t.Map16TileOffset;
-
-                    TileByteF = (byte)(value % 256);
-                    ControlByte &= 0xFF ^ 3;
-                    ControlByte |= (byte)((value >> 8) & 3);
-                }
-            }
-
-            public bool secondPalette
-            {
-                get
-                {
-                    return (ControlByte >> 4) % 2 == 1;
-                }
-                set
-                {
-                    ControlByte &= 0xF;
-                    int num = t.Map16PaletteOffset;
-                    if (value) num++;
-                    ControlByte |= (byte)(num << 4);
-                }
-            }
-
-            public bool xFlip
-            {
-                get { return (ControlByte & 4) != 0; }
-                set { if (((ControlByte & 4) != 0) != value) ControlByte ^= 4; }
-            }
-            public bool yFlip
-            {
-                get { return (ControlByte & 8) != 0; }
-                set { if (((ControlByte & 8) != 0) != value) ControlByte ^= 8; }
-            }
-
-            public Map16Quarter(NSMBTileset t)
-            {
-                this.t = t;
-            }
-            public Map16Quarter(ByteArrayInputStream inp, NSMBTileset t)
-            {
-                this.t = t;
-                TileByteF = inp.readByte();
-                ControlByteF = inp.readByte();
-            }
-
-            public void save(ByteArrayOutputStream outp)
-            {
-                outp.writeByte(TileByteF);
-                outp.writeByte(ControlByteF);
-            }
-        }
-
-        public void removeUnusedMap16()
-        {
-            for (int i = 0; i < Map16.Length; i++)
-            {
-                if (!isMap16Used(i))
-                    emptyMap16Tile(Map16[i]);
-            }
-        }
-
-        private bool isMap16Used(int tile)
-        {
-            foreach (ObjectDef o in Objects)
-                if(o != null)
-                    foreach (List<ObjectDefTile> row in o.tiles)
-                        foreach (ObjectDefTile t in row)
-                            if (t.tileID == tile)
-                                return true;
-            return false;
-        }
-
-        private void emptyMap16Tile(Map16Tile t)
-        {
-            t.topLeft = new Map16Quarter(this);
-            t.topRight = new Map16Quarter(this);
-            t.bottomLeft = new Map16Quarter(this);
-            t.bottomRight = new Map16Quarter(this);
         }
 
         #endregion
@@ -1134,6 +858,12 @@ namespace NSMBe4
         #region Import / Export GFX
         public void ExportGFX(string filename)
         {
+        }
+        public void ImportGFX(string filename, bool newInSecondPal)
+        {
+        }
+
+        /*
             int tileCount = TilesetBuffer.Width / 8;
             int[] tilesUsed = new int[tileCount];
 
@@ -1197,8 +927,11 @@ namespace NSMBe4
             ImageIndexer ia = new ImageIndexer(new List<Bitmap>(){a});
             ImageIndexer ib = new ImageIndexer(new List<Bitmap>(){b});
 
+            //FIXME
+
             Array.Copy(ia.palettes[0], 1, Palette, 1, 255);
             Array.Copy(ib.palettes[0], 1, Palette, 257, 255);
+            
 
             byte[] da = ia.getTiledImageData();
             byte[] db = ib.getTiledImageData();
@@ -1219,33 +952,13 @@ namespace NSMBe4
             }
 
             img.Dispose();
-            ResetGraphics(RawGFXData);
+//            ResetGraphics(RawGFXData);
         }
-
-        private void checkMap16UsedTiles(Map16Tile t, int[] tilesUsed)
-        {
-            checkMap16UsedQuarter(t.topLeft, tilesUsed);
-            checkMap16UsedQuarter(t.topRight, tilesUsed);
-            checkMap16UsedQuarter(t.bottomLeft, tilesUsed);
-            checkMap16UsedQuarter(t.bottomRight, tilesUsed);
-        }
-
-        private void checkMap16UsedQuarter(Map16Quarter q, int[] tilesUsed)
-        {
-            if (q.TileNum < 0) return;
-            if (q.TileNum >= tilesUsed.Length) return;
-
-            if (q.secondPalette)
-                tilesUsed[q.TileNum] |= 2;
-            else
-                tilesUsed[q.TileNum] |= 1;
-        }
-
+        */
         #endregion
 
         public void exportTileset(string filename)
         {
-            save();
 
             System.IO.BinaryWriter bw = new System.IO.BinaryWriter(
                 new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write));
@@ -1268,7 +981,33 @@ namespace NSMBe4
 
         public void importTileset(string filename)
         {
-            save();
+            try
+            {
+                PalFile.beginEdit(this);
+                GFXFile.beginEdit(this);
+                Map16File.beginEdit(this);
+                ObjFile.beginEdit(this);
+                ObjIndexFile.beginEdit(this);
+                if (TileBehaviorFile != null)
+                    TileBehaviorFile.beginEdit(this);
+            }
+            catch (AlreadyEditingException ex)
+            {
+                if (PalFile.beingEditedBy(this))
+                    PalFile.endEdit(this);
+                if (GFXFile.beingEditedBy(this))
+                    GFXFile.endEdit(this);
+                if (Map16File.beingEditedBy(this))
+                    Map16File.endEdit(this);
+                if (ObjFile.beingEditedBy(this))
+                    ObjFile.endEdit(this);
+                if (ObjIndexFile.beingEditedBy(this))
+                    ObjIndexFile.endEdit(this);
+                if (TileBehaviorFile != null)
+                    if (TileBehaviorFile.beingEditedBy(this))
+                        TileBehaviorFile.endEdit(this);
+                throw ex;
+            }
 
             System.IO.BinaryReader br = new System.IO.BinaryReader(
                 new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read));
@@ -1290,7 +1029,14 @@ namespace NSMBe4
             if (TileBehaviorFile != null)
                 readFileContents(TileBehaviorFile, br);
             br.Close();
-            load();
+
+            PalFile.endEdit(this);
+            GFXFile.endEdit(this);
+            Map16File.endEdit(this);
+            ObjFile.endEdit(this);
+            ObjIndexFile.endEdit(this);
+            if (TileBehaviorFile != null)
+                TileBehaviorFile.endEdit(this);
         }
 
         void readFileContents(File f, System.IO.BinaryReader br)

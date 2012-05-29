@@ -156,7 +156,7 @@ namespace NSMBe4
 
         private void addPath_Click(object sender, EventArgs e)
         {
-            Rectangle va = EdControl.ViewableArea;
+            Rectangle va = EdControl.ViewableBlocks;
             NSMBPath np = new NSMBPath();
             if (isProgress)
                 np.id = EdControl.Level.getFreePathNumber(lst, 1);

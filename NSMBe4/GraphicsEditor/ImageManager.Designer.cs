@@ -324,6 +324,7 @@
             this.graphicsEditor1.Name = "graphicsEditor1";
             this.graphicsEditor1.Size = new System.Drawing.Size(568, 508);
             this.graphicsEditor1.TabIndex = 4;
+            this.graphicsEditor1.SomethingSaved += new NSMBe4.GraphicsEditor.SomethingSavedD(this.graphicsEditor1_SomethingSaved);
             // 
             // ImageManager
             // 

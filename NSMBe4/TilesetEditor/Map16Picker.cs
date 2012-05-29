@@ -84,7 +84,8 @@ namespace NSMBe4
                 if (Control.ModifierKeys == Keys.Control && map16Editing)
                 {
                     int ot = selx + sely * 16;
-                    Array.Copy(this.t.TileBehaviors[ot], this.t.TileBehaviors[t], 4);
+                    //FIXME
+//                    Array.Copy(this.t.TileBehaviors[ot], this.t.TileBehaviors[t], 4);
                 }
                 selx = tx;
                 sely = ty;

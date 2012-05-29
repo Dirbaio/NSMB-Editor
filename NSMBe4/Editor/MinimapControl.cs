@@ -30,7 +30,7 @@ namespace NSMBe4
         float scale = 0.5f;
         private NSMBLevel Level;
         private LevelEditorControl EdControl;
-        private Brush UnviewableAreaBrush;
+        private Brush UnViewableBlocksBrush;
         private bool loaded = false;
 
         public MinimapControl()
@@ -42,7 +42,7 @@ namespace NSMBe4
         {
             this.Level = Level;
             this.EdControl = EdControl;
-            UnviewableAreaBrush = new SolidBrush(Color.FromArgb(120, 255, 255, 255));
+            UnViewableBlocksBrush = new SolidBrush(Color.FromArgb(120, 255, 255, 255));
             loaded = true;
         }
 
@@ -66,7 +66,7 @@ namespace NSMBe4
                 e.Graphics.DrawRectangle(Pens.PaleGreen, v.X / 16, v.Y / 16, v.Width / 16, v.Height / 16);
 
             // Draw viewable area
-            e.Graphics.FillRectangle(UnviewableAreaBrush, EdControl.ViewableArea);
+            e.Graphics.FillRectangle(UnViewableBlocksBrush, EdControl.ViewableBlocks);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -84,7 +84,7 @@ namespace NSMBe4
 
                 int xx = (int)(e.X / scale);
                 int yy = (int)(e.Y / scale);
-                Rectangle va = EdControl.ViewableArea;
+                Rectangle va = EdControl.ViewableBlocks;
                 Rectangle NewArea = new Rectangle(0, 0, va.Width, va.Height);
                 NewArea.X = xx - (NewArea.Width / 2);
                 NewArea.Y = yy - (NewArea.Height / 2);
@@ -108,7 +108,7 @@ namespace NSMBe4
                 // Set it
                 EdControl.ScrollEditor(NewArea.Location);
                 pictureBox1.Invalidate();
-                //ScrollEditor(ViewableArea.Location);
+                //ScrollEditor(ViewableBlocks.Location);
             }
         }
 

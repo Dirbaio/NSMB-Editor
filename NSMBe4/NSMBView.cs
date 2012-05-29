@@ -95,19 +95,18 @@ namespace NSMBe4
             g.DrawRectangle(p, X, Y, Width - 1, Height - 1);
             g.DrawRectangle(p, X + 1, Y + 1, Width - 3, Height - 3);
 
-            Rectangle ViewableArea = ed.ViewableArea;
-
-            int vx = ViewableArea.X;
-            int vy = ViewableArea.Y;
-            if (X + Width > vx * 16 && Y + Height > vy * 16)
+            Rectangle ViewablePixels = ed.ViewablePixels;
+            int vx = ViewablePixels.X;
+            int vy = ViewablePixels.Y;
+            if (X + Width > vx && Y + Height > vy)
             {
                 int numx = X;
                 int numy = Y;
 
-                if (numx < vx * 16)
-                    numx = vx * 16;
-                if (numy < vy * 16)
-                    numy = vy * 16;
+                if (numx < vx)
+                    numx = vx;
+                if (numy < vy)
+                    numy = vy;
                 if (isZone)
                     numy += 16;
                 g.DrawString(GetDisplayString(), NSMBGraphics.InfoFont, Brushes.White, (float)numx, (float)numy);

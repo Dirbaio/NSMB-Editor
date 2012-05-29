@@ -144,6 +144,9 @@ namespace NSMBe4
 
         public void ReloadObjectPicker()
         {
+            tabs.objects.tileset0picker.reload();
+            tabs.objects.tileset1picker.reload();
+            tabs.objects.tileset2picker.reload();
             //TODO: Fix.
             //This is called when changing tilesets and like.
         }
@@ -187,8 +190,8 @@ namespace NSMBe4
 
         private Rectangle GetViewTextRect(LevelItem view)
         {
-            Rectangle visible = EdControl.ViewableArea;
-            visible = new Rectangle(visible.X * 16, visible.Y * 16, visible.Width * 16, visible.Height * 16);
+            Rectangle visible = EdControl.ViewablePixels;
+            visible = new Rectangle(visible.X, visible.Y, visible.Width, visible.Height);
             if (!visible.IntersectsWith(new Rectangle(view.x, view.y, view.width, view.height)))
                 return Rectangle.Empty;
             NSMBView v = view as NSMBView;
@@ -378,6 +381,7 @@ namespace NSMBe4
                         if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
                         yResizeDelta = yDelta;
                     }
+                    if (xMoveDelta == 0 && yMoveDelta == 0 && xResizeDelta == 0 && yResizeDelta == 0) return;
 
                     minBoundX += xMoveDelta;
                     minBoundY += yMoveDelta;
@@ -540,11 +544,11 @@ namespace NSMBe4
 
             EdControl.UndoManager.Do(new AddLvlItemAction(objs));
             //now place the new objects on the topleft corner
-            Rectangle viewableArea = EdControl.ViewableArea;
+            Rectangle ViewableBlocks = EdControl.ViewableBlocks;
             SelectedObjects = objs;
             UpdateSelectionBounds();
-            int XDelta = (viewableArea.X - (minBoundX / 16)) * 16;
-            int YDelta = (viewableArea.Y - (minBoundY / 16)) * 16;
+            int XDelta = (ViewableBlocks.X - (minBoundX / 16)) * 16;
+            int YDelta = (ViewableBlocks.Y - (minBoundY / 16)) * 16;
             foreach (LevelItem obj in SelectedObjects) {
                 obj.x += XDelta;
                 obj.y += YDelta;

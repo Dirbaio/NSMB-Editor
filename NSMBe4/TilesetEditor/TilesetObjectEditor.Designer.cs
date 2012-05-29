@@ -47,13 +47,13 @@
             this.previewBox = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.map16Picker1 = new NSMBe4.Map16Picker();
             this.label4 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.deleteButton = new System.Windows.Forms.Button();
             this.newLineButton = new System.Windows.Forms.Button();
             this.emptyTileButton = new System.Windows.Forms.Button();
             this.slopeControlButton = new System.Windows.Forms.Button();
+            this.tilePicker1 = new NSMBe4.TilePicker();
             ((System.ComponentModel.ISupportInitialize)(this.editZone)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,7 +75,7 @@
             this.editZone.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editZone.Location = new System.Drawing.Point(0, 13);
             this.editZone.Name = "editZone";
-            this.editZone.Size = new System.Drawing.Size(235, 249);
+            this.editZone.Size = new System.Drawing.Size(261, 249);
             this.editZone.TabIndex = 0;
             this.editZone.TabStop = false;
             this.editZone.Paint += new System.Windows.Forms.PaintEventHandler(this.editZone_Paint);
@@ -99,7 +99,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.previewBox);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
-            this.splitContainer1.Size = new System.Drawing.Size(392, 389);
+            this.splitContainer1.Size = new System.Drawing.Size(418, 389);
             this.splitContainer1.SplitterDistance = 262;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -110,7 +110,7 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(235, 13);
+            this.label5.Size = new System.Drawing.Size(261, 13);
             this.label5.TabIndex = 5;
             this.label5.Text = "<label5>";
             // 
@@ -121,7 +121,7 @@
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(235, 0);
+            this.panel2.Location = new System.Drawing.Point(261, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(157, 262);
             this.panel2.TabIndex = 1;
@@ -282,7 +282,7 @@
             this.previewBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.previewBox.Location = new System.Drawing.Point(0, 13);
             this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(392, 110);
+            this.previewBox.Size = new System.Drawing.Size(418, 110);
             this.previewBox.TabIndex = 0;
             this.previewBox.TabStop = false;
             this.previewBox.Paint += new System.Windows.Forms.PaintEventHandler(this.previewBox_Paint);
@@ -296,33 +296,21 @@
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(392, 13);
+            this.label3.Size = new System.Drawing.Size(418, 13);
             this.label3.TabIndex = 1;
             this.label3.Text = "<label3>";
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.map16Picker1);
+            this.panel1.Controls.Add(this.tilePicker1);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(392, 0);
+            this.panel1.Location = new System.Drawing.Point(418, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(282, 389);
+            this.panel1.Size = new System.Drawing.Size(256, 389);
             this.panel1.TabIndex = 2;
-            // 
-            // map16Picker1
-            // 
-            this.map16Picker1.AutoScroll = true;
-            this.map16Picker1.AutoSize = true;
-            this.map16Picker1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map16Picker1.Location = new System.Drawing.Point(0, 68);
-            this.map16Picker1.MinimumSize = new System.Drawing.Size(282, 187);
-            this.map16Picker1.Name = "map16Picker1";
-            this.map16Picker1.Size = new System.Drawing.Size(282, 321);
-            this.map16Picker1.TabIndex = 3;
-            this.map16Picker1.TileSelected += new NSMBe4.Map16Picker.TileSelectedd(this.map16Picker1_TileSelected);
             // 
             // label4
             // 
@@ -331,7 +319,7 @@
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label4.Location = new System.Drawing.Point(0, 55);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(282, 13);
+            this.label4.Size = new System.Drawing.Size(256, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "<label4>";
             // 
@@ -344,7 +332,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(282, 55);
+            this.panel3.Size = new System.Drawing.Size(256, 55);
             this.panel3.TabIndex = 5;
             // 
             // deleteButton
@@ -387,6 +375,17 @@
             this.slopeControlButton.UseVisualStyleBackColor = true;
             this.slopeControlButton.Click += new System.EventHandler(this.slopeControlButton_Click);
             // 
+            // tilePicker1
+            // 
+            this.tilePicker1.AutoSize = true;
+            this.tilePicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tilePicker1.Location = new System.Drawing.Point(0, 68);
+            this.tilePicker1.MinimumSize = new System.Drawing.Size(256, 224);
+            this.tilePicker1.Name = "tilePicker1";
+            this.tilePicker1.Size = new System.Drawing.Size(256, 321);
+            this.tilePicker1.TabIndex = 6;
+            this.tilePicker1.TileSelected += new NSMBe4.TilePicker.TileSelectedd(this.tilePicker1_TileSelected);
+            // 
             // TilesetObjectEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,7 +422,6 @@
         private System.Windows.Forms.PictureBox editZone;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.PictureBox previewBox;
-        private Map16Picker map16Picker1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NumericUpDown map16Tile;
         private System.Windows.Forms.Label label1;
@@ -446,5 +444,6 @@
         private System.Windows.Forms.TextBox desc;
         private System.Windows.Forms.Label description;
         private System.Windows.Forms.Button deleteButton;
+        private TilePicker tilePicker1;
     }
 }

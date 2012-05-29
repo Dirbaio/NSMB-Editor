@@ -9,7 +9,7 @@ namespace NSMBe4
     public class Image2D : PixelPalettedImage
     {
         private File f;
-        private byte[] data;
+        protected byte[] data;
         private byte[] rawdata;
         public int width;
         public int tileOffset;
@@ -31,11 +31,16 @@ namespace NSMBe4
         }
 
         public Image2D(File f, int width, bool is4bpp)
+            :this(f, width, is4bpp, true)
+        {
+        }
+
+        public Image2D(File f, int width, bool is4bpp, bool isLZCompressed)
         {
             this.f = f;
             this.is4bppI = is4bpp;
             this.width = width;
-            f.beginEdit(this);
+            this.isLZCompressed = isLZCompressed;
             reload();
         }
 
@@ -47,7 +52,12 @@ namespace NSMBe4
             loadImageData();
         }
 
-        public override void close()
+        public override void beginEdit()
+        {
+            f.beginEdit(this);
+        }
+
+        public override void endEdit()
         {
             f.endEdit(this);
         }
@@ -146,6 +156,20 @@ namespace NSMBe4
             this.data = (byte[])data.Clone();
         }
 
+        public static Rectangle getTileRectangle(Bitmap b, int tileSize, int tilenum)
+        {
+            int tileCountX = b.Width / tileSize;
+            int tileCountY = b.Height / tileSize;
+            int tileCount = tileCountX * tileCountY;
+
+            if (tilenum >= tileCount)
+                throw new Exception("Tile number out of bounds!");
+
+            int x = (tilenum % tileCountX)*tileSize;
+            int y = (tilenum / tileCountX)*tileSize;
+
+            return new Rectangle(x, y, tileSize, tileSize);
+        }
 
         public static Bitmap CutImage(Image im, int width, int blockrows)
         {
@@ -177,6 +201,9 @@ namespace NSMBe4
 
             return b;
         }
-
+        public override string ToString()
+        {
+            return f.name;
+        }
     }
 }

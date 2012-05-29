@@ -60,7 +60,7 @@ namespace NSMBe4
                     tileNum++;
                     p.setValue(xt * 64 + yt);
                 }
-                Console.Out.WriteLine(xt);
+//                Console.Out.WriteLine(xt);
             }
 
             p.setValue(0);
@@ -174,7 +174,7 @@ namespace NSMBe4
 
         private void mergeTiles(int t1, int t2)
         {
-            Console.Out.WriteLine("Used: " + countUsedTiles() + ", replacing " + t2 + " with " + t1);
+//            Console.Out.WriteLine("Used: " + countUsedTiles() + ", replacing " + t2 + " with " + t1);
             tiles[t1].merge(tiles[t2]);
             //                fillDiffs(best1);
             //fusionate them

@@ -50,9 +50,6 @@ using System.Runtime.InteropServices;
 
 namespace NSMBe4 {
     public static class ROM {
-
-        public const int SpriteCount = 326;
-
         public static byte[] Overlay0;
         public static NitroROMFilesystem FS;
         public static string filename;
@@ -63,6 +60,8 @@ namespace NSMBe4 {
         public static bool isNSMBRom = true;
         public static string romInternalName;
         public static string romGamecode;
+
+        public const int SpriteCount = 326;
 
         public static void load(String filename)
         {
@@ -378,67 +377,94 @@ namespace NSMBe4 {
             return new int[2] { amountOfBytes, results[0] }; //lenght of data is first, then position
         }
 
-        static public unsafe byte[] LZ77_Compress(byte[] source, bool header = false)//Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
+        public static void LZ77_Compress_Search(byte[] data, int pos, out int match, out int length)
         {
-            fixed (byte* pointer = &source[0])
+            int maxMatchDiff = 4096;
+            int maxMatchLen = 18;
+            match = 0;
+            length = 0;
+
+            int start = pos - maxMatchDiff;
+            if (start < 0) start = 0;
+
+            for (int thisMatch = start; thisMatch < pos; thisMatch++)
             {
-                return Compress(pointer, source.Length, header);
+                int thisLength = 0;
+                while(thisLength < maxMatchLen
+                    && thisMatch + thisLength < pos 
+                    && pos + thisLength < data.Length
+                    && data[pos+thisLength] == data[thisMatch+thisLength])
+                    thisLength++;
+
+                if(thisLength > length)
+                {
+                    match = thisMatch;
+                    length = thisLength;
+                }
+
+                //We can't improve the max match length again...
+                if(length == maxMatchLen)
+                    return;
             }
         }
 
-        static public unsafe byte[] Compress(byte* source, int lenght, bool header = false) //Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
+        public static byte[] LZ77_Compress(byte[] data, bool header = false)
         {
-            int position = 0;
-            int BlockSize = 8;
-
-            List<byte> CompressedData = new List<byte>();
+            ByteArrayOutputStream res = new ByteArrayOutputStream();
             if (header) //0x37375A4C
             {
-                CompressedData.Add(0x4C);
-                CompressedData.Add(0x5A);
-                CompressedData.Add(0x37);
-                CompressedData.Add(0x37);
-            }
-            CompressedData.Add(0x10);
+                res.writeByte(0x4C);
+                res.writeByte(0x5A);
+                res.writeByte(0x37);
+                res.writeByte(0x37);
+            } 
+            
+            res.writeInt((data.Length << 8) | 0x10);
 
+            byte[] tempBuffer = new byte[16];
+
+            //Current byte to compress.
+            int current = 0;
+
+            while (current < data.Length)
             {
-                byte* pointer = (byte*)&lenght;
-                for (int i = 0; i < 3; i++)
-                    CompressedData.Add(*(pointer++));
-            }
-
-            while (position < lenght)
-            {
-                byte isCompressed = 0;
-                List<byte> tempList = new List<byte>();
-
-                for (int i = 0; i < BlockSize; i++)
+                int tempBufferCursor = 0;
+                byte blockFlags = 0;
+                for (int i = 0; i < 8; i++)
                 {
-                    int[] searchResult = Search(source, position, lenght);
-
-                    if (searchResult[0] > 2)
+                    //Not sure if this is needed. The DS probably ignores this data.
+                    if (current >= data.Length)
                     {
-                        byte add = (byte)((((searchResult[0] - 3) & 0xF) << 4) + (((searchResult[1] - 1) >> 8) & 0xF));
-                        tempList.Add(add);
-                        add = (byte)((searchResult[1] - 1) & 0xFF);
-                        tempList.Add(add);
-                        position += searchResult[0];
-                        isCompressed |= (byte)(1 << (BlockSize - (i + 1)));
+                        tempBuffer[tempBufferCursor++] = 0;
+                        continue;
                     }
-                    else if (searchResult[0] >= 0)
-                        tempList.Add(source[position++]);
-                    else
-                        break;
-                }
-                CompressedData.Add(isCompressed);
-                CompressedData.AddRange(tempList);
-            }
-            while (CompressedData.Count % 4 != 0)
-                CompressedData.Add(0);
 
-            return CompressedData.ToArray();
+                    int searchPos = 0;
+                    int searchLen = 0;
+                    LZ77_Compress_Search(data, current, out searchPos, out searchLen);
+                    int searchDisp = current - searchPos - 1;
+                    if (searchLen > 2) //We found a big match, let's write a compressed block.
+                    {
+                        blockFlags |= (byte)(1 << (7 - i));
+                        tempBuffer[tempBufferCursor++] = (byte)((((searchLen - 3) & 0xF) << 4) + ((searchDisp >> 8) & 0xF));
+                        tempBuffer[tempBufferCursor++] = (byte)(searchDisp & 0xFF);
+                        current += searchLen;
+                    }
+                    else
+                    {
+                        tempBuffer[tempBufferCursor++] = data[current++];
+                    }
+                }
+
+                res.writeByte(blockFlags);
+                for (int i = 0; i < tempBufferCursor; i++)
+                    res.writeByte(tempBuffer[i]);
+            }
+
+            return res.getArray();
         }
-        
+
+
         public static byte[] LZ77_FastCompress(byte[] source)
         {
             int DataLen = 4;
