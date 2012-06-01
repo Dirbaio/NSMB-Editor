@@ -134,6 +134,7 @@
     <Compile Include="Editor\TabsPanel.Designer.cs">
       <DependentUpon>TabsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphicsEditor\EnpgImage2D.cs" />
     <Compile Include="GraphicsEditor\Image3D.cs" />
     <Compile Include="GraphicsEditor\Image3Dformat5.cs" />
     <Compile Include="ImageIndexerFast.cs" />
@@ -224,6 +225,37 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TilemapEditor\TilemapEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilemapEditor\TilemapEditorControl.Designer.cs">
+      <DependentUpon>TilemapEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TilemapEditor\Map16Tilemap.cs" />
+    <Compile Include="TilemapEditor\TilemapEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilemapEditor\TilemapEditor.Designer.cs">
+      <DependentUpon>TilemapEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TilemapEditor\TilemapEditorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TilemapEditor\TilemapEditorWindow.Designer.cs">
+      <DependentUpon>TilemapEditorWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TilesetEditor\BackgroundList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor\BackgroundList.Designer.cs">
+      <DependentUpon>BackgroundList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TilesetEditor\TilesetList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor\TilesetList.Designer.cs">
+      <DependentUpon>TilesetList.cs</DependentUpon>
+    </Compile>
     <Compile Include="XButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -335,9 +367,18 @@
       <DependentUpon>PickerTest.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilesetEditor\Map16Editor.resx">
-      <DependentUpon>Map16Editor.cs</DependentUpon>
+    <EmbeddedResource Include="TilemapEditor\TilemapEditorControl.resx">
+      <DependentUpon>TilemapEditorControl.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilemapEditor\TilemapEditor.resx">
+      <DependentUpon>TilemapEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilemapEditor\TilemapEditorWindow.resx">
+      <DependentUpon>TilemapEditorWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetEditor\BackgroundList.resx">
+      <DependentUpon>BackgroundList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\Map16Picker.resx">
       <DependentUpon>Map16Picker.cs</DependentUpon>
@@ -372,7 +413,7 @@
       <DependentUpon>SpriteEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilesetEditor\TilePicker.resx">
+    <EmbeddedResource Include="TilemapEditor\TilePicker.resx">
       <DependentUpon>TilePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -383,6 +424,9 @@
     <EmbeddedResource Include="TilesetEditor\TilesetEditor.resx">
       <DependentUpon>TilesetEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetEditor\TilesetList.resx">
+      <DependentUpon>TilesetList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\TilesetObjectEditor.resx">
       <DependentUpon>TilesetObjectEditor.cs</DependentUpon>
@@ -753,7 +797,6 @@
     <None Include="Resources\Icons\paths.png" />
     <None Include="Resources\Icons\views.png" />
     <Compile Include="TilemapEditor\Tilemap.cs" />
-    <Compile Include="TilemapEditor\Tileset.cs" />
     <Compile Include="TilesetEditor\AlreadyEditingException.cs" />
     <Compile Include="BinaryEdit.cs">
       <SubType>UserControl</SubType>
@@ -861,12 +904,6 @@
     </Compile>
     <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
-    <Compile Include="TilesetEditor\Map16Editor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TilesetEditor\Map16Editor.Designer.cs">
-      <DependentUpon>Map16Editor.cs</DependentUpon>
-    </Compile>
     <Compile Include="TilesetEditor\Map16Picker.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -893,10 +930,10 @@
       <DependentUpon>ProgressWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="SpriteData.cs" />
-    <Compile Include="TilesetEditor\TilePicker.cs">
+    <Compile Include="TilemapEditor\TilePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TilesetEditor\TilePicker.Designer.cs">
+    <Compile Include="TilemapEditor\TilePicker.Designer.cs">
       <DependentUpon>TilePicker.cs</DependentUpon>
     </Compile>
     <Compile Include="TilesetEditor\TilesetChooser.cs">

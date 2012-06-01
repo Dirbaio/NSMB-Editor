@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace NSMBe4
 {
@@ -33,7 +34,11 @@ namespace NSMBe4
         public int bgX, bgY;
         public int dsScreenX, dsScreenY;
         public bool showDSScreen = false;
+        public bool showGrid = false;
         public bool ignoreMouse = false;
+
+        public Rectangle ViewablePixels;
+        public Rectangle ViewableBlocks;
 
         public LevelConfig config;
 
@@ -44,6 +49,7 @@ namespace NSMBe4
             vScrollBar.Visible = false;
             MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
             DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+            this.SetStyle(ControlStyles.Selectable, true);
             //dragTimer.Start();
         }
 
@@ -68,9 +74,12 @@ namespace NSMBe4
             Ready = true;
             hScrollBar.Visible = true;
             vScrollBar.Visible = true;
-            ViewableArea = new Rectangle();
+            ViewablePixels = new Rectangle();
+            ViewableBlocks = new Rectangle();
             UpdateScrollbars();
+            remakeTileCache();
             DrawingArea.Invalidate();
+
         }
 
         public void SetEditionMode(EditionMode nm)
@@ -87,21 +96,24 @@ namespace NSMBe4
 
         #region Scrolling
         private void UpdateScrollbars() {
-            ViewableWidth = (int)Math.Ceiling((float)DrawingArea.Width / 16 / zoom);
-            ViewableHeight = (int)Math.Ceiling((float)DrawingArea.Height / 16 / zoom);
+            ViewablePixels.Width = (int)Math.Ceiling((float)DrawingArea.Width / zoom);
+            ViewablePixels.Height = (int)Math.Ceiling((float)DrawingArea.Height / zoom);
 
-            int xMax = 512 - ViewableWidth;
-            int yMax = 256 - ViewableHeight;
+            int xMax = 512 * 16 - ViewablePixels.Width;
+            int yMax = 256 * 16 - ViewablePixels.Height;
             if (yMax < 0) yMax = 0;
             if (xMax < 0) xMax = 0;
 
             vScrollBar.Maximum = yMax;
             hScrollBar.Maximum = xMax;
 
-            ViewableArea.X = hScrollBar.Value;
-            ViewableArea.Y = vScrollBar.Value;
-            ViewableArea.Width = ViewableWidth;
-            ViewableArea.Height = ViewableHeight;
+            ViewablePixels.X = hScrollBar.Value;
+            ViewablePixels.Y = vScrollBar.Value;
+
+            ViewableBlocks.X = ViewablePixels.X / 16;
+            ViewableBlocks.Y = ViewablePixels.Y / 16;
+            ViewableBlocks.Width = (ViewablePixels.Width + 15) / 16+1;
+            ViewableBlocks.Height = (ViewablePixels.Height + 15) / 16+1;
         }
 
         private void LevelEditorControl_Resize(object sender, EventArgs e) {
@@ -136,9 +148,6 @@ namespace NSMBe4
             }
         }
 
-        private int ViewableWidth;
-        private int ViewableHeight;
-        public Rectangle ViewableArea;
         #endregion
 
         public NSMBGraphics GFX;
@@ -165,35 +174,49 @@ namespace NSMBe4
             DrawingArea.Invalidate();
         }
 
-        private void DrawingArea_Paint(object sender, PaintEventArgs e) {
+        int repa = 0;
+        private void DrawingArea_Paint(object sender, PaintEventArgs e) 
+        {
             if (!Ready) return;
             minimap.Invalidate(true);
             minimapctrl.Invalidate(true);
 
-            Rectangle ViewableBlocks = new Rectangle(hScrollBar.Value, vScrollBar.Value, ViewableWidth, ViewableHeight);
-            Rectangle ViewablePixels = new Rectangle(hScrollBar.Value * 16, vScrollBar.Value * 16, ViewableWidth * 16, ViewableHeight * 16);
-            //Viewable.X += 4; Viewable.Y += 4; Viewable.Width -= 8; Viewable.Height -= 8;
-
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 
             e.Graphics.ScaleTransform(zoom, zoom);
-            e.Graphics.TranslateTransform(-hScrollBar.Value * 16, -vScrollBar.Value * 16);
+            e.Graphics.TranslateTransform(-ViewablePixels.X, -ViewablePixels.Y);
 
             if (bgImage != null)
                 e.Graphics.DrawImage(bgImage, bgX, bgY);
 
+            if (showGrid)
+            {
+                for (int x = ViewableBlocks.X; x <= ViewableBlocks.Width + ViewableBlocks.X; x++)
+                    e.Graphics.DrawLine(Pens.DarkSlateGray, x * 16, ViewablePixels.Y, x * 16, ViewablePixels.Y+ViewablePixels.Height);
+                for (int y = ViewableBlocks.Y; y <= ViewableBlocks.Height + ViewableBlocks.Y; y++)
+                    e.Graphics.DrawLine(Pens.DarkSlateGray, ViewablePixels.X, y * 16, ViewablePixels.X + ViewablePixels.Width, y * 16);
+            }
+
             //RENDER PANNING BLOCKS GRID
-            for(int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width+ViewableBlocks.X)/16; x++)
+            for (int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width + ViewableBlocks.X) / 16; x++)
                 for (int y = ViewableBlocks.Y / 16; y <= (ViewableBlocks.Height + ViewableBlocks.Y) / 16; y++)
                     e.Graphics.DrawRectangle(Pens.LightGray, x * 256, y * 256, 256, 256);
 
-
+            
             //RENDER OBJECTS
-            for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
+/*            for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++) {
                 Rectangle ObjRect = new Rectangle(Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
                 if (ObjRect.IntersectsWith(ViewableArea)) {
                     Level.Objects[ObjIdx].render(e.Graphics, this);
                 }
+            }*/
+
+
+            if (tileCache != null)
+            {
+                updateTileCache();
+
+                e.Graphics.DrawImage(tileCache, ViewableBlocks.X * 16, ViewableBlocks.Y * 16);
             }
 
             foreach(NSMBSprite s in Level.Sprites)
@@ -206,7 +229,7 @@ namespace NSMBe4
                 v.render(e.Graphics, this);
 
             foreach(NSMBEntrance n in Level.Entrances)
-                if(ViewablePixels.Contains(n.X, n.Y))
+                if(ViewablePixels.IntersectsWith(new Rectangle(n.x, n.y, n.width, n.height)))
                     n.render(e.Graphics, this);
 
             foreach (NSMBPath p in Level.Paths)
@@ -307,12 +330,96 @@ namespace NSMBe4
                 }
                 if (e.Button == MouseButtons.Left) {
                     drag = true;
-                    this.Focus();
+                    Console.WriteLine(this.Focus());
                 }
 
                 if (mode != null)
-                    mode.MouseDown((int)(e.X / zoom) + hScrollBar.Value * 16, (int)(e.Y/zoom) + vScrollBar.Value * 16);
+                    mode.MouseDown((int)(e.X / zoom) + ViewablePixels.X, (int)(e.Y / zoom) + ViewablePixels.Y);
             }
+        }
+
+        Bitmap tileCache;
+        Rectangle tileCacheRect;
+        int[,] tilemapRendered = new int[512, 256];
+
+        public void updateTileCache()
+        {
+            updateTileCache(false);
+        }
+
+        public void updateTileCache(bool repaintAll)
+        {
+            Rectangle oldCacheRect = tileCacheRect;
+            tileCacheRect = ViewableBlocks;
+            Bitmap oldCache = tileCache;
+
+            if(oldCacheRect != tileCacheRect)
+                tileCache = new Bitmap(ViewableBlocks.Width * 16, ViewableBlocks.Height * 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
+            Console.WriteLine(tileCache.PixelFormat);
+            Graphics g = Graphics.FromImage(tileCache);
+            if(oldCache != null && oldCacheRect != tileCacheRect)
+                g.DrawImage(oldCache, (oldCacheRect.X - tileCacheRect.X) * 16, (oldCacheRect.Y - tileCacheRect.Y) * 16);
+
+            Rectangle srcRect = new Rectangle(0, 0, 16, 16);
+            Rectangle destRect = new Rectangle(0, 0, 16, 16);
+            for (int xx = 0; xx < ViewableBlocks.Width; xx++)
+                for (int yy = 0; yy < ViewableBlocks.Height; yy++)
+                {
+                    int t = Level.levelTilemap[xx + ViewableBlocks.X, yy + ViewableBlocks.Y];
+                    bool eq = t == tilemapRendered[xx + ViewableBlocks.X, yy + ViewableBlocks.Y];
+
+                    if (oldCacheRect.Contains(xx + tileCacheRect.X, yy + tileCacheRect.Y) && eq && !repaintAll)
+                        continue;
+                    tilemapRendered[xx + ViewableBlocks.X, yy + ViewableBlocks.Y] = t;
+
+                    g.CompositingMode = CompositingMode.SourceCopy;
+                    if (t == -1)
+                    {
+                        destRect.X = xx * 16;
+                        destRect.Y = yy * 16;
+                        g.FillRectangle(Brushes.Transparent, destRect);
+                        continue;
+                    }
+
+                    int tileset = 0;
+                    if (t >= 256 * 4)
+                    {
+                        t -= 256 * 4;
+                        tileset = 2;
+                    }
+                    else if (t >= 256)
+                    {
+                        t -= 256;
+                        tileset = 1;
+                    }
+
+                    srcRect.X = (t % 16) * 16;
+                    srcRect.Y = (t / 16) * 16;
+                    destRect.X = xx * 16;
+                    destRect.Y = yy * 16;
+                    g.DrawImage(GFX.Tilesets[tileset].Map16Buffer, xx * 16, yy * 16, srcRect, GraphicsUnit.Pixel);
+
+                    if (!GFX.Tilesets[tileset].UseOverrides) continue;
+                    int t2 = GFX.Tilesets[tileset].Overrides[t];
+                    if (t2 == -1) continue;
+                    if (t2 == 0) continue;
+
+                    srcRect.X = t2 * 16;
+                    srcRect.Y = 0;
+
+                    g.CompositingMode = CompositingMode.SourceOver;
+                    g.DrawImage(GFX.Tilesets[tileset].OverrideBitmap, destRect, srcRect, GraphicsUnit.Pixel);
+                }
+        }
+
+        private void remakeTileCache()
+        {
+            if (ViewableBlocks.Width == 0 || ViewableBlocks.Height == 0) return;
+
+            tileCache = new Bitmap(ViewableBlocks.Width * 16, ViewableBlocks.Height * 16);
+            Graphics g = Graphics.FromImage(tileCache);
+
         }
 
         private void DrawingArea_SizeChanged(object sender, EventArgs e)
@@ -328,25 +435,25 @@ namespace NSMBe4
             }
             int DragSpeed = (int)Math.Ceiling(16 * zoom);
 
-            int xx = (int)(e.X / zoom) + hScrollBar.Value * 16;
-            int yy = (int)(e.Y / zoom) + vScrollBar.Value * 16;
+            int xx = (int)(e.X / zoom) + ViewablePixels.X;
+            int yy = (int)(e.Y / zoom) + ViewablePixels.Y;
 
             if (scrollingDrag)
             {
                 int NewX = e.X;
                 int NewY = e.Y;
-                int XDelta = (NewX - DragStartX) / DragSpeed;
-                int YDelta = (NewY - DragStartY) / DragSpeed;
+                int XDelta = (int)((NewX - DragStartX)/zoom);
+                int YDelta = (int)((NewY - DragStartY)/zoom);
                 if (XDelta != 0 || YDelta != 0)
                 {
-                    Point NewPosition = new Point(ViewableArea.X - XDelta, ViewableArea.Y - YDelta);
+                    Point NewPosition = new Point(ViewablePixels.X - XDelta, ViewablePixels.Y - YDelta);
                     if (NewPosition.X < 0) NewPosition.X = 0;
                     if (NewPosition.X > hScrollBar.Maximum) NewPosition.X = hScrollBar.Maximum;
                     if (NewPosition.Y < 0) NewPosition.Y = 0;
                     if (NewPosition.Y > vScrollBar.Maximum) NewPosition.Y = vScrollBar.Maximum;
-                    DragStartX += (XDelta * DragSpeed);
-                    DragStartY += (YDelta * DragSpeed);
-                    ScrollEditor(NewPosition);
+                    DragStartX = NewX;
+                    DragStartY = NewY;
+                    ScrollEditorPixel(NewPosition);
                 }
             }
             else if (e.Button == MouseButtons.Left && Ready && mode != null)
@@ -362,31 +469,46 @@ namespace NSMBe4
             }
         }
 
-        public void EnsurePosVisible(int X, int Y) {
-            Point NewPosition = new Point(ViewableArea.X, ViewableArea.Y);
-            if (X < ViewableArea.X)
-                NewPosition.X = Math.Max(0, X - (ViewableWidth / 2));
-            if (X >= ViewableArea.Right)
-                NewPosition.X = Math.Min(hScrollBar.Maximum, X - (ViewableWidth / 2));
-            if (Y < ViewableArea.Y)
-                NewPosition.Y = Math.Max(0, Y - (ViewableHeight / 2));
-            if (Y >= ViewableArea.Bottom)
-                NewPosition.Y = Math.Min(vScrollBar.Maximum, Y - (ViewableHeight / 2));
+        public void EnsureBlockVisible(int X, int Y) {
+            EnsurePixelVisible(X * 16, Y * 16);
+        }
 
-            ScrollEditor(NewPosition);
+        public void EnsurePixelVisible(int X, int Y) {
+
+            Point NewPosition = new Point(ViewablePixels.X, ViewablePixels.Y);
+            if (X < ViewablePixels.X)
+                NewPosition.X = Math.Max(0, X - (ViewablePixels.Width / 2));
+            if (X >= ViewablePixels.Right)
+                NewPosition.X = Math.Min(hScrollBar.Maximum, X - (ViewablePixels.Width / 2));
+            if (Y < ViewablePixels.Y)
+                NewPosition.Y = Math.Max(0, Y - (ViewablePixels.Height / 2));
+            if (Y >= ViewablePixels.Bottom)
+                NewPosition.Y = Math.Min(vScrollBar.Maximum, Y - (ViewablePixels.Height / 2));
+
+            ScrollEditorPixel(NewPosition);
         }
 
         public void ScrollToObjects(List<LevelItem> objs)
         {
             foreach (LevelItem obj in objs)
-                if (ViewableArea.IntersectsWith(new Rectangle(obj.x / 16, obj.y / 16, obj.width / 16, obj.height / 16)))
+                if (ViewablePixels.IntersectsWith(new Rectangle(obj.x, obj.y, obj.width, obj.height)))
                     return;
             if (objs.Count > 0)
-                EnsurePosVisible(objs[0].x / 16, objs[0].y / 16);
+                EnsurePixelVisible(objs[0].x, objs[0].y);
         }
 
         public void ScrollEditor(Point NewPosition) {
-            ViewableArea.Location = NewPosition;
+
+            hScrollBar.Value = NewPosition.X*16;
+            vScrollBar.Value = NewPosition.Y*16;
+            UpdateScrollbars();
+            DrawingArea.Invalidate();
+        }
+
+
+        public void ScrollEditorPixel(Point NewPosition)
+        {
+            ViewablePixels.Location = NewPosition;
             hScrollBar.Value = NewPosition.X;
             vScrollBar.Value = NewPosition.Y;
             UpdateScrollbars();
@@ -446,7 +568,9 @@ namespace NSMBe4
                     vScrollBar.Value -= 1;
                 if (mousePos.Y > DrawingArea.Height && vScrollBar.Value < vScrollBar.Maximum)
                     vScrollBar.Value += 1;
-                mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value * 16, (int)(mousePos.Y / zoom) + vScrollBar.Value * 16);
+
+                mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value, (int)(mousePos.Y / zoom) + vScrollBar.Value);
+                UpdateScrollbars();
             }
         }
 

@@ -38,7 +38,7 @@ namespace NSMBe4
 
         private void CreateObject_Click(object sender, EventArgs e)
         {
-            Rectangle ViewableArea = EdControl.ViewableArea;
+            Rectangle ViewableArea = EdControl.ViewableBlocks;
             NSMBObject no = new NSMBObject(10, 0, ViewableArea.X + ViewableArea.Width / 2, ViewableArea.Y + ViewableArea.Height / 2, 1, 1, EdControl.GFX);
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(no)));
             EdControl.mode.SelectObject(no);
@@ -46,7 +46,7 @@ namespace NSMBe4
 
         private void CreateSprite_Click(object sender, EventArgs e)
         {
-            Rectangle ViewableArea = EdControl.ViewableArea;
+            Rectangle ViewableArea = EdControl.ViewableBlocks;
             NSMBSprite ns = new NSMBSprite(EdControl.Level);
             ns.X = ViewableArea.X + ViewableArea.Width / 2;
             ns.Y = ViewableArea.Y + ViewableArea.Height / 2;

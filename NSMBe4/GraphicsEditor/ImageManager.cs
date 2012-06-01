@@ -15,15 +15,39 @@ namespace NSMBe4
             InitializeComponent();
         }
 
+        public bool standalone = false;
+
         public void addImage(PalettedImage i)
         {
+            if (standalone)
+                i.beginEdit();
+
             imageListBox.Items.Add(i);
             if (imageListBox.Items.Count == 1)
                 imageListBox.SelectedItem = i;
         }
 
+        public Image2D getSelectedImage()
+        {
+            return imageListBox.SelectedItem as Image2D;
+        }
+
+        public Palette[] getPalettes()
+        {
+            List<Palette> res = new List<Palette>();
+
+            foreach (object o in paletteListBox.Items)
+                if (o is Palette)
+                    res.Add(o as Palette);
+
+            return res.ToArray();
+        }
+
         public void addPalette(Palette p)
         {
+            if (standalone)
+                p.beginEdit();
+
             paletteListBox.Items.Add(p);
             if (paletteListBox.Items.Count == 1)
                 paletteListBox.SelectedItem = p;
@@ -60,7 +84,7 @@ namespace NSMBe4
         {
             if (Control.ModifierKeys == Keys.Control)
             {
-                (imageListBox.SelectedItem as PalettedImage).close();
+                (imageListBox.SelectedItem as PalettedImage).endEdit();
                 imageListBox.Items.Remove(imageListBox.SelectedItem);
             }
             else
@@ -81,20 +105,19 @@ namespace NSMBe4
         {
             if (Control.ModifierKeys == Keys.Control)
             {
-                (paletteListBox.SelectedItem as Palette).close();
+                (paletteListBox.SelectedItem as Palette).endEdit();
                 paletteListBox.Items.Remove(paletteListBox.SelectedItem);
             }
             else
                 updateImage();
         }
 
-
         public void close()
         {
             foreach (object o in imageListBox.Items)
-                (o as PalettedImage).close();
+                (o as PalettedImage).endEdit();
             foreach (object o in paletteListBox.Items)
-                (o as Palette).close();
+                (o as Palette).endEdit();
         }
 
         private void imageListBox_MouseDown(object sender, MouseEventArgs e)
@@ -224,7 +247,19 @@ namespace NSMBe4
             b.Dispose();
         }
 
+        public delegate void SomethingSavedD();
+        public event SomethingSavedD SomethingSaved;
+
         private void saveAllBtn_Click(object sender, EventArgs e)
+        {
+            saveAll();
+
+            if (SomethingSaved != null)
+                SomethingSaved();
+
+        }
+
+        public void saveAll()
         {
             foreach (object o in imageListBox.Items)
             {
@@ -236,6 +271,12 @@ namespace NSMBe4
                 if (o is Palette)
                     (o as Palette).save();
             }
+        }
+
+        private void graphicsEditor1_SomethingSaved()
+        {
+            if (SomethingSaved != null)
+                SomethingSaved();
         }
 
 

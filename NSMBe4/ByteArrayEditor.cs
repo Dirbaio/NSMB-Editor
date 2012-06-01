@@ -32,6 +32,9 @@ namespace NSMBe4
         byte[] array;
         string pat;
 
+        public delegate void ValueChangedD(byte[] val);
+        public event ValueChangedD ValueChanged;
+
         public ByteArrayEditor()
         {
             InitializeComponent();
@@ -57,6 +60,7 @@ namespace NSMBe4
             pat = "^ *" + pat + "$";
             DataUpdateFlag = false;
             box.Enabled = true;
+            box.BackColor = SystemColors.Window;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -74,6 +78,8 @@ namespace NSMBe4
                     array[i] = byte.Parse(parseit.Substring(i * 2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
                 }
                 box.BackColor = SystemColors.Window;
+                if (ValueChanged != null)
+                    ValueChanged(array);
             }
             else
             {

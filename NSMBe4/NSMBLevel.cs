@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using NSMBe4.DSFileSystem;
+using System.Drawing;
 
 
 namespace NSMBe4
@@ -41,6 +42,8 @@ namespace NSMBe4
 
         private bool editing = false;
 
+        public int[,] levelTilemap = new int[512, 256];
+
         public NSMBLevel(File levelFile, File bgFile, NSMBGraphics GFX)
         {
             this.LevelFile = levelFile;
@@ -48,6 +51,12 @@ namespace NSMBe4
             this.GFX = GFX;
 
             int FilePos;
+
+            for(int x = 0; x < 512; x++)
+                for (int y = 0; y < 256; y++)
+                {
+                    levelTilemap[x,y] = (x + y) % 512; 
+                }
 
             // Level loading time yay.
             // Since I don't know the format for every block, I will just load them raw.
@@ -174,6 +183,31 @@ namespace NSMBe4
 
 
             CalculateSpriteModifiers();
+            repaintAllTilemap();
+        }
+
+        public void repaintAllTilemap()
+        {
+            repaintTilemap(0, 0, 512, 256);
+        }
+
+        public void repaintTilemap(int x, int y, int w, int h)
+        {
+            if (w == 0) return;
+            if (h == 0) return;
+
+            for (int xx = 0; xx < w; xx++)
+                for (int yy = 0; yy < h; yy++)
+                    levelTilemap[xx + x, yy + y] = -1;
+
+            Rectangle r = new Rectangle(x, y, w, h);
+            
+            for (int ObjIdx = 0; ObjIdx < Objects.Count; ObjIdx++) {
+                Rectangle ObjRect = new Rectangle(Objects[ObjIdx].X, Objects[ObjIdx].Y, Objects[ObjIdx].Width, Objects[ObjIdx].Height);
+                if (ObjRect.IntersectsWith(r)) {
+                    Objects[ObjIdx].renderTilemap(levelTilemap, r);
+                }
+            }
         }
 
         public void Remove(List<LevelItem> objs)
@@ -433,8 +467,7 @@ namespace NSMBe4
             ValidSprites = new bool[ROM.SpriteCount];
             byte[] ModifierTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
-            for (int idx = 0; idx < ROM.SpriteCount; idx++)
-            {
+            for (int idx = 0; idx < ROM.SpriteCount; idx++) {
                 int ModifierOffset = ModifierTable[idx << 1];
                 int ModifierValue = ModifierTable[(idx << 1) + 1];
                 if (ModifierValue == 0) {

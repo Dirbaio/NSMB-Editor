@@ -116,11 +116,16 @@ namespace NSMBe4 {
 
         }
 
+        public delegate void SomethingSavedD();
+        public event SomethingSavedD SomethingSaved;
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (img == null || pal == null) return;
             img.save();
             pal.save();
+
+            if (SomethingSaved != null)
+                SomethingSaved();
         }
 
 

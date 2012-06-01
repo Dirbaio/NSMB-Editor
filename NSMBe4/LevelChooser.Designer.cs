@@ -32,13 +32,22 @@ namespace NSMBe4 {
             this.importLevelButton = new System.Windows.Forms.Button();
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tilesetList1 = new NSMBe4.TilesetList();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.patchesGroupbox = new System.Windows.Forms.GroupBox();
+            this.patchExport = new System.Windows.Forms.Button();
+            this.patchImport = new System.Windows.Forms.Button();
+            this.nsmbToolsGroupbox = new System.Windows.Forms.GroupBox();
+            this.mpPatch = new System.Windows.Forms.Button();
+            this.mpPatch2 = new System.Windows.Forms.Button();
+            this.dataFinderButton = new System.Windows.Forms.Button();
             this.asmToolsGroupbox = new System.Windows.Forms.GroupBox();
             this.makeclean = new System.Windows.Forms.Button();
             this.makeinsert = new System.Windows.Forms.Button();
             this.decompArm9Bin = new System.Windows.Forms.Button();
-            this.mpPatch2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.autoUpdate = new System.Windows.Forms.CheckBox();
             this.useMDI = new System.Windows.Forms.CheckBox();
@@ -47,11 +56,6 @@ namespace NSMBe4 {
             this.updateSpriteDataButton = new System.Windows.Forms.Button();
             this.changeLanguageButton = new System.Windows.Forms.Button();
             this.dumpMapButton = new System.Windows.Forms.Button();
-            this.tilesetEditor = new System.Windows.Forms.Button();
-            this.mpPatch = new System.Windows.Forms.Button();
-            this.patchImport = new System.Windows.Forms.Button();
-            this.patchExport = new System.Windows.Forms.Button();
-            this.dataFinderButton = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -70,18 +74,19 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.nsmbToolsGroupbox = new System.Windows.Forms.GroupBox();
-            this.patchesGroupbox = new System.Windows.Forms.GroupBox();
-            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.backgroundList1 = new NSMBe4.BackgroundList();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.patchesGroupbox.SuspendLayout();
+            this.nsmbToolsGroupbox.SuspendLayout();
             this.asmToolsGroupbox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.nsmbToolsGroupbox.SuspendLayout();
-            this.patchesGroupbox.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -90,6 +95,8 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -170,6 +177,25 @@ namespace NSMBe4 {
             this.levelTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.levelTreeView_AfterSelect);
             this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.tilesetList1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(542, 452);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Tilesets";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tilesetList1
+            // 
+            this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tilesetList1.Location = new System.Drawing.Point(3, 3);
+            this.tilesetList1.Name = "tilesetList1";
+            this.tilesetList1.Size = new System.Drawing.Size(536, 446);
+            this.tilesetList1.TabIndex = 0;
+            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.filesystemBrowser1);
@@ -180,6 +206,14 @@ namespace NSMBe4 {
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 446);
+            this.filesystemBrowser1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -195,6 +229,91 @@ namespace NSMBe4 {
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // patchesGroupbox
+            // 
+            this.patchesGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchesGroupbox.Controls.Add(this.patchExport);
+            this.patchesGroupbox.Controls.Add(this.patchImport);
+            this.patchesGroupbox.Location = new System.Drawing.Point(258, 6);
+            this.patchesGroupbox.Name = "patchesGroupbox";
+            this.patchesGroupbox.Size = new System.Drawing.Size(278, 80);
+            this.patchesGroupbox.TabIndex = 7;
+            this.patchesGroupbox.TabStop = false;
+            this.patchesGroupbox.Text = "Patches";
+            // 
+            // patchExport
+            // 
+            this.patchExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchExport.Location = new System.Drawing.Point(6, 19);
+            this.patchExport.Name = "patchExport";
+            this.patchExport.Size = new System.Drawing.Size(266, 23);
+            this.patchExport.TabIndex = 3;
+            this.patchExport.Text = "<patchExport>";
+            this.patchExport.UseVisualStyleBackColor = true;
+            this.patchExport.Click += new System.EventHandler(this.patchExport_Click);
+            // 
+            // patchImport
+            // 
+            this.patchImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchImport.Location = new System.Drawing.Point(6, 48);
+            this.patchImport.Name = "patchImport";
+            this.patchImport.Size = new System.Drawing.Size(266, 23);
+            this.patchImport.TabIndex = 3;
+            this.patchImport.Text = "<patchImport>";
+            this.patchImport.UseVisualStyleBackColor = true;
+            this.patchImport.Click += new System.EventHandler(this.patchImport_Click);
+            // 
+            // nsmbToolsGroupbox
+            // 
+            this.nsmbToolsGroupbox.Controls.Add(this.mpPatch);
+            this.nsmbToolsGroupbox.Controls.Add(this.mpPatch2);
+            this.nsmbToolsGroupbox.Controls.Add(this.dataFinderButton);
+            this.nsmbToolsGroupbox.Location = new System.Drawing.Point(6, 6);
+            this.nsmbToolsGroupbox.Name = "nsmbToolsGroupbox";
+            this.nsmbToolsGroupbox.Size = new System.Drawing.Size(246, 137);
+            this.nsmbToolsGroupbox.TabIndex = 6;
+            this.nsmbToolsGroupbox.TabStop = false;
+            this.nsmbToolsGroupbox.Text = "NSMB Tools";
+            // 
+            // mpPatch
+            // 
+            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch.Location = new System.Drawing.Point(6, 19);
+            this.mpPatch.Name = "mpPatch";
+            this.mpPatch.Size = new System.Drawing.Size(234, 23);
+            this.mpPatch.TabIndex = 3;
+            this.mpPatch.Text = "<mpPatch>";
+            this.mpPatch.UseVisualStyleBackColor = true;
+            this.mpPatch.Click += new System.EventHandler(this.mpPatch_Click);
+            // 
+            // mpPatch2
+            // 
+            this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch2.Location = new System.Drawing.Point(6, 48);
+            this.mpPatch2.Name = "mpPatch2";
+            this.mpPatch2.Size = new System.Drawing.Size(234, 23);
+            this.mpPatch2.TabIndex = 5;
+            this.mpPatch2.Text = "<mpPatch2>";
+            this.mpPatch2.UseVisualStyleBackColor = true;
+            this.mpPatch2.Click += new System.EventHandler(this.mpPatch2_Click);
+            // 
+            // dataFinderButton
+            // 
+            this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataFinderButton.Location = new System.Drawing.Point(6, 106);
+            this.dataFinderButton.Name = "dataFinderButton";
+            this.dataFinderButton.Size = new System.Drawing.Size(234, 23);
+            this.dataFinderButton.TabIndex = 3;
+            this.dataFinderButton.Text = "<dataFinderButton>";
+            this.dataFinderButton.UseVisualStyleBackColor = true;
+            this.dataFinderButton.Click += new System.EventHandler(this.dataFinderButton_Click);
             // 
             // asmToolsGroupbox
             // 
@@ -246,18 +365,6 @@ namespace NSMBe4 {
             this.decompArm9Bin.UseVisualStyleBackColor = true;
             this.decompArm9Bin.Click += new System.EventHandler(this.decompArm9Bin_Click);
             // 
-            // mpPatch2
-            // 
-            this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.mpPatch2.Location = new System.Drawing.Point(6, 48);
-            this.mpPatch2.Name = "mpPatch2";
-            this.mpPatch2.Size = new System.Drawing.Size(234, 23);
-            this.mpPatch2.TabIndex = 5;
-            this.mpPatch2.Text = "<mpPatch2>";
-            this.mpPatch2.UseVisualStyleBackColor = true;
-            this.mpPatch2.Click += new System.EventHandler(this.mpPatch2_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.autoUpdate);
@@ -278,7 +385,7 @@ namespace NSMBe4 {
             this.autoUpdate.AutoSize = true;
             this.autoUpdate.Location = new System.Drawing.Point(6, 130);
             this.autoUpdate.Name = "autoUpdate";
-            this.autoUpdate.Size = new System.Drawing.Size(142, 17);
+            this.autoUpdate.Size = new System.Drawing.Size(140, 17);
             this.autoUpdate.TabIndex = 7;
             this.autoUpdate.Text = "Auto-update Sprite Data";
             this.autoUpdate.UseVisualStyleBackColor = true;
@@ -289,7 +396,7 @@ namespace NSMBe4 {
             this.useMDI.AutoSize = true;
             this.useMDI.Location = new System.Drawing.Point(6, 107);
             this.useMDI.Name = "useMDI";
-            this.useMDI.Size = new System.Drawing.Size(60, 17);
+            this.useMDI.Size = new System.Drawing.Size(58, 17);
             this.useMDI.TabIndex = 6;
             this.useMDI.Text = "<MDI>";
             this.useMDI.UseVisualStyleBackColor = true;
@@ -349,66 +456,6 @@ namespace NSMBe4 {
             this.dumpMapButton.UseVisualStyleBackColor = true;
             this.dumpMapButton.Click += new System.EventHandler(this.dumpMapButton_Click);
             // 
-            // tilesetEditor
-            // 
-            this.tilesetEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tilesetEditor.Location = new System.Drawing.Point(6, 77);
-            this.tilesetEditor.Name = "tilesetEditor";
-            this.tilesetEditor.Size = new System.Drawing.Size(234, 23);
-            this.tilesetEditor.TabIndex = 3;
-            this.tilesetEditor.Text = "<tilesetEditor>";
-            this.tilesetEditor.UseVisualStyleBackColor = true;
-            this.tilesetEditor.Click += new System.EventHandler(this.tilesetEditor_Click);
-            // 
-            // mpPatch
-            // 
-            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.mpPatch.Location = new System.Drawing.Point(6, 19);
-            this.mpPatch.Name = "mpPatch";
-            this.mpPatch.Size = new System.Drawing.Size(234, 23);
-            this.mpPatch.TabIndex = 3;
-            this.mpPatch.Text = "<mpPatch>";
-            this.mpPatch.UseVisualStyleBackColor = true;
-            this.mpPatch.Click += new System.EventHandler(this.mpPatch_Click);
-            // 
-            // patchImport
-            // 
-            this.patchImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.patchImport.Location = new System.Drawing.Point(6, 48);
-            this.patchImport.Name = "patchImport";
-            this.patchImport.Size = new System.Drawing.Size(266, 23);
-            this.patchImport.TabIndex = 3;
-            this.patchImport.Text = "<patchImport>";
-            this.patchImport.UseVisualStyleBackColor = true;
-            this.patchImport.Click += new System.EventHandler(this.patchImport_Click);
-            // 
-            // patchExport
-            // 
-            this.patchExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.patchExport.Location = new System.Drawing.Point(6, 19);
-            this.patchExport.Name = "patchExport";
-            this.patchExport.Size = new System.Drawing.Size(266, 23);
-            this.patchExport.TabIndex = 3;
-            this.patchExport.Text = "<patchExport>";
-            this.patchExport.UseVisualStyleBackColor = true;
-            this.patchExport.Click += new System.EventHandler(this.patchExport_Click);
-            // 
-            // dataFinderButton
-            // 
-            this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataFinderButton.Location = new System.Drawing.Point(6, 106);
-            this.dataFinderButton.Name = "dataFinderButton";
-            this.dataFinderButton.Size = new System.Drawing.Size(234, 23);
-            this.dataFinderButton.TabIndex = 3;
-            this.dataFinderButton.Text = "<dataFinderButton>";
-            this.dataFinderButton.UseVisualStyleBackColor = true;
-            this.dataFinderButton.Click += new System.EventHandler(this.dataFinderButton_Click);
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.linkLabel2);
@@ -424,7 +471,7 @@ namespace NSMBe4 {
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(530, 416);
+            this.tabPage4.Size = new System.Drawing.Size(542, 452);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "<tabPage4>";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -557,39 +604,23 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
-            // nsmbToolsGroupbox
+            // tabPage6
             // 
-            this.nsmbToolsGroupbox.Controls.Add(this.mpPatch);
-            this.nsmbToolsGroupbox.Controls.Add(this.mpPatch2);
-            this.nsmbToolsGroupbox.Controls.Add(this.tilesetEditor);
-            this.nsmbToolsGroupbox.Controls.Add(this.dataFinderButton);
-            this.nsmbToolsGroupbox.Location = new System.Drawing.Point(6, 6);
-            this.nsmbToolsGroupbox.Name = "nsmbToolsGroupbox";
-            this.nsmbToolsGroupbox.Size = new System.Drawing.Size(246, 137);
-            this.nsmbToolsGroupbox.TabIndex = 6;
-            this.nsmbToolsGroupbox.TabStop = false;
-            this.nsmbToolsGroupbox.Text = "NSMB Tools";
+            this.tabPage6.Controls.Add(this.backgroundList1);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(542, 452);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Backgrounds";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // patchesGroupbox
+            // backgroundList1
             // 
-            this.patchesGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.patchesGroupbox.Controls.Add(this.patchExport);
-            this.patchesGroupbox.Controls.Add(this.patchImport);
-            this.patchesGroupbox.Location = new System.Drawing.Point(258, 6);
-            this.patchesGroupbox.Name = "patchesGroupbox";
-            this.patchesGroupbox.Size = new System.Drawing.Size(278, 80);
-            this.patchesGroupbox.TabIndex = 7;
-            this.patchesGroupbox.TabStop = false;
-            this.patchesGroupbox.Text = "Patches";
-            // 
-            // filesystemBrowser1
-            // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 446);
-            this.filesystemBrowser1.TabIndex = 0;
+            this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.backgroundList1.Location = new System.Drawing.Point(0, 0);
+            this.backgroundList1.Name = "backgroundList1";
+            this.backgroundList1.Size = new System.Drawing.Size(542, 452);
+            this.backgroundList1.TabIndex = 0;
             // 
             // LevelChooser
             // 
@@ -603,15 +634,17 @@ namespace NSMBe4 {
             this.Load += new System.EventHandler(this.LevelChooser_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.patchesGroupbox.ResumeLayout(false);
+            this.nsmbToolsGroupbox.ResumeLayout(false);
             this.asmToolsGroupbox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.nsmbToolsGroupbox.ResumeLayout(false);
-            this.patchesGroupbox.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -641,7 +674,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.OpenFileDialog openPatchDialog;
         private FilesystemBrowser filesystemBrowser1;
         private System.Windows.Forms.Button mpPatch;
-        private System.Windows.Forms.Button tilesetEditor;
         private System.Windows.Forms.Button decompArm9Bin;
         private System.Windows.Forms.Button mpPatch2;
         private System.Windows.Forms.GroupBox asmToolsGroupbox;
@@ -666,5 +698,9 @@ namespace NSMBe4 {
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox patchesGroupbox;
         private System.Windows.Forms.GroupBox nsmbToolsGroupbox;
+        private System.Windows.Forms.TabPage tabPage5;
+        private TilesetList tilesetList1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private BackgroundList backgroundList1;
     }
 }

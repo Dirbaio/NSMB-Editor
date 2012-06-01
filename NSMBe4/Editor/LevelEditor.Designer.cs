@@ -72,6 +72,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.coordinateViewer1 = new NSMBe4.Editor.CoordinateViewer();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
+            this.showGridButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -97,6 +98,7 @@
             this.toolStripSeparator5,
             this.snapToggleButton,
             this.dsScreenShowButton,
+            this.showGridButton,
             this.toolStripSeparator2,
             this.undoButton,
             this.redoButton,
@@ -535,6 +537,17 @@
             this.levelEditorControl1.Size = new System.Drawing.Size(775, 551);
             this.levelEditorControl1.TabIndex = 3;
             // 
+            // showGridButton
+            // 
+            this.showGridButton.CheckOnClick = true;
+            this.showGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showGridButton.Image = ((System.Drawing.Image)(resources.GetObject("showGridButton.Image")));
+            this.showGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showGridButton.Name = "showGridButton";
+            this.showGridButton.Size = new System.Drawing.Size(23, 22);
+            this.showGridButton.Text = "Show Grid";
+            this.showGridButton.Click += new System.EventHandler(this.showGridButton_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -616,6 +629,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         public Editor.CoordinateViewer coordinateViewer1;
+        private System.Windows.Forms.ToolStripButton showGridButton;
     }
 }
 

@@ -148,11 +148,11 @@ namespace NSMBe4
 
         private void addEntranceButton_Click(object sender, EventArgs e)
         {
-            Rectangle ViewableArea = EdControl.ViewableArea;
+            Rectangle ViewableBlocks = EdControl.ViewableBlocks;
 
             NSMBEntrance ne = new NSMBEntrance();
-            ne.X = (ViewableArea.X + ViewableArea.Width / 2) * 16;
-            ne.Y = (ViewableArea.Y + ViewableArea.Height / 2) * 16;
+            ne.X = (ViewableBlocks.X + ViewableBlocks.Width / 2) * 16;
+            ne.Y = (ViewableBlocks.Y + ViewableBlocks.Height / 2) * 16;
             ne.Number = EdControl.Level.getFreeEntranceNumber();
             EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ne)));
             EdControl.mode.SelectObject(ne);

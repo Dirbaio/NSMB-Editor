@@ -29,7 +29,7 @@ namespace NSMBe4 {
 
         private NSMBLevel Level;
         private LevelEditorControl EdControl;
-        private Brush UnviewableAreaBrush;
+        private Brush UnViewableBlocksBrush;
 
         public LevelMinimap(NSMBLevel Level, LevelEditorControl EdControl)
         {
@@ -38,7 +38,7 @@ namespace NSMBe4 {
                 this.MdiParent = MdiParentForm.instance;
             this.Level = Level;
             this.EdControl = EdControl;
-            UnviewableAreaBrush = new SolidBrush(Color.FromArgb(120, Color.DarkSlateGray.R, Color.DarkSlateGray.G, Color.DarkSlateGray.B));
+            UnViewableBlocksBrush = new SolidBrush(Color.FromArgb(120, Color.DarkSlateGray.R, Color.DarkSlateGray.G, Color.DarkSlateGray.B));
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e) {
@@ -55,7 +55,7 @@ namespace NSMBe4 {
                 e.Graphics.DrawRectangle(Pens.PaleGreen, v.X / 16, v.Y / 16, v.Width / 16, v.Height / 16);
 
             // Draw viewable area
-            e.Graphics.FillRectangle(UnviewableAreaBrush, EdControl.ViewableArea);
+            e.Graphics.FillRectangle(UnViewableBlocksBrush, EdControl.ViewableBlocks);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e) {
@@ -65,7 +65,7 @@ namespace NSMBe4 {
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 // Calculate new position
-                Rectangle va = EdControl.ViewableArea;
+                Rectangle va = EdControl.ViewableBlocks;
                 Rectangle NewArea = new Rectangle(0, 0, va.Width, va.Height);
                 NewArea.X = e.X - (NewArea.Width / 2);
                 NewArea.Y = e.Y - (NewArea.Height / 2);
@@ -85,7 +85,7 @@ namespace NSMBe4 {
                 // Set it
                 EdControl.ScrollEditor(NewArea.Location);
                 pictureBox1.Invalidate();
-                //ScrollEditor(ViewableArea.Location);
+                //ScrollEditor(ViewableBlocks.Location);
             }
         }
 

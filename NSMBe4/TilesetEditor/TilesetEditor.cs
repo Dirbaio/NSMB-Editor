@@ -44,7 +44,8 @@ namespace NSMBe4
             g = new NSMBGraphics();
 
             this.TilesetID = TilesetID;
-            if (TilesetID == 65535) {
+            if (TilesetID == 65535)
+            {
                 // load Jyotyu
                 g.LoadTilesets(0);
                 TilesetNumber = 0;
@@ -63,14 +64,19 @@ namespace NSMBe4
             }
 
             t = g.Tilesets[TilesetNumber];
-            t.enableWrite();
+            t.beginEdit();
 
             objectPickerControl1.Initialise(g);
             objectPickerControl1.CurrentTileset = TilesetNumber;
 
             tilesetObjectEditor1.load(g, TilesetNumber);
-            map16Editor1.load(t);
-//            graphicsEditor1.load(t.Palette, false, t.RawGFXData, 256);
+            tilemapEditor1.load(t.map16);
+
+            imageManager1.addImage(t.graphics);
+            imageManager1.addPalette(t.palette1);
+            imageManager1.addPalette(t.palette2);
+
+            tileBehaviorPicker.init(new Bitmap[] { t.Map16Buffer }, 16);
 
             //FIXME
 //            graphicsEditor1.SaveGraphics += new GraphicsEditor.SaveGraphicsHandler(graphicsEditor1_SaveGraphics);
@@ -83,13 +89,6 @@ namespace NSMBe4
             if (descExists)
                 descriptions = ROM.descriptions[TilesetID]; //Get the descriptions
             this.Icon = Properties.Resources.nsmbe;
-        }
-
-        private void graphicsEditor1_SaveGraphics() {
-//            t.ResetGraphics(graphicsEditor1.GFXData);
-            objectPickerControl1.ReRenderAll(TilesetNumber);
-            tilesetObjectEditor1.redrawThings();
-            map16Editor1.redrawThings();
         }
 
         private void objectPickerControl1_ObjectSelected()
@@ -105,16 +104,17 @@ namespace NSMBe4
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
             if (tilesetObjectEditor1.descBox.Visible)
                 tilesetObjectEditor1.descBox.Text = descriptions[objectPickerControl1.SelectedObject].Substring(descriptions[objectPickerControl1.SelectedObject].IndexOf('=') + 1);
-            
+            objectPickerControl1.ReRenderAll(TilesetNumber);
         }
 
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             // auto save graphics, I always end up forgetting..
-            graphicsEditor1_SaveGraphics();
+            imageManager1.saveAll();
 
             t.save();
+
             //Save descriptions
             try {
                 if (!descExists) return;
@@ -142,13 +142,13 @@ namespace NSMBe4
 
         private void mustRepaintObjects()
         {
-            objectPickerControl1.ReRenderAll(TilesetNumber);
-            tilesetObjectEditor1.redrawThings();
-            map16Editor1.redrawThings();
+            t.map16.reRenderAll();
+            tilemapEditor1.reload();
         }
 
         private void TilesetEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
+            t.endEdit();
             g.close();
         }
 
@@ -157,16 +157,18 @@ namespace NSMBe4
             if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelAll"), "NSMB Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 t.Objects = new NSMBTileset.ObjectDef[256];
-                foreach (NSMBTileset.Map16Tile tile in t.Map16)
-                    tile.makeEmpty();
-                foreach (byte[] beh in t.TileBehaviors)
-                {
-                    beh[0] = 0;
-                    beh[1] = 0;
-                    beh[2] = 0;
-                    beh[3] = 0;
-                }
-                t.repaintAllMap16();
+                for(int x = 0; x < t.map16.width; x++)
+                    for (int y = 0; y < t.map16.height; y++)
+                    {
+                        t.map16.tiles[x, y].tileNum = -1;
+                        t.map16.tiles[x, y].hflip = false;
+                        t.map16.tiles[x, y].vflip = false;
+                        t.map16.tiles[x, y].palNum = 0;
+                    }
+
+                for (int i = 0; i < t.TileBehaviors.Length; i++)
+                    t.TileBehaviors[i] = 0;
+
                 mustRepaintObjects();
             }
         }
@@ -311,5 +313,31 @@ namespace NSMBe4
         {
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
         }
+
+        byte[] tileBehavior = new byte[4];
+
+        private void tileBehaviorPicker_TileSelected(int selTileNum, int selTilePal, int selTileWidth, int selTileHeight)
+        {
+            for(int i = 0; i < 4; i++)
+                tileBehavior[i] = (byte)((t.TileBehaviors[selTileNum] >> (i*8)) & 0xFF);
+            tileBehaviorEditor.setArray(tileBehavior);
+        }
+
+        private void tileBehaviorEditor_ValueChanged(byte[] val)
+        {
+            int newBehavior = 0;
+            for (int i = 0; i < 4; i++)
+                newBehavior |= val[i] << (i * 8);
+
+            for(int x = 0; x < tileBehaviorPicker.selTileWidth; x++)
+                for(int y = 0; y < tileBehaviorPicker.selTileHeight; y++)
+                    t.TileBehaviors[tileBehaviorPicker.selTileNum + x + y*tileBehaviorPicker.bufferWidth] = newBehavior;
+        }
+
+        private void imageManager1_SomethingSaved()
+        {
+            mustRepaintObjects();
+        }
+
     }
 }

@@ -86,8 +86,12 @@ namespace NSMBe4 {
             if (!ROM.isNSMBRom)
             {
                 tabControl1.TabPages.Remove(tabPage2);
+                tabControl1.TabPages.Remove(tabPage5);
+                tabControl1.TabPages.Remove(tabPage6);
                 nsmbToolsGroupbox.Enabled = false;
             }
+
+//            new LevelEditor("A01_1", "LOL").Show();
         }
 
 
