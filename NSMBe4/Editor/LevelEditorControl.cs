@@ -32,7 +32,7 @@ namespace NSMBe4
         public UndoManager UndoManager;
         public Image bgImage;
         public int bgX, bgY;
-        public int dsScreenX, dsScreenY;
+        public int dsScreenX = -256, dsScreenY = -256;
         public bool showDSScreen = false;
         public bool showGrid = false;
         public bool ignoreMouse = false;
@@ -427,6 +427,13 @@ namespace NSMBe4
             ignoreMouse = true;
         }
 
+        private void DrawingArea_MouseLeave(object sender, EventArgs e)
+        {
+            dsScreenX = -256;
+            dsScreenY = -256;
+            repaint();
+        }
+
         private void DrawingArea_MouseMove(object sender, MouseEventArgs e) {
             if (ignoreMouse)
             {
@@ -573,6 +580,5 @@ namespace NSMBe4
                 UpdateScrollbars();
             }
         }
-
     }
 }

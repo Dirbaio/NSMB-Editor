@@ -532,7 +532,7 @@ namespace NSMBe4
         public override void AfterAction()
         {
             if (EdControl.mode is ObjectsEditionMode)
-                (EdControl.mode as ObjectsEditionMode).tabs.UpdateInfo();
+                (EdControl.mode as ObjectsEditionMode).tabs.sprites.UpdateDataEditor();
         }
         public override string ToString()
         {

@@ -1190,7 +1190,7 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.SpinningTrianglePlatform, RenderX - 14, RenderY - 6, 44, 39);
                     break;
                 case 88:
-                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0x500, 0, 16, 16), GraphicsUnit.Pixel);
+                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0, 0x50, 16, 16), GraphicsUnit.Pixel);
                     g.DrawImage(Properties.Resources.PSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 89:
@@ -1320,7 +1320,7 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.ElectricBall, RenderX - 6, RenderY - 6, 28, 27);
                     break;
                 case 110:
-                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0x500, 0, 16, 16), GraphicsUnit.Pixel);
+                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0, 0x50, 16, 16), GraphicsUnit.Pixel);
                     g.DrawImage(Properties.Resources.RedSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 111:
@@ -1969,7 +1969,7 @@ namespace NSMBe4
                         g.DrawImage(Properties.Resources.FlyingQBlockOverrides, new Rectangle(RenderX, RenderY, 16, 16), new Rectangle((Data[5] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     break;
                 case 291:
-                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0x500, 0, 16, 16), GraphicsUnit.Pixel);
+                    g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0, 0x50, 16, 16), GraphicsUnit.Pixel);
                     g.DrawImage(Properties.Resources.QSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 292:
