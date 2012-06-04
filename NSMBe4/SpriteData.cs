@@ -375,7 +375,7 @@ namespace NSMBe4
 
             public void this_SizeChanged(object sender, EventArgs e)
             {
-                Console.Out.WriteLine(this.Width.ToString());
+//                Console.Out.WriteLine(this.Width.ToString());
                 if (this.Width != 200)
                     for (int l = 0; l < this.RowCount; l++)
                     {
@@ -398,7 +398,7 @@ namespace NSMBe4
 
             private Control CreateControlFor(SpriteDataField v)
             {
-                Console.WriteLine(v.display + " " + v.name);
+//                Console.WriteLine(v.display + " " + v.name);
                 if (v.display == "checkbox")
                 {
                     CheckBox c = new CheckBox();

@@ -66,7 +66,6 @@ namespace NSMBe4
 
         private void MdiParentForm_SizeChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("Window size changed!");
         }
     }
 }
