@@ -330,11 +330,12 @@ namespace NSMBe4
                 }
                 if (e.Button == MouseButtons.Left) {
                     drag = true;
-                    Console.WriteLine(this.Focus());
                 }
 
                 if (mode != null)
                     mode.MouseDown((int)(e.X / zoom) + ViewablePixels.X, (int)(e.Y / zoom) + ViewablePixels.Y);
+            
+                this.Focus();
             }
         }
 
@@ -356,7 +357,6 @@ namespace NSMBe4
             if(oldCacheRect != tileCacheRect)
                 tileCache = new Bitmap(ViewableBlocks.Width * 16, ViewableBlocks.Height * 16, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
-            Console.WriteLine(tileCache.PixelFormat);
             Graphics g = Graphics.FromImage(tileCache);
             if(oldCache != null && oldCacheRect != tileCacheRect)
                 g.DrawImage(oldCache, (oldCacheRect.X - tileCacheRect.X) * 16, (oldCacheRect.Y - tileCacheRect.Y) * 16);

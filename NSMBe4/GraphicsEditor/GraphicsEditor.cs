@@ -636,7 +636,7 @@ namespace NSMBe4 {
             if (NewUndo == null) {
                 NewUndo = new UndoState();
                 NewUndo.Before = (byte[])img.getRawData().Clone();
-                Console.WriteLine("Created undo state");
+//                Console.WriteLine("Created undo state");
             }
         }
 
@@ -645,7 +645,7 @@ namespace NSMBe4 {
                 NewUndo.After = (byte[])img.getRawData().Clone();
                 UndoBuffer.Push(NewUndo);
                 NewUndo = null;
-                Console.WriteLine("Committed undo state");
+//                Console.WriteLine("Committed undo state");
                 // enforce a limit.. how?
                 //if (UndoBuffer.Count > 36) ...
                 undoButton.Enabled = (UndoBuffer.Count > 0);

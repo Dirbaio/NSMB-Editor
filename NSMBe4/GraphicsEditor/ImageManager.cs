@@ -63,7 +63,7 @@ namespace NSMBe4
             if (!(i is PalettedImage)) return;
             if (i == null || p == null) return;
 
-            Console.WriteLine(i + " " + p);
+//            Console.WriteLine(i + " " + p);
 
             graphicsEditor1.setPalette(p);
             graphicsEditor1.setImage(i as PalettedImage);
