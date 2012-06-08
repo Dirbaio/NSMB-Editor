@@ -57,9 +57,10 @@ namespace NSMBe4
             }
 
             //This makes the editor behave BAD when no internet. 
-            /*
-            if (Properties.Settings.Default.AutoUpdateSD)
-                SpriteData.update();*/
+            //This actually catches the error now, but I'm leaving it disabled because the Sprite DB outputs a corrupt file
+
+            //if (Properties.Settings.Default.AutoUpdateSD)
+            //    SpriteData.update();
 
             SpriteData.Load();  
 

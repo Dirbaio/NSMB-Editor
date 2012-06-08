@@ -773,31 +773,14 @@ namespace NSMBe4 {
             SpriteData.update();
         }
 
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://code.google.com/p/nsmb-editor/");
+            System.Diagnostics.Process.Start("http://github.com/Dirbaio/NSMB-Editor");
         }
 
         private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://nsmbhd.net/");
         }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }

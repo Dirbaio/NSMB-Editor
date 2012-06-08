@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataFinder));
             this.outputTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.findBlockRadioButton = new System.Windows.Forms.RadioButton();
@@ -33,7 +32,6 @@
             this.splitCountUpDown = new System.Windows.Forms.NumericUpDown();
             this.spriteUpDown = new System.Windows.Forms.NumericUpDown();
             this.processButton = new System.Windows.Forms.Button();
-            this.labellingTypeCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.blockNumberUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitCountUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spriteUpDown)).BeginInit();
@@ -41,9 +39,9 @@
             // 
             // outputTextBox
             // 
-            this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.outputTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.outputTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.outputTextBox.Location = new System.Drawing.Point(12, 121);
@@ -56,8 +54,8 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(406, 54);
@@ -156,21 +154,11 @@
             this.processButton.UseVisualStyleBackColor = true;
             this.processButton.Click += new System.EventHandler(this.processButton_Click);
             // 
-            // labellingTypeCheckBox
-            // 
-            this.labellingTypeCheckBox.AutoSize = true;
-            this.labellingTypeCheckBox.Location = new System.Drawing.Point(323, 99);
-            this.labellingTypeCheckBox.Name = "labellingTypeCheckBox";
-            this.labellingTypeCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.labellingTypeCheckBox.TabIndex = 9;
-            this.labellingTypeCheckBox.UseVisualStyleBackColor = true;
-            // 
             // DataFinder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 273);
-            this.Controls.Add(this.labellingTypeCheckBox);
             this.Controls.Add(this.processButton);
             this.Controls.Add(this.spriteUpDown);
             this.Controls.Add(this.splitCountUpDown);
@@ -180,7 +168,6 @@
             this.Controls.Add(this.findBlockRadioButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.outputTextBox);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DataFinder";
             this.Text = "<_TITLE>";
             this.Load += new System.EventHandler(this.DataFinder_Load);
@@ -203,6 +190,5 @@
         private System.Windows.Forms.NumericUpDown splitCountUpDown;
         private System.Windows.Forms.NumericUpDown spriteUpDown;
         private System.Windows.Forms.Button processButton;
-        private System.Windows.Forms.CheckBox labellingTypeCheckBox;
     }
 }

@@ -409,6 +409,7 @@ namespace NSMBe4
                     srcRect.Y = 0;
 
                     g.CompositingMode = CompositingMode.SourceOver;
+                    //Note: overrides are drawn here too.
                     g.DrawImage(GFX.Tilesets[tileset].OverrideBitmap, destRect, srcRect, GraphicsUnit.Pixel);
                 }
         }
@@ -425,6 +426,8 @@ namespace NSMBe4
         private void DrawingArea_SizeChanged(object sender, EventArgs e)
         {
             ignoreMouse = true;
+            hScrollBar.LargeChange = DrawingArea.Width;
+            vScrollBar.LargeChange = DrawingArea.Height;
         }
 
         private void DrawingArea_MouseLeave(object sender, EventArgs e)

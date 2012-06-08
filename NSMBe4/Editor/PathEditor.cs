@@ -59,30 +59,27 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            DataUpdateFlag = true;
-            NSMBPathPoint pp = null;
-            deletePath.Enabled = SelectedObjects != null;
-            panel2.Visible = deletePath.Enabled;
             UpdateList();
 
-            if (SelectedObjects == null) return;
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBPathPoint) {
-                    pp = obj as NSMBPathPoint;
-                    break;
-                }
-            deletePath.Enabled = pp != null;
-            if (pp == null) return;
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
+            {
+                panel2.Visible = false;
+                deletePath.Enabled = false;
+                return;
+            }
+            NSMBPathPoint pp = SelectedObjects[0] as NSMBPathPoint;
+            panel2.Visible = true;
+            deletePath.Enabled = true;
             DataUpdateFlag = true;
             List<NSMBPath> paths = new List<NSMBPath>();
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBPathPoint) {
-                    NSMBPath p = (obj as NSMBPathPoint).parent;
-                    if (lst.Contains(p) && !paths.Contains(p))
-                        paths.Add(p);
+            foreach (LevelItem obj in SelectedObjects) {
+                NSMBPath p = (obj as NSMBPathPoint).parent;
+                if (lst.Contains(p) && !paths.Contains(p))
+                {
+                    pathsList.SelectedIndices.Add(lst.IndexOf(p));
+                    paths.Add(p);
                 }
-            foreach (NSMBPath p in paths)
-                pathsList.SelectedIndices.Add(lst.IndexOf(p));
+            }
 
             pathID.Value = pp.parent.id;
             unk1.Value = pp.Unknown1;

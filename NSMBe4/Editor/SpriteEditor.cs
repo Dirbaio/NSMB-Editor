@@ -46,8 +46,13 @@ namespace NSMBe4
             int i = 0;
             foreach (string sprite in SpriteData.spriteNames)
             {
-                spritelist[i] = i + ": "+sprite;
+                spritelist[i] = i + ": " + sprite;
                 i++;
+            }
+            if (SpriteData.spriteNames.Count == 0)
+            {
+                for (int s = 0; s < ROM.SpriteCount; s++)
+                    spritelist[s] = "Sprite " + s;
             }
 
             spriteListBox.Items.AddRange(spritelist);
@@ -105,7 +110,22 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            if (SelectedObjects == null || SelectedObjects.Count == 0) return;
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
+            {
+                lblSelectSomething.Visible = true;
+                panel3.Visible = false;
+                spriteDataPanel.Visible = false;
+                tableLayoutPanel1.Visible = false;
+                spriteListBox.Visible = false;
+                tableLayoutPanel2.Visible = false;
+                return;
+            }
+            lblSelectSomething.Visible = false;
+            panel3.Visible = true;
+            spriteDataPanel.Visible = true;
+            tableLayoutPanel1.Visible = true;
+            spriteListBox.Visible = true;
+            tableLayoutPanel2.Visible = true;
             updating = true;
             int type = getSpriteType();
             spriteTypeUpDown.Value = type > -1 ? type : 0;

@@ -104,8 +104,6 @@ namespace NSMBe4 {
                 NSMBLevel l = new NSMBLevel(levelFile, bgFile, null);
 
                 string n = Levels[i];
-                if (labellingTypeCheckBox.Checked)
-                    n = LevelFiles[i];
                 n += ": ";
 
                 if (findBlockRadioButton.Checked)

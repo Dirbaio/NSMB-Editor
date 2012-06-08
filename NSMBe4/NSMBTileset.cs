@@ -213,6 +213,8 @@ namespace NSMBe4
         public Bitmap OverrideBitmap = Properties.Resources.tileoverrides;
 
         public short[] Overrides;
+        public static int[] BehaviorOverrides = { 0x00000500, 0x01000500, 0x02000500, 0x03000500, 0x04000500, 0x05000500, 0x06000500, 
+                                           0x07000500, 0x08000500, 0x09000500, 0x0A000500, 0x0B000500, 0x0C000500, 0x0D000500 };
 
         //Tile behaviors 
         public int[] TileBehaviors;

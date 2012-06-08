@@ -177,25 +177,21 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            DataUpdateFlag = true;
-            NSMBEntrance en = null;
-            tableLayoutPanel5.Visible = SelectedObjects != null;
-            deleteEntranceButton.Enabled = SelectedObjects != null;
             UpdateList();
 
-            if (SelectedObjects == null) return;
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBEntrance) {
-                    en = obj as NSMBEntrance;
-                    break;
-                }
-            deleteEntranceButton.Enabled = en != null;
-            if (en == null) return;
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
+            {
+                tableLayoutPanel5.Visible = false;
+                deleteEntranceButton.Enabled = false;
+                return;
+            }
+            NSMBEntrance en = SelectedObjects[0] as NSMBEntrance;
+            deleteEntranceButton.Enabled = true;
+            tableLayoutPanel5.Visible = true;
             DataUpdateFlag = true;
 
             foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBEntrance)
-                    entranceListBox.SelectedIndices.Add(EdControl.Level.Entrances.IndexOf(obj as NSMBEntrance));
+                entranceListBox.SelectedIndices.Add(EdControl.Level.Entrances.IndexOf(obj as NSMBEntrance));
             entranceCameraXPosUpDown.Value = en.CameraX;
             entranceCameraYPosUpDown.Value = en.CameraY;
             entranceNumberUpDown.Value = en.Number;

@@ -50,7 +50,15 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            if (SelectedObjects == null) return;
+            if (SelectedObjects == null || SelectedObjects.Count == 0) {
+                lblSelectSomething.Visible = true;
+                panel1.Visible = false;
+                tabControl1.Visible = false;
+                return;
+            }
+            lblSelectSomething.Visible = false;
+            panel1.Visible = true;
+            tabControl1.Visible = true;
             NSMBObject o = null;
             foreach (LevelItem obj in SelectedObjects)
                 if (obj is NSMBObject) {

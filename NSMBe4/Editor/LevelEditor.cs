@@ -236,9 +236,16 @@ namespace NSMBe4 {
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
-            removeBgButton_Click(null, null);
-            Image i = Image.FromFile(openFileDialog1.FileName, false);
-            levelEditorControl1.bgImage = i;
+            try
+            {
+                Image i = Image.FromFile(openFileDialog1.FileName, false);
+                removeBgButton_Click(null, null);
+                levelEditorControl1.bgImage = i;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading image file: " + ex.Message);
+            }
             levelEditorControl1.repaint();
         }
 

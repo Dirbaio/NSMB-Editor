@@ -34,6 +34,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.snapToggleButton = new System.Windows.Forms.ToolStripButton();
             this.dsScreenShowButton = new System.Windows.Forms.ToolStripButton();
+            this.showGridButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.undoButton = new System.Windows.Forms.ToolStripSplitButton();
             this.redoButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -68,11 +69,10 @@
             this.PanelContainer = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.minimapControl1 = new NSMBe4.MinimapControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.minimapControl1 = new NSMBe4.MinimapControl();
             this.coordinateViewer1 = new NSMBe4.Editor.CoordinateViewer();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
-            this.showGridButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -198,6 +198,16 @@
             this.dsScreenShowButton.Size = new System.Drawing.Size(23, 22);
             this.dsScreenShowButton.Text = "Show DS-sized screen";
             this.dsScreenShowButton.Click += new System.EventHandler(this.dsScreenShowButton_Click);
+            // 
+            // showGridButton
+            // 
+            this.showGridButton.CheckOnClick = true;
+            this.showGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showGridButton.Name = "showGridButton";
+            this.showGridButton.Size = new System.Drawing.Size(23, 22);
+            this.showGridButton.Text = "Show Grid";
+            this.showGridButton.Click += new System.EventHandler(this.showGridButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -415,7 +425,8 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.bmp; *.gif; *.tiff)|*.png; *.jpg; *.jpeg; *." +
+    "bmp; *.gif; *.tiff|All Files (*.*)|*.*";
             // 
             // splitContainer1
             // 
@@ -490,40 +501,40 @@
             this.tabPage1.Controls.Add(this.minimapControl1);
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(241, 87);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Minimap";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // minimapControl1
-            // 
-            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.minimapControl1.Location = new System.Drawing.Point(3, 3);
-            this.minimapControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.minimapControl1.Name = "minimapControl1";
-            this.minimapControl1.Size = new System.Drawing.Size(235, 81);
-            this.minimapControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.coordinateViewer1);
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage2.Size = new System.Drawing.Size(179, 66);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(241, 87);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Obj Position";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // minimapControl1
+            // 
+            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.minimapControl1.Location = new System.Drawing.Point(3, 3);
+            this.minimapControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.minimapControl1.Name = "minimapControl1";
+            this.minimapControl1.Size = new System.Drawing.Size(235, 81);
+            this.minimapControl1.TabIndex = 0;
             // 
             // coordinateViewer1
             // 
             this.coordinateViewer1.AutoSize = true;
             this.coordinateViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.coordinateViewer1.Location = new System.Drawing.Point(3, 3);
-            this.coordinateViewer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.coordinateViewer1.Margin = new System.Windows.Forms.Padding(4);
             this.coordinateViewer1.Name = "coordinateViewer1";
-            this.coordinateViewer1.Size = new System.Drawing.Size(175, 63);
+            this.coordinateViewer1.Size = new System.Drawing.Size(235, 81);
             this.coordinateViewer1.TabIndex = 0;
             // 
             // levelEditorControl1
@@ -532,21 +543,10 @@
             this.levelEditorControl1.BackColor = System.Drawing.SystemColors.Control;
             this.levelEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.levelEditorControl1.Location = new System.Drawing.Point(0, 0);
-            this.levelEditorControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.levelEditorControl1.Margin = new System.Windows.Forms.Padding(4);
             this.levelEditorControl1.Name = "levelEditorControl1";
             this.levelEditorControl1.Size = new System.Drawing.Size(775, 551);
             this.levelEditorControl1.TabIndex = 3;
-            // 
-            // showGridButton
-            // 
-            this.showGridButton.CheckOnClick = true;
-            this.showGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showGridButton.Image = ((System.Drawing.Image)(resources.GetObject("showGridButton.Image")));
-            this.showGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showGridButton.Name = "showGridButton";
-            this.showGridButton.Size = new System.Drawing.Size(23, 22);
-            this.showGridButton.Text = "Show Grid";
-            this.showGridButton.Click += new System.EventHandler(this.showGridButton_Click);
             // 
             // LevelEditor
             // 

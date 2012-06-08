@@ -77,7 +77,9 @@ namespace NSMBe4
                 FileStream fs = new FileStream("spritedata.txt", FileMode.Create, FileAccess.Write, FileShare.None);
                 StreamWriter sw = new StreamWriter(fs);
                 sw.Write(data);
+                sw.Close();
                 fs.Close();
+                MessageBox.Show("Spritedata.txt has successfully been updated.");
             }
             catch (Exception e)
             {
@@ -92,11 +94,10 @@ namespace NSMBe4
             if (!File.Exists("./spritedata.txt"))
             {
                 if (MessageBox.Show("spritedata.txt not found. Do you want to download it?", "Hello!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
                     update();
-                }
+                else
+                    return;
             }
-
             try
             {
                 FileStream fs = new FileStream("./spritedata.txt", FileMode.Open, FileAccess.Read, FileShare.Read);

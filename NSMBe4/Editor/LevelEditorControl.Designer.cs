@@ -37,11 +37,12 @@
             // 
             this.vScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.vScrollBar.LargeChange = 4;
+            this.vScrollBar.LargeChange = 16;
             this.vScrollBar.Location = new System.Drawing.Point(508, 0);
             this.vScrollBar.Maximum = 1024;
             this.vScrollBar.Name = "vScrollBar";
             this.vScrollBar.Size = new System.Drawing.Size(15, 454);
+            this.vScrollBar.SmallChange = 16;
             this.vScrollBar.TabIndex = 0;
             this.vScrollBar.ValueChanged += new System.EventHandler(this.vScrollBar_ValueChanged);
             // 
@@ -49,11 +50,12 @@
             // 
             this.hScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.hScrollBar.LargeChange = 4;
+            this.hScrollBar.LargeChange = 16;
             this.hScrollBar.Location = new System.Drawing.Point(0, 454);
             this.hScrollBar.Maximum = 512;
             this.hScrollBar.Name = "hScrollBar";
             this.hScrollBar.Size = new System.Drawing.Size(508, 15);
+            this.hScrollBar.SmallChange = 16;
             this.hScrollBar.TabIndex = 1;
             this.hScrollBar.ValueChanged += new System.EventHandler(this.hScrollBar_ValueChanged);
             // 

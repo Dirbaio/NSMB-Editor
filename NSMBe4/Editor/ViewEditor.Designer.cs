@@ -464,7 +464,7 @@
             this.panel2.ColumnCount = 2;
             this.panel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.56F));
             this.panel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44F));
-            this.panel2.Controls.Add(this.selectContents, 1, 1);
+            this.panel2.Controls.Add(this.selectContents, 0, 1);
             this.panel2.Controls.Add(this.viewID, 1, 0);
             this.panel2.Controls.Add(this.label12, 0, 0);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -478,10 +478,11 @@
             // 
             // selectContents
             // 
+            this.panel2.SetColumnSpan(this.selectContents, 2);
             this.selectContents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selectContents.Location = new System.Drawing.Point(123, 32);
+            this.selectContents.Location = new System.Drawing.Point(3, 32);
             this.selectContents.Name = "selectContents";
-            this.selectContents.Size = new System.Drawing.Size(151, 23);
+            this.selectContents.Size = new System.Drawing.Size(271, 23);
             this.selectContents.TabIndex = 0;
             this.selectContents.Text = "<Select Contents>";
             this.selectContents.UseVisualStyleBackColor = true;

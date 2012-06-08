@@ -90,39 +90,24 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            DataUpdateFlag = true;
-            NSMBView v = null;
-            if (SelectedObjects == null || SelectedObjects.Count == 0)
-            {
-                panel2.Hide();
-                tableLayoutPanel1.Hide();
-                deleteViewButton.Enabled = false;
-            }
-            else
-            {
-                panel2.Show();
-                deleteViewButton.Enabled = true;
-                if (EditingViews)
-                    tableLayoutPanel1.Show();
-                else
-                    tableLayoutPanel1.Hide();
-            }
-
             UpdateList();
 
-            if (SelectedObjects == null) return;
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBView && (obj as NSMBView).isZone != EditingViews) {
-                    v = obj as NSMBView;
-                    break;
-                }
-            deleteViewButton.Enabled = v != null;
-            if (v == null) return;
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
+            {
+                panel2.Visible = false;
+                tableLayoutPanel1.Visible = false;
+                deleteViewButton.Enabled = false;
+                return;
+            }
+            panel2.Visible = true;
+            tableLayoutPanel1.Visible = EditingViews;
+            deleteViewButton.Enabled = true;
+
+            NSMBView v = SelectedObjects[0] as NSMBView;
             DataUpdateFlag = true;
 
             foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBView && (obj as NSMBView).isZone != EditingViews)
-                    viewsList.SelectedIndices.Add(lst.IndexOf(obj as NSMBView));
+                viewsList.SelectedIndices.Add(lst.IndexOf(obj as NSMBView));
             viewID.Value = v.Number;
 
             music.SelectedIndex = 0;

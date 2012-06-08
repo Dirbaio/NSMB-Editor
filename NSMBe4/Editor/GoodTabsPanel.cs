@@ -106,8 +106,8 @@ namespace NSMBe4
                 if (!has[tabControl1.SelectedIndex])
                     tabControl1.SelectedIndex = Array.IndexOf(has, true);
 
-            objects.Visible = has[(int)ItemType.Object];
-            sprites.Visible = has[(int)ItemType.Sprite];
+            //objects.Visible = has[(int)ItemType.Object];
+            //sprites.Visible = has[(int)ItemType.Sprite];
 
             /*
             bool hasObjects = false;

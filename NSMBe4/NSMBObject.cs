@@ -142,6 +142,9 @@ namespace NSMBe4
                         srcRect.Y = 0 - 0.5f;
 
                         g.DrawImage(GFX.Tilesets[Tileset].OverrideBitmap, destRect.X, destRect.Y, srcRect, GraphicsUnit.Pixel);
+                        //int overridenum = Array.IndexOf(NSMBTileset.BehaviorOverrides, GFX.Tilesets[Tileset].TileBehaviors[t]);
+                        //if (overridenum > -1)
+                        //    g.DrawImage(Properties.Resources.tileoverrides2, destRect.X, destRect.Y, new Rectangle(overridenum * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     }
             }
             else
@@ -172,6 +175,9 @@ namespace NSMBe4
                         srcRect.Y = 0;
 
                         g.DrawImage(GFX.Tilesets[Tileset].OverrideBitmap, destRect.X, destRect.Y, srcRect, GraphicsUnit.Pixel);
+                        //int overridenum = Array.IndexOf(NSMBTileset.BehaviorOverrides, GFX.Tilesets[Tileset].TileBehaviors[t]);
+                        //if (overridenum > -1)
+                        //    g.DrawImage(Properties.Resources.tileoverrides2, destRect.X, destRect.Y, new Rectangle(overridenum * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     }
             }
         }
@@ -252,6 +258,9 @@ namespace NSMBe4
                     srcRect.Y = 0;
 
                     g.DrawImage(GFX.Tilesets[Tileset].OverrideBitmap, destRect, srcRect, GraphicsUnit.Pixel);
+                    //int overridenum = Array.IndexOf(NSMBTileset.BehaviorOverrides, GFX.Tilesets[Tileset].TileBehaviors[t]);
+                    //if (overridenum > -1)
+                    //    g.DrawImage(Properties.Resources.tileoverrides2, destRect.X, destRect.Y, new Rectangle(overridenum * 16, 0, 16, 16), GraphicsUnit.Pixel);
                 }
         }
 
