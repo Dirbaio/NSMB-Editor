@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.zoomIn = new System.Windows.Forms.Button();
             this.zoomActualSize = new System.Windows.Forms.Button();
             this.zoomOut = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.rectangleTool = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.palettePicker1 = new NSMBe4.PalettePicker();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
             this.SuspendLayout();
@@ -53,6 +55,7 @@
             this.zoomIn.Name = "zoomIn";
             this.zoomIn.Size = new System.Drawing.Size(24, 24);
             this.zoomIn.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.zoomIn, "Zoom In");
             this.zoomIn.UseVisualStyleBackColor = true;
             this.zoomIn.Click += new System.EventHandler(this.zoomIn_Click);
             // 
@@ -63,6 +66,7 @@
             this.zoomActualSize.Name = "zoomActualSize";
             this.zoomActualSize.Size = new System.Drawing.Size(24, 24);
             this.zoomActualSize.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.zoomActualSize, "Zoom 100%");
             this.zoomActualSize.UseVisualStyleBackColor = true;
             this.zoomActualSize.Click += new System.EventHandler(this.zoomActualSize_Click);
             // 
@@ -73,6 +77,7 @@
             this.zoomOut.Name = "zoomOut";
             this.zoomOut.Size = new System.Drawing.Size(24, 24);
             this.zoomOut.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.zoomOut, "Zoom Out");
             this.zoomOut.UseVisualStyleBackColor = true;
             this.zoomOut.Click += new System.EventHandler(this.zoomOut_Click);
             // 
@@ -83,6 +88,7 @@
             this.pickerTool.Name = "pickerTool";
             this.pickerTool.Size = new System.Drawing.Size(24, 24);
             this.pickerTool.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.pickerTool, "Eyedropper");
             this.pickerTool.UseVisualStyleBackColor = true;
             this.pickerTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -93,6 +99,7 @@
             this.lineTool.Name = "lineTool";
             this.lineTool.Size = new System.Drawing.Size(24, 24);
             this.lineTool.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.lineTool, "Draw Line");
             this.lineTool.UseVisualStyleBackColor = true;
             this.lineTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -103,6 +110,7 @@
             this.brushTool.Name = "brushTool";
             this.brushTool.Size = new System.Drawing.Size(24, 24);
             this.brushTool.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.brushTool, "Paint");
             this.brushTool.UseVisualStyleBackColor = true;
             this.brushTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -113,6 +121,7 @@
             this.showGrid.Name = "showGrid";
             this.showGrid.Size = new System.Drawing.Size(24, 24);
             this.showGrid.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.showGrid, "Show Grid");
             this.showGrid.UseVisualStyleBackColor = true;
             this.showGrid.Click += new System.EventHandler(this.showGrid_Click);
             // 
@@ -123,6 +132,7 @@
             this.fillTool.Name = "fillTool";
             this.fillTool.Size = new System.Drawing.Size(24, 24);
             this.fillTool.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.fillTool, "Bucket Fill");
             this.fillTool.UseVisualStyleBackColor = true;
             this.fillTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -133,6 +143,7 @@
             this.eraserTool.Name = "eraserTool";
             this.eraserTool.Size = new System.Drawing.Size(24, 24);
             this.eraserTool.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.eraserTool, "Erase");
             this.eraserTool.UseVisualStyleBackColor = true;
             this.eraserTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -156,9 +167,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -176,10 +187,10 @@
             this.drawingBox.Size = new System.Drawing.Size(100, 50);
             this.drawingBox.TabIndex = 0;
             this.drawingBox.TabStop = false;
+            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
             this.drawingBox.MouseLeave += new System.EventHandler(this.drawingBox_MouseLeave);
             this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
-            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
-            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
             this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
             // imageStatus
@@ -200,6 +211,7 @@
             this.undoButton.Name = "undoButton";
             this.undoButton.Size = new System.Drawing.Size(24, 24);
             this.undoButton.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.undoButton, "Undo");
             this.undoButton.UseVisualStyleBackColor = true;
             this.undoButton.Click += new System.EventHandler(this.undoButton_Click);
             // 
@@ -211,6 +223,7 @@
             this.redoButton.Name = "redoButton";
             this.redoButton.Size = new System.Drawing.Size(24, 24);
             this.redoButton.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.redoButton, "Redo");
             this.redoButton.UseVisualStyleBackColor = true;
             this.redoButton.Click += new System.EventHandler(this.redoButton_Click);
             // 
@@ -221,6 +234,7 @@
             this.rectangleTool.Name = "rectangleTool";
             this.rectangleTool.Size = new System.Drawing.Size(24, 24);
             this.rectangleTool.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.rectangleTool, "Draw Rectangle");
             this.rectangleTool.UseVisualStyleBackColor = true;
             this.rectangleTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -231,6 +245,7 @@
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(24, 24);
             this.saveButton.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.saveButton, "Save");
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -295,5 +310,6 @@
         private System.Windows.Forms.Button redoButton;
         private System.Windows.Forms.Button rectangleTool;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
