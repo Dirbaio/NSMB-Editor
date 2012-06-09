@@ -28,19 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TilemapEditor));
             this.panel1 = new System.Windows.Forms.Panel();
             this.tilemapEditorControl1 = new NSMBe4.TilemapEditorControl();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tilePicker1 = new NSMBe4.TilePicker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.saveButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.drawToolButton = new System.Windows.Forms.ToolStripButton();
             this.xFlipToolButton = new System.Windows.Forms.ToolStripButton();
             this.yFlipToolButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolButton = new System.Windows.Forms.ToolStripButton();
-            this.saveButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -101,6 +100,23 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // saveButton
+            // 
+            this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveButton.Image = global::NSMBe4.Properties.Resources.save;
+            this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(23, 22);
+            this.saveButton.Text = "Save";
+            this.saveButton.Visible = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Visible = false;
+            // 
             // drawToolButton
             // 
             this.drawToolButton.CheckOnClick = true;
@@ -116,7 +132,7 @@
             // 
             this.xFlipToolButton.CheckOnClick = true;
             this.xFlipToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.xFlipToolButton.Image = ((System.Drawing.Image)(resources.GetObject("xFlipToolButton.Image")));
+            this.xFlipToolButton.Image = global::NSMBe4.Properties.Resources.layer_flip;
             this.xFlipToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.xFlipToolButton.Name = "xFlipToolButton";
             this.xFlipToolButton.Size = new System.Drawing.Size(23, 22);
@@ -127,7 +143,7 @@
             // 
             this.yFlipToolButton.CheckOnClick = true;
             this.yFlipToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.yFlipToolButton.Image = ((System.Drawing.Image)(resources.GetObject("yFlipToolButton.Image")));
+            this.yFlipToolButton.Image = global::NSMBe4.Properties.Resources.layer_flip_vertical;
             this.yFlipToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.yFlipToolButton.Name = "yFlipToolButton";
             this.yFlipToolButton.Size = new System.Drawing.Size(23, 22);
@@ -155,23 +171,6 @@
             this.pasteToolButton.Size = new System.Drawing.Size(23, 22);
             this.pasteToolButton.Text = "Paste";
             this.pasteToolButton.Click += new System.EventHandler(this.pasteToolButton_Click);
-            // 
-            // saveButton
-            // 
-            this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveButton.Image = global::NSMBe4.Properties.Resources.save;
-            this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(23, 22);
-            this.saveButton.Text = "Save";
-            this.saveButton.Visible = false;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            this.toolStripSeparator1.Visible = false;
             // 
             // TilemapEditor
             // 

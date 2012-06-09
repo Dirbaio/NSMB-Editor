@@ -224,7 +224,7 @@ namespace NSMBe4.DSFileSystem
                 else
                     fs = new FileStream(dir.FullName + "/bak/" + file + ".bin", FileMode.CreateNew);
             }
-            catch (IOException e) {return;}
+            catch (IOException) {return;}
 
             File f = ROM.FS.arm9binFile;
             if (file != -1)

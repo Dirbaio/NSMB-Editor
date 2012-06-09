@@ -25,6 +25,7 @@ namespace NSMBe4 {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.hexEditLevelButton = new System.Windows.Forms.Button();
@@ -76,6 +77,7 @@ namespace NSMBe4 {
             this.openPatchDialog = new System.Windows.Forms.OpenFileDialog();
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -503,6 +505,7 @@ namespace NSMBe4 {
             this.linkLabel2.TabIndex = 9;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "NSMB Hacking Domain";
+            this.toolTip1.SetToolTip(this.linkLabel2, "http://nsmbhd.net/");
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
             // 
             // linkLabel1
@@ -514,6 +517,7 @@ namespace NSMBe4 {
             this.linkLabel1.TabIndex = 8;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "NSMBe on GitHub";
+            this.toolTip1.SetToolTip(this.linkLabel1, "http://github.com/Dirbaio/NSMB-Editor");
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label9
@@ -700,5 +704,6 @@ namespace NSMBe4 {
         private TilesetList tilesetList1;
         private System.Windows.Forms.TabPage tabPage6;
         private BackgroundList backgroundList1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

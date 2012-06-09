@@ -308,7 +308,7 @@ namespace NSMBe4
                     graphics.endEdit();
                     map16.endEdit();
                 }
-                catch (Exception e) { }
+                catch (Exception) { }
 
                 if (ObjFile.beingEditedBy(this))
                     ObjFile.endEdit(this);

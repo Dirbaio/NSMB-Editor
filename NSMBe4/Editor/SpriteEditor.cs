@@ -129,19 +129,12 @@ namespace NSMBe4
             updating = true;
             int type = getSpriteType();
             spriteTypeUpDown.Value = type > -1 ? type : 0;
-            byte[] SpriteData = null;
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBSprite) {
-                    SpriteData = (obj as NSMBSprite).Data;
-                    break;
-                }
-            if (SpriteData != null) {
-                spriteDataTextBox.Text = String.Format(
-                    "{0:X2} {1:X2} {2:X2} {3:X2} {4:X2} {5:X2}",
-                    SpriteData[0], SpriteData[1], SpriteData[2],
-                    SpriteData[3], SpriteData[4], SpriteData[5]);
-                spriteDataTextBox.BackColor = SystemColors.Window;
-            }
+            byte[] SpriteData = (SelectedObjects[0] as NSMBSprite).Data;
+            spriteDataTextBox.Text = String.Format(
+                "{0:X2} {1:X2} {2:X2} {3:X2} {4:X2} {5:X2}",
+                SpriteData[0], SpriteData[1], SpriteData[2],
+                SpriteData[3], SpriteData[4], SpriteData[5]);
+            spriteDataTextBox.BackColor = SystemColors.Window;
             spriteListBox.SelectedIndex = curSprites.IndexOf(type);
             updating = false;
         }

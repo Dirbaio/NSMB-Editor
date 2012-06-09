@@ -398,7 +398,10 @@ namespace NSMBe4.DSFileSystem
             OverlayFile f = fileTreeView.SelectedNode.Tag as OverlayFile;
 
             if (f == null)
+            {
                 MessageBox.Show("Error: Not an overlay file");
+                return;
+            }
 
             if (!f.isCompressed)
                 MessageBox.Show("Error: Overlay file is already decompressed");

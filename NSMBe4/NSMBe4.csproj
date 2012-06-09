@@ -520,6 +520,12 @@
     <None Include="Resources\Sprite Images\DorrieAway.PNG" />
     <None Include="Resources\Sprite Images\DorrieTowards.PNG" />
     <None Include="Resources\tileoverrides2.png" />
+    <None Include="Resources\Icons\magnet.png" />
+    <None Include="Resources\Icons\guide-snap.png" />
+    <None Include="Resources\Icons\monitor.png" />
+    <None Include="Resources\Icons\image.png" />
+    <None Include="Resources\Icons\layer-flip.png" />
+    <None Include="Resources\Icons\layer-flip-vertical.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <None Include="Resources\file_ncg.png" />
     <None Include="Resources\file_ncl.png" />

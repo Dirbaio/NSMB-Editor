@@ -921,6 +921,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap guide_snap {
+            get {
+                object obj = ResourceManager.GetObject("guide_snap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap HammerBro {
             get {
                 object obj = ResourceManager.GetObject("HammerBro", resourceCulture);
@@ -959,6 +966,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap HangingScuttleBug {
             get {
                 object obj = ResourceManager.GetObject("HangingScuttleBug", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap image {
+            get {
+                object obj = ResourceManager.GetObject("image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1047,6 +1061,20 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap layer_flip {
+            get {
+                object obj = ResourceManager.GetObject("layer_flip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap layer_flip_vertical {
+            get {
+                object obj = ResourceManager.GetObject("layer_flip_vertical", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap line {
             get {
                 object obj = ResourceManager.GetObject("line", resourceCulture);
@@ -1113,6 +1141,13 @@ namespace NSMBe4.Properties {
         internal static System.Drawing.Bitmap MoneyBag {
             get {
                 object obj = ResourceManager.GetObject("MoneyBag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap monitor {
+            get {
+                object obj = ResourceManager.GetObject("monitor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

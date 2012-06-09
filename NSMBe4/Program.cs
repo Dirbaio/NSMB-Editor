@@ -84,7 +84,7 @@ namespace NSMBe4
                 {
                     ROM.load(path);
                 }
-                catch (IOException ex)
+                catch (IOException)
                 {
                     MessageBox.Show("Could not open ROM file for writing. Is it open with other program?");
                     return;

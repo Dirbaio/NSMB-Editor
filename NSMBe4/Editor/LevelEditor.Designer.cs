@@ -69,8 +69,8 @@
             this.PanelContainer = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.minimapControl1 = new NSMBe4.MinimapControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.coordinateViewer1 = new NSMBe4.Editor.CoordinateViewer();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
             this.toolStrip1.SuspendLayout();
@@ -181,7 +181,7 @@
             this.snapToggleButton.CheckOnClick = true;
             this.snapToggleButton.CheckState = System.Windows.Forms.CheckState.Checked;
             this.snapToggleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.snapToggleButton.Image = ((System.Drawing.Image)(resources.GetObject("snapToggleButton.Image")));
+            this.snapToggleButton.Image = global::NSMBe4.Properties.Resources.guide_snap;
             this.snapToggleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.snapToggleButton.Name = "snapToggleButton";
             this.snapToggleButton.Size = new System.Drawing.Size(23, 22);
@@ -192,7 +192,7 @@
             // 
             this.dsScreenShowButton.CheckOnClick = true;
             this.dsScreenShowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.dsScreenShowButton.Image = ((System.Drawing.Image)(resources.GetObject("dsScreenShowButton.Image")));
+            this.dsScreenShowButton.Image = global::NSMBe4.Properties.Resources.monitor;
             this.dsScreenShowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dsScreenShowButton.Name = "dsScreenShowButton";
             this.dsScreenShowButton.Size = new System.Drawing.Size(23, 22);
@@ -203,6 +203,7 @@
             // 
             this.showGridButton.CheckOnClick = true;
             this.showGridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showGridButton.Image = global::NSMBe4.Properties.Resources.grid;
             this.showGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showGridButton.Name = "showGridButton";
             this.showGridButton.Size = new System.Drawing.Size(23, 22);
@@ -394,7 +395,7 @@
             this.setBgImageButton,
             this.removeBgButton,
             this.moveBGToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.Image = global::NSMBe4.Properties.Resources.image;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
@@ -404,7 +405,7 @@
             // 
             this.setBgImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setBgImageButton.Name = "setBgImageButton";
-            this.setBgImageButton.Size = new System.Drawing.Size(135, 22);
+            this.setBgImageButton.Size = new System.Drawing.Size(152, 22);
             this.setBgImageButton.Text = "Set BG";
             this.setBgImageButton.Click += new System.EventHandler(this.setBgImageButton_Click);
             // 
@@ -412,14 +413,14 @@
             // 
             this.removeBgButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.removeBgButton.Name = "removeBgButton";
-            this.removeBgButton.Size = new System.Drawing.Size(135, 22);
+            this.removeBgButton.Size = new System.Drawing.Size(152, 22);
             this.removeBgButton.Text = "Remove BG";
             this.removeBgButton.Click += new System.EventHandler(this.removeBgButton_Click);
             // 
             // moveBGToolStripMenuItem
             // 
             this.moveBGToolStripMenuItem.Name = "moveBGToolStripMenuItem";
-            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.moveBGToolStripMenuItem.Text = "Move BG";
             this.moveBGToolStripMenuItem.Click += new System.EventHandler(this.moveBGToolStripMenuItem_Click);
             // 
@@ -507,6 +508,15 @@
             this.tabPage1.Text = "Minimap";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // minimapControl1
+            // 
+            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.minimapControl1.Location = new System.Drawing.Point(3, 3);
+            this.minimapControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.minimapControl1.Name = "minimapControl1";
+            this.minimapControl1.Size = new System.Drawing.Size(235, 81);
+            this.minimapControl1.TabIndex = 0;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.coordinateViewer1);
@@ -517,15 +527,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Obj Position";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // minimapControl1
-            // 
-            this.minimapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.minimapControl1.Location = new System.Drawing.Point(3, 3);
-            this.minimapControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.minimapControl1.Name = "minimapControl1";
-            this.minimapControl1.Size = new System.Drawing.Size(235, 81);
-            this.minimapControl1.TabIndex = 0;
             // 
             // coordinateViewer1
             // 

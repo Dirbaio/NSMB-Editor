@@ -59,27 +59,19 @@ namespace NSMBe4
             lblSelectSomething.Visible = false;
             panel1.Visible = true;
             tabControl1.Visible = true;
-            NSMBObject o = null;
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBObject) {
-                    o = obj as NSMBObject;
-                    break;
-                }
+            NSMBObject o = SelectedObjects[0] as NSMBObject;
+            DataUpdateFlag = true;
 
-            if (o != null) {
-                DataUpdateFlag = true;
+            if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
+            if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
+            if (o.Tileset != 2) tileset2picker.selectObjectNumber(-1);
 
-                if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
-                if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
-                if (o.Tileset != 2) tileset2picker.selectObjectNumber(-1);
+            if (o.Tileset == 0) tileset0picker.selectObjectNumber(o.ObjNum);
+            if (o.Tileset == 1) tileset1picker.selectObjectNumber(o.ObjNum);
+            if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.ObjNum);
 
-                if (o.Tileset == 0) tileset0picker.selectObjectNumber(o.ObjNum);
-                if (o.Tileset == 1) tileset1picker.selectObjectNumber(o.ObjNum);
-                if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.ObjNum);
-
-                tabControl1.SelectedIndex = o.Tileset;
-                DataUpdateFlag = false;
-            }
+            tabControl1.SelectedIndex = o.Tileset;
+            DataUpdateFlag = false;
         }
 
         public void ReloadObjectPicker() {
