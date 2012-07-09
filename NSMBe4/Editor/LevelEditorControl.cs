@@ -321,7 +321,7 @@ namespace NSMBe4
         private void DrawingArea_MouseDown(object sender, MouseEventArgs e) {
             if (Ready)
             {
-                if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left && Control.ModifierKeys == Keys.Alt)
+                if (e.Button == MouseButtons.Left && Control.ModifierKeys == Keys.Alt)
                 {
                     DragStartX = e.X;
                     DragStartY = e.Y;
@@ -333,7 +333,7 @@ namespace NSMBe4
                 }
 
                 if (mode != null)
-                    mode.MouseDown((int)(e.X / zoom) + ViewablePixels.X, (int)(e.Y / zoom) + ViewablePixels.Y);
+                    mode.MouseDown((int)(e.X / zoom) + ViewablePixels.X, (int)(e.Y / zoom) + ViewablePixels.Y, e.Button);
             
                 this.Focus();
             }
@@ -466,7 +466,7 @@ namespace NSMBe4
                     ScrollEditorPixel(NewPosition);
                 }
             }
-            else if (e.Button == MouseButtons.Left && Ready && mode != null)
+            else if ((e.Button == MouseButtons.Left || e.Button == MouseButtons.Right) && Ready && mode != null)
                 mode.MouseDrag(xx, yy);
             else
                 mode.MouseMove(xx, yy);

@@ -10,7 +10,7 @@ namespace NSMBe4
 {
     public partial class ObjectPickerControlNew : UserControl
     {
-        public delegate void ObjectSelectedDelegate();
+        public delegate void ObjectSelectedDelegate(bool rightClick);
         public event ObjectSelectedDelegate ObjectSelected;
         bool inited = false;
         NSMBGraphics gfx;
@@ -125,7 +125,7 @@ namespace NSMBe4
 
         private void ObjectPickerControlNew_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == System.Windows.Forms.MouseButtons.Left || e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 int x = e.X;
                 int y = e.Y + vScrollBar1.Value;
@@ -148,7 +148,7 @@ namespace NSMBe4
                     Invalidate();
                     selecting = true;
                     if(ObjectSelected != null)
-                        ObjectSelected();
+                        ObjectSelected(e.Button == System.Windows.Forms.MouseButtons.Right);
                     selecting = false;
                 }
             }

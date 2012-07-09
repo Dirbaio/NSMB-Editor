@@ -26,6 +26,13 @@ namespace NSMBe4
 
         public Control[] controls;
 
+        public int SelectedTab {
+            get {
+                return tabControl1.SelectedIndex;
+            }
+        }
+
+
         enum ItemType
         {
             Object = 2,

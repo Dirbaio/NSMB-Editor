@@ -41,7 +41,7 @@ namespace NSMBe4
             EdControl.editor.SetPanel(p);
         }
 
-        public abstract void MouseDown(int x, int y);
+        public abstract void MouseDown(int x, int y, MouseButtons buttons);
         public abstract void MouseDrag(int x, int y);
         public virtual void MouseUp() { }
         public virtual void MouseMove(int x, int y) { }

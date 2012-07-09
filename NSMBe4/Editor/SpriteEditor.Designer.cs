@@ -39,11 +39,10 @@
             this.search = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.clearSpriteData = new NSMBe4.XButton();
-            this.clearSearch = new NSMBe4.XButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblSelectSomething = new System.Windows.Forms.Label();
+            this.clearSearch = new NSMBe4.XButton();
+            this.clearSpriteData = new NSMBe4.XButton();
             ((System.ComponentModel.ISupportInitialize)(this.spriteTypeUpDown)).BeginInit();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -56,9 +55,9 @@
             this.spriteListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.spriteListBox.FormattingEnabled = true;
             this.spriteListBox.IntegralHeight = false;
-            this.spriteListBox.Location = new System.Drawing.Point(0, 117);
+            this.spriteListBox.Location = new System.Drawing.Point(0, 88);
             this.spriteListBox.Name = "spriteListBox";
-            this.spriteListBox.Size = new System.Drawing.Size(282, 279);
+            this.spriteListBox.Size = new System.Drawing.Size(282, 308);
             this.spriteListBox.TabIndex = 26;
             this.spriteListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.spriteListBox_DrawItem);
             this.spriteListBox.SelectedIndexChanged += new System.EventHandler(this.spriteListBox_SelectedIndexChanged);
@@ -168,25 +167,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(282, 26);
             this.panel3.TabIndex = 23;
-            this.panel3.Visible = false;
-            // 
-            // clearSpriteData
-            // 
-            this.clearSpriteData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearSpriteData.Location = new System.Drawing.Point(263, 5);
-            this.clearSpriteData.Name = "clearSpriteData";
-            this.clearSpriteData.Size = new System.Drawing.Size(16, 16);
-            this.clearSpriteData.TabIndex = 23;
-            this.clearSpriteData.Click += new System.EventHandler(this.clearSpriteData_Click);
-            // 
-            // clearSearch
-            // 
-            this.clearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearSearch.Location = new System.Drawing.Point(263, 5);
-            this.clearSearch.Name = "clearSearch";
-            this.clearSearch.Size = new System.Drawing.Size(16, 16);
-            this.clearSearch.TabIndex = 26;
-            this.clearSearch.Click += new System.EventHandler(this.clearSearch_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -227,15 +207,23 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(282, 26);
             this.tableLayoutPanel2.TabIndex = 32;
             // 
-            // lblSelectSomething
+            // clearSearch
             // 
-            this.lblSelectSomething.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblSelectSomething.Location = new System.Drawing.Point(0, 88);
-            this.lblSelectSomething.Name = "lblSelectSomething";
-            this.lblSelectSomething.Size = new System.Drawing.Size(282, 29);
-            this.lblSelectSomething.TabIndex = 0;
-            this.lblSelectSomething.Text = "No sprite is selected";
-            this.lblSelectSomething.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.clearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearSearch.Location = new System.Drawing.Point(263, 5);
+            this.clearSearch.Name = "clearSearch";
+            this.clearSearch.Size = new System.Drawing.Size(16, 16);
+            this.clearSearch.TabIndex = 26;
+            this.clearSearch.Click += new System.EventHandler(this.clearSearch_Click);
+            // 
+            // clearSpriteData
+            // 
+            this.clearSpriteData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearSpriteData.Location = new System.Drawing.Point(263, 5);
+            this.clearSpriteData.Name = "clearSpriteData";
+            this.clearSpriteData.Size = new System.Drawing.Size(16, 16);
+            this.clearSpriteData.TabIndex = 23;
+            this.clearSpriteData.Click += new System.EventHandler(this.clearSpriteData_Click);
             // 
             // SpriteEditor
             // 
@@ -243,7 +231,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.spriteListBox);
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.lblSelectSomething);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.spriteDataPanel);
             this.Controls.Add(this.panel3);
@@ -277,7 +264,6 @@
         private XButton clearSpriteData;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label lblSelectSomething;
 
     }
 }
