@@ -28,7 +28,7 @@ namespace NSMBe4
         int dx;
         int dy;
 
-        public override void MouseDown(int x, int y)
+        public override void MouseDown(int x, int y, System.Windows.Forms.MouseButtons buttons)
         {
             dx = EdControl.bgX - x;
             dy = EdControl.bgY - y;

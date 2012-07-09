@@ -31,6 +31,9 @@ namespace NSMBe4
         int dx, dy; //MouseDown position
         int lx, ly; //last position
         
+        bool CreateObj;
+        NSMBObject newObj;
+
         ResizeType horResize = ResizeType.ResizeNone;
         ResizeType vertResize = ResizeType.ResizeNone;
 
@@ -248,8 +251,33 @@ namespace NSMBe4
             return false;
         }
 
-        public override void MouseDown(int x, int y)
+        public override void MouseDown(int x, int y, MouseButtons buttons)
         {
+            //Right clicking creates a new object
+            if (buttons == MouseButtons.Right) {
+                dx = x / 16;
+                dy = y / 16;
+                lx = dx;
+                ly = dy;
+                if (tabs.SelectedTab == 3) //The sprite tab
+                {
+                    NSMBSprite newSprite = new NSMBSprite(Level);
+                    newSprite.Type = tabs.sprites.getSelectedType();
+                    if (newSprite.Type == -1)
+                        return;
+                    newSprite.Data = new byte[6];
+                    newSprite.x = x;
+                    newSprite.x = y;
+                    EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(newSprite)));
+                    SelectObject(newSprite);
+                    return;
+                }
+                CreateObj = true;
+                newObj = new NSMBObject(tabs.objects.getObjectType(), tabs.objects.getTilesetNum(), dx, dy, 1, 1, Level.GFX);
+                EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(newObj)));
+                SelectObject(newObj);
+                return;
+            }
             lx = x;
             ly = y;
             dx = x;
@@ -298,6 +326,26 @@ namespace NSMBe4
 
         public override void MouseDrag(int x, int y)
         {
+            //Resize the new object that was created by right-clicking.
+            if (CreateObj)
+            {
+                Rectangle r = newObj.getRectangle();
+                x = Math.Max(0, x / 16);
+                y = Math.Max(0, y / 16);
+                if (x == lx && y == ly) return;
+                lx = x;
+                ly = y;
+                newObj.X = Math.Min(lx, dx);
+                newObj.Y = Math.Min(ly, dy);
+                newObj.Width = Math.Abs(lx - dx) + 1;
+                newObj.Height = Math.Abs(ly - dy) + 1;
+                newObj.UpdateObjCache();
+                r = Rectangle.Union(r, newObj.getRectangle());
+                Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
+                EdControl.repaint();
+                return;
+            }
+
             if(lx == x && ly == y) // don't clone objects if there is no visible movement
                 return;
 
@@ -454,6 +502,7 @@ namespace NSMBe4
 
         public override void MouseUp()
         {
+            CreateObj = false;
             SelectMode = false;
             EdControl.UndoManager.merge = false;
             EdControl.repaint();
