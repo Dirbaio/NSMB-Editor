@@ -431,6 +431,7 @@ namespace NSMBe4 {
                 int tempBufferCursor = 0;
                 byte blockFlags = 0;
                 for (int i = 0; i < 8; i++)
+
                 {
                     //Not sure if this is needed. The DS probably ignores this data.
                     if (current >= data.Length)
@@ -496,6 +497,14 @@ namespace NSMBe4 {
             return dest;
         }
 
+        public static int LZ77_GetDecompressedSize(byte[] source)
+        {
+            // This code converted from Elitemap 
+            int DataLen;
+            DataLen = source[1] | (source[2] << 8) | (source[3] << 16);
+            return DataLen;
+        }
+        
         public static byte[] LZ77_Decompress(byte[] source)
         {
             // This code converted from Elitemap 

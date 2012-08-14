@@ -198,8 +198,7 @@ namespace NSMBe4
         }
 
         //Palettes
-        public Palette palette1;
-        public Palette palette2;
+        public Palette[] palettes;
 
         //Graphics
         public Image2D graphics;
@@ -246,14 +245,18 @@ namespace NSMBe4
         public void load()
         {
             //Palettes
-            palette1 = new FilePalette(new InlineFile(PalFile, 0, 512, "Palette 1", null, InlineFile.CompressionType.LZComp));
-            palette2 = new FilePalette(new InlineFile(PalFile, 512, 512, "Palette 1", null, InlineFile.CompressionType.LZComp));
+            int palCount = ROM.LZ77_GetDecompressedSize(PalFile.getContents()) / 512;
+            
+            palettes = new Palette[palCount];
+            
+            for(int i = 0; i < palCount; i++)
+	            palettes[i] = new FilePalette(new InlineFile(PalFile, i*512, 512, "Palette "+i, null, InlineFile.CompressionType.LZComp));
 
             //Graphics
             graphics = new Image2D(GFXFile, 256, false);
 
             //Map16
-            map16 = new Map16Tilemap(Map16File, 32, graphics, new Palette[] { palette1, palette2 }, Map16TileOffset, Map16PaletteOffset);
+            map16 = new Map16Tilemap(Map16File, 32, graphics, palettes, Map16TileOffset, Map16PaletteOffset);
             Overrides = new short[map16.getMap16TileCount()];
             Map16Buffer = map16.render();
             /*
@@ -289,8 +292,9 @@ namespace NSMBe4
 
             try
             {
-                palette1.beginEdit();
-                palette2.beginEdit();
+            	for(int i = 0; i < palettes.Length; i++)
+            		palettes[i].beginEdit();
+
                 graphics.beginEdit();
                 map16.beginEdit();
 
@@ -303,8 +307,8 @@ namespace NSMBe4
             {
                 try
                 {
-                    palette1.endEdit();
-                    palette2.endEdit();
+		        	for(int i = 0; i < palettes.Length; i++)
+		        		palettes[i].endEdit();
                     graphics.endEdit();
                     map16.endEdit();
                 }
@@ -323,8 +327,9 @@ namespace NSMBe4
 
         public void save()
         {
-            palette1.save();
-            palette2.save();
+        	for(int i = 0; i < palettes.Length; i++)
+        		palettes[i].save();
+
             graphics.save();
             map16.save();
 
@@ -334,8 +339,9 @@ namespace NSMBe4
 
         public void endEdit()
         {
-            palette1.endEdit();
-            palette2.endEdit();
+        	for(int i = 0; i < palettes.Length; i++)
+        		palettes[i].endEdit();
+        	
             graphics.endEdit();
             map16.endEdit();
 
@@ -374,13 +380,9 @@ namespace NSMBe4
             byte[] x = null;
 
             if (TilesetNumber == 0)
-            {
                 x = ROM.GetInlineFile(ROM.Data.File_Jyotyu_CHK);
-            }
             else if (TilesetNumber == 1 || TilesetNumber == 2)
-            {
                 x = TileBehaviorFile.getContents();
-            }
 
             ByteArrayInputStream inp = new ByteArrayInputStream(x);
 
@@ -528,6 +530,7 @@ namespace NSMBe4
                 controlByte = inp.readByte();
 
                 if (!controlTile)
+
                 {
                     byte a, b;
                     a = inp.readByte();
@@ -630,9 +633,7 @@ namespace NSMBe4
 
             // Diagonal objects are rendered differently
             if ((Objects[ObjNum].tiles[0][0].controlByte & 0x80) != 0)
-            {
                 RenderDiagonalObject(Dest, obj, Width, Height);
-            }
             else
             {
                 bool repeatFound = false;
