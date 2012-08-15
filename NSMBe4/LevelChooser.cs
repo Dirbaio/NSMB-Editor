@@ -82,7 +82,8 @@ namespace NSMBe4 {
                 }
             }
 
-            this.Text = "NSMB Editor 5.2 " + Properties.Resources.version.Trim();
+            this.Text = "NSMB Editor 5.2 Beta";
+            label3.Text = "NSMB Editor 5.2 " + Properties.Resources.version.Trim();
             this.Icon = Properties.Resources.nsmbe;
 
             if (!ROM.isNSMBRom)
