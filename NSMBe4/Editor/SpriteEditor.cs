@@ -112,14 +112,20 @@ namespace NSMBe4
         {
             if (SelectedObjects == null || SelectedObjects.Count == 0)
             {
-                deleteSpriteButton.Enabled = false;
-                tableLayoutPanel1.Visible = false;
+                lblSelectSomething.Visible = true;
+                panel3.Visible = false;
                 spriteDataPanel.Visible = false;
+                tableLayoutPanel1.Visible = false;
+                spriteListBox.Visible = false;
+                tableLayoutPanel2.Visible = false;
                 return;
             }
-            deleteSpriteButton.Enabled = true;
-            tableLayoutPanel1.Visible = true;
+            lblSelectSomething.Visible = false;
+            panel3.Visible = true;
             spriteDataPanel.Visible = true;
+            tableLayoutPanel1.Visible = true;
+            spriteListBox.Visible = true;
+            tableLayoutPanel2.Visible = true;
             updating = true;
             int type = getSpriteType();
             spriteTypeUpDown.Value = type > -1 ? type : 0;
@@ -262,13 +268,6 @@ namespace NSMBe4
         {
             byte[] emptyData = new byte[6];
             EdControl.UndoManager.Do(new ChangeSpriteDataAction(SelectedObjects, emptyData));
-        }
-
-        public int getSelectedType()
-        {
-            if (spriteListBox.SelectedIndex == -1)
-                return -1;
-            return curSprites[spriteListBox.SelectedIndex];
         }
     }
 }

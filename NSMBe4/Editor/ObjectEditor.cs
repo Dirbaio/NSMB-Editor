@@ -51,10 +51,14 @@ namespace NSMBe4
         public void UpdateInfo()
         {
             if (SelectedObjects == null || SelectedObjects.Count == 0) {
-                deleteObjectButton.Enabled = false;
+                lblSelectSomething.Visible = true;
+                panel1.Visible = false;
+                tabControl1.Visible = false;
                 return;
             }
-            deleteObjectButton.Enabled = true;
+            lblSelectSomething.Visible = false;
+            panel1.Visible = true;
+            tabControl1.Visible = true;
             NSMBObject o = SelectedObjects[0] as NSMBObject;
             DataUpdateFlag = true;
 
@@ -95,42 +99,28 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new RemoveLvlItemAction(objs));
         }
 
-        private void setObjectType(int til, int obj, bool changeObj)
+        private void setObjectType(int til, int obj)
         {
             if (til != 0) tileset0picker.selectObjectNumber(-1);
             if (til != 1) tileset1picker.selectObjectNumber(-1);
             if (til != 2) tileset2picker.selectObjectNumber(-1);
 
-            if (changeObj)
-                EdControl.UndoManager.Do(new ChangeObjectTypeAction(SelectedObjects, til, obj));
+            EdControl.UndoManager.Do(new ChangeObjectTypeAction(SelectedObjects, til, obj));
         }
 
-        public int getObjectType()
+        private void tileset0picker_ObjectSelected()
         {
-            return Math.Max(Math.Max(tileset0picker.SelectedObject, tileset1picker.SelectedObject), tileset2picker.SelectedObject);
+            setObjectType(0, tileset0picker.SelectedObject);
         }
 
-        public int getTilesetNum()
+        private void tileset1picker_ObjectSelected()
         {
-            if (tileset0picker.SelectedObject != -1) return 0;
-            if (tileset1picker.SelectedObject != -1) return 1;
-            if (tileset2picker.SelectedObject != -1) return 2;
-            return -1;
+            setObjectType(1, tileset1picker.SelectedObject);
         }
 
-        private void tileset0picker_ObjectSelected(bool rightClick)
+        private void tileset2picker_ObjectSelected()
         {
-            setObjectType(0, tileset0picker.SelectedObject, !rightClick);
-        }
-
-        private void tileset1picker_ObjectSelected(bool rightClick)
-        {
-            setObjectType(1, tileset1picker.SelectedObject, !rightClick);
-        }
-
-        private void tileset2picker_ObjectSelected(bool rightClick)
-        {
-            setObjectType(2, tileset2picker.SelectedObject, !rightClick);
+            setObjectType(2, tileset2picker.SelectedObject);
         }
 
     }
