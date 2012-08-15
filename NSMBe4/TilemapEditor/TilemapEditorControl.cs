@@ -54,7 +54,8 @@ namespace NSMBe4
             XFLIP,
             YFLIP,
             COPY,
-            PASTE
+            PASTE,
+            CHANGEPAL
         }
 
         public EditionMode mode;
@@ -264,9 +265,18 @@ namespace NSMBe4
                                 clipboard[x, y] = t.tiles[x + selTileX, y + selTileY];
                         break;
                     case EditionMode.PASTE:
+                    	if(clipboard == null) break;
                         for (int x = 0; x < selTileWidth; x++)
                             for (int y = 0; y < selTileHeight; y++)
                                 t.tiles[x + selTileX, y + selTileY] = clipboard[x % clipboardWidth, y % clipboardHeight];
+                        break;
+                    case EditionMode.CHANGEPAL:
+                        for (int x = 0; x < selTileWidth; x++)
+                            for (int y = 0; y < selTileHeight; y++)
+                            {
+                                t.tiles[x + selTileX, y + selTileY].palNum++;
+                                t.tiles[x + selTileX, y + selTileY].palNum %= t.palettes.Length;
+                            }
                         break;
                 }
                 t.reRender(selTileX, selTileY, selTileWidth, selTileHeight);

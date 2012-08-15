@@ -40,6 +40,7 @@
             this.yFlipToolButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolButton = new System.Windows.Forms.ToolStripButton();
+            this.changePalToolButton = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -93,7 +94,8 @@
             this.xFlipToolButton,
             this.yFlipToolButton,
             this.copyToolButton,
-            this.pasteToolButton});
+            this.pasteToolButton,
+            this.changePalToolButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(564, 25);
@@ -172,6 +174,17 @@
             this.pasteToolButton.Text = "Paste";
             this.pasteToolButton.Click += new System.EventHandler(this.pasteToolButton_Click);
             // 
+            // adfasfd
+            // 
+            this.changePalToolButton.CheckOnClick = true;
+            this.changePalToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.changePalToolButton.Image = global::NSMBe4.Properties.Resources.layer_flip_vertical;
+            this.changePalToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.changePalToolButton.Name = "changePalToolButton";
+            this.changePalToolButton.Size = new System.Drawing.Size(23, 22);
+            this.changePalToolButton.Text = "Change Palette";
+            this.changePalToolButton.Click += new System.EventHandler(this.changePalToolButton_Click);
+            // 
             // TilemapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,6 +217,7 @@
         private System.Windows.Forms.ToolStripButton yFlipToolButton;
         private System.Windows.Forms.ToolStripButton copyToolButton;
         private System.Windows.Forms.ToolStripButton pasteToolButton;
+        private System.Windows.Forms.ToolStripButton changePalToolButton;
         private System.Windows.Forms.ToolStripButton saveButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }

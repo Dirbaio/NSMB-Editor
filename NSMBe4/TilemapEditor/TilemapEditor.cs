@@ -55,6 +55,7 @@ namespace NSMBe4.TilemapEditor
             yFlipToolButton.Checked = false;
             copyToolButton.Checked = false;
             pasteToolButton.Checked = false;
+            changePalToolButton.Checked = false;
         }
 
         private void drawToolButton_Click(object sender, EventArgs e)
@@ -90,6 +91,12 @@ namespace NSMBe4.TilemapEditor
             tilemapEditorControl1.mode = TilemapEditorControl.EditionMode.PASTE;
             uncheckButtons();
             pasteToolButton.Checked = true;
+        }
+        private void changePalToolButton_Click(object sender, EventArgs e)
+        {
+            tilemapEditorControl1.mode = TilemapEditorControl.EditionMode.CHANGEPAL;
+            uncheckButtons();
+            changePalToolButton.Checked = true;
         }
 
         public void showSaveButton()
