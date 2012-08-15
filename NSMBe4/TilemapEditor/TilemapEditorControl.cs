@@ -276,7 +276,7 @@ namespace NSMBe4
                             {
                                 t.tiles[x + selTileX, y + selTileY].palNum++;
                                 t.tiles[x + selTileX, y + selTileY].palNum %= t.palettes.Length;
-                            }
+                            } 
                         break;
                 }
                 t.reRender(selTileX, selTileY, selTileWidth, selTileHeight);
