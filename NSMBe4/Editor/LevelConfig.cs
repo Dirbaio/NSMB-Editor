@@ -79,7 +79,7 @@ namespace NSMBe4 {
         private void loadList(string name, ComboBox dest)
         {
             dest.Items.Clear();
-            foreach (string s in LanguageManager.GetList(name))
+            foreach (string s in ROM.UserInfo.getFullList(name))
             {
                 string ss = s.Trim();
                 if (ss == "") continue;

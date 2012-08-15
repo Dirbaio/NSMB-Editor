@@ -33,6 +33,7 @@
             this.importTilesetBtn = new System.Windows.Forms.Button();
             this.editTilesetBtn = new System.Windows.Forms.Button();
             this.tilesetListBox = new System.Windows.Forms.ListBox();
+            this.RenameBtn = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,6 +43,7 @@
             this.flowLayoutPanel1.Controls.Add(this.exportTilesetBtn);
             this.flowLayoutPanel1.Controls.Add(this.importTilesetBtn);
             this.flowLayoutPanel1.Controls.Add(this.editTilesetBtn);
+            this.flowLayoutPanel1.Controls.Add(this.RenameBtn);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 272);
@@ -89,6 +91,16 @@
             this.tilesetListBox.TabIndex = 1;
             this.tilesetListBox.DoubleClick += new System.EventHandler(this.tilesetListBox_DoubleClick);
             // 
+            // RenameBtn
+            // 
+            this.RenameBtn.Location = new System.Drawing.Point(130, 3);
+            this.RenameBtn.Name = "RenameBtn";
+            this.RenameBtn.Size = new System.Drawing.Size(75, 23);
+            this.RenameBtn.TabIndex = 2;
+            this.RenameBtn.Text = "Rename";
+            this.RenameBtn.UseVisualStyleBackColor = true;
+            this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
+            // 
             // TilesetList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -110,5 +122,6 @@
         private System.Windows.Forms.Button importTilesetBtn;
         private System.Windows.Forms.Button editTilesetBtn;
         private System.Windows.Forms.ListBox tilesetListBox;
+        private System.Windows.Forms.Button RenameBtn;
     }
 }

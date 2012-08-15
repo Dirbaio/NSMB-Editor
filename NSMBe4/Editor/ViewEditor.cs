@@ -39,7 +39,7 @@ namespace NSMBe4
             this.lst = l;
             EditingViews = EdVi;
             LanguageManager.ApplyToContainer(this, "ViewEditor");
-            music.Items.AddRange(LanguageManager.GetList("Music").ToArray());
+            music.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
             UpdateList();
         }
 

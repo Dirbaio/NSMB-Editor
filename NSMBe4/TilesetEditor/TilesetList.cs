@@ -27,6 +27,8 @@ namespace NSMBe4
 {
     public partial class TilesetList : UserControl
     {
+        public TextInputForm textForm = new TextInputForm();
+
         public TilesetList()
         {
             InitializeComponent();
@@ -35,19 +37,19 @@ namespace NSMBe4
 //            LanguageManager.ApplyToContainer(this, "TilesetList");
 
             // Add tilesets to list
-            int index = 0;
             List<string> parsedlist = new List<string>();
 
             parsedlist.Add("Tileset 0 (Jyotyu)");
             parsedlist.Add("Tileset 2 (Sub Nohara)");
-            foreach (string name in LanguageManager.GetList("Tilesets"))
+            if (ROM.UserInfo != null)
             {
-                string trimmedname = name.Trim();
-                if (trimmedname == "") continue;
-                parsedlist.Add(trimmedname);
-                index += 1;
+                foreach (string name in ROM.UserInfo.getFullList("Tilesets"))
+                {
+                    string trimmedname = name.Trim();
+                    if (trimmedname == "") continue;
+                    parsedlist.Add(trimmedname);
+                }
             }
-
             tilesetListBox.Items.AddRange(parsedlist.ToArray());
         }
 
@@ -134,6 +136,27 @@ namespace NSMBe4
             }
 
             return g.Tilesets[TilesetNumber];
+        }
+
+        private void RenameBtn_Click(object sender, EventArgs e)
+        {
+            if (tilesetListBox.SelectedIndex < 2)
+            {
+                MessageBox.Show("This tileset cannot be renamed");
+                return;
+            }
+            string newName;
+            if (textForm.ShowDialog("Enter new tileset name:", tilesetListBox.SelectedItem.ToString(), out newName) == DialogResult.OK)
+            {
+                if (newName == string.Empty)
+                {
+                    ROM.UserInfo.removeListItem("Tilesets", tilesetListBox.SelectedIndex - 2, true);
+                    tilesetListBox.Items[tilesetListBox.SelectedIndex] = LanguageManager.GetList("Tilesets")[tilesetListBox.SelectedIndex - 2];
+                    return;
+                }
+                ROM.UserInfo.setListItem("Tilesets", tilesetListBox.SelectedIndex - 2, newName, true);
+                tilesetListBox.Items[tilesetListBox.SelectedIndex] = newName;
+            }
         }
     }
 }

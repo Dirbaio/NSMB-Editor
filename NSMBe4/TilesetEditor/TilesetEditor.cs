@@ -81,13 +81,15 @@ namespace NSMBe4
             //FIXME
 //            graphicsEditor1.SaveGraphics += new GraphicsEditor.SaveGraphicsHandler(graphicsEditor1_SaveGraphics);
             
-            descExists = ROM.descriptions.ContainsKey(TilesetID); //Fild in there are descriptions for the tileset
+            descExists = ROM.UserInfo.descriptions.ContainsKey(TilesetID); //Fild in there are descriptions for the tileset
             deleteDescriptions.Visible = descExists; //Make the appropriate button visible
             createDescriptions.Visible = !descExists;
             tilesetObjectEditor1.descBox.Visible = descExists; //Hide or show the description text box
             tilesetObjectEditor1.descLbl.Visible = descExists;
-            if (descExists)
-                descriptions = ROM.descriptions[TilesetID]; //Get the descriptions
+            if (descExists) {
+                descriptions = ROM.UserInfo.descriptions[TilesetID]; //Get the descriptions
+                tilesetObjectEditor1.descBox.Text = descriptions[0]; //Fill the description box with that of the first object
+            }
             this.Icon = Properties.Resources.nsmbe;
         }
 
@@ -103,7 +105,7 @@ namespace NSMBe4
 
             tilesetObjectEditor1.setObject(objectPickerControl1.SelectedObject);
             if (tilesetObjectEditor1.descBox.Visible)
-                tilesetObjectEditor1.descBox.Text = descriptions[objectPickerControl1.SelectedObject].Substring(descriptions[objectPickerControl1.SelectedObject].IndexOf('=') + 1);
+                tilesetObjectEditor1.descBox.Text = descriptions[objectPickerControl1.SelectedObject];
             objectPickerControl1.ReRenderAll(TilesetNumber);
         }
 
@@ -114,30 +116,7 @@ namespace NSMBe4
             imageManager1.saveAll();
 
             t.save();
-
-            //Save descriptions
-            try {
-                if (!descExists) return;
-                System.IO.StreamReader s = new System.IO.StreamReader(ROM.DescriptionPath);
-                string header = "[" + TilesetID.ToString() + "]"; //The tileset header to search for
-                string newTxt = "", line = "";
-                while (line != header) { //Find the header in the file
-                    line = s.ReadLine();
-                    newTxt += line + Environment.NewLine;
-                }
-                foreach (string str in descriptions) //Write the new data
-                    newTxt += str + Environment.NewLine;
-                while (!s.EndOfStream && !s.ReadLine().StartsWith("[")) { } //Move to the next tileset
-                while (!s.EndOfStream) //Write the rest of the data
-                    newTxt += s.ReadLine() + Environment.NewLine;
-                s.Close();
-                System.IO.StreamWriter w = new System.IO.StreamWriter(ROM.DescriptionPath);
-                w.Write(newTxt);
-                w.Close();
-                ROM.descriptions[TilesetID] = descriptions;
-            } catch (Exception ex)  {
-                MessageBox.Show("Could not open description file.\n\nThe original error message was:\n" + ex.Message);
-            }
+            ROM.UserInfo.SaveFile();
         }
 
         private void mustRepaintObjects()
@@ -205,46 +184,16 @@ namespace NSMBe4
 
         private void createDescriptions_Click(object sender, EventArgs e)
         {
-            try {
-                string path = ROM.DescriptionPath;
-                if (!System.IO.File.Exists(path)) //Create the file if it doesn't exist
-                    System.IO.File.Create(path);
-                System.IO.StreamWriter s = new System.IO.StreamWriter(new System.IO.FileStream(path, System.IO.FileMode.Append, System.IO.FileAccess.Write));
-                s.WriteLine("[" + TilesetID.ToString() + "]"); //Write the header
-                descriptions = new List<string>();
-                if (TilesetID == 65535) { //Special copying from built in description list
-                    List<string> all = LanguageManager.GetList("ObjNotes");
-                    int allIndex = 0;
-                    for (int l = 0; l <= 255; l++) {
-                        string num = l.ToString();
-                        if (allIndex < all.Count - 1 && all[allIndex].StartsWith(num)) {
-                            num = all[allIndex];
-                            allIndex++;
-                        } else
-                            num += "=";
-                        s.WriteLine(num);
-                        descriptions.Add(num);
-                    }
-                } else { //Regular write to file
-                    for (int l = 0; l <= 255; l++) {
-                        string d = l.ToString() + "=";
-                        s.WriteLine(d);
-                        descriptions.Add(d);
-                    }
-                    t.UseNotes = true;
-                    t.ObjNotes = new string[256];
-                }
-                ROM.descriptions.Add(TilesetID, descriptions);
-                s.Close();
-                descExists = true;
-                createDescriptions.Visible = false;
-                deleteDescriptions.Visible = true;
-                tilesetObjectEditor1.descBox.Visible = true;
-                tilesetObjectEditor1.descBox.Text = "";
-                tilesetObjectEditor1.descLbl.Visible = true;
-            } catch (Exception ex) {
-                MessageBox.Show("Could not open description file.\n\nThe original error message was:\n" + ex.Message);
-            }
+            ROM.UserInfo.createDescriptions(TilesetID);
+            descriptions = ROM.UserInfo.descriptions[TilesetID];
+            t.UseNotes = true;
+            t.ObjNotes = descriptions.ToArray();
+            descExists = true;
+            createDescriptions.Visible = false;
+            deleteDescriptions.Visible = true;
+            tilesetObjectEditor1.descBox.Visible = true;
+            tilesetObjectEditor1.descBox.Text = "";
+            tilesetObjectEditor1.descLbl.Visible = true;
         }
 
         private void tilesetObjectEditor1_DescriptionChanged()
@@ -252,46 +201,26 @@ namespace NSMBe4
             int num = objectPickerControl1.SelectedObject;
             descriptions[num] = num.ToString() + "=" + tilesetObjectEditor1.descBox.Text;
             t.ObjNotes[num] = tilesetObjectEditor1.descBox.Text;
+            ROM.UserInfo.descriptions[TilesetID][num] = tilesetObjectEditor1.descBox.Text;
             objectPickerControl1.Invalidate(true);
         }
 
         private void deleteDescriptions_Click(object sender, EventArgs e)
         {
+            if (!descExists) return;
             if (MessageBox.Show("Are you sure you want to delete all descriptions for this tileset?", "Delete descriptions?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 return;
-            try {
-                if (!descExists) return;
-                System.IO.StreamReader s = new System.IO.StreamReader(ROM.DescriptionPath);
-                string header = "[" + TilesetID.ToString() + "]"; //The tileset header to search for
-                string newTxt = "", line = "";
-                while (line != header) { //Find the header in the file
-                    line = s.ReadLine();
-                    if (line != header)
-                        newTxt += line + Environment.NewLine;
-                }
-                line = "";
-                while (!s.EndOfStream && !line.StartsWith("[")) { line = s.ReadLine(); } //Move to the next tileset
-                if (!s.EndOfStream) newTxt += line + Environment.NewLine;
-                while (!s.EndOfStream) //Write the rest of the data
-                    newTxt += s.ReadLine() + Environment.NewLine;
-                s.Close();
-                System.IO.StreamWriter w = new System.IO.StreamWriter(ROM.DescriptionPath);
-                w.Write(newTxt);
-                w.Close();
-                ROM.descriptions.Remove(TilesetID);
-                createDescriptions.Visible = true;
-                deleteDescriptions.Visible = false;
-                tilesetObjectEditor1.descBox.Visible = false;
-                tilesetObjectEditor1.descLbl.Visible = false;
-                if (TilesetID != 65535)
-                    t.UseNotes = false;
-                else //Restore the original notes
-                    t.ObjNotes = NSMBGraphics.GetDescriptions(LanguageManager.GetList("ObjNotes"));
-                descExists = false;
-                objectPickerControl1.Invalidate(true);
-            } catch (Exception ex) {
-                MessageBox.Show("Could not open description file.\n\nThe original error message was:\n" + ex.Message);
-            }
+            ROM.UserInfo.descriptions.Remove(TilesetID);
+            createDescriptions.Visible = true;
+            deleteDescriptions.Visible = false;
+            tilesetObjectEditor1.descBox.Visible = false;
+            tilesetObjectEditor1.descLbl.Visible = false;
+            if (TilesetID != 65535)
+                t.UseNotes = false;
+            else //Restore the original notes
+                t.ObjNotes = NSMBGraphics.GetDescriptions(LanguageManager.GetList("ObjNotes"));
+            descExists = false;
+            objectPickerControl1.Invalidate(true);
         }
 
         private void setend_Click(object sender, EventArgs e)

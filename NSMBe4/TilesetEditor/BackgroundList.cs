@@ -34,7 +34,6 @@ namespace NSMBe4
             public bool topLayer;
             public int id;
             public string name;
-
             public BackgroundEntry(bool topLayer, int id, string name)
             {
                 this.topLayer = topLayer;
@@ -48,6 +47,7 @@ namespace NSMBe4
             }
         }
 
+        public TextInputForm textForm = new TextInputForm();
 
         public BackgroundList()
         {
@@ -56,8 +56,9 @@ namespace NSMBe4
             //TODO add this shit to the language file
 //            LanguageManager.ApplyToContainer(this, "BackgroundList");
 
+            if (ROM.UserInfo == null) return;
             int id = 0;
-            List<string> list = LanguageManager.GetList("Foregrounds");
+            List<string> list = ROM.UserInfo.getFullList("Foregrounds");
             foreach (string name in list)
             {
                 if (name == list[list.Count - 1]) continue;
@@ -67,7 +68,7 @@ namespace NSMBe4
                 id++;
             }
             id = 0;
-            list = LanguageManager.GetList("Backgrounds");
+            list = ROM.UserInfo.getFullList("Backgrounds");
             foreach (string name in list)
             {
                 if (name == list[list.Count - 1]) continue;
@@ -77,7 +78,6 @@ namespace NSMBe4
                 id++;
             }
         }
-
 
         ushort GFXFileID;
         ushort PalFileID;
@@ -264,6 +264,24 @@ namespace NSMBe4
 
             t.render();
             t.buffer.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        private void RenameBtn_Click(object sender, EventArgs e)
+        {
+            string newName;
+            BackgroundEntry bg = tilesetListBox.SelectedItem as BackgroundEntry;
+            string listName = bg.topLayer ? "Foregrounds" : "Backgrounds";
+            if (textForm.ShowDialog("Enter new background name:", bg.name, out newName) == DialogResult.OK)
+            {
+                if (newName == string.Empty)
+                {
+                    ROM.UserInfo.removeListItem(listName, bg.id, true);
+                    tilesetListBox.Items[tilesetListBox.SelectedIndex] = new BackgroundEntry(bg.topLayer, bg.id, LanguageManager.GetList(listName)[bg.id]);
+                    return;
+                }
+                ROM.UserInfo.setListItem(listName, bg.id, newName, true);
+                tilesetListBox.Items[tilesetListBox.SelectedIndex] = new BackgroundEntry(bg.topLayer, bg.id, newName);
+            }
         }
     }
 }

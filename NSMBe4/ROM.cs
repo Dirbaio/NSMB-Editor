@@ -54,8 +54,7 @@ namespace NSMBe4 {
         public static NitroROMFilesystem FS;
         public static string filename;
         public static System.IO.FileInfo romfile;
-        public static Dictionary<int, List<string>> descriptions;
-        public static string DescriptionPath;
+        public static ROMUserInfo UserInfo;
 
         public static bool isNSMBRom = true;
         public static string romInternalName;
@@ -90,7 +89,7 @@ namespace NSMBe4 {
 
             if (isNSMBRom)
             {
-                LoadDescriptions();
+                UserInfo = new ROMUserInfo(filename);
                 LoadOverlay0();
             }
         }
@@ -119,34 +118,6 @@ namespace NSMBe4 {
             ov.decompress();
 
             Overlay0 = ov.getContents();
-        }
-
-        public static void LoadDescriptions()
-        {
-            DescriptionPath = filename.Substring(0, filename.LastIndexOf('.') + 1) + "txt";
-            descriptions = new Dictionary<int, List<string>>();
-            int lineNum = 0;
-            try {
-                if (!System.IO.File.Exists(DescriptionPath)) return;
-                System.IO.StreamReader s = new System.IO.StreamReader(DescriptionPath);
-                List<string> curList = null;
-                while (!s.EndOfStream) {
-                    lineNum++;
-                    string line = s.ReadLine();
-                    if (line != "") {
-                        if (line.StartsWith("[")) {
-                            int num = int.Parse(line.Substring(1, line.Length - 2));
-                            descriptions.Add(num, new List<string>());
-                            curList = descriptions[num];
-                        } else if (curList != null) {
-                            curList.Add(line);
-                        }
-                    }
-                }
-                s.Close();
-            } catch (Exception ex) {
-                System.Windows.Forms.MessageBox.Show("An error occurred while reading tileset descriptions on line " + lineNum.ToString() + ".\n\nThe original error message was:\n" + ex.Message);
-            }
         }
 
         public enum Origin {
@@ -203,6 +174,9 @@ namespace NSMBe4 {
                                             0x400, //Jyotyu_CHK
                                             ROM.SpriteCount*2, //Modifiers
                                         };
+
+        public static int[] MusicNumbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 
+                                            80, 81, 82, 83, 86, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111};
 
         public static ushort GetFileIDFromTable(int id, Data datatype) {
             return GetFileIDFromTable(id, GetOffset(datatype));

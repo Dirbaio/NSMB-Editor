@@ -196,16 +196,16 @@ namespace NSMBe4
 
             // Enable notes for the normal tileset
             Tilesets[0].UseNotes = true;
-            if (ROM.descriptions.ContainsKey(65535))
-                Tilesets[0].ObjNotes = GetDescriptions(ROM.descriptions[65535]);
+            if (ROM.UserInfo.descriptions.ContainsKey(65535))
+                Tilesets[0].ObjNotes = ROM.UserInfo.descriptions[65535].ToArray();
             else
                 Tilesets[0].ObjNotes = GetDescriptions(LanguageManager.GetList("ObjNotes"));
-            if (ROM.descriptions.ContainsKey(TilesetID)) {
-                Tilesets[1].ObjNotes = GetDescriptions(ROM.descriptions[TilesetID]);
+            if (ROM.UserInfo.descriptions.ContainsKey(TilesetID)) {
+                Tilesets[1].ObjNotes = ROM.UserInfo.descriptions[TilesetID].ToArray(); ;
                 Tilesets[1].UseNotes = true;
             }
-            if (ROM.descriptions.ContainsKey(65534)) {
-                Tilesets[2].ObjNotes = GetDescriptions(ROM.descriptions[65534]);
+            if (ROM.UserInfo.descriptions.ContainsKey(65534)) {
+                Tilesets[2].ObjNotes = ROM.UserInfo.descriptions[65534].ToArray();
                 Tilesets[2].UseNotes = true;
             }
         }

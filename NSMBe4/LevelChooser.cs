@@ -35,6 +35,7 @@ namespace NSMBe4 {
     public partial class LevelChooser : Form
     {
         public static ImageManagerWindow imgMgr;
+        public TextInputForm textForm = new TextInputForm();
 
         public static void showImgMgr()
         {
@@ -61,6 +62,7 @@ namespace NSMBe4 {
             filesystemBrowser1.Load(ROM.FS);
 
             LoadLevelNames();
+            musicList.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
 
             LanguageManager.ApplyToContainer(this, "LevelChooser");
             importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
@@ -781,6 +783,24 @@ namespace NSMBe4 {
         private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://nsmbhd.net/");
+        }
+
+        private void renameBtn_Click(object sender, EventArgs e)
+        {
+            string newName;
+            string oldName = musicList.SelectedItem.ToString();
+            oldName = oldName.Substring(oldName.IndexOf(" ") + 1);
+            if (textForm.ShowDialog("Enter new music name:", oldName, out newName) == DialogResult.OK)
+            {
+                if (newName == string.Empty)
+                {
+                    ROM.UserInfo.removeListItem("Music", musicList.SelectedIndex, true);
+                    musicList.Items[musicList.SelectedIndex] = string.Format("{0:X2}: {1}", ROM.MusicNumbers[musicList.SelectedIndex], LanguageManager.GetList("Music")[musicList.SelectedIndex]);
+                    return;
+                }
+                ROM.UserInfo.setListItem("Music", musicList.SelectedIndex, newName, true);
+                musicList.Items[musicList.SelectedIndex] = string.Format("{0:X2}: {1}", ROM.MusicNumbers[musicList.SelectedIndex], newName);
+            }
         }
     }
 }
