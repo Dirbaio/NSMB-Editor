@@ -73,8 +73,9 @@ namespace NSMBe4
             tilemapEditor1.load(t.map16);
 
             imageManager1.addImage(t.graphics);
-            imageManager1.addPalette(t.palette1);
-            imageManager1.addPalette(t.palette2);
+
+            for(int i = 0; i < t.palettes.Length; i++)
+	            imageManager1.addPalette(t.palettes[i]);
 
             tileBehaviorPicker.init(new Bitmap[] { t.Map16Buffer }, 16);
 
