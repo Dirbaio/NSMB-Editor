@@ -1,5 +1,7 @@
 NSMBe 5.2 SVN
 -----------------
+Download NSMBe on NSMBHD: http://nsmbhd.net/?page=download
+
 To run NSMBe:
 Windows: .NET Framework 2.0 or Mono
 Linux/Mac OSX/Others: Mono
