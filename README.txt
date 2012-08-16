@@ -21,7 +21,6 @@ Current version is: 147
 
 Websites:
 http://nsmbhd.net/ - The NSMB Hacking Domain, a.k.a NSMBe Forum
-http://code.google.com/p/nsmb-editor/ - NSMBe Project Page
 
 Credits:
 Treeki - Initial developer and maintainer
