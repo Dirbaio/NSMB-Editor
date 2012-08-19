@@ -42,8 +42,6 @@ namespace NSMBe4
         int minSizeX, minSizeY; //the minimum size of all resizable objects.
         int selectionSnap; //The max snap in the selection :P
 
-        LevelItem selectTabType; //Used to swtich to the type of tab of the clicked object
-
         Rectangle SelectionRectangle;
 
         List<LevelItem> SelectedObjects = new List<LevelItem>();
@@ -242,12 +240,8 @@ namespace NSMBe4
                 LevelItem o = SelectedObjects[l];
                 if (x >= o.x && x < o.x + o.width)
                     if (y >= o.y && y < o.y + o.height)
-                    {
-                        selectTabType = o;
                         return true;
-                    }
             }
-            selectTabType = null;
             return false;
         }
 
@@ -259,7 +253,8 @@ namespace NSMBe4
                 dy = y / 16;
                 lx = x;
                 ly = y;
-                if (tabs.SelectedTab == 3) //The sprite tab
+                CreateObj = true;
+                if (tabs.SelectedTab == 2) //The sprite tab
                 {
                     NSMBSprite newSprite = new NSMBSprite(Level);
                     newSprite.Type = tabs.sprites.getSelectedType();
@@ -272,7 +267,6 @@ namespace NSMBe4
                     SelectObject(newSprite);
                     return;
                 }
-                CreateObj = true;
                 newObj = new NSMBObject(tabs.objects.getObjectType(), tabs.objects.getTilesetNum(), dx, dy, 1, 1, Level.GFX);
                 EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(newObj)));
                 SelectObject(newObj);
@@ -327,7 +321,7 @@ namespace NSMBe4
         public override void MouseDrag(int x, int y)
         {
             //Resize the new object that was created by right-clicking.
-            if (CreateObj)
+            if (CreateObj && newObj != null)
             {
                 Rectangle r = newObj.getRectangle();
                 x = Math.Max(0, x / 16);
@@ -502,12 +496,14 @@ namespace NSMBe4
 
         public override void MouseUp()
         {
+            if (CreateObj)
+                SelectObject(null);
             CreateObj = false;
+            newObj = null;
             SelectMode = false;
             EdControl.UndoManager.merge = false;
             EdControl.repaint();
             tabs.SelectObjects(SelectedObjects);
-            selectTabType = null;
         }
 
         private Cursor getCursorForPos(int x, int y)

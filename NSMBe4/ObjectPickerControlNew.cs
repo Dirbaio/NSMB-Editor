@@ -27,7 +27,7 @@ namespace NSMBe4
 {
     public partial class ObjectPickerControlNew : UserControl
     {
-        public delegate void ObjectSelectedDelegate(bool rightClick);
+        public delegate void ObjectSelectedDelegate();
         public event ObjectSelectedDelegate ObjectSelected;
         bool inited = false;
         NSMBGraphics gfx;
@@ -103,9 +103,10 @@ namespace NSMBe4
                 y += rowheight + 1;
 
             int scrollheight = y * 16 - Height + 16;
-            vScrollBar1.Maximum = scrollheight;
-            //if (this.Height > 0)
-                //vScrollBar1.LargeChange = this.Height;
+            if (this.Height > 0)
+                vScrollBar1.LargeChange = this.Height;
+            vScrollBar1.Maximum = scrollheight + this.Height;
+            vScrollBar1.Enabled = scrollheight > this.Height;
             Invalidate();
         }
 
@@ -142,7 +143,7 @@ namespace NSMBe4
 
         private void ObjectPickerControlNew_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left || e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 int x = e.X;
                 int y = e.Y + vScrollBar1.Value;
@@ -165,7 +166,7 @@ namespace NSMBe4
                     Invalidate();
                     selecting = true;
                     if(ObjectSelected != null)
-                        ObjectSelected(e.Button == System.Windows.Forms.MouseButtons.Right);
+                        ObjectSelected();
                     selecting = false;
                 }
             }
@@ -178,11 +179,12 @@ namespace NSMBe4
 
         private void ObjectPickerControlNew_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
+                if (!vScrollBar1.Enabled) return;
                 int newval = yScr - (e.Y - yDown)*2;
                 if (newval < vScrollBar1.Minimum) newval = vScrollBar1.Minimum;
-                if (newval > vScrollBar1.Maximum) newval = vScrollBar1.Maximum;
+                if (newval > vScrollBar1.Maximum - vScrollBar1.LargeChange) newval = vScrollBar1.Maximum - vScrollBar1.LargeChange;
 
                 vScrollBar1.Value = newval;
                 objectHovered(null);
@@ -190,7 +192,6 @@ namespace NSMBe4
             }
             else
             {
-
                 int x = e.X;
                 int y = e.Y + vScrollBar1.Value;
 

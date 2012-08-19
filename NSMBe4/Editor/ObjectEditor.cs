@@ -95,14 +95,13 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new RemoveLvlItemAction(objs));
         }
 
-        private void setObjectType(int til, int obj, bool changeObj)
+        private void setObjectType(int til, int obj)
         {
             if (til != 0) tileset0picker.selectObjectNumber(-1);
             if (til != 1) tileset1picker.selectObjectNumber(-1);
             if (til != 2) tileset2picker.selectObjectNumber(-1);
 
-            if (changeObj)
-                EdControl.UndoManager.Do(new ChangeObjectTypeAction(SelectedObjects, til, obj));
+            EdControl.UndoManager.Do(new ChangeObjectTypeAction(SelectedObjects, til, obj));
         }
 
         public int getObjectType()
@@ -118,19 +117,19 @@ namespace NSMBe4
             return -1;
         }
 
-        private void tileset0picker_ObjectSelected(bool rightClick)
+        private void tileset0picker_ObjectSelected()
         {
-            setObjectType(0, tileset0picker.SelectedObject, !rightClick);
+            setObjectType(0, tileset0picker.SelectedObject);
         }
 
-        private void tileset1picker_ObjectSelected(bool rightClick)
+        private void tileset1picker_ObjectSelected()
         {
-            setObjectType(1, tileset1picker.SelectedObject, !rightClick);
+            setObjectType(1, tileset1picker.SelectedObject);
         }
 
-        private void tileset2picker_ObjectSelected(bool rightClick)
+        private void tileset2picker_ObjectSelected()
         {
-            setObjectType(2, tileset2picker.SelectedObject, !rightClick);
+            setObjectType(2, tileset2picker.SelectedObject);
         }
 
     }

@@ -321,7 +321,7 @@ namespace NSMBe4
         private void DrawingArea_MouseDown(object sender, MouseEventArgs e) {
             if (Ready)
             {
-                if (e.Button == MouseButtons.Left && Control.ModifierKeys == Keys.Alt)
+                if (e.Button == System.Windows.Forms.MouseButtons.Middle || e.Button == MouseButtons.Left && Control.ModifierKeys == Keys.Alt)
                 {
                     DragStartX = e.X;
                     DragStartY = e.Y;

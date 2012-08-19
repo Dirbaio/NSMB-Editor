@@ -70,10 +70,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -678,22 +674,6 @@
             this.tabControl1.Size = new System.Drawing.Size(251, 444);
             this.tabControl1.TabIndex = 6;
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.Filter = "PNG images|*.png|All files|*.*";
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.Filter = "PNG images|*.png|All files|*.*";
-            // 
-            // openFileDialog2
-            // 
-            this.openFileDialog2.Filter = "NSMB BGs|*.nmb|All files|*.*";
-            // 
-            // saveFileDialog2
-            // 
-            this.saveFileDialog2.Filter = "NSMB BGs|*.nmb|All files|*.*";
-            // 
             // LevelConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -769,10 +749,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
