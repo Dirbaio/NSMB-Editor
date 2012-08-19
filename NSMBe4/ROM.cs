@@ -309,48 +309,7 @@ namespace NSMBe4 {
             V = ((((v1 & 2147483648) != 0) && ((v2 & 2147483648) == 0) && ((dest & 2147483648) == 0)) || ((v1 & 2147483648) == 0) && ((v2 & 2147483648) != 0) && ((dest & 2147483648) != 0));
         }
 
-        static private unsafe int[] Search(byte* source, int position, int lenght) //Function taken from Nintenlord's compressor. All credits for this code goes to Nintenlord!
-        {
-            int SlidingWindowSize = 4096;
-            int ReadAheadBufferSize = 18;
-
-            if (position >= lenght)
-                return new int[2] { -1, 0 };
-            if ((position < 2) || ((lenght - position) < 2))
-                return new int[2] { 0, 0 };
-
-            List<int> results = new List<int>();
-
-            for (int i = 1; (i < SlidingWindowSize) && (i < position); i++)
-            {
-                if (source[position - (i + 1)] == source[position])
-                {
-                    results.Add(i + 1);
-                }
-            }
-            if (results.Count == 0)
-                return new int[2] { 0, 0 };
-
-            int amountOfBytes = 0;
-
-            bool Continue = true;
-            while (amountOfBytes < ReadAheadBufferSize && Continue)
-            {
-                amountOfBytes++;
-                for (int i = results.Count - 1; i >= 0; i--)
-                {
-                    if (source[position + amountOfBytes] != source[position - results[i] + (amountOfBytes % results[i])])
-                    {
-                        if (results.Count > 1)
-                            results.RemoveAt(i);
-                        else
-                            Continue = false;
-                    }
-                }
-            }
-            return new int[2] { amountOfBytes, results[0] }; //lenght of data is first, then position
-        }
-
+		//TODO: Optimize it with KMP search maybe?
         public static void LZ77_Compress_Search(byte[] data, int pos, out int match, out int length)
         {
             int maxMatchDiff = 4096;
