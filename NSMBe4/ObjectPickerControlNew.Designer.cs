@@ -54,6 +54,7 @@
             this.DoubleBuffered = true;
             this.Name = "ObjectPickerControlNew";
             this.Load += new System.EventHandler(this.ObjectPickerControlNew_Load);
+            this.SizeChanged += new System.EventHandler(this.ObjectPickerControlNew_SizeChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ObjectPickerControlNew_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ObjectPickerControlNew_MouseDown);
             this.MouseLeave += new System.EventHandler(this.ObjectPickerControlNew_MouseLeave);

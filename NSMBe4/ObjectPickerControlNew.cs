@@ -106,7 +106,7 @@ namespace NSMBe4
             if (this.Height > 0)
                 vScrollBar1.LargeChange = this.Height;
             vScrollBar1.Maximum = scrollheight + this.Height;
-            vScrollBar1.Enabled = scrollheight > this.Height;
+            vScrollBar1.Enabled = vScrollBar1.LargeChange < vScrollBar1.Maximum;
             Invalidate();
         }
 
@@ -268,6 +268,12 @@ namespace NSMBe4
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
             Invalidate();
+        }
+
+        private void ObjectPickerControlNew_SizeChanged(object sender, EventArgs e)
+        {
+            reload();
+            vScrollBar1.Value = Math.Max(0, Math.Min(vScrollBar1.Maximum - vScrollBar1.LargeChange, vScrollBar1.Value));
         }
     }
 }
