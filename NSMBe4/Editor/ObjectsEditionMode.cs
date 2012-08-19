@@ -257,8 +257,8 @@ namespace NSMBe4
             if (buttons == MouseButtons.Right) {
                 dx = x / 16;
                 dy = y / 16;
-                lx = dx;
-                ly = dy;
+                lx = x;
+                ly = y;
                 if (tabs.SelectedTab == 3) //The sprite tab
                 {
                     NSMBSprite newSprite = new NSMBSprite(Level);
@@ -267,7 +267,7 @@ namespace NSMBe4
                         return;
                     newSprite.Data = new byte[6];
                     newSprite.x = x;
-                    newSprite.x = y;
+                    newSprite.y = y;
                     EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(newSprite)));
                     SelectObject(newSprite);
                     return;
