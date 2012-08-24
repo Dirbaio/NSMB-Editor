@@ -19,10 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
-using NSMBe4.DSFileSystem;
-using System.IO;
-using NSMBe4.NSBMD;
 using System.Diagnostics;
+using System.IO;
+
+using NSMBe4.DSFileSystem;
+using NSMBe4.NSBMD;
+using NSMBe4.Patcher;
 
 
 namespace NSMBe4
@@ -62,7 +64,6 @@ namespace NSMBe4
             //if (Properties.Settings.Default.AutoUpdateSD)
             //    SpriteData.update();
 
-            SpriteData.Load();  
 
             string path = "";
             string[] args = Environment.GetCommandLineArgs();
@@ -89,11 +90,25 @@ namespace NSMBe4
                     MessageBox.Show("Could not open ROM file for writing. Is it open with other program?\n"+ex.Message);
                     return;
                 }
-
-                if (Properties.Settings.Default.mdi)
-                    Application.Run(new MdiParentForm());
-                else
-                    Application.Run(new LevelChooser());
+                
+                if(args.Length > 2 && args[2] == "asmpatch")
+                {
+				    PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+				    pm.generatePatch();
+                }
+                else if(args.Length > 2 && args[2] == "getcodeaddr")
+                {
+				    PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+                    Console.Out.WriteLine(String.Format("{0:X8}", pm.getCodeAddr()));
+                }
+				else
+				{
+		            SpriteData.Load();
+		            if (Properties.Settings.Default.mdi)
+		                Application.Run(new MdiParentForm());
+		            else
+		                Application.Run(new LevelChooser());
+		        }
             }
         }
 

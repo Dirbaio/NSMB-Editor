@@ -607,6 +607,7 @@ namespace NSMBe4 {
         private void padarm7bin_Click(object sender, EventArgs e)
         {
             PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+            pm.compilePatch();
             pm.generatePatch();
         }
 

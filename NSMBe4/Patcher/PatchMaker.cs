@@ -34,20 +34,25 @@ namespace NSMBe4.Patcher
             this.romdir = romdir;
         }
 
-        public void compilePatch()
-        {
+		public uint getCodeAddr()
+		{
+            handler.load();
             loadArenaLoOffsFile(romdir);
             uint codeAddr = handler.readFromRamAddr(ArenaLoOffs);
+            return codeAddr;
+		}
+		
+        public void compilePatch()
+        {
+        	uint codeAddr = getCodeAddr();
             PatchCompiler.compilePatch(codeAddr, romdir);
         }
 
         public void generatePatch()
         {
-            handler.restoreFromBackup();
-            handler.load();
-            compilePatch();
 
-            loadArenaLoOffsFile(romdir);
+            handler.restoreFromBackup();
+        	int codeAddr = (int) getCodeAddr();
 
             FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
             if (!f.Exists) return;
@@ -57,11 +62,7 @@ namespace NSMBe4.Patcher
             fs.Read(newdata, 0, (int)fs.Length);
             fs.Close();
 
-
             ByteArrayOutputStream extradata = new ByteArrayOutputStream();
-
-            int codeAddr = (int) handler.readFromRamAddr(ArenaLoOffs);
-            Console.Out.WriteLine("Arena Lo Offs: [" + ArenaLoOffs.ToString("X8") + "] = " + codeAddr.ToString("X8"));
 
             extradata.write(newdata);
             extradata.align(4);
@@ -109,12 +110,21 @@ namespace NSMBe4.Patcher
                         case "hook":
                             //Jump to the hook addr
                             thisHookAddr = hookAddr;
-                            val = makeBranchOpcode(ramAddr, hookAddr, true);
+                            val = makeBranchOpcode(ramAddr, hookAddr, false);
 
                             uint originalOpcode = handler.readFromRamAddr(ramAddr);
+                            
+                            //TODO: Parse and fix original opcode in case of BL instructions
+                            //so it's possible to hook over them too.
                             extradata.writeUInt(originalOpcode);
                             hookAddr += 4;
-                            extradata.writeUInt(makeBranchOpcode(hookAddr, destRamAddr, false));
+                            extradata.writeUInt(0xE92D5FFF); //push {r0-r12, r14}
+                            hookAddr += 4;
+                            extradata.writeUInt(makeBranchOpcode(hookAddr, destRamAddr, true));
+                            hookAddr += 4;
+                            extradata.writeUInt(0xE8BD5FFF); //pop {r0-r12, r14}
+                            hookAddr += 4;
+                            extradata.writeUInt(makeBranchOpcode(hookAddr, ramAddr+4, false));
                             hookAddr += 4;
                             extradata.writeUInt(0x12345678);
                             hookAddr += 4;
@@ -137,7 +147,6 @@ namespace NSMBe4.Patcher
 
             handler.sections.Add(new NSMBe4.DSFileSystem.Arm9BinSection(extradata.getArray(), codeAddr, 0));
             handler.saveSections();
-
         }
 
         private void loadArenaLoOffsFile(DirectoryInfo romdir)
@@ -146,6 +155,7 @@ namespace NSMBe4.Patcher
             StreamReader s = f.OpenText();
             string l = s.ReadLine();
             ArenaLoOffs = int.Parse(l, System.Globalization.NumberStyles.HexNumber);
+            s.Close();
         }
 
 
