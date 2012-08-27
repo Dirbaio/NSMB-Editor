@@ -258,6 +258,7 @@
     <Compile Include="TilesetEditor\BackgroundList.Designer.cs">
       <DependentUpon>BackgroundList.cs</DependentUpon>
     </Compile>
+    <Compile Include="TilesetEditor\TileBehavior.cs" />
     <Compile Include="TilesetEditor\TilesetList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -537,6 +538,9 @@
     <None Include="Resources\Icons\image.png" />
     <None Include="Resources\Icons\layer-flip.png" />
     <None Include="Resources\Icons\layer-flip-vertical.png" />
+    <None Include="behaviors.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="TilesetEditor\nsmbe.ico" />
     <None Include="Resources\file_ncg.png" />
     <None Include="Resources\file_ncl.png" />
