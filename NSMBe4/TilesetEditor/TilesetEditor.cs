@@ -33,6 +33,9 @@ namespace NSMBe4
         ushort TilesetID;
         List<string> descriptions;
         bool descExists;
+        
+        //Remind Freeze to delete this
+        ComboBox[] combos;
 
         public TilesetEditor(ushort TilesetID, string tilesetName) {
             InitializeComponent();
@@ -92,6 +95,44 @@ namespace NSMBe4
                 tilesetObjectEditor1.descBox.Text = descriptions[0]; //Fill the description box with that of the first object
             }
             this.Icon = Properties.Resources.nsmbe;
+
+            //Loads the Tile-behaviors from the "behaviors.txt" file.
+            loadBehaviorsFromFile();
+        }
+
+        //Remind freeze to delete this function when making the new Tilebehavrior system
+        private void loadBehaviorsFromFile()
+        {
+            System.IO.StreamReader bhReader = new System.IO.StreamReader("behaviors.txt", System.Text.Encoding.Default);
+            String curLine;
+            int comboBoxNumber = -1;
+            Label[] labs = { oneLab, twoLab, threeLab, fourLab, fiveLab, sixLab, sevenLab, eightLab };
+            combos = new ComboBox[] { one, two, three, four, five, six, seven, eight };
+            while (!bhReader.EndOfStream)
+            {
+                curLine = bhReader.ReadLine();
+                if(!curLine.Equals(""))
+                {
+                    if (!curLine.Contains(" - "))
+                    {
+                        comboBoxNumber++;
+                        labs[comboBoxNumber].Text = curLine;
+                    }
+                    else
+                    {
+                        String[] splitted = curLine.Split(new String[] {" - "}, StringSplitOptions.None);
+                        combos[comboBoxNumber].Items.Add(new TileBehavior(splitted[0], splitted[1]));
+                    }
+                }
+            }
+            comboBoxNumber++;
+            bhReader.Close();
+            for (; comboBoxNumber < combos.Length; comboBoxNumber++)
+            {
+                combos[comboBoxNumber].Visible = false;
+                labs[comboBoxNumber].Visible = false;
+            }
+
         }
 
         private void objectPickerControl1_ObjectSelected()
@@ -255,6 +296,9 @@ namespace NSMBe4
 
         private void tileBehaviorEditor_ValueChanged(byte[] val)
         {
+            //Remind freeze to delete this function when making the new Tilebehavrior system
+            clear_boxes(null);
+
             int newBehavior = 0;
             for (int i = 0; i < 4; i++)
                 newBehavior |= val[i] << (i * 8);
@@ -267,6 +311,70 @@ namespace NSMBe4
         private void imageManager1_SomethingSaved()
         {
             mustRepaintObjects();
+        }
+
+        //Remind freeze to delete this function when making the new Tilebehavrior system
+        private void clear_boxes(ComboBox notClear)
+        {
+            for (int count = 0; count < combos.Length; count++)
+            {
+                if (notClear == combos[count])
+                {
+                }
+                else
+                {
+                    combos[count].Text = "";
+                }
+            }
+        }
+
+        private void one_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)one.SelectedItem).getTb());
+            clear_boxes(one);
+
+        }
+
+        private void two_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)two.SelectedItem).getTb());
+            clear_boxes(two);
+        }
+
+        private void three_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)three.SelectedItem).getTb());
+            clear_boxes(three);
+        }
+
+        private void four_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)four.SelectedItem).getTb());
+            clear_boxes(four);
+        }
+
+        private void five_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)five.SelectedItem).getTb());
+            clear_boxes(five);
+        }
+
+        private void six_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)six.SelectedItem).getTb());
+            clear_boxes(six);
+        }
+
+        private void seven_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)seven.SelectedItem).getTb());
+            clear_boxes(seven);
+        }
+
+        private void eight_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tileBehaviorEditor.setArray(((TileBehavior)eight.SelectedItem).getTb());
+            clear_boxes(eight);
         }
 
     }
