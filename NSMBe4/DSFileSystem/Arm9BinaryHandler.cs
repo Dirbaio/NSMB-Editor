@@ -187,40 +187,73 @@ namespace NSMBe4.DSFileSystem
 
 
         
-        public void writeToRamAddr(int ramAddr, uint val)
+        public void writeToRamAddr(int ramAddr, uint val, int ov)
         {
-            Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}", ramAddr, val));
-
-            foreach (Arm9BinSection s in sections)
-                if(s.containsRamAddr(ramAddr))
-                {
-                    Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
-                    makeBinBackup(-1);
-                    s.writeToRamAddr(ramAddr, val);
-                    return;
-                }
-            foreach(OverlayFile of in fs.arm9ovs)
-                if(of.containsRamAddr(ramAddr))
-                {
-                    Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
-                    makeBinBackup((int)of.ovId);
-                    of.writeToRamAddr(ramAddr, val);
-                    return;
-                }
+			if(ov != -1)
+			{
+		        foreach(OverlayFile of in fs.arm9ovs)
+		        	if(of.ovId == ov)
+		        	{
+				        if(of.containsRamAddr(ramAddr))
+						{
+				            Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
+				            makeBinBackup((int)of.ovId);
+				            of.writeToRamAddr(ramAddr, val);
+				            return;
+						}
+			            else throw new Exception("WRITE: Overlay ID "+ov+" doesn't contain addr "+ramAddr+" :(");
+			        }
+			        
+	            throw new Exception("WRITE: Overlay ID "+ov+" not found :(");
+			}
+			else
+			{
+		        foreach (Arm9BinSection s in sections)
+		            if(s.containsRamAddr(ramAddr))
+		            {
+		                Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
+		                makeBinBackup(-1);
+		                s.writeToRamAddr(ramAddr, val);
+		                return;
+		            }
+		        foreach(OverlayFile of in fs.arm9ovs)
+		            if(of.containsRamAddr(ramAddr))
+		            {
+		                Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
+		                makeBinBackup((int)of.ovId);
+		                of.writeToRamAddr(ramAddr, val);
+		                return;
+		            }
+            }
             throw new Exception("WRITE: Addr "+ramAddr+" is not in arm9 binary or overlays");
         }
 
-        public uint readFromRamAddr(int ramAddr)
+        public uint readFromRamAddr(int ramAddr, int ov)
         {
-            foreach (Arm9BinSection s in sections)
-                if(s.containsRamAddr(ramAddr))
-                    return s.readFromRamAddr(ramAddr);
+			if(ov != -1)
+			{
+		        foreach(OverlayFile of in fs.arm9ovs)
+		        	if(of.ovId == ov)
+		        	{
+				        if(of.containsRamAddr(ramAddr))
+			                return of.readFromRamAddr(ramAddr);
+			            else throw new Exception("READ: Overlay ID "+ov+" doesn't contain addr "+ramAddr+" :(");
+			        }
+			        
+	            throw new Exception("READ: Overlay ID "+ov+" not found :(");
+			}
+			else
+			{
+		        foreach (Arm9BinSection s in sections)
+		            if(s.containsRamAddr(ramAddr))
+		                return s.readFromRamAddr(ramAddr);
 
-            foreach(OverlayFile of in fs.arm9ovs)
-                if(of.containsRamAddr(ramAddr))
-                    return of.readFromRamAddr(ramAddr);
+		        foreach(OverlayFile of in fs.arm9ovs)
+		            if(of.containsRamAddr(ramAddr))
+		                return of.readFromRamAddr(ramAddr);
 
-            throw new Exception("READ: Addr "+ramAddr+" is not in arm9 binary or overlays");
+		        throw new Exception("READ: Addr "+ramAddr+" is not in arm9 binary or overlays");
+		    }
         }
 
         public void makeBinBackup(int file)
@@ -228,6 +261,7 @@ namespace NSMBe4.DSFileSystem
             DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
             Console.Out.WriteLine("Backing up " + file + " "+dir.FullName);
             if (!dir.Exists)
+
                 dir.Create();
             
             
