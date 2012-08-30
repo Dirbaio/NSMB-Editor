@@ -301,6 +301,8 @@ namespace NSMBe4
         private void behaviorList_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
+            if (e.Index == -1)
+                return;
             TileBehavior item = (TileBehavior)behaviorList.Items[e.Index];
             System.Drawing.Font newFont = behaviorList.Font;
             Color backColor = e.BackColor;
