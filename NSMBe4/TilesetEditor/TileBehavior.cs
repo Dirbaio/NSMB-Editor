@@ -49,9 +49,11 @@ namespace NSMBe4
                         }
                     }
                 }
+                sr.Close();
             }
             catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show("Error reading tile behavior file. The error is: \n" + ex.Message);
             }
             return behaviors;
         }
