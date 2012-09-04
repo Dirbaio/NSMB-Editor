@@ -95,7 +95,7 @@ namespace NSMBe4
             this.Icon = Properties.Resources.nsmbe;
 
             //Loads the Tile-behaviors from the "behaviors.txt" file.
-            behaviorList.Items.AddRange(TileBehavior.readFromFile("behaviors.txt").ToArray());
+            behaviorList.Items.AddRange(TileBehavior.readFromFile(System.IO.Path.Combine(Application.StartupPath, "behaviors.txt")).ToArray());
         }
 
         private void objectPickerControl1_ObjectSelected()

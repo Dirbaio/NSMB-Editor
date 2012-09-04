@@ -21,6 +21,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Net;
+using System.Xml;
 
 namespace NSMBe4
 {
@@ -28,6 +29,9 @@ namespace NSMBe4
     {
         public static Dictionary<int, SpriteData> datas = new Dictionary<int,SpriteData>();
         public static List<string> spriteNames = new List<string>();
+        public static List<int> categoryIds = new List<int>();
+        public static List<string> categories = new List<string>();
+        public static Dictionary<int, List<int>> spritesInCategory = new Dictionary<int, List<int>>();
 
         int spriteID;
         int categoryID;
@@ -69,17 +73,17 @@ namespace NSMBe4
         {
             try
             {
-                string data = DownloadWebPage("http://nsmbhd.net/spritedata.php");
+                string data = DownloadWebPage("http://nsmbhd.net/spritexml.php");
                 
                 if (data.Trim() == "")
                     throw new Exception("Got empty data");
 
-                FileStream fs = new FileStream("spritedata.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+                FileStream fs = new FileStream("spritedata.xml", FileMode.Create, FileAccess.Write, FileShare.None);
                 StreamWriter sw = new StreamWriter(fs);
                 sw.Write(data);
                 sw.Close();
                 fs.Close();
-                MessageBox.Show("Spritedata.txt has successfully been updated.");
+                MessageBox.Show("Spritedata.xml has successfully been updated.");
             }
             catch (Exception e)
             {
@@ -90,79 +94,79 @@ namespace NSMBe4
         public static void Load()
         {
             datas = new Dictionary<int, SpriteData>();
+            string filename = System.IO.Path.Combine(Application.StartupPath, "spritedata.xml");
 
-            if (!File.Exists("./spritedata.txt"))
+            if (!File.Exists(filename))
             {
-                if (MessageBox.Show("spritedata.txt not found. Do you want to download it?", "Hello!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("spritedata.xml not found. Do you want to download it?", "Hello!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     update();
                 else
                     return;
             }
             try
             {
-                FileStream fs = new FileStream("./spritedata.txt", FileMode.Open, FileAccess.Read, FileShare.Read);
-                StreamReader sr = new StreamReader(fs);
+                FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                XmlReader xmlr = XmlReader.Create(fs);
 
-
-                SpriteData d = readFromStream(sr);
-                while (d != null && !sr.EndOfStream)
+                xmlr.ReadToFollowing("category");
+                do
                 {
-                    datas.Add(d.spriteID, d);
-                    d = readFromStream(sr);
+                    int id = int.Parse(xmlr.GetAttribute("id"));
+                    categoryIds.Add(id);
+                    categories.Add(xmlr.ReadElementContentAsString());
+                    spritesInCategory.Add(id, new List<int>());
+                } while (xmlr.ReadToNextSibling("category"));
+
+                while (xmlr.ReadToFollowing("sprite"))
+                {
+                    SpriteData d = readFromStream(xmlr);
+                    if (d != null)
+                        datas.Add(d.spriteID, d);
                 }
 
+                xmlr.Close();
                 fs.Close();
-                sr.Close();
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error parsing spritedata.txt:\n" + e.Message + "\n"+e.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error parsing spritedata.xml:\n" + e.Message + "\n"+e.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 datas.Clear();
             }
         } 
         
-        public static SpriteData readFromStream(StreamReader sr)
+        public static SpriteData readFromStream(XmlReader xmlr)
         {
-            string header = sr.ReadLine();
-            if (header == "end") return null;
-
-            string[] headerA = header.Split(new char[]{';'});
-
             SpriteData sd = new SpriteData();
-            sd.spriteID = Int32.Parse(headerA[0]);
-            sd.name     = headerA[1].Trim();
+
+            sd.spriteID = int.Parse(xmlr.GetAttribute("id"));
+            xmlr.ReadToFollowing("name");
+            sd.name = xmlr.ReadElementContentAsString();
             spriteNames.Add(sd.name);
-
-            sd.categoryID = Int32.Parse(headerA[2]);
-            sd.notes = headerA[3].Replace('@', '\n').Trim();
-
-            int fieldCount = Int32.Parse(headerA[4]);
-
-            for (int i = 0; i < fieldCount; i++)
+            xmlr.ReadToFollowing("category");
+            sd.categoryID = int.Parse(xmlr.GetAttribute("id"));
+            spritesInCategory[sd.categoryID].Add(sd.spriteID);
+            xmlr.ReadToFollowing("notes");
+            sd.notes = xmlr.ReadElementContentAsString();
+            while (xmlr.ReadToNextSibling("field"))
             {
                 SpriteDataField f = new SpriteDataField();
-                string[] field = sr.ReadLine().Split(new char[] { ';' });
-
-                f.display = field[0].Trim();
-                
-                string nibbles = field[1].Trim();
-
-                if (nibbles.IndexOf('-') == -1)
-                    f.startNibble = f.endNibble = Int32.Parse(nibbles);
-                else
+                f.display = xmlr.GetAttribute("type");
+                f.name = xmlr.GetAttribute("name");
+                f.notes = xmlr.GetAttribute("notes");
+                string nybbles = xmlr.GetAttribute("id");
+                if (nybbles.Contains("-"))
                 {
-                    string[] nibblesA = nibbles.Split(new char[]{'-'});
-                    f.startNibble = Int32.Parse(nibblesA[0].Trim());
-                    f.endNibble = Int32.Parse(nibblesA[1].Trim());
+                    string[] nybbles2 = nybbles.Split('-');
+                    f.startNibble = int.Parse(nybbles2[0]);
+                    f.endNibble = int.Parse(nybbles2[1]);
                 }
-
-                f.name = field[3];
-                f.notes = field[4].Replace('@', '\n').Trim();
-
+                else
+                    f.startNibble = f.endNibble = int.Parse(nybbles);
+                string values = xmlr.GetAttribute("values");
                 switch (f.display)
                 {
                     case "list":
-                        string[] items = field[2].Split(new char[] { ',' });
+                        string[] items = values.Split(',');
                         f.values = new int[items.Length];
                         f.strings = new string[items.Length];
 
@@ -173,28 +177,28 @@ namespace NSMBe4
                             f.strings[j] = lulz[1];
                         }
                         break;
-                    case "signedvalue": 
-                        if (field[2].Trim() == "")
+                    case "signedvalue":
+                        if (values.Trim() == "")
                             f.data = 0;
                         else
-                            f.data = Int32.Parse(field[2]);
+                            f.data = Int32.Parse(values);
                         break;
                     case "value":
-                        if (field[2].Trim() == "")
+                        if (values.Trim() == "")
                             f.data = 0;
                         else
-                            f.data = Int32.Parse(field[2]);
+                            f.data = Int32.Parse(values);
                         break;
                     case "checkbox":
-                        if (field[2].Trim() == "")
+                        if (values.Trim() == "")
                             f.data = 1;
                         else
-                            f.data = Int32.Parse(field[2]);
+                            f.data = Int32.Parse(values);
                         break;
                 }
-
                 sd.fields.Add(f);
             }
+
             return sd;
         }
 
