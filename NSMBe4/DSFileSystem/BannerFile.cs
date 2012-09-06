@@ -21,7 +21,8 @@ using System.Text;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class BannerFile:File
+	//Seriouisy, wtf.
+    public class BannerFile : PhysicalFile
     {
         public BannerFile(Filesystem parent, Directory parentDir, File headerFile)
             : base(parent, parentDir, true, -8, "banner.bin", headerFile, 0x68, 0, true)

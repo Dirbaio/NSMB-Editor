@@ -21,7 +21,9 @@ using System.Text;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class OverlayFile : File
+	//This one needs to die too.
+	//Should be an adapter over a PhysicalFile.
+    public class OverlayFile : PhysicalFile
     {
 
         public File ovTableFile;

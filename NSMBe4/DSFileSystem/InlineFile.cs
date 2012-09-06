@@ -21,7 +21,7 @@ using System.Text;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class InlineFile : File
+    public class InlineFile : PhysicalFile
     {
         private int inlineOffs;
         private int inlineLen;

@@ -22,7 +22,7 @@ using System.IO;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class HeaderFile : File
+    public class HeaderFile : PhysicalFile
     {
         public HeaderFile(Filesystem parent, Directory parentDir)
             : base(parent, parentDir, true, -1, "header.bin", 0, 0x15F)

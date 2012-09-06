@@ -58,7 +58,7 @@ namespace NSMBe4.DSFileSystem
             loadNamelessFiles(mainDir);
         }
 
-
+		//TODO: Find a better method of saving. Maybe on-demand (a button)?
         public override void fileMoved(File f)
         {
             source.save();
