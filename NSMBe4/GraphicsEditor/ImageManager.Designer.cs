@@ -195,7 +195,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 0;
-            this.label4.Text = "label3";
+            this.label4.Text = "Tile width";
             // 
             // tileWidthNumber
             // 
@@ -228,7 +228,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "label3";
+            this.label3.Text = "Tile offset";
             // 
             // panel2
             // 

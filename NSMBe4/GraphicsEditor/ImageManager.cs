@@ -30,6 +30,7 @@ namespace NSMBe4
         public ImageManager()
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "ImageManager");
         }
 
         public bool standalone = false;

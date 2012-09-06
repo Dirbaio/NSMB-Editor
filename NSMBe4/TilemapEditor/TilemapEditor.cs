@@ -32,6 +32,7 @@ namespace NSMBe4.TilemapEditor
         public TilemapEditor()
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "TilemapEditor");
         }
 
         public void load(Tilemap t)

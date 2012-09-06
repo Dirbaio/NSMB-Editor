@@ -223,7 +223,7 @@ namespace NSMBe4
             {
                 int x = Width - 16;
                 int y = obj.Y * 16 - 8 + obj.Height * 8 - vScrollBar1.Value;
-                toolTip1.ToolTipTitle = "Object " + obj.ObjNum;
+                toolTip1.ToolTipTitle = LanguageManager.Get("ObjectPickerControl", "Object") + obj.ObjNum;
                 string text = "";
                 if (gfx.Tilesets[tileset].UseNotes && obj.ObjNum < gfx.Tilesets[tileset].ObjNotes.Length)
                     text = gfx.Tilesets[tileset].ObjNotes[obj.ObjNum];
