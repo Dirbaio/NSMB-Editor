@@ -50,11 +50,8 @@ namespace NSMBe4
 
         public void UpdateInfo()
         {
-            if (SelectedObjects == null || SelectedObjects.Count == 0) {
-                deleteObjectButton.Enabled = false;
+            if (SelectedObjects == null || SelectedObjects.Count == 0)
                 return;
-            }
-            deleteObjectButton.Enabled = true;
             NSMBObject o = SelectedObjects[0] as NSMBObject;
             DataUpdateFlag = true;
 
@@ -74,25 +71,6 @@ namespace NSMBe4
             tileset0picker.reload();
             tileset1picker.reload();
             tileset2picker.reload();
-        }
-
-        private void addObjectButton_Click(object sender, EventArgs e)
-        {
-            Rectangle ViewableBlocks = EdControl.ViewableBlocks;
-            NSMBObject no = new NSMBObject(10, 0, ViewableBlocks.X + ViewableBlocks.Width / 2, ViewableBlocks.Y + ViewableBlocks.Height / 2, 1, 1, EdControl.GFX);
-            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(no)));
-            EdControl.mode.SelectObject(no);
-        }
-
-        private void deleteObjectButton_Click(object sender, EventArgs e)
-        {
-            List<LevelItem> objs = new List<LevelItem>();
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBObject)
-                    objs.Add(obj as NSMBObject);
-            foreach (LevelItem obj in objs)
-                SelectedObjects.Remove(obj);
-            EdControl.UndoManager.Do(new RemoveLvlItemAction(objs));
         }
 
         private void setObjectType(int til, int obj)

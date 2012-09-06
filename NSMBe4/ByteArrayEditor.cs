@@ -61,6 +61,7 @@ namespace NSMBe4
             DataUpdateFlag = false;
             box.Enabled = true;
             box.BackColor = SystemColors.Window;
+            ValueChanged(array);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -27,12 +27,13 @@ namespace NSMBe4
 {
     public partial class SpriteEditor : UserControl
     {
-        List<LevelItem> SelectedObjects;
+        List<LevelItem> SelectedObjects = new List<LevelItem>();
         private LevelEditorControl EdControl;
         private byte[] SSTable;
         private bool updating = false;
 
-        public string[] allSprites = new string[ROM.SpriteCount];
+        public string[] spritelist = new string[ROM.SpriteCount];
+        public List<int> allSprites = new List<int>();
         private List<int> curSprites = new List<int>();
 
         public SpriteEditor(LevelEditorControl EdControl)
@@ -42,7 +43,6 @@ namespace NSMBe4
 
             SSTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
-            string[] spritelist = new string[ROM.SpriteCount];
             int i = 0;
             foreach (string sprite in SpriteData.spriteNames)
             {
@@ -50,15 +50,15 @@ namespace NSMBe4
                 i++;
             }
             if (SpriteData.spriteNames.Count == 0)
-            {
                 for (int s = 0; s < ROM.SpriteCount; s++)
                     spritelist[s] = "Sprite " + s;
-            }
 
-            spriteListBox.Items.AddRange(spritelist);
-            spriteListBox.Items.CopyTo(allSprites, 0);
             for (int l = 0; l < ROM.SpriteCount; l++)
                 curSprites.Add(l);
+            categoryList.Items.Add("All");
+            foreach (string cat in SpriteData.categories)
+                categoryList.Items.Add(cat);
+            categoryList.SelectedIndex = 0;
 
             UpdateDataEditor();
             UpdateInfo();
@@ -112,12 +112,10 @@ namespace NSMBe4
         {
             if (SelectedObjects == null || SelectedObjects.Count == 0)
             {
-                deleteSpriteButton.Enabled = false;
                 tableLayoutPanel1.Visible = false;
                 spriteDataPanel.Visible = false;
                 return;
             }
-            deleteSpriteButton.Enabled = true;
             tableLayoutPanel1.Visible = true;
             spriteDataPanel.Visible = true;
             updating = true;
@@ -144,29 +142,6 @@ namespace NSMBe4
             if (updating) return;
             if (spriteListBox.SelectedIndex > -1)
                 spriteTypeUpDown.Value = curSprites[spriteListBox.SelectedIndex];
-        }
-
-        private void addSpriteButton_Click(object sender, EventArgs e)
-        {
-            Rectangle ViewableBlocks = EdControl.ViewableBlocks;
-            NSMBSprite ns = new NSMBSprite(EdControl.Level);
-            ns.X = ViewableBlocks.X + ViewableBlocks.Width / 2;
-            ns.Y = ViewableBlocks.Y + ViewableBlocks.Height / 2;
-            ns.Type = 0;
-            ns.Data = new byte[6];
-            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ns)));
-            EdControl.mode.SelectObject(ns);
-        }
-
-        private void deleteSpriteButton_Click(object sender, EventArgs e)
-        {
-            List<LevelItem> sprites = new List<LevelItem>();
-            foreach (LevelItem obj in SelectedObjects)
-                if (obj is NSMBSprite)
-                    sprites.Add(obj as NSMBSprite);
-            foreach (LevelItem obj in sprites)
-                SelectedObjects.Remove(obj);
-            EdControl.UndoManager.Do(new RemoveLvlItemAction(sprites));
         }
 
         private void spriteListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -224,14 +199,14 @@ namespace NSMBe4
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             curSprites.Clear();
-            for (int l = 0; l < allSprites.Length; l++) {
-                if (allSprites[l].ToLowerInvariant().Contains(searchBox.Text.ToLowerInvariant()))
-                    curSprites.Add(l);
+            for (int l = 0; l < allSprites.Count; l++) {
+                if (spritelist[allSprites[l]].ToLowerInvariant().Contains(searchBox.Text.ToLowerInvariant()))
+                    curSprites.Add(allSprites[l]);
             }
             spriteListBox.Items.Clear();
             List<string> items = new List<string>();
             for (int l = 0; l < curSprites.Count; l++)
-                items.Add(allSprites[curSprites[l]]);
+                items.Add(spritelist[curSprites[l]]);
             spriteListBox.Items.AddRange(items.ToArray());
             spriteListBox.SelectedIndex = curSprites.IndexOf(getSpriteType());
             if (curSprites.Count > 0)
@@ -269,6 +244,18 @@ namespace NSMBe4
             if (spriteListBox.SelectedIndex == -1)
                 return -1;
             return curSprites[spriteListBox.SelectedIndex];
+        }
+
+        private void categoryList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            allSprites.Clear();
+            if (categoryList.SelectedIndex == 0)
+                for(int l = 0; l < ROM.SpriteCount; l++)
+                allSprites.Add(l);
+            else
+                foreach (int spriteId in SpriteData.spritesInCategory[SpriteData.categoryIds[categoryList.SelectedIndex - 1]])
+                    allSprites.Add(spriteId);
+            textBox1_TextChanged(sender, e);
         }
     }
 }
