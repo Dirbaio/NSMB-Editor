@@ -25,12 +25,12 @@ namespace NSMBe4.Patcher
     public class PatchMaker
     {
         private int ArenaLoOffs;
-        NSMBe4.DSFileSystem.Arm9BinaryHandler handler;
+        Arm9BinaryHandler handler;
         DirectoryInfo romdir;
 
         public PatchMaker(DirectoryInfo romdir)
         {
-            handler = new DSFileSystem.Arm9BinaryHandler(ROM.FS);
+            handler = new Arm9BinaryHandler(ROM.FS);
             this.romdir = romdir;
         }
 
@@ -145,7 +145,7 @@ namespace NSMBe4.Patcher
             int newArenaOffs = codeAddr + extradata.getPos();
             handler.writeToRamAddr(ArenaLoOffs, (uint)newArenaOffs, -1);
 
-            handler.sections.Add(new NSMBe4.DSFileSystem.Arm9BinSection(extradata.getArray(), codeAddr, 0));
+            handler.sections.Add(new Arm9BinSection(extradata.getArray(), codeAddr, 0));
             handler.saveSections();
         }
 

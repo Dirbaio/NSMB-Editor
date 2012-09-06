@@ -16,7 +16,7 @@
 */
 
 ﻿
-namespace NSMBe4.DSFileSystem
+namespace NSMBe4.Patcher
 {
     public class Arm9BinSection
     {
