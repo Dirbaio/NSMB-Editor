@@ -61,7 +61,7 @@ namespace NSMBe4
             Array.Copy(s.Data, Data, 6);
         }
 
-        private static int[] AlwaysDrawNums = { 68, 69, 73, 141, 226 };
+        private static int[] AlwaysDrawNums = { 68, 69, 73, 141, 226, 305, 306 };
         private static int[] TileCreateNums = { 0x670, 0x500, 0, 0x1B0, 0x190, 0x670, 0xC50, 0xD70, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x180 };
 
         public bool AlwaysDraw() {
@@ -883,6 +883,9 @@ namespace NSMBe4
                     x -= 128;
                     width = 144; height = 64;
                     break;
+                //case 305:
+                //case 306:
+                //    These are still selected with the original sprite icon
                 case 312:
                     width = (Data[5] % 0x10 + 2) * 16;
                     x -= (width - 16) / 2;
@@ -2098,6 +2101,28 @@ namespace NSMBe4
                 case 304:
                     g.DrawImage(Properties.Resources.GiantSpike, RenderX, RenderY - 128, 64, 144);
                     break;
+                case 305:
+                    customRendered = false;
+                    RenderX2 = ((Data[4] >> 4) + ((Data[4] & 0xF) << 4)) * 16;
+                    if (RenderX2 != 0) {
+                        g.FillRectangle(Brushes.Black, RenderX, RenderY + 6, RenderX2, 4);
+                        g.FillRectangle(Brushes.Black, RenderX + RenderX2 - 4, RenderY, 4, 10);
+                        g.FillRectangle(Brushes.White, RenderX + 1, RenderY + 7, RenderX2 - 2, 2);
+                        g.FillRectangle(Brushes.White, RenderX + RenderX2 - 3, RenderY + 1, 2, 8);
+                    }
+                    renderDefaultImg(g, RenderX, RenderY);
+                    break;
+                case 306:
+                    customRendered = false;
+                    RenderX2 = (Data[5] & 0xF0) - 16;
+                    if (RenderX2 != 0) {
+                        g.FillRectangle(Brushes.Black, RenderX + 6, RenderY - RenderX2, 4, RenderX2 + 16);
+                        g.FillRectangle(Brushes.Black, RenderX, RenderY - RenderX2, 16, 4);
+                        g.FillRectangle(Brushes.White, RenderX + 7, RenderY - RenderX2 + 1, 2, RenderX2 + 14);
+                        g.FillRectangle(Brushes.White, RenderX + 1, RenderY - RenderX2 + 1, 14, 2);
+                    }
+                    renderDefaultImg(g, RenderX, RenderY);
+                    break;
                 case 261:
                 case 307:
                     img = Properties.Resources.GiantSpike;
@@ -2144,12 +2169,7 @@ namespace NSMBe4
                     break;
                 default:
                     customRendered = false;
-                    if (Level.ValidSprites[this.Type])
-                        img = Properties.Resources.sprite;
-                    else
-                        img = Properties.Resources.sprite_invalid;
-                    g.DrawImage(img, RenderX, RenderY, 16, 16);
-                    g.DrawString(Type.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, (float)RenderX, (float)RenderY);
+                    renderDefaultImg(g, RenderX, RenderY);
                     break;
             }
 
@@ -2159,6 +2179,17 @@ namespace NSMBe4
 
             //I dunno what's this user for. ~Dirbaio
 //            return customRendered;
+        }
+
+        private void renderDefaultImg(Graphics g, int RenderX, int RenderY)
+        {
+            Bitmap img;
+            if (Level.ValidSprites[this.Type])
+                img = Properties.Resources.sprite;
+            else
+                img = Properties.Resources.sprite_invalid;
+            g.DrawImage(img, RenderX, RenderY, 16, 16);
+            g.DrawString(Type.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, (float)RenderX, (float)RenderY);
         }
 
         private static Bitmap RotateBitmap(Bitmap b, float angle)
