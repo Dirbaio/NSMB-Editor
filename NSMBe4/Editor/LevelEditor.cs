@@ -57,6 +57,9 @@ namespace NSMBe4 {
             // these need to be added manually
             reloadTilesets.Text = LanguageManager.Get("LevelEditor", "reloadTilesets");
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
+            setBgImageButton.Text = LanguageManager.Get("LevelEditor", "setBgImageButton");
+            removeBgButton.Text = LanguageManager.Get("LevelEditor", "removeBgButton");
+            moveBGToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "moveBGToolStripMenuItem");
 
             levelEditorControl1.LoadUndoManager(undoButton, redoButton);
 

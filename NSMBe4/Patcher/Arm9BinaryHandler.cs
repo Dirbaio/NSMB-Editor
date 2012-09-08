@@ -18,9 +18,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
+using NSMBe4.DSFileSystem;
 
-namespace NSMBe4.DSFileSystem
+namespace NSMBe4.Patcher
 {
     public class Arm9BinaryHandler
     {
@@ -258,24 +258,22 @@ namespace NSMBe4.DSFileSystem
 
         public void makeBinBackup(int file)
         {
-            DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
+            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
             Console.Out.WriteLine("Backing up " + file + " "+dir.FullName);
             if (!dir.Exists)
-
                 dir.Create();
             
-            
             dir = ROM.romfile.Directory;
-            FileStream fs;
+            System.IO.FileStream fs;
 
             try
             {
                 if (file == -1)
-                    fs = new FileStream(dir.FullName + "/bak/" + "main.bin", FileMode.CreateNew);
+                    fs = new System.IO.FileStream(dir.FullName + "/bak/" + "main.bin", System.IO.FileMode.CreateNew);
                 else
-                    fs = new FileStream(dir.FullName + "/bak/" + file + ".bin", FileMode.CreateNew);
+                    fs = new System.IO.FileStream(dir.FullName + "/bak/" + file + ".bin", System.IO.FileMode.CreateNew);
             }
-            catch (IOException) {return;}
+            catch (System.IO.IOException) {return;}
 
             File f = ROM.FS.arm9binFile;
             if (file != -1)
@@ -290,10 +288,10 @@ namespace NSMBe4.DSFileSystem
 
         public void restoreFromBackup()
         {
-            DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
+            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
             if (!dir.Exists) return;
 
-            foreach (FileInfo f in dir.GetFiles())
+            foreach (System.IO.FileInfo f in dir.GetFiles())
             {
                 string n = f.Name;
                 if (!n.EndsWith(".bin")) continue;
@@ -313,7 +311,7 @@ namespace NSMBe4.DSFileSystem
                 if (ff == null) continue;
 
                 Console.Out.WriteLine("Restoring " + f + ", " + ff.name);
-                FileStream fs = f.OpenRead();
+                System.IO.FileStream fs = f.OpenRead();
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, data.Length);
                 fs.Close();
