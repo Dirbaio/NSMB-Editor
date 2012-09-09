@@ -41,6 +41,8 @@ namespace NSMBe4.TilemapEditor
             panel1.Width = t.width * 8 + 30;
             tilePicker1.init(t.buffers, 8);
             tilemapEditorControl1.picker = tilePicker1;
+            tilemapEditorControl1.undobutton = undoButton;
+            tilemapEditorControl1.redobutton = redoButton;
             tilemapEditorControl1.load(t);
         }
 
