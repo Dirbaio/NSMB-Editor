@@ -61,10 +61,12 @@ namespace NSMBe4.DSFileSystem
         public new void Load(Filesystem fs)
         {
             this.fs = fs;
-            fs.viewer = this;
+
             TreeNode main = new TreeNode(fs.mainDir.name, 0, 0);
             main.Tag = fs.mainDir;
+
             loadDir(main, fs.mainDir);
+
             fileTreeView.Nodes.Clear();
             fileTreeView.Nodes.Add(main);
         }
@@ -131,7 +133,7 @@ namespace NSMBe4.DSFileSystem
             else
             {
                 File f = n.Tag as File;
-                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FileStatus"), f.fileBegin.ToString("X"), f.fileSize.ToString(), f.id);
+                StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FileStatus"), (f is PhysicalFile)?((PhysicalFile)f).fileBegin.ToString("X"):"?", f.fileSize.ToString(), f.id);
                 e = true;
             }
 

@@ -25,10 +25,10 @@ namespace NSMBe4.DSFileSystem
     public class BannerFile : PhysicalFile
     {
         public BannerFile(Filesystem parent, Directory parentDir, File headerFile)
-            : base(parent, parentDir, true, -8, "banner.bin", headerFile, 0x68, 0, true)
+            : base(parent, parentDir, -8, "banner.bin", headerFile, 0x68, 0, true)
         {
             endFile = null;
-            fileSize = 0x840;
+            fileSizeP = 0x840;
             refreshOffsets();
         }
 

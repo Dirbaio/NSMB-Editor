@@ -24,9 +24,9 @@ namespace NSMBe4.DSFileSystem
 {
     public class NitroROMFilesystem : NitroFilesystem
     {
-        public File arm7binFile, arm7ovFile, arm9ovFile, bannerFile;
-        public File arm9binFile;
-        public File rsaSigFile;
+        public PhysicalFile arm7binFile, arm7ovFile, arm9ovFile, bannerFile;
+        public PhysicalFile arm9binFile;
+        public PhysicalFile rsaSigFile;
 
         public HeaderFile headerFile;
         public OverlayFile[] arm7ovs, arm9ovs;
@@ -40,19 +40,19 @@ namespace NSMBe4.DSFileSystem
         {
             headerFile = new HeaderFile(this, mainDir);
 
-            fntFile = new File(this, mainDir, true, -1, "fnt.bin", headerFile, 0x40, 0x44, true);
-            fatFile = new File(this, mainDir, true, -1, "fat.bin", headerFile, 0x48, 0x4C, true);
+            fntFile = new PhysicalFile(this, mainDir, -1, "fnt.bin", headerFile, 0x40, 0x44, true);
+            fatFile = new PhysicalFile(this, mainDir, -1, "fat.bin", headerFile, 0x48, 0x4C, true);
 
             base.load();
 
-            arm9ovFile = new File(this, mainDir, true, -1, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
-            arm7ovFile = new File(this, mainDir, true, -1, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
+            arm9ovFile = new PhysicalFile(this, mainDir, -1, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
+            arm7ovFile = new PhysicalFile(this, mainDir, -1, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
             //            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
-            //            File arm9binFile2 = new File(this, mainDir, true, -2, "arm9.bin", headerFile, 0x20, 0xC, true);
-            arm9binFile = new File(this, mainDir, true, -1, "arm9.bin", headerFile, 0x20, 0x2C, true);
+            //            File arm9binFile2 = new PhysicalFile(this, mainDir, true, -2, "arm9.bin", headerFile, 0x20, 0xC, true);
+            arm9binFile = new PhysicalFile(this, mainDir, -1, "arm9.bin", headerFile, 0x20, 0x2C, true);
             arm9binFile.alignment = 0x1000;
             arm9binFile.canChangeOffset = false;
-            arm7binFile = new File(this, mainDir, true, -1, "arm7.bin", headerFile, 0x30, 0x3C, true);
+            arm7binFile = new PhysicalFile(this, mainDir, -1, "arm7.bin", headerFile, 0x30, 0x3C, true);
             arm7binFile.alignment = 0x200; //Not sure what should be used here...
             bannerFile = new BannerFile(this, mainDir, headerFile);
             bannerFile.alignment = 0x200; //Not sure what should be used here...
@@ -65,7 +65,7 @@ namespace NSMBe4.DSFileSystem
                 headerFile.setUintAt(0x1000, rsaOffs);
             }
 
-            rsaSigFile = new File(this, mainDir, true, -1, "rsasig.bin", (int)rsaOffs, 136);
+            rsaSigFile = new PhysicalFile(this, mainDir, -1, "rsasig.bin", (int)rsaOffs, 136);
             rsaSigFile.canChangeOffset = false;
 
             addFile(headerFile);

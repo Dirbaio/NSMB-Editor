@@ -50,7 +50,7 @@ namespace NSMBe4.DSFileSystem
         public OverlayFile(Filesystem parent, Directory parentDir,
             int id,  File alFile, int alBeg, int alEnd,
             File ovTableFile, uint ovTableOffs)
-            : base(parent, parentDir, true, id, ":::", alFile, alBeg, alEnd)
+            : base(parent, parentDir, id, ":::", alFile, alBeg, alEnd)
         {
             this.nameP = string.Format(LanguageManager.Get("NitroClass", "OverlayFile"), 
                 id, ramAddr.ToString("X"), ramSize.ToString("X"));
@@ -79,12 +79,6 @@ namespace NSMBe4.DSFileSystem
                 endEdit(this);
                 isCompressed = false;
             }
-        }
-
-        public override void enableEdition()
-        {
-//            decompress();
-            base.enableEdition();
         }
 
         public bool containsRamAddr(int addr)

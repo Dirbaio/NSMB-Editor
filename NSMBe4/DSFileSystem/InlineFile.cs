@@ -21,7 +21,7 @@ using System.Text;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class InlineFile : PhysicalFile
+    public class InlineFile : File
     {
         private int inlineOffs;
         private int inlineLen;
@@ -42,31 +42,23 @@ namespace NSMBe4.DSFileSystem
         }
 
         public InlineFile(File parent, int offs, int len, string name, Directory parentDir, CompressionType comp)
-            : base(parent.parent, parentDir, parent.name + " - " + name + ":" + offs.ToString("X") + ":" + len.ToString("X"))
+            : base(parent.parent, parentDir, parent.name + " - " + name + ":" + offs.ToString("X") + ":" + len.ToString("X"), -1)
         {
             parentFile = parent;
             inlineOffs = offs;
             inlineLen = len;
             this.comp = comp;
-            this.fixedFile = true;
-            this.canChangeOffset = false;
-            refreshOffsets();
         }
 
         public override byte[] getContents()
         {
-            if (comp != CompressionType.NoComp)
-            {
-                byte[] data;
-                if(comp == CompressionType.LZWithHeaderComp)
-                    data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
-                else
-                    data = ROM.LZ77_Decompress(parentFile.getContents());
-                byte[] thisdata = new byte[inlineLen];
-                Array.Copy(data, inlineOffs, thisdata, 0, inlineLen);
-                return thisdata;
-            }
-            else return base.getContents();
+            byte[] data = parentFile.getContents();
+            if(comp == CompressionType.LZWithHeaderComp) data = ROM.LZ77_DecompressWithHeader(data);
+            else if(comp == CompressionType.LZComp) data = ROM.LZ77_Decompress(data);
+            
+            byte[] thisdata = new byte[inlineLen];
+            Array.Copy(data, inlineOffs, thisdata, 0, inlineLen);
+            return thisdata;
         }
 
         public override void replace(byte[] newFile, object editor)
@@ -74,17 +66,16 @@ namespace NSMBe4.DSFileSystem
             if (!isAGoodEditor(editor))
                 throw new Exception("NOT CORRECT EDITOR " + name);
 
-            if (comp != CompressionType.NoComp)
-            {
-                byte[] data;
-                if (comp == CompressionType.LZWithHeaderComp)
-                    data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
-                else
-                    data = ROM.LZ77_Decompress(parentFile.getContents());
-                Array.Copy(newFile, 0, data, inlineOffs, inlineLen);
-                parentFile.replace(ROM.LZ77_Compress(data, comp == CompressionType.LZWithHeaderComp), this);
-            }
-            else base.replace(newFile, editor);
+            byte[] data = parentFile.getContents();
+            if(comp == CompressionType.LZWithHeaderComp) data = ROM.LZ77_DecompressWithHeader(data);
+            else if(comp == CompressionType.LZComp) data = ROM.LZ77_Decompress(data);
+
+            Array.Copy(newFile, 0, data, inlineOffs, inlineLen);
+
+            if(comp == CompressionType.LZWithHeaderComp) data = ROM.LZ77_Compress(data, true);
+            else if(comp == CompressionType.LZComp) data = ROM.LZ77_Compress(data, false);
+
+            parentFile.replace(data, this);
         }
 
         public override void beginEdit(object editor)
@@ -99,20 +90,40 @@ namespace NSMBe4.DSFileSystem
             base.endEdit(editor);
         }
 
-        public override void refreshOffsets()
+        public override uint getUintAt(int offset)
         {
-            fileBegin = parentFile.fileBegin + inlineOffs;
-            fileSize = inlineLen;
+            if(offset + 4 > fileSize) throw new Exception("Offset out of file bounds");
+            return parentFile.getUintAt(offset + inlineOffs);
         }
 
-        public override void saveOffsets()
+        public override void setUintAt(int offset, uint val)
         {
+            if(offset + 4 > fileSize) throw new Exception("Offset out of file bounds");
+            parentFile.setUintAt(offset + inlineOffs, val);
         }
 
-        public override void enableEdition()
+        public override ushort getUshortAt(int offset)
         {
-            refreshOffsets(); // In case the parent file gets moved...
-            base.enableEdition();
+            if(offset + 2 > fileSize) throw new Exception("Offset out of file bounds");
+            return parentFile.getUshortAt(offset + inlineOffs);
+        }
+
+        public override void setUshortAt(int offset, ushort val)
+        {
+            if(offset + 2 > fileSize) throw new Exception("Offset out of file bounds");
+            parentFile.setUshortAt(offset + inlineOffs, val);
+        }
+
+        public override byte getByteAt(int offset)
+        {
+            if(offset + 1 > fileSize) throw new Exception("Offset out of file bounds");
+            return parentFile.getByteAt(offset + inlineOffs);
+        }
+
+        public override void setByteAt(int offset, byte val)
+        {
+            if(offset + 1 > fileSize) throw new Exception("Offset out of file bounds");
+            parentFile.setByteAt(offset + inlineOffs, val);
         }
     }
 }

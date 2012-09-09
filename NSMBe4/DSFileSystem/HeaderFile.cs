@@ -25,16 +25,16 @@ namespace NSMBe4.DSFileSystem
     public class HeaderFile : PhysicalFile
     {
         public HeaderFile(Filesystem parent, Directory parentDir)
-            : base(parent, parentDir, true, -1, "header.bin", 0, 0x15F)
+            : base(parent, parentDir, -1, "header.bin", 0, 0x15F)
         {
 
         }
 
         public void UpdateCRC16()
         {
+        	byte[] contents = getContents();
             byte[] header = new byte[0x15E];
-            parent.s.Seek(0, SeekOrigin.Begin);
-            parent.s.Read(header, 0, 0x15E);
+            Array.Copy(contents, 0, header, 0, 0x15E);
             
             ushort crc16 = ROM.CalcCRC16(header);
             setUshortAt(0x15E, crc16);

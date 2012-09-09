@@ -412,7 +412,7 @@ namespace NSMBe4 {
             this.makeinsert.TabIndex = 3;
             this.makeinsert.Text = "Run \'make\' and insert";
             this.makeinsert.UseVisualStyleBackColor = true;
-            this.makeinsert.Click += new System.EventHandler(this.padarm7bin_Click);
+            this.makeinsert.Click += new System.EventHandler(this.makeinsert_Click);
             // 
             // decompArm9Bin
             // 

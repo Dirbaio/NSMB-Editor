@@ -22,9 +22,9 @@ using System.IO;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class NitroFilesystem : Filesystem
+    public class NitroFilesystem : PhysicalFilesystem
     {
-        public File fatFile, fntFile;
+        public PhysicalFile fatFile, fntFile;
 
         public NitroFilesystem(FilesystemSource s)
             : base(s)
@@ -35,9 +35,7 @@ namespace NSMBe4.DSFileSystem
 
         public virtual void load()
         {
-            
             addDir(mainDir);
-
 
             addFile(fntFile);
             mainDir.childrenFiles.Add(fntFile);
@@ -120,7 +118,7 @@ namespace NSMBe4.DSFileSystem
         {
             int beginOffs = fileID * 8;
             int endOffs = fileID * 8 + 4;
-            File f = new File(this, parent, false, fileID, fileName, fatFile, beginOffs, endOffs);
+            File f = new PhysicalFile(this, parent, fileID, fileName, fatFile, beginOffs, endOffs);
             parent.childrenFiles.Add(f);
             addFile(f);
             return f;

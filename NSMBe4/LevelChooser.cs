@@ -242,18 +242,6 @@ namespace NSMBe4 {
             bw.Close();
         }
 
-        private void changeLanguageButton_Click(object sender, EventArgs e) {
-            if (languageListBox.SelectedItem != null) {
-                Properties.Settings.Default.LanguageFile = languageListBox.SelectedItem.ToString();
-                Properties.Settings.Default.Save();
-
-                    MessageBox.Show(
-                        LanguageManager.Get("LevelChooser", "LangChanged"),
-                        LanguageManager.Get("LevelChooser", "LangChangedTitle"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
         private DataFinder DataFinderForm;
 
         private void dataFinderButton_Click(object sender, EventArgs e) {
@@ -456,27 +444,6 @@ namespace NSMBe4 {
             MessageBox.Show(LanguageManager.Get("General", "Completed"));
         }
 
-        /*
-        private void patchNarcTilesets(string narc, string level, string prefix, string lowername, string uppername, string nscprefix, bool hasFG)
-        {
-            NSMBLevel lvl = new NSMBLevel(ROM.FS.getFileByName(level+".bin"), ROM.FS.getFileByName(level+"_bgdat.bin"), null);
-            NarcReplace(narc, prefix + lowername + ".bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
-            NarcReplace(narc, prefix + lowername + "_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
-            NarcReplace(narc, uppername+"MainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
-            NarcReplace(narc, "d_2d_"+prefix+"tikei_"+lowername+"_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
-            NarcReplace(narc, "d_2d_"+prefix+"tikei_"+lowername+"_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
-            NarcReplace(narc, "d_2d_PA_"+prefix+lowername+".bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
-
-            NarcReplace(narc, "d_2d_I_M_back_nohara_VS_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NSC));
-            NarcReplace(narc, "d_2d_I_M_back_nohara_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
-            NarcReplace(narc, "d_2d_I_M_back_nohara_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
-
-            NarcReplace(narc, "d_2d_I_M_free_nohara_VS_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_FG_NSC));
-            NarcReplace(narc, "d_2d_I_M_free_nohara_VS_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_FG_NCG));
-            NarcReplace(narc, "d_2d_I_M_free_nohara_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_FG_NCL));
-
-        }*/
-
         private void mpPatch2_Click(object sender, EventArgs e)
         {
             NSMBLevel lvl = new NSMBLevel(ROM.FS.getFileByName("J01_1.bin"), ROM.FS.getFileByName("J01_1_bgdat.bin"), null);
@@ -598,135 +565,26 @@ namespace NSMBe4 {
             new TilesetChooser().Show();
         }
 
+		//ASM Tools
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
             Arm9BinaryHandler bh = new Arm9BinaryHandler(ROM.FS);
             bh.decompress();
         }
 
-        private void padarm7bin_Click(object sender, EventArgs e)
+        private void makeinsert_Click(object sender, EventArgs e)
         {
             PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
             pm.compilePatch();
             pm.generatePatch();
         }
 
-        private void parseFileListBtn_Click(object sender, EventArgs e)
+        private void makeclean_Click(object sender, EventArgs e)
         {
-            if (openTextFileDialog.ShowDialog() != DialogResult.OK)
-                return;
-
-            StreamReader sr = new StreamReader(openTextFileDialog.OpenFile());
-            StreamWriter sw = new StreamWriter(openTextFileDialog.FileName + ".parsed.txt");
-            while (!sr.EndOfStream)
-            {
-                string l = sr.ReadLine();
-
-                string addrs, sizs;
-
-                if (l.Length == 22)
-                {
-                    addrs = l.Substring(5, 8);
-                    sizs = l.Substring(14, 8);
-                }
-                else if (l.Length == 22 + 8 * 2 + 2)
-                {
-                    addrs = l.Substring(5 + 18, 8);
-                    sizs = l.Substring(14 + 18, 8);
-                }
-                else
-                {
-                    sw.WriteLine(l);
-                    continue;
-                }
-
-                int addr = int.Parse(addrs, System.Globalization.NumberStyles.HexNumber);
-                int siz = int.Parse(sizs, System.Globalization.NumberStyles.HexNumber);
-
-                NSMBe4.DSFileSystem.File found = null;
-                foreach (NSMBe4.DSFileSystem.File f in ROM.FS.allFiles)
-                {
-                    if (f.isAddrInFile(addr))
-                        found = f;
-                }
-
-                sw.Write(l + " ");
-                int fileoffs = addr - found.fileBegin;
-                if (fileoffs == 0 && siz == found.fileSize)
-                    //        12345678 
-                    sw.Write("ALL      ");
-                else
-                    sw.Write(fileoffs.ToString("X8")+" ");
-                sw.Write(found.name);
-                sw.WriteLine();
-            }
-
-            sw.Close();
-            sr.Close();
+            PatchCompiler.cleanPatch(ROM.romfile.Directory);
         }
-
-        private void encryptFAT_Click(object sender, EventArgs e)
-        {
-            //LOL. Nothing for you here.
-            String path = ROM.romfile.Directory.FullName;
-            FileStream fs = new FileStream(path + "/introload.arm9", FileMode.Open);
-            byte[] arm9 = new byte[fs.Length];
-            fs.Read(arm9, 0, (int)fs.Length);
-            fs.Close();
-
-            byte[] oldarm9 = ROM.FS.arm9binFile.getContents();
-            Array.Copy(oldarm9, 0, arm9, 0, 0x800); //Weird secure area shit??
-            ROM.FS.arm9binFile.beginEdit(this);
-            ROM.FS.arm9binFile.replace(arm9, this);
-            ROM.FS.arm9binFile.endEdit(this);
-
-            fs = new FileStream(path + "/introload.ewram.arm7", FileMode.Open);
-            byte[] arm7 = new byte[fs.Length];
-            fs.Read(arm7, 0, (int)fs.Length);
-            fs.Close();
-
-            ROM.FS.arm7binFile.beginEdit(this);
-            ROM.FS.arm7binFile.replace(arm7, this);
-            ROM.FS.arm7binFile.endEdit(this);
-        }
-
-        private void dumpMapButton_Click(object sender, EventArgs e)
-        {
-            if (saveTextFileDialog.ShowDialog() != DialogResult.OK) return;
-
-            TextWriter tw = new StreamWriter(new FileStream(saveTextFileDialog.FileName, FileMode.Create, FileAccess.ReadWrite));
-            ROM.FS.dumpFilesOrdered(tw);
-            tw.Close();
-        }
-
-        private void insertRomButton_Click(object sender, EventArgs e)
-        {
-            if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string file = openROMDialog.FileName;
-                FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read);
-                byte[] data = new byte[fs.Length];
-                fs.Read(data, 0, (int)fs.Length);
-                fs.Close();
-
-                /*
-                int arm9offs = data[0x22] | data[0x23] << 8;
-                arm9offs += 0x01F0;
-                data[0x22] = (byte)(arm9offs >> 0);
-                data[0x23] = (byte)(arm9offs >> 8);
-
-                int arm7offs = data[0x32] | data[0x33] << 8;
-                arm7offs += 0x01F0;
-                data[0x32] = (byte)(arm7offs >> 0);
-                data[0x33] = (byte)(arm7offs >> 8);*/
-
-                Stream s = ROM.FS.s;
-                s.Seek(0x1F00000, SeekOrigin.Begin);
-                s.Write(data, 0, data.Length);
-                
-            }
-        }
-
+        
+        //Settings
         private void useMDI_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.mdi = useMDI.Checked;
@@ -739,26 +597,33 @@ namespace NSMBe4 {
             Properties.Settings.Default.Save();
         }
 
-        private void bootInsertButton_Click(object sender, EventArgs e)
+        private void updateSpriteDataButton_Click(object sender, EventArgs e)
         {
-            DirectoryInfo dir = new DirectoryInfo(ROM.romfile.Directory.FullName + "/loader");
-            PatchCompiler.compilePatch(0x02000C00, dir);
-            ROM.FS.arm9binFile.beginEdit(this);
-
-            byte[] data = ROM.FS.arm9binFile.getContents();
-
-
-            FileInfo f = new FileInfo(dir.FullName + "/newcode.bin");
-            FileStream fs = f.OpenRead();
-            byte[] newdata = new byte[fs.Length];
-            fs.Read(newdata, 0, (int)fs.Length);
-            fs.Close();
-
-            Array.Copy(newdata, 0, data, 0xC00, newdata.Length);
-            ROM.FS.arm9binFile.replace(data, this);
-            ROM.FS.arm9binFile.endEdit(this);
+            SpriteData.update();
         }
 
+        private void changeLanguageButton_Click(object sender, EventArgs e) {
+            if (languageListBox.SelectedItem != null) {
+                Properties.Settings.Default.LanguageFile = languageListBox.SelectedItem.ToString();
+                Properties.Settings.Default.Save();
+
+                    MessageBox.Show(
+                        LanguageManager.Get("LevelChooser", "LangChanged"),
+                        LanguageManager.Get("LevelChooser", "LangChangedTitle"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        
+        //Other crap
+        private void dumpMapButton_Click(object sender, EventArgs e)
+        {
+            if (saveTextFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            TextWriter tw = new StreamWriter(new FileStream(saveTextFileDialog.FileName, FileMode.Create, FileAccess.ReadWrite));
+            ROM.FS.dumpFilesOrdered(tw);
+            tw.Close();
+        }
+        
         private void LevelChooser_FormClosing(object sender, FormClosingEventArgs e)
         {
             ROM.close();
@@ -766,17 +631,7 @@ namespace NSMBe4 {
             if (MdiParentForm.instance != null && e.CloseReason != CloseReason.MdiFormClosing)
                 MdiParentForm.instance.Close();
         }
-
-        private void makeclean_Click(object sender, EventArgs e)
-        {
-            PatchCompiler.cleanPatch(ROM.romfile.Directory);
-        }
-
-        private void updateSpriteDataButton_Click(object sender, EventArgs e)
-        {
-            SpriteData.update();
-        }
-
+        
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://github.com/Dirbaio/NSMB-Editor");

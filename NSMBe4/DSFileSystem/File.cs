@@ -24,26 +24,24 @@ namespace NSMBe4.DSFileSystem
 {
 	public abstract class File
 	{
-        protected Filesystem parentP;
+        private Filesystem parentP;
         public Filesystem parent { get { return parentP; } }
 
-        protected Directory parentDirP;
+        private Directory parentDirP;
         public Directory parentDir { get { return parentDirP; } }
 
         protected string nameP;
         public string name { get { return nameP; } }
 
-        protected int idP;
+        private int idP;
         public int id { get { return idP; } }
+        public bool isSystemFile { get { return idP<0; } }
 
-		//THIS SHOULD BE A PROPERTY!
-        public int fileSize;
+        protected int fileSizeP;
+        public int fileSize { get { return fileSizeP; } }
 
-        protected Object editedBy = null;
-        public Boolean beingEdited
-        {
-            get { return editedBy != null; }
-        }
+        private Object editedBy = null;
+        public Boolean beingEdited { get { return editedBy != null; } }
 
 		public File(Filesystem parent, Directory parentDir, string name, int id)
 		{
@@ -55,14 +53,14 @@ namespace NSMBe4.DSFileSystem
 
 		//File functions
         public abstract byte[] getContents();
-        public abstract void replace(byte[] newFile, object editor)
+        public abstract void replace(byte[] newFile, object editor);
 
         public abstract uint getUintAt(int offset);
         public abstract void setUintAt(int offset, uint val);
         public abstract ushort getUshortAt(int offset);
         public abstract void setUshortAt(int offset, ushort val);
-        public abstract byte getByteAt(int offs);
-        public abstract void setByteAt(int offs, byte val);
+        public abstract byte getByteAt(int offset);
+        public abstract void setByteAt(int offset, byte val);
         
 		//Helper functions
         public bool isAGoodEditor(object editor)
@@ -107,6 +105,27 @@ namespace NSMBe4.DSFileSystem
         {
             return parentDir.getPath() + "/" + name;
         }
+
+		//Hack that needs to die.
+		//Or needs to done better (like, not 2 inline files at the same region at the same time)
+        private List<InlineFile> inlineEditors = new List<InlineFile>();
+
+        public void beginEditInline(InlineFile f)
+        {
+            if (inlineEditors.Count == 0)
+                beginEdit(this);
+
+            inlineEditors.Add(f);
+        }
+
+        public void endEditInline(InlineFile f)
+        {
+            if (!inlineEditors.Contains(f))
+                throw new Exception("ERROR: INLINE FILE");
+            inlineEditors.Remove(f);
+            if (inlineEditors.Count == 0)
+                endEdit(this);
+        }        
 	}
 }
 

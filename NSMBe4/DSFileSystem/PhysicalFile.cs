@@ -25,39 +25,39 @@ namespace NSMBe4.DSFileSystem
     public class PhysicalFile : File, IComparable
     {
         public bool isSystemFile;
-        
-        //if allocationFile is not null,
-        //these are the offsets within the alloc file where the offsets
-        //of this file are found.
 
+		//File that specifies where the file begins.
         protected File beginFile;
         protected int beginOffset;
+        
+        //File that specifies where the file ends OR the file size.
         protected File endFile;
         protected int endOffset;
-        protected bool endIsSize; //means that the end offset is the size of the file
-        protected bool fixedFile; //means that the file cant be moved nor changed size
+        protected bool endIsSize;
+        
+        //If true, file begin/size can't change at all.
+        //TODO: Make sure these are set properly. I think they aren't.
+        public bool canChangeOffset = true;
+        public bool canChangeSize = true;
 
-        public int fileBegin;
-//        public int fileSize;
+		//File begin offset
+        public int fileBeginP;
+        public int fileBegin { get { return fileBeginP; } }
 
         public int alignment = 4; // word align by default
-        public bool canChangeOffset = true; //false for arm9 and 7 bins
-
-        public File(Filesystem parent, Directory parentDir, string name)
+        
+        //For convenience
+        public Stream filesystemStream { get { return ((PhysicalFilesystem)parent).s; } }
+        public int filesystemDataOffset { get { return ((PhysicalFilesystem)parent).fileDataOffset; } }
+        
+        public PhysicalFile(Filesystem parent, Directory parentDir, string name)
+        	:base(parent, parentDir, name, -1)
         {
-            this.parent = parent;
-            this.parentDirP = parentDir;
-            this.nameP = name;
-            this.isSystemFile = true;
         }
     
-        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, int alBeg, int alEnd)
+        public PhysicalFile(Filesystem parent, Directory parentDir, int id, string name, File alFile, int alBeg, int alEnd)
+        	:base(parent, parentDir, name, id)
         {
-            this.parent = parent;
-            this.parentDirP = parentDir;
-            this.isSystemFile = systemFile;
-            this.idP = id;
-            this.nameP = name;
             this.beginFile = alFile;
             this.endFile = alFile;
             this.beginOffset = alBeg;
@@ -65,13 +65,9 @@ namespace NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, File alFile, int alBeg, int alEnd, bool endsize)
+        public PhysicalFile(Filesystem parent, Directory parentDir, int id, string name, File alFile, int alBeg, int alEnd, bool endsize)
+        	:base(parent, parentDir, name, id)
         {
-            this.parent = parent;
-            this.parentDirP = parentDir;
-            this.isSystemFile = systemFile;
-            this.idP = id;
-            this.nameP = name;
             this.beginFile = alFile;
             this.endFile = alFile;
             this.beginOffset = alBeg;
@@ -80,24 +76,21 @@ namespace NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public File(Filesystem parent, Directory parentDir, bool systemFile, int id, string name, int alBeg, int alSize)
+        public PhysicalFile(Filesystem parent, Directory parentDir, int id, string name, int alBeg, int alSize)
+        	:base(parent, parentDir, name, id)
         {
-            this.parent = parent;
-            this.parentDirP = parentDir;
-            this.isSystemFile = systemFile;
-            this.idP = id;
-            this.nameP = name;
-            this.fileBegin = alBeg;
-            this.fileSize = alSize;
+            this.fileBeginP = alBeg;
+            this.fileSizeP = alSize;
+            this.canChangeOffset = false;
+            this.canChangeSize = false;
             refreshOffsets();
         }
 
-        public virtual byte[] getContents()
+        public override byte[] getContents()
         {
-//            enableEdition();
             byte[] file = new byte[fileSize];
-            parent.s.Seek(fileBegin, SeekOrigin.Begin);
-            parent.s.Read(file, 0, file.Length);
+            filesystemStream.Seek(fileBegin, SeekOrigin.Begin);
+            filesystemStream.Read(file, 0, file.Length);
             return file;
         }
 
@@ -112,175 +105,182 @@ namespace NSMBe4.DSFileSystem
         public virtual void refreshOffsets()
         {
             if (beginFile != null)
-                fileBegin = (int)beginFile.getUintAt(beginOffset) + parent.fileDataOffset;
+                fileBeginP = (int)beginFile.getUintAt(beginOffset) + filesystemDataOffset;
 
             if (endFile != null)
             {
                 int end = (int)endFile.getUintAt(endOffset);
                 if (endIsSize)
-                    fileSize = (int)end;
+                    fileSizeP = (int)end;
                 else
-                    fileSize = (int)end + parent.fileDataOffset - fileBegin;
+                    fileSizeP = (int)end + filesystemDataOffset - fileBegin;
             }
         }
 
         public virtual void saveOffsets()
         {
             if (beginFile != null)
-                beginFile.setUintAt(beginOffset, (uint)(fileBegin - parent.fileDataOffset));
+                beginFile.setUintAt(beginOffset, (uint)(fileBegin - filesystemDataOffset));
 
             if (endFile != null)
                 if (endIsSize)
                     endFile.setUintAt(endOffset, (uint)fileSize);
                 else
-                    endFile.setUintAt(endOffset, (uint)(fileBegin + fileSize - parent.fileDataOffset));
+                    endFile.setUintAt(endOffset, (uint)(fileBegin + fileSize - filesystemDataOffset));
         }
 
-        public uint getUintAt(int offset)
+        public override uint getUintAt(int offset)
         {
-            enableEdition();
-            long pos = parent.s.Position;
-            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
+            long pos = filesystemStream.Position;
+            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
 
             uint res = 0;
             for (int i = 0; i < 4; i++)
             {
-                res |= (uint)parent.s.ReadByte() << 8 * i;
+                res |= (uint)filesystemStream.ReadByte() << 8 * i;
             }
-            parent.s.Seek(pos, SeekOrigin.Begin);
+            filesystemStream.Seek(pos, SeekOrigin.Begin);
             return res;
         }
 
-        public void setUintAt(int offset, uint val)
+        public override void setUintAt(int offset, uint val)
         {
-            enableEdition();
-            long pos = parent.s.Position;
-            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
+            long pos = filesystemStream.Position;
+            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
             for (int i = 0; i < 4; i++)
             {
-                parent.s.WriteByte((byte)(val & 0xFF));
+                filesystemStream.WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
-            parent.s.Seek(pos, SeekOrigin.Begin);
+            filesystemStream.Seek(pos, SeekOrigin.Begin);
         }
 
-        public ushort getUshortAt(int offset)
+        public override ushort getUshortAt(int offset)
         {
-            enableEdition();
-            long pos = parent.s.Position;
-            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
+            long pos = filesystemStream.Position;
+            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
 
             ushort res = 0;
             for (int i = 0; i < 2; i++)
             {
-                res |= (ushort) (parent.s.ReadByte() << 8 * i);
+                res |= (ushort) (filesystemStream.ReadByte() << 8 * i);
             }
-            parent.s.Seek(pos, SeekOrigin.Begin);
+            filesystemStream.Seek(pos, SeekOrigin.Begin);
             return res;
         }
 
 
-        public void setUshortAt(int offset, ushort val)
+        public override void setUshortAt(int offset, ushort val)
         {
-            enableEdition();
-            long pos = parent.s.Position;
-            parent.s.Seek(fileBegin + offset, SeekOrigin.Begin);
+            long pos = filesystemStream.Position;
+            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
             for (int i = 0; i < 2; i++)
             {
-                parent.s.WriteByte((byte)(val & 0xFF));
+                filesystemStream.WriteByte((byte)(val & 0xFF));
                 val >>= 8;
             }
-            parent.s.Seek(pos, SeekOrigin.Begin);
+            filesystemStream.Seek(pos, SeekOrigin.Begin);
         }
 
-        public byte getByteAt(int offs)
+        public override byte getByteAt(int offset)
         {
-            enableEdition();
-            long pos = parent.s.Position;
-            parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
-            byte res = (byte)parent.s.ReadByte();
-            parent.s.Seek(pos, SeekOrigin.Begin);
+            long pos = filesystemStream.Position;
+            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
+            byte res = (byte)filesystemStream.ReadByte();
+            filesystemStream.Seek(pos, SeekOrigin.Begin);
             return res;
         }
 
-        public void setByteAt(int offs, byte val)
+        public override void setByteAt(int offset, byte val)
         {
-            enableEdition();
-            long pos = parent.s.Position;
-            parent.s.Seek(fileBegin + offs, SeekOrigin.Begin);
-            parent.s.WriteByte(val);
-            parent.s.Seek(pos, SeekOrigin.Begin);
+            long pos = filesystemStream.Position;
+            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
+            filesystemStream.WriteByte(val);
+            filesystemStream.Seek(pos, SeekOrigin.Begin);
         }
 
 		//TODO: Clean up this mess.
-        public virtual void replace(byte[] newFile, object editor)
+        public override void replace(byte[] newFile, object editor)
         {
             if(!isAGoodEditor(editor))
                 throw new Exception("NOT CORRECT EDITOR " + name);
 
-            if(newFile.Length != fileSize && fixedFile)
-                throw new Exception("TRYING TO RESIZE FIXED FILE: " + name);
+            if(newFile.Length != fileSize && !canChangeSize)
+                throw new Exception("TRYING TO RESIZE CONSTANT-SIZE FILE: " + name);
 
-//            enableEdition();
-
-//            Console.Out.WriteLine("Replacing: [" + id + "] " + name);
             int newStart = fileBegin;
-            if (newFile.Length > fileSize) //if we insert a bigger file
-            {                         //it might not fit in the current place
+
+            //if we insert a bigger file it might not fit in the current place
+            if (newFile.Length > fileSize) 
+            {
                 if (canChangeOffset && !(parent is NarcFilesystem))
                 {
-                    newStart = parent.findFreeSpace(newFile.Length, alignment);
+                    newStart = ((PhysicalFilesystem)parent).findFreeSpace(newFile.Length, alignment);
                     if (newStart % alignment != 0)
                         newStart += alignment - newStart % alignment;
                 }
                 else
                 {
+                	//TODO: Keep the list always sorted in order to avoid stupid useless sorts.
                     parent.allFiles.Sort();
                     if (!(parent.allFiles.IndexOf(this) == parent.allFiles.Count - 1))
                     {
-                        File nextFile = parent.allFiles[parent.allFiles.IndexOf(this) + 1];
-                        parent.moveAllFiles(nextFile, fileBegin + newFile.Length);
+                        PhysicalFile nextFile = (PhysicalFile) parent.allFiles[parent.allFiles.IndexOf(this) + 1];
+                        ((PhysicalFilesystem)parent).moveAllFiles(nextFile, fileBegin + newFile.Length);
                     }
                 }
             }
-            //HAAAAAAACK
+            //This is for keeping NARC filesystems compact. Sucks.
             else if(parent is NarcFilesystem)
             {
                 parent.allFiles.Sort();
                 if (!(parent.allFiles.IndexOf(this) == parent.allFiles.Count - 1))
                 {
-                    File nextFile = parent.allFiles[parent.allFiles.IndexOf(this) + 1];
-                    parent.moveAllFiles(nextFile, fileBegin + newFile.Length);
+                    PhysicalFile nextFile = (PhysicalFile) parent.allFiles[parent.allFiles.IndexOf(this) + 1];
+                    ((PhysicalFilesystem)parent).moveAllFiles(nextFile, fileBegin + newFile.Length);
                 }
             }
+            
+            //Stupid check.
             if (newStart % alignment != 0)
-                Console.Out.Write("Warning: File is not being aligned: " + nameP + ", at " + newStart.ToString("X"));
+                Console.Out.Write("Warning: File is not being aligned: " + name + ", at " + newStart.ToString("X"));
+
             //write the file
-            parent.s.Seek(newStart, SeekOrigin.Begin);
-            parent.s.Write(newFile, 0, newFile.Length);
+            filesystemStream.Seek(newStart, SeekOrigin.Begin);
+            filesystemStream.Write(newFile, 0, newFile.Length);
+            
+            //This should be handled in NarcFilesystem instead, in fileMoved (?)
             if(parent is NarcFilesystem)
-                parent.s.SetLength(parent.allFiles[parent.allFiles.Count - 1].fileBegin + parent.allFiles[parent.allFiles.Count - 1].fileSize + 10);
+            {
+            	PhysicalFile lastFile = (PhysicalFile) parent.allFiles[parent.allFiles.Count - 1];
+                filesystemStream.SetLength(lastFile.fileBegin + lastFile.fileSize + 16);
+			}
+			
             //update ending pos
-            fileBegin = newStart;
-            fileSize = newFile.Length;
+            fileBeginP = newStart;
+            fileSizeP = newFile.Length;
             saveOffsets();
-            parent.fileMoved(this); //NEEDED FOR UPDATING TOTAL USED ROM SIZE IN HEADER
+
+			//Updates total used rom size in header, and/or other stuff.
+            parent.fileMoved(this); 
         }
 
         public void moveTo(int newOffs)
         {
             if (newOffs % alignment != 0)
-                Console.Out.Write("Warning: File is not being aligned: " + nameP + ", at " + newOffs.ToString("X"));
+                Console.Out.Write("Warning: File is not being aligned: " + name + ", at " + newOffs.ToString("X"));
+
             byte[] data = getContents();
-            parent.s.Seek(newOffs, SeekOrigin.Begin);
-            parent.s.Write(data, 0, data.Length);
-            fileBegin = newOffs;
+            filesystemStream.Seek(newOffs, SeekOrigin.Begin);
+            filesystemStream.Write(data, 0, data.Length);
+
+            fileBeginP = newOffs;
             saveOffsets();
         }
 
         public int CompareTo(object obj)
         {
-            File f = obj as File;
+            PhysicalFile f = (PhysicalFile) obj;
             if (fileBegin == f.fileBegin)
                 return fileSize.CompareTo(f.fileSize);
             return fileBegin.CompareTo(f.fileBegin);
@@ -291,30 +291,5 @@ namespace NSMBe4.DSFileSystem
             return addr >= fileBegin && addr < fileBegin + fileSize;
         }
 		
-		//Hack that needs to die.
-        private List<InlineFile> inlineEditors = new List<InlineFile>();
-
-        public void beginEditInline(InlineFile f)
-        {
-            if (inlineEditors.Count == 0)
-                beginEdit(this);
-
-            inlineEditors.Add(f);
-        }
-
-        public void endEditInline(InlineFile f)
-        {
-            if (!inlineEditors.Contains(f))
-                throw new Exception("ERROR: INLINE FILE");
-            inlineEditors.Remove(f);
-            if (inlineEditors.Count == 0)
-                endEdit(this);
-        }
-
-        //Intended for compressed files like overlays.
-        //Must decompress the file so it's editable and still playable.
-        
-        //This one needs to die too.
-        public virtual void enableEdition() { }
     }
 }

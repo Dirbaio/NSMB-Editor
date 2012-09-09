@@ -50,9 +50,9 @@ namespace NSMBe4.DSFileSystem
             fntSize = (int)readUInt(s) - 8; //do not include header
             fntOffset = fatSize + fatOffset + 8;
 
-            fileDataOffset = fntSize + fntOffset + 8;
-            fntFile = new File(this, mainDir, true, -2, "fnt.bin", fntOffset, fntSize);
-            fatFile = new File(this, mainDir, true, -3, "fat.bin", fatOffset, fatSize);
+            fileDataOffsetP = fntSize + fntOffset + 8;
+            fntFile = new PhysicalFile(this, mainDir, -2, "fnt.bin", fntOffset, fntSize);
+            fatFile = new PhysicalFile(this, mainDir, -3, "fat.bin", fatOffset, fatSize);
 
             base.load();
             loadNamelessFiles(mainDir);

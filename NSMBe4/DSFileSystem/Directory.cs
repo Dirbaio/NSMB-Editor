@@ -49,22 +49,6 @@ namespace NSMBe4.DSFileSystem
             this.idP = id;
         }
 
-        public void dumpFiles()
-        {
-            dumpFiles(2);
-        }
-
-        public void dumpFiles(int ind)
-        {
-            for (int i = 0; i < ind; i++)
-                Console.Out.Write(" ");
-            Console.Out.WriteLine("[DIR"+id+"] " + name);
-            foreach (Directory d in childrenDirs)
-                d.dumpFiles(ind + 4);
-            foreach (File f in childrenFiles)
-                f.dumpFile(ind + 4);
-        }
-
         public string getPath()
         {
             if (parentDir == null)

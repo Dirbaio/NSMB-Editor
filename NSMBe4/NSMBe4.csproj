@@ -837,6 +837,7 @@
     <Compile Include="DSFileSystem\BannerFile.cs" />
     <Compile Include="DSFileSystem\ExternalFilesystemSource.cs" />
     <Compile Include="DSFileSystem\File.cs" />
+    <Compile Include="DSFileSystem\PhysicalFile.cs" />
     <Compile Include="DSFileSystem\FileFilesystemSource.cs" />
     <Compile Include="DSFileSystem\FileHexEditor.cs">
       <SubType>Form</SubType>
@@ -845,6 +846,7 @@
       <DependentUpon>FileHexEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="DSFileSystem\Filesystem.cs" />
+    <Compile Include="DSFileSystem\PhysicalFilesystem.cs" />
     <Compile Include="DSFileSystem\FilesystemBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
