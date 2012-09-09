@@ -292,5 +292,10 @@ namespace NSMBe4 {
             levelEditorControl1.repaint();
         }
 
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.delete();
+        }
+
     }
 }
