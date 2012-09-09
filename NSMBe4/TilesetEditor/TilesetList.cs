@@ -32,6 +32,7 @@ namespace NSMBe4
         public TilesetList()
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "TilesetList");
 
             //TODO add this shit to the language file
 //            LanguageManager.ApplyToContainer(this, "TilesetList");
