@@ -51,7 +51,7 @@ using System.Runtime.InteropServices;
 namespace NSMBe4 {
     public static class ROM {
         public static byte[] Overlay0;
-        public static NitroROMFilesystem FS;
+        public static Filesystem FS;
         public static string filename;
         public static System.IO.FileInfo romfile;
         public static ROMUserInfo UserInfo;

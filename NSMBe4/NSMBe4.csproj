@@ -846,7 +846,7 @@
       <DependentUpon>FileHexEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="DSFileSystem\Filesystem.cs" />
-    <Compile Include="DSFileSystem\PhysicalFilesystem.cs" />
+    <Compile Include="DSFileSystem\PhysicaloFilesystem.cs" />
     <Compile Include="DSFileSystem\FilesystemBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -866,7 +866,7 @@
     <Compile Include="DSFileSystem\NarcFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />
-    <Compile Include="DSFileSystem\OverlayFile.cs" />
+    <Compile Include="Overlay.cs" />
     <Compile Include="Editor\BackgroundDragEditionMode.cs" />
     <Compile Include="Editor\MinimapControl.cs">
       <SubType>UserControl</SubType>
