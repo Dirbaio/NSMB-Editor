@@ -896,6 +896,7 @@
     </Compile>
     <Compile Include="GraphicsEditor\FilePalette.cs" />
     <Compile Include="GraphicsEditor\PalettedImage.cs" />
+    <Compile Include="GraphicsEditor\Bncd.cs" />
     <Compile Include="GraphicsEditor\PaletteViewer.cs">
       <SubType>Form</SubType>
     </Compile>

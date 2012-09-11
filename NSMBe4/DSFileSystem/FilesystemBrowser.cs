@@ -346,6 +346,10 @@ namespace NSMBe4.DSFileSystem
                     LevelChooser.imgMgr.m.addImage(new EnpgImage2D(imgFile));
                     LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
                 }
+                else if (filename.EndsWith(".bncd"))
+                {
+                	Bncd b = new Bncd(f);
+                }
                 if (filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
                     new NSBTX(f);
                 else if (filename.EndsWith(".narc"))
