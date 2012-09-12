@@ -565,9 +565,9 @@ namespace NSMBe4.Properties {
         ///;   NSMB Editor 5 is distributed in the hope that it will be useful,
         ///;   but WITHOUT ANY WARRANTY; without even the implied  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string english {
+        internal static string English {
             get {
-                return ResourceManager.GetString("english", resourceCulture);
+                return ResourceManager.GetString("English", resourceCulture);
             }
         }
         
@@ -2014,7 +2014,7 @@ namespace NSMBe4.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SVN
+        ///   Looks up a localized string similar to Beta
         ///.
         /// </summary>
         internal static string version {

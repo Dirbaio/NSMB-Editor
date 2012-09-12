@@ -55,7 +55,7 @@ namespace NSMBe4
             else
             {
                 MessageBox.Show("File " + langFileName + " could not be found, so the language has defaulted to English.");
-                LanguageManager.Load(Properties.Resources.english.Split('\n'));
+                LanguageManager.Load(Properties.Resources.English.Split('\n'));
             }
 
             //This makes the editor behave BAD when no internet. 
