@@ -62,7 +62,8 @@ namespace NSMBe4 {
             filesystemBrowser1.Load(ROM.FS);
 
             LoadLevelNames();
-            musicList.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
+            if (ROM.UserInfo != null)
+                musicList.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
 
             LanguageManager.ApplyToContainer(this, "LevelChooser");
             importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
@@ -92,6 +93,7 @@ namespace NSMBe4 {
                 tabControl1.TabPages.Remove(tabPage5);
                 tabControl1.TabPages.Remove(tabPage6);
                 nsmbToolsGroupbox.Enabled = false;
+                musicSlotsGrp.Enabled = false;
             }
 
 //            new LevelEditor("A01_1", "LOL").Show();
@@ -789,6 +791,8 @@ namespace NSMBe4 {
 
         private void renameBtn_Click(object sender, EventArgs e)
         {
+            if (musicList.SelectedIndex == -1)
+                return;
             string newName;
             string oldName = musicList.SelectedItem.ToString();
             oldName = oldName.Substring(oldName.IndexOf(" ") + 1);

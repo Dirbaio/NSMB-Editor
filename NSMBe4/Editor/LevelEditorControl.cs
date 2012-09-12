@@ -223,14 +223,14 @@ namespace NSMBe4
                 if(ViewablePixels.IntersectsWith(s.getRect()) || s.AlwaysDraw())
                     s.render(e.Graphics, this);
 
+            foreach(NSMBEntrance n in Level.Entrances)
+                if(ViewablePixels.IntersectsWith(new Rectangle(n.x, n.y, n.width, n.height)))
+                    n.render(e.Graphics, this);
+
             foreach (NSMBView v in Level.Views)
                 v.render(e.Graphics, this);
             foreach (NSMBView v in Level.Zones)
                 v.render(e.Graphics, this);
-
-            foreach(NSMBEntrance n in Level.Entrances)
-                if(ViewablePixels.IntersectsWith(new Rectangle(n.x, n.y, n.width, n.height)))
-                    n.render(e.Graphics, this);
 
             foreach (NSMBPath p in Level.Paths)
                 p.render(e.Graphics, this, false);
