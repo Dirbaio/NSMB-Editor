@@ -52,6 +52,7 @@ namespace NSMBe4
         public BackgroundList()
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "BackgroundList");
 
             //TODO add this shit to the language file
 //            LanguageManager.ApplyToContainer(this, "BackgroundList");

@@ -105,6 +105,7 @@ namespace NSMBe4
             if (offs < 0) return 0;
             offs *= 64;
             offs += x % 8 + 8 * (y % 8);
+            if (offs < 0) return 0;
             if (offs >= data.Length) return 0;
             return data[offs];
         }
@@ -119,6 +120,7 @@ namespace NSMBe4
 
             offs *= 64;
             offs += x % 8 + 8 * (y % 8);
+            if (offs < 0) return;
             if (offs >= data.Length) return;
             data[offs] = (byte)c;
         }
