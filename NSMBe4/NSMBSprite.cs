@@ -2105,7 +2105,7 @@ namespace NSMBe4
                     break;
                 case 305:
                     customRendered = false;
-                    RenderX2 = ((Data[4] >> 4) + ((Data[4] & 0xF) << 4)) * 16;
+                    RenderX2 = Math.Max(0, ((Data[4] >> 4) + ((Data[4] & 0xF) << 4) - 15) * 16);
                     if (RenderX2 != 0) {
                         g.FillRectangle(Brushes.Black, RenderX, RenderY + 6, RenderX2, 4);
                         g.FillRectangle(Brushes.Black, RenderX + RenderX2 - 4, RenderY, 4, 10);
