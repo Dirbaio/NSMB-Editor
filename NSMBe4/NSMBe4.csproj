@@ -551,7 +551,6 @@
     <None Include="Resources\calculator-scientific.png" />
     <None Include="Resources\file_narc.png" />
     <Content Include="Editor\nsmbe.ico" />
-    <Content Include="GraphicsEditor\nsmbe.ico" />
     <Content Include="Resources\version.txt" />
     <None Include="Resources\Sprite Images\Brick.PNG" />
     <None Include="Resources\Sprite Images\JumpingQBlock.PNG" />
