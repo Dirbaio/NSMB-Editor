@@ -36,13 +36,13 @@
             this.zoomLabel = new System.Windows.Forms.Label();
             this.hoverStatus = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.drawingBox = new System.Windows.Forms.PictureBox();
             this.imageStatus = new System.Windows.Forms.Label();
             this.undoButton = new System.Windows.Forms.Button();
             this.redoButton = new System.Windows.Forms.Button();
             this.rectangleTool = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.drawingBox = new System.Windows.Forms.PictureBox();
             this.palettePicker1 = new NSMBe4.PalettePicker();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingBox)).BeginInit();
@@ -179,6 +179,20 @@
             this.panel1.Size = new System.Drawing.Size(415, 213);
             this.panel1.TabIndex = 11;
             // 
+            // drawingBox
+            // 
+            this.drawingBox.BackColor = System.Drawing.Color.Silver;
+            this.drawingBox.Location = new System.Drawing.Point(0, 0);
+            this.drawingBox.Name = "drawingBox";
+            this.drawingBox.Size = new System.Drawing.Size(100, 50);
+            this.drawingBox.TabIndex = 0;
+            this.drawingBox.TabStop = false;
+            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
+            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
+            this.drawingBox.MouseLeave += new System.EventHandler(this.drawingBox_MouseLeave);
+            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
+            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
+            // 
             // imageStatus
             // 
             this.imageStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -234,20 +248,6 @@
             this.toolTip1.SetToolTip(this.saveButton, "Save");
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // drawingBox
-            // 
-            this.drawingBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.drawingBox.Location = new System.Drawing.Point(0, 0);
-            this.drawingBox.Name = "drawingBox";
-            this.drawingBox.Size = new System.Drawing.Size(100, 50);
-            this.drawingBox.TabIndex = 0;
-            this.drawingBox.TabStop = false;
-            this.drawingBox.Paint += new System.Windows.Forms.PaintEventHandler(this.drawingBox_Paint);
-            this.drawingBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseDown);
-            this.drawingBox.MouseLeave += new System.EventHandler(this.drawingBox_MouseLeave);
-            this.drawingBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseMove);
-            this.drawingBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingBox_MouseUp);
             // 
             // palettePicker1
             // 

@@ -323,11 +323,11 @@ namespace NSMBe4 {
             if (img == null || pal == null) return;
             if (DrawBuffer != null)
             {
-                SolidBrush br = new SolidBrush(Color.FromArgb(204, 204, 204));
+                // Render the transparency grid
                 for (int x = 0; x < drawingBox.Width; x += 8)
                     for (int y = 0; y < drawingBox.Height; y += 8)
                         if (x % 16 == y % 16)
-                            e.Graphics.FillRectangle(br, x, y, 8, 8);
+                            e.Graphics.FillRectangle(Brushes.Gray, x, y, 8, 8);
 
                 e.Graphics.DrawImage(ZoomCache, 0, 0);
 
