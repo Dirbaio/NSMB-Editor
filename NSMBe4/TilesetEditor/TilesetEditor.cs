@@ -156,37 +156,7 @@ namespace NSMBe4
                 mustRepaintObjects();
             }
         }
-
-        private void exportButton_Click_1(object sender, EventArgs e)
-        {
-            if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
-            t.ExportGFX(saveFileDialog1.FileName);
-        }
-
-        private void importButton_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
-            t.ImportGFX(openFileDialog1.FileName, false);
-            mustRepaintObjects();
-        }
-
-        private void exportTilesetButton_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialog2.ShowDialog() != DialogResult.OK)
-                return;
-
-            t.exportTileset(saveFileDialog2.FileName);
-        }
-
-        private void importTilesetButton_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog2.ShowDialog() != DialogResult.OK)
-                return;
-
-            t.importTileset(openFileDialog2.FileName);
-            mustRepaintObjects();
-        }
-
+        
         private void createDescriptions_Click(object sender, EventArgs e)
         {
             ROM.UserInfo.createDescriptions(TilesetID);
@@ -228,6 +198,11 @@ namespace NSMBe4
             objectPickerControl1.Invalidate(true);
         }
 
+        private void copyPalettes_Click(object sender, EventArgs e)
+        {
+        	
+        }
+        
         private void setend_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -277,7 +252,9 @@ namespace NSMBe4
         private bool behaviorsEqual(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null) return false;
-            return (b1[0] == b2[0] && b1[1] == b2[1] && b1[2] == b2[2] && b1[3] == b2[3]);
+            for(int i = 0; i < 4; i++)
+            	if(b1[i] != b2[i]) return false;
+            return true;
         }
 
         private void imageManager1_SomethingSaved()

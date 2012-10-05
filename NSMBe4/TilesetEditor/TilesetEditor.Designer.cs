@@ -51,6 +51,7 @@
             this.createDescriptions = new System.Windows.Forms.ToolStripButton();
             this.deleteDescriptions = new System.Windows.Forms.ToolStripButton();
             this.setend = new System.Windows.Forms.ToolStripButton();
+            this.copyPalettes = new System.Windows.Forms.ToolStripButton();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
@@ -232,7 +233,8 @@
             this.toolStripSeparator3,
             this.createDescriptions,
             this.deleteDescriptions,
-            this.setend});
+            this.setend,
+            this.copyPalettes});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(957, 25);
@@ -294,6 +296,16 @@
             this.setend.Text = "<set end>";
             this.setend.ToolTipText = "makes the selected block the last in the tileset";
             this.setend.Click += new System.EventHandler(this.setend_Click);
+            // 
+            // copyPalettes
+            // 
+            this.copyPalettes.Image = global::NSMBe4.Properties.Resources.cross_script;
+            this.copyPalettes.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copyPalettes.Name = "copyPalettes";
+            this.copyPalettes.Size = new System.Drawing.Size(81, 22);
+            this.copyPalettes.Text = "Duplicate palettes";
+            this.copyPalettes.ToolTipText = "Copies the existing Map16 and objects across the multiple palettes.";
+            this.copyPalettes.Click += new System.EventHandler(this.copyPalettes_Click);
             // 
             // saveFileDialog1
             // 
@@ -357,6 +369,7 @@
         private System.Windows.Forms.ToolStripButton createDescriptions;
         private System.Windows.Forms.ToolStripButton deleteDescriptions;
         private System.Windows.Forms.ToolStripButton setend;
+        private System.Windows.Forms.ToolStripButton copyPalettes;
         private System.Windows.Forms.TabPage tabPage3;
         private ImageManager imageManager1;
         private TilemapEditor.TilemapEditor tilemapEditor1;
