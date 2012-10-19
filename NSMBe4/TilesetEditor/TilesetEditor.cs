@@ -127,6 +127,7 @@ namespace NSMBe4
         private void mustRepaintObjects()
         {
             t.map16.reRenderAll();
+            tilemapEditor1.Invalidate(true);
             tilemapEditor1.reload();
         }
 
@@ -200,7 +201,55 @@ namespace NSMBe4
 
         private void copyPalettes_Click(object sender, EventArgs e)
         {
+        	int repeat = 12;
         	
+        	//Copy map16
+
+        	for(int p = 1; p < t.palettes.Length; p++)
+        		for(int x = 0; x < 32; x++)
+        			for(int y = 0; y < repeat*2; y++)
+        			{
+        				t.map16.tiles[x, y+p*repeat*2] = t.map16.tiles[x, y];
+        				t.map16.tiles[x, y+p*repeat*2].palNum = (t.map16.tiles[x, y+p*repeat*2].palNum+p)%t.palettes.Length;
+        			}
+        	
+        	//Copy Tile behaviors
+        	for(int p = 1; p < t.palettes.Length; p++)
+        		for(int x = 0; x < 16*repeat; x++)
+        			t.TileBehaviors[x+p*16*repeat] = t.TileBehaviors[x];
+        	
+        	//And now copy objects. Meh
+        	int objCount = 0;
+        	while(objCount < t.Objects.Length && t.Objects[objCount] != null)
+        		objCount++;
+        	
+        	for(int p = 1; p < t.palettes.Length; p++)
+        	{
+        		for(int i = 0; i < objCount; i++)
+        		{
+        			if(i+p*objCount >= t.Objects.Length)
+        				continue;
+        			
+		    		NSMBTileset.ObjectDef o = new NSMBTileset.ObjectDef(t);
+		    		o.tiles.Clear();
+		    		foreach(List<NSMBTileset.ObjectDefTile> row in t.Objects[i].tiles)
+		    		{
+		    			List<NSMBTileset.ObjectDefTile> row2 = new List<NSMBTileset.ObjectDefTile>();
+			    		foreach(NSMBTileset.ObjectDefTile tile in row)
+		    			{
+		    				NSMBTileset.ObjectDefTile tile2 = new NSMBTileset.ObjectDefTile(t);
+		    				tile2.tileID = (tile.tileID + repeat*16*p) % 768;
+		    				tile2.controlByte = tile.controlByte;
+		    				row2.Add(tile2);
+		    			}
+		    			o.tiles.Add(row2);
+		    		}
+		    		t.Objects[i+p*objCount] = o;
+		    	}
+        	}
+        	//TODO merp
+
+        	mustRepaintObjects();
         }
         
         private void setend_Click(object sender, EventArgs e)
