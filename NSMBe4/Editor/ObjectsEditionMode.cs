@@ -26,6 +26,7 @@ namespace NSMBe4
     public class ObjectsEditionMode:EditionMode
     {
         public bool snapTo8Pixels = true;
+        public bool resizeHandles;
 
         bool CloneMode, SelectMode;
         int dx, dy; //MouseDown position
@@ -53,6 +54,7 @@ namespace NSMBe4
             tabs = new GoodTabsPanel(EdControl);
             SetPanel(tabs);
             tabs.Dock = DockStyle.Fill;
+            resizeHandles = Properties.Settings.Default.ShowResizeHandles;
         }
 
         public override void SelectObject(Object o)
@@ -128,7 +130,7 @@ namespace NSMBe4
 
                 g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
                 g.DrawRectangle(Pens.Black, o.x-1, o.y-1, o.width+2, o.height+2);
-                if (o.isResizable)
+                if (o.isResizable && resizeHandles)
                 {
                     drawResizeKnob(g, o.x, o.y);
                     drawResizeKnob(g, o.x, o.y + o.height);
@@ -279,6 +281,11 @@ namespace NSMBe4
 
             bool drag = false;
             getActionAtPos(x, y, out drag, out vertResize, out horResize);
+            if (Control.ModifierKeys == Keys.Shift && drag && vertResize == ResizeType.ResizeNone && horResize == ResizeType.ResizeNone)
+            {
+                vertResize = ResizeType.ResizeEnd;
+                horResize = ResizeType.ResizeEnd;
+            }
             if (!drag)
             {
                 // Select an object
@@ -454,7 +461,7 @@ namespace NSMBe4
             {
                 LevelItem o = SelectedObjects[l];
 
-                if (o.isResizable)
+                if (o.isResizable && resizeHandles)
                 {
                     drag = true;
 

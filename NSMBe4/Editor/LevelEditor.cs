@@ -51,6 +51,7 @@ namespace NSMBe4 {
             this.LevelFilename = LevelFilename;
 
             smallBlockOverlaysToolStripMenuItem.Checked = Properties.Settings.Default.SmallBlockOverlays;
+            showResizeHandles.Checked = Properties.Settings.Default.ShowResizeHandles;
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
             this.Text = LanguageManager.Get("General", "EditingSomething") + " " + LevelName;
@@ -172,12 +173,19 @@ namespace NSMBe4 {
         }
 
         private void smallBlockOverlaysToolStripMenuItem_Click(object sender, EventArgs e) {
-            smallBlockOverlaysToolStripMenuItem.Checked = !smallBlockOverlaysToolStripMenuItem.Checked;
             GFX.RepatchBlocks(smallBlockOverlaysToolStripMenuItem.Checked);
             Properties.Settings.Default.SmallBlockOverlays = smallBlockOverlaysToolStripMenuItem.Checked;
             Properties.Settings.Default.Save();
             Level.ReRenderAll();
             levelEditorControl1.updateTileCache(true);
+            Invalidate(true);
+        }
+
+        private void showResizeHandles_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ShowResizeHandles = showResizeHandles.Checked;
+            Properties.Settings.Default.Save();
+            oem.resizeHandles = showResizeHandles.Checked;
             Invalidate(true);
         }
 
@@ -296,6 +304,5 @@ namespace NSMBe4 {
         {
             levelEditorControl1.delete();
         }
-
     }
 }
