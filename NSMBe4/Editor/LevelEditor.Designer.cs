@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveLevelButton = new System.Windows.Forms.ToolStripButton();
@@ -59,6 +60,7 @@
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.reloadTilesets = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showResizeHandles = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.setBgImageButton = new System.Windows.Forms.ToolStripMenuItem();
             this.removeBgButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,11 +72,12 @@
             this.PanelContainer = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.showResizeHandles = new System.Windows.Forms.ToolStripMenuItem();
             this.minimapControl1 = new NSMBe4.MinimapControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.coordinateViewer1 = new NSMBe4.Editor.CoordinateViewer();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
+            this.backupTimer = new System.Windows.Forms.Timer(this.components);
+            this.levelSaver = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -404,6 +407,14 @@
             this.smallBlockOverlaysToolStripMenuItem.Text = "<smallBlockOverlaysToolStripMenuItem>";
             this.smallBlockOverlaysToolStripMenuItem.Click += new System.EventHandler(this.smallBlockOverlaysToolStripMenuItem_Click);
             // 
+            // showResizeHandles
+            // 
+            this.showResizeHandles.CheckOnClick = true;
+            this.showResizeHandles.Name = "showResizeHandles";
+            this.showResizeHandles.Size = new System.Drawing.Size(295, 22);
+            this.showResizeHandles.Text = "Show Resize Handles";
+            this.showResizeHandles.Click += new System.EventHandler(this.showResizeHandles_Click);
+            // 
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -518,30 +529,11 @@
             this.tabPage1.Controls.Add(this.minimapControl1);
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(241, 90);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Minimap";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.coordinateViewer1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage2.Size = new System.Drawing.Size(241, 90);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Obj Position";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // showResizeHandles
-            // 
-            this.showResizeHandles.CheckOnClick = true;
-            this.showResizeHandles.Name = "showResizeHandles";
-            this.showResizeHandles.Size = new System.Drawing.Size(295, 22);
-            this.showResizeHandles.Text = "Show Resize Handles";
-            this.showResizeHandles.Click += new System.EventHandler(this.showResizeHandles_Click);
             // 
             // minimapControl1
             // 
@@ -551,6 +543,17 @@
             this.minimapControl1.Name = "minimapControl1";
             this.minimapControl1.Size = new System.Drawing.Size(235, 84);
             this.minimapControl1.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.coordinateViewer1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 4);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(241, 90);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Obj Position";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // coordinateViewer1
             // 
@@ -572,6 +575,14 @@
             this.levelEditorControl1.Name = "levelEditorControl1";
             this.levelEditorControl1.Size = new System.Drawing.Size(710, 541);
             this.levelEditorControl1.TabIndex = 3;
+            // 
+            // backupTimer
+            // 
+            this.backupTimer.Tick += new System.EventHandler(this.backupTimer_Tick);
+            // 
+            // levelSaver
+            // 
+            this.levelSaver.DoWork += new System.ComponentModel.DoWorkEventHandler(this.levelSaver_DoWork);
             // 
             // LevelEditor
             // 
@@ -657,6 +668,8 @@
         private System.Windows.Forms.ToolStripButton showGridButton;
         private System.Windows.Forms.ToolStripButton deleteButton;
         private System.Windows.Forms.ToolStripMenuItem showResizeHandles;
+        private System.Windows.Forms.Timer backupTimer;
+        private System.ComponentModel.BackgroundWorker levelSaver;
     }
 }
 

@@ -142,5 +142,29 @@ namespace NSMBe4.Properties {
                 this["ShowResizeHandles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int AutoBackup {
+            get {
+                return ((int)(this["AutoBackup"]));
+            }
+            set {
+                this["AutoBackup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupFiles {
+            get {
+                return ((string)(this["BackupFiles"]));
+            }
+            set {
+                this["BackupFiles"] = value;
+            }
+        }
     }
 }

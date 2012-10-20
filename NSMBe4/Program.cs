@@ -67,8 +67,14 @@ namespace NSMBe4
 
             string path = "";
             string[] args = Environment.GetCommandLineArgs();
+            string[] backups = null;
 
-            if (args.Length > 1)
+            if (Properties.Settings.Default.BackupFiles != "" &&
+                MessageBox.Show("NSMBe did not shut down correctly and has recovered some of your levels.\nWould you like to open those now? If not, they can be opened later from the /Backup folder", "Open backups?", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                backups = Properties.Settings.Default.BackupFiles.Split(';');
+                path = backups[0];
+            }
+            else if (args.Length > 1)
                 path = args[1];
             else
             {
@@ -103,6 +109,10 @@ namespace NSMBe4
                 }
 				else
 				{
+                    if (backups != null)
+                        for (int l = 1; l < backups.Length; l++)
+                            ROM.fileBackups.Add(backups[l]);
+
 		            SpriteData.Load();
 		            if (Properties.Settings.Default.mdi)
 		                Application.Run(new MdiParentForm());

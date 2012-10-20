@@ -81,6 +81,10 @@ namespace NSMBe4 {
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkAutoBackup = new System.Windows.Forms.CheckBox();
+            this.lblEvery = new System.Windows.Forms.Label();
+            this.autoBackupTime = new System.Windows.Forms.NumericUpDown();
+            this.lblMinutes = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -93,6 +97,7 @@ namespace NSMBe4 {
             this.asmToolsGroupbox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.autoBackupTime)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -428,6 +433,10 @@ namespace NSMBe4 {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblMinutes);
+            this.groupBox1.Controls.Add(this.autoBackupTime);
+            this.groupBox1.Controls.Add(this.lblEvery);
+            this.groupBox1.Controls.Add(this.chkAutoBackup);
             this.groupBox1.Controls.Add(this.autoUpdate);
             this.groupBox1.Controls.Add(this.useMDI);
             this.groupBox1.Controls.Add(this.label2);
@@ -436,7 +445,7 @@ namespace NSMBe4 {
             this.groupBox1.Controls.Add(this.changeLanguageButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 149);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 161);
+            this.groupBox1.Size = new System.Drawing.Size(246, 211);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -665,6 +674,58 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
+            // chkAutoBackup
+            // 
+            this.chkAutoBackup.AutoSize = true;
+            this.chkAutoBackup.Location = new System.Drawing.Point(6, 156);
+            this.chkAutoBackup.Name = "chkAutoBackup";
+            this.chkAutoBackup.Size = new System.Drawing.Size(117, 17);
+            this.chkAutoBackup.TabIndex = 9;
+            this.chkAutoBackup.Text = "Auto-backup levels";
+            this.chkAutoBackup.UseVisualStyleBackColor = true;
+            this.chkAutoBackup.CheckedChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
+            // 
+            // lblEvery
+            // 
+            this.lblEvery.AutoSize = true;
+            this.lblEvery.Location = new System.Drawing.Point(23, 180);
+            this.lblEvery.Name = "lblEvery";
+            this.lblEvery.Size = new System.Drawing.Size(34, 13);
+            this.lblEvery.TabIndex = 10;
+            this.lblEvery.Text = "Every";
+            // 
+            // autoBackupTime
+            // 
+            this.autoBackupTime.Location = new System.Drawing.Point(63, 178);
+            this.autoBackupTime.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.autoBackupTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.autoBackupTime.Name = "autoBackupTime";
+            this.autoBackupTime.Size = new System.Drawing.Size(46, 20);
+            this.autoBackupTime.TabIndex = 11;
+            this.autoBackupTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.autoBackupTime.ValueChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
+            // 
+            // lblMinutes
+            // 
+            this.lblMinutes.AutoSize = true;
+            this.lblMinutes.Location = new System.Drawing.Point(118, 180);
+            this.lblMinutes.Name = "lblMinutes";
+            this.lblMinutes.Size = new System.Drawing.Size(50, 13);
+            this.lblMinutes.TabIndex = 12;
+            this.lblMinutes.Text = "Minute(s)";
+            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -689,6 +750,7 @@ namespace NSMBe4 {
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.autoBackupTime)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -750,5 +812,9 @@ namespace NSMBe4 {
         private System.Windows.Forms.GroupBox musicSlotsGrp;
         private System.Windows.Forms.Button renameBtn;
         private System.Windows.Forms.ListBox musicList;
+        private System.Windows.Forms.Label lblMinutes;
+        private System.Windows.Forms.NumericUpDown autoBackupTime;
+        private System.Windows.Forms.Label lblEvery;
+        private System.Windows.Forms.CheckBox chkAutoBackup;
     }
 }

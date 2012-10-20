@@ -62,6 +62,8 @@ namespace NSMBe4 {
 
         public const int SpriteCount = 326;
 
+        public static List<string> fileBackups = new List<string>();
+
         public static void load(String filename)
         {
             ROM.filename = filename;
@@ -118,6 +120,17 @@ namespace NSMBe4 {
             ov.decompress();
 
             Overlay0 = ov.getContents();
+        }
+
+        public static void writeBackupSetting()
+        {
+            string setting = "";
+            if (fileBackups.Count > 0)
+                setting = filename;
+            foreach (string level in fileBackups)
+                setting += ";" + level;
+            Properties.Settings.Default.BackupFiles = setting;
+            Properties.Settings.Default.Save();
         }
 
         public enum Origin {
