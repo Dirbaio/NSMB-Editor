@@ -139,7 +139,7 @@ namespace NSMBe4
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelAll"), "NSMB Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelAll"), LanguageManager.Get("TilesetEditor", "titleSureDelAll"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 t.Objects = new NSMBTileset.ObjectDef[256];
                 for(int x = 0; x < t.map16.width; x++)
@@ -184,7 +184,7 @@ namespace NSMBe4
         private void deleteDescriptions_Click(object sender, EventArgs e)
         {
             if (!descExists) return;
-            if (MessageBox.Show("Are you sure you want to delete all descriptions for this tileset?", "Delete descriptions?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelDescriptions"), LanguageManager.Get("TilesetEditor", "titleDelDescriptions"), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 return;
             ROM.UserInfo.descriptions.Remove(TilesetID);
             createDescriptions.Visible = true;
