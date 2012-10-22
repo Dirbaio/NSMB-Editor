@@ -55,7 +55,7 @@
             this.zoomIn.Name = "zoomIn";
             this.zoomIn.Size = new System.Drawing.Size(24, 24);
             this.zoomIn.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.zoomIn, "Zoom In");
+            this.toolTip1.SetToolTip(this.zoomIn, LanguageManager.Get("GraphicsEditor", "zoomInDes"));
             this.zoomIn.UseVisualStyleBackColor = true;
             this.zoomIn.Click += new System.EventHandler(this.zoomIn_Click);
             // 
@@ -77,7 +77,7 @@
             this.zoomOut.Name = "zoomOut";
             this.zoomOut.Size = new System.Drawing.Size(24, 24);
             this.zoomOut.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.zoomOut, "Zoom Out");
+            this.toolTip1.SetToolTip(this.zoomOut, LanguageManager.Get("GraphicsEditor", "zoomOutDes"));
             this.zoomOut.UseVisualStyleBackColor = true;
             this.zoomOut.Click += new System.EventHandler(this.zoomOut_Click);
             // 
@@ -88,7 +88,7 @@
             this.pickerTool.Name = "pickerTool";
             this.pickerTool.Size = new System.Drawing.Size(24, 24);
             this.pickerTool.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.pickerTool, "Eyedropper");
+            this.toolTip1.SetToolTip(this.pickerTool, LanguageManager.Get("GraphicsEditor", "pickerToolDes"));
             this.pickerTool.UseVisualStyleBackColor = true;
             this.pickerTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -99,7 +99,7 @@
             this.lineTool.Name = "lineTool";
             this.lineTool.Size = new System.Drawing.Size(24, 24);
             this.lineTool.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.lineTool, "Draw Line");
+            this.toolTip1.SetToolTip(this.lineTool, LanguageManager.Get("GraphicsEditor", "lineToolDes"));
             this.lineTool.UseVisualStyleBackColor = true;
             this.lineTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -110,7 +110,7 @@
             this.brushTool.Name = "brushTool";
             this.brushTool.Size = new System.Drawing.Size(24, 24);
             this.brushTool.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.brushTool, "Paint");
+            this.toolTip1.SetToolTip(this.brushTool, LanguageManager.Get("GraphicsEditor", "brushToolDes"));
             this.brushTool.UseVisualStyleBackColor = true;
             this.brushTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -121,7 +121,7 @@
             this.showGrid.Name = "showGrid";
             this.showGrid.Size = new System.Drawing.Size(24, 24);
             this.showGrid.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.showGrid, "Show Grid");
+            this.toolTip1.SetToolTip(this.showGrid, LanguageManager.Get("GraphicsEditor", "showGridDes"));
             this.showGrid.UseVisualStyleBackColor = true;
             this.showGrid.Click += new System.EventHandler(this.showGrid_Click);
             // 
@@ -132,7 +132,7 @@
             this.fillTool.Name = "fillTool";
             this.fillTool.Size = new System.Drawing.Size(24, 24);
             this.fillTool.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.fillTool, "Bucket Fill");
+            this.toolTip1.SetToolTip(this.fillTool, LanguageManager.Get("GraphicsEditor", "fillToolDes"));
             this.fillTool.UseVisualStyleBackColor = true;
             this.fillTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -143,7 +143,7 @@
             this.eraserTool.Name = "eraserTool";
             this.eraserTool.Size = new System.Drawing.Size(24, 24);
             this.eraserTool.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.eraserTool, "Erase");
+            this.toolTip1.SetToolTip(this.eraserTool, LanguageManager.Get("GraphicsEditor", "eraserToolDes"));
             this.eraserTool.UseVisualStyleBackColor = true;
             this.eraserTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -211,7 +211,7 @@
             this.undoButton.Name = "undoButton";
             this.undoButton.Size = new System.Drawing.Size(24, 24);
             this.undoButton.TabIndex = 16;
-            this.toolTip1.SetToolTip(this.undoButton, "Undo");
+            this.toolTip1.SetToolTip(this.undoButton, LanguageManager.Get("GraphicsEditor", "undoButtonDes"));
             this.undoButton.UseVisualStyleBackColor = true;
             this.undoButton.Click += new System.EventHandler(this.undoButton_Click);
             // 
@@ -223,7 +223,7 @@
             this.redoButton.Name = "redoButton";
             this.redoButton.Size = new System.Drawing.Size(24, 24);
             this.redoButton.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.redoButton, "Redo");
+            this.toolTip1.SetToolTip(this.redoButton, LanguageManager.Get("GraphicsEditor", "redoButtonDes"));
             this.redoButton.UseVisualStyleBackColor = true;
             this.redoButton.Click += new System.EventHandler(this.redoButton_Click);
             // 
@@ -234,7 +234,7 @@
             this.rectangleTool.Name = "rectangleTool";
             this.rectangleTool.Size = new System.Drawing.Size(24, 24);
             this.rectangleTool.TabIndex = 18;
-            this.toolTip1.SetToolTip(this.rectangleTool, "Draw Rectangle");
+            this.toolTip1.SetToolTip(this.rectangleTool, LanguageManager.Get("GraphicsEditor", "rectangleToolDes"));
             this.rectangleTool.UseVisualStyleBackColor = true;
             this.rectangleTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
@@ -245,7 +245,7 @@
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(24, 24);
             this.saveButton.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.saveButton, "Save");
+            this.toolTip1.SetToolTip(this.saveButton, LanguageManager.Get("GraphicsEditor", "saveButtonDes"));
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
