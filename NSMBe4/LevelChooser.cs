@@ -55,10 +55,6 @@ namespace NSMBe4 {
 
         private void LevelChooser_Load(object sender, EventArgs e)
         {
-            importLevelButton.Enabled = false;
-            exportLevelButton.Enabled = false;
-            editLevelButton.Enabled = false;
-            hexEditLevelButton.Enabled = false;
             useMDI.Checked = Properties.Settings.Default.mdi;
             autoUpdate.Checked = Properties.Settings.Default.AutoUpdateSD;
             chkAutoBackup.Checked = Properties.Settings.Default.AutoBackup > 0;
@@ -163,17 +159,13 @@ namespace NSMBe4 {
         }
 
         private void levelTreeView_AfterSelect(object sender, TreeViewEventArgs e) {
-            if (e.Node.Tag != null) {
-                importLevelButton.Enabled = true;
-                exportLevelButton.Enabled = true;
-                editLevelButton.Enabled = true;
-                hexEditLevelButton.Enabled = true;
-            } else {
-                importLevelButton.Enabled = false;
-                exportLevelButton.Enabled = false;
-                editLevelButton.Enabled = false;
-                hexEditLevelButton.Enabled = false;
-            }
+            bool enabled = e.Node.Tag != null;
+            importLevelButton.Enabled = enabled;
+            exportLevelButton.Enabled = enabled;
+            editLevelButton.Enabled = enabled;
+            hexEditLevelButton.Enabled = enabled;
+            importClipboard.Enabled = enabled;
+            exportClipboard.Enabled = enabled;
         }
 
         private void editLevelButton_Click(object sender, EventArgs e)
@@ -230,7 +222,6 @@ namespace NSMBe4 {
             }
         }
 
-
         private void importLevelButton_Click(object sender, EventArgs e) {
             if (levelTreeView.SelectedNode == null) return;
 
@@ -269,6 +260,93 @@ namespace NSMBe4 {
             BinaryWriter bw = new BinaryWriter(fs);
             NSMBLevel.ExportLevel(LevelFile, BGFile, bw);
             bw.Close();
+        }
+
+        private void openLevel_Click(object sender, EventArgs e)
+        {
+            if (importLevelDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                return;
+            byte[] levelFile; byte[] bgFile; string[] error;
+            ushort LevelFileID, BGFileID;
+            try {
+                FileStream fs = new System.IO.FileStream(importLevelDialog.FileName, FileMode.Open);
+                BinaryReader br = new BinaryReader(fs);
+                NSMBLevel.getImportLevel(out levelFile, out bgFile, out error, out LevelFileID, out BGFileID, br);
+                br.Close();
+                if (error == null) {
+                    LevelEditor newEditor = new LevelEditor(importLevelDialog.FileName, levelFile, bgFile, LevelFileID, BGFileID);
+                    newEditor.Show();
+                } else
+                    MessageBox.Show(error[0], error[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch (Exception ex) {
+                MessageBox.Show("Failed to open level file: " + ex.Message);
+            }
+        }
+
+        private void importClipboard_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to overwrite this level?", "Replace level from clipboard", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                return;
+            try
+            {
+                string leveltxt = Clipboard.GetText();
+                if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
+                    throw new Exception();
+                leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
+                byte[] levelfile = Convert.FromBase64String(leveltxt);
+                ByteArrayInputStream strm = new ByteArrayInputStream(levelfile);
+                BinaryReader br = new BinaryReader(strm);
+
+                string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
+                NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+                NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+                NSMBLevel.ImportLevel(LevelFile, BGFile, br);
+                br.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Clipboard did not contain a vaild level");
+            }
+        }
+
+        private void exportClipboard_Click(object sender, EventArgs e)
+        {
+            string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
+            NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+            NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+
+            ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
+            BinaryWriter bw = new BinaryWriter(strm);
+
+            NSMBLevel.ExportLevel(LevelFile, BGFile, bw);
+            Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(strm.getData()) + "|");
+            bw.Close();
+        }
+
+        private void openClipboard_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string leveltxt = Clipboard.GetText();
+                if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
+                    throw new Exception();
+                leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
+                byte[] leveldata = Convert.FromBase64String(leveltxt);
+                ByteArrayInputStream strm = new ByteArrayInputStream(leveldata);
+                BinaryReader br = new BinaryReader(strm);
+
+                byte[] levelFile; byte[] bgFile; string[] error;
+                ushort LevelFileID, BGFileID;
+
+                NSMBLevel.getImportLevel(out levelFile, out bgFile, out error, out LevelFileID, out BGFileID, br);
+                LevelEditor newEditor = new LevelEditor("", levelFile, bgFile, LevelFileID, BGFileID);
+                newEditor.Show();
+                br.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Clipboard did not contain a vaild level");
+            }
         }
 
         private void changeLanguageButton_Click(object sender, EventArgs e) {
@@ -845,6 +923,12 @@ namespace NSMBe4 {
                 Properties.Settings.Default.AutoBackup = chkAutoBackup.Checked ? (int)autoBackupTime.Value : 0;
                 Properties.Settings.Default.Save();
             }
+        }
+
+        private void deleteBackups_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete all level backups?", "Delete backups?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                System.IO.Directory.Delete(Path.Combine(Application.StartupPath, "Backup"), true);
         }
     }
 }

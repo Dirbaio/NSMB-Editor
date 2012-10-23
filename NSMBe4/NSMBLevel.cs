@@ -29,6 +29,11 @@ namespace NSMBe4
     {
         public File LevelFile;
         public File BGFile;
+        public string ExportedFileName;
+        public bool isExported = false;
+        public ushort SavedLevelFileID = 0;
+        public ushort SavedBGFileID = 0;
+        public bool isClipboard = false;
 
         public byte[][] Blocks;
         public List<NSMBObject> Objects;
@@ -46,18 +51,30 @@ namespace NSMBe4
 
         public NSMBLevel(File levelFile, File bgFile, NSMBGraphics GFX)
         {
-            LoadLevel(levelFile, bgFile, levelFile.getContents(), bgFile.getContents(), GFX);
+            this.LevelFile = levelFile;
+            this.BGFile = bgFile;
+            LoadLevel(levelFile.getContents(), bgFile.getContents(), GFX);
         }
 
         public NSMBLevel(File levelFile, File bgFile, byte[] eLevelFile, byte[] eBGFile, NSMBGraphics GFX)
         {
-            LoadLevel(levelFile, bgFile, eLevelFile, eBGFile, GFX);
-        }
-
-        private void LoadLevel(File levelFile, File bgFile, byte[] eLevelFile, byte[] eBGFile, NSMBGraphics GFX)
-        {
             this.LevelFile = levelFile;
             this.BGFile = bgFile;
+            LoadLevel(eLevelFile, eBGFile, GFX);
+        }
+
+        public NSMBLevel(string fileName, byte[] eLevelFile, byte[] eBGFile, NSMBGraphics GFX)
+        {
+            if (fileName == "")
+                isClipboard = true;
+            else
+                ExportedFileName = fileName;
+            isExported = true;
+            LoadLevel(eLevelFile, eBGFile, GFX);
+        }
+
+        private void LoadLevel(byte[] eLevelFile, byte[] eBGFile, NSMBGraphics GFX)
+        {
             this.GFX = GFX;
 
             int FilePos;
@@ -287,27 +304,28 @@ namespace NSMBe4
 
         public void enableWrite()
         {
-            try
-            {
-                BGFile.beginEdit(this);
-                LevelFile.beginEdit(this);
-            }
-            catch (AlreadyEditingException ex)
-            {
-                if (BGFile.beingEditedBy(this))
-                    BGFile.endEdit(this);
-                if (LevelFile.beingEditedBy(this))
-                    LevelFile.endEdit(this);
+            if (!isExported) {
+                try
+                {
+                    BGFile.beginEdit(this);
+                    LevelFile.beginEdit(this);
+                }
+                catch (AlreadyEditingException ex)
+                {
+                    if (BGFile.beingEditedBy(this))
+                        BGFile.endEdit(this);
+                    if (LevelFile.beingEditedBy(this))
+                        LevelFile.endEdit(this);
 
-                throw ex;
+                    throw ex;
+                }
             }
-
             editing = true;
         }
 
         public void close()
         {
-            if (editing)
+            if (editing && !isExported)
             {
                 BGFile.endEdit(this);
                 LevelFile.endEdit(this);
@@ -319,9 +337,39 @@ namespace NSMBe4
             byte[] BGDatFileData;
 
             getSaveFiles(out LevelFileData, out BGDatFileData);
-            BGFile.replace(BGDatFileData, this);
-            LevelFile.replace(LevelFileData, this);
+            if (isClipboard)
+            {
+                ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
+                System.IO.BinaryWriter bw = new System.IO.BinaryWriter(strm);
+
+                NSMBLevel.ExportLevel(SavedLevelFileID, SavedBGFileID, LevelFileData, BGDatFileData, bw);
+                Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(strm.getData()) + "|");
+            }
+            else if (isExported)
+            {
+                System.IO.FileStream fs = new System.IO.FileStream(ExportedFileName, System.IO.FileMode.Create);
+                System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs);
+                ExportLevel(SavedLevelFileID, SavedBGFileID, LevelFileData, BGDatFileData, bw);
+            }
+            else
+            {
+                BGFile.replace(BGDatFileData, this);
+                LevelFile.replace(LevelFileData, this);
+            }
         }
+
+        public void SaveToClipboard()
+        {
+            if (isClipboard)
+                Save();
+            else
+            {
+                isClipboard = true;
+                Save();
+                isClipboard = false;
+            }
+        }
+
 
         public void getSaveFiles(out byte[] LevelFileData, out byte[] BGDatFileData)
         {
@@ -532,9 +580,16 @@ namespace NSMBe4
                 ImportLevel(destLevelFile, destBGFile, levelFile, bgFile);
         }
 
-        public static void getImportLevel(out byte[] levelFile, out byte[] bgFile, out string[] error, System.IO.BinaryReader br) {
+        public static void getImportLevel(out byte[] levelFile, out byte[] bgFile, out string[] error, System.IO.BinaryReader br)
+        {
+            ushort SavedLevelFileID, SavedBGFileID;
+            getImportLevel(out levelFile, out bgFile, out error, out SavedLevelFileID, out SavedBGFileID, br);
+        }
+
+        public static void getImportLevel(out byte[] levelFile, out byte[] bgFile, out string[] error, out ushort SavedLevelFileID, out ushort SavedBGFileID, System.IO.BinaryReader br) {
             string Header = br.ReadString();
             levelFile = null; bgFile = null; error = null;
+            SavedLevelFileID = 0; SavedBGFileID = 0;
             if (Header != "NSMBe4 Exported Level") {
                 error = new string[] { LanguageManager.Get("NSMBLevel", "InvalidFile") , LanguageManager.Get("NSMBLevel", "Unreadable") };
                 return;
@@ -547,9 +602,8 @@ namespace NSMBe4
             }
 
             // This message conflitcs with the auto-backup and I think it's unecessary ~Piranhaplant
-
-            ushort SavedLevelFileID = br.ReadUInt16();
-            ushort SavedBGFileID = br.ReadUInt16();
+            SavedLevelFileID = br.ReadUInt16();
+            SavedBGFileID = br.ReadUInt16();
             //if (SavedLevelFileID != destLevelFile.id) {
             //    DialogResult dr = MessageBox.Show(
             //        LanguageManager.Get("NSMBLevel", "Mismatch"),

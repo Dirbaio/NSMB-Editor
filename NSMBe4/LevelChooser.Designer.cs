@@ -28,17 +28,16 @@ namespace NSMBe4 {
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.importClipboard = new System.Windows.Forms.Button();
+            this.openLevel = new System.Windows.Forms.Button();
             this.hexEditLevelButton = new System.Windows.Forms.Button();
             this.exportLevelButton = new System.Windows.Forms.Button();
             this.importLevelButton = new System.Windows.Forms.Button();
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tilesetList1 = new NSMBe4.TilesetList();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.backgroundList1 = new NSMBe4.BackgroundList();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.musicSlotsGrp = new System.Windows.Forms.GroupBox();
             this.renameBtn = new System.Windows.Forms.Button();
@@ -55,6 +54,11 @@ namespace NSMBe4 {
             this.makeinsert = new System.Windows.Forms.Button();
             this.decompArm9Bin = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.deleteBackups = new System.Windows.Forms.Button();
+            this.lblMinutes = new System.Windows.Forms.Label();
+            this.autoBackupTime = new System.Windows.Forms.NumericUpDown();
+            this.lblEvery = new System.Windows.Forms.Label();
+            this.chkAutoBackup = new System.Windows.Forms.CheckBox();
             this.autoUpdate = new System.Windows.Forms.CheckBox();
             this.useMDI = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -81,10 +85,11 @@ namespace NSMBe4 {
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkAutoBackup = new System.Windows.Forms.CheckBox();
-            this.lblEvery = new System.Windows.Forms.Label();
-            this.autoBackupTime = new System.Windows.Forms.NumericUpDown();
-            this.lblMinutes = new System.Windows.Forms.Label();
+            this.exportClipboard = new System.Windows.Forms.Button();
+            this.openClipboard = new System.Windows.Forms.Button();
+            this.tilesetList1 = new NSMBe4.TilesetList();
+            this.backgroundList1 = new NSMBe4.BackgroundList();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -96,8 +101,8 @@ namespace NSMBe4 {
             this.nsmbToolsGroupbox.SuspendLayout();
             this.asmToolsGroupbox.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.autoBackupTime)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -114,11 +119,15 @@ namespace NSMBe4 {
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(550, 478);
+            this.tabControl1.Size = new System.Drawing.Size(550, 493);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.openClipboard);
+            this.tabPage2.Controls.Add(this.exportClipboard);
+            this.tabPage2.Controls.Add(this.importClipboard);
+            this.tabPage2.Controls.Add(this.openLevel);
             this.tabPage2.Controls.Add(this.hexEditLevelButton);
             this.tabPage2.Controls.Add(this.exportLevelButton);
             this.tabPage2.Controls.Add(this.importLevelButton);
@@ -127,17 +136,41 @@ namespace NSMBe4 {
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(542, 452);
+            this.tabPage2.Size = new System.Drawing.Size(542, 467);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // importClipboard
+            // 
+            this.importClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.importClipboard.Enabled = false;
+            this.importClipboard.Location = new System.Drawing.Point(7, 436);
+            this.importClipboard.Name = "importClipboard";
+            this.importClipboard.Size = new System.Drawing.Size(94, 23);
+            this.importClipboard.TabIndex = 6;
+            this.importClipboard.Text = "Import Clipboard";
+            this.importClipboard.UseVisualStyleBackColor = true;
+            this.importClipboard.Click += new System.EventHandler(this.importClipboard_Click);
+            // 
+            // openLevel
+            // 
+            this.openLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.openLevel.Location = new System.Drawing.Point(220, 406);
+            this.openLevel.Name = "openLevel";
+            this.openLevel.Size = new System.Drawing.Size(119, 23);
+            this.openLevel.TabIndex = 5;
+            this.openLevel.Text = "Open Exported Level";
+            this.openLevel.UseVisualStyleBackColor = true;
+            this.openLevel.Click += new System.EventHandler(this.openLevel_Click);
+            // 
             // hexEditLevelButton
             // 
             this.hexEditLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.hexEditLevelButton.Location = new System.Drawing.Point(381, 423);
+            this.hexEditLevelButton.Enabled = false;
+            this.hexEditLevelButton.Location = new System.Drawing.Point(453, 435);
             this.hexEditLevelButton.Name = "hexEditLevelButton";
-            this.hexEditLevelButton.Size = new System.Drawing.Size(66, 23);
+            this.hexEditLevelButton.Size = new System.Drawing.Size(75, 23);
             this.hexEditLevelButton.TabIndex = 4;
             this.hexEditLevelButton.Text = "<hexEditLevelButton>";
             this.hexEditLevelButton.UseVisualStyleBackColor = true;
@@ -146,9 +179,10 @@ namespace NSMBe4 {
             // exportLevelButton
             // 
             this.exportLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exportLevelButton.Location = new System.Drawing.Point(88, 423);
+            this.exportLevelButton.Enabled = false;
+            this.exportLevelButton.Location = new System.Drawing.Point(107, 406);
             this.exportLevelButton.Name = "exportLevelButton";
-            this.exportLevelButton.Size = new System.Drawing.Size(75, 23);
+            this.exportLevelButton.Size = new System.Drawing.Size(107, 23);
             this.exportLevelButton.TabIndex = 3;
             this.exportLevelButton.Text = "<exportLevelButton>";
             this.exportLevelButton.UseVisualStyleBackColor = true;
@@ -157,9 +191,10 @@ namespace NSMBe4 {
             // importLevelButton
             // 
             this.importLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.importLevelButton.Location = new System.Drawing.Point(7, 423);
+            this.importLevelButton.Enabled = false;
+            this.importLevelButton.Location = new System.Drawing.Point(6, 406);
             this.importLevelButton.Name = "importLevelButton";
-            this.importLevelButton.Size = new System.Drawing.Size(75, 23);
+            this.importLevelButton.Size = new System.Drawing.Size(95, 23);
             this.importLevelButton.TabIndex = 2;
             this.importLevelButton.Text = "<importLevelButton>";
             this.importLevelButton.UseVisualStyleBackColor = true;
@@ -168,7 +203,8 @@ namespace NSMBe4 {
             // editLevelButton
             // 
             this.editLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editLevelButton.Location = new System.Drawing.Point(453, 423);
+            this.editLevelButton.Enabled = false;
+            this.editLevelButton.Location = new System.Drawing.Point(453, 406);
             this.editLevelButton.Name = "editLevelButton";
             this.editLevelButton.Size = new System.Drawing.Size(75, 23);
             this.editLevelButton.TabIndex = 1;
@@ -183,7 +219,7 @@ namespace NSMBe4 {
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.levelTreeView.Location = new System.Drawing.Point(6, 6);
             this.levelTreeView.Name = "levelTreeView";
-            this.levelTreeView.Size = new System.Drawing.Size(522, 411);
+            this.levelTreeView.Size = new System.Drawing.Size(522, 394);
             this.levelTreeView.TabIndex = 0;
             this.levelTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.levelTreeView_AfterSelect);
             this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);
@@ -194,36 +230,20 @@ namespace NSMBe4 {
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(542, 452);
+            this.tabPage5.Size = new System.Drawing.Size(542, 467);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Tilesets";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // tilesetList1
-            // 
-            this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tilesetList1.Location = new System.Drawing.Point(3, 3);
-            this.tilesetList1.Name = "tilesetList1";
-            this.tilesetList1.Size = new System.Drawing.Size(536, 446);
-            this.tilesetList1.TabIndex = 0;
             // 
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.backgroundList1);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(542, 452);
+            this.tabPage6.Size = new System.Drawing.Size(542, 467);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Backgrounds";
             this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // backgroundList1
-            // 
-            this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.backgroundList1.Location = new System.Drawing.Point(0, 0);
-            this.backgroundList1.Name = "backgroundList1";
-            this.backgroundList1.Size = new System.Drawing.Size(542, 452);
-            this.backgroundList1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -231,18 +251,10 @@ namespace NSMBe4 {
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(542, 452);
+            this.tabPage1.Size = new System.Drawing.Size(542, 467);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // filesystemBrowser1
-            // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 446);
-            this.filesystemBrowser1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -255,7 +267,7 @@ namespace NSMBe4 {
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(542, 452);
+            this.tabPage3.Size = new System.Drawing.Size(542, 467);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "<tabPage3>";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -433,6 +445,7 @@ namespace NSMBe4 {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.deleteBackups);
             this.groupBox1.Controls.Add(this.lblMinutes);
             this.groupBox1.Controls.Add(this.autoBackupTime);
             this.groupBox1.Controls.Add(this.lblEvery);
@@ -445,10 +458,72 @@ namespace NSMBe4 {
             this.groupBox1.Controls.Add(this.changeLanguageButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 149);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 211);
+            this.groupBox1.Size = new System.Drawing.Size(246, 244);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
+            // 
+            // deleteBackups
+            // 
+            this.deleteBackups.Location = new System.Drawing.Point(26, 204);
+            this.deleteBackups.Name = "deleteBackups";
+            this.deleteBackups.Size = new System.Drawing.Size(120, 23);
+            this.deleteBackups.TabIndex = 13;
+            this.deleteBackups.Text = "Delete all backups";
+            this.deleteBackups.UseVisualStyleBackColor = true;
+            this.deleteBackups.Click += new System.EventHandler(this.deleteBackups_Click);
+            // 
+            // lblMinutes
+            // 
+            this.lblMinutes.AutoSize = true;
+            this.lblMinutes.Location = new System.Drawing.Point(118, 180);
+            this.lblMinutes.Name = "lblMinutes";
+            this.lblMinutes.Size = new System.Drawing.Size(50, 13);
+            this.lblMinutes.TabIndex = 12;
+            this.lblMinutes.Text = "Minute(s)";
+            // 
+            // autoBackupTime
+            // 
+            this.autoBackupTime.Location = new System.Drawing.Point(63, 178);
+            this.autoBackupTime.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.autoBackupTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.autoBackupTime.Name = "autoBackupTime";
+            this.autoBackupTime.Size = new System.Drawing.Size(46, 20);
+            this.autoBackupTime.TabIndex = 11;
+            this.autoBackupTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.autoBackupTime.ValueChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
+            // 
+            // lblEvery
+            // 
+            this.lblEvery.AutoSize = true;
+            this.lblEvery.Location = new System.Drawing.Point(23, 180);
+            this.lblEvery.Name = "lblEvery";
+            this.lblEvery.Size = new System.Drawing.Size(34, 13);
+            this.lblEvery.TabIndex = 10;
+            this.lblEvery.Text = "Every";
+            // 
+            // chkAutoBackup
+            // 
+            this.chkAutoBackup.AutoSize = true;
+            this.chkAutoBackup.Location = new System.Drawing.Point(6, 156);
+            this.chkAutoBackup.Name = "chkAutoBackup";
+            this.chkAutoBackup.Size = new System.Drawing.Size(117, 17);
+            this.chkAutoBackup.TabIndex = 9;
+            this.chkAutoBackup.Text = "Auto-backup levels";
+            this.chkAutoBackup.UseVisualStyleBackColor = true;
+            this.chkAutoBackup.CheckedChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
             // 
             // autoUpdate
             // 
@@ -541,7 +616,7 @@ namespace NSMBe4 {
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(542, 452);
+            this.tabPage4.Size = new System.Drawing.Size(542, 467);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "<tabPage4>";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -674,63 +749,58 @@ namespace NSMBe4 {
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
             // 
-            // chkAutoBackup
+            // exportClipboard
             // 
-            this.chkAutoBackup.AutoSize = true;
-            this.chkAutoBackup.Location = new System.Drawing.Point(6, 156);
-            this.chkAutoBackup.Name = "chkAutoBackup";
-            this.chkAutoBackup.Size = new System.Drawing.Size(117, 17);
-            this.chkAutoBackup.TabIndex = 9;
-            this.chkAutoBackup.Text = "Auto-backup levels";
-            this.chkAutoBackup.UseVisualStyleBackColor = true;
-            this.chkAutoBackup.CheckedChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
+            this.exportClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.exportClipboard.Enabled = false;
+            this.exportClipboard.Location = new System.Drawing.Point(108, 436);
+            this.exportClipboard.Name = "exportClipboard";
+            this.exportClipboard.Size = new System.Drawing.Size(106, 23);
+            this.exportClipboard.TabIndex = 7;
+            this.exportClipboard.Text = "Export to Clipboard";
+            this.exportClipboard.UseVisualStyleBackColor = true;
+            this.exportClipboard.Click += new System.EventHandler(this.exportClipboard_Click);
             // 
-            // lblEvery
+            // openClipboard
             // 
-            this.lblEvery.AutoSize = true;
-            this.lblEvery.Location = new System.Drawing.Point(23, 180);
-            this.lblEvery.Name = "lblEvery";
-            this.lblEvery.Size = new System.Drawing.Size(34, 13);
-            this.lblEvery.TabIndex = 10;
-            this.lblEvery.Text = "Every";
+            this.openClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.openClipboard.Location = new System.Drawing.Point(221, 436);
+            this.openClipboard.Name = "openClipboard";
+            this.openClipboard.Size = new System.Drawing.Size(118, 23);
+            this.openClipboard.TabIndex = 8;
+            this.openClipboard.Text = "Open Clipboard";
+            this.openClipboard.UseVisualStyleBackColor = true;
+            this.openClipboard.Click += new System.EventHandler(this.openClipboard_Click);
             // 
-            // autoBackupTime
+            // tilesetList1
             // 
-            this.autoBackupTime.Location = new System.Drawing.Point(63, 178);
-            this.autoBackupTime.Maximum = new decimal(new int[] {
-            120,
-            0,
-            0,
-            0});
-            this.autoBackupTime.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.autoBackupTime.Name = "autoBackupTime";
-            this.autoBackupTime.Size = new System.Drawing.Size(46, 20);
-            this.autoBackupTime.TabIndex = 11;
-            this.autoBackupTime.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.autoBackupTime.ValueChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
+            this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tilesetList1.Location = new System.Drawing.Point(3, 3);
+            this.tilesetList1.Name = "tilesetList1";
+            this.tilesetList1.Size = new System.Drawing.Size(536, 461);
+            this.tilesetList1.TabIndex = 0;
             // 
-            // lblMinutes
+            // backgroundList1
             // 
-            this.lblMinutes.AutoSize = true;
-            this.lblMinutes.Location = new System.Drawing.Point(118, 180);
-            this.lblMinutes.Name = "lblMinutes";
-            this.lblMinutes.Size = new System.Drawing.Size(50, 13);
-            this.lblMinutes.TabIndex = 12;
-            this.lblMinutes.Text = "Minute(s)";
+            this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.backgroundList1.Location = new System.Drawing.Point(0, 0);
+            this.backgroundList1.Name = "backgroundList1";
+            this.backgroundList1.Size = new System.Drawing.Size(542, 467);
+            this.backgroundList1.TabIndex = 0;
+            // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 461);
+            this.filesystemBrowser1.TabIndex = 0;
             // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 502);
+            this.ClientSize = new System.Drawing.Size(575, 517);
             this.Controls.Add(this.tabControl1);
             this.Name = "LevelChooser";
             this.Text = "<_TITLE>";
@@ -748,9 +818,9 @@ namespace NSMBe4 {
             this.asmToolsGroupbox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.autoBackupTime)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.autoBackupTime)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -816,5 +886,10 @@ namespace NSMBe4 {
         private System.Windows.Forms.NumericUpDown autoBackupTime;
         private System.Windows.Forms.Label lblEvery;
         private System.Windows.Forms.CheckBox chkAutoBackup;
+        private System.Windows.Forms.Button deleteBackups;
+        private System.Windows.Forms.Button openLevel;
+        private System.Windows.Forms.Button importClipboard;
+        private System.Windows.Forms.Button openClipboard;
+        private System.Windows.Forms.Button exportClipboard;
     }
 }

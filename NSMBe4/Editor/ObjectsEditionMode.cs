@@ -173,8 +173,13 @@ namespace NSMBe4
 
                 if (o.isResizable)
                 {
-                    if (o.width < minSizeX) minSizeX = o.width;
-                    if (o.height< minSizeY) minSizeY = o.height;
+                    if (o is NSMBView && !(o as NSMBView).isZone) {
+                        if (o.width - 256 < minSizeX) minSizeX = o.width - 256 + selectionSnap;
+                        if (o.height - 192 < minSizeY) minSizeY = o.height - 192 + selectionSnap;
+                    } else {
+                        if (o.width < minSizeX) minSizeX = o.width;
+                        if (o.height < minSizeY) minSizeY = o.height;
+                    }
                 }
             }
         }

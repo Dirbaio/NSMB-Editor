@@ -273,12 +273,15 @@ namespace NSMBe4
         }
 
         byte[] tileBehavior = new byte[4];
+        bool DataUpdateFlag = false;
 
         private void tileBehaviorPicker_TileSelected(int selTileNum, int selTilePal, int selTileWidth, int selTileHeight)
         {
             for(int i = 0; i < 4; i++)
                 tileBehavior[i] = (byte)((t.TileBehaviors[selTileNum] >> (i*8)) & 0xFF);
+            DataUpdateFlag = true;
             tileBehaviorEditor.setArray(tileBehavior);
+            DataUpdateFlag = false;
         }
 
         private void tileBehaviorEditor_ValueChanged(byte[] val)
@@ -289,6 +292,7 @@ namespace NSMBe4
                     break;
                 }
 
+            if (DataUpdateFlag) return;
             int newBehavior = 0;
             for (int i = 0; i < 4; i++)
                 newBehavior |= val[i] << (i * 8);

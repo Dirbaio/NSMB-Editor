@@ -51,6 +51,17 @@ namespace NSMBe4 {
             LoadEditor(LevelFilename, LevelName, levelFileData, bgdatFileData, LevelFileID, LevelBGDatFileID);
         }
 
+        public LevelEditor(string ExportedFileName, byte[] levelFileData, byte[] bgFileData, ushort SavedLevelFileID, ushort SavedBGFileID)
+        {
+            InitializeComponent();
+            if (ExportedFileName == "")
+                LoadEditor("", "Level on Clipboard", levelFileData, bgFileData, null, null);
+            else
+                LoadEditor(ExportedFileName, "Exported Level - " + ExportedFileName, levelFileData, bgFileData, null, null);
+            Level.SavedLevelFileID = SavedLevelFileID;
+            Level.SavedBGFileID = SavedBGFileID;
+        }
+
         private void LoadEditor(string LevelFilename, string LevelName, byte[] LevelFile, byte[] BGDatFile, File LevelFileID, File LevelBGDatFileID) {
             coordinateViewer1.EdControl = levelEditorControl1;
             //This is supposed to reduce flickering on stuff like the side panel...
@@ -88,8 +99,10 @@ namespace NSMBe4 {
 
             GFX = new NSMBGraphics();
             GFX.LoadTilesets(TilesetID, BGNSCID);
-
-            Level = new NSMBLevel(LevelFileID, LevelBGDatFileID, LevelFile, BGDatFile, GFX);
+            if (LevelFileID == null)
+                Level = new NSMBLevel(LevelFilename, LevelFile, BGDatFile, GFX);
+            else
+                Level = new NSMBLevel(LevelFileID, LevelBGDatFileID, LevelFile, BGDatFile, GFX);
             Level.enableWrite();
             levelEditorControl1.Initialise(GFX, Level, this);
 

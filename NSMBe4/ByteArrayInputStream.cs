@@ -21,11 +21,34 @@ using System.Text;
 
 namespace NSMBe4
 {
-    public class ByteArrayInputStream
+    public class ByteArrayInputStream : System.IO.Stream
     {
         private byte[] array;
         private uint pos = 0, origin = 0;
         private Stack<uint> savedPositions = new Stack<uint>();
+
+        public override long Position {
+            get {
+                return pos;
+            }
+            set {
+                pos = (uint)value;
+            }
+        }
+
+        public override long Length
+        {
+            get { return array.Length - origin; }
+        }
+
+        public override bool CanRead {
+            get { return true; } }
+
+        public override bool CanWrite {
+            get { return true; } }
+
+        public override bool CanSeek {
+            get { return true; } }
 
         public ByteArrayInputStream(byte[] array)
         {
@@ -82,6 +105,21 @@ namespace NSMBe4
             pos += (uint) data.Length;
         }
 
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            if (!lengthAvailable(count))
+                SetLength(pos + count);
+            Array.Copy(buffer, offset, array, pos + origin, count);
+            pos += (uint)count;
+        }
+
+        public override void WriteByte(byte value)
+        {
+            if (pos + origin == array.Length)
+                Array.Resize<byte>(ref array, array.Length + 1);
+            array[origin + pos++] = value;
+        }
+
         public void writeByte(byte b)
         {
             array[origin + pos++] = b;
@@ -91,9 +129,27 @@ namespace NSMBe4
         {
             this.pos = pos;
         }
+
         public void seek(int pos)
         {
             this.pos = (uint)pos;
+        }
+
+        public override long Seek(long offset, System.IO.SeekOrigin origin)
+        {
+            switch (origin)
+            {
+                case System.IO.SeekOrigin.Begin:
+                    pos = this.origin + (uint)offset;
+                    break;
+                case System.IO.SeekOrigin.Current:
+                    pos += (uint)offset;
+                    break;
+                case System.IO.SeekOrigin.End:
+                    pos = (uint)array.Length - this.origin - (uint)offset;
+                    break;
+            }
+            return pos;
         }
 
         public void skip(uint bytes)
@@ -109,7 +165,6 @@ namespace NSMBe4
         {
             pos -= bytes;
         }
-
 
         public uint getPos()
         {
@@ -157,6 +212,13 @@ namespace NSMBe4
             pos += (uint)(dest.Length);
         }
 
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            Array.Copy(array, pos + origin, buffer, offset, count);
+            pos += (uint)count;
+            return count;
+        }
+
         public bool end()
         {
             return pos + origin >= array.Length;
@@ -175,6 +237,17 @@ namespace NSMBe4
                     NewStr.Append((char)arr[i]);
 
             return NewStr.ToString().Trim();
+        }
+
+        // What is this function supposed to do lol
+        public override void Flush()
+        {
+            
+        }
+
+        public override void SetLength(long value)
+        {
+            Array.Resize<byte>(ref array, (int)value + (int)origin);
         }
     }
 }
