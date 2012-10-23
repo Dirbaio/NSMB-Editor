@@ -106,13 +106,13 @@ namespace NSMBe4 {
             return new List<string>(new string[] { string.Format("<ERROR {0}>", Name) });
         }
 
-        public static void ApplyToContainer(System.Windows.Forms.Control Container, string Area) {
+        public static void ApplyToContainer(System.Windows.Forms.Control Container, string Area, System.Windows.Forms.ToolTip tooltip = null) {
             if (Contents == null) return;
 
             if (Contents.ContainsKey(Area)) {
                 Dictionary<string, string> Referred = Contents[Area];
 
-                ApplyToContainer(Container, Referred);
+                ApplyToContainer(Container, Referred, tooltip);
 
                 if (Referred.ContainsKey("_TITLE")) {
                     Container.Text = Referred["_TITLE"];
@@ -127,11 +127,15 @@ namespace NSMBe4 {
             }
         }
 
-        private static void ApplyToContainer(System.Windows.Forms.Control Container, Dictionary<string, string> Referred) {
+        private static void ApplyToContainer(System.Windows.Forms.Control Container, Dictionary<string, string> Referred, System.Windows.Forms.ToolTip tooltip = null) {
             foreach (System.Windows.Forms.Control Control in Container.Controls) {
                 //Console.Out.WriteLine(Control.Name + " " + Control);
                 if (Referred.ContainsKey(Control.Name)) {
                     Control.Text = Referred[Control.Name];
+                }
+                //Applies tooltip text to a control
+                if (tooltip != null && Referred.ContainsKey(Control.Name + ".tooltip")) {
+                    tooltip.SetToolTip(Control, Referred[Control.Name + ".tooltip"]);
                 }
 
                 if (Control is System.Windows.Forms.ToolStrip) {
@@ -140,11 +144,15 @@ namespace NSMBe4 {
                         if (Referred.ContainsKey(TSItem.Name)) {
                             TSItem.Text = Referred[TSItem.Name];
                         }
+                        //Sets tooltip on a toolstrip
+                        if (Referred.ContainsKey(TSItem.Name + ".tooltip")) {
+                            TSItem.ToolTipText = Referred[TSItem.Name + ".tooltip"];
+                        }
                     }
                 }
 
                 if (Control.Controls.Count > 0) {
-                    ApplyToContainer(Control, Referred);
+                    ApplyToContainer(Control, Referred, tooltip);
                 }
             }
         }

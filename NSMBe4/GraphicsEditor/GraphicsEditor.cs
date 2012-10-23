@@ -27,7 +27,7 @@ namespace NSMBe4 {
     public partial class GraphicsEditor : UserControl {
         public GraphicsEditor() {
             InitializeComponent();
-            LanguageManager.ApplyToContainer(this, "GraphicsEditor");
+            LanguageManager.ApplyToContainer(this, "GraphicsEditor", toolTip1);
             ZoomLevel = 1;
         }
 

@@ -183,8 +183,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-                        | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.behaviorList);
             this.panel1.Controls.Add(this.label1);
@@ -196,7 +196,7 @@
             // 
             // behaviorList
             // 
-            this.behaviorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.behaviorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.behaviorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.behaviorList.FormattingEnabled = true;
@@ -294,7 +294,6 @@
             this.setend.Name = "setend";
             this.setend.Size = new System.Drawing.Size(81, 22);
             this.setend.Text = "<set end>";
-            this.setend.ToolTipText = LanguageManager.Get("TilesetEditor", "setendDescription");
             this.setend.Click += new System.EventHandler(this.setend_Click);
             // 
             // copyPalettes
@@ -302,9 +301,8 @@
             this.copyPalettes.Image = global::NSMBe4.Properties.Resources.file_ncl;
             this.copyPalettes.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyPalettes.Name = "copyPalettes";
-            this.copyPalettes.Size = new System.Drawing.Size(81, 22);
+            this.copyPalettes.Size = new System.Drawing.Size(121, 22);
             this.copyPalettes.Text = "Duplicate palettes";
-            this.copyPalettes.ToolTipText = LanguageManager.Get("TilesetEditor", "copyPalDescription");
             this.copyPalettes.Click += new System.EventHandler(this.copyPalettes_Click);
             // 
             // saveFileDialog1
