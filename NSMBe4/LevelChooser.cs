@@ -293,7 +293,7 @@ namespace NSMBe4 {
                 if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
                     throw new Exception();
                 leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
-                byte[] levelfile = Convert.FromBase64String(leveltxt);
+                byte[] levelfile = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
                 ByteArrayInputStream strm = new ByteArrayInputStream(levelfile);
                 BinaryReader br = new BinaryReader(strm);
 
@@ -319,7 +319,7 @@ namespace NSMBe4 {
             BinaryWriter bw = new BinaryWriter(strm);
 
             NSMBLevel.ExportLevel(LevelFile, BGFile, bw);
-            Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(strm.getData()) + "|");
+            Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(ROM.LZ77_Compress(strm.getData())) + "|");
             bw.Close();
         }
 
@@ -331,7 +331,7 @@ namespace NSMBe4 {
                 if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
                     throw new Exception();
                 leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
-                byte[] leveldata = Convert.FromBase64String(leveltxt);
+                byte[] leveldata = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
                 ByteArrayInputStream strm = new ByteArrayInputStream(leveldata);
                 BinaryReader br = new BinaryReader(strm);
 

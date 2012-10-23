@@ -343,7 +343,7 @@ namespace NSMBe4
                 System.IO.BinaryWriter bw = new System.IO.BinaryWriter(strm);
 
                 NSMBLevel.ExportLevel(SavedLevelFileID, SavedBGFileID, LevelFileData, BGDatFileData, bw);
-                Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(strm.getData()) + "|");
+                Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(ROM.LZ77_Compress(strm.getData())) + "|");
             }
             else if (isExported)
             {
