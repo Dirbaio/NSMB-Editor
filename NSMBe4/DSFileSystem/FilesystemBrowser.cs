@@ -378,7 +378,7 @@ namespace NSMBe4.DSFileSystem
             }
             catch (AlreadyEditingException ex)
             {
-                MessageBox.Show(this, "This file is already being edited");
+                MessageBox.Show(this, (LanguageManager.Get("Errors", "File")));
             }
         }
 
