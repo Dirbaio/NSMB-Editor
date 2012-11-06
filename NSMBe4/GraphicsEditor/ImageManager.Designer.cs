@@ -263,7 +263,7 @@
             this.importAllBtn.Name = "importAllBtn";
             this.importAllBtn.Size = new System.Drawing.Size(237, 23);
             this.importAllBtn.TabIndex = 0;
-            this.importAllBtn.Text = "Import all bitmaps with all palettes [BROKEN]";
+            this.importAllBtn.Text = "Import all bitmaps with all palettes";
             this.importAllBtn.UseVisualStyleBackColor = true;
             this.importAllBtn.Click += new System.EventHandler(this.importAllBtn_Click);
             // 
