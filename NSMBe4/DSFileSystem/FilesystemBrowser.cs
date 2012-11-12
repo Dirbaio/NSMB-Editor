@@ -338,7 +338,15 @@ namespace NSMBe4.DSFileSystem
 
             try
             {
-                if (filename.EndsWith(".enpg"))
+                if (filename == "banner.bin")
+                {
+                    LevelChooser.showImgMgr();
+                    File imgFile = new InlineFile(f, 0x20, 0x200, f.name, null, InlineFile.CompressionType.NoComp);
+                    File palFile = new InlineFile(f, 0x220, 0x20, f.name, null, InlineFile.CompressionType.NoComp);
+                    LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 32, true, false));
+                    LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
+                }
+                else if (filename.EndsWith(".enpg"))
                 {
                     LevelChooser.showImgMgr();
                     File imgFile = new InlineFile(f, 0, 0x10000, f.name, null, InlineFile.CompressionType.LZComp);
