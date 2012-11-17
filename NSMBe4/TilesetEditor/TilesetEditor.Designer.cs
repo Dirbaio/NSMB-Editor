@@ -37,7 +37,6 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.imageManager1 = new NSMBe4.ImageManager();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.tileBehaviorPicker = new NSMBe4.TilePicker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.behaviorList = new System.Windows.Forms.ListBox();
@@ -61,7 +60,6 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -151,7 +149,7 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.panel2);
+            this.tabPage5.Controls.Add(this.tileBehaviorPicker);
             this.tabPage5.Controls.Add(this.panel1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
@@ -161,43 +159,34 @@
             this.tabPage5.Text = "Tile behaviors";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            this.panel2.AutoScroll = true;
-            this.panel2.Controls.Add(this.tileBehaviorPicker);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(286, 504);
-            this.panel2.TabIndex = 2;
-            // 
             // tileBehaviorPicker
             // 
             this.tileBehaviorPicker.AutoSize = true;
-            this.tileBehaviorPicker.Location = new System.Drawing.Point(3, 4);
-            this.tileBehaviorPicker.MinimumSize = new System.Drawing.Size(256, 224);
+            this.tileBehaviorPicker.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tileBehaviorPicker.Location = new System.Drawing.Point(3, 3);
+            this.tileBehaviorPicker.MinimumSize = new System.Drawing.Size(274, 0);
             this.tileBehaviorPicker.Name = "tileBehaviorPicker";
-            this.tileBehaviorPicker.Size = new System.Drawing.Size(256, 224);
+            this.tileBehaviorPicker.Size = new System.Drawing.Size(274, 504);
             this.tileBehaviorPicker.TabIndex = 0;
             this.tileBehaviorPicker.TileSelected += new NSMBe4.TilePicker.TileSelectedd(this.tileBehaviorPicker_TileSelected);
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.behaviorList);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.tileBehaviorEditor);
-            this.panel1.Location = new System.Drawing.Point(295, 3);
+            this.panel1.Location = new System.Drawing.Point(283, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(651, 504);
+            this.panel1.Size = new System.Drawing.Size(663, 504);
             this.panel1.TabIndex = 1;
             // 
             // behaviorList
             // 
-            this.behaviorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.behaviorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.behaviorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.behaviorList.FormattingEnabled = true;
             this.behaviorList.Location = new System.Drawing.Point(6, 32);
@@ -337,8 +326,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.tabPage5.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -372,7 +360,6 @@
         private ImageManager imageManager1;
         private TilemapEditor.TilemapEditor tilemapEditor1;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Panel panel2;
         private TilePicker tileBehaviorPicker;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;

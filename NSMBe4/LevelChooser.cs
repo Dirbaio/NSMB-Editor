@@ -86,27 +86,28 @@ namespace NSMBe4 {
                 }
             }
 
-            // Load filebackups from crash
+            // Load file backups from crash
             string backupPath = Path.Combine(Application.StartupPath, "Backup");
             if (ROM.fileBackups.Count > 0)
                 foreach (string filename in ROM.fileBackups)
                     try
                     {
-                        byte[] levelFile; byte[] bgFile; string[] error;
-                        FileStream fs = new System.IO.FileStream(Path.Combine(backupPath, filename + ".nml"), FileMode.Open);
+                        string backupname;
+                        if (filename.Contains("/") || filename.Contains("\\"))
+                            backupname = Path.GetFileName(filename);
+                        else
+                            backupname = filename + ".nml";
+                        FileStream fs = new System.IO.FileStream(Path.Combine(backupPath, backupname), FileMode.Open);
                         BinaryReader br = new BinaryReader(fs);
-                        NSMBLevel.getImportLevel(out levelFile, out bgFile, out error, br);
+                        ExportedLevel exlvl = new ExportedLevel(br);
                         br.Close();
-                        if (error == null)
-                        {
-                            LevelEditor newEditor = new LevelEditor(filename, filename + " - Recovered Level", levelFile, bgFile);
-                            newEditor.Show();
-                        }
+                        if (!exlvl.hasError())
+                            new LevelEditor(filename,"Recovered Level - " + filename, exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID).Show();
                     }
                     catch (Exception) { }
 
 
-            this.Text = "NSMB Editor 5.2 Beta";
+            this.Text = "NSMB Editor 5.2 Beta - " + ROM.filename;
             label3.Text = "NSMB Editor 5.2 " + Properties.Resources.version.Trim();
             this.Icon = Properties.Resources.nsmbe;
 
@@ -226,9 +227,8 @@ namespace NSMBe4 {
             if (levelTreeView.SelectedNode == null) return;
 
             // Figure out what file to import
-            if (importLevelDialog.ShowDialog() == DialogResult.Cancel) {
+            if (importLevelDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            }
 
             // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
@@ -238,7 +238,11 @@ namespace NSMBe4 {
             // Load it
             FileStream fs = new FileStream(importLevelDialog.FileName, FileMode.Open);
             BinaryReader br = new BinaryReader(fs);
-            NSMBLevel.ImportLevel(LevelFile, BGFile, br);
+            ExportedLevel exlvl = new ExportedLevel(br);
+            if (exlvl.hasError())
+                MessageBox.Show(exlvl.ErrorMessage, exlvl.ErrorTitle);
+            else
+                exlvl.Import(LevelFile, BGFile);
             br.Close();
         }
 
@@ -246,9 +250,8 @@ namespace NSMBe4 {
             if (levelTreeView.SelectedNode == null) return;
 
             // Figure out what file to export to
-            if (exportLevelDialog.ShowDialog() == DialogResult.Cancel) {
+            if (exportLevelDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            }
 
             // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
@@ -258,7 +261,7 @@ namespace NSMBe4 {
             // Load it
             FileStream fs = new FileStream(exportLevelDialog.FileName, FileMode.Create);
             BinaryWriter bw = new BinaryWriter(fs);
-            NSMBLevel.ExportLevel(LevelFile, BGFile, bw);
+            new ExportedLevel(LevelFile, BGFile).Write(bw);
             bw.Close();
         }
 
@@ -266,18 +269,15 @@ namespace NSMBe4 {
         {
             if (importLevelDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 return;
-            byte[] levelFile; byte[] bgFile; string[] error;
-            ushort LevelFileID, BGFileID;
             try {
                 FileStream fs = new System.IO.FileStream(importLevelDialog.FileName, FileMode.Open);
                 BinaryReader br = new BinaryReader(fs);
-                NSMBLevel.getImportLevel(out levelFile, out bgFile, out error, out LevelFileID, out BGFileID, br);
+                ExportedLevel exlvl = new ExportedLevel(br);
                 br.Close();
-                if (error == null) {
-                    LevelEditor newEditor = new LevelEditor(importLevelDialog.FileName, levelFile, bgFile, LevelFileID, BGFileID);
-                    newEditor.Show();
-                } else
-                    MessageBox.Show(error[0], error[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (exlvl.hasError())
+                    MessageBox.Show(exlvl.ErrorMessage, exlvl.ErrorTitle);
+                else
+                    new LevelEditor(importLevelDialog.FileName, "Exported Level - " + importLevelDialog.FileName, exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID).Show();
             } catch (Exception ex) {
                 MessageBox.Show("Failed to open level file: " + ex.Message);
             }
@@ -300,7 +300,7 @@ namespace NSMBe4 {
                 string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
                 NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
                 NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
-                NSMBLevel.ImportLevel(LevelFile, BGFile, br);
+                new ExportedLevel(br).Import(LevelFile, BGFile);
                 br.Close();
             }
             catch (Exception ex)
@@ -318,7 +318,7 @@ namespace NSMBe4 {
             ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
             BinaryWriter bw = new BinaryWriter(strm);
 
-            NSMBLevel.ExportLevel(LevelFile, BGFile, bw);
+            new ExportedLevel(LevelFile, BGFile).Write(bw);
             Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(ROM.LZ77_Compress(strm.getData())) + "|");
             bw.Close();
         }
@@ -335,11 +335,8 @@ namespace NSMBe4 {
                 ByteArrayInputStream strm = new ByteArrayInputStream(leveldata);
                 BinaryReader br = new BinaryReader(strm);
 
-                byte[] levelFile; byte[] bgFile; string[] error;
-                ushort LevelFileID, BGFileID;
-
-                NSMBLevel.getImportLevel(out levelFile, out bgFile, out error, out LevelFileID, out BGFileID, br);
-                LevelEditor newEditor = new LevelEditor("", levelFile, bgFile, LevelFileID, BGFileID);
+                ExportedLevel exlvl = new ExportedLevel(br);
+                LevelEditor newEditor = new LevelEditor("", "", exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID);
                 newEditor.Show();
                 br.Close();
             }

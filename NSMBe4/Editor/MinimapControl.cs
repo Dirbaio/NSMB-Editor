@@ -53,13 +53,15 @@ namespace NSMBe4
             e.Graphics.ScaleTransform(scale, scale);
             e.Graphics.Clear(SystemColors.ControlDark);
             e.Graphics.FillRectangle(Brushes.DarkSlateGray, 0, 0, 512, 256);
-            for (int ObjIdx = 0; ObjIdx < Level.Objects.Count; ObjIdx++)
-            {
-                e.Graphics.FillRectangle(Brushes.White, Level.Objects[ObjIdx].X, Level.Objects[ObjIdx].Y, Level.Objects[ObjIdx].Width, Level.Objects[ObjIdx].Height);
-            }
+            // Draws object, but draws with background color if it is object 0
+            foreach (NSMBObject obj in Level.Objects)
+                if (obj.ObjNum == 0 && obj.Tileset == 0)
+                    e.Graphics.FillRectangle(Brushes.SlateGray, obj.X, obj.Y, obj.Width, obj.Height);
+                else
+                    e.Graphics.FillRectangle(Brushes.White, obj.X, obj.Y, obj.Width, obj.Height);
 
-            for (int SpriteIdx = 0; SpriteIdx < Level.Sprites.Count; SpriteIdx++)
-                e.Graphics.FillRectangle(Brushes.Chartreuse, Level.Sprites[SpriteIdx].getRectB());
+            foreach (NSMBSprite s in Level.Sprites)
+                e.Graphics.FillRectangle(Brushes.Chartreuse, s.getRectB());
             foreach (NSMBView v in Level.Views)
                 e.Graphics.DrawRectangle(Pens.LightSteelBlue, v.X / 16, v.Y / 16, v.Width / 16, v.Height / 16);
             foreach (NSMBView v in Level.Zones)

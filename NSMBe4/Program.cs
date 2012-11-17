@@ -93,7 +93,7 @@ namespace NSMBe4
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Could not open ROM file for writing. Is it open with other program?\n"+ex.Message);
+                    MessageBox.Show("Could not open ROM file for writing. Is it open with other program?\n\n"+ex.Message);
                     return;
                 }
                 

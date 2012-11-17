@@ -28,6 +28,8 @@ namespace NSMBe4 {
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.openClipboard = new System.Windows.Forms.Button();
+            this.exportClipboard = new System.Windows.Forms.Button();
             this.importClipboard = new System.Windows.Forms.Button();
             this.openLevel = new System.Windows.Forms.Button();
             this.hexEditLevelButton = new System.Windows.Forms.Button();
@@ -36,8 +38,11 @@ namespace NSMBe4 {
             this.editLevelButton = new System.Windows.Forms.Button();
             this.levelTreeView = new System.Windows.Forms.TreeView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tilesetList1 = new NSMBe4.TilesetList();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.backgroundList1 = new NSMBe4.BackgroundList();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.musicSlotsGrp = new System.Windows.Forms.GroupBox();
             this.renameBtn = new System.Windows.Forms.Button();
@@ -85,11 +90,6 @@ namespace NSMBe4 {
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.exportClipboard = new System.Windows.Forms.Button();
-            this.openClipboard = new System.Windows.Forms.Button();
-            this.tilesetList1 = new NSMBe4.TilesetList();
-            this.backgroundList1 = new NSMBe4.BackgroundList();
-            this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -107,9 +107,9 @@ namespace NSMBe4 {
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
@@ -140,6 +140,29 @@ namespace NSMBe4 {
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // openClipboard
+            // 
+            this.openClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.openClipboard.Location = new System.Drawing.Point(221, 436);
+            this.openClipboard.Name = "openClipboard";
+            this.openClipboard.Size = new System.Drawing.Size(118, 23);
+            this.openClipboard.TabIndex = 8;
+            this.openClipboard.Text = "Open Clipboard";
+            this.openClipboard.UseVisualStyleBackColor = true;
+            this.openClipboard.Click += new System.EventHandler(this.openClipboard_Click);
+            // 
+            // exportClipboard
+            // 
+            this.exportClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.exportClipboard.Enabled = false;
+            this.exportClipboard.Location = new System.Drawing.Point(108, 436);
+            this.exportClipboard.Name = "exportClipboard";
+            this.exportClipboard.Size = new System.Drawing.Size(106, 23);
+            this.exportClipboard.TabIndex = 7;
+            this.exportClipboard.Text = "Export to Clipboard";
+            this.exportClipboard.UseVisualStyleBackColor = true;
+            this.exportClipboard.Click += new System.EventHandler(this.exportClipboard_Click);
             // 
             // importClipboard
             // 
@@ -214,9 +237,9 @@ namespace NSMBe4 {
             // 
             // levelTreeView
             // 
-            this.levelTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.levelTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.levelTreeView.Location = new System.Drawing.Point(6, 6);
             this.levelTreeView.Name = "levelTreeView";
             this.levelTreeView.Size = new System.Drawing.Size(522, 394);
@@ -235,6 +258,14 @@ namespace NSMBe4 {
             this.tabPage5.Text = "Tilesets";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // tilesetList1
+            // 
+            this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tilesetList1.Location = new System.Drawing.Point(3, 3);
+            this.tilesetList1.Name = "tilesetList1";
+            this.tilesetList1.Size = new System.Drawing.Size(536, 461);
+            this.tilesetList1.TabIndex = 0;
+            // 
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.backgroundList1);
@@ -244,6 +275,14 @@ namespace NSMBe4 {
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Backgrounds";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // backgroundList1
+            // 
+            this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.backgroundList1.Location = new System.Drawing.Point(0, 0);
+            this.backgroundList1.Name = "backgroundList1";
+            this.backgroundList1.Size = new System.Drawing.Size(542, 467);
+            this.backgroundList1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -255,6 +294,14 @@ namespace NSMBe4 {
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "<tabPage1>";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // filesystemBrowser1
+            // 
+            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.filesystemBrowser1.Name = "filesystemBrowser1";
+            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 461);
+            this.filesystemBrowser1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -274,9 +321,9 @@ namespace NSMBe4 {
             // 
             // musicSlotsGrp
             // 
-            this.musicSlotsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.musicSlotsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.musicSlotsGrp.Controls.Add(this.renameBtn);
             this.musicSlotsGrp.Controls.Add(this.musicList);
             this.musicSlotsGrp.Location = new System.Drawing.Point(258, 236);
@@ -299,9 +346,9 @@ namespace NSMBe4 {
             // 
             // musicList
             // 
-            this.musicList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.musicList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.musicList.FormattingEnabled = true;
             this.musicList.Location = new System.Drawing.Point(6, 20);
             this.musicList.Name = "musicList";
@@ -310,8 +357,8 @@ namespace NSMBe4 {
             // 
             // patchesGroupbox
             // 
-            this.patchesGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchesGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.patchesGroupbox.Controls.Add(this.patchExport);
             this.patchesGroupbox.Controls.Add(this.patchImport);
             this.patchesGroupbox.Location = new System.Drawing.Point(258, 6);
@@ -323,8 +370,8 @@ namespace NSMBe4 {
             // 
             // patchExport
             // 
-            this.patchExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.patchExport.Location = new System.Drawing.Point(6, 19);
             this.patchExport.Name = "patchExport";
             this.patchExport.Size = new System.Drawing.Size(266, 23);
@@ -335,8 +382,8 @@ namespace NSMBe4 {
             // 
             // patchImport
             // 
-            this.patchImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.patchImport.Location = new System.Drawing.Point(6, 48);
             this.patchImport.Name = "patchImport";
             this.patchImport.Size = new System.Drawing.Size(266, 23);
@@ -359,8 +406,8 @@ namespace NSMBe4 {
             // 
             // mpPatch
             // 
-            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mpPatch.Location = new System.Drawing.Point(6, 19);
             this.mpPatch.Name = "mpPatch";
             this.mpPatch.Size = new System.Drawing.Size(234, 23);
@@ -371,8 +418,8 @@ namespace NSMBe4 {
             // 
             // mpPatch2
             // 
-            this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mpPatch2.Location = new System.Drawing.Point(6, 48);
             this.mpPatch2.Name = "mpPatch2";
             this.mpPatch2.Size = new System.Drawing.Size(234, 23);
@@ -383,8 +430,8 @@ namespace NSMBe4 {
             // 
             // dataFinderButton
             // 
-            this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataFinderButton.Location = new System.Drawing.Point(6, 106);
             this.dataFinderButton.Name = "dataFinderButton";
             this.dataFinderButton.Size = new System.Drawing.Size(234, 23);
@@ -395,8 +442,8 @@ namespace NSMBe4 {
             // 
             // asmToolsGroupbox
             // 
-            this.asmToolsGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.asmToolsGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.asmToolsGroupbox.Controls.Add(this.makeclean);
             this.asmToolsGroupbox.Controls.Add(this.makeinsert);
             this.asmToolsGroupbox.Controls.Add(this.decompArm9Bin);
@@ -409,8 +456,8 @@ namespace NSMBe4 {
             // 
             // makeclean
             // 
-            this.makeclean.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.makeclean.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.makeclean.Location = new System.Drawing.Point(6, 77);
             this.makeclean.Name = "makeclean";
             this.makeclean.Size = new System.Drawing.Size(266, 23);
@@ -421,8 +468,8 @@ namespace NSMBe4 {
             // 
             // makeinsert
             // 
-            this.makeinsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.makeinsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.makeinsert.Location = new System.Drawing.Point(6, 48);
             this.makeinsert.Name = "makeinsert";
             this.makeinsert.Size = new System.Drawing.Size(266, 23);
@@ -433,8 +480,8 @@ namespace NSMBe4 {
             // 
             // decompArm9Bin
             // 
-            this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.decompArm9Bin.Location = new System.Drawing.Point(6, 19);
             this.decompArm9Bin.Name = "decompArm9Bin";
             this.decompArm9Bin.Size = new System.Drawing.Size(266, 23);
@@ -458,7 +505,7 @@ namespace NSMBe4 {
             this.groupBox1.Controls.Add(this.changeLanguageButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 149);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 244);
+            this.groupBox1.Size = new System.Drawing.Size(246, 238);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<groupBox1>";
@@ -558,8 +605,8 @@ namespace NSMBe4 {
             // 
             // languageListBox
             // 
-            this.languageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.languageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.languageListBox.FormattingEnabled = true;
             this.languageListBox.Location = new System.Drawing.Point(6, 32);
             this.languageListBox.Name = "languageListBox";
@@ -568,8 +615,8 @@ namespace NSMBe4 {
             // 
             // updateSpriteDataButton
             // 
-            this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.updateSpriteDataButton.Location = new System.Drawing.Point(165, 126);
             this.updateSpriteDataButton.Name = "updateSpriteDataButton";
             this.updateSpriteDataButton.Size = new System.Drawing.Size(75, 23);
@@ -591,8 +638,8 @@ namespace NSMBe4 {
             // 
             // dumpMapButton
             // 
-            this.dumpMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dumpMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dumpMapButton.Location = new System.Drawing.Point(258, 207);
             this.dumpMapButton.Name = "dumpMapButton";
             this.dumpMapButton.Size = new System.Drawing.Size(278, 23);
@@ -748,53 +795,6 @@ namespace NSMBe4 {
             // saveTextFileDialog
             // 
             this.saveTextFileDialog.Filter = "Text files|*.txt";
-            // 
-            // exportClipboard
-            // 
-            this.exportClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exportClipboard.Enabled = false;
-            this.exportClipboard.Location = new System.Drawing.Point(108, 436);
-            this.exportClipboard.Name = "exportClipboard";
-            this.exportClipboard.Size = new System.Drawing.Size(106, 23);
-            this.exportClipboard.TabIndex = 7;
-            this.exportClipboard.Text = "Export to Clipboard";
-            this.exportClipboard.UseVisualStyleBackColor = true;
-            this.exportClipboard.Click += new System.EventHandler(this.exportClipboard_Click);
-            // 
-            // openClipboard
-            // 
-            this.openClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openClipboard.Location = new System.Drawing.Point(221, 436);
-            this.openClipboard.Name = "openClipboard";
-            this.openClipboard.Size = new System.Drawing.Size(118, 23);
-            this.openClipboard.TabIndex = 8;
-            this.openClipboard.Text = "Open Clipboard";
-            this.openClipboard.UseVisualStyleBackColor = true;
-            this.openClipboard.Click += new System.EventHandler(this.openClipboard_Click);
-            // 
-            // tilesetList1
-            // 
-            this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tilesetList1.Location = new System.Drawing.Point(3, 3);
-            this.tilesetList1.Name = "tilesetList1";
-            this.tilesetList1.Size = new System.Drawing.Size(536, 461);
-            this.tilesetList1.TabIndex = 0;
-            // 
-            // backgroundList1
-            // 
-            this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.backgroundList1.Location = new System.Drawing.Point(0, 0);
-            this.backgroundList1.Name = "backgroundList1";
-            this.backgroundList1.Size = new System.Drawing.Size(542, 467);
-            this.backgroundList1.TabIndex = 0;
-            // 
-            // filesystemBrowser1
-            // 
-            this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.filesystemBrowser1.Name = "filesystemBrowser1";
-            this.filesystemBrowser1.Size = new System.Drawing.Size(536, 461);
-            this.filesystemBrowser1.TabIndex = 0;
             // 
             // LevelChooser
             // 

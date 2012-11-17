@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByteArrayInputStream.cs" />
+    <Compile Include="ExportedLevel.cs" />
     <Compile Include="Patcher\Arm9BinaryHandler.cs" />
     <Compile Include="Editor\CoordinateViewer.cs">
       <SubType>UserControl</SubType>
@@ -541,15 +542,21 @@
     <None Include="behaviors.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Icons\note-bright.png" />
+    <Content Include="Resources\Icons\calculator-scientific.png" />
+    <Content Include="Resources\Icons\cross-script-bright.png" />
+    <Content Include="Resources\Icons\cross-script.png" />
+    <Content Include="Resources\Icons\file_narc.png" />
+    <Content Include="Resources\Icons\file_ncg.png" />
+    <Content Include="Resources\Icons\file_ncl.png" />
+    <Content Include="Resources\Icons\file_nsbmd.png" />
+    <Content Include="Resources\Icons\file_nsbtx.png" />
+    <Content Include="Resources\Icons\file_nsc.png" />
+    <Content Include="Resources\Icons\file_sdat.png" />
+    <Content Include="Resources\Icons\image--arrow.png" />
+    <Content Include="Resources\Icons\image--plus.png" />
+    <Content Include="Resources\Icons\textfield_add.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
-    <None Include="Resources\file_ncg.png" />
-    <None Include="Resources\file_ncl.png" />
-    <None Include="Resources\file_nsbmd.png" />
-    <None Include="Resources\file_nsbtx.png" />
-    <None Include="Resources\file_nsc.png" />
-    <None Include="Resources\file_sdat.png" />
-    <None Include="Resources\calculator-scientific.png" />
-    <None Include="Resources\file_narc.png" />
     <Content Include="Editor\nsmbe.ico" />
     <Content Include="Resources\version.txt" />
     <None Include="Resources\Sprite Images\Brick.PNG" />
@@ -562,8 +569,6 @@
     <None Include="Resources\Sprite Images\Infinity.PNG" />
     <None Include="Resources\Sprite Images\BlooperWithMini.PNG" />
     <None Include="Resources\Sprite Images\BlooperNanny.PNG" />
-    <None Include="Resources\cross-script.png" />
-    <None Include="Resources\cross-script-bright.png" />
     <None Include="Languages\English.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -590,14 +595,11 @@
     <Content Include="Resources\Icons\zoomactual.png" />
     <Content Include="Resources\Icons\zoomout.png" />
     <Content Include="nsmbe.ico" />
-    <Content Include="Resources\english.ini" />
     <Content Include="Resources\Icons\find.png" />
     <Content Include="Resources\Icons\gfxeditor.png" />
     <Content Include="Resources\Icons\options.png" />
     <Content Include="Resources\Icons\rectangle.png" />
     <None Include="Resources\selectedarrows.png" />
-    <None Include="Resources\image--arrow.png" />
-    <None Include="Resources\image--plus.png" />
     <Content Include="Resources\Icons\zoom.png" />
     <None Include="Resources\Sprite Images\Arrow.PNG" />
     <None Include="Resources\Sprite Images\ArrowRotate45.PNG" />
@@ -740,7 +742,6 @@
     <None Include="Resources\Sprite Images\DrawBridgeEnd.PNG" />
     <None Include="Resources\Sprite Images\DrawBridgeHinge.PNG" />
     <None Include="Resources\Sprite Images\DrawBridgeSection.PNG" />
-    <None Include="Resources\textfield_add.png" />
     <None Include="Resources\Sprite Images\Pendulum.PNG" />
     <None Include="Resources\Sprite Images\GiantThwomp.PNG" />
     <None Include="Resources\Sprite Images\Vine.PNG" />

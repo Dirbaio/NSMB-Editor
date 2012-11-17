@@ -256,46 +256,40 @@ namespace NSMBe4
             return ProcessCmdKey(ref msg, keyData);
         }
 
+        private Keys[] tabShortcuts = { Keys.C, Keys.O, Keys.S, Keys.E, Keys.V, Keys.Z, Keys.P, Keys.G };
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             Console.Out.WriteLine(keyData);
-            if (keyData == (Keys.Control | Keys.X))
-            {
+            if (keyData == (Keys.Control | Keys.X)) {
                 cut();
                 return true;
             }
-            if (keyData == (Keys.Control | Keys.C))
-            {
+            if (keyData == (Keys.Control | Keys.C)) {
                 copy();
                 return true;
             }
-            if (keyData == (Keys.Control | Keys.V))
-            {
+            if (keyData == (Keys.Control | Keys.V)) {
                 paste();
                 return true;
             }
-            if (keyData == (Keys.Control | Keys.S))
-            {
+            if (keyData == (Keys.Control | Keys.S)) {
                 Level.Save();
                 return true;
             }
-            if (keyData == (Keys.Control | Keys.Z))
-            {
+            if (keyData == (Keys.Control | Keys.Z)) {
                 UndoManager.onUndoLast(null, null);
                 return true;
             }
-            if (keyData == (Keys.Control | Keys.Y))
-            {
+            if (keyData == (Keys.Control | Keys.Y)) {
                 UndoManager.onRedoLast(null, null);
                 return true;
             }
-            if (keyData == (Keys.Control | Keys.A))
-            {
+            if (keyData == (Keys.Control | Keys.A)) {
                 mode.SelectAll();
                 return true;
             }
-            if (keyData == (Keys.Delete))
-            {
+            if (keyData == (Keys.Delete)) {
                 delete();
                 return true;
             }
@@ -311,6 +305,11 @@ namespace NSMBe4
             if (xDelta != 0 || yDelta != 0) {
                 mode.MoveObjects(xDelta, yDelta);
                 return true;
+            }
+            int newTab = Array.IndexOf(tabShortcuts, keyData);
+            if (newTab != -1) {
+                editor.oem.tabs.SelectedTab = newTab;
+                this.Focus(); //For some reason setting a new tab gives it focus
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -571,13 +570,13 @@ namespace NSMBe4
             if ((MouseButtons == MouseButtons.Left) && drag)
             {
                 if (mousePos.X < 0 && hScrollBar.Value > 0)
-                    hScrollBar.Value -= 1;
+                    hScrollBar.Value = Math.Max(hScrollBar.Minimum, hScrollBar.Value + mousePos.X);
                 if (mousePos.X > DrawingArea.Width && hScrollBar.Value < hScrollBar.Maximum)
-                    hScrollBar.Value += 1;
+                    hScrollBar.Value = Math.Min(hScrollBar.Maximum - hScrollBar.LargeChange, hScrollBar.Value + mousePos.X - DrawingArea.Width);
                 if (mousePos.Y < 0 && vScrollBar.Value > 0)
-                    vScrollBar.Value -= 1;
+                    vScrollBar.Value = Math.Max(vScrollBar.Minimum, vScrollBar.Value + mousePos.Y);
                 if (mousePos.Y > DrawingArea.Height && vScrollBar.Value < vScrollBar.Maximum)
-                    vScrollBar.Value += 1;
+                    vScrollBar.Value  = Math.Min(vScrollBar.Maximum - vScrollBar.LargeChange, vScrollBar.Value + mousePos.Y - DrawingArea.Height);
 
                 mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value, (int)(mousePos.Y / zoom) + vScrollBar.Value);
                 UpdateScrollbars();

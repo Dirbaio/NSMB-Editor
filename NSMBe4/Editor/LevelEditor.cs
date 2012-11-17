@@ -30,7 +30,6 @@ namespace NSMBe4 {
 
         public ObjectsEditionMode oem;
 
-        //TODO: Kill this shit!
         public BackgroundDragEditionMode bgdragem;
 
         public ToolsForm tools;
@@ -51,13 +50,13 @@ namespace NSMBe4 {
             LoadEditor(LevelFilename, LevelName, levelFileData, bgdatFileData, LevelFileID, LevelBGDatFileID);
         }
 
-        public LevelEditor(string ExportedFileName, byte[] levelFileData, byte[] bgFileData, ushort SavedLevelFileID, ushort SavedBGFileID)
+        public LevelEditor(string ExportedFileName, string LevelName, byte[] levelFileData, byte[] bgFileData, int SavedLevelFileID, int SavedBGFileID)
         {
             InitializeComponent();
             if (ExportedFileName == "")
                 LoadEditor("", "Level on Clipboard", levelFileData, bgFileData, null, null);
             else
-                LoadEditor(ExportedFileName, "Exported Level - " + ExportedFileName, levelFileData, bgFileData, null, null);
+                LoadEditor(ExportedFileName, LevelName, levelFileData, bgFileData, null, null);
             Level.SavedLevelFileID = SavedLevelFileID;
             Level.SavedBGFileID = SavedBGFileID;
         }
@@ -307,9 +306,10 @@ namespace NSMBe4 {
 
         private void moveBGToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO: Fix this shit
-            levelEditorControl1.SetEditionMode(bgdragem);
-//            uncheckModeButtons();
+            if (moveBGToolStripMenuItem.Checked)
+                levelEditorControl1.SetEditionMode(bgdragem);
+            else
+                levelEditorControl1.SetEditionMode(oem);
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -355,15 +355,18 @@ namespace NSMBe4 {
             try
             {
                 Console.Out.WriteLine("Backing up level " + LevelFilename);
-                byte[] LevelFileData;
-                byte[] BGDatFileData;
-                levelEditorControl1.Level.getSaveFiles(out LevelFileData, out BGDatFileData);
+                ExportedLevel exlvl = levelEditorControl1.Level.getExport();
                 string backupPath = System.IO.Path.Combine(Application.StartupPath, "Backup");
                 if (!System.IO.Directory.Exists(backupPath))
                     System.IO.Directory.CreateDirectory(backupPath);
-                System.IO.FileStream fs = new System.IO.FileStream(System.IO.Path.Combine(backupPath, LevelFilename + ".nml"), System.IO.FileMode.Create);
+                string filename;
+                if (levelEditorControl1.Level.isExported)
+                    filename = System.IO.Path.GetFileName(LevelFilename);
+                else
+                    filename = LevelFilename + ".nml";
+                System.IO.FileStream fs = new System.IO.FileStream(System.IO.Path.Combine(backupPath, filename), System.IO.FileMode.Create);
                 System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs);
-                NSMBLevel.ExportLevel(levelEditorControl1.Level.LevelFile.id, levelEditorControl1.Level.BGFile.id, LevelFileData, BGDatFileData, bw);
+                exlvl.Write(bw);
                 bw.Close();
             }
             catch (Exception ex) { }

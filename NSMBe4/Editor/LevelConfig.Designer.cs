@@ -97,8 +97,8 @@
             // 
             // set16ComboBox
             // 
-            this.set16ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set16ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set16ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set16ComboBox.FormattingEnabled = true;
             this.set16ComboBox.Location = new System.Drawing.Point(31, 273);
@@ -149,8 +149,8 @@
             // 
             // set10ComboBox
             // 
-            this.set10ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set10ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set10ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set10ComboBox.FormattingEnabled = true;
             this.set10ComboBox.Location = new System.Drawing.Point(31, 246);
@@ -161,8 +161,8 @@
             // 
             // set9ComboBox
             // 
-            this.set9ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set9ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set9ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set9ComboBox.FormattingEnabled = true;
             this.set9ComboBox.Location = new System.Drawing.Point(31, 219);
@@ -173,8 +173,8 @@
             // 
             // set8ComboBox
             // 
-            this.set8ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set8ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set8ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set8ComboBox.FormattingEnabled = true;
             this.set8ComboBox.Location = new System.Drawing.Point(31, 192);
@@ -185,8 +185,8 @@
             // 
             // set7ComboBox
             // 
-            this.set7ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set7ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set7ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set7ComboBox.FormattingEnabled = true;
             this.set7ComboBox.Location = new System.Drawing.Point(31, 165);
@@ -197,8 +197,8 @@
             // 
             // set6ComboBox
             // 
-            this.set6ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set6ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set6ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set6ComboBox.FormattingEnabled = true;
             this.set6ComboBox.Location = new System.Drawing.Point(31, 138);
@@ -276,8 +276,8 @@
             // 
             // set1ComboBox
             // 
-            this.set1ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set1ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set1ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set1ComboBox.FormattingEnabled = true;
             this.set1ComboBox.Location = new System.Drawing.Point(31, 3);
@@ -288,8 +288,8 @@
             // 
             // set2ComboBox
             // 
-            this.set2ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set2ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set2ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set2ComboBox.FormattingEnabled = true;
             this.set2ComboBox.Location = new System.Drawing.Point(31, 30);
@@ -310,8 +310,8 @@
             // 
             // set3ComboBox
             // 
-            this.set3ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set3ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set3ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set3ComboBox.FormattingEnabled = true;
             this.set3ComboBox.Location = new System.Drawing.Point(31, 57);
@@ -332,8 +332,8 @@
             // 
             // set4ComboBox
             // 
-            this.set4ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set4ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set4ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set4ComboBox.FormattingEnabled = true;
             this.set4ComboBox.Location = new System.Drawing.Point(31, 84);
@@ -364,8 +364,8 @@
             // 
             // set5ComboBox
             // 
-            this.set5ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.set5ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.set5ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.set5ComboBox.FormattingEnabled = true;
             this.set5ComboBox.Location = new System.Drawing.Point(31, 111);
@@ -507,13 +507,13 @@
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.timeLimitUpDown, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.startEntranceUpDown, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.levelWrapCheckBox, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.forceMiniCheckBox, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.miniMarioPhysicsCheckBox, 1, 6);
             this.tableLayoutPanel2.Controls.Add(this.midwayEntranceUpDown, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.soundSetUpDown, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label15, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.levelWrapCheckBox, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.forceMiniCheckBox, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.miniMarioPhysicsCheckBox, 0, 6);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -581,7 +581,8 @@
             // 
             this.levelWrapCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.levelWrapCheckBox.AutoSize = true;
-            this.levelWrapCheckBox.Location = new System.Drawing.Point(56, 107);
+            this.tableLayoutPanel2.SetColumnSpan(this.levelWrapCheckBox, 2);
+            this.levelWrapCheckBox.Location = new System.Drawing.Point(3, 107);
             this.levelWrapCheckBox.Name = "levelWrapCheckBox";
             this.levelWrapCheckBox.Size = new System.Drawing.Size(135, 17);
             this.levelWrapCheckBox.TabIndex = 6;
@@ -593,7 +594,8 @@
             // 
             this.forceMiniCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.forceMiniCheckBox.AutoSize = true;
-            this.forceMiniCheckBox.Location = new System.Drawing.Point(56, 130);
+            this.tableLayoutPanel2.SetColumnSpan(this.forceMiniCheckBox, 2);
+            this.forceMiniCheckBox.Location = new System.Drawing.Point(3, 130);
             this.forceMiniCheckBox.Name = "forceMiniCheckBox";
             this.forceMiniCheckBox.Size = new System.Drawing.Size(111, 17);
             this.forceMiniCheckBox.TabIndex = 6;
@@ -605,7 +607,8 @@
             // 
             this.miniMarioPhysicsCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.miniMarioPhysicsCheckBox.AutoSize = true;
-            this.miniMarioPhysicsCheckBox.Location = new System.Drawing.Point(56, 153);
+            this.tableLayoutPanel2.SetColumnSpan(this.miniMarioPhysicsCheckBox, 2);
+            this.miniMarioPhysicsCheckBox.Location = new System.Drawing.Point(3, 153);
             this.miniMarioPhysicsCheckBox.Name = "miniMarioPhysicsCheckBox";
             this.miniMarioPhysicsCheckBox.Size = new System.Drawing.Size(122, 17);
             this.miniMarioPhysicsCheckBox.TabIndex = 6;

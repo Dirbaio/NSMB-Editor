@@ -27,6 +27,7 @@ namespace NSMBe4
 {
     public partial class NotesCtrl : UserControl
     {
+        bool hovered = false;
 
         public NotesCtrl()
         {
@@ -35,12 +36,29 @@ namespace NSMBe4
 
         private void NotesCtrl_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.note, 0, 0, 16, 16);
+            if (hovered)
+                e.Graphics.DrawImage(Properties.Resources.note_bright, 0, 0, 16, 16);
+            else
+                e.Graphics.DrawImage(Properties.Resources.note, 0, 0, 16, 16);
         }
 
         private void NotesCtrl_Click(object sender, EventArgs e)
         {
-            toolTip1.Show(this.Text, this);
+            Point pt = PointToClient(Cursor.Position);
+            pt.Offset(8, 8);
+            toolTip1.Show(this.Text, this, pt, this.Text.Length * 75);
+        }
+
+        private void NotesCtrl_MouseEnter(object sender, EventArgs e)
+        {
+            hovered = true;
+            Invalidate();
+        }
+
+        private void NotesCtrl_MouseLeave(object sender, EventArgs e)
+        {
+            hovered = false;
+            Invalidate();
         }
     }
 }
