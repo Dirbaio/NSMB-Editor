@@ -352,7 +352,7 @@ namespace NSMBe4.DSFileSystem
             inlineEditors.Add(f);
         }
 
-        public void endEditInline(InlineFile f)
+        public virtual void endEditInline(InlineFile f)
         {
             if (!inlineEditors.Contains(f))
                 throw new Exception("ERROR: INLINE FILE");

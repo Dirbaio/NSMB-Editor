@@ -185,15 +185,6 @@ namespace NSMBe4
 
         public void renderTilemap(int[,] tilemap, Rectangle bounds)
         {
-            if (ObjNum == 0 && Tileset == 0)
-            {
-                for (int xx = 0; xx < Width; xx++)
-                    for (int yy = 0; yy < Height; yy++)
-                        tilemap[X + xx, Y + yy] = 0;
-                return;
-            }
-            
-
             int xmin = Math.Max(X, bounds.X);
             int ymin = Math.Max(Y, bounds.Y);
             int xmax = Math.Min(X+Width, bounds.X+bounds.Width);

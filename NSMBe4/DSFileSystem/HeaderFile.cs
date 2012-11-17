@@ -32,12 +32,20 @@ namespace NSMBe4.DSFileSystem
 
         public void UpdateCRC16()
         {
+        	Console.WriteLine("Updating banner.bin CRC");
             byte[] header = new byte[0x15E];
             parent.s.Seek(0, SeekOrigin.Begin);
             parent.s.Read(header, 0, 0x15E);
             
             ushort crc16 = ROM.CalcCRC16(header);
             setUshortAt(0x15E, crc16);
+        }
+
+		//This is kind of a hack.
+        public override void endEditInline(InlineFile f)
+        {
+        	base.endEditInline(f);
+        	UpdateCRC16();
         }
     }
 }

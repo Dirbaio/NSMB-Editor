@@ -285,7 +285,7 @@ namespace NSMBe4 {
 
         private void importClipboard_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to overwrite this level?", "Replace level from clipboard", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show((LanguageManager.Get("LevelChooser", "replaceclipboard")), (LanguageManager.Get("LevelChooser", "replaceclipboardtitle")), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 return;
             try
             {
@@ -305,7 +305,7 @@ namespace NSMBe4 {
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Clipboard did not contain a vaild level");
+                MessageBox.Show((LanguageManager.Get("LevelChooser", "clipinvalidlevel")));
             }
         }
 
@@ -342,7 +342,7 @@ namespace NSMBe4 {
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Clipboard did not contain a vaild level");
+                MessageBox.Show((LanguageManager.Get("LevelChooser", "clipinvalidlevel")));
             }
         }
 
@@ -900,7 +900,7 @@ namespace NSMBe4 {
             string newName;
             string oldName = musicList.SelectedItem.ToString();
             oldName = oldName.Substring(oldName.IndexOf(" ") + 1);
-            if (textForm.ShowDialog("Enter new music name:", oldName, out newName) == DialogResult.OK)
+            if (textForm.ShowDialog(LanguageManager.Get("LevelChooser", "rnmmusic"), oldName, out newName) == DialogResult.OK)
             {
                 if (newName == string.Empty)
                 {
@@ -924,7 +924,7 @@ namespace NSMBe4 {
 
         private void deleteBackups_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete all level backups?", "Delete backups?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show((LanguageManager.Get("LevelChooser", "delbackup")), (LanguageManager.Get("LevelChooser", "delbacktitle")), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 System.IO.Directory.Delete(Path.Combine(Application.StartupPath, "Backup"), true);
         }
     }
