@@ -46,6 +46,8 @@ namespace NSMBe4
         Rectangle SelectionRectangle;
 
         List<LevelItem> SelectedObjects = new List<LevelItem>();
+        List<LevelItem> CurSelectedObjs = new List<LevelItem>();
+        bool removing = false;
         public GoodTabsPanel tabs;
 
         public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
@@ -59,20 +61,12 @@ namespace NSMBe4
 
         public override void SelectObject(Object o)
         {
+            SelectedObjects.Clear();
+            CurSelectedObjs.Clear();
             if ((o is LevelItem) && (!SelectedObjects.Contains(o as LevelItem) || SelectedObjects.Count != 1))
-            {
-                SelectedObjects.Clear();
                 SelectedObjects.Add(o as LevelItem);
-            }
             if (o is List<LevelItem>)
-            {
-                SelectedObjects.Clear();
                 SelectedObjects.AddRange(o as List<LevelItem>);
-            }
-            if (o == null)
-            {
-                SelectedObjects.Clear();
-            }
             tabs.SelectObjects(SelectedObjects);
             UpdateSelectionBounds();
             UpdatePanel();
@@ -81,6 +75,7 @@ namespace NSMBe4
         public override void SelectAll()
         {
             SelectedObjects.Clear();
+            CurSelectedObjs.Clear();
             foreach (NSMBObject o in EdControl.Level.Objects) SelectedObjects.Add(o);
             foreach (NSMBSprite s in EdControl.Level.Sprites) SelectedObjects.Add(s);
             foreach (NSMBEntrance e in EdControl.Level.Entrances) SelectedObjects.Add(e);
@@ -108,7 +103,15 @@ namespace NSMBe4
                 g.DrawRectangle(Pens.LightBlue, SelectionRectangle);
 
             foreach (LevelItem o in SelectedObjects)
-            {
+                if (!CurSelectedObjs.Contains(o))
+                    RenderSelectedObject(o, g);
+            if (!removing)
+                foreach (LevelItem o in CurSelectedObjs)
+                    RenderSelectedObject(o, g);
+        }
+
+        private void RenderSelectedObject(LevelItem o, Graphics g)
+        {
                 if (o is NSMBView)
                 {
                     Color c;
@@ -141,8 +144,6 @@ namespace NSMBe4
                     drawResizeKnob(g, o.x + o.width / 2, o.y);
                     drawResizeKnob(g, o.x + o.width / 2, o.y + o.height);
                 }
-
-            }
         }
 
         public void ReloadObjectPicker()
@@ -286,6 +287,7 @@ namespace NSMBe4
 
             bool drag = false;
             getActionAtPos(x, y, out drag, out vertResize, out horResize);
+            // Resize with the shift key
             if (Control.ModifierKeys == Keys.Shift && drag && vertResize == ResizeType.ResizeNone && horResize == ResizeType.ResizeNone)
             {
                 vertResize = ResizeType.ResizeEnd;
@@ -599,8 +601,7 @@ namespace NSMBe4
 
             if (objs.Count == 0) return;
 
-            EdControl.UndoManager.Do(new AddLvlItemAction(objs));
-            //now place the new objects on the topleft corner
+            //now center the objects
             Rectangle ViewableBlocks = EdControl.ViewableBlocks;
             SelectedObjects = objs;
             UpdateSelectionBounds();
@@ -612,6 +613,8 @@ namespace NSMBe4
             }
             minBoundX += XDelta;
             minBoundY += YDelta;
+            
+            EdControl.UndoManager.Do(new AddLvlItemAction(objs));
         }
 
         LevelItem FromString(String[] strs, ref int idx)

@@ -46,6 +46,7 @@ namespace NSMBe4
         public int bufferWidth, bufferHeight;
         public int tileSize;
         public TilePicker picker;
+        public TilemapEditor.TilemapEditor ed;
 
         public ToolStripButton undobutton;
         public ToolStripButton redobutton;
@@ -54,12 +55,12 @@ namespace NSMBe4
 
         public enum EditionMode
         {
-            DRAW,
-            XFLIP,
-            YFLIP,
-            COPY,
-            PASTE,
-            CHANGEPAL
+            DRAW = 0,
+            XFLIP = 1,
+            YFLIP = 2,
+            COPY = 3,
+            PASTE = 4,
+            CHANGEPAL = 5
         }
 
         public EditionMode mode;
@@ -308,6 +309,34 @@ namespace NSMBe4
             hovertx = -1;
             hoverty = -1;
             pictureBox1.Invalidate(true);
+        }
+
+        Keys[] shortcuts = { Keys.D, Keys.X, Keys.Y, Keys.C, Keys.V, Keys.P };
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            int idx = Array.IndexOf(shortcuts, keyData);
+            if (idx > -1)
+            {
+                ed.setMode((EditionMode)idx);
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.Z))
+            {
+                Undo(null, null);
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.Y))
+            {
+                Redo(null, null);
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                t.save();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         public void Undo(object sender, EventArgs e)

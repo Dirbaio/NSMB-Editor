@@ -29,10 +29,13 @@ namespace NSMBe4.TilemapEditor
     {
         Tilemap t;
 
+        ToolStripButton[] buttons;
+
         public TilemapEditor()
         {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "TilemapEditor");
+            buttons = new ToolStripButton[] { drawToolButton, xFlipToolButton, yFlipToolButton, copyToolButton, pasteToolButton, changePalToolButton };
         }
 
         public void load(Tilemap t)
@@ -43,6 +46,7 @@ namespace NSMBe4.TilemapEditor
             tilemapEditorControl1.picker = tilePicker1;
             tilemapEditorControl1.undobutton = undoButton;
             tilemapEditorControl1.redobutton = redoButton;
+            tilemapEditorControl1.ed = this;
             tilemapEditorControl1.load(t);
         }
 
@@ -51,14 +55,15 @@ namespace NSMBe4.TilemapEditor
             tilePicker1.init(t.buffers, 8);
         }
 
+        public void setMode(TilemapEditorControl.EditionMode mode)
+        {
+            buttons[(int)mode].PerformClick();
+        }
+
         private void uncheckButtons()
         {
-            drawToolButton.Checked = false;
-            xFlipToolButton.Checked = false;
-            yFlipToolButton.Checked = false;
-            copyToolButton.Checked = false;
-            pasteToolButton.Checked = false;
-            changePalToolButton.Checked = false;
+            foreach (ToolStripButton button in buttons)
+                button.Checked = false;
         }
 
         private void drawToolButton_Click(object sender, EventArgs e)
@@ -110,6 +115,11 @@ namespace NSMBe4.TilemapEditor
         private void saveButton_Click(object sender, EventArgs e)
         {
             t.save();
+        }
+
+        private void tilemapEditorControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

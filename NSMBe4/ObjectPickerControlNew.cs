@@ -250,13 +250,7 @@ namespace NSMBe4
                 }
 
             if (selected != null && !selecting)
-            {
-                int newval = selected.Y * 16 - Height / 2;
-                if (newval < vScrollBar1.Minimum) newval = vScrollBar1.Minimum;
-                if (newval > vScrollBar1.Maximum) newval = vScrollBar1.Maximum;
-
-                vScrollBar1.Value = newval;
-            }
+                vScrollBar1.Value = Math.Max(vScrollBar1.Minimum, Math.Min(vScrollBar1.Maximum - vScrollBar1.LargeChange + 1, selected.Y * 16 - Height / 2));
             Invalidate();
         }
 

@@ -132,20 +132,7 @@ namespace NSMBe4
         }
 
         private void DrawingArea_MouseWheel(object sender, MouseEventArgs e) {
-            if (e.Delta == 120) {
-                if (vScrollBar.Value == 1) {
-                    vScrollBar.Value = 0;
-                } else if (vScrollBar.Value > 1) {
-                    vScrollBar.Value -= 2;
-                }
-            }
-            if (e.Delta == -120) {
-                if (vScrollBar.Value == (vScrollBar.Maximum - 1)) {
-                    vScrollBar.Value = vScrollBar.Maximum;
-                } else if (vScrollBar.Value < (vScrollBar.Maximum - 1)) {
-                    vScrollBar.Value += 2;
-                }
-            }
+            vScrollBar.Value = Math.Max(vScrollBar.Minimum, Math.Min(vScrollBar.Maximum - vScrollBar.LargeChange + 1, vScrollBar.Value - e.Delta / 4));
         }
 
         #endregion
@@ -312,6 +299,7 @@ namespace NSMBe4
             if (newTab != -1) {
                 editor.oem.tabs.SelectedTab = newTab;
                 this.Focus(); //For some reason setting a new tab gives it focus
+                return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -578,11 +566,11 @@ namespace NSMBe4
                 if (mousePos.X < 0 && hScrollBar.Value > 0)
                     hScrollBar.Value = Math.Max(hScrollBar.Minimum, hScrollBar.Value + mousePos.X);
                 if (mousePos.X > DrawingArea.Width && hScrollBar.Value < hScrollBar.Maximum)
-                    hScrollBar.Value = Math.Min(hScrollBar.Maximum - hScrollBar.LargeChange, hScrollBar.Value + mousePos.X - DrawingArea.Width);
+                    hScrollBar.Value = Math.Min(hScrollBar.Maximum - hScrollBar.LargeChange + 1, hScrollBar.Value + mousePos.X - DrawingArea.Width);
                 if (mousePos.Y < 0 && vScrollBar.Value > 0)
                     vScrollBar.Value = Math.Max(vScrollBar.Minimum, vScrollBar.Value + mousePos.Y);
                 if (mousePos.Y > DrawingArea.Height && vScrollBar.Value < vScrollBar.Maximum)
-                    vScrollBar.Value  = Math.Min(vScrollBar.Maximum - vScrollBar.LargeChange, vScrollBar.Value + mousePos.Y - DrawingArea.Height);
+                    vScrollBar.Value  = Math.Min(vScrollBar.Maximum - vScrollBar.LargeChange + 1, vScrollBar.Value + mousePos.Y - DrawingArea.Height);
 
                 mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value, (int)(mousePos.Y / zoom) + vScrollBar.Value);
                 UpdateScrollbars();

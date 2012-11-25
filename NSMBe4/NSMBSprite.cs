@@ -62,7 +62,7 @@ namespace NSMBe4
         }
 
         private static int[] AlwaysDrawNums = { 68, 69, 73, 141, 226, 305, 306 };
-        private static int[] TileCreateNums = { 0x670, 0x500, 0, 0x1B0, 0x190, 0x670, 0xC50, 0xD70, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x180 };
+        private static int[] TileCreateNums = { 0x67, 0x50, -0x870, 0x1B, 0x19, 0x67, -0x430, -0x240, 0x67, 0x67, 0x67, 0x67, 0x67, 0x67, 0x67, 0x18 };
 
         public bool AlwaysDraw() {
             return Array.IndexOf(AlwaysDrawNums, this.Type) > -1;
@@ -1603,9 +1603,10 @@ namespace NSMBe4
                     g.DrawImage(Properties.Resources.GiantThwomp, RenderX, RenderY);
                     break;
                 case 197:
-                    RenderY2 = Data[4] / 0x10;
-                    width = Data[3] % 0x10;
-                    height = Data[4] % 0x10;
+                    RenderY2 = Data[4] / 0x10; //Tile number
+                    RenderY2 = RenderY2 < TileCreateNums.Length ? TileCreateNums[RenderY2] : 0x67; //Load actual number from hardcoded list
+                    width = Data[3] % 0x10; //Checkerboard pattern
+                    height = Data[4] % 0x10; //Create or destroy
                     for (int l = 1; l <= Math.Max(1, Data[5] % 0x10); l++) {
                         for (int m = 1; m <= Math.Max(1, Data[5] / 0x10); m++) {
                             if (width == 0 || width == 1 && l % 2 == m % 2 || width == 2 && l % 2 != m % 2) //Checkerboard pattern
@@ -1613,10 +1614,10 @@ namespace NSMBe4
                                 if (height == 0)
                                     g.DrawImage(Properties.Resources.DestroyTile, RenderX, RenderY);
                                 else
-                                    if (RenderY2 == 2)
-                                        g.DrawImage(Properties.Resources.tileoverrides, RenderX, RenderY, new Rectangle(2160, 0, 16, 16), GraphicsUnit.Pixel);
+                                    if (RenderY2 < 0) //Negative number indicates an override tile
+                                        g.DrawImage(Properties.Resources.tileoverrides, RenderX, RenderY, new Rectangle(-RenderY2, 0, 16, 16), GraphicsUnit.Pixel);
                                     else
-                                        g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(TileCreateNums[RenderY2], 0, 16, 16), GraphicsUnit.Pixel);
+                                        g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(RenderY2 % 0x10 * 0x10, RenderY2 & 0xF0, 16, 16), GraphicsUnit.Pixel);
                             }
                             RenderX += 16;
                         }
