@@ -45,10 +45,7 @@ namespace NSMBe4.Patcher
             byte[] data = new byte[ramLen];
             Array.Copy(f.getContents(), fileOffs, data, 0, ramLen);
             Arm9BinSection s = new Arm9BinSection(data, ramAddr, bssSize);
-            if(s.len == 0)
-                nullSection = s;
-            else
-                sections.Add(s);
+            sections.Add(s);
         }
 
         public void loadSections()
@@ -104,9 +101,6 @@ namespace NSMBe4.Patcher
                 o.writeUInt((uint)s.len);
                 o.writeUInt((uint)s.bssSize);
             }
-            o.writeUInt((uint)nullSection.ramAddr);
-            o.writeUInt((uint)nullSection.len);
-            o.writeUInt((uint)nullSection.bssSize);
 
             f.replace(o.getArray(), this);
 
