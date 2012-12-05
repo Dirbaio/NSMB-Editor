@@ -29,7 +29,7 @@ namespace NSMBe4.DSFileSystem
         public PhysicalFile rsaSigFile;
 
         public HeaderFile headerFile;
-        public OverlayFile[] arm7ovs, arm9ovs;
+        public PhysicalFile[] arm7ovs, arm9ovs;
 
         public NitroROMFilesystem(String n)
             : base(new ExternalFilesystemSource(n))
@@ -118,7 +118,7 @@ namespace NSMBe4.DSFileSystem
             }
         }
 
-        protected OverlayFile loadOvFile(int fileID, Directory parent, File ovTableFile, uint ovTblOffs)
+        protected PhysicalFile loadOvFile(int fileID, Directory parent, File ovTableFile, uint ovTblOffs)
         {
             int beginOffs = fileID * 8;
             int endOffs = fileID * 8 + 4;

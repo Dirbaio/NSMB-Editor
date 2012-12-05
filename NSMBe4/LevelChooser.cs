@@ -346,18 +346,6 @@ namespace NSMBe4 {
             }
         }
 
-        private void changeLanguageButton_Click(object sender, EventArgs e) {
-            if (languageListBox.SelectedItem != null) {
-                Properties.Settings.Default.LanguageFile = languageListBox.SelectedItem.ToString();
-                Properties.Settings.Default.Save();
-
-                    MessageBox.Show(
-                        LanguageManager.Get("LevelChooser", "LangChanged"),
-                        LanguageManager.Get("LevelChooser", "LangChangedTitle"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
         private DataFinder DataFinderForm;
 
         private void dataFinderButton_Click(object sender, EventArgs e) {

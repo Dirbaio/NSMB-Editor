@@ -51,7 +51,7 @@ namespace NSMBe4
             }
         }
 
-        public OverlayFile(File file, File ovTableFile, uint ovTableOffs)
+        public Overlay(File file, File ovTableFile, uint ovTableOffs)
         {
         	this.file = file;
             this.ovTableFile = ovTableFile;
