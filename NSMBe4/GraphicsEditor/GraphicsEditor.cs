@@ -27,7 +27,7 @@ namespace NSMBe4 {
     public partial class GraphicsEditor : UserControl {
         public GraphicsEditor() {
             InitializeComponent();
-            LanguageManager.ApplyToContainer(this, "GraphicsEditor");
+            LanguageManager.ApplyToContainer(this, "GraphicsEditor", toolTip1);
             ZoomLevel = 1;
         }
 
@@ -282,8 +282,8 @@ namespace NSMBe4 {
             if (img == null || pal == null) return;
             if (ZoomLevel == 0) return;
 
-            System.Drawing.Imaging.BitmapData source = DrawBuffer.LockBits(new Rectangle(0, 0, img.getWidth(), img.getHeight()), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            System.Drawing.Imaging.BitmapData dest = ZoomCache.LockBits(new Rectangle(0, 0, img.getWidth() * ZoomLevel, img.getHeight() * ZoomLevel), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            System.Drawing.Imaging.BitmapData source = DrawBuffer.LockBits(new Rectangle(0, 0, img.getWidth(), img.getHeight()), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            System.Drawing.Imaging.BitmapData dest = ZoomCache.LockBits(new Rectangle(0, 0, img.getWidth() * ZoomLevel, img.getHeight() * ZoomLevel), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
             byte* SourceLine = (byte*)source.Scan0;
             byte* DestLine = (byte*)dest.Scan0;
@@ -296,10 +296,12 @@ namespace NSMBe4 {
                     byte* DestPtr = DestLine;
 
                     for (int x = 0; x < w; x++) {
+                        byte a = *SourcePtr++;
                         byte r = *SourcePtr++;
                         byte g = *SourcePtr++;
                         byte b = *SourcePtr++;
                         for (int dx = 0; dx < ZoomLevel; dx++) {
+                            *DestPtr++ = a;
                             *DestPtr++ = r;
                             *DestPtr++ = g;
                             *DestPtr++ = b;
@@ -321,6 +323,12 @@ namespace NSMBe4 {
             if (img == null || pal == null) return;
             if (DrawBuffer != null)
             {
+                // Render the transparency grid
+                for (int x = 0; x < drawingBox.Width; x += 8)
+                    for (int y = 0; y < drawingBox.Height; y += 8)
+                        if (x % 16 == y % 16)
+                            e.Graphics.FillRectangle(Brushes.Gray, x, y, 8, 8);
+
                 e.Graphics.DrawImage(ZoomCache, 0, 0);
 
                 if (DrawingLine) {

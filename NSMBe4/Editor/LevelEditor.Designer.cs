@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveLevelButton = new System.Windows.Forms.ToolStripButton();
@@ -31,6 +32,7 @@
             this.cutButton = new System.Windows.Forms.ToolStripButton();
             this.copyButton = new System.Windows.Forms.ToolStripButton();
             this.pasteButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.snapToggleButton = new System.Windows.Forms.ToolStripButton();
             this.dsScreenShowButton = new System.Windows.Forms.ToolStripButton();
@@ -58,6 +60,7 @@
             this.optionsMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.reloadTilesets = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showResizeHandles = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.setBgImageButton = new System.Windows.Forms.ToolStripMenuItem();
             this.removeBgButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +76,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.coordinateViewer1 = new NSMBe4.Editor.CoordinateViewer();
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
-            this.deleteButton = new System.Windows.Forms.ToolStripButton();
+            this.backupTimer = new System.Windows.Forms.Timer(this.components);
+            this.levelSaver = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -113,7 +117,8 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1028, 25);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStrip1.Size = new System.Drawing.Size(963, 25);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -171,6 +176,16 @@
             this.pasteButton.Size = new System.Drawing.Size(23, 22);
             this.pasteButton.Text = "Paste";
             this.pasteButton.Click += new System.EventHandler(this.pasteButton_Click);
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteButton.Image = global::NSMBe4.Properties.Resources.cross_script;
+            this.deleteButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // toolStripSeparator5
             // 
@@ -369,7 +384,8 @@
             this.optionsMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.optionsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reloadTilesets,
-            this.smallBlockOverlaysToolStripMenuItem});
+            this.smallBlockOverlaysToolStripMenuItem,
+            this.showResizeHandles});
             this.optionsMenu.Image = ((System.Drawing.Image)(resources.GetObject("optionsMenu.Image")));
             this.optionsMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.optionsMenu.Name = "optionsMenu";
@@ -385,10 +401,19 @@
             // 
             // smallBlockOverlaysToolStripMenuItem
             // 
+            this.smallBlockOverlaysToolStripMenuItem.CheckOnClick = true;
             this.smallBlockOverlaysToolStripMenuItem.Name = "smallBlockOverlaysToolStripMenuItem";
             this.smallBlockOverlaysToolStripMenuItem.Size = new System.Drawing.Size(295, 22);
             this.smallBlockOverlaysToolStripMenuItem.Text = "<smallBlockOverlaysToolStripMenuItem>";
             this.smallBlockOverlaysToolStripMenuItem.Click += new System.EventHandler(this.smallBlockOverlaysToolStripMenuItem_Click);
+            // 
+            // showResizeHandles
+            // 
+            this.showResizeHandles.CheckOnClick = true;
+            this.showResizeHandles.Name = "showResizeHandles";
+            this.showResizeHandles.Size = new System.Drawing.Size(295, 22);
+            this.showResizeHandles.Text = "Show Resize Handles";
+            this.showResizeHandles.Click += new System.EventHandler(this.showResizeHandles_Click);
             // 
             // toolStripDropDownButton1
             // 
@@ -407,7 +432,7 @@
             // 
             this.setBgImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setBgImageButton.Name = "setBgImageButton";
-            this.setBgImageButton.Size = new System.Drawing.Size(135, 22);
+            this.setBgImageButton.Size = new System.Drawing.Size(152, 22);
             this.setBgImageButton.Text = "Set BG";
             this.setBgImageButton.Click += new System.EventHandler(this.setBgImageButton_Click);
             // 
@@ -415,21 +440,22 @@
             // 
             this.removeBgButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.removeBgButton.Name = "removeBgButton";
-            this.removeBgButton.Size = new System.Drawing.Size(135, 22);
+            this.removeBgButton.Size = new System.Drawing.Size(152, 22);
             this.removeBgButton.Text = "Remove BG";
             this.removeBgButton.Click += new System.EventHandler(this.removeBgButton_Click);
             // 
             // moveBGToolStripMenuItem
             // 
+            this.moveBGToolStripMenuItem.CheckOnClick = true;
             this.moveBGToolStripMenuItem.Name = "moveBGToolStripMenuItem";
-            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.moveBGToolStripMenuItem.Text = "Move BG";
             this.moveBGToolStripMenuItem.Click += new System.EventHandler(this.moveBGToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.bmp; *.gif; *.tiff)|*.png; *.jpg; *.jpeg; *." +
-                "bmp; *.gif; *.tiff|All Files (*.*)|*.*";
+    "bmp; *.gif; *.tiff|All Files (*.*)|*.*";
             // 
             // splitContainer1
             // 
@@ -445,7 +471,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.levelEditorControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1028, 551);
+            this.splitContainer1.Size = new System.Drawing.Size(963, 541);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 12;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
@@ -465,8 +491,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(249, 551);
-            this.splitContainer2.SplitterDistance = 434;
+            this.splitContainer2.Size = new System.Drawing.Size(249, 541);
+            this.splitContainer2.SplitterDistance = 421;
             this.splitContainer2.TabIndex = 4;
             // 
             // panel1
@@ -475,7 +501,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(249, 434);
+            this.panel1.Size = new System.Drawing.Size(249, 421);
             this.panel1.TabIndex = 11;
             // 
             // PanelContainer
@@ -483,7 +509,7 @@
             this.PanelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelContainer.Location = new System.Drawing.Point(0, 0);
             this.PanelContainer.Name = "PanelContainer";
-            this.PanelContainer.Size = new System.Drawing.Size(249, 434);
+            this.PanelContainer.Size = new System.Drawing.Size(249, 421);
             this.PanelContainer.TabIndex = 10;
             // 
             // tabControl1
@@ -496,7 +522,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(249, 113);
+            this.tabControl1.Size = new System.Drawing.Size(249, 116);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -505,7 +531,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(241, 87);
+            this.tabPage1.Size = new System.Drawing.Size(241, 90);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Minimap";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -516,7 +542,7 @@
             this.minimapControl1.Location = new System.Drawing.Point(3, 3);
             this.minimapControl1.Margin = new System.Windows.Forms.Padding(4);
             this.minimapControl1.Name = "minimapControl1";
-            this.minimapControl1.Size = new System.Drawing.Size(235, 81);
+            this.minimapControl1.Size = new System.Drawing.Size(235, 84);
             this.minimapControl1.TabIndex = 0;
             // 
             // tabPage2
@@ -525,7 +551,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(241, 87);
+            this.tabPage2.Size = new System.Drawing.Size(241, 90);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Obj Position";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -537,7 +563,7 @@
             this.coordinateViewer1.Location = new System.Drawing.Point(3, 3);
             this.coordinateViewer1.Margin = new System.Windows.Forms.Padding(4);
             this.coordinateViewer1.Name = "coordinateViewer1";
-            this.coordinateViewer1.Size = new System.Drawing.Size(235, 81);
+            this.coordinateViewer1.Size = new System.Drawing.Size(235, 84);
             this.coordinateViewer1.TabIndex = 0;
             // 
             // levelEditorControl1
@@ -548,24 +574,22 @@
             this.levelEditorControl1.Location = new System.Drawing.Point(0, 0);
             this.levelEditorControl1.Margin = new System.Windows.Forms.Padding(4);
             this.levelEditorControl1.Name = "levelEditorControl1";
-            this.levelEditorControl1.Size = new System.Drawing.Size(775, 551);
+            this.levelEditorControl1.Size = new System.Drawing.Size(710, 541);
             this.levelEditorControl1.TabIndex = 3;
             // 
-            // deleteButton
+            // backupTimer
             // 
-            this.deleteButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteButton.Image = global::NSMBe4.Properties.Resources.cross_script;
-            this.deleteButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteButton.Text = "Delete";
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.backupTimer.Tick += new System.EventHandler(this.backupTimer_Tick);
+            // 
+            // levelSaver
+            // 
+            this.levelSaver.DoWork += new System.ComponentModel.DoWorkEventHandler(this.levelSaver_DoWork);
             // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 576);
+            this.ClientSize = new System.Drawing.Size(963, 566);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.DoubleBuffered = true;
@@ -644,6 +668,9 @@
         public Editor.CoordinateViewer coordinateViewer1;
         private System.Windows.Forms.ToolStripButton showGridButton;
         private System.Windows.Forms.ToolStripButton deleteButton;
+        private System.Windows.Forms.ToolStripMenuItem showResizeHandles;
+        private System.Windows.Forms.Timer backupTimer;
+        private System.ComponentModel.BackgroundWorker levelSaver;
     }
 }
 

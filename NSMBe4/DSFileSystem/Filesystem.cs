@@ -119,5 +119,6 @@ namespace NSMBe4.DSFileSystem
 		//Saving and closing
 		public virtual void save() {}
 		public virtual void close() {}
+
     }
 }

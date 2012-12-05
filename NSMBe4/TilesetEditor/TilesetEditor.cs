@@ -127,6 +127,7 @@ namespace NSMBe4
         private void mustRepaintObjects()
         {
             t.map16.reRenderAll();
+            tilemapEditor1.Invalidate(true);
             tilemapEditor1.reload();
         }
 
@@ -138,7 +139,7 @@ namespace NSMBe4
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelAll"), "NSMB Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelAll"), LanguageManager.Get("TilesetEditor", "titleSureDelAll"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 t.Objects = new NSMBTileset.ObjectDef[256];
                 for(int x = 0; x < t.map16.width; x++)
@@ -156,37 +157,7 @@ namespace NSMBe4
                 mustRepaintObjects();
             }
         }
-
-        private void exportButton_Click_1(object sender, EventArgs e)
-        {
-            if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
-            t.ExportGFX(saveFileDialog1.FileName);
-        }
-
-        private void importButton_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
-            t.ImportGFX(openFileDialog1.FileName, false);
-            mustRepaintObjects();
-        }
-
-        private void exportTilesetButton_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialog2.ShowDialog() != DialogResult.OK)
-                return;
-
-            t.exportTileset(saveFileDialog2.FileName);
-        }
-
-        private void importTilesetButton_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog2.ShowDialog() != DialogResult.OK)
-                return;
-
-            t.importTileset(openFileDialog2.FileName);
-            mustRepaintObjects();
-        }
-
+        
         private void createDescriptions_Click(object sender, EventArgs e)
         {
             ROM.UserInfo.createDescriptions(TilesetID);
@@ -213,7 +184,7 @@ namespace NSMBe4
         private void deleteDescriptions_Click(object sender, EventArgs e)
         {
             if (!descExists) return;
-            if (MessageBox.Show("Are you sure you want to delete all descriptions for this tileset?", "Delete descriptions?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show(LanguageManager.Get("TilesetEditor", "sureDelDescriptions"), LanguageManager.Get("TilesetEditor", "titleDelDescriptions"), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 return;
             ROM.UserInfo.descriptions.Remove(TilesetID);
             createDescriptions.Visible = true;
@@ -228,6 +199,59 @@ namespace NSMBe4
             objectPickerControl1.Invalidate(true);
         }
 
+        private void copyPalettes_Click(object sender, EventArgs e)
+        {
+        	int repeat = 12;
+        	
+        	//Copy map16
+
+        	for(int p = 1; p < t.palettes.Length; p++)
+        		for(int x = 0; x < 32; x++)
+        			for(int y = 0; y < repeat*2; y++)
+        			{
+        				t.map16.tiles[x, y+p*repeat*2] = t.map16.tiles[x, y];
+        				t.map16.tiles[x, y+p*repeat*2].palNum = (t.map16.tiles[x, y+p*repeat*2].palNum+p)%t.palettes.Length;
+        			}
+        	
+        	//Copy Tile behaviors
+        	for(int p = 1; p < t.palettes.Length; p++)
+        		for(int x = 0; x < 16*repeat; x++)
+        			t.TileBehaviors[x+p*16*repeat] = t.TileBehaviors[x];
+        	
+        	//And now copy objects. Meh
+        	int objCount = 0;
+        	while(objCount < t.Objects.Length && t.Objects[objCount] != null)
+        		objCount++;
+        	
+        	for(int p = 1; p < t.palettes.Length; p++)
+        	{
+        		for(int i = 0; i < objCount; i++)
+        		{
+        			if(i+p*objCount >= t.Objects.Length)
+        				continue;
+        			
+		    		NSMBTileset.ObjectDef o = new NSMBTileset.ObjectDef(t);
+		    		o.tiles.Clear();
+		    		foreach(List<NSMBTileset.ObjectDefTile> row in t.Objects[i].tiles)
+		    		{
+		    			List<NSMBTileset.ObjectDefTile> row2 = new List<NSMBTileset.ObjectDefTile>();
+			    		foreach(NSMBTileset.ObjectDefTile tile in row)
+		    			{
+		    				NSMBTileset.ObjectDefTile tile2 = new NSMBTileset.ObjectDefTile(t);
+		    				tile2.tileID = (tile.tileID + repeat*16*p) % 768;
+		    				tile2.controlByte = tile.controlByte;
+		    				row2.Add(tile2);
+		    			}
+		    			o.tiles.Add(row2);
+		    		}
+		    		t.Objects[i+p*objCount] = o;
+		    	}
+        	}
+        	//TODO merp
+
+        	mustRepaintObjects();
+        }
+        
         private void setend_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -249,12 +273,15 @@ namespace NSMBe4
         }
 
         byte[] tileBehavior = new byte[4];
+        bool DataUpdateFlag = false;
 
         private void tileBehaviorPicker_TileSelected(int selTileNum, int selTilePal, int selTileWidth, int selTileHeight)
         {
             for(int i = 0; i < 4; i++)
                 tileBehavior[i] = (byte)((t.TileBehaviors[selTileNum] >> (i*8)) & 0xFF);
+            DataUpdateFlag = true;
             tileBehaviorEditor.setArray(tileBehavior);
+            DataUpdateFlag = false;
         }
 
         private void tileBehaviorEditor_ValueChanged(byte[] val)
@@ -265,6 +292,7 @@ namespace NSMBe4
                     break;
                 }
 
+            if (DataUpdateFlag) return;
             int newBehavior = 0;
             for (int i = 0; i < 4; i++)
                 newBehavior |= val[i] << (i * 8);
@@ -277,7 +305,9 @@ namespace NSMBe4
         private bool behaviorsEqual(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null) return false;
-            return (b1[0] == b2[0] && b1[1] == b2[1] && b1[2] == b2[2] && b1[3] == b2[3]);
+            for(int i = 0; i < 4; i++)
+            	if(b1[i] != b2[i]) return false;
+            return true;
         }
 
         private void imageManager1_SomethingSaved()

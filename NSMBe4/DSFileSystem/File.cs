@@ -1,4 +1,4 @@
-﻿/*
+/*
 *   This file is part of NSMB Editor 5.
 *
 *   NSMB Editor 5 is free software: you can redistribute it and/or modify
@@ -128,14 +128,4 @@ namespace NSMBe4.DSFileSystem
         }        
 	}
 }
-
-
-
-
-
-
-
-
-
-
 

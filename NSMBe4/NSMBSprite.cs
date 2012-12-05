@@ -62,7 +62,7 @@ namespace NSMBe4
         }
 
         private static int[] AlwaysDrawNums = { 68, 69, 73, 141, 226, 305, 306 };
-        private static int[] TileCreateNums = { 0x670, 0x500, 0, 0x1B0, 0x190, 0x670, 0xC50, 0xD70, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x670, 0x180 };
+        private static int[] TileCreateNums = { 0x67, 0x50, -0x870, 0x1B, 0x19, 0x67, -0x430, -0x240, 0x67, 0x67, 0x67, 0x67, 0x67, 0x67, 0x67, 0x18 };
 
         public bool AlwaysDraw() {
             return Array.IndexOf(AlwaysDrawNums, this.Type) > -1;
@@ -925,45 +925,45 @@ namespace NSMBe4
             switch (this.Type)
             {
                 case 23:
-                    g.DrawImage(Properties.Resources.PiranhaplantTube, RenderX, RenderY - 28, 32, 28);
+                    g.DrawImage(Properties.Resources.PiranhaplantTube, RenderX, RenderY - 28);
                     break;
                 case 24:
                     img = Properties.Resources.PiranhaplantTube;
                     img.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    g.DrawImage(img, RenderX, RenderY + 32, 32, 28);
+                    g.DrawImage(img, RenderX, RenderY + 32);
                     break;
                 case 25:
                     img = Properties.Resources.PiranhaplantTube;
                     img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    g.DrawImage(img, RenderX + 32, RenderY, 28, 32);
+                    g.DrawImage(img, RenderX + 32, RenderY);
                     break;
                 case 26:
                     img = Properties.Resources.PiranhaplantTube;
                     img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                    g.DrawImage(img, RenderX - 28, RenderY, 28, 32);
+                    g.DrawImage(img, RenderX - 28, RenderY);
                     break;
                 case 27:
                     for (int l = 0; l <= Data[5] / 0x10; l++) {
                         if (l == Data[5] / 0x10) {
-                            g.DrawImage(Properties.Resources.BulletBillCannonTop, RenderX, RenderY - 16, 16, 32);
+                            g.DrawImage(Properties.Resources.BulletBillCannonTop, RenderX, RenderY - 16);
                         } else {
-                            g.DrawImage(Properties.Resources.BulletBillCannon, RenderX, RenderY, 16, 16);
+                            g.DrawImage(Properties.Resources.BulletBillCannon, RenderX, RenderY);
                             RenderY -= 16;
                         }
                     }
                     break;
                 case 28:
-                    g.DrawImage(Properties.Resources.BomOmb, RenderX, RenderY - 2, 16, 18);
+                    g.DrawImage(Properties.Resources.BomOmb, RenderX, RenderY - 2);
                     break;
                 case 31:
-                    g.DrawImage(Properties.Resources.CheepCheep, RenderX, RenderY, 21, 16);
+                    g.DrawImage(Properties.Resources.CheepCheep, RenderX, RenderY);
                     break;
                 case 32:
                     if (Data[2] / 0x10 == 1)
                         img = Properties.Resources.EndingFlagRed;
                     else
                         img = Properties.Resources.EndingFlag;
-                    g.DrawImage(img, RenderX - 29, RenderY - 119, 27, 24);
+                    g.DrawImage(img, RenderX - 29, RenderY - 119);
                     break;
                 case 33:
                     if (Data[5] % 0x10 == 1) {
@@ -974,64 +974,64 @@ namespace NSMBe4
                         img = Properties.Resources.Spring;
                     if (Data[5] / 0x10 == 1)
                         RenderX += 8;
-                    g.DrawImage(img, RenderX, RenderY, img.Width, img.Height);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 34:
                     if (Data[5] / 0x10 == 1)
                         RenderX += 8;
-                    g.DrawImage(Properties.Resources.RedCoinRing, RenderX - 7, RenderY - 26, 30, 42);
+                    g.DrawImage(Properties.Resources.RedCoinRing, RenderX - 7, RenderY - 26);
                     break;
                 case 36:
-                    g.DrawImage(Properties.Resources.Thwomp, RenderX, RenderY, 32, 36);
+                    g.DrawImage(Properties.Resources.Thwomp, RenderX, RenderY);
                     break;
                 case 37:
-                    g.DrawImage(Properties.Resources.Spiny, RenderX, RenderY, 20, 16);
+                    g.DrawImage(Properties.Resources.Spiny, RenderX, RenderY);
                     break;
                 case 38:
-                    g.DrawImage(Properties.Resources.Boo, RenderX, RenderY, 24, 20);
+                    g.DrawImage(Properties.Resources.Boo, RenderX, RenderY);
                     break;
                 //case 40: see 183
                 case 42:
-                    g.DrawImage(Properties.Resources.ChainChompLog, RenderX, RenderY - 48, 16, 48);
+                    g.DrawImage(Properties.Resources.ChainChompLog, RenderX, RenderY - 48);
                     if (Data[5] % 0x10 == 1)
-                        g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28, 44, 28);
+                        g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28);
                     break;
                 case 43:
-                    g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28, 44, 28);
+                    g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28);
                     break;
                 case 48:
-                    g.DrawImage(Properties.Resources.TubeBubbles, RenderX, RenderY - 90, 32, 74);
+                    g.DrawImage(Properties.Resources.TubeBubbles, RenderX, RenderY - 90);
                     break;
                 case 49:
                     img = Properties.Resources.TubeBubbles;
                     img.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    g.DrawImage(img, RenderX, RenderY + 32, 32, 74);
+                    g.DrawImage(img, RenderX, RenderY + 32);
                     break;
                 case 50:
                     img = Properties.Resources.TubeBubbles;
                     img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    g.DrawImage(img, RenderX + 32, RenderY, 74, 32);
+                    g.DrawImage(img, RenderX + 32, RenderY);
                     break;
                 case 51:
                     img = Properties.Resources.TubeBubbles;
                     img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                    g.DrawImage(img, RenderX - 90, RenderY, 74, 32);
+                    g.DrawImage(img, RenderX - 90, RenderY);
                     break;
                 case 52:
                     if (Data[5] % 0x10 == 1)
                         img = Properties.Resources.BuzzyBeetleU;
                     else
                         img = Properties.Resources.BuzzyBeetle;
-                    g.DrawImage(img, RenderX, RenderY, 16, 16);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 53:
-                    g.DrawImage(Properties.Resources.DryBones, RenderX, RenderY - 10, 17, 26);
+                    g.DrawImage(Properties.Resources.DryBones, RenderX, RenderY - 10);
                     break;
                 case 54:
-                    g.DrawImage(Properties.Resources.FireBall, RenderX, RenderY, 16, 29);
+                    g.DrawImage(Properties.Resources.FireBall, RenderX, RenderY);
                     break;
                 case 55:
-                    g.DrawImage(Properties.Resources.BulletBill, RenderX, RenderY, 21, 16);
+                    g.DrawImage(Properties.Resources.BulletBill, RenderX, RenderY);
                     break;
                 case 56:
                     RenderY2 = (Data[5] % 0x10) * 10;
@@ -1041,9 +1041,9 @@ namespace NSMBe4
                     }
                     while (!(RenderX == RenderX2 + RenderY2 + 10)) {
                         if (RenderX == RenderX2)
-                            g.DrawImage(Properties.Resources.FireBarMiddle, RenderX + 4, RenderY + 4, 8, 8);
+                            g.DrawImage(Properties.Resources.FireBarMiddle, RenderX + 4, RenderY + 4);
                         else
-                            g.DrawImage(Properties.Resources.FireBarBall, RenderX, RenderY, 15, 15);
+                            g.DrawImage(Properties.Resources.FireBarBall, RenderX, RenderY);
                         RenderX += 10; RenderY -= 10;
                     }
                     break;
@@ -1055,17 +1055,17 @@ namespace NSMBe4
                             RenderX += 8;
                     }
                     if (Data[5] % 0x10 == 1)
-                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX - 4, RenderY - 4, 24, 24);
+                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX - 4, RenderY - 4);
                     else if (Data[5] % 0x10 == 2) {
-                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX - 4, RenderY - 4, 24, 24);
-                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX + 20, RenderY - 20, 24, 24);
-                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX + 44, RenderY - 4, 24, 24);
+                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX - 4, RenderY - 4);
+                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX + 20, RenderY - 20);
+                        g.DrawImage(Properties.Resources.CoinInBubble, RenderX + 44, RenderY - 4);
                     } else {
-                        g.DrawImage(Properties.Resources.Coin, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.Coin, RenderX, RenderY);
                     }
                     break;
                 case 59:
-                    g.DrawImage(Properties.Resources.HammerBro, RenderX, RenderY - 18, 18, 34);
+                    g.DrawImage(Properties.Resources.HammerBro, RenderX, RenderY - 18);
                     break;
                 case 64:
                     if (Data[5] % 0x10 == 1) {
@@ -1075,7 +1075,7 @@ namespace NSMBe4
                         img = Properties.Resources.Whomp;
                         RenderX -= 29; RenderY -= 57;
                     }
-                    g.DrawImage(img, RenderX, RenderY, img.Width, img.Height);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 66:
                     img = Properties.Resources.PSwitch;
@@ -1085,10 +1085,10 @@ namespace NSMBe4
                         RenderY -= 2;
                     if (Data[5] / 0x10 == 1)
                         RenderX += 8;
-                    g.DrawImage(img, RenderX, RenderY, 16, 18);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 67:
-                    g.DrawImage(Properties.Resources.Shark, RenderX - 27, RenderY - 8, 71, 26);
+                    g.DrawImage(Properties.Resources.Shark, RenderX - 27, RenderY - 8);
                     break;
                 case 68:
                 case 69:
@@ -1103,47 +1103,47 @@ namespace NSMBe4
                     width = Math.Max(16 * (Data[5] % 0x10 + 1), 32) / 2;
                     g.DrawLine(Pens.White, RenderX + width, RenderY + 8, RenderX2 + width, RenderY2 + 8);
                     g.FillEllipse(Brushes.White, RenderX2 + width - 4, RenderY2 + 4, 7, 7);
-                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY);
                     for (int l = 0; l < Data[5] % 0x10 - 1; l++) {
                         RenderX += 16;
                         g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX, RenderY, 16, 16);
                     }
-                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 16, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 16, RenderY);
                     RenderX = X * 16; RenderY = Y * 16;
                     if (RenderX != RenderX2 || RenderY != RenderY2) {
-                        g.DrawImage(Properties.Resources.MovingPlatformLeftE, RenderX2, RenderY2, 16, 16);
+                        g.DrawImage(Properties.Resources.MovingPlatformLeftE, RenderX2, RenderY2);
                         for (int l = 0; l < Data[5] % 0x10 - 1; l++) {
                             RenderX2 += 16;
-                            g.DrawImage(Properties.Resources.MovingPlatformSectionE, RenderX2, RenderY2, 16, 16);
+                            g.DrawImage(Properties.Resources.MovingPlatformSectionE, RenderX2, RenderY2);
                         }
-                        g.DrawImage(Properties.Resources.MovingPlatformRightE, RenderX2 + 16, RenderY2, 16, 16);
+                        g.DrawImage(Properties.Resources.MovingPlatformRightE, RenderX2 + 16, RenderY2);
                     }
                     break;
                 case 70:
                     if (Data[5] % 0x10 == 1) {
-                        g.DrawImage(Properties.Resources.SpinningLogL, RenderX - 56, RenderY, 128, 16);
+                        g.DrawImage(Properties.Resources.SpinningLogL, RenderX - 56, RenderY);
                     } else {
-                        g.DrawImage(Properties.Resources.SpinningLog, RenderX - 24, RenderY, 64, 16);
+                        g.DrawImage(Properties.Resources.SpinningLog, RenderX - 24, RenderY);
                     }
                     break;
                 case 73:
-                    g.DrawImage(Properties.Resources.HangingPlatform, RenderX, RenderY, 192, 32);
+                    g.DrawImage(Properties.Resources.HangingPlatform, RenderX, RenderY);
                     RenderX += 92;
                     for (int l = 0; l < 6; l++) {
                         RenderY -= 32;
-                        g.DrawImage(Properties.Resources.HangingPlatformChain, RenderX, RenderY, 8, 32);
+                        g.DrawImage(Properties.Resources.HangingPlatformChain, RenderX, RenderY);
                     }
                     break;
                 case 74:
-                    g.DrawImage(Properties.Resources.TiltingRock, RenderX, RenderY - 8, 64, 40);
+                    g.DrawImage(Properties.Resources.TiltingRock, RenderX, RenderY - 8);
                     break;
                 case 75:
-                    g.DrawImage(Properties.Resources.SeeSaw, RenderX, RenderY, 256, 16);
+                    g.DrawImage(Properties.Resources.SeeSaw, RenderX, RenderY);
                     break;
                 case 76:
                     RenderX2 = RenderX + 16 * (Data[5] % 0x10) - 10;
-                    g.DrawImage(Properties.Resources.ScalePlatformBolt, RenderX - 2, RenderY - 10, 13, 13);
-                    g.DrawImage(Properties.Resources.ScalePlatformBolt, RenderX2, RenderY - 10, 13, 13);
+                    g.DrawImage(Properties.Resources.ScalePlatformBolt, RenderX - 2, RenderY - 10);
+                    g.DrawImage(Properties.Resources.ScalePlatformBolt, RenderX2, RenderY - 10);
                     Pen rope = new Pen(Color.FromArgb(49, 24, 74));
                     g.DrawLine(Pens.White, RenderX + 8, RenderY - 9, RenderX2 + 2, RenderY - 9);
                     g.DrawLine(rope, RenderX + 9, RenderY - 8, RenderX2 + 1, RenderY - 8);
@@ -1153,8 +1153,8 @@ namespace NSMBe4
                     g.DrawLine(rope, RenderX, RenderY + 1, RenderX, RenderY2 - 1);
                     g.DrawLine(Pens.White, RenderX2 + 9, RenderY + 3, RenderX2 + 9, RenderY3 - 1);
                     g.DrawLine(rope, RenderX2 + 10, RenderY + 1, RenderX2 + 10, RenderY3 - 1);
-                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX2 - 14, RenderY3, 48, 16);
-                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX - 24, RenderY2, 48, 16);
+                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX2 - 14, RenderY3);
+                    g.DrawImage(Properties.Resources.ScalePlatformEnd, RenderX - 24, RenderY2);
                     rope.Dispose();
                     break;
                 case 77:
@@ -1162,15 +1162,15 @@ namespace NSMBe4
                     int w = Data[5] % 0x10, s = 2;
                     if (this.Type == 78) { w = Math.Max(0, w - 1); s = 1; RenderX -= 8; }
                     RenderX -= (w * s + 1) * 8;
-                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY);
                     for (int l = 0; l < w * s; l++) {
                         RenderX += 16;
-                        g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX, RenderY);
                     }
-                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 16, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 16, RenderY);
                     break;
                 case 79:
-                    g.DrawImage(Properties.Resources.Spinning3PointedPlatform, RenderX - 28, RenderY - 34, 92, 85);
+                    g.DrawImage(Properties.Resources.Spinning3PointedPlatform, RenderX - 28, RenderY - 34);
                     break;
                 case 80:
                     img = Properties.Resources.arrow_down;
@@ -1180,46 +1180,46 @@ namespace NSMBe4
                         RenderY += 16;
                         img.RotateFlip(RotateFlipType.Rotate180FlipNone);
                     }
-                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY, 16, 16);
-                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 16, RenderY, 16, 16);
-                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 32, RenderY, 16, 16);
-                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 48, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY);
+                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 16, RenderY);
+                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 32, RenderY);
+                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 48, RenderY);
                     g.DrawImage(img, RenderX + 24, RenderY2, 16, 16);
                     break;
                 case 82:
-                    g.DrawImage(Properties.Resources.SpinningRectanglePlatform, RenderX - 24, RenderY - 8, 64, 32);
+                    g.DrawImage(Properties.Resources.SpinningRectanglePlatform, RenderX - 24, RenderY - 8);
                     break;
                 case 86:
-                    g.DrawImage(Properties.Resources.SpinningTrianglePlatform, RenderX - 14, RenderY - 6, 44, 39);
+                    g.DrawImage(Properties.Resources.SpinningTrianglePlatform, RenderX - 14, RenderY - 6);
                     break;
                 case 88:
                     g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0, 0x50, 16, 16), GraphicsUnit.Pixel);
                     g.DrawImage(Properties.Resources.PSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 89:
-                    g.DrawImage(Properties.Resources.Snailicorn, RenderX, RenderY - 16, 30, 32);
+                    g.DrawImage(Properties.Resources.Snailicorn, RenderX, RenderY - 16);
                     break;
                 case 90:
                     if (Data[5] == 1)
-                        g.DrawImage(Properties.Resources.WigglerL, RenderX, RenderY - 44, 92, 60);
+                        g.DrawImage(Properties.Resources.WigglerL, RenderX, RenderY - 44);
                     else
-                        g.DrawImage(Properties.Resources.Wiggler, RenderX, RenderY - 14, 52, 30);
+                        g.DrawImage(Properties.Resources.Wiggler, RenderX, RenderY - 14);
                     break;
                 case 91:
-                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY + 8, 16, 16);
-                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 16, RenderY + 8, 16, 16);
-                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 32, RenderY + 8, 16, 16);
-                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 48, RenderY + 8, 16, 16);
+                    g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY + 8);
+                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 16, RenderY + 8);
+                    g.DrawImage(Properties.Resources.MovingPlatformSection, RenderX + 32, RenderY + 8);
+                    g.DrawImage(Properties.Resources.MovingPlatformRight, RenderX + 48, RenderY + 8);
                     break;
                 case 92:
                     if (Data[5] % 0x10 == 1) {
-                        g.DrawImage(Properties.Resources.EelNonMoving, RenderX + 3, RenderY + 7, 25, 23);
+                        g.DrawImage(Properties.Resources.EelNonMoving, RenderX + 3, RenderY + 7);
                     } else if (Data[5] / 0x10 == 1) {
                         img = Properties.Resources.Eel;
                         img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                        g.DrawImage(img, RenderX + 45, RenderY + 3, 104, 28);
+                        g.DrawImage(img, RenderX + 45, RenderY + 3);
                     } else if (Data[3] % 0x10 == 1) {
-                        g.DrawImage(Properties.Resources.Eel, RenderX + 12, RenderY + 3, 104, 28);
+                        g.DrawImage(Properties.Resources.Eel, RenderX + 12, RenderY + 3);
                     } else {
                         Rectangle r = new Rectangle(RenderX + 12, RenderY + 3, 104, 28);
                         g.FillRectangle(Brushes.Black, r);
@@ -1247,52 +1247,52 @@ namespace NSMBe4
                         RenderX += 8;
                     if (Data[4] % 0x10 == 1)
                         RenderY += 8;
-                    g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16), img.Width, img.Height);
+                    g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16));
                     break;
                 case 94:
                     if (Data[5] % 0x10 == 1)
-                        g.DrawImage(Properties.Resources.SwooperLarge, RenderX - 6, RenderY - 16, 26, 37);
+                        g.DrawImage(Properties.Resources.SwooperLarge, RenderX - 6, RenderY - 16);
                     else
-                        g.DrawImage(Properties.Resources.Swooper, RenderX, RenderY, 16, 18);
+                        g.DrawImage(Properties.Resources.Swooper, RenderX, RenderY);
                     break;
                 case 95:
-                    g.DrawImage(Properties.Resources.SpinBoard, RenderX - 6, RenderY, 26, 26);
+                    g.DrawImage(Properties.Resources.SpinBoard, RenderX - 6, RenderY);
                     break;
                 case 96:
-                    g.DrawImage(Properties.Resources.SeaWeed, RenderX - 32, RenderY - 127, 90, 147);
+                    g.DrawImage(Properties.Resources.SeaWeed, RenderX - 32, RenderY - 127);
                     break;
                 case 99:
-                    g.DrawImage(Properties.Resources.Spinning4PointedPlatform, RenderX - 38, RenderY - 29, 91, 75);
+                    g.DrawImage(Properties.Resources.Spinning4PointedPlatform, RenderX - 38, RenderY - 29);
                     break;
                 case 102:
-                    g.DrawImage(Properties.Resources.SpikeBallSmall, RenderX, RenderY, 30, 32);
+                    g.DrawImage(Properties.Resources.SpikeBallSmall, RenderX, RenderY);
                     break;
                 case 103:
                     switch (Data[2] % 0x10) {
                         case 1:
                             img = Properties.Resources.Dorrie;
                             img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                            g.DrawImage(img, RenderX - 51, RenderY - 59, 115, 76);
+                            g.DrawImage(img, RenderX - 51, RenderY - 59);
                             break;
                         case 2:
-                            g.DrawImage(Properties.Resources.DorrieAway, RenderX - 40, RenderY - 59, 82, 75);
+                            g.DrawImage(Properties.Resources.DorrieAway, RenderX - 40, RenderY - 59);
                             break;
                         case 3:
-                            g.DrawImage(Properties.Resources.DorrieTowards, RenderX - 40, RenderY - 59, 83, 75);
+                            g.DrawImage(Properties.Resources.DorrieTowards, RenderX - 40, RenderY - 59);
                             break;
                         default:
-                            g.DrawImage(Properties.Resources.Dorrie, RenderX - 51, RenderY - 59, 115, 76);
+                            g.DrawImage(Properties.Resources.Dorrie, RenderX - 51, RenderY - 59);
                             break;
                     }
                     break;
                 case 104:
-                    g.DrawImage(Properties.Resources.Tornado, RenderX - 88, RenderY - 130, 191, 150);
+                    g.DrawImage(Properties.Resources.Tornado, RenderX - 88, RenderY - 130);
                     break;
                 case 105:
-                    g.DrawImage(Properties.Resources.WhirlPool, RenderX - 78, RenderY - 164, 165, 182);
+                    g.DrawImage(Properties.Resources.WhirlPool, RenderX - 78, RenderY - 164);
                     break;
                 case 106:
-                    g.DrawImage(Properties.Resources.RedCoin, RenderX, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.RedCoin, RenderX, RenderY);
                     break;
                 case 107:
                     img = Properties.Resources.QSwitch;
@@ -1302,7 +1302,7 @@ namespace NSMBe4
                         RenderY -= 2;
                     if (Data[5] / 0x10 == 1)
                         RenderX += 8;
-                    g.DrawImage(img, RenderX, RenderY, 16, 18);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 108:
                     img = Properties.Resources.RedSwitch;
@@ -1312,7 +1312,7 @@ namespace NSMBe4
                         RenderY -= 2;
                     if (Data[5] / 0x10 == 1)
                         RenderX += 8;
-                    g.DrawImage(img, RenderX, RenderY, 16, 18);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 109:
                     int shift = Data[5] / 0x10;
@@ -1320,20 +1320,20 @@ namespace NSMBe4
                         RenderX += 8;
                     if (shift == 2 || shift == 3)
                         RenderY += 8;
-                    g.DrawImage(Properties.Resources.ElectricBall, RenderX - 6, RenderY - 6, 28, 27);
+                    g.DrawImage(Properties.Resources.ElectricBall, RenderX - 6, RenderY - 6);
                     break;
                 case 110:
                     g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0, 0x50, 16, 16), GraphicsUnit.Pixel);
                     g.DrawImage(Properties.Resources.RedSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 111:
-                    g.DrawImage(Properties.Resources.Log, RenderX - 128, RenderY - 32, 256, 64);
+                    g.DrawImage(Properties.Resources.Log, RenderX - 128, RenderY - 32);
                     break;
                 case 113:
-                    g.DrawImage(Properties.Resources.CheepChomp, RenderX, RenderY, 60, 47);
+                    g.DrawImage(Properties.Resources.CheepChomp, RenderX, RenderY);
                     break;
                 case 115:
-                    g.DrawImage(Properties.Resources.SpikeBallLarge, RenderX, RenderY - 42, 63, 58);
+                    g.DrawImage(Properties.Resources.SpikeBallLarge, RenderX, RenderY - 42);
                     break;
                 case 114:
                 case 118:
@@ -1343,23 +1343,23 @@ namespace NSMBe4
                         img = Properties.Resources.Flamethrower;
                     switch (Data[5] % 0x40) {
                         case 0:
-                            g.DrawImage(img, RenderX, RenderY, img.Width, 16); break;
+                            g.DrawImage(img, RenderX, RenderY); break;
                         case 1:
                             img.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                            g.DrawImage(img, RenderX - (img.Width - 16), RenderY, img.Width, 16); break;
+                            g.DrawImage(img, RenderX - (img.Width - 16), RenderY); break;
                         case 2:
                             img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                            g.DrawImage(img, RenderX, RenderY - (img.Height - 16), 16, img.Height); break;
+                            g.DrawImage(img, RenderX, RenderY - (img.Height - 16)); break;
                         case 3:
                             img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                            g.DrawImage(img, RenderX, RenderY, 16, img.Height); break;
+                            g.DrawImage(img, RenderX, RenderY); break;
                     }
                     break;
                 case 116:
-                    g.DrawImage(Properties.Resources.WaterBug, RenderX - 16, RenderY - 5, 41, 21);
+                    g.DrawImage(Properties.Resources.WaterBug, RenderX - 16, RenderY - 5);
                     break;
                 case 117:
-                    g.DrawImage(Properties.Resources.FlyingBlock, RenderX - 12, RenderY - 8, 44, 23);
+                    g.DrawImage(Properties.Resources.FlyingBlock, RenderX - 12, RenderY - 8);
                     break;
                 case 119:
                     int sz = Data[2] / 0x10;
@@ -1367,16 +1367,16 @@ namespace NSMBe4
                     g.DrawImage(ScaleBitmap(Properties.Resources.Pendulum, sz * 64, sz * 68), RenderX - sz * 32, RenderY - sz * 6);
                     break;
                 case 120:
-                    g.DrawImage(Properties.Resources.PiranhaplantGround, RenderX, RenderY + 3, 33, 29);
+                    g.DrawImage(Properties.Resources.PiranhaplantGround, RenderX, RenderY + 3);
                     break;
                 case 122:
-                    g.DrawImage(Properties.Resources.GiantPiranhaplant, RenderX - 37, RenderY - 48, 64, 64);
+                    g.DrawImage(Properties.Resources.GiantPiranhaplant, RenderX - 37, RenderY - 48);
                     break;
                 case 123:
-                    g.DrawImage(Properties.Resources.FirePiranhaplant, RenderX - 8, RenderY + 2, 40, 30);
+                    g.DrawImage(Properties.Resources.FirePiranhaplant, RenderX - 8, RenderY + 2);
                     break;
                 case 124:
-                    g.DrawImage(Properties.Resources.GiantFirePiranhaplant, RenderX - 38, RenderY - 45, 79, 61);
+                    g.DrawImage(Properties.Resources.GiantFirePiranhaplant, RenderX - 38, RenderY - 45);
                     break;
                 case 126:
                     Bitmap img2 = null;
@@ -1392,45 +1392,45 @@ namespace NSMBe4
                             img = Properties.Resources.DrawBridgeSection;
                             img2 = Properties.Resources.DrawBridgeSection; img2.RotateFlip(RotateFlipType.RotateNoneFlipX);
                         }
-                        g.DrawImage(img2, RenderX, RenderY, 16, 16);
-                        g.DrawImage(img, RenderX2, RenderY, 16, 16);
+                        g.DrawImage(img2, RenderX, RenderY);
+                        g.DrawImage(img, RenderX2, RenderY);
                         RenderX += 16; RenderX2 -= 16;
                     }
                     if (Data[2] / 0x10 == 0)
-                        g.DrawImage(Properties.Resources.DrawBridgeHinge, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.DrawBridgeHinge, RenderX, RenderY);
                     break;
                 case 127:
-                    g.DrawImage(Properties.Resources.GiantSpinningPlatform, RenderX - 144, RenderY - 104, 288, 208);
+                    g.DrawImage(Properties.Resources.GiantSpinningPlatform, RenderX - 144, RenderY - 104);
                     break;
                 case 128:
-                    g.DrawImage(Properties.Resources.WarpCannon, RenderX - 9, RenderY - 26, 66, 90);
+                    g.DrawImage(Properties.Resources.WarpCannon, RenderX - 9, RenderY - 26);
                     int world = Data[2] / 0x10;
                     if (world >= 5 && world <= 8)
                         world -= 5;
                     else
                         world = 0;
-                    g.DrawImage(Properties.Resources.WarpWorlds, new Rectangle(RenderX + 26, RenderY + 23, 18, 19), new Rectangle(world * 18, 0, 18, 19), GraphicsUnit.Pixel);
+                    g.DrawImage(Properties.Resources.WarpWorlds, RenderX + 26, RenderY + 23, new Rectangle(world * 18, 0, 18, 19), GraphicsUnit.Pixel);
                     break;
                 case 130:
-                    g.DrawImage(Properties.Resources.CheepCheep, RenderX, RenderY, 21, 16);
+                    g.DrawImage(Properties.Resources.CheepCheep, RenderX, RenderY);
                     break;
                 case 131:
                 case 132:
-                    g.DrawImage(Properties.Resources.MidpointFlag, RenderX, RenderY, 22, 33);
+                    g.DrawImage(Properties.Resources.MidpointFlag, RenderX, RenderY);
                     break;
                 case 136:
                     for (int l = 0; l <= Data[5]; l++) {
-                        g.DrawImage(Properties.Resources.PokeySection, RenderX, RenderY, 17, 16);
+                        g.DrawImage(Properties.Resources.PokeySection, RenderX, RenderY);
                         RenderY -= 16;
                     }
-                    g.DrawImage(Properties.Resources.PokeyHead, RenderX, RenderY - 9, 18, 25);
+                    g.DrawImage(Properties.Resources.PokeyHead, RenderX, RenderY - 9);
                     break;
                 case 141:
-                    g.DrawImage(Properties.Resources.SwellingGround, RenderX - 128, RenderY, 276, 128);
+                    g.DrawImage(Properties.Resources.SwellingGround, RenderX - 128, RenderY);
                     if ((Data[2] & 0xF) == 0) {
-                        g.DrawImage(Properties.Resources.SwellingGroundOut, RenderX - 128, RenderY - 112, 276, 128);
+                        g.DrawImage(Properties.Resources.SwellingGroundOut, RenderX - 128, RenderY - 112);
                     } else if ((Data[2] & 0xF) == 1) {
-                        g.DrawImage(Properties.Resources.SwellingGroundIn, RenderX - 128, RenderY, 276, 128);
+                        g.DrawImage(Properties.Resources.SwellingGroundIn, RenderX - 128, RenderY);
                     }
                     break;
                 case 142:
@@ -1441,32 +1441,32 @@ namespace NSMBe4
                         RenderY2 -= 16;
                     RenderY2 = RenderY - RenderY2 * 16;
                     g.DrawLine(Pens.White, RenderX + 8, RenderY + 8, RenderX2 + 8, RenderY2 + 8);
-                    g.DrawImage(Properties.Resources.TightRopeEnd, RenderX, RenderY, 15, 15);
-                    g.DrawImage(Properties.Resources.TightRopeEnd, RenderX2, RenderY2, 15, 15);
+                    g.DrawImage(Properties.Resources.TightRopeEnd, RenderX, RenderY);
+                    g.DrawImage(Properties.Resources.TightRopeEnd, RenderX2, RenderY2);
                     break;
                 case 144:
-                    g.DrawImage(Properties.Resources.SpikedBlock, RenderX - 2, RenderY - 7, 19, 26);
+                    g.DrawImage(Properties.Resources.SpikedBlock, RenderX - 2, RenderY - 7);
                     RenderY2 = Data[5] % 0x10;
                     if (RenderY2 == 2) RenderY2 = 3;
                     if (RenderY2 <= 3)
-                        g.DrawImage(Properties.Resources.FlyingQBlockOverrides, new Rectangle(RenderX, RenderY + 1, 16, 16), new Rectangle(RenderY2 * 16, 0, 16, 16), GraphicsUnit.Pixel);
+                        g.DrawImage(Properties.Resources.FlyingQBlockOverrides, RenderX, RenderY + 1, new Rectangle(RenderY2 * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     break;
                 case 146:
-                    g.DrawImage(Properties.Resources.StarGate, RenderX, RenderY, 32, 8);
+                    g.DrawImage(Properties.Resources.StarGate, RenderX, RenderY);
                     break;
                 case 147:
                     RenderX -= Data[5] * 8 + 6;
-                    g.DrawImage(Properties.Resources.BumpPlatformLeft, RenderX, RenderY, 14, 10);
+                    g.DrawImage(Properties.Resources.BumpPlatformLeft, RenderX, RenderY);
                     RenderX += 14;
                     for (int l = 0; l < Data[5] - 1; l++) {
-                        g.DrawImage(Properties.Resources.BumpPlatformSection, RenderX, RenderY, 16, 10);
+                        g.DrawImage(Properties.Resources.BumpPlatformSection, RenderX, RenderY);
                         RenderX += 16;
                     }
                     if (Data[5] > 0)
-                        g.DrawImage(Properties.Resources.BumpPlatformRight, RenderX, RenderY, 14, 10);
+                        g.DrawImage(Properties.Resources.BumpPlatformRight, RenderX, RenderY);
                     break;
                 case 148:
-                    g.DrawImage(Properties.Resources.Goomba, RenderX, RenderY - 2, 16, 18);
+                    g.DrawImage(Properties.Resources.Goomba, RenderX, RenderY - 2);
                     break;
                 case 149:
                     bool inShell = Data[5] / 0x10 == 1;
@@ -1480,9 +1480,9 @@ namespace NSMBe4
                             img = inShell ? Properties.Resources.GreenKoopaShell : Properties.Resources.KoopaGreen; break;
                     }
                     if (inShell)
-                        g.DrawImage(img, RenderX, RenderY, 16, 16);
+                        g.DrawImage(img, RenderX, RenderY);
                     else
-                        g.DrawImage(img, RenderX, RenderY - 13, 16, 29);
+                        g.DrawImage(img, RenderX, RenderY - 13);
                     break;
                 case 150:
                     switch (Data[5] % 0x10) {
@@ -1493,10 +1493,10 @@ namespace NSMBe4
                         default:
                             img = Properties.Resources.ParakoopaGreen; break;
                     }
-                    g.DrawImage(img, RenderX, RenderY - 16, 19, 32);
+                    g.DrawImage(img, RenderX, RenderY - 16);
                     break;
                 case 152:
-                    g.DrawImage(Properties.Resources.SwitchBlock, RenderX, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.SwitchBlock, RenderX, RenderY);
                     break;
                 case 155:
                     Rectangle rect = this.getRect();
@@ -1508,115 +1508,116 @@ namespace NSMBe4
                     g.DrawString(LanguageManager.Get("Sprites", "Warp"), NSMBGraphics.SmallInfoFont, Brushes.Lime, RenderX, RenderY);
                     break;
                 case 157:
-                    g.DrawImage(Properties.Resources.FireBro, RenderX, RenderY - 15, 18, 31);
+                    g.DrawImage(Properties.Resources.FireBro, RenderX, RenderY - 15);
                     break;
                 case 158:
-                    g.DrawImage(Properties.Resources.BoomerangBro, RenderX, RenderY - 18, 18, 34);
+                    g.DrawImage(Properties.Resources.BoomerangBro, RenderX, RenderY - 18);
                     break;
                 case 162:
                     RenderY += 24;
                     RenderX += 6;
-                    g.DrawImage(Properties.Resources.MushroomStalkTop, RenderX, RenderY, 20, 8);
+                    g.DrawImage(Properties.Resources.MushroomStalkTop, RenderX, RenderY);
                     RenderY += 8;
-                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY, 20, 16);
+                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY);
                     for (int l = 0; l <= Data[3] % 0x10; l++) {
                         RenderY += 16;
-                        g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY, 20, 16);
+                        g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY);
                     }
                     RenderX = X * 16 - 16 * (Data[4] / 0x10 + 1);
                     RenderY = Y * 16;
                     img = Properties.Resources.MushroomEdge;
-                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    g.DrawImage(img, RenderX, RenderY);
                     RenderX += 32;
                     for (int l = 0; l < Data[4] / 0x10; l++) {
-                        g.DrawImage(Properties.Resources.MushroomSection, RenderX, RenderY, 32, 24);
+                        g.DrawImage(Properties.Resources.MushroomSection, RenderX, RenderY);
                         RenderX += 32;
                     }
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 173:
                     for (int l = 0; l < Data[5] % 0x10 + 4; l++) {
-                        g.DrawImage(Properties.Resources.Rope, RenderX - 3, RenderY, 8, 16);
+                        g.DrawImage(Properties.Resources.Rope, RenderX - 3, RenderY);
                         RenderY += 16;
                     }
                     break;
                 case 174:
                     RenderY += 24;
                     RenderX += 6;
-                    g.DrawImage(Properties.Resources.MushroomStalkTop, RenderX, RenderY, 20, 8);
+                    g.DrawImage(Properties.Resources.MushroomStalkTop, RenderX, RenderY);
                     RenderY += 8;
-                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY, 20, 16);
-                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY + 16, 20, 16);
+                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY);
+                    g.DrawImage(Properties.Resources.MushroomStalk, RenderX, RenderY + 16);
                     RenderX = X * 16 - 16 * (Data[4] / 0x10 + 1);
                     RenderY = RenderY2;
                     img = Properties.Resources.MushroomEdge;
-                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    g.DrawImage(img, RenderX, RenderY);
                     RenderX += 32;
                     for (int l = 0; l < Data[4] / 0x10; l++) {
-                        g.DrawImage(Properties.Resources.MushroomSection, RenderX, RenderY, 32, 24);
+                        g.DrawImage(Properties.Resources.MushroomSection, RenderX, RenderY);
                         RenderX += 32;
                     }
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 175:
-                    g.DrawImage(Properties.Resources.BouncyBricks, RenderX - 40, RenderY - 48, 96, 64);
+                    g.DrawImage(Properties.Resources.BouncyBricks, RenderX - 40, RenderY - 48);
                     break;
                 case 180:
                     if (Data[5] % 0x10 == 1)
                         img = Properties.Resources.FenceKoopaRed;
                     else
                         img = Properties.Resources.FenceKoopaGreen;
-                    g.DrawImage(img, RenderX, RenderY, 18, 26);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 40:
                 case 183:
-                    g.DrawImage(Properties.Resources.Lakitu, RenderX, RenderY - 23, 26, 39);
+                    g.DrawImage(Properties.Resources.Lakitu, RenderX, RenderY - 23);
                     break;
                 case 186:
-                    g.DrawImage(Properties.Resources.Paragoomba, RenderX, RenderY - 12, 24, 28);
+                    g.DrawImage(Properties.Resources.Paragoomba, RenderX, RenderY - 12);
                     break;
                 case 187:
-                    g.DrawImage(Properties.Resources.ManualPlatform, RenderX, RenderY, 112, 16);
+                    g.DrawImage(Properties.Resources.ManualPlatform, RenderX, RenderY);
                     if (Data[5] % 0x10 == 0 || Data[5] % 0x10 == 2)
-                        g.DrawImage(Properties.Resources.UpArrow, RenderX + 51, RenderY + 4, 10, 9);
+                        g.DrawImage(Properties.Resources.UpArrow, RenderX + 51, RenderY + 4);
                     else if (Data[5] % 0x10 == 1)
-                        g.DrawImage(Properties.Resources.DownArrow, RenderX + 51, RenderY + 4, 10, 9);
+                        g.DrawImage(Properties.Resources.DownArrow, RenderX + 51, RenderY + 4);
                     break;
                 case 189:
-                    g.DrawImage(Properties.Resources.Pipe, RenderX, RenderY - 48, 32, 64);
+                    g.DrawImage(Properties.Resources.Pipe, RenderX, RenderY - 48);
                     break;
                 case 191:
                     RenderY2 = Data[3] / 0x10;
                     if (RenderY2 == 0) RenderY2 = 8;
-                    g.DrawImage(Properties.Resources.QBlock, RenderX, RenderY + (RenderY2 - 5) * 16, 16, 16);
+                    g.DrawImage(Properties.Resources.QBlock, RenderX, RenderY + (RenderY2 - 5) * 16);
                     if (Data[5] % 0x10 <= 8)
-                        g.DrawImage(Properties.Resources.HangingBlockOverrides, new Rectangle(RenderX, RenderY + (RenderY2 - 5) * 16, 16, 16), new Rectangle((Data[5] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
+                        g.DrawImage(Properties.Resources.HangingBlockOverrides, RenderX, RenderY + (RenderY2 - 5) * 16, new Rectangle((Data[5] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     g.DrawLine(Pens.White, RenderX + 7, RenderY + (RenderY2 - 5) * 16, RenderX + 7, RenderY - 80);
                     g.DrawLine(Pens.White, RenderX + 8, RenderY + (RenderY2 - 5) * 16, RenderX + 8, RenderY - 80);
                     break;
                 case 193:
-                    g.DrawImage(Properties.Resources.DryBonesLarge, RenderX, RenderY - 28, 25, 44);
+                    g.DrawImage(Properties.Resources.DryBonesLarge, RenderX, RenderY - 28);
                     break;
                 case 194:
-                    g.DrawImage(Properties.Resources.GiantThwomp, RenderX, RenderY, 64, 74);
+                    g.DrawImage(Properties.Resources.GiantThwomp, RenderX, RenderY);
                     break;
                 case 197:
-                    RenderY2 = Data[4] / 0x10;
-                    width = Data[3] % 0x10;
-                    height = Data[4] % 0x10;
+                    RenderY2 = Data[4] / 0x10; //Tile number
+                    RenderY2 = RenderY2 < TileCreateNums.Length ? TileCreateNums[RenderY2] : 0x67; //Load actual number from hardcoded list
+                    width = Data[3] % 0x10; //Checkerboard pattern
+                    height = Data[4] % 0x10; //Create or destroy
                     for (int l = 1; l <= Math.Max(1, Data[5] % 0x10); l++) {
                         for (int m = 1; m <= Math.Max(1, Data[5] / 0x10); m++) {
                             if (width == 0 || width == 1 && l % 2 == m % 2 || width == 2 && l % 2 != m % 2) //Checkerboard pattern
                             {
                                 if (height == 0)
-                                    g.DrawImage(Properties.Resources.DestroyTile, RenderX, RenderY, 16, 16);
+                                    g.DrawImage(Properties.Resources.DestroyTile, RenderX, RenderY);
                                 else
-                                    if (RenderY2 == 2)
-                                        g.DrawImage(Properties.Resources.tileoverrides, new Rectangle(RenderX, RenderY, 16, 16), new Rectangle(2160, 0, 16, 16), GraphicsUnit.Pixel);
+                                    if (RenderY2 < 0) //Negative number indicates an override tile
+                                        g.DrawImage(Properties.Resources.tileoverrides, RenderX, RenderY, new Rectangle(-RenderY2, 0, 16, 16), GraphicsUnit.Pixel);
                                     else
-                                        g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(TileCreateNums[RenderY2], 0, 16, 16), GraphicsUnit.Pixel);
+                                        g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(RenderY2 % 0x10 * 0x10, RenderY2 & 0xF0, 16, 16), GraphicsUnit.Pixel);
                             }
                             RenderX += 16;
                         }
@@ -1627,127 +1628,129 @@ namespace NSMBe4
                         g.DrawRectangle(Pens.Black, this.getRect());
                     break;
                 case 204:
-                    g.DrawImage(Properties.Resources.JumpingFlame, RenderX, RenderY - 7, 27, 23);
+                    g.DrawImage(Properties.Resources.JumpingFlame, RenderX, RenderY - 7);
                     break;
                 case 205:
-                    g.DrawImage(Properties.Resources.FlameChomp, RenderX, RenderY - 27, 43, 33);
+                    g.DrawImage(Properties.Resources.FlameChomp, RenderX, RenderY - 27);
                     break;
                 case 206:
-                    g.DrawImage(Properties.Resources.GhostGoo, RenderX, RenderY - 32, 256, 48);
+                    g.DrawImage(Properties.Resources.GhostGoo, RenderX, RenderY - 32);
                     break;
                 case 207:
                     if (Data[5] % 0x10 == 1)
                         img = Properties.Resources.CheepCheepGiantGreen;
                     else
                         img = Properties.Resources.CheepCheepGiant;
-                    g.DrawImage(img, RenderX - 20, RenderY - 32, 63, 52);
+                    g.DrawImage(img, RenderX - 20, RenderY - 32);
                     break;
                 case 209:
-                    g.DrawImage(Properties.Resources.GiantHammerBro, RenderX, RenderY - 15, 26, 31);
+                    g.DrawImage(Properties.Resources.GiantHammerBro, RenderX, RenderY - 15);
                     break;
                 case 210:
-                    g.DrawImage(Properties.Resources.VSBattleStar, RenderX, RenderY, 32, 32);
+                    g.DrawImage(Properties.Resources.VSBattleStar, RenderX, RenderY);
                     break;
                 case 211:
-                    g.DrawImage(Properties.Resources.Blooper, RenderX, RenderY - 16, 26, 32);
+                    g.DrawImage(Properties.Resources.Blooper, RenderX, RenderY - 16);
                     break;
                 case 212:
-                    g.DrawImage(Properties.Resources.BlooperNanny, RenderX, RenderY - 16, 59, 32);
+                    g.DrawImage(Properties.Resources.BlooperNanny, RenderX, RenderY - 16);
                     break;
                 case 213:
-                    g.DrawImage(Properties.Resources.BlooperWithMini, RenderX - 8, RenderY - 32, 42, 64);
+                    g.DrawImage(Properties.Resources.BlooperWithMini, RenderX - 8, RenderY - 32);
                     break;
                 case 219:
                     switch (Data[5] / 0x10) {
                         case 1:
-                            g.DrawImage(Properties.Resources.SpinyBeetleLeft, RenderX - 4, RenderY, 20, 16); break;
+                            g.DrawImage(Properties.Resources.SpinyBeetleLeft, RenderX - 4, RenderY); break;
                         case 2:
-                            g.DrawImage(Properties.Resources.SpinyBeetleDown, RenderX, RenderY, 16, 20); break;
+                            g.DrawImage(Properties.Resources.SpinyBeetleDown, RenderX, RenderY); break;
                         case 3:
-                            g.DrawImage(Properties.Resources.SpinyBeetleRight, RenderX, RenderY, 20, 16); break;
+                            g.DrawImage(Properties.Resources.SpinyBeetleRight, RenderX, RenderY); break;
                         default:
-                            g.DrawImage(Properties.Resources.SpinyBeetleUp, RenderX, RenderY - 4, 16, 20); break;
+                            g.DrawImage(Properties.Resources.SpinyBeetleUp, RenderX, RenderY - 4); break;
                     }
                     break;
                 case 220:
-                    g.DrawImage(Properties.Resources.BowserJr, RenderX, RenderY - 25, 31, 41);
+                    g.DrawImage(Properties.Resources.BowserJr, RenderX, RenderY - 25);
                     break;
                 case 222:
                     if (Data[5] / 0x10 == 1)
                         RenderX += 8;
                     if (Data[5] % 0x10 == 1)
                         RenderY += 8;
-                    g.DrawImage(Properties.Resources.MiniGoomba, RenderX, RenderY, 9, 9);
+                    g.DrawImage(Properties.Resources.MiniGoomba, RenderX, RenderY);
                     break;
                 case 223:
-                    g.DrawImage(Properties.Resources.FlipGateSmall, RenderX, RenderY, 32, 32);
+                    g.DrawImage(Properties.Resources.FlipGateSmall, RenderX, RenderY);
                     break;
                 case 224:
-                    g.DrawImage(Properties.Resources.FlipGateLarge, RenderX, RenderY, 192, 64);
+                    g.DrawImage(Properties.Resources.FlipGateLarge, RenderX, RenderY);
                     break;
                 case 226:
                     RenderY += (Data[5] & 0xF0) + 64;
                     g.DrawLine(Pens.White, RenderX + 7, RenderY2, RenderX + 7, RenderY);
                     g.DrawLine(Pens.White, RenderX + 8, RenderY2, RenderX + 8, RenderY);
-                    g.DrawImage(Properties.Resources.HangingScuttleBug, RenderX - 14, RenderY, 44, 37);
+                    g.DrawImage(Properties.Resources.HangingScuttleBug, RenderX - 14, RenderY);
                     break;
                 case 227:
-                    g.DrawImage(Properties.Resources.MoneyBag, RenderX, RenderY - 5, 23, 21);
+                    g.DrawImage(Properties.Resources.MoneyBag, RenderX, RenderY - 5);
                     break;
                 case 228:
-                    g.DrawImage(Properties.Resources.RouletteBlock, RenderX, RenderY, 20, 20);
+                    g.DrawImage(Properties.Resources.RouletteBlock, RenderX, RenderY);
                     break;
                 case 232:
-                    g.DrawImage(Properties.Resources.QBlock, RenderX, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.QBlock, RenderX, RenderY);
+                    if (Data[5] % 0x10 < 10)
+                        g.DrawImage(Properties.Resources.HangingBlockOverrides, RenderX, RenderY, new Rectangle((Data[5] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     g.DrawLine(Pens.White, RenderX + 7, RenderY - 128, RenderX + 7, RenderY);
                     g.DrawLine(Pens.White, RenderX + 8, RenderY - 128, RenderX + 8, RenderY);
                     break;
                 case 233:
                     for (int l = 0; l < Data[5] % 0x10 + 4; l++) {
-                        g.DrawImage(Properties.Resources.SwingingPole, RenderX - 3, RenderY, 7, 16);
+                        g.DrawImage(Properties.Resources.SwingingPole, RenderX - 3, RenderY);
                         RenderY += 16;
                     }
-                    g.DrawImage(Properties.Resources.LineAttachment, RenderX2 - 11, RenderY2 - 11, 22, 22);
+                    g.DrawImage(Properties.Resources.LineAttachment, RenderX2 - 11, RenderY2 - 11);
                     break;
                 case 235:
                     if (Data[5] / 0x10 == 1)
                         RenderX += 8;
                     if (Data[5] % 0x10 == 1)
                         RenderY += 8;
-                    g.DrawImage(Properties.Resources.StarCoin, RenderX, RenderY, 32, 32);
+                    g.DrawImage(Properties.Resources.StarCoin, RenderX, RenderY);
                     break;
                 case 236:
                     if (Data[2] / 0x10 == 1)
                         RenderY += 8;
-                    g.DrawImage(Properties.Resources.SpinningSquarePlatform, RenderX - 16, RenderY - 16, 48, 48);
+                    g.DrawImage(Properties.Resources.SpinningSquarePlatform, RenderX - 16, RenderY - 16);
                     break;
                 case 237:
-                    g.DrawImage(Properties.Resources.Broozer, RenderX, RenderY - 15, 45, 31);
+                    g.DrawImage(Properties.Resources.Broozer, RenderX, RenderY - 15);
                     break;
                 case 238:
-                    g.DrawImage(Properties.Resources.MushroomStalkTop, RenderX + 6, RenderY + 24, 20, 8);
+                    g.DrawImage(Properties.Resources.MushroomStalkTop, RenderX + 6, RenderY + 24);
                     RenderY += 32;
                     for (int l = 0; l < 5; l++){
-                        g.DrawImage(Properties.Resources.MushroomStalk, RenderX + 6, RenderY, 20, 16);
+                        g.DrawImage(Properties.Resources.MushroomStalk, RenderX + 6, RenderY);
                         RenderY += 16;
                     }
                     RenderX = X * 16 - 16 * (Data[5] / 0x10 + 1);
                     RenderY = Y * 16;
                     img = Properties.Resources.PurpleMushroomEdge;
-                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    g.DrawImage(img, RenderX, RenderY);
                     RenderX += 32;
                     for (int l = 0; l < Data[5] / 0x10; l++) {
-                        g.DrawImage(Properties.Resources.PurpleMushroomSection, RenderX, RenderY, 32, 24);
+                        g.DrawImage(Properties.Resources.PurpleMushroomSection, RenderX, RenderY);
                         RenderX += 32;
                     }
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                    g.DrawImage(img, RenderX, RenderY, 32, 24);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 239:
-                    g.DrawImage(Properties.Resources.RiseLowerMushroomStalkTop, RenderX, RenderY + 24, 16, 8);
+                    g.DrawImage(Properties.Resources.RiseLowerMushroomStalkTop, RenderX, RenderY + 24);
                     RenderY += 32;
                     for (int l = 0; l <= Math.Max(Data[5] / 0x10, Data[4] % 0x10); l++) {
-                        g.DrawImage(Properties.Resources.RiseLowerMushroomStalk, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.RiseLowerMushroomStalk, RenderX, RenderY);
                         RenderY += 16;
                     }
                     RenderX -= (Data[5] % 0x10 + 1) * 8;
@@ -1758,24 +1761,24 @@ namespace NSMBe4
                         img = Properties.Resources.RisingMushroomEdge;
                         img2 = Properties.Resources.RisingMushroomMiddle;
                     }
-                    g.DrawImage(img, RenderX, RenderY2, 16, 24);
+                    g.DrawImage(img, RenderX, RenderY2);
                     for (int l = 0; l < Data[5] % 0x10; l++) {
                         RenderX += 16;
-                        g.DrawImage(img2, RenderX, RenderY2, 16, 24);
+                        g.DrawImage(img2, RenderX, RenderY2);
                     }
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                    g.DrawImage(img, RenderX + 16, RenderY2, 16, 24);
+                    g.DrawImage(img, RenderX + 16, RenderY2);
                     break;
                 case 241:
                     img = Properties.Resources.RotatingCannon;
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
                     for (int l = 0; l <= Math.Min(7, (int)Data[3]); l++) {
                         if ((Data[4] & (1 << l)) > 0)
-                            g.DrawImage(Properties.Resources.RotatingCannonEmpty, RenderX + 2, RenderY, 13, 16);
+                            g.DrawImage(Properties.Resources.RotatingCannonEmpty, RenderX + 2, RenderY);
                         else if ((Data[5] & (1 << l)) > 0)
-                            g.DrawImage(img, RenderX - 3, RenderY, 19, 16);
+                            g.DrawImage(img, RenderX - 3, RenderY);
                         else
-                            g.DrawImage(Properties.Resources.RotatingCannon, RenderX + 1, RenderY, 19, 16);
+                            g.DrawImage(Properties.Resources.RotatingCannon, RenderX + 1, RenderY);
                         RenderY -= 16;
                     }
                     break;
@@ -1783,25 +1786,25 @@ namespace NSMBe4
                     RenderX2 = Data[5] % 0x10;
                     if (Data[5] / 0x10 == 1) {
                         if (Data[4] % 0x10 == 1)
-                            g.DrawImage(Properties.Resources.ExpandedMushroomS, RenderX - 32, RenderY, 80, 16);
+                            g.DrawImage(Properties.Resources.ExpandedMushroomS, RenderX - 32, RenderY);
                         else
-                            g.DrawImage(Properties.Resources.ExpandedMushroomL, RenderX - 72, RenderY, 160, 16);
+                            g.DrawImage(Properties.Resources.ExpandedMushroomL, RenderX - 72, RenderY);
                         RenderX2++;
                         RenderY2 -= 16;
                     }
                     else
-                        g.DrawImage(Properties.Resources.ContractedMushroom, RenderX - 8, RenderY, 32, 32);
+                        g.DrawImage(Properties.Resources.ContractedMushroom, RenderX - 8, RenderY);
                     RenderY2 += 32;
                     for (int l = 0; l < RenderX2; l++) {
                         if (l == 0)
-                            g.DrawImage(Properties.Resources.ExpandMushroomStalkTop, RenderX, RenderY2, 16, 16);
+                            g.DrawImage(Properties.Resources.ExpandMushroomStalkTop, RenderX, RenderY2);
                         else
-                            g.DrawImage(Properties.Resources.ExpandMushroomStalk, RenderX, RenderY2, 16, 16);
+                            g.DrawImage(Properties.Resources.ExpandMushroomStalk, RenderX, RenderY2);
                         RenderY2 += 16;
                     }
                     break;
                 case 243:
-                    g.DrawImage(Properties.Resources.RoofSpiny, RenderX, RenderY, 17, 16);
+                    g.DrawImage(Properties.Resources.RoofSpiny, RenderX, RenderY);
                     break;
                 case 244:
                     switch (Data[5] / 0x10) {
@@ -1810,23 +1813,23 @@ namespace NSMBe4
                         case 2:
                             RenderX += 8; break;
                     }
-                    g.DrawImage(Properties.Resources.BouncingMushroom, RenderX - 40, RenderY, 96, 32);
+                    g.DrawImage(Properties.Resources.BouncingMushroom, RenderX - 40, RenderY);
                     RenderY += 32;
                     RenderX += 3;
                     for (int l = 0; l < Data[5] % 0x10; l++) {
-                        g.DrawImage(Properties.Resources.BouncingMushroomStalk, RenderX, RenderY, 10, 16);
+                        g.DrawImage(Properties.Resources.BouncingMushroomStalk, RenderX, RenderY);
                         RenderY += 16;
                     }
                     break;
                 case 246:
-                    g.DrawImage(Properties.Resources.Barrel, RenderX - 16, RenderY - 8, 48, 49);
+                    g.DrawImage(Properties.Resources.Barrel, RenderX - 16, RenderY - 8);
                     break;
                 case 247:
-                    g.DrawImage(Properties.Resources.Shark, RenderX - 27, RenderY - 8, 71, 26);
-                    g.DrawImage(Properties.Resources.Infinity, RenderX - 4, RenderY + 1, 21, 17);
+                    g.DrawImage(Properties.Resources.Shark, RenderX - 27, RenderY - 8);
+                    g.DrawImage(Properties.Resources.Infinity, RenderX - 4, RenderY + 1);
                     break;
                 case 248:
-                    g.DrawImage(Properties.Resources.BalloonBoo, RenderX - 53, RenderY - 106, 109, 108);
+                    g.DrawImage(Properties.Resources.BalloonBoo, RenderX - 53, RenderY - 106);
                     break;
                 case 249:
                     RenderX -= Data[5] % 0x10 * 8 + 24;
@@ -1834,69 +1837,69 @@ namespace NSMBe4
                     int XOff = Data[5] % 0x10 * 16 + 48;
                     for (int l = 0; l < Data[4] / 0x10 + 4; l++) {
                         RenderY -= 16;
-                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX, RenderY, 16, 16);
-                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX + XOff, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX, RenderY);
+                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX + XOff, RenderY);
                     }
                     for (int l = 0; l < Data[5] % 0x10 + 2; l++){
                         RenderX += 16;
-                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.WallJumpPlatformBlock, RenderX, RenderY);
                     }
-                    g.DrawImage(Properties.Resources.LineAttachment, X * 16 - 3, Y * 16 + 5, 22, 22);
+                    g.DrawImage(Properties.Resources.LineAttachment, X * 16 - 3, Y * 16 + 5);
                     break;
                 case 250:
-                    g.DrawImage(Properties.Resources.Crow, RenderX, RenderY, 22, 14);
+                    g.DrawImage(Properties.Resources.Crow, RenderX, RenderY);
                     break;
                 case 252:
-                    g.DrawImage(Properties.Resources.BanzaiBillCannon, RenderX - 32, RenderY - 64, 64, 80);
+                    g.DrawImage(Properties.Resources.BanzaiBillCannon, RenderX - 32, RenderY - 64);
                     break;
                 case 254:
-                    g.DrawImage(Properties.Resources.Kabomb, RenderX, RenderY - 3, 16, 19);
+                    g.DrawImage(Properties.Resources.Kabomb, RenderX, RenderY - 3);
                     break;
                 case 255:
-                    g.DrawImage(Properties.Resources.Jungle, RenderX, RenderY, 256, 64);
+                    g.DrawImage(Properties.Resources.Jungle, RenderX, RenderY);
                     break;
                 case 256:
                     img = Properties.Resources.ThruWallPlatform;
                     if (Data[3] / 0x10 == 0)
-                        g.DrawImage(img, RenderX - 80, RenderY, 96, 16);
+                        g.DrawImage(img, RenderX - 80, RenderY);
                     else {
                         img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                        g.DrawImage(img, RenderX, RenderY, 96, 16);
+                        g.DrawImage(img, RenderX, RenderY);
                     }
                     break;
                 case 265:
-                    g.DrawImage(Properties.Resources.Hand, RenderX + 8, RenderY, 16, 20);
+                    g.DrawImage(Properties.Resources.Hand, RenderX + 8, RenderY);
                     break;
                 case 268:
-                    g.DrawImage(Properties.Resources.UnderwaterBounceBall, RenderX - 26, RenderY - 26, 53, 53);
+                    g.DrawImage(Properties.Resources.UnderwaterBounceBall, RenderX - 26, RenderY - 26);
                     break;
                 case 272:
                     if (Data[5] % 0x10 == 1)
-                        g.DrawImage(Properties.Resources.SnowBranchLeft, RenderX - 31, RenderY - 12, 34, 23);
+                        g.DrawImage(Properties.Resources.SnowBranchLeft, RenderX - 31, RenderY - 12);
                     else
-                        g.DrawImage(Properties.Resources.SnowBranchRight, RenderX + 15, RenderY - 12, 30, 23);
+                        g.DrawImage(Properties.Resources.SnowBranchRight, RenderX + 15, RenderY - 12);
                     break;
                 case 273:
-                    g.DrawImage(Properties.Resources.SnowballThrower, RenderX, RenderY, 32, 32);
+                    g.DrawImage(Properties.Resources.SnowballThrower, RenderX, RenderY);
                     break;
                 case 274:
                     img = Properties.Resources.SinkingSnowEdge;
-                    g.DrawImage(img, RenderX - 16, RenderY, 16, 35);
+                    g.DrawImage(img, RenderX - 16, RenderY);
                     for (int l = 0; l <= Data[5] % 0x10; l++) {
-                        g.DrawImage(Properties.Resources.SinkingSnow, RenderX, RenderY, 16, 35);
+                        g.DrawImage(Properties.Resources.SinkingSnow, RenderX, RenderY);
                         RenderX += 16;
                     }
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                    g.DrawImage(img, RenderX, RenderY, 16, 35);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 275:
                     RenderY -= 14;
-                    g.DrawImage(Properties.Resources.JumpingQBlock, RenderX, RenderY, 16, 30);
+                    g.DrawImage(Properties.Resources.JumpingQBlock, RenderX, RenderY);
                     if ((Data[4] % 0x10) <= 3)
-                        g.DrawImage(Properties.Resources.JumpingQBlockOverrides, new Rectangle(RenderX, RenderY + 3, 16, 16), new Rectangle((Data[4] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
+                        g.DrawImage(Properties.Resources.JumpingQBlockOverrides, RenderX, RenderY + 3, new Rectangle((Data[4] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     for (int l = 0; l < Data[5] % 0x10; l++) {
                         RenderY -= 16;
-                        g.DrawImage(Properties.Resources.Brick, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.Brick, RenderX, RenderY);
                     }
                     break;
                 case 277:
@@ -1935,48 +1938,48 @@ namespace NSMBe4
                         img.RotateFlip(RotateFlipType.RotateNoneFlipX);
                     else if (Data[5] == 4 || Data[5] == 6)
                         img.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    g.DrawImage(img, RenderX, RenderY, img.Width, img.Height);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 281:
                     img = Properties.Resources.PipeCaterpiller;
                     if (Data[5] % 0x10 == 1) {
                         img.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                        g.DrawImage(img, RenderX + 10, RenderY + 16, 13, 15);
+                        g.DrawImage(img, RenderX + 10, RenderY + 16);
                     } else
-                        g.DrawImage(img, RenderX + 10, RenderY - 15, 13, 15);
+                        g.DrawImage(img, RenderX + 10, RenderY - 15);
                     break;
                 case 282:
                     RenderX -= 16;
-                    g.DrawImage(Properties.Resources.VineTop, RenderX, RenderY, 32, 16);
+                    g.DrawImage(Properties.Resources.VineTop, RenderX, RenderY);
                     for (int l = 0; l < Data[5] % 0x10 + 2; l++ ) {
                         RenderY += 16;
-                        g.DrawImage(Properties.Resources.Vine, RenderX, RenderY, 32, 16);
+                        g.DrawImage(Properties.Resources.Vine, RenderX, RenderY);
                     }
-                    g.DrawImage(Properties.Resources.VineBottom, RenderX, RenderY + 16, 32, 16);
+                    g.DrawImage(Properties.Resources.VineBottom, RenderX, RenderY + 16);
                     break;
                 case 283:
-                    g.DrawImage(Properties.Resources.SpikeBass, RenderX, RenderY - 32, 54, 55);
+                    g.DrawImage(Properties.Resources.SpikeBass, RenderX, RenderY - 32);
                     break;
                 case 284:
-                    g.DrawImage(Properties.Resources.Pumpkin, RenderX, RenderY - 2, 18, 18);
+                    g.DrawImage(Properties.Resources.Pumpkin, RenderX, RenderY - 2);
                     break;
                 case 285:
-                    g.DrawImage(Properties.Resources.ScuttleBug, RenderX, RenderY - 8, 46, 24);
+                    g.DrawImage(Properties.Resources.ScuttleBug, RenderX, RenderY - 8);
                     break;
                 case 289:
-                    g.DrawImage(Properties.Resources.ExpandableBlock, RenderX, RenderY, 16, 16);
+                    g.DrawImage(Properties.Resources.ExpandableBlock, RenderX, RenderY);
                     break;
                 case 290:
-                    g.DrawImage(Properties.Resources.FlyingQBlock, RenderX - 9, RenderY - 13, 38, 28);
+                    g.DrawImage(Properties.Resources.FlyingQBlock, RenderX - 9, RenderY - 13);
                     if (Data[5] % 0x10 < 8)
-                        g.DrawImage(Properties.Resources.FlyingQBlockOverrides, new Rectangle(RenderX, RenderY, 16, 16), new Rectangle((Data[5] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
+                        g.DrawImage(Properties.Resources.FlyingQBlockOverrides, RenderX, RenderY, new Rectangle((Data[5] % 0x10) * 16, 0, 16, 16), GraphicsUnit.Pixel);
                     break;
                 case 291:
                     g.DrawImage(Level.GFX.Tilesets[0].Map16Buffer, RenderX, RenderY, new Rectangle(0, 0x50, 16, 16), GraphicsUnit.Pixel);
                     g.DrawImage(Properties.Resources.QSwitch, RenderX + 2, RenderY + 1, 12, 14);
                     break;
                 case 292:
-                    g.DrawImage(Properties.Resources.Door2, RenderX, RenderY - 32, 32, 48);
+                    g.DrawImage(Properties.Resources.Door2, RenderX, RenderY - 32);
                     break;
                 case 71:
                 case 72:
@@ -2004,36 +2007,36 @@ namespace NSMBe4
                     int xp = RenderX;
                     int yp = RenderY;
                     if (height == 0) {
-                        g.DrawImage(Properties.Resources.StoneBlockFlatHorizLeft, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.StoneBlockFlatHorizLeft, RenderX, RenderY);
                         for (int l = 0; l < width - 1; l++) {
                             RenderX += 16;
-                            g.DrawImage(Properties.Resources.StoneBlockFlatHorizMiddle, RenderX, RenderY, 16, 16);
+                            g.DrawImage(Properties.Resources.StoneBlockFlatHorizMiddle, RenderX, RenderY);
                         }
-                        g.DrawImage(Properties.Resources.StoneBlockFlatHorizRight, RenderX + 16, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.StoneBlockFlatHorizRight, RenderX + 16, RenderY);
                     }
                     else {
-                        g.DrawImage(Properties.Resources.StoneBlockTopLeft, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.StoneBlockTopLeft, RenderX, RenderY);
                         for (int l = 0; l < width - 1; l++) {
                             RenderX += 16;
-                            g.DrawImage(Properties.Resources.StoneBlockTop, RenderX, RenderY, 16, 16);
+                            g.DrawImage(Properties.Resources.StoneBlockTop, RenderX, RenderY);
                         }
                         RenderX += 16;
-                        g.DrawImage(Properties.Resources.StoneBlockTopRight, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.StoneBlockTopRight, RenderX, RenderY);
                         for (int l = 0; l < height - 1; l++) {
                             RenderY += 16;
-                            g.DrawImage(Properties.Resources.StoneBlockRight, RenderX, RenderY, 16, 16);
+                            g.DrawImage(Properties.Resources.StoneBlockRight, RenderX, RenderY);
                         }
                         RenderY += 16;
-                        g.DrawImage(Properties.Resources.StoneBlockBottomRight, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.StoneBlockBottomRight, RenderX, RenderY);
                         for (int l = 0; l < width - 1; l++) {
                             RenderX -= 16;
-                            g.DrawImage(Properties.Resources.StoneBlockBottom, RenderX, RenderY, 16, 16);
+                            g.DrawImage(Properties.Resources.StoneBlockBottom, RenderX, RenderY);
                         }
                         RenderX -= 16;
-                        g.DrawImage(Properties.Resources.StoneBlockBottomLeft, RenderX, RenderY, 16, 16);
+                        g.DrawImage(Properties.Resources.StoneBlockBottomLeft, RenderX, RenderY);
                         for (int l = 0; l < height - 1; l++) {
                             RenderY -= 16;
-                            g.DrawImage(Properties.Resources.StoneBlockLeft, RenderX, RenderY, 16, 16);
+                            g.DrawImage(Properties.Resources.StoneBlockLeft, RenderX, RenderY);
                         }
                         RenderX = xp;
                         RenderY = yp;
@@ -2042,7 +2045,7 @@ namespace NSMBe4
                             RenderY += 16;
                             for (int m = 0; m < width - 1; m++) {
                                 RenderX += 16;
-                                g.DrawImage(Properties.Resources.StoneBlockMiddle, RenderX, RenderY, 16, 16);
+                                g.DrawImage(Properties.Resources.StoneBlockMiddle, RenderX, RenderY);
                             }
                             RenderX = xStart;
                         }
@@ -2051,7 +2054,7 @@ namespace NSMBe4
                         RenderX = xp;
                         RenderY = yp - 16;
                         for (int l = 0; l <= width; l++)  {
-                            g.DrawImage(Properties.Resources.StoneBlockSpikes, RenderX, RenderY, 16, 16);
+                            g.DrawImage(Properties.Resources.StoneBlockSpikes, RenderX, RenderY);
                             RenderX += 16;
                         }
                     }
@@ -2063,7 +2066,7 @@ namespace NSMBe4
                         Bitmap spikes2 = Properties.Resources.StoneBlockSpikes;
                         spikes2.RotateFlip(RotateFlipType.RotateNoneFlipY);
                         for (int l = 0; l <= Data[5] % 0x10; l++) {
-                            g.DrawImage(spikes2, RenderX, RenderY, 16, 16);
+                            g.DrawImage(spikes2, RenderX, RenderY);
                             RenderX += 16;
                         }
                     }
@@ -2075,7 +2078,7 @@ namespace NSMBe4
                         Bitmap spikes2 = Properties.Resources.StoneBlockSpikes;
                         spikes2.RotateFlip(RotateFlipType.Rotate90FlipNone);
                         for (int l = 0; l <= Data[5] / 0x10; l++) {
-                            g.DrawImage(spikes2, RenderX, RenderY, 16, 16);
+                            g.DrawImage(spikes2, RenderX, RenderY);
                             RenderY += 16;
                         }
                     }
@@ -2085,25 +2088,25 @@ namespace NSMBe4
                         Bitmap spikes2 = Properties.Resources.StoneBlockSpikes;
                         spikes2.RotateFlip(RotateFlipType.Rotate90FlipX);
                         for (int l = 0; l <= height; l++) {
-                            g.DrawImage(spikes2, RenderX, RenderY, 16, 16);
+                            g.DrawImage(spikes2, RenderX, RenderY);
                             RenderY += 16;
                         }
                     }
                     break;
                 case 300:
                     RenderY += -8 + Data[5] % 0x10;
-                    g.DrawImage(Properties.Resources.GhostPlatform, RenderX - 64, RenderY, 128, 16);
+                    g.DrawImage(Properties.Resources.GhostPlatform, RenderX - 64, RenderY);
                     break;
                 case 303:
-                    g.DrawImage(Properties.Resources.SpinningSpikeBall, RenderX + 4, RenderY - 61, 72, 74);
+                    g.DrawImage(Properties.Resources.SpinningSpikeBall, RenderX + 4, RenderY - 61);
                     break;
                 case 260:
                 case 304:
-                    g.DrawImage(Properties.Resources.GiantSpike, RenderX, RenderY - 128, 64, 144);
+                    g.DrawImage(Properties.Resources.GiantSpike, RenderX, RenderY - 128);
                     break;
                 case 305:
                     customRendered = false;
-                    RenderX2 = ((Data[4] >> 4) + ((Data[4] & 0xF) << 4)) * 16;
+                    RenderX2 = Math.Max(0, ((Data[4] >> 4) + ((Data[4] & 0xF) << 4) - 15) * 16);
                     if (RenderX2 != 0) {
                         g.FillRectangle(Brushes.Black, RenderX, RenderY + 6, RenderX2, 4);
                         g.FillRectangle(Brushes.Black, RenderX + RenderX2 - 4, RenderY, 4, 10);
@@ -2127,45 +2130,45 @@ namespace NSMBe4
                 case 307:
                     img = Properties.Resources.GiantSpike;
                     img.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    g.DrawImage(img, RenderX, RenderY, 64, 144);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 262:
                 case 308:
                     img = Properties.Resources.GiantSpike;
                     img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    g.DrawImage(img, RenderX, RenderY, 144, 64);
+                    g.DrawImage(img, RenderX, RenderY);
                     break;
                 case 263:
                 case 309:
                     img = Properties.Resources.GiantSpike;
                     img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                    g.DrawImage(img, RenderX - 128, RenderY, 144, 64);
+                    g.DrawImage(img, RenderX - 128, RenderY);
                     break;
                 case 312:
                     img = Properties.Resources.GreenMushroomEdge;
                     img.RotateFlip(RotateFlipType.RotateNoneFlipX);
                     width = Data[5] % 0x10 + 1;
                     RenderX -= width * 8;
-                    g.DrawImage(Properties.Resources.GreenMushroomEdge, RenderX, RenderY, 16, 24);
+                    g.DrawImage(Properties.Resources.GreenMushroomEdge, RenderX, RenderY);
                     for (int l = 0; l <= width - 2; l++) {
                         RenderX += 16;
-                        g.DrawImage(Properties.Resources.GreenMushroomMiddle, RenderX, RenderY, 16, 24);
+                        g.DrawImage(Properties.Resources.GreenMushroomMiddle, RenderX, RenderY);
                     }
-                    g.DrawImage(img, RenderX + 16, RenderY, 16, 24);
-                    g.DrawImage(Properties.Resources.GreenMushroomStalkTop, RenderX2, RenderY + 24, 16, 25);
+                    g.DrawImage(img, RenderX + 16, RenderY);
+                    g.DrawImage(Properties.Resources.GreenMushroomStalkTop, RenderX2, RenderY + 24);
                     for (int l = 0; l < Data[5] / 0x10; l++) {
-                        g.DrawImage(Properties.Resources.GreenMushroomStalk, RenderX2, RenderY + 49, 16, 16);
+                        g.DrawImage(Properties.Resources.GreenMushroomStalk, RenderX2, RenderY + 49);
                         RenderY += 16;
                     }
                     break;
                 case 323:
-                    g.DrawImage(Properties.Resources.CloudLeftEdge, RenderX, RenderY, 16, 26);
+                    g.DrawImage(Properties.Resources.CloudLeftEdge, RenderX, RenderY);
                     RenderX += 16;
                     for (int l = 0; l <= Data[5]; l++) {
-                        g.DrawImage(Properties.Resources.CloudSection, RenderX, RenderY, 32, 32);
+                        g.DrawImage(Properties.Resources.CloudSection, RenderX, RenderY);
                         RenderX += 32;
                     }
-                    g.DrawImage(Properties.Resources.CloudRightEdge, RenderX, RenderY, 16, 25);
+                    g.DrawImage(Properties.Resources.CloudRightEdge, RenderX, RenderY);
                     break;
                 default:
                     customRendered = false;
@@ -2188,7 +2191,7 @@ namespace NSMBe4
                 img = Properties.Resources.sprite;
             else
                 img = Properties.Resources.sprite_invalid;
-            g.DrawImage(img, RenderX, RenderY, 16, 16);
+            g.DrawImage(img, RenderX, RenderY);
             g.DrawString(Type.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, (float)RenderX, (float)RenderY);
         }
 

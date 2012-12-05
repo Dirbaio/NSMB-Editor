@@ -26,6 +26,7 @@ namespace NSMBe4
     public class ObjectsEditionMode:EditionMode
     {
         public bool snapTo8Pixels = true;
+        public bool resizeHandles;
 
         bool CloneMode, SelectMode;
         int dx, dy; //MouseDown position
@@ -45,6 +46,8 @@ namespace NSMBe4
         Rectangle SelectionRectangle;
 
         List<LevelItem> SelectedObjects = new List<LevelItem>();
+        List<LevelItem> CurSelectedObjs = new List<LevelItem>();
+        bool removing = false;
         public GoodTabsPanel tabs;
 
         public ObjectsEditionMode(NSMBLevel Level, LevelEditorControl EdControl)
@@ -53,24 +56,17 @@ namespace NSMBe4
             tabs = new GoodTabsPanel(EdControl);
             SetPanel(tabs);
             tabs.Dock = DockStyle.Fill;
+            resizeHandles = Properties.Settings.Default.ShowResizeHandles;
         }
 
         public override void SelectObject(Object o)
         {
+            SelectedObjects.Clear();
+            CurSelectedObjs.Clear();
             if ((o is LevelItem) && (!SelectedObjects.Contains(o as LevelItem) || SelectedObjects.Count != 1))
-            {
-                SelectedObjects.Clear();
                 SelectedObjects.Add(o as LevelItem);
-            }
             if (o is List<LevelItem>)
-            {
-                SelectedObjects.Clear();
                 SelectedObjects.AddRange(o as List<LevelItem>);
-            }
-            if (o == null)
-            {
-                SelectedObjects.Clear();
-            }
             tabs.SelectObjects(SelectedObjects);
             UpdateSelectionBounds();
             UpdatePanel();
@@ -79,6 +75,7 @@ namespace NSMBe4
         public override void SelectAll()
         {
             SelectedObjects.Clear();
+            CurSelectedObjs.Clear();
             foreach (NSMBObject o in EdControl.Level.Objects) SelectedObjects.Add(o);
             foreach (NSMBSprite s in EdControl.Level.Sprites) SelectedObjects.Add(s);
             foreach (NSMBEntrance e in EdControl.Level.Entrances) SelectedObjects.Add(e);
@@ -106,7 +103,15 @@ namespace NSMBe4
                 g.DrawRectangle(Pens.LightBlue, SelectionRectangle);
 
             foreach (LevelItem o in SelectedObjects)
-            {
+                if (!CurSelectedObjs.Contains(o))
+                    RenderSelectedObject(o, g);
+            if (!removing)
+                foreach (LevelItem o in CurSelectedObjs)
+                    RenderSelectedObject(o, g);
+        }
+
+        private void RenderSelectedObject(LevelItem o, Graphics g)
+        {
                 if (o is NSMBView)
                 {
                     Color c;
@@ -128,7 +133,7 @@ namespace NSMBe4
 
                 g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
                 g.DrawRectangle(Pens.Black, o.x-1, o.y-1, o.width+2, o.height+2);
-                if (o.isResizable)
+                if (o.isResizable && resizeHandles)
                 {
                     drawResizeKnob(g, o.x, o.y);
                     drawResizeKnob(g, o.x, o.y + o.height);
@@ -139,8 +144,6 @@ namespace NSMBe4
                     drawResizeKnob(g, o.x + o.width / 2, o.y);
                     drawResizeKnob(g, o.x + o.width / 2, o.y + o.height);
                 }
-
-            }
         }
 
         public void ReloadObjectPicker()
@@ -171,8 +174,13 @@ namespace NSMBe4
 
                 if (o.isResizable)
                 {
-                    if (o.width < minSizeX) minSizeX = o.width;
-                    if (o.height< minSizeY) minSizeY = o.height;
+                    if (o is NSMBView && !(o as NSMBView).isZone) {
+                        if (o.width - 256 < minSizeX) minSizeX = o.width - 256 + selectionSnap;
+                        if (o.height - 192 < minSizeY) minSizeY = o.height - 192 + selectionSnap;
+                    } else {
+                        if (o.width < minSizeX) minSizeX = o.width;
+                        if (o.height < minSizeY) minSizeY = o.height;
+                    }
                 }
             }
         }
@@ -279,6 +287,12 @@ namespace NSMBe4
 
             bool drag = false;
             getActionAtPos(x, y, out drag, out vertResize, out horResize);
+            // Resize with the shift key
+            if (Control.ModifierKeys == Keys.Shift && drag && vertResize == ResizeType.ResizeNone && horResize == ResizeType.ResizeNone)
+            {
+                vertResize = ResizeType.ResizeEnd;
+                horResize = ResizeType.ResizeEnd;
+            }
             if (!drag)
             {
                 // Select an object
@@ -454,7 +468,7 @@ namespace NSMBe4
             {
                 LevelItem o = SelectedObjects[l];
 
-                if (o.isResizable)
+                if (o.isResizable && resizeHandles)
                 {
                     drag = true;
 
@@ -587,8 +601,7 @@ namespace NSMBe4
 
             if (objs.Count == 0) return;
 
-            EdControl.UndoManager.Do(new AddLvlItemAction(objs));
-            //now place the new objects on the topleft corner
+            //now center the objects
             Rectangle ViewableBlocks = EdControl.ViewableBlocks;
             SelectedObjects = objs;
             UpdateSelectionBounds();
@@ -600,6 +613,8 @@ namespace NSMBe4
             }
             minBoundX += XDelta;
             minBoundY += YDelta;
+            
+            EdControl.UndoManager.Do(new AddLvlItemAction(objs));
         }
 
         LevelItem FromString(String[] strs, ref int idx)

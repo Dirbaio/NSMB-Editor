@@ -206,6 +206,12 @@ namespace NSMBe4
                             selTile.controlByte ^= 1;
                     }
                     groupBox1.Visible = selTile != null;
+                    if (selTile != null) {
+                        tilePicker1.selTileHeight = 1;
+                        tilePicker1.selTileWidth = 1;
+                        tilePicker1.selTileNum = selTile.tileID;
+                        tilePicker1.Invalidate(true);
+                    }
                     repaint();
                 }
         }

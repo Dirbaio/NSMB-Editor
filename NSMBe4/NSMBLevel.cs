@@ -27,8 +27,13 @@ namespace NSMBe4
 {
     public class NSMBLevel
     {
-        private File LevelFile;
-        private File BGFile;
+        public File LevelFile;
+        public File BGFile;
+        public string ExportedFileName;
+        public bool isExported = false;
+        public int SavedLevelFileID = 0;
+        public int SavedBGFileID = 0;
+        public bool isClipboard = false;
 
         public byte[][] Blocks;
         public List<NSMBObject> Objects;
@@ -48,6 +53,28 @@ namespace NSMBe4
         {
             this.LevelFile = levelFile;
             this.BGFile = bgFile;
+            LoadLevel(levelFile.getContents(), bgFile.getContents(), GFX);
+        }
+
+        public NSMBLevel(File levelFile, File bgFile, byte[] eLevelFile, byte[] eBGFile, NSMBGraphics GFX)
+        {
+            this.LevelFile = levelFile;
+            this.BGFile = bgFile;
+            LoadLevel(eLevelFile, eBGFile, GFX);
+        }
+
+        public NSMBLevel(string fileName, byte[] eLevelFile, byte[] eBGFile, NSMBGraphics GFX)
+        {
+            if (fileName == "")
+                isClipboard = true;
+            else
+                ExportedFileName = fileName;
+            isExported = true;
+            LoadLevel(eLevelFile, eBGFile, GFX);
+        }
+
+        private void LoadLevel(byte[] eLevelFile, byte[] eBGFile, NSMBGraphics GFX)
+        {
             this.GFX = GFX;
 
             int FilePos;
@@ -60,7 +87,6 @@ namespace NSMBe4
 
             // Level loading time yay.
             // Since I don't know the format for every block, I will just load them raw.
-            byte[] eLevelFile = levelFile.getContents();
             Blocks = new byte[][] { null, null, null, null, null, null, null, null, null, null, null, null, null, null };
 
             FilePos = 0;
@@ -75,7 +101,6 @@ namespace NSMBe4
             }
 
             // Now objects.
-            byte[] eBGFile = bgFile.getContents();
 
             int ObjectCount = eBGFile.Length / 10;
             Objects = new List<NSMBObject>(ObjectCount);
@@ -279,27 +304,28 @@ namespace NSMBe4
 
         public void enableWrite()
         {
-            try
-            {
-                BGFile.beginEdit(this);
-                LevelFile.beginEdit(this);
-            }
-            catch (AlreadyEditingException ex)
-            {
-                if (BGFile.beingEditedBy(this))
-                    BGFile.endEdit(this);
-                if (LevelFile.beingEditedBy(this))
-                    LevelFile.endEdit(this);
+            if (!isExported) {
+                try
+                {
+                    BGFile.beginEdit(this);
+                    LevelFile.beginEdit(this);
+                }
+                catch (AlreadyEditingException ex)
+                {
+                    if (BGFile.beingEditedBy(this))
+                        BGFile.endEdit(this);
+                    if (LevelFile.beingEditedBy(this))
+                        LevelFile.endEdit(this);
 
-                throw ex;
+                    throw ex;
+                }
             }
-
             editing = true;
         }
 
         public void close()
         {
-            if (editing)
+            if (editing && !isExported)
             {
                 BGFile.endEdit(this);
                 LevelFile.endEdit(this);
@@ -307,6 +333,41 @@ namespace NSMBe4
         }
 
         public void Save() {
+            ExportedLevel exlvl = getExport();
+            if (isClipboard)
+            {
+                ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
+                System.IO.BinaryWriter bw = new System.IO.BinaryWriter(strm);
+                exlvl.Write(bw);
+                Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(ROM.LZ77_Compress(strm.getData())) + "|");
+            }
+            else if (isExported)
+            {
+                System.IO.FileStream fs = new System.IO.FileStream(ExportedFileName, System.IO.FileMode.Create);
+                System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs);
+                exlvl.Write(bw);
+            }
+            else
+            {
+                LevelFile.replace(exlvl.LevelFile, this);
+                BGFile.replace(exlvl.BGFile, this);
+            }
+        }
+
+        public void SaveToClipboard()
+        {
+            if (isClipboard)
+                Save();
+            else
+            {
+                isClipboard = true;
+                Save();
+                isClipboard = false;
+            }
+        }
+
+        public ExportedLevel getExport()
+        {
             int FilePos;
 
             // First off, save sprites. These go in the main level file so we must do them before blocks
@@ -315,7 +376,8 @@ namespace NSMBe4
             Blocks[6] = new byte[SpriteBlockSize];
             FilePos = 0;
 
-            for (int SpriteIdx = 0; SpriteIdx < Sprites.Count; SpriteIdx++) {
+            for (int SpriteIdx = 0; SpriteIdx < Sprites.Count; SpriteIdx++)
+            {
                 Blocks[6][FilePos] = (byte)(Sprites[SpriteIdx].Type & 0xFF);
                 Blocks[6][FilePos + 1] = (byte)((Sprites[SpriteIdx].Type >> 8) & 0xFF);
                 Blocks[6][FilePos + 2] = (byte)(Sprites[SpriteIdx].X & 0xFF);
@@ -342,7 +404,8 @@ namespace NSMBe4
             Blocks[5] = new byte[EntBlockSize];
             FilePos = 0;
 
-            for (int EntIdx = 0; EntIdx < Entrances.Count; EntIdx++) {
+            for (int EntIdx = 0; EntIdx < Entrances.Count; EntIdx++)
+            {
                 Blocks[5][FilePos] = (byte)(Entrances[EntIdx].X & 0xFF);
                 Blocks[5][FilePos + 1] = (byte)((Entrances[EntIdx].X >> 8) & 0xFF);
                 Blocks[5][FilePos + 2] = (byte)(Entrances[EntIdx].Y & 0xFF);
@@ -405,7 +468,8 @@ namespace NSMBe4
             int LevelFileSize = 8 * 14;
 
             // Find out how long the file must be
-            for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++) {
+            for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++)
+            {
                 LevelFileSize += Blocks[BlockIdx].Length;
             }
 
@@ -414,7 +478,8 @@ namespace NSMBe4
             int CurBlockOffset = 8 * 14;
             byte[] LevelFileData = new byte[LevelFileSize];
 
-            for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++) {
+            for (int BlockIdx = 0; BlockIdx < 14; BlockIdx++)
+            {
                 LevelFileData[FilePos] = (byte)(CurBlockOffset & 0xFF);
                 LevelFileData[FilePos + 1] = (byte)((CurBlockOffset >> 8) & 0xFF);
                 LevelFileData[FilePos + 2] = (byte)((CurBlockOffset >> 16) & 0xFF);
@@ -428,14 +493,13 @@ namespace NSMBe4
                 CurBlockOffset += Blocks[BlockIdx].Length;
             }
 
-            LevelFile.replace(LevelFileData, this);
-
             // Next up, objects!
             FilePos = 0;
             int BGDatFileSize = (Objects.Count * 10) + 2;
             byte[] BGDatFileData = new byte[BGDatFileSize];
 
-            for (int ObjIdx = 0; ObjIdx < Objects.Count; ObjIdx++) {
+            for (int ObjIdx = 0; ObjIdx < Objects.Count; ObjIdx++)
+            {
                 int ObjType = Objects[ObjIdx].ObjNum | (Objects[ObjIdx].Tileset << 12);
                 BGDatFileData[FilePos] = (byte)(ObjType & 0xFF);
                 BGDatFileData[FilePos + 1] = (byte)((ObjType >> 8) & 0xFF);
@@ -452,8 +516,7 @@ namespace NSMBe4
 
             BGDatFileData[FilePos] = 0xFF;
             BGDatFileData[FilePos + 1] = 0xFF;
-
-            BGFile.replace(BGDatFileData, this);
+            return new ExportedLevel(LevelFileData, BGDatFileData, getLevelFileID(), getBGDatFileID());
         }
 
         public void ReRenderAll() {
@@ -479,82 +542,6 @@ namespace NSMBe4
                     }
                 }
             }
-        }
-
-        public static void ImportLevel(File destLevelFile, File destBGFile, System.IO.BinaryReader br) {
-            try
-            {
-                destLevelFile.beginEdit(br);
-            }
-            catch (AlreadyEditingException)
-            {
-                MessageBox.Show(LanguageManager.Get("Errors", "Level"));
-                return;
-            }
-
-            try
-            {
-                destBGFile.beginEdit(br);
-            }
-            catch (AlreadyEditingException)
-            {
-                destLevelFile.endEdit(br);
-                MessageBox.Show(LanguageManager.Get("Errors", "Level"));
-                return;
-            }                
-
-            string Header = br.ReadString();
-            if (Header != "NSMBe4 Exported Level") {
-                MessageBox.Show(
-                    LanguageManager.Get("NSMBLevel", "InvalidFile"),
-                    LanguageManager.Get("NSMBLevel", "Unreadable"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            ushort FileVersion = br.ReadUInt16();
-            if (FileVersion > 1) {
-                MessageBox.Show(
-                    LanguageManager.Get("NSMBLevel", "OldVersion"),
-                    LanguageManager.Get("NSMBLevel", "Unusable"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            ushort SavedLevelFileID = br.ReadUInt16();
-            ushort SavedBGFileID = br.ReadUInt16();
-            if (SavedLevelFileID != destLevelFile.id) {
-                DialogResult dr = MessageBox.Show(
-                    LanguageManager.Get("NSMBLevel", "Mismatch"),
-                    LanguageManager.Get("General", "Warning"),
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dr == DialogResult.No) {
-                    return;
-                }
-            }
-
-            int LevelFileLength = br.ReadInt32();
-            byte[] LevelFileData = br.ReadBytes(LevelFileLength);
-            destLevelFile.replace(LevelFileData, br);
-            destLevelFile.endEdit(br);
-
-            int BGFileLength = br.ReadInt32();
-            byte[] BGFileData = br.ReadBytes(BGFileLength);
-            destBGFile.replace(BGFileData, br);
-            destBGFile.endEdit(br);
-        }
-
-        public static void ExportLevel(File srcLevelFile, File srcBGFile, System.IO.BinaryWriter bw) {
-            bw.Write("NSMBe4 Exported Level");
-            bw.Write((ushort)1);
-            bw.Write((ushort)srcLevelFile.id);
-            bw.Write((ushort)srcBGFile.id);
-            byte[] LevelFileData = srcLevelFile.getContents();
-            bw.Write(LevelFileData.Length);
-            bw.Write(LevelFileData);
-            byte[] BGFileData = srcBGFile.getContents();
-            bw.Write(BGFileData.Length);
-            bw.Write(BGFileData);
         }
 
         public int getFreeEntranceNumber()
@@ -622,6 +609,16 @@ namespace NSMBe4
             }
 
             return false;
+        }
+
+        public int getLevelFileID()
+        {
+            return isExported ? SavedLevelFileID : LevelFile.id;
+        }
+
+        public int getBGDatFileID()
+        {
+            return isExported ? SavedBGFileID : BGFile.id;
         }
     }
 }

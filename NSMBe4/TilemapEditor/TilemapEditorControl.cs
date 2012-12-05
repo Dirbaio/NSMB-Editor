@@ -31,7 +31,6 @@ namespace NSMBe4
         public delegate void TileSelectedd(int tile, bool second);
         public event TileSelectedd TileSelected;
 
-
         int hovertx = -1;
         int hoverty = -1;
 
@@ -47,6 +46,7 @@ namespace NSMBe4
         public int bufferWidth, bufferHeight;
         public int tileSize;
         public TilePicker picker;
+        public TilemapEditor.TilemapEditor ed;
 
         public ToolStripButton undobutton;
         public ToolStripButton redobutton;
@@ -55,12 +55,12 @@ namespace NSMBe4
 
         public enum EditionMode
         {
-            DRAW,
-            XFLIP,
-            YFLIP,
-            COPY,
-            PASTE,
-            CHANGEPAL
+            DRAW = 0,
+            XFLIP = 1,
+            YFLIP = 2,
+            COPY = 3,
+            PASTE = 4,
+            CHANGEPAL = 5
         }
 
         public EditionMode mode;
@@ -212,12 +212,15 @@ namespace NSMBe4
                     selTileWidth = defaultWidth;
                     selTileHeight = defaultHeight;
                 }
-
-                undobutton.Enabled = true;
-                redobutton.Enabled = false;
-                RActions.Clear();
-                TilemapUndoEntry item = new TilemapUndoEntry(t.tiles, selTileX, selTileY, selTileWidth, selTileHeight);
-                UActions.Push(item);
+                //Prep for the undo buffer if it isn't a copy action
+                TilemapUndoEntry undoitem = null;
+                if (mode != EditionMode.COPY) {
+                    undobutton.Enabled = true;
+                    redobutton.Enabled = false;
+                    RActions.Clear();
+                    undoitem = new TilemapUndoEntry(t.tiles, selTileX, selTileY, selTileWidth, selTileHeight);
+                    UActions.Push(undoitem);
+                }
 
                 switch (mode)
                 {
@@ -295,7 +298,8 @@ namespace NSMBe4
                 }
                 t.reRender(selTileX, selTileY, selTileWidth, selTileHeight);
                 pictureBox1.Invalidate(true);
-                item.LoadNewTiles(t.tiles);
+                if (mode != EditionMode.COPY)
+                    undoitem.LoadNewTiles(t.tiles); //Save the new tiles into the undo history
             }
             down = false;
         }
@@ -307,11 +311,40 @@ namespace NSMBe4
             pictureBox1.Invalidate(true);
         }
 
+        Keys[] shortcuts = { Keys.D, Keys.X, Keys.Y, Keys.C, Keys.V, Keys.P };
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            int idx = Array.IndexOf(shortcuts, keyData);
+            if (idx > -1)
+            {
+                ed.setMode((EditionMode)idx);
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.Z))
+            {
+                Undo(null, null);
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.Y))
+            {
+                Redo(null, null);
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                t.save();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         public void Undo(object sender, EventArgs e)
         {
             if (UActions.Count == 0) return;
             TilemapUndoEntry item = UActions.Pop();
             item.Undo(t.tiles);
+            item.reRender(t);
             RActions.Push(item);
             undobutton.Enabled = UActions.Count > 0;
             redobutton.Enabled = true;
@@ -323,6 +356,7 @@ namespace NSMBe4
             if (RActions.Count == 0) return;
             TilemapUndoEntry item = RActions.Pop();
             item.Redo(t.tiles);
+            item.reRender(t);
             UActions.Push(item);
             redobutton.Enabled = RActions.Count > 0;
             undobutton.Enabled = true;
@@ -376,11 +410,12 @@ namespace NSMBe4
         {
             for (int yy = 0; yy < height; yy++)
                 for (int xx = 0; xx < width; xx++)
-                {
-                    Console.Out.WriteLine(allTiles[xx + x, yy + y].tileNum.ToString() + "; " + tiles[xx, yy].tileNum.ToString());
                     allTiles[xx + x, yy + y] = tiles[xx, yy];
-                    Console.Out.WriteLine(allTiles[xx + x, yy + y].tileNum.ToString() + "; " + tiles[xx, yy].tileNum.ToString());
-                }
+        }
+
+        public void reRender(Tilemap t)
+        {
+            t.reRender(x, y, width, height);
         }
     }
 }

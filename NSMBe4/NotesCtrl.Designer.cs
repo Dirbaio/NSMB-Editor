@@ -32,6 +32,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 500;
+            this.toolTip1.ReshowDelay = 100;
+            // 
             // NotesCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -40,6 +46,8 @@
             this.Size = new System.Drawing.Size(16, 16);
             this.Click += new System.EventHandler(this.NotesCtrl_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.NotesCtrl_Paint);
+            this.MouseEnter += new System.EventHandler(this.NotesCtrl_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.NotesCtrl_MouseLeave);
             this.ResumeLayout(false);
 
         }

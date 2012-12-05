@@ -36,6 +36,9 @@ namespace NSMBe4 {
     {
         public static ImageManagerWindow imgMgr;
         public TextInputForm textForm = new TextInputForm();
+        // init has to be used because Winforms is setting the value of autoBackupTime before the form loads
+        //   This causes it to be saved in the settings before the settings value is loaded.
+        public bool init = false;
 
         public static void showImgMgr()
         {
@@ -52,17 +55,18 @@ namespace NSMBe4 {
 
         private void LevelChooser_Load(object sender, EventArgs e)
         {
-            importLevelButton.Enabled = false;
-            exportLevelButton.Enabled = false;
-            editLevelButton.Enabled = false;
-            hexEditLevelButton.Enabled = false;
             useMDI.Checked = Properties.Settings.Default.mdi;
             autoUpdate.Checked = Properties.Settings.Default.AutoUpdateSD;
+            chkAutoBackup.Checked = Properties.Settings.Default.AutoBackup > 0;
+            if (chkAutoBackup.Checked)
+                autoBackupTime.Value = Properties.Settings.Default.AutoBackup;
+            init = true;
 
             filesystemBrowser1.Load(ROM.FS);
 
             LoadLevelNames();
-            musicList.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
+            if (ROM.UserInfo != null)
+                musicList.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
 
             LanguageManager.ApplyToContainer(this, "LevelChooser");
             importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
@@ -82,7 +86,28 @@ namespace NSMBe4 {
                 }
             }
 
-            this.Text = "NSMB Editor 5.2 Beta";
+            // Load file backups from crash
+            string backupPath = Path.Combine(Application.StartupPath, "Backup");
+            if (ROM.fileBackups.Count > 0)
+                foreach (string filename in ROM.fileBackups)
+                    try
+                    {
+                        string backupname;
+                        if (filename.Contains("/") || filename.Contains("\\"))
+                            backupname = Path.GetFileName(filename);
+                        else
+                            backupname = filename + ".nml";
+                        FileStream fs = new System.IO.FileStream(Path.Combine(backupPath, backupname), FileMode.Open);
+                        BinaryReader br = new BinaryReader(fs);
+                        ExportedLevel exlvl = new ExportedLevel(br);
+                        br.Close();
+                        if (!exlvl.hasError())
+                            new LevelEditor(filename,"Recovered Level - " + filename, exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID).Show();
+                    }
+                    catch (Exception) { }
+
+
+            this.Text = "NSMB Editor 5.2 Beta - " + ROM.filename;
             label3.Text = "NSMB Editor 5.2 " + Properties.Resources.version.Trim();
             this.Icon = Properties.Resources.nsmbe;
 
@@ -92,6 +117,7 @@ namespace NSMBe4 {
                 tabControl1.TabPages.Remove(tabPage5);
                 tabControl1.TabPages.Remove(tabPage6);
                 nsmbToolsGroupbox.Enabled = false;
+                musicSlotsGrp.Enabled = false;
             }
 
 //            new LevelEditor("A01_1", "LOL").Show();
@@ -134,17 +160,13 @@ namespace NSMBe4 {
         }
 
         private void levelTreeView_AfterSelect(object sender, TreeViewEventArgs e) {
-            if (e.Node.Tag != null) {
-                importLevelButton.Enabled = true;
-                exportLevelButton.Enabled = true;
-                editLevelButton.Enabled = true;
-                hexEditLevelButton.Enabled = true;
-            } else {
-                importLevelButton.Enabled = false;
-                exportLevelButton.Enabled = false;
-                editLevelButton.Enabled = false;
-                hexEditLevelButton.Enabled = false;
-            }
+            bool enabled = e.Node.Tag != null;
+            importLevelButton.Enabled = enabled;
+            exportLevelButton.Enabled = enabled;
+            editLevelButton.Enabled = enabled;
+            hexEditLevelButton.Enabled = enabled;
+            importClipboard.Enabled = enabled;
+            exportClipboard.Enabled = enabled;
         }
 
         private void editLevelButton_Click(object sender, EventArgs e)
@@ -201,14 +223,12 @@ namespace NSMBe4 {
             }
         }
 
-
         private void importLevelButton_Click(object sender, EventArgs e) {
             if (levelTreeView.SelectedNode == null) return;
 
             // Figure out what file to import
-            if (importLevelDialog.ShowDialog() == DialogResult.Cancel) {
+            if (importLevelDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            }
 
             // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
@@ -218,7 +238,11 @@ namespace NSMBe4 {
             // Load it
             FileStream fs = new FileStream(importLevelDialog.FileName, FileMode.Open);
             BinaryReader br = new BinaryReader(fs);
-            NSMBLevel.ImportLevel(LevelFile, BGFile, br);
+            ExportedLevel exlvl = new ExportedLevel(br);
+            if (exlvl.hasError())
+                MessageBox.Show(exlvl.ErrorMessage, exlvl.ErrorTitle);
+            else
+                exlvl.Import(LevelFile, BGFile);
             br.Close();
         }
 
@@ -226,9 +250,8 @@ namespace NSMBe4 {
             if (levelTreeView.SelectedNode == null) return;
 
             // Figure out what file to export to
-            if (exportLevelDialog.ShowDialog() == DialogResult.Cancel) {
+            if (exportLevelDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            }
 
             // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
@@ -238,8 +261,101 @@ namespace NSMBe4 {
             // Load it
             FileStream fs = new FileStream(exportLevelDialog.FileName, FileMode.Create);
             BinaryWriter bw = new BinaryWriter(fs);
-            NSMBLevel.ExportLevel(LevelFile, BGFile, bw);
+            new ExportedLevel(LevelFile, BGFile).Write(bw);
             bw.Close();
+        }
+
+        private void openLevel_Click(object sender, EventArgs e)
+        {
+            if (importLevelDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                return;
+            try {
+                FileStream fs = new System.IO.FileStream(importLevelDialog.FileName, FileMode.Open);
+                BinaryReader br = new BinaryReader(fs);
+                ExportedLevel exlvl = new ExportedLevel(br);
+                br.Close();
+                if (exlvl.hasError())
+                    MessageBox.Show(exlvl.ErrorMessage, exlvl.ErrorTitle);
+                else
+                    new LevelEditor(importLevelDialog.FileName, "Exported Level - " + importLevelDialog.FileName, exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID).Show();
+            } catch (Exception ex) {
+                MessageBox.Show("Failed to open level file: " + ex.Message);
+            }
+        }
+
+        private void importClipboard_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show((LanguageManager.Get("LevelChooser", "replaceclipboard")), (LanguageManager.Get("LevelChooser", "replaceclipboardtitle")), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                return;
+            try
+            {
+                string leveltxt = Clipboard.GetText();
+                if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
+                    throw new Exception();
+                leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
+                byte[] levelfile = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
+                ByteArrayInputStream strm = new ByteArrayInputStream(levelfile);
+                BinaryReader br = new BinaryReader(strm);
+
+                string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
+                NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+                NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+                new ExportedLevel(br).Import(LevelFile, BGFile);
+                br.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show((LanguageManager.Get("LevelChooser", "clipinvalidlevel")));
+            }
+        }
+
+        private void exportClipboard_Click(object sender, EventArgs e)
+        {
+            string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
+            NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
+            NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+
+            ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
+            BinaryWriter bw = new BinaryWriter(strm);
+
+            new ExportedLevel(LevelFile, BGFile).Write(bw);
+            Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(ROM.LZ77_Compress(strm.getData())) + "|");
+            bw.Close();
+        }
+
+        private void openClipboard_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string leveltxt = Clipboard.GetText();
+                if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
+                    throw new Exception();
+                leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
+                byte[] leveldata = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
+                ByteArrayInputStream strm = new ByteArrayInputStream(leveldata);
+                BinaryReader br = new BinaryReader(strm);
+
+                ExportedLevel exlvl = new ExportedLevel(br);
+                LevelEditor newEditor = new LevelEditor("", "", exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID);
+                newEditor.Show();
+                br.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show((LanguageManager.Get("LevelChooser", "clipinvalidlevel")));
+            }
+        }
+
+        private void changeLanguageButton_Click(object sender, EventArgs e) {
+            if (languageListBox.SelectedItem != null) {
+                Properties.Settings.Default.LanguageFile = languageListBox.SelectedItem.ToString();
+                Properties.Settings.Default.Save();
+
+                    MessageBox.Show(
+                        LanguageManager.Get("LevelChooser", "LangChanged"),
+                        LanguageManager.Get("LevelChooser", "LangChangedTitle"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private DataFinder DataFinderForm;
@@ -630,6 +746,8 @@ namespace NSMBe4 {
             Console.Out.WriteLine(e.CloseReason.ToString());
             if (MdiParentForm.instance != null && e.CloseReason != CloseReason.MdiFormClosing)
                 MdiParentForm.instance.Close();
+            Properties.Settings.Default.BackupFiles = "";
+            Properties.Settings.Default.Save();
         }
         
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -644,10 +762,12 @@ namespace NSMBe4 {
 
         private void renameBtn_Click(object sender, EventArgs e)
         {
+            if (musicList.SelectedIndex == -1)
+                return;
             string newName;
             string oldName = musicList.SelectedItem.ToString();
             oldName = oldName.Substring(oldName.IndexOf(" ") + 1);
-            if (textForm.ShowDialog("Enter new music name:", oldName, out newName) == DialogResult.OK)
+            if (textForm.ShowDialog(LanguageManager.Get("LevelChooser", "rnmmusic"), oldName, out newName) == DialogResult.OK)
             {
                 if (newName == string.Empty)
                 {
@@ -658,6 +778,21 @@ namespace NSMBe4 {
                 ROM.UserInfo.setListItem("Music", musicList.SelectedIndex, newName, true);
                 musicList.Items[musicList.SelectedIndex] = string.Format("{0:X2}: {1}", ROM.MusicNumbers[musicList.SelectedIndex], newName);
             }
+        }
+
+        private void autoBackupTime_ValueChanged(object sender, EventArgs e)
+        {
+            if (init)
+            {
+                Properties.Settings.Default.AutoBackup = chkAutoBackup.Checked ? (int)autoBackupTime.Value : 0;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void deleteBackups_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show((LanguageManager.Get("LevelChooser", "delbackup")), (LanguageManager.Get("LevelChooser", "delbacktitle")), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                System.IO.Directory.Delete(Path.Combine(Application.StartupPath, "Backup"), true);
         }
     }
 }

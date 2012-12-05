@@ -55,7 +55,7 @@ namespace NSMBe4
             else
             {
                 MessageBox.Show("File " + langFileName + " could not be found, so the language has defaulted to English.");
-                LanguageManager.Load(Properties.Resources.english.Split('\n'));
+                LanguageManager.Load(Properties.Resources.English.Split('\n'));
             }
 
             //This makes the editor behave BAD when no internet. 
@@ -67,8 +67,14 @@ namespace NSMBe4
 
             string path = "";
             string[] args = Environment.GetCommandLineArgs();
+            string[] backups = null;
 
-            if (args.Length > 1)
+            if (Properties.Settings.Default.BackupFiles != "" &&
+                MessageBox.Show("NSMBe did not shut down correctly and has recovered some of your levels.\nWould you like to open those now? If not, they can be opened later from the /Backup folder", "Open backups?", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                backups = Properties.Settings.Default.BackupFiles.Split(';');
+                path = backups[0];
+            }
+            else if (args.Length > 1)
                 path = args[1];
             else
             {
@@ -87,7 +93,7 @@ namespace NSMBe4
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Could not open ROM file for writing. Is it open with other program?\n"+ex.Message);
+                    MessageBox.Show("Could not open ROM file for writing. Is it open with other program?\n\n"+ex.Message);
                     return;
                 }
                 
@@ -103,6 +109,10 @@ namespace NSMBe4
                 }
 				else
 				{
+                    if (backups != null)
+                        for (int l = 1; l < backups.Length; l++)
+                            ROM.fileBackups.Add(backups[l]);
+
 		            SpriteData.Load();
 		            if (Properties.Settings.Default.mdi)
 		                Application.Run(new MdiParentForm());

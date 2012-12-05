@@ -105,17 +105,17 @@ namespace NSMBe4
         public void createDescriptions(int tilesetNum)
         {
             List<string> descList = new List<string>();
+            for (int l = 0; l < 256; l++)
+                descList.Add("");
             if (tilesetNum == 65535) {
                 List<string> defaults = LanguageManager.GetList("ObjNotes");
-                for (int l = 0; l < defaults.Count; )
-                    if (defaults[l].StartsWith(descList.Count.ToString())) {
-                        descList.Add(defaults[l].Substring(defaults[l].IndexOf("=") + 1));
-                        l++;
-                    } else
-                        descList.Add("");
+                for (int l = 0; l < defaults.Count; l++) {
+                    int idx = defaults[l].IndexOf("=");
+                    int num;
+                    if (int.TryParse(defaults[l].Substring(0, idx), out num))
+                        descList[num] = defaults[l].Substring(idx + 1);
+                }
             }
-            for (int l = descList.Count; l < 256; l++)
-                descList.Add("");
             descriptions.Add(tilesetNum, descList);
         }
 

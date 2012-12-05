@@ -30,13 +30,38 @@ namespace NSMBe4 {
 
         public ObjectsEditionMode oem;
 
-        //TODO: Kill this shit!
         public BackgroundDragEditionMode bgdragem;
 
         public ToolsForm tools;
 
-        public LevelEditor(string LevelFilename, string LevelName) {
+        public LevelEditor(string LevelFilename, string LevelName)
+        {
             InitializeComponent();
+            File LevelFileID = ROM.FS.getFileByName(LevelFilename + ".bin");
+            File LevelBGDatFileID = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+            LoadEditor(LevelFilename, LevelName, LevelFileID.getContents(), LevelBGDatFileID.getContents(), LevelFileID, LevelBGDatFileID);
+        }
+
+        public LevelEditor(string LevelFilename, string LevelName, byte[] levelFileData, byte[] bgdatFileData)
+        {
+            InitializeComponent();
+            File LevelFileID = ROM.FS.getFileByName(LevelFilename + ".bin");
+            File LevelBGDatFileID = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+            LoadEditor(LevelFilename, LevelName, levelFileData, bgdatFileData, LevelFileID, LevelBGDatFileID);
+        }
+
+        public LevelEditor(string ExportedFileName, string LevelName, byte[] levelFileData, byte[] bgFileData, int SavedLevelFileID, int SavedBGFileID)
+        {
+            InitializeComponent();
+            if (ExportedFileName == "")
+                LoadEditor("", "Level on Clipboard", levelFileData, bgFileData, null, null);
+            else
+                LoadEditor(ExportedFileName, LevelName, levelFileData, bgFileData, null, null);
+            Level.SavedLevelFileID = SavedLevelFileID;
+            Level.SavedBGFileID = SavedBGFileID;
+        }
+
+        private void LoadEditor(string LevelFilename, string LevelName, byte[] LevelFile, byte[] BGDatFile, File LevelFileID, File LevelBGDatFileID) {
             coordinateViewer1.EdControl = levelEditorControl1;
             //This is supposed to reduce flickering on stuff like the side panel...
             //But it doesn't :(
@@ -51,6 +76,7 @@ namespace NSMBe4 {
             this.LevelFilename = LevelFilename;
 
             smallBlockOverlaysToolStripMenuItem.Checked = Properties.Settings.Default.SmallBlockOverlays;
+            showResizeHandles.Checked = Properties.Settings.Default.ShowResizeHandles;
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
             this.Text = LanguageManager.Get("General", "EditingSomething") + " " + LevelName;
@@ -63,12 +89,8 @@ namespace NSMBe4 {
 
             levelEditorControl1.LoadUndoManager(undoButton, redoButton);
 
-            File LevelFileID = ROM.FS.getFileByName(LevelFilename + ".bin");
-            File LevelBGDatFileID = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
-
             // There's a catch 22 here: Level loading requires graphics. Graphics loading requires level.
             // Therefore, I have a simple loader here which gets this info.
-            byte[] LevelFile = LevelFileID.getContents();
             int Block1Offset = LevelFile[0] | (LevelFile[1] << 8) | (LevelFile[2] << 16) | (LevelFile[3] << 24);
             int Block3Offset = LevelFile[16] | (LevelFile[17] << 8) | (LevelFile[18] << 16) | (LevelFile[19] << 24);
             byte TilesetID = LevelFile[Block1Offset + 0x0C];
@@ -76,8 +98,10 @@ namespace NSMBe4 {
 
             GFX = new NSMBGraphics();
             GFX.LoadTilesets(TilesetID, BGNSCID);
-
-            Level = new NSMBLevel(LevelFileID, LevelBGDatFileID, GFX);
+            if (LevelFileID == null)
+                Level = new NSMBLevel(LevelFilename, LevelFile, BGDatFile, GFX);
+            else
+                Level = new NSMBLevel(LevelFileID, LevelBGDatFileID, LevelFile, BGDatFile, GFX);
             Level.enableWrite();
             levelEditorControl1.Initialise(GFX, Level, this);
 
@@ -93,6 +117,12 @@ namespace NSMBe4 {
             MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), LevelName);
             minimapControl1.loadMinimap(Level, levelEditorControl1);
             this.Icon = Properties.Resources.nsmbe;
+
+            if (Properties.Settings.Default.AutoBackup > 0)
+            {
+                backupTimer.Interval = Properties.Settings.Default.AutoBackup * 60000;
+                backupTimer.Start();
+            }
         }
 
         private void reloadTilesets_Click(object sender, EventArgs e) {
@@ -113,7 +143,7 @@ namespace NSMBe4 {
         public void SetPanel(UserControl np)
         {
             if (SelectedPanel == np) return;
-
+            
             if (SelectedPanel != null)
                 SelectedPanel.Parent = null;
             np.Dock = DockStyle.Fill;
@@ -140,6 +170,11 @@ namespace NSMBe4 {
                 } else if (dr == DialogResult.Cancel) {
                     e.Cancel = true;
                 }
+            }
+            if (!e.Cancel)
+            {
+                ROM.fileBackups.Remove(LevelFilename);
+                ROM.writeBackupSetting();
             }
         }
 
@@ -172,12 +207,19 @@ namespace NSMBe4 {
         }
 
         private void smallBlockOverlaysToolStripMenuItem_Click(object sender, EventArgs e) {
-            smallBlockOverlaysToolStripMenuItem.Checked = !smallBlockOverlaysToolStripMenuItem.Checked;
             GFX.RepatchBlocks(smallBlockOverlaysToolStripMenuItem.Checked);
             Properties.Settings.Default.SmallBlockOverlays = smallBlockOverlaysToolStripMenuItem.Checked;
             Properties.Settings.Default.Save();
             Level.ReRenderAll();
             levelEditorControl1.updateTileCache(true);
+            Invalidate(true);
+        }
+
+        private void showResizeHandles_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ShowResizeHandles = showResizeHandles.Checked;
+            Properties.Settings.Default.Save();
+            oem.resizeHandles = showResizeHandles.Checked;
             Invalidate(true);
         }
 
@@ -264,9 +306,10 @@ namespace NSMBe4 {
 
         private void moveBGToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO: Fix this shit
-            levelEditorControl1.SetEditionMode(bgdragem);
-//            uncheckModeButtons();
+            if (moveBGToolStripMenuItem.Checked)
+                levelEditorControl1.SetEditionMode(bgdragem);
+            else
+                levelEditorControl1.SetEditionMode(oem);
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -297,5 +340,36 @@ namespace NSMBe4 {
             levelEditorControl1.delete();
         }
 
+        private void backupTimer_Tick(object sender, EventArgs e)
+        {
+            if (!ROM.fileBackups.Contains(LevelFilename))
+            {
+                ROM.fileBackups.Add(LevelFilename);
+                ROM.writeBackupSetting();
+            }
+            levelSaver.RunWorkerAsync();
+        }
+
+        private void levelSaver_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                Console.Out.WriteLine("Backing up level " + LevelFilename);
+                ExportedLevel exlvl = levelEditorControl1.Level.getExport();
+                string backupPath = System.IO.Path.Combine(Application.StartupPath, "Backup");
+                if (!System.IO.Directory.Exists(backupPath))
+                    System.IO.Directory.CreateDirectory(backupPath);
+                string filename;
+                if (levelEditorControl1.Level.isExported)
+                    filename = System.IO.Path.GetFileName(LevelFilename);
+                else
+                    filename = LevelFilename + ".nml";
+                System.IO.FileStream fs = new System.IO.FileStream(System.IO.Path.Combine(backupPath, filename), System.IO.FileMode.Create);
+                System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs);
+                exlvl.Write(bw);
+                bw.Close();
+            }
+            catch (Exception ex) { }
+        }
     }
 }

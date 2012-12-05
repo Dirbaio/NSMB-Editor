@@ -42,13 +42,12 @@ namespace NSMBe4.Patcher
         }
         public void newSection(int ramAddr, int ramLen, int fileOffs, int bssSize)
         {
+            Console.Out.WriteLine(String.Format("SECTION {0:X8} - {1:X8} - {2:X8}", ramAddr, ramAddr + ramLen, ramAddr + ramLen + bssSize));
+
             byte[] data = new byte[ramLen];
             Array.Copy(f.getContents(), fileOffs, data, 0, ramLen);
             Arm9BinSection s = new Arm9BinSection(data, ramAddr, bssSize);
-            if(s.len == 0)
-                nullSection = s;
-            else
-                sections.Add(s);
+            sections.Add(s);
         }
 
         public void loadSections()
@@ -63,8 +62,9 @@ namespace NSMBe4.Patcher
             int dataBegin = (int)(f.getUintAt(getCodeSettingsOffs() + 0x08) - 0x02000000u);
 
             newSection(0x02000000, dataBegin, 0x0, 0);
+            sections[0].real = false;
 
-            while (copyTableBegin != copyTableEnd)
+            while (copyTableBegin < copyTableEnd)
             {
                 int start = (int)f.getUintAt(copyTableBegin);
                 copyTableBegin += 4;
@@ -77,7 +77,7 @@ namespace NSMBe4.Patcher
                 dataBegin += size;
             }
         }
-
+        //020985f0 02098620
         public void saveSections()
         {
             Console.Out.WriteLine("Saving sections...");
@@ -85,33 +85,43 @@ namespace NSMBe4.Patcher
             ByteArrayOutputStream o = new ByteArrayOutputStream();
             foreach (Arm9BinSection s in sections)
             {
+                Console.Out.WriteLine(String.Format("{0:X8} - {1:X8} - {2:X8}: {3:X8}",
+                    s.ramAddr, s.ramAddr + s.len, s.ramAddr + s.len + s.bssSize, o.getPos()));
+
                 o.write(s.data);
                 o.align(4);
             }
 
-            int pos = o.getPos();
-            bool first = true;
+            uint sectionTableAddr = 0x02000E00;
+            ByteArrayOutputStream o2 = new ByteArrayOutputStream();
             foreach (Arm9BinSection s in sections)
             {
-                Console.Out.WriteLine(String.Format("{0:X8} - {1:X8}", s.ramAddr, s.ramAddr + s.len - 1));
-                if(first)
-                {
-                    first = false;
-                    continue;
-                }
-
-                o.writeUInt((uint)s.ramAddr);
-                o.writeUInt((uint)s.len);
-                o.writeUInt((uint)s.bssSize);
+                if (!s.real) continue;
+                if (s.len == 0) continue;
+                o2.writeUInt((uint)s.ramAddr);
+                o2.writeUInt((uint)s.len);
+                o2.writeUInt((uint)s.bssSize);
             }
-            o.writeUInt((uint)nullSection.ramAddr);
-            o.writeUInt((uint)nullSection.len);
-            o.writeUInt((uint)nullSection.bssSize);
 
-            f.replace(o.getArray(), this);
+            //Write BSS sections last
+            //because they overwrite huge areas with zeros (?)
+            foreach (Arm9BinSection s in sections)
+            {
+                if (!s.real) continue;
+                if (s.len != 0) continue;
+                o2.writeUInt((uint)s.ramAddr);
+                o2.writeUInt((uint)s.len);
+                o2.writeUInt((uint)s.bssSize);
+            }
 
-            f.setUintAt(getCodeSettingsOffs() + 0x00, (uint)pos + 0x02000000);
-            f.setUintAt(getCodeSettingsOffs() + 0x04, (uint)o.getPos() + 0x02000000);
+            byte[] data = o.getArray();
+            byte[] sectionTable = o2.getArray();
+            Array.Copy(sectionTable, 0, data, sectionTableAddr - 0x02000000, sectionTable.Length);
+            f.replace(data, this);
+
+            f.setUintAt(getCodeSettingsOffs() + 0x00, (uint)sectionTableAddr);
+            Console.Out.WriteLine(String.Format("{0:X8} {1:X8}", getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr));
+            f.setUintAt(getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr);
             f.setUintAt(getCodeSettingsOffs() + 0x08, (uint)(sections[0].len + 0x02000000));
 
             f.endEdit(this);
@@ -169,8 +179,8 @@ namespace NSMBe4.Patcher
 
             int compDatSize = (int)(f.getUintAt(decompressionOffs - 8) & 0xFFFFFF);
             int compDatOffs = decompressionOffs - compDatSize;
-            Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
-            Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
+            //Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
+            //Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
 
             byte[] data = f.getContents();
             byte[] compData = new byte[compDatSize];
@@ -196,7 +206,7 @@ namespace NSMBe4.Patcher
 		        	{
 				        if(of.containsRamAddr(ramAddr))
 						{
-				            Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
+				            //Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
 				            makeBinBackup((int)of.ovId);
 				            of.writeToRamAddr(ramAddr, val);
 				            return;
@@ -211,7 +221,7 @@ namespace NSMBe4.Patcher
 		        foreach (Arm9BinSection s in sections)
 		            if(s.containsRamAddr(ramAddr))
 		            {
-		                Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
+		                //Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
 		                makeBinBackup(-1);
 		                s.writeToRamAddr(ramAddr, val);
 		                return;
@@ -219,7 +229,7 @@ namespace NSMBe4.Patcher
 		        foreach(OverlayFile of in fs.arm9ovs)
 		            if(of.containsRamAddr(ramAddr))
 		            {
-		                Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
+		                //Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
 		                makeBinBackup((int)of.ovId);
 		                of.writeToRamAddr(ramAddr, val);
 		                return;
@@ -259,21 +269,22 @@ namespace NSMBe4.Patcher
         public void makeBinBackup(int file)
         {
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
-            Console.Out.WriteLine("Backing up " + file + " "+dir.FullName);
+            //Console.Out.WriteLine("Backing up " + file + " "+dir.FullName);
             if (!dir.Exists)
                 dir.Create();
             
             dir = ROM.romfile.Directory;
             System.IO.FileStream fs;
 
-            try
-            {
-                if (file == -1)
-                    fs = new System.IO.FileStream(dir.FullName + "/bak/" + "main.bin", System.IO.FileMode.CreateNew);
-                else
-                    fs = new System.IO.FileStream(dir.FullName + "/bak/" + file + ".bin", System.IO.FileMode.CreateNew);
-            }
-            catch (System.IO.IOException) {return;}
+            string filename;
+            if (file == -1)
+                filename = dir.FullName + "/bak/" + "main.bin";
+            else
+                filename = dir.FullName + "/bak/" + file + ".bin";
+
+            if(System.IO.File.Exists(filename)) return;
+
+            fs = new System.IO.FileStream(filename, System.IO.FileMode.CreateNew);
 
             File f = ROM.FS.arm9binFile;
             if (file != -1)

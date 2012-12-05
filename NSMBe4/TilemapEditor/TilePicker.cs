@@ -65,8 +65,8 @@ namespace NSMBe4
             this.tileSize = tileSize;
             this.bufferHeight = buffers[0].Height / tileSize;
             this.bufferWidth = buffers[0].Width / tileSize;
-
-            this.Size = this.MinimumSize = new Size(bufferWidth * tileSize, bufferHeight * bufferCount * tileSize);
+            
+            pictureBox1.Size = pictureBox1.MinimumSize = new Size(bufferWidth * tileSize, bufferHeight * bufferCount * tileSize);
         }
 
         public void SetTileset(NSMBTileset t)

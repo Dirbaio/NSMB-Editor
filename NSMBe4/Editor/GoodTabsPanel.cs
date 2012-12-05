@@ -42,9 +42,14 @@ namespace NSMBe4
 
         public Control[] controls;
 
+        public List<string> ToolTips;
+
         public int SelectedTab {
             get {
                 return tabControl1.SelectedIndex;
+            }
+            set {
+                tabControl1.SelectedIndex = value;
             }
         }
 
@@ -63,6 +68,7 @@ namespace NSMBe4
         public GoodTabsPanel(LevelEditorControl EdControl) {
             InitializeComponent();
             this.EdControl = EdControl;
+            ToolTips = LanguageManager.GetList("TabText");
 
             images = new ImageList();
             images.ColorDepth = ColorDepth.Depth32Bit;
@@ -105,6 +111,8 @@ namespace NSMBe4
             tp.Controls.Add(ctrl);
             ctrl.Dock = DockStyle.Fill;
             tabControl1.TabPages.Add(tp);
+            if (tabControl1.TabCount <= ToolTips.Count)
+                tp.ToolTipText = ToolTips[tabControl1.TabCount - 1];
         }
 
         public void SelectObjects(List<LevelItem> SelectedObjs)

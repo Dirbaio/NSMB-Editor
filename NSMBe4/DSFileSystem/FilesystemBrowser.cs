@@ -340,13 +340,25 @@ namespace NSMBe4.DSFileSystem
 
             try
             {
-                if (filename.EndsWith(".enpg"))
+                if (filename == "banner.bin")
+                {
+                    LevelChooser.showImgMgr();
+                    File imgFile = new InlineFile(f, 0x20, 0x200, f.name, null, InlineFile.CompressionType.NoComp);
+                    File palFile = new InlineFile(f, 0x220, 0x20, f.name, null, InlineFile.CompressionType.NoComp);
+                    LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 32, true, false));
+                    LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
+                }
+                else if (filename.EndsWith(".enpg"))
                 {
                     LevelChooser.showImgMgr();
                     File imgFile = new InlineFile(f, 0, 0x10000, f.name, null, InlineFile.CompressionType.LZComp);
                     File palFile = new InlineFile(f, 0x10000, 0x200, f.name, null, InlineFile.CompressionType.LZComp);
                     LevelChooser.imgMgr.m.addImage(new EnpgImage2D(imgFile));
                     LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
+                }
+                else if (filename.EndsWith(".bncd"))
+                {
+                	Bncd b = new Bncd(f);
                 }
                 if (filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
                     new NSBTX(f);
@@ -376,7 +388,7 @@ namespace NSMBe4.DSFileSystem
             }
             catch (AlreadyEditingException ex)
             {
-                MessageBox.Show(this, "This file is already being edited");
+                MessageBox.Show(this, (LanguageManager.Get("Errors", "File")));
             }
         }
 

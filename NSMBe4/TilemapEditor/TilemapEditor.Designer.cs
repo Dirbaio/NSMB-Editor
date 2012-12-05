@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tilemapEditorControl1 = new NSMBe4.TilemapEditorControl();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tilePicker1 = new NSMBe4.TilePicker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -42,8 +44,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
-            this.tilePicker1 = new NSMBe4.TilePicker();
-            this.tilemapEditorControl1 = new NSMBe4.TilemapEditorControl();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -59,6 +59,15 @@
             this.panel1.Size = new System.Drawing.Size(280, 373);
             this.panel1.TabIndex = 2;
             // 
+            // tilemapEditorControl1
+            // 
+            this.tilemapEditorControl1.AutoSize = true;
+            this.tilemapEditorControl1.Location = new System.Drawing.Point(4, 3);
+            this.tilemapEditorControl1.MinimumSize = new System.Drawing.Size(256, 224);
+            this.tilemapEditorControl1.Name = "tilemapEditorControl1";
+            this.tilemapEditorControl1.Size = new System.Drawing.Size(256, 398);
+            this.tilemapEditorControl1.TabIndex = 1;
+            // 
             // panel2
             // 
             this.panel2.AutoScroll = true;
@@ -69,6 +78,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(284, 373);
             this.panel2.TabIndex = 3;
+            // 
+            // tilePicker1
+            // 
+            this.tilePicker1.AutoSize = true;
+            this.tilePicker1.Location = new System.Drawing.Point(3, 3);
+            this.tilePicker1.MinimumSize = new System.Drawing.Size(256, 224);
+            this.tilePicker1.Name = "tilePicker1";
+            this.tilePicker1.Size = new System.Drawing.Size(278, 265);
+            this.tilePicker1.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -117,7 +135,7 @@
             this.drawToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.drawToolButton.Name = "drawToolButton";
             this.drawToolButton.Size = new System.Drawing.Size(23, 22);
-            this.drawToolButton.Text = "Draw";
+            this.drawToolButton.Text = "Draw (d)";
             this.drawToolButton.Click += new System.EventHandler(this.drawToolButton_Click);
             // 
             // xFlipToolButton
@@ -128,7 +146,7 @@
             this.xFlipToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.xFlipToolButton.Name = "xFlipToolButton";
             this.xFlipToolButton.Size = new System.Drawing.Size(23, 22);
-            this.xFlipToolButton.Text = "Horizontal flip";
+            this.xFlipToolButton.Text = "Horizontal flip (x)";
             this.xFlipToolButton.Click += new System.EventHandler(this.xFlipToolButton_Click);
             // 
             // yFlipToolButton
@@ -139,7 +157,7 @@
             this.yFlipToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.yFlipToolButton.Name = "yFlipToolButton";
             this.yFlipToolButton.Size = new System.Drawing.Size(23, 22);
-            this.yFlipToolButton.Text = "Vertical flip";
+            this.yFlipToolButton.Text = "Vertical flip (y)";
             this.yFlipToolButton.Click += new System.EventHandler(this.yFlipToolButton_Click);
             // 
             // copyToolButton
@@ -150,7 +168,7 @@
             this.copyToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolButton.Name = "copyToolButton";
             this.copyToolButton.Size = new System.Drawing.Size(23, 22);
-            this.copyToolButton.Text = "Copy";
+            this.copyToolButton.Text = "Copy (c)";
             this.copyToolButton.Click += new System.EventHandler(this.copyToolButton_Click);
             // 
             // pasteToolButton
@@ -161,7 +179,7 @@
             this.pasteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolButton.Name = "pasteToolButton";
             this.pasteToolButton.Size = new System.Drawing.Size(23, 22);
-            this.pasteToolButton.Text = "Paste";
+            this.pasteToolButton.Text = "Paste (v)";
             this.pasteToolButton.Click += new System.EventHandler(this.pasteToolButton_Click);
             // 
             // changePalToolButton
@@ -172,7 +190,7 @@
             this.changePalToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.changePalToolButton.Name = "changePalToolButton";
             this.changePalToolButton.Size = new System.Drawing.Size(23, 22);
-            this.changePalToolButton.Text = "Change Palette";
+            this.changePalToolButton.Text = "Change Palette (p)";
             this.changePalToolButton.Click += new System.EventHandler(this.changePalToolButton_Click);
             // 
             // toolStripSeparator2
@@ -199,24 +217,6 @@
             this.redoButton.Name = "redoButton";
             this.redoButton.Size = new System.Drawing.Size(23, 22);
             this.redoButton.Text = "Redo";
-            // 
-            // tilePicker1
-            // 
-            this.tilePicker1.AutoSize = true;
-            this.tilePicker1.Location = new System.Drawing.Point(3, 3);
-            this.tilePicker1.MinimumSize = new System.Drawing.Size(256, 224);
-            this.tilePicker1.Name = "tilePicker1";
-            this.tilePicker1.Size = new System.Drawing.Size(278, 265);
-            this.tilePicker1.TabIndex = 0;
-            // 
-            // tilemapEditorControl1
-            // 
-            this.tilemapEditorControl1.AutoSize = true;
-            this.tilemapEditorControl1.Location = new System.Drawing.Point(4, 3);
-            this.tilemapEditorControl1.MinimumSize = new System.Drawing.Size(256, 224);
-            this.tilemapEditorControl1.Name = "tilemapEditorControl1";
-            this.tilemapEditorControl1.Size = new System.Drawing.Size(256, 398);
-            this.tilemapEditorControl1.TabIndex = 1;
             // 
             // TilemapEditor
             // 
