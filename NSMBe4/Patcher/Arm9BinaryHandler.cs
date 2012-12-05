@@ -62,6 +62,7 @@ namespace NSMBe4.Patcher
             int dataBegin = (int)(f.getUintAt(getCodeSettingsOffs() + 0x08) - 0x02000000u);
 
             newSection(0x02000000, dataBegin, 0x0, 0);
+            sections[0].real = false;
 
             while (copyTableBegin < copyTableEnd)
             {
@@ -84,30 +85,43 @@ namespace NSMBe4.Patcher
             ByteArrayOutputStream o = new ByteArrayOutputStream();
             foreach (Arm9BinSection s in sections)
             {
+                Console.Out.WriteLine(String.Format("{0:X8} - {1:X8} - {2:X8}: {3:X8}",
+                    s.ramAddr, s.ramAddr + s.len, s.ramAddr + s.len + s.bssSize, o.getPos()));
+
                 o.write(s.data);
                 o.align(4);
             }
 
-            int pos = o.getPos();
-            bool first = true;
+            uint sectionTableAddr = 0x02000E00;
+            ByteArrayOutputStream o2 = new ByteArrayOutputStream();
             foreach (Arm9BinSection s in sections)
             {
-                Console.Out.WriteLine(String.Format("{0:X8} - {1:X8} - {2:X8}", s.ramAddr, s.ramAddr + s.len, s.ramAddr + s.len + s.bssSize));
-                if(first)
-                {
-                    first = false;
-                    continue;
-                }
-
-                o.writeUInt((uint)s.ramAddr);
-                o.writeUInt((uint)s.len);
-                o.writeUInt((uint)s.bssSize);
+                if (!s.real) continue;
+                if (s.len == 0) continue;
+                o2.writeUInt((uint)s.ramAddr);
+                o2.writeUInt((uint)s.len);
+                o2.writeUInt((uint)s.bssSize);
             }
 
-            f.replace(o.getArray(), this);
+            //Write BSS sections last
+            //because they overwrite huge areas with zeros (?)
+            foreach (Arm9BinSection s in sections)
+            {
+                if (!s.real) continue;
+                if (s.len != 0) continue;
+                o2.writeUInt((uint)s.ramAddr);
+                o2.writeUInt((uint)s.len);
+                o2.writeUInt((uint)s.bssSize);
+            }
 
-            f.setUintAt(getCodeSettingsOffs() + 0x00, (uint)pos + 0x02000000);
-            f.setUintAt(getCodeSettingsOffs() + 0x04, (uint)o.getPos() + 0x02000000);
+            byte[] data = o.getArray();
+            byte[] sectionTable = o2.getArray();
+            Array.Copy(sectionTable, 0, data, sectionTableAddr - 0x02000000, sectionTable.Length);
+            f.replace(data, this);
+
+            f.setUintAt(getCodeSettingsOffs() + 0x00, (uint)sectionTableAddr);
+            Console.Out.WriteLine(String.Format("{0:X8} {1:X8}", getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr));
+            f.setUintAt(getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr);
             f.setUintAt(getCodeSettingsOffs() + 0x08, (uint)(sections[0].len + 0x02000000));
 
             f.endEdit(this);

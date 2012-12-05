@@ -24,6 +24,7 @@ namespace NSMBe4.Patcher
         public int len;
         public int ramAddr;
         public int bssSize;
+        public bool real = true;
 
         public Arm9BinSection(byte[] data, int ramAddr, int bssSize)
         {

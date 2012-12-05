@@ -44,15 +44,15 @@ namespace NSMBe4.Patcher
 		
         public void compilePatch()
         {
-        	uint codeAddr = getCodeAddr();
+            handler.restoreFromBackup();
+            uint codeAddr = getCodeAddr();
             PatchCompiler.compilePatch(codeAddr, romdir);
         }
 
         public void generatePatch()
         {
-
-            handler.restoreFromBackup();
         	int codeAddr = (int) getCodeAddr();
+            Console.Out.WriteLine(String.Format("New code address: {0:X8}", codeAddr));
 
             FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
             if (!f.Exists) return;
@@ -134,7 +134,7 @@ namespace NSMBe4.Patcher
                     }
 
                     //Console.Out.WriteLine(String.Format("{0:X8}:{1:X8} = {2:X8}", patchCategory, ramAddr, val));
-                    //Console.Out.WriteLine(String.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
+                    Console.Out.WriteLine(String.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
 
                     handler.writeToRamAddr(ramAddr, val, ovId);
                 }
