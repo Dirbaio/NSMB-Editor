@@ -42,6 +42,8 @@ namespace NSMBe4.Patcher
         }
         public void newSection(int ramAddr, int ramLen, int fileOffs, int bssSize)
         {
+            Console.Out.WriteLine(String.Format("SECTION {0:X8} - {1:X8} - {2:X8}", ramAddr, ramAddr + ramLen, ramAddr + ramLen + bssSize));
+
             byte[] data = new byte[ramLen];
             Array.Copy(f.getContents(), fileOffs, data, 0, ramLen);
             Arm9BinSection s = new Arm9BinSection(data, ramAddr, bssSize);
@@ -61,7 +63,7 @@ namespace NSMBe4.Patcher
 
             newSection(0x02000000, dataBegin, 0x0, 0);
 
-            while (copyTableBegin != copyTableEnd)
+            while (copyTableBegin < copyTableEnd)
             {
                 int start = (int)f.getUintAt(copyTableBegin);
                 copyTableBegin += 4;
@@ -74,7 +76,7 @@ namespace NSMBe4.Patcher
                 dataBegin += size;
             }
         }
-
+        //020985f0 02098620
         public void saveSections()
         {
             Console.Out.WriteLine("Saving sections...");
@@ -90,7 +92,7 @@ namespace NSMBe4.Patcher
             bool first = true;
             foreach (Arm9BinSection s in sections)
             {
-                Console.Out.WriteLine(String.Format("{0:X8} - {1:X8}", s.ramAddr, s.ramAddr + s.len - 1));
+                Console.Out.WriteLine(String.Format("{0:X8} - {1:X8} - {2:X8}", s.ramAddr, s.ramAddr + s.len, s.ramAddr + s.len + s.bssSize));
                 if(first)
                 {
                     first = false;
@@ -163,8 +165,8 @@ namespace NSMBe4.Patcher
 
             int compDatSize = (int)(f.getUintAt(decompressionOffs - 8) & 0xFFFFFF);
             int compDatOffs = decompressionOffs - compDatSize;
-            Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
-            Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
+            //Console.Out.WriteLine("OFFS: " + compDatOffs.ToString("X"));
+            //Console.Out.WriteLine("SIZE: " + compDatSize.ToString("X"));
 
             byte[] data = f.getContents();
             byte[] compData = new byte[compDatSize];
@@ -190,7 +192,7 @@ namespace NSMBe4.Patcher
 		        	{
 				        if(of.containsRamAddr(ramAddr))
 						{
-				            Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
+				            //Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
 				            makeBinBackup((int)of.ovId);
 				            of.writeToRamAddr(ramAddr, val);
 				            return;
@@ -205,7 +207,7 @@ namespace NSMBe4.Patcher
 		        foreach (Arm9BinSection s in sections)
 		            if(s.containsRamAddr(ramAddr))
 		            {
-		                Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
+		                //Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: {2:X8}", ramAddr, val, s.ramAddr));
 		                makeBinBackup(-1);
 		                s.writeToRamAddr(ramAddr, val);
 		                return;
@@ -213,7 +215,7 @@ namespace NSMBe4.Patcher
 		        foreach(OverlayFile of in fs.arm9ovs)
 		            if(of.containsRamAddr(ramAddr))
 		            {
-		                Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
+		                //Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
 		                makeBinBackup((int)of.ovId);
 		                of.writeToRamAddr(ramAddr, val);
 		                return;
@@ -253,21 +255,22 @@ namespace NSMBe4.Patcher
         public void makeBinBackup(int file)
         {
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(ROM.romfile.Directory.FullName+"/bak");
-            Console.Out.WriteLine("Backing up " + file + " "+dir.FullName);
+            //Console.Out.WriteLine("Backing up " + file + " "+dir.FullName);
             if (!dir.Exists)
                 dir.Create();
             
             dir = ROM.romfile.Directory;
             System.IO.FileStream fs;
 
-            try
-            {
-                if (file == -1)
-                    fs = new System.IO.FileStream(dir.FullName + "/bak/" + "main.bin", System.IO.FileMode.CreateNew);
-                else
-                    fs = new System.IO.FileStream(dir.FullName + "/bak/" + file + ".bin", System.IO.FileMode.CreateNew);
-            }
-            catch (System.IO.IOException) {return;}
+            string filename;
+            if (file == -1)
+                filename = dir.FullName + "/bak/" + "main.bin";
+            else
+                filename = dir.FullName + "/bak/" + file + ".bin";
+
+            if(System.IO.File.Exists(filename)) return;
+
+            fs = new System.IO.FileStream(filename, System.IO.FileMode.CreateNew);
 
             File f = ROM.FS.arm9binFile;
             if (file != -1)

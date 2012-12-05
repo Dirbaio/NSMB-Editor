@@ -216,17 +216,14 @@ namespace NSMBe4.DSFileSystem
         public void moveAllFiles(File first, int firstOffs)
         {
             allFiles.Sort();
-            Console.Out.WriteLine("Moving file " + first.name);
-            Console.Out.WriteLine("Into " + firstOffs.ToString("X"));
+            //Console.Out.WriteLine("Moving file " + first.name);
+            //Console.Out.WriteLine("Into " + firstOffs.ToString("X"));
 
 
             int firstStart = first.fileBegin;
             int diff = (int)firstOffs - (int)firstStart;
-            Console.Out.WriteLine("DIFF " + diff.ToString("X"));
-            //if (diff < 0)
-                //throw new Exception("DOSADJODJOSAJD");
-            //    return;
-
+            //Console.Out.WriteLine("DIFF " + diff.ToString("X"));
+            
             //WARNING: I assume all the aligns are powers of 2
             int maxAlign = 4;
             for(int i = allFiles.IndexOf(first); i < allFiles.Count; i++)
