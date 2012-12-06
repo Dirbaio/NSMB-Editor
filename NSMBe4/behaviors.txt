@@ -77,3 +77,62 @@
 10 00 20 00 = 4x1 right down (2nd tile)
 11 00 20 00 = 4x1 right down (3rd tile)
 12 00 20 00 = 4x1 right down (4th tile)
+
++Icy Slopes
+0A 10 20 00 = Must use under the slope
+00 10 20 00 = 1x1 right up
+01 10 20 00 = 1x1 right down
+02 10 20 00 = 2x1 right up (left tile)
+03 10 20 00 = 2x1 right up (right tile)
+04 10 20 00 = 2x1 right down (left tile)
+05 10 20 00 = 2x1 right down (right tile)
+06 10 20 00 = 1x2 right up (top tile)
+07 10 20 00 = 1x2 right up (bottom tile)
+08 10 20 00 = 1x2 right down (top tile)
+09 10 20 00 = 1x2 right down (bottom tile)
+0B 10 20 00 = 4x1 right up (1st tile)
+0C 10 20 00 = 4x1 right up (2nd tile)
+0D 10 20 00 = 4x1 right up (3rd tile)
+0E 10 20 00 = 4x1 right up (4th tile)
+0F 10 20 00 = 4x1 right down (1st tile)
+10 10 20 00 = 4x1 right down (2nd tile)
+11 10 20 00 = 4x1 right down (3rd tile)
+12 10 20 00 = 4x1 right down (4th tile)
+
++Upside-down Slopes
+0A 00 40 00 = Must use under the slope
+00 00 40 00 = 1x1 right up
+01 00 40 00 = 1x1 right down
+02 00 40 00 = 2x1 right up (left tile)
+03 00 40 00 = 2x1 right up (right tile)
+04 00 40 00 = 2x1 right down (left tile)
+05 00 40 00 = 2x1 right down (right tile)
+06 00 40 00 = 1x2 right up (top tile)
+07 00 40 00 = 1x2 right up (bottom tile)
+08 00 40 00 = 1x2 right down (top tile)
+09 00 40 00 = 1x2 right down (bottom tile)
+0B 00 40 00 = 4x1 right up (1st tile)
+0C 00 40 00 = 4x1 right up (2nd tile)
+0D 00 40 00 = 4x1 right up (3rd tile)
+0E 00 40 00 = 4x1 right up (4th tile)
+0F 00 40 00 = 4x1 right down (1st tile)
+10 00 40 00 = 4x1 right down (2nd tile)
+11 00 40 00 = 4x1 right down (3rd tile)
+12 00 40 00 = 4x1 right down (4th tile)
+
++Slopes (Mushroom/Ghost House)
+0A B0 20 80 = Must use under the slope
+00 B0 20 80 = 1x1 right up
+01 B0 20 80 = 1x1 right down
+02 B0 20 80 = 2x1 right up (left tile)
+03 B0 20 80 = 2x1 right up (right tile)
+04 B0 20 80 = 2x1 right down (left tile)
+05 B0 20 80 = 2x1 right down (right tile)
+0B B0 20 80 = 4x1 right up (1st tile)
+0C B0 20 80 = 4x1 right up (2nd tile)
+0D B0 20 80 = 4x1 right up (3rd tile)
+0E B0 20 80 = 4x1 right up (4th tile)
+0F B0 20 80 = 4x1 right down (1st tile)
+10 B0 20 80 = 4x1 right down (2nd tile)
+11 B0 20 80 = 4x1 right down (3rd tile)
+12 B0 20 80 = 4x1 right down (4th tile)
