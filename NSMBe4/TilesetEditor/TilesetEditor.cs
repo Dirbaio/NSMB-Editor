@@ -93,9 +93,6 @@ namespace NSMBe4
                 tilesetObjectEditor1.descBox.Text = descriptions[0]; //Fill the description box with that of the first object
             }
             this.Icon = Properties.Resources.nsmbe;
-
-            //Loads the Tile-behaviors from the "behaviors.txt" file.
-            behaviorList.Items.AddRange(TileBehavior.readFromFile(System.IO.Path.Combine(Application.StartupPath, "behaviors.txt")).ToArray());
         }
 
         private void objectPickerControl1_ObjectSelected()
@@ -277,77 +274,23 @@ namespace NSMBe4
 
         private void tileBehaviorPicker_TileSelected(int selTileNum, int selTilePal, int selTileWidth, int selTileHeight)
         {
-            for(int i = 0; i < 4; i++)
-                tileBehavior[i] = (byte)((t.TileBehaviors[selTileNum] >> (i*8)) & 0xFF);
             DataUpdateFlag = true;
-            tileBehaviorEditor.setArray(tileBehavior);
+			tileBehaviorEditor.setData(t.TileBehaviors[selTileNum]);
             DataUpdateFlag = false;
         }
 
-        private void tileBehaviorEditor_ValueChanged(byte[] val)
+        private void tileBehaviorEditor_DataChanged(uint val)
         {
-            foreach (TileBehavior item in behaviorList.Items)
-                if (behaviorsEqual(val, item.tb)) {
-                    behaviorList.SelectedItem = item;
-                    break;
-                }
-
             if (DataUpdateFlag) return;
-            int newBehavior = 0;
-            for (int i = 0; i < 4; i++)
-                newBehavior |= val[i] << (i * 8);
 
             for(int x = 0; x < tileBehaviorPicker.selTileWidth; x++)
                 for(int y = 0; y < tileBehaviorPicker.selTileHeight; y++)
-                    t.TileBehaviors[tileBehaviorPicker.selTileNum + x + y*tileBehaviorPicker.bufferWidth] = newBehavior;
-        }
-
-        private bool behaviorsEqual(byte[] b1, byte[] b2)
-        {
-            if (b1 == null || b2 == null) return false;
-            for(int i = 0; i < 4; i++)
-            	if(b1[i] != b2[i]) return false;
-            return true;
+                    t.TileBehaviors[tileBehaviorPicker.selTileNum + x + y*tileBehaviorPicker.bufferWidth] = val;
         }
 
         private void imageManager1_SomethingSaved()
         {
             mustRepaintObjects();
-        }
-
-        private void behaviorList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (behaviorList.SelectedIndex == pSelectedIndex)
-                return;
-            TileBehavior item = (TileBehavior)behaviorList.SelectedItem;
-            if (item.isHeader) {
-                behaviorList.SelectedIndex = pSelectedIndex;
-                return;
-            }
-            tileBehaviorEditor.setArray(((TileBehavior)behaviorList.SelectedItem).tb);
-            pSelectedIndex = behaviorList.SelectedIndex;
-        }
-
-        private void behaviorList_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            e.DrawBackground();
-            if (e.Index == -1)
-                return;
-            TileBehavior item = (TileBehavior)behaviorList.Items[e.Index];
-            System.Drawing.Font newFont = behaviorList.Font;
-            Color backColor = e.BackColor;
-            Color foreColor = e.ForeColor;
-            if (item.isHeader)
-            {
-                backColor = behaviorList.BackColor;
-                foreColor = behaviorList.ForeColor;
-                newFont = new Font(newFont, FontStyle.Bold);
-                using (SolidBrush b = new SolidBrush(backColor))
-                    e.Graphics.FillRectangle(b, e.Bounds);
-                using (Pen p = new Pen(foreColor))
-                    e.Graphics.DrawLine(p, e.Bounds.Left + 4, e.Bounds.Bottom - 1, e.Bounds.Right, e.Bounds.Bottom - 1);
-            }
-            TextRenderer.DrawText(e.Graphics, item.ToString(), newFont, e.Bounds, foreColor, backColor, TextFormatFlags.Left);
         }
     }
 }
