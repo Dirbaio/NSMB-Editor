@@ -118,13 +118,13 @@ namespace NSMBe4.Patcher
             byte[] sectionTable = o2.getArray();
             Array.Copy(sectionTable, 0, data, sectionTableAddr - 0x02000000, sectionTable.Length);
             f.replace(data, this);
+            f.endEdit(this);
 
             f.setUintAt(getCodeSettingsOffs() + 0x00, (uint)sectionTableAddr);
             Console.Out.WriteLine(String.Format("{0:X8} {1:X8}", getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr));
             f.setUintAt(getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr);
             f.setUintAt(getCodeSettingsOffs() + 0x08, (uint)(sections[0].len + 0x02000000));
 
-            f.endEdit(this);
             Console.Out.WriteLine("DONE");
         }
 
