@@ -216,7 +216,7 @@ namespace NSMBe4
                                            0x07000500, 0x08000500, 0x09000500, 0x0A000500, 0x0B000500, 0x0C000500, 0x0D000500 };
 
         //Tile behaviors 
-        public int[] TileBehaviors;
+        public uint[] TileBehaviors;
 
         //Objects
         public bool UseNotes;
@@ -388,17 +388,17 @@ namespace NSMBe4
             ByteArrayInputStream inp = new ByteArrayInputStream(x);
 
             int len = inp.available / 4;
-            TileBehaviors = new int[len];
+            TileBehaviors = new uint[len];
 
             for (int i = 0; i < len; i++)
-                TileBehaviors[i] = inp.readInt();
+                TileBehaviors[i] = inp.readUInt();
         }
 
         private void saveTileBehaviors()
         {
             ByteArrayOutputStream file = new ByteArrayOutputStream();
             for (int i = 0; i < TileBehaviors.Length; i++)
-                file.writeInt(TileBehaviors[i]);
+                file.writeUInt(TileBehaviors[i]);
 
             if (TilesetNumber == 0) {
                 ROM.ReplaceInlineFile(ROM.Data.File_Jyotyu_CHK, file.getArray());

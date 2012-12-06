@@ -259,7 +259,12 @@
     <Compile Include="TilesetEditor\BackgroundList.Designer.cs">
       <DependentUpon>BackgroundList.cs</DependentUpon>
     </Compile>
-    <Compile Include="TilesetEditor\TileBehavior.cs" />
+    <Compile Include="TilesetEditor\BehaviorEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor\BehaviorEditor.Designer.cs">
+      <DependentUpon>BehaviorEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="TilesetEditor\TilesetList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -392,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\BackgroundList.resx">
       <DependentUpon>BackgroundList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetEditor\BehaviorEditor.resx">
+      <DependentUpon>BehaviorEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\Map16Picker.resx">
       <DependentUpon>Map16Picker.cs</DependentUpon>
