@@ -202,9 +202,12 @@ namespace NSMBe4
                     for (int yy = ymin; yy < ymax; yy++)
                     {
                         int t = CachedObj[xx - X, yy - Y];
-                        if (t == -1) continue;
 
-                        if (Tileset == 1)
+                        if (t == -2)
+                            continue;
+                        else if (t == -1)
+                            t = 0;
+                        else if (Tileset == 1)
                             t += 256;
                         else if (Tileset == 2)
                             t += 256 * 4;
