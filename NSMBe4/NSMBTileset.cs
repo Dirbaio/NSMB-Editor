@@ -249,8 +249,9 @@ namespace NSMBe4
             
             palettes = new Palette[palCount];
             
+            LZFile PalFileLz = new LZFile(PalFile, LZFile.CompressionType.LZ);
             for(int i = 0; i < palCount; i++)
-	            palettes[i] = new FilePalette(new InlineFile(PalFile, i*512, 512, "Palette "+i, null, InlineFile.CompressionType.LZComp));
+	            palettes[i] = new FilePalette(new InlineFile(PalFileLz, i*512, 512, "Palette "+i));
 
             //Graphics
             graphics = new Image2D(GFXFile, 256, false);

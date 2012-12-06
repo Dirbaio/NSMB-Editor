@@ -109,11 +109,12 @@ namespace NSMBe4
             if (PalFile == null) return null;
             if (LayoutFile == null) return null;
 
-            LayoutFile = new InlineFile(LayoutFile, 0, 2 * 64 * 64, LayoutFile.name, null, InlineFile.CompressionType.LZComp);
+            LayoutFile = new LZFile(LayoutFile, LZFile.CompressionType.LZ);
 
             Image2D i = new Image2D(GFXFile, 256, false);
-            Palette pal1 = new FilePalette(new InlineFile(PalFile, 0, 512, PalFile.name, null, InlineFile.CompressionType.LZComp));
-            Palette pal2 = new FilePalette(new InlineFile(PalFile, 512, 512, PalFile.name, null, InlineFile.CompressionType.LZComp));
+            LZFile PalFileLz = new LZFile(PalFile, LZFile.CompressionType.LZ);
+            Palette pal1 = new FilePalette(new InlineFile(PalFileLz, 0, 512, PalFile.name));
+            Palette pal2 = new FilePalette(new InlineFile(PalFileLz, 512, 512, PalFile.name));
 
             Tilemap t = new Tilemap(LayoutFile, 64, i, new Palette[] { pal1, pal2 }, bg.topLayer ? 256 : 576, bg.topLayer ? 8 : 10);
             return t;

@@ -835,9 +835,11 @@
     <Compile Include="ByteArrayOutputStream.cs" />
     <Compile Include="Patcher\Arm9BinSection.cs" />
     <Compile Include="DSFileSystem\BannerFile.cs" />
+    <Compile Include="DSFileSystem\LZFile.cs" />
     <Compile Include="DSFileSystem\ExternalFilesystemSource.cs" />
     <Compile Include="DSFileSystem\File.cs" />
     <Compile Include="DSFileSystem\PhysicalFile.cs" />
+    <Compile Include="DSFileSystem\FileWithLock.cs" />
     <Compile Include="DSFileSystem\FileFilesystemSource.cs" />
     <Compile Include="DSFileSystem\FileHexEditor.cs">
       <SubType>Form</SubType>

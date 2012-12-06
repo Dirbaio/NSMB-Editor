@@ -39,10 +39,9 @@ namespace NSMBe4.DSFileSystem
 
         protected int fileSizeP;
         public int fileSize { get { return fileSizeP; } }
-
-        private Object editedBy = null;
-        public Boolean beingEdited { get { return editedBy != null; } }
-
+		
+		public File() {}
+		
 		public File(Filesystem parent, Directory parentDir, string name, int id)
 		{
 			this.parentP = parent;
@@ -54,78 +53,75 @@ namespace NSMBe4.DSFileSystem
 		//File functions
         public abstract byte[] getContents();
         public abstract void replace(byte[] newFile, object editor);
-
-        public abstract uint getUintAt(int offset);
-        public abstract void setUintAt(int offset, uint val);
-        public abstract ushort getUshortAt(int offset);
-        public abstract void setUshortAt(int offset, ushort val);
-        public abstract byte getByteAt(int offset);
-        public abstract void setByteAt(int offset, byte val);
-        
-		//Helper functions
-        public bool isAGoodEditor(object editor)
+		public abstract byte[] getInterval(int start, int end);
+        public abstract void replaceInterval(byte[] newFile, int start);
+		
+		//Handy read/write functions.
+        public uint getUintAt(int offset)
         {
-            if (!beingEdited)
-                return false;
+        	byte[] data = getInterval(offset, offset+4);
+        	return (uint)(data[0] | (data[1]<<8) | (data[2]<<16) | (data[3]<<24));
+        }
 
-            if (editor == editedBy)
-                return true;
+        public ushort getUshortAt(int offset)
+        {
+        	byte[] data = getInterval(offset, offset+2);
+        	return (ushort)(data[0] | (data[1]<<8));
+        }
+        public byte getByteAt(int offset)
+        {
+        	byte[] data = getInterval(offset, offset+1);
+        	return (byte)(data[0]);
+        }
 
-            if (editor is InlineFile && inlineEditors.Contains(editor as InlineFile))
-                return true;
-
-            return false;
+        public void setUintAt(int offset, uint val)
+        {
+        	byte[] data = {(byte)(val), (byte)(val>>8), (byte)(val>>16), (byte)(val>>24)};
+        	beginEditInterval(offset, offset+data.Length);
+        	replaceInterval(data, offset);
+        	endEditInterval(offset, offset+data.Length);
         }
         
-
-        public virtual void beginEdit(Object editor)
+        public void setUshortAt(int offset, ushort val)
         {
-            if (beingEdited)
-                throw new AlreadyEditingException(this);
-            else
-                editedBy = editor;
+        	byte[] data = {(byte)(val), (byte)(val>>8)};
+        	beginEditInterval(offset, offset+data.Length);
+        	replaceInterval(data, offset);
+        	endEditInterval(offset, offset+data.Length);
         }
 
-        public virtual void endEdit(Object editor)
+        public void setByteAt(int offset, byte val)
         {
-            if (!beingEdited)
-                throw new Exception("NOT EDITING FILE " + name);
-            if (editor != editedBy)
-                throw new Exception("NOT CORRECT EDITOR" + name);
-
-            editedBy = null;
+        	byte[] data = {(byte)(val)};
+        	beginEditInterval(offset, offset+data.Length);
+        	replaceInterval(data, offset);
+        	endEditInterval(offset, offset+data.Length);
         }
-
-        public bool beingEditedBy(Object ed)
-        {
-            return ed == editedBy;
-        }
-
+        
+        
+        //Lock/unlock functions
+        public abstract void beginEdit(Object editor);
+        public abstract void endEdit(Object editor);
+        public abstract void beginEditInterval(int start, int end);
+        public abstract void endEditInterval(int start, int end);
+        public abstract bool beingEditedBy(Object editor);
+        
+        //Misc functions
         public string getPath()
         {
             return parentDir.getPath() + "/" + name;
         }
 
-		//Hack that needs to die.
-		//Or needs to done better (like, not 2 inline files at the same region at the same time)
-        private List<InlineFile> inlineEditors = new List<InlineFile>();
-
-        public void beginEditInline(InlineFile f)
-        {
-            if (inlineEditors.Count == 0)
-                beginEdit(this);
-
-            inlineEditors.Add(f);
-        }
-
-        public void endEditInline(InlineFile f)
-        {
-            if (!inlineEditors.Contains(f))
-                throw new Exception("ERROR: INLINE FILE");
-            inlineEditors.Remove(f);
-            if (inlineEditors.Count == 0)
-                endEdit(this);
-        }        
+		protected void validateInterval(int start, int end)
+		{
+			if(end < start)
+				throw new Exception("Wrong interval: end < start");
+//			Console.Out.WriteLine("Checking interval "+start+" - " +end +" on "+name);
+			if(start < 0 || start > fileSize)
+				throw new Exception("Wrong interval: start out of bounds");
+			if(end < 0 || end > fileSize)
+				throw new Exception("Wrong interval: end out of bounds");
+		}
 	}
 }
 

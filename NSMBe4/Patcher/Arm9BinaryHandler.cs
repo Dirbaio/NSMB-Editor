@@ -27,12 +27,12 @@ namespace NSMBe4.Patcher
         public List<Arm9BinSection> sections;
         Arm9BinSection nullSection;
         File f;
-        NitroROMFilesystem fs;
+        Filesystem fs;
 
-        public Arm9BinaryHandler(NitroROMFilesystem fs)
+        public Arm9BinaryHandler()
         {
-            f = fs.arm9binFile;
-            this.fs = fs;
+            f = ROM.arm9binFile;
+            this.fs = ROM.FS;
         }
 
         public void load()
@@ -201,7 +201,7 @@ namespace NSMBe4.Patcher
         {
 			if(ov != -1)
 			{
-		        foreach(OverlayFile of in fs.arm9ovs)
+		        foreach(Overlay of in ROM.arm9ovs)
 		        	if(of.ovId == ov)
 		        	{
 				        if(of.containsRamAddr(ramAddr))
@@ -226,7 +226,7 @@ namespace NSMBe4.Patcher
 		                s.writeToRamAddr(ramAddr, val);
 		                return;
 		            }
-		        foreach(OverlayFile of in fs.arm9ovs)
+		        foreach(Overlay of in ROM.arm9ovs)
 		            if(of.containsRamAddr(ramAddr))
 		            {
 		                //Console.Out.WriteLine(String.Format("WRITETO {0:X8} {1:X8}: ov {2:X8}", ramAddr, val, of.ovId));
@@ -242,7 +242,7 @@ namespace NSMBe4.Patcher
         {
 			if(ov != -1)
 			{
-		        foreach(OverlayFile of in fs.arm9ovs)
+		        foreach(Overlay of in ROM.arm9ovs)
 		        	if(of.ovId == ov)
 		        	{
 				        if(of.containsRamAddr(ramAddr))
@@ -258,7 +258,7 @@ namespace NSMBe4.Patcher
 		            if(s.containsRamAddr(ramAddr))
 		                return s.readFromRamAddr(ramAddr);
 
-		        foreach(OverlayFile of in fs.arm9ovs)
+		        foreach(Overlay of in ROM.arm9ovs)
 		            if(of.containsRamAddr(ramAddr))
 		                return of.readFromRamAddr(ramAddr);
 
@@ -286,11 +286,11 @@ namespace NSMBe4.Patcher
 
             fs = new System.IO.FileStream(filename, System.IO.FileMode.CreateNew);
 
-            File f = ROM.FS.arm9binFile;
+            File f = ROM.arm9binFile;
             if (file != -1)
             {
-                f = ROM.FS.arm9ovs[file];
-                ROM.FS.arm9ovs[file].decompress(); //b4ckupz r 41w4ys cmpr3zzd
+                f = ROM.arm9ovs[file].f;
+                ROM.arm9ovs[file].decompress();
             }
 
             fs.Write(f.getContents(), 0, f.fileSize);
@@ -311,12 +311,12 @@ namespace NSMBe4.Patcher
 
                 n = n.Substring(0, n.Length - 4);
                 if (n == "main")
-                    ff = ROM.FS.arm9binFile;
+                    ff = ROM.arm9binFile;
                 else
                 {
                     int num = 0;
                     if (Int32.TryParse(n, out num))
-                        ff = ROM.FS.arm9ovs[num];
+                        ff = ROM.arm9ovs[num].f;
                 }
 
                 if (ff == null) continue;
@@ -331,7 +331,7 @@ namespace NSMBe4.Patcher
                 ff.replace(data, this);
                 ff.endEdit(this);
 
-                if (ff is OverlayFile) (ff as OverlayFile).isCompressed = false;
+//                if (ff is OverlayFile) (ff as OverlayFile).isCompressed = false;
             }
         }
 

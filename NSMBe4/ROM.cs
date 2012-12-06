@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NSMBe4.DSFileSystem;
-using System.IO;
 using System.Runtime.InteropServices;
 
 
@@ -63,15 +62,37 @@ namespace NSMBe4 {
         public const int SpriteCount = 326;
 
         public static List<string> fileBackups = new List<string>();
+		
+		//TODO LOAD THESE.
+        public static File arm9binFile;
+        public static File arm9ovFile;
+		public static Overlay[] arm9ovs;
 
+        public static File arm7binFile;
+        public static File arm7ovFile;
+		public static Overlay[] arm7ovs;
+
+        public static File bannerFile;
+        public static File rsaSigFile;
+        public static File headerFile;
+		
         public static void load(String filename)
         {
             ROM.filename = filename;
             FS = new NitroROMFilesystem(filename);
             romfile = new System.IO.FileInfo(filename);
 
-
-            ByteArrayInputStream header = new ByteArrayInputStream(FS.headerFile.getContents());
+			arm9binFile = FS.getFileByName("arm9.bin");			
+			arm9ovFile = FS.getFileByName("arm9ovt.bin");	
+			arm9ovs = loadOvTable(arm9ovFile);
+			arm7binFile = FS.getFileByName("arm7.bin");			
+			arm7ovFile = FS.getFileByName("arm7ovt.bin");			
+			arm7ovs = loadOvTable(arm7ovFile);
+			rsaSigFile = FS.getFileByName("rsasig.bin");			
+			headerFile = FS.getFileByName("header.bin");			
+			
+			
+            ByteArrayInputStream header = new ByteArrayInputStream(headerFile.getContents());
             romInternalName = header.ReadString(12);
             romGamecode = header.ReadString(4);
 
@@ -96,6 +117,32 @@ namespace NSMBe4 {
             }
         }
 
+        private static Overlay[] loadOvTable(File table)
+        {
+        	Overlay[] ovs = new Overlay[table.fileSize/32];
+
+            ByteArrayInputStream tbl = new ByteArrayInputStream(table.getContents());
+
+            int i = 0;
+            while (tbl.lengthAvailable(32))
+            {
+                uint ovId = tbl.readUInt();
+                uint ramAddr = tbl.readUInt();
+                uint ramSize = tbl.readUInt();
+                uint bssSize = tbl.readUInt();
+                uint staticInitStart = tbl.readUInt();
+                uint staticInitEnd = tbl.readUInt();
+                ushort fileID = tbl.readUShort();
+                tbl.skip(6); //unused 0's
+				
+				ovs[ovId] = new Overlay(FS.getFileById(fileID), table, (uint)i*32);
+
+                i++;
+            }
+            
+            return ovs;
+        }
+        
         public static void close()
         {
             if (FS == null) return;
@@ -104,22 +151,22 @@ namespace NSMBe4 {
 
         public static void SaveOverlay0()
         {
-            OverlayFile ov = FS.arm9ovs[0];
+            Overlay ov = arm9ovs[0];
             ov.decompress();
-            ov.beginEdit(FS);
-            ov.replace(Overlay0, FS);
-            ov.endEdit(FS);
+            ov.f.beginEdit(FS);
+            ov.f.replace(Overlay0, FS);
+            ov.f.endEdit(FS);
         }
 
         public static void LoadOverlay0()
         {
-            if (FS.arm9ovs.Length == 0)
+            if (arm9ovs.Length == 0)
                 return;
 
-            OverlayFile ov = FS.arm9ovs[0];
+            Overlay ov = arm9ovs[0];
             ov.decompress();
 
-            Overlay0 = ov.getContents();
+            Overlay0 = ov.f.getContents();
         }
 
         public static void writeBackupSetting()
@@ -448,6 +495,13 @@ namespace NSMBe4 {
             // This code converted from Elitemap 
             int DataLen;
             DataLen = source[1] | (source[2] << 8) | (source[3] << 16);
+            return DataLen;
+        }
+        public static int LZ77_GetDecompressedSizeWithHeader(byte[] source)
+        {
+            // This code converted from Elitemap 
+            int DataLen;
+            DataLen = source[5] | (source[6] << 8) | (source[7] << 16);
             return DataLen;
         }
         

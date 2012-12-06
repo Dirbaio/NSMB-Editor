@@ -142,11 +142,11 @@ namespace NSMBe4 {
 
         private Bitmap RenderBackground(File GFXFile, File PalFile, File LayoutFile, int offs, int palOffs)
         {
-            LayoutFile = new InlineFile(LayoutFile, 0, 2 * 64 * 64, LayoutFile.name, null, InlineFile.CompressionType.LZComp);
+            LayoutFile = new LZFile(LayoutFile, LZFile.CompressionType.LZ);
 
             Image2D i = new Image2D(GFXFile, 256, false);
-            Palette pal1 = new FilePalette(new InlineFile(PalFile, 0, 512, PalFile.name, null, InlineFile.CompressionType.LZComp));
-            Palette pal2 = new FilePalette(new InlineFile(PalFile, 512, 512, PalFile.name, null, InlineFile.CompressionType.LZComp));
+            Palette pal1 = new FilePalette(new InlineFile(PalFile, 0, 512, PalFile.name));
+            Palette pal2 = new FilePalette(new InlineFile(PalFile, 512, 512, PalFile.name));
 
             Tilemap t = new Tilemap(LayoutFile, 64, i, new Palette[] { pal1, pal2 }, offs, palOffs);
             t.render();

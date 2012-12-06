@@ -188,7 +188,7 @@ namespace NSMBe4.DSFileSystem
                 f.endEdit(this);
                 return;
             }
-
+/*
             if(f is OverlayFile)
             {
                 DialogResult r = MessageBox.Show("You're importing an overlay file. Is it a compressed overlay?\n\n(Overlays are compressed by default, so it probably is unless you decompressed it)", "Something", MessageBoxButtons.YesNoCancel);
@@ -200,7 +200,7 @@ namespace NSMBe4.DSFileSystem
                 }
 
                 (f as OverlayFile).isCompressed = r == DialogResult.Yes;
-            }
+            }*/
 
             string SrcFileName = replaceFileDialog.FileName;
             FileStream rfs = new FileStream(SrcFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -343,16 +343,17 @@ namespace NSMBe4.DSFileSystem
                 if (filename == "banner.bin")
                 {
                     LevelChooser.showImgMgr();
-                    File imgFile = new InlineFile(f, 0x20, 0x200, f.name, null, InlineFile.CompressionType.NoComp);
-                    File palFile = new InlineFile(f, 0x220, 0x20, f.name, null, InlineFile.CompressionType.NoComp);
+                    File imgFile = new InlineFile(f, 0x20, 0x200, f.name);
+                    File palFile = new InlineFile(f, 0x220, 0x20, f.name);
                     LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 32, true, false));
                     LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
                 }
                 else if (filename.EndsWith(".enpg"))
                 {
                     LevelChooser.showImgMgr();
-                    File imgFile = new InlineFile(f, 0, 0x10000, f.name, null, InlineFile.CompressionType.LZComp);
-                    File palFile = new InlineFile(f, 0x10000, 0x200, f.name, null, InlineFile.CompressionType.LZComp);
+		            LZFile fileLz = new LZFile(f, LZFile.CompressionType.LZ);
+                    File imgFile = new InlineFile(fileLz, 0, 0x10000, f.name);
+                    File palFile = new InlineFile(fileLz, 0x10000, 0x200, f.name);
                     LevelChooser.imgMgr.m.addImage(new EnpgImage2D(imgFile));
                     LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
                 }
@@ -409,7 +410,8 @@ namespace NSMBe4.DSFileSystem
 
         private void decompressOverlayButton_Click(object sender, EventArgs e)
         {
-            OverlayFile f = fileTreeView.SelectedNode.Tag as OverlayFile;
+        	//TODO
+/*            OverlayFile f = fileTreeView.SelectedNode.Tag as OverlayFile;
 
             if (f == null)
             {
@@ -420,7 +422,7 @@ namespace NSMBe4.DSFileSystem
             if (!f.isCompressed)
                 MessageBox.Show("Error: Overlay file is already decompressed");
 
-            f.decompress();
+            f.decompress();*/
         }
     }
 }

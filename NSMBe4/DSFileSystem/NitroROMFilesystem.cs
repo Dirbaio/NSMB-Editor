@@ -27,9 +27,7 @@ namespace NSMBe4.DSFileSystem
         public PhysicalFile arm7binFile, arm7ovFile, arm9ovFile, bannerFile;
         public PhysicalFile arm9binFile;
         public PhysicalFile rsaSigFile;
-
         public HeaderFile headerFile;
-        public PhysicalFile[] arm7ovs, arm9ovs;
 
         public NitroROMFilesystem(String n)
             : base(new ExternalFilesystemSource(n))
@@ -83,19 +81,18 @@ namespace NSMBe4.DSFileSystem
             addFile(rsaSigFile);
             mainDir.childrenFiles.Add(rsaSigFile);
 
-            loadOvTable("ARM7 Overlay Table", -99, mainDir, arm7ovFile, out arm7ovs);
-            loadOvTable("ARM9 Overlay Table", -98, mainDir, arm9ovFile, out arm9ovs);
+            loadOvTable("overlay7", -99, mainDir, arm7ovFile);
+            loadOvTable("overlay9", -98, mainDir, arm9ovFile);
             loadNamelessFiles(mainDir);
         }
 
-        private void loadOvTable(String dirName, int id, Directory parent, File table, out OverlayFile[] arr)
+        private void loadOvTable(String dirName, int id, Directory parent, File table)
         {
             Directory dir = new Directory(this, parent, true, dirName, id);
             addDir(dir);
             parent.childrenDirs.Add(dir);
 
             ByteArrayInputStream tbl = new ByteArrayInputStream(table.getContents());
-            arr = new OverlayFile[tbl.available / 32];
 
             int i = 0;
             while (tbl.lengthAvailable(32))
@@ -109,24 +106,11 @@ namespace NSMBe4.DSFileSystem
                 ushort fileID = tbl.readUShort();
                 tbl.skip(6); //unused 0's
 
-                OverlayFile f = loadOvFile(fileID, dir, table, tbl.getPos() - 0x20);
-                f.isSystemFile = true;
-                arr[i] = f;
+                File f = loadFile(dirName+"_"+ovId+".bin", fileID, dir);
+//                f.isSystemFile = true;
 
                 i++;
-
             }
-        }
-
-        protected PhysicalFile loadOvFile(int fileID, Directory parent, File ovTableFile, uint ovTblOffs)
-        {
-            int beginOffs = fileID * 8;
-            int endOffs = fileID * 8 + 4;
-            OverlayFile f = new OverlayFile(this, parent, fileID, fatFile, beginOffs, endOffs,ovTableFile, ovTblOffs);
-            parent.childrenFiles.Add(f);
-            addFile(f);
-            return f;
-
         }
 
         public override void fileMoved(File f)

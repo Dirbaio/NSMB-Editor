@@ -22,7 +22,7 @@ using System.IO;
 
 namespace NSMBe4.DSFileSystem
 {
-    public class PhysicalFile : File, IComparable
+    public class PhysicalFile : FileWithLock, IComparable
     {
         public bool isSystemFile;
 
@@ -86,22 +86,6 @@ namespace NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
-        public override byte[] getContents()
-        {
-            byte[] file = new byte[fileSize];
-            filesystemStream.Seek(fileBegin, SeekOrigin.Begin);
-            filesystemStream.Read(file, 0, file.Length);
-            return file;
-        }
-
-        public void dumpFile(int ind)
-        {
-            for (int i = 0; i < ind; i++)
-                Console.Out.Write(" ");
-            Console.Out.WriteLine("[" + id + "] " + name + ", at " + fileBegin.ToString("X") + ", size: " + fileSize);
-        }
-
-
         public virtual void refreshOffsets()
         {
             if (beginFile != null)
@@ -128,77 +112,36 @@ namespace NSMBe4.DSFileSystem
                 else
                     endFile.setUintAt(endOffset, (uint)(fileBegin + fileSize - filesystemDataOffset));
         }
+	
+		//Reading and writing!
+		public override byte[] getInterval(int start, int end)
+		{
+			validateInterval(start, end);
+			
+			int len = end - start;
+            byte[] file = new byte[len];
+            filesystemStream.Seek(fileBegin+start, SeekOrigin.Begin);
+            filesystemStream.Read(file, 0, len);
+            return file;
+		}
 
-        public override uint getUintAt(int offset)
+        public override byte[] getContents()
         {
-            long pos = filesystemStream.Position;
-            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
-
-            uint res = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                res |= (uint)filesystemStream.ReadByte() << 8 * i;
-            }
-            filesystemStream.Seek(pos, SeekOrigin.Begin);
-            return res;
+            byte[] file = new byte[fileSize];
+            filesystemStream.Seek(fileBegin, SeekOrigin.Begin);
+            filesystemStream.Read(file, 0, file.Length);
+            return file;
         }
-
-        public override void setUintAt(int offset, uint val)
-        {
-            long pos = filesystemStream.Position;
-            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
-            for (int i = 0; i < 4; i++)
-            {
-                filesystemStream.WriteByte((byte)(val & 0xFF));
-                val >>= 8;
-            }
-            filesystemStream.Seek(pos, SeekOrigin.Begin);
-        }
-
-        public override ushort getUshortAt(int offset)
-        {
-            long pos = filesystemStream.Position;
-            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
-
-            ushort res = 0;
-            for (int i = 0; i < 2; i++)
-            {
-                res |= (ushort) (filesystemStream.ReadByte() << 8 * i);
-            }
-            filesystemStream.Seek(pos, SeekOrigin.Begin);
-            return res;
-        }
-
-
-        public override void setUshortAt(int offset, ushort val)
-        {
-            long pos = filesystemStream.Position;
-            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
-            for (int i = 0; i < 2; i++)
-            {
-                filesystemStream.WriteByte((byte)(val & 0xFF));
-                val >>= 8;
-            }
-            filesystemStream.Seek(pos, SeekOrigin.Begin);
-        }
-
-        public override byte getByteAt(int offset)
-        {
-            long pos = filesystemStream.Position;
-            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
-            byte res = (byte)filesystemStream.ReadByte();
-            filesystemStream.Seek(pos, SeekOrigin.Begin);
-            return res;
-        }
-
-        public override void setByteAt(int offset, byte val)
-        {
-            long pos = filesystemStream.Position;
-            filesystemStream.Seek(fileBegin + offset, SeekOrigin.Begin);
-            filesystemStream.WriteByte(val);
-            filesystemStream.Seek(pos, SeekOrigin.Begin);
-        }
-
+		
+        public override void replaceInterval(byte[] newFile, int start)
+		{
+			validateInterval(start, start+newFile.Length);
+			if(!editedIntervals.Contains(new Interval(start, start+newFile.Length)) && editedBy == null)
+	            throw new Exception("NOT CORRECT EDITOR " + name);
+            filesystemStream.Seek(fileBegin+start, SeekOrigin.Begin);
+            filesystemStream.Write(newFile, 0, newFile.Length);
+		}
+		
 		//TODO: Clean up this mess.
         public override void replace(byte[] newFile, object editor)
         {
@@ -277,7 +220,10 @@ namespace NSMBe4.DSFileSystem
             fileBeginP = newOffs;
             saveOffsets();
         }
+		
 
+		//Misc crap
+		
         public int CompareTo(object obj)
         {
             PhysicalFile f = (PhysicalFile) obj;
@@ -286,10 +232,9 @@ namespace NSMBe4.DSFileSystem
             return fileBegin.CompareTo(f.fileBegin);
         }
 
-        public bool isAddrInFile(int addr)
+        public bool isAddrInFdile(int addr)
         {
             return addr >= fileBegin && addr < fileBegin + fileSize;
         }
-		
     }
 }

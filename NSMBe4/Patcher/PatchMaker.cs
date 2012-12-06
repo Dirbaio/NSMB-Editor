@@ -30,7 +30,7 @@ namespace NSMBe4.Patcher
 
         public PatchMaker(DirectoryInfo romdir)
         {
-            handler = new Arm9BinaryHandler(ROM.FS);
+            handler = new Arm9BinaryHandler();
             this.romdir = romdir;
         }
 
@@ -42,9 +42,13 @@ namespace NSMBe4.Patcher
             return codeAddr;
 		}
 		
+		public void restore()
+		{
+            handler.restoreFromBackup();
+		}
+		
         public void compilePatch()
         {
-            handler.restoreFromBackup();
             uint codeAddr = getCodeAddr();
             PatchCompiler.compilePatch(codeAddr, romdir);
         }

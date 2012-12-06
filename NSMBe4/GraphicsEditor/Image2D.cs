@@ -52,6 +52,7 @@ namespace NSMBe4
         {
         }
 
+		//TODO: Take the LZ flag out of here and use LZFile.
         public Image2D(File f, int width, bool is4bpp, bool isLZCompressed)
         {
             this.f = f;

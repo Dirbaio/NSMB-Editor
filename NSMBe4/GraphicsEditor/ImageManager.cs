@@ -102,7 +102,8 @@ namespace NSMBe4
         {
             if (Control.ModifierKeys == Keys.Control)
             {
-                (imageListBox.SelectedItem as PalettedImage).endEdit();
+                if(imageListBox.SelectedItem is PalettedImage)
+                	(imageListBox.SelectedItem as PalettedImage).endEdit();
                 imageListBox.Items.Remove(imageListBox.SelectedItem);
             }
             else
@@ -123,7 +124,8 @@ namespace NSMBe4
         {
             if (Control.ModifierKeys == Keys.Control)
             {
-                (paletteListBox.SelectedItem as Palette).endEdit();
+            	if(paletteListBox.SelectedItem is Palette)
+	                (paletteListBox.SelectedItem as Palette).endEdit();
                 paletteListBox.Items.Remove(paletteListBox.SelectedItem);
             }
             else

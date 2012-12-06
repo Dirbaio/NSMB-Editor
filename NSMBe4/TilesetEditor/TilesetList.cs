@@ -70,15 +70,15 @@ namespace NSMBe4
             string name = (string)tilesetListBox.SelectedItem;
             ushort id = getSelectedID();
 
-            try
+//            try
             {
                 new TilesetEditor(id, name).Show();
             }
-            catch (AlreadyEditingException)
+/*            catch (AlreadyEditingException)
             {
                 MessageBox.Show(LanguageManager.Get("Errors", "Tileset"));
             }
-        }
+*/        }
 
         private void tilesetListBox_DoubleClick(object sender, EventArgs e)
         {

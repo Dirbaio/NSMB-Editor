@@ -145,7 +145,7 @@ namespace NSMBe4
 			int tileLen = 8*8/2;
 			foreach(BncdImage img in images)
 			{
-		        File imgFile = new InlineFile(f, (int)dataOffset+img.tileNumber*tileLen, img.tileCount*tileLen, f.name, null, InlineFile.CompressionType.NoComp);
+		        File imgFile = new InlineFile(f, (int)dataOffset+img.tileNumber*tileLen, img.tileCount*tileLen, f.name);
 		        LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 8*img.tileWidth, true, false));
 			}
     	}

@@ -18,12 +18,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NSMBe4.DSFileSystem;
 
 namespace NSMBe4
 {
     public class Overlay
     {
-		public File file;
+		public File f;
         private File ovTableFile;
         private uint ovTableOffs;
         
@@ -53,7 +54,7 @@ namespace NSMBe4
 
         public Overlay(File file, File ovTableFile, uint ovTableOffs)
         {
-        	this.file = file;
+        	this.f = file;
             this.ovTableFile = ovTableFile;
             this.ovTableOffs = ovTableOffs;
         }
@@ -62,11 +63,11 @@ namespace NSMBe4
         {
             if (isCompressed)
             {
-                byte[] data = file.getContents();
+                byte[] data = f.getContents();
                 data = ROM.DecompressOverlay(data);
-                file.beginEdit(this);
-                file.replace(data, this);
-                file.endEdit(this);
+                f.beginEdit(this);
+                f.replace(data, this);
+                f.endEdit(this);
                 isCompressed = false;
             }
         }
@@ -81,14 +82,14 @@ namespace NSMBe4
             decompress();
 
             addr -= (int)ramAddr;
-            return file.getUintAt(addr);
+            return f.getUintAt(addr);
         }
 
         public void writeToRamAddr(int addr, uint val)
         {
             decompress();
             addr -= (int)ramAddr;
-            file.setUintAt(addr, val);
+            f.setUintAt(addr, val);
         }
     }
 }

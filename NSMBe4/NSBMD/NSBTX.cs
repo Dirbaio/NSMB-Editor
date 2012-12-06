@@ -39,21 +39,18 @@ namespace NSMBe4.NSBMD
 
         public NSBTX(File f)
         {
+
+            bool LZd = false;
+        	if(f.getUintAt(0) == 0x37375A4C) //LZ77
+        	{
+        		f = new LZFile(f, LZFile.CompressionType.LZWithHeader);
+        		LZd = true;
+        	}
+        	
             this.f = f;
 
             data = f.getContents();
             str = new ByteArrayInputStream(data);
-
-            bool LZd = false;
-            if (str.readUInt() == 0x37375A4C) //LZ77
-            {
-                byte[] ndata = new byte[data.Length-4];
-                Array.Copy(data, 4, ndata, 0, ndata.Length);
-
-                data = ROM.LZ77_Decompress(ndata);
-                str = new ByteArrayInputStream(data);
-                LZd = true;
-            }
 
             //look for TEX0 block
             //ugly, but i'm lazy to implement it properly.
@@ -129,12 +126,12 @@ namespace NSMBe4.NSBMD
                 int size = width*height*Image3D.bpps[format]/8;
                 Console.Out.WriteLine(offset.ToString("X8") + " " + format + " " + width + "x" + height + " " + color0 + " LZ"+LZd);
 
-                InlineFile mainfile = new InlineFile(f, offset, size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp);
+                InlineFile mainfile = new InlineFile(f, offset, size, Image3D.formatNames[format]);
                 if (format == 5)
                 {
                     hasFormat5 = true;
                     int f5size = (width * height) / 16 * 2;
-                    InlineFile f5file = new InlineFile(f, f5dataOffset, f5size, Image3D.formatNames[format], null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp);
+                    InlineFile f5file = new InlineFile(f, f5dataOffset, f5size, Image3D.formatNames[format]);
 
                     f5dataOffset += f5size;
                     textures[i] = new Image3Dformat5(mainfile, f5file, width, height);
@@ -189,7 +186,7 @@ namespace NSMBe4.NSBMD
             {
                 if (hasFormat5)
                 {
-                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs, palettes[i].size, palettes[i].name, null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp));
+                    FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs, palettes[i].size, palettes[i].name));
                     mgr.m.addPalette(pa);
                 }
                 else
@@ -197,13 +194,13 @@ namespace NSMBe4.NSBMD
                     int extrapalcount = (palettes[i].size) / 512;
                     for (int j = 0; j < extrapalcount; j++)
                     {
-                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + j * 512, 512, palettes[i].name + ":" + j, null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp));
+                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + j * 512, 512, palettes[i].name + ":" + j));
                         mgr.m.addPalette(pa);
                     }
                     int lastsize = palettes[i].size % 512;
                     if (lastsize != 0)
                     {
-                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + extrapalcount * 512, lastsize, palettes[i].name + ":" + extrapalcount, null, LZd ? InlineFile.CompressionType.LZWithHeaderComp : InlineFile.CompressionType.NoComp));
+                        FilePalette pa = new FilePalette(new InlineFile(f, palettes[i].offs + extrapalcount * 512, lastsize, palettes[i].name + ":" + extrapalcount));
                         mgr.m.addPalette(pa);
                     }
                 }

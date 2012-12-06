@@ -626,6 +626,7 @@ namespace NSMBe4 {
             NarcReplace("Dat_Fort.narc", "d_2d_I_M_back_yakata_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCG));
             NarcReplace("Dat_Fort.narc", "d_2d_I_M_back_yakata_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
 
+
             NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_UR_nsc.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NSC));
             NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
             NarcReplace("Dat_Fort.narc", "d_2d_I_M_free_yakata_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
@@ -672,13 +673,14 @@ namespace NSMBe4 {
 		//ASM Tools
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
-            Arm9BinaryHandler bh = new Arm9BinaryHandler(ROM.FS);
+            Arm9BinaryHandler bh = new Arm9BinaryHandler();
             bh.decompress();
         }
 
         private void makeinsert_Click(object sender, EventArgs e)
         {
             PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+            pm.restore();
             pm.compilePatch();
             pm.generatePatch();
         }
@@ -721,11 +723,11 @@ namespace NSMBe4 {
         //Other crap
         private void dumpMapButton_Click(object sender, EventArgs e)
         {
-            if (saveTextFileDialog.ShowDialog() != DialogResult.OK) return;
+/*            if (saveTextFileDialog.ShowDialog() != DialogResult.OK) return;
 
             TextWriter tw = new StreamWriter(new FileStream(saveTextFileDialog.FileName, FileMode.Create, FileAccess.ReadWrite));
             ROM.FS.dumpFilesOrdered(tw);
-            tw.Close();
+            tw.Close();*/
         }
         
         private void LevelChooser_FormClosing(object sender, FormClosingEventArgs e)

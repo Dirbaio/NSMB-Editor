@@ -38,12 +38,6 @@ namespace NSMBe4
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            TraceListener log = new TextWriterTraceListener("NSMBe4-log.txt");
-            Trace.Listeners.Add(log);
-            Trace.Listeners.Add(new ConsoleTraceListener());
-
             string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
             string langFileName = System.IO.Path.Combine(langDir, Properties.Settings.Default.LanguageFile + ".ini");
             if (System.IO.File.Exists(langFileName))
@@ -87,24 +81,26 @@ namespace NSMBe4
 
             if (path != "")
             {
-                try
+//                try
                 {
                     ROM.load(path);
                 }
-                catch (Exception ex)
+  /*              catch (Exception ex)
                 {
                     MessageBox.Show("Could not open ROM file for writing. Is it open with other program?\n\n"+ex.Message);
                     return;
                 }
-                
+    */            
                 if(args.Length > 2 && args[2] == "asmpatch")
                 {
 				    PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+				    pm.restore();
 				    pm.generatePatch();
                 }
                 else if(args.Length > 2 && args[2] == "getcodeaddr")
                 {
 				    PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+				    pm.restore();
                     Console.Out.WriteLine(String.Format("{0:X8}", pm.getCodeAddr()));
                 }
 				else
@@ -119,22 +115,6 @@ namespace NSMBe4
 		            else
 		                Application.Run(new LevelChooser());
 		        }
-            }
-        }
-
-
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            try
-            {
-                Exception ex = (Exception)e.ExceptionObject;
-
-                Trace.Write("Whoops! Please contact the developers with the following information:\n\n" + ex.Message + ex.StackTrace + ex.InnerException.Message + ex.InnerException.StackTrace);
-                Trace.Flush();
-            }
-            finally
-            {
-                Application.Exit();
             }
         }
     }
