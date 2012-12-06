@@ -173,15 +173,35 @@ namespace NSMBe4
             e.Graphics.ScaleTransform(zoom, zoom);
             e.Graphics.TranslateTransform(-ViewablePixels.X, -ViewablePixels.Y);
 
+            // Render level.
+            if (tileCache == null)
+                return;
+
+            updateTileCache();
+
+            // RENDER PANNING BLOCKS GRID
+            for (int x = ViewableBlocks.X / 16; x <= (ViewableBlocks.Width + ViewableBlocks.X) / 16; x++)
+                for (int y = ViewableBlocks.Y / 16; y <= (ViewableBlocks.Height + ViewableBlocks.Y) / 16; y++)
+                {
+                    bool has = false;
+                    for (int xx = 0; xx < 16 && !has; xx++)
+                        for (int yy = 0; yy < 16 && !has; yy++)
+                            if (Level.levelTilemap[x * 16 + xx, y * 16 + yy] != 0)
+                                has = true;
+                    if (!has)
+                        e.Graphics.FillRectangle(Brushes.DarkSlateGray, x * 256, y * 256, 256, 256);
+                    e.Graphics.DrawRectangle(Pens.LightGray, x * 256, y * 256, 256, 256);
+                }
+
             if (bgImage != null)
                 e.Graphics.DrawImage(bgImage, bgX, bgY);
 
             if (showGrid)
             {
                 for (int x = ViewableBlocks.X; x <= ViewableBlocks.Width + ViewableBlocks.X; x++)
-                    e.Graphics.DrawLine(Pens.DarkSlateGray, x * 16, ViewablePixels.Y, x * 16, ViewablePixels.Y+ViewablePixels.Height);
+                    e.Graphics.DrawLine(Pens.DarkGray, x * 16, ViewablePixels.Y, x * 16, ViewablePixels.Y + ViewablePixels.Height);
                 for (int y = ViewableBlocks.Y; y <= ViewableBlocks.Height + ViewableBlocks.Y; y++)
-                    e.Graphics.DrawLine(Pens.DarkSlateGray, ViewablePixels.X, y * 16, ViewablePixels.X + ViewablePixels.Width, y * 16);
+                    e.Graphics.DrawLine(Pens.DarkGray, ViewablePixels.X, y * 16, ViewablePixels.X + ViewablePixels.Width, y * 16);
             }
 
             // RENDER PANNING BLOCKS GRID
@@ -189,22 +209,19 @@ namespace NSMBe4
                 for (int y = ViewableBlocks.Y / 16; y <= (ViewableBlocks.Height + ViewableBlocks.Y) / 16; y++)
                     e.Graphics.DrawRectangle(Pens.LightGray, x * 256, y * 256, 256, 256);
 
-			// Render level.
-            if (tileCache != null)
             {
-                updateTileCache();
-				int x = ViewableBlocks.X;
-				x -= x%ViewableBlocks.Width;
-				x *= 16;
-				int y = ViewableBlocks.Y;
-				y -= y%ViewableBlocks.Height;
-				y *= 16;
-				int dx = ViewableBlocks.Width*16;
-				int dy = ViewableBlocks.Height*16;
+                int x = ViewableBlocks.X;
+                x -= x % ViewableBlocks.Width;
+                x *= 16;
+                int y = ViewableBlocks.Y;
+                y -= y % ViewableBlocks.Height;
+                y *= 16;
+                int dx = ViewableBlocks.Width * 16;
+                int dy = ViewableBlocks.Height * 16;
                 e.Graphics.DrawImage(tileCache, x, y);
-                e.Graphics.DrawImage(tileCache, x+dx, y);
-                e.Graphics.DrawImage(tileCache, x, y+dy);
-                e.Graphics.DrawImage(tileCache, x+dx, y+dy);
+                e.Graphics.DrawImage(tileCache, x + dx, y);
+                e.Graphics.DrawImage(tileCache, x, y + dy);
+                e.Graphics.DrawImage(tileCache, x + dx, y + dy);
             }
 
 			// And other stuff.

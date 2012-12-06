@@ -79,12 +79,6 @@ namespace NSMBe4
 
             int FilePos;
 
-            for(int x = 0; x < 512; x++)
-                for (int y = 0; y < 256; y++)
-                {
-                    levelTilemap[x,y] = (x + y) % 512; 
-                }
-
             // Level loading time yay.
             // Since I don't know the format for every block, I will just load them raw.
             Blocks = new byte[][] { null, null, null, null, null, null, null, null, null, null, null, null, null, null };
@@ -223,7 +217,7 @@ namespace NSMBe4
 
             for (int xx = 0; xx < w; xx++)
                 for (int yy = 0; yy < h; yy++)
-                    levelTilemap[xx + x, yy + y] = -1;
+                    levelTilemap[xx + x, yy + y] = 0;
 
             Rectangle r = new Rectangle(x, y, w, h);
             
