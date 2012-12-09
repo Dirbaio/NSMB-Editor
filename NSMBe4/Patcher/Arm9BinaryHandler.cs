@@ -173,7 +173,6 @@ namespace NSMBe4.Patcher
         {
             if(!isCompressed) return;
 
-            f.beginEdit(this);
 
             int decompressionOffs = decompressionRamAddr - 0x02000000;
 
@@ -190,9 +189,10 @@ namespace NSMBe4.Patcher
             Array.Copy(data, newData, data.Length);
             Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
 
+            f.beginEdit(this);
             f.replace(newData, this);
-            decompressionRamAddr = 0;
             f.endEdit(this);
+            decompressionRamAddr = 0;
         }
 
 
