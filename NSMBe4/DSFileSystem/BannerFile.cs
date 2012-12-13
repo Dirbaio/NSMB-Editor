@@ -32,13 +32,26 @@ namespace NSMBe4.DSFileSystem
             refreshOffsets();
         }
 
+        //Hack to prevent stack overflow...
+        private bool updatingCrc = false;
+
         public void updateCRC16()
         {
+            updatingCrc = true;
             byte[] contents = getContents();
             byte[] checksumArea = new byte[0x820];
             Array.Copy(contents, 0x20, checksumArea, 0, 0x820);
             ushort checksum = ROM.CalcCRC16(checksumArea);
             setUshortAt(2, checksum);
+            Console.Out.WriteLine("UPDATING BANNER CHECKSUM!!!!");
+            updatingCrc = false;
+        }
+
+        public override void editionEnded()
+        {
+            base.editionEnded();
+            if(!updatingCrc)
+                updateCRC16();
         }
     }
 }
