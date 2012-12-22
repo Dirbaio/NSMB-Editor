@@ -59,6 +59,14 @@ namespace NSMBe4
             this.ovTableOffs = ovTableOffs;
         }
 
+        public byte[] getDecompressedContents()
+        {
+            byte[] data = f.getContents();
+            if (isCompressed)
+                data = ROM.DecompressOverlay(data);
+            return data;
+        }
+
         public void decompress()
         {
             if (isCompressed)

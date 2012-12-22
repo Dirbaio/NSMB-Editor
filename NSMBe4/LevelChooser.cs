@@ -784,5 +784,10 @@ namespace NSMBe4 {
             if (MessageBox.Show((LanguageManager.Get("LevelChooser", "delbackup")), (LanguageManager.Get("LevelChooser", "delbacktitle")), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 System.IO.Directory.Delete(Path.Combine(Application.StartupPath, "Backup"), true);
         }
+
+        private void dlpCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ROM.dlpMode = dlpCheckBox.Checked;
+        }
     }
 }

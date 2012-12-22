@@ -115,9 +115,12 @@ namespace NSMBe4.DSFileSystem
 
         public override void fileMoved(File f)
         {
-            uint end = (uint)getFilesystemEnd();
-            headerFile.setUintAt(0x80, end);
-            headerFile.UpdateCRC16();
+            if (!ROM.dlpMode)
+            {
+                uint end = (uint)getFilesystemEnd();
+                headerFile.setUintAt(0x80, end);
+                headerFile.UpdateCRC16();
+            }
         }
     }
 }
