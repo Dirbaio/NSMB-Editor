@@ -32,7 +32,9 @@ namespace NSMBe4
         public static List<int> categoryIds = new List<int>();
         public static List<string> categories = new List<string>();
         public static Dictionary<int, List<int>> spritesInCategory = new Dictionary<int, List<int>>();
-
+        public static string directory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NSMBe");
+        public static string path = System.IO.Path.Combine(directory, "spritedata.xml");
+        
         int spriteID;
         int categoryID;
         string name;
@@ -78,7 +80,10 @@ namespace NSMBe4
                 if (data.Trim() == "")
                     throw new Exception("Got empty data");
 
-                FileStream fs = new FileStream("spritedata.xml", FileMode.Create, FileAccess.Write, FileShare.None);
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
                 StreamWriter sw = new StreamWriter(fs);
                 sw.Write(data);
                 sw.Close();
@@ -94,9 +99,8 @@ namespace NSMBe4
         public static void Load()
         {
             datas = new Dictionary<int, SpriteData>();
-            string filename = System.IO.Path.Combine(Application.StartupPath, "spritedata.xml");
 
-            if (!File.Exists(filename))
+            if (!File.Exists(path))
             {
                 if (MessageBox.Show("spritedata.xml not found. Do you want to download it?", "Hello!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     update();
@@ -105,7 +109,7 @@ namespace NSMBe4
             }
             try
             {
-                FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
                 XmlReader xmlr = XmlReader.Create(fs);
 
                 xmlr.ReadToFollowing("category");
