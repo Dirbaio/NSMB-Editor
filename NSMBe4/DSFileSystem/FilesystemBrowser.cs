@@ -80,8 +80,11 @@ namespace NSMBe4.DSFileSystem
             if (name.EndsWith(".narc")) return 2;
             if (name.EndsWith(".carc")) return 2;
             if (name.EndsWith("_ncg.bin")) return 3;
+            if (name.EndsWith(".ncgr")) return 3;
             if (name.EndsWith("_ncl.bin")) return 4;
+            if (name.EndsWith(".nclr")) return 4;
             if (name.EndsWith("_nsc.bin")) return 5;
+            if (name.EndsWith(".nscr")) return 5;
 
             if (name.EndsWith(".nsbmd")) return 6;
             if (name.EndsWith(".nsbtx")) return 7;
@@ -358,17 +361,19 @@ namespace NSMBe4.DSFileSystem
                     LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
                 }
                 else if (filename.EndsWith(".bncd"))
-                {
-                	Bncd b = new Bncd(f);
-                }
+                	new Bncd(f);
                 if (filename.EndsWith(".nsbtx") || filename.EndsWith(".nsbmd"))
                     new NSBTX(f);
+                else if (filename.EndsWith(".nscr") ||
+                         filename.EndsWith(".ncgr") ||
+                         filename.EndsWith(".nclr"))
+                    SectionFileLoader.load(f);
                 else if (filename.EndsWith(".narc"))
                     new FilesystemBrowserDialog(new NarcFilesystem(f)).Show();
                 else if (filename.EndsWith(".carc"))
                     new FilesystemBrowserDialog(new NarcFilesystem(f, true)).Show();
                 else if (filename.Contains("_ncl.bin"))
-                    new PaletteViewer(f).Show();
+                    new PaletteViewer(new LZFile(f, LZFile.CompressionType.LZ)).Show();
                 else if (filename.Contains("_nsc.bin"))
                 {
                     if (LevelChooser.imgMgr == null) return;

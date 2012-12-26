@@ -29,7 +29,6 @@ namespace NSMBe4
     public partial class PaletteViewer : Form
     {
         File f;
-        File fileLz;
         Color[] pal;
 
         public PaletteViewer(File f)
@@ -37,8 +36,7 @@ namespace NSMBe4
             InitializeComponent();
             this.MdiParent = MdiParentForm.instance;
             this.f = f;
-	        fileLz = new LZFile(f, LZFile.CompressionType.LZ);
-            this.pal = FilePalette.arrayToPalette(ROM.LZ77_Decompress(f.getContents()));
+            this.pal = FilePalette.arrayToPalette(f.getContents());
             if (pal.Length < 256)
                 is4bpp.Checked = true;
             updatePalettes();
@@ -111,7 +109,7 @@ namespace NSMBe4
             int palLen = palSize;
             if (palOffs + palLen > pal.Length)
                 palLen = pal.Length - palOffs;
-            File ifl = new InlineFile(fileLz, palOffs * 2, palLen * 2, f.name + " - "+i);
+            File ifl = new InlineFile(f, palOffs * 2, palLen * 2, f.name + " - "+i);
             LevelChooser.showImgMgr();
             LevelChooser.imgMgr.m.addPalette(new FilePalette(ifl));
         }
