@@ -228,6 +228,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROMUserInfo.cs" />
+    <Compile Include="SectionFileLoader.cs" />
     <Compile Include="TextInputForm.cs">
       <SubType>Form</SubType>
     </Compile>

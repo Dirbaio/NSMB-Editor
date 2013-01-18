@@ -6,7 +6,7 @@ misunderstandings, we consider an application to constitute a “derivative work
 for the purpose of this license if it does any of the following:
 
 - Integrates source code from NSMB Editor
-- Integrates/includes/aggregates Nmap into a proprietary executable installer, such as those produced by InstallShield.
+- Integrates/includes/aggregates NSMB Editor into a proprietary executable installer, such as those produced by InstallShield.
 - Links to a library or executes a program that does any of the above.
 
 (Above rules inspired from http://nmap.org/book/man-legal.html)

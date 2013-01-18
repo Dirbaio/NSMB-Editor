@@ -63,7 +63,6 @@ namespace NSMBe4 {
 
         public static List<string> fileBackups = new List<string>();
 		
-		//TODO LOAD THESE.
         public static File arm9binFile;
         public static File arm9ovFile;
 		public static Overlay[] arm9ovs;
@@ -75,7 +74,10 @@ namespace NSMBe4 {
         public static File bannerFile;
         public static File rsaSigFile;
         public static File headerFile;
-		
+
+        //Download play-friendly mode.
+        public static bool dlpMode = false;
+
         public static void load(String filename)
         {
             ROM.filename = filename;
@@ -162,11 +164,8 @@ namespace NSMBe4 {
         {
             if (arm9ovs.Length == 0)
                 return;
-
             Overlay ov = arm9ovs[0];
-            ov.decompress();
-
-            Overlay0 = ov.f.getContents();
+            Overlay0 = ov.getDecompressedContents();
         }
 
         public static void writeBackupSetting()
@@ -186,7 +185,7 @@ namespace NSMBe4 {
 
         public static Origin Region = Origin.US;
 
-        public enum Data : int {//
+        public enum Data : int {
             Number_FileOffset = 0,
             Table_TS_UNT_HD = 1,
             Table_TS_UNT = 2,
@@ -237,6 +236,8 @@ namespace NSMBe4 {
 
         public static int[] MusicNumbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 
                                             80, 81, 82, 83, 86, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111};
+
+        //All the code below is a fucking mess...
 
         public static ushort GetFileIDFromTable(int id, Data datatype) {
             return GetFileIDFromTable(id, GetOffset(datatype));

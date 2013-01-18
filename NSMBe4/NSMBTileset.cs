@@ -718,7 +718,7 @@ namespace NSMBe4
             //empty tiles fill
             for (int xp = 0; xp < width; xp++)
                 for (int yp = 0; yp < height; yp++)
-                    Dest[xp, yp] = -1;
+                    Dest[xp, yp] = -2;
 
             //get sections
             List<ObjectDefTile[,]> sections = getSlopeSections(obj);

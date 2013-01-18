@@ -123,7 +123,7 @@ namespace NSMBe4
                     for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
                     {
                         int t = CachedObj[xx, yy];
-                        if (t == -1) continue;
+                        if (t < 0) continue;
 
                         destRect.X = (X + xx) << 4;
                         destRect.Y = (Y + yy) << 4;
@@ -156,7 +156,7 @@ namespace NSMBe4
                     for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
                     {
                         int t = CachedObj[xx, yy];
-                        if (t == -1) continue;
+                        if (t < 0) continue;
 
                         destRect.X = (X + xx) << 4;
                         destRect.Y = (Y + yy) << 4;
@@ -168,8 +168,7 @@ namespace NSMBe4
 
                         if (!GFX.Tilesets[Tileset].UseOverrides) continue;
                         int t2 = GFX.Tilesets[Tileset].Overrides[t];
-                        if (t2 == -1) continue;
-                        if (t2 == 0) continue;
+                        if (t2 <= 0) continue;
 
                         srcRect.X = t2 * 16;
                         srcRect.Y = 0;
@@ -202,9 +201,11 @@ namespace NSMBe4
                     for (int yy = ymin; yy < ymax; yy++)
                     {
                         int t = CachedObj[xx - X, yy - Y];
-                        if (t == -1) continue;
-
-                        if (Tileset == 1)
+                        if (t == -2)
+                            continue;
+                        else if (t == -1)
+                            t = 0;
+                        else if (Tileset == 1)
                             t += 256;
                         else if (Tileset == 2)
                             t += 256 * 4;
@@ -230,7 +231,7 @@ namespace NSMBe4
                 for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
                 {
                     int t = CachedObj[xx, yy];
-                    if (t == -1) continue;
+                    if (t < 0) continue;
 
                     destRect.X = X + xx *16;
                     destRect.Y = Y + yy *16;
@@ -242,8 +243,7 @@ namespace NSMBe4
 
                     if (!GFX.Tilesets[Tileset].UseOverrides) continue;
                     int t2 = GFX.Tilesets[Tileset].Overrides[t];
-                    if (t2 == -1) continue;
-                    if (t2 == 0) continue;
+                    if (t2 <= 0) continue;
 
                     srcRect.X = t2 * 16;
                     srcRect.Y = 0;

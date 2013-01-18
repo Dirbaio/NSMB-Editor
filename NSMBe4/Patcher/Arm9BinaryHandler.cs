@@ -173,7 +173,6 @@ namespace NSMBe4.Patcher
         {
             if(!isCompressed) return;
 
-            f.beginEdit(this);
 
             int decompressionOffs = decompressionRamAddr - 0x02000000;
 
@@ -190,9 +189,10 @@ namespace NSMBe4.Patcher
             Array.Copy(data, newData, data.Length);
             Array.Copy(decompData, 0, newData, compDatOffs, decompData.Length);
 
+            f.beginEdit(this);
             f.replace(newData, this);
-            decompressionRamAddr = 0;
             f.endEdit(this);
+            decompressionRamAddr = 0;
         }
 
 
@@ -308,7 +308,8 @@ namespace NSMBe4.Patcher
                 if (!n.EndsWith(".bin")) continue;
 
                 File ff = null;
-
+				Overlay oo = null;
+				
                 n = n.Substring(0, n.Length - 4);
                 if (n == "main")
                     ff = ROM.arm9binFile;
@@ -316,11 +317,16 @@ namespace NSMBe4.Patcher
                 {
                     int num = 0;
                     if (Int32.TryParse(n, out num))
-                        ff = ROM.arm9ovs[num].f;
+                    {
+                    	oo = ROM.arm9ovs[num];
+                        ff = oo.f;
+                    }
                 }
 
                 if (ff == null) continue;
-
+				if(oo != null)
+					oo.isCompressed = false;
+					
                 Console.Out.WriteLine("Restoring " + f + ", " + ff.name);
                 System.IO.FileStream fs = f.OpenRead();
                 byte[] data = new byte[fs.Length];
@@ -330,8 +336,6 @@ namespace NSMBe4.Patcher
                 ff.beginEdit(this);
                 ff.replace(data, this);
                 ff.endEdit(this);
-
-//                if (ff is OverlayFile) (ff as OverlayFile).isCompressed = false;
             }
         }
 

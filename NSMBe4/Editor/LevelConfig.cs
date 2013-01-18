@@ -143,6 +143,7 @@ namespace NSMBe4 {
         private Bitmap RenderBackground(File GFXFile, File PalFile, File LayoutFile, int offs, int palOffs)
         {
             LayoutFile = new LZFile(LayoutFile, LZFile.CompressionType.LZ);
+            PalFile = new LZFile(PalFile, LZFile.CompressionType.LZ);
 
             Image2D i = new Image2D(GFXFile, 256, false);
             Palette pal1 = new FilePalette(new InlineFile(PalFile, 0, 512, PalFile.name));
