@@ -31,6 +31,7 @@
             this.viewsList = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
+            this.lightList = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.unk1 = new System.Windows.Forms.NumericUpDown();
             this.unk2 = new System.Windows.Forms.NumericUpDown();
             this.unk3 = new System.Windows.Forms.NumericUpDown();
-            this.light = new System.Windows.Forms.NumericUpDown();
             this.progressID = new System.Windows.Forms.NumericUpDown();
             this.camTop = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,6 +52,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.light = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.viewID = new System.Windows.Forms.NumericUpDown();
             this.addViewButton = new System.Windows.Forms.Button();
@@ -63,13 +64,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.light)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camStick)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.light)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -82,7 +83,7 @@
             this.viewsList.Location = new System.Drawing.Point(0, 0);
             this.viewsList.Name = "viewsList";
             this.viewsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.viewsList.Size = new System.Drawing.Size(277, 148);
+            this.viewsList.Size = new System.Drawing.Size(277, 147);
             this.viewsList.TabIndex = 0;
             this.viewsList.SelectedIndexChanged += new System.EventHandler(this.viewsList_SelectedIndexChanged);
             // 
@@ -93,6 +94,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.55556F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44444F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.lightList, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 10);
@@ -102,7 +104,6 @@
             this.tableLayoutPanel1.Controls.Add(this.unk1, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.unk2, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.unk3, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.light, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.progressID, 1, 11);
             this.tableLayoutPanel1.Controls.Add(this.camTop, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
@@ -115,7 +116,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label16, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 232);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 231);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 12;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -130,7 +131,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(277, 287);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(277, 288);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
@@ -142,6 +143,16 @@
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "<label2>";
+            // 
+            // lightList
+            // 
+            this.lightList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lightList.FormattingEnabled = true;
+            this.lightList.Location = new System.Drawing.Point(123, 238);
+            this.lightList.Name = "lightList";
+            this.lightList.Size = new System.Drawing.Size(121, 21);
+            this.lightList.TabIndex = 2;
+            this.lightList.SelectedIndexChanged += new System.EventHandler(this.lightList_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -167,7 +178,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 241);
+            this.label5.Location = new System.Drawing.Point(3, 242);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 0;
@@ -187,7 +198,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 267);
+            this.label7.Location = new System.Drawing.Point(3, 268);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 0;
@@ -242,22 +253,9 @@
             this.unk3.TabIndex = 1;
             this.unk3.ValueChanged += new System.EventHandler(this.unk3_ValueChanged);
             // 
-            // light
-            // 
-            this.light.Location = new System.Drawing.Point(123, 238);
-            this.light.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.light.Name = "light";
-            this.light.Size = new System.Drawing.Size(121, 20);
-            this.light.TabIndex = 1;
-            this.light.ValueChanged += new System.EventHandler(this.light_ValueChanged);
-            // 
             // progressID
             // 
-            this.progressID.Location = new System.Drawing.Point(123, 264);
+            this.progressID.Location = new System.Drawing.Point(123, 265);
             this.progressID.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -403,6 +401,18 @@
             this.label16.TabIndex = 0;
             this.label16.Text = "<label1>";
             // 
+            // light
+            // 
+            this.light.Location = new System.Drawing.Point(199, 3);
+            this.light.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.light.Name = "light";
+            this.light.Size = new System.Drawing.Size(45, 20);
+            this.light.TabIndex = 1;
+            // 
             // label12
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -450,10 +460,11 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.light);
             this.panel1.Controls.Add(this.deleteViewButton);
             this.panel1.Controls.Add(this.addViewButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 148);
+            this.panel1.Location = new System.Drawing.Point(0, 147);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(277, 26);
             this.panel1.TabIndex = 4;
@@ -468,7 +479,7 @@
             this.panel2.Controls.Add(this.viewID, 1, 0);
             this.panel2.Controls.Add(this.label12, 0, 0);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 174);
+            this.panel2.Location = new System.Drawing.Point(0, 173);
             this.panel2.Name = "panel2";
             this.panel2.RowCount = 2;
             this.panel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -503,13 +514,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.light)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camStick)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.light)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -552,5 +563,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TableLayoutPanel panel2;
         private System.Windows.Forms.Button selectContents;
+        private System.Windows.Forms.ComboBox lightList;
     }
 }

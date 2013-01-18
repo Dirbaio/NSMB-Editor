@@ -40,6 +40,7 @@ namespace NSMBe4
             EditingViews = EdVi;
             LanguageManager.ApplyToContainer(this, "ViewEditor");
             music.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
+            lightList.Items.AddRange(LanguageManager.GetList("3DLighting").ToArray());
             UpdateList();
         }
 
@@ -122,6 +123,7 @@ namespace NSMBe4
             unk2.Value = v.Unknown2;
             unk3.Value = v.Unknown3;
             light.Value = v.Lighting;
+            lightList.SelectedIndex = v.Lighting < lightList.Items.Count ? v.Lighting : -1;
             progressID.Value = v.FlagpoleID;
 
             camTop.Value = v.CameraTop;
@@ -180,11 +182,17 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 5, (int)unk3.Value));
         }
 
-        private void light_ValueChanged(object sender, EventArgs e)
+        private void lightList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 6, (int)light.Value));
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 6, lightList.SelectedIndex));
         }
+
+        //private void light_ValueChanged(object sender, EventArgs e)
+        //{
+        //    if (DataUpdateFlag) return;
+        //    EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 6, (int)light.Value));
+        //}
 
         private void progressID_ValueChanged(object sender, EventArgs e)
         {
