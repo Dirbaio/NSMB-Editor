@@ -99,8 +99,8 @@ namespace NSMBe4
             ViewablePixels.Width = (int)Math.Ceiling((float)DrawingArea.Width / zoom);
             ViewablePixels.Height = (int)Math.Ceiling((float)DrawingArea.Height / zoom);
 
-            int xMax = 512 * 16 - ViewablePixels.Width;
-            int yMax = 256 * 16 - ViewablePixels.Height;
+            int xMax = 511 * 16;// - ViewablePixels.Width;
+            int yMax = 255 * 16;// - ViewablePixels.Height;
             if (yMax < 0) yMax = 0;
             if (xMax < 0) xMax = 0;
 
@@ -436,8 +436,8 @@ namespace NSMBe4
         private void DrawingArea_SizeChanged(object sender, EventArgs e)
         {
             ignoreMouse = true;
-            hScrollBar.LargeChange = DrawingArea.Width;
-            vScrollBar.LargeChange = DrawingArea.Height;
+            hScrollBar.LargeChange = DrawingArea.Width + 16;
+            vScrollBar.LargeChange = DrawingArea.Height + 16;
         }
 
         private void DrawingArea_MouseLeave(object sender, EventArgs e)

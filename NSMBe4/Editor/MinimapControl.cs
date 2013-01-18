@@ -101,11 +101,11 @@ namespace NSMBe4
                 }
                 if (NewArea.Right >= 512)
                 {
-                    NewArea.X = 512 - NewArea.Width;
+                    NewArea.X = 511 - NewArea.Width;
                 }
                 if (NewArea.Bottom >= 256)
                 {
-                    NewArea.Y = 256 - NewArea.Height;
+                    NewArea.Y = 255 - NewArea.Height;
                 }
                 // Set it
                 EdControl.ScrollEditor(NewArea.Location);
