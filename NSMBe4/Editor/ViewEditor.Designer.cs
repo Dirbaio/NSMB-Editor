@@ -52,7 +52,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.light = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.viewID = new System.Windows.Forms.NumericUpDown();
             this.addViewButton = new System.Windows.Forms.Button();
@@ -70,7 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camStick)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.light)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -401,18 +399,6 @@
             this.label16.TabIndex = 0;
             this.label16.Text = "<label1>";
             // 
-            // light
-            // 
-            this.light.Location = new System.Drawing.Point(199, 3);
-            this.light.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.light.Name = "light";
-            this.light.Size = new System.Drawing.Size(45, 20);
-            this.light.TabIndex = 1;
-            // 
             // label12
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -460,7 +446,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.light);
             this.panel1.Controls.Add(this.deleteViewButton);
             this.panel1.Controls.Add(this.addViewButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -520,7 +505,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camStick)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.light)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -546,7 +530,6 @@
         private System.Windows.Forms.NumericUpDown unk1;
         private System.Windows.Forms.NumericUpDown unk2;
         private System.Windows.Forms.NumericUpDown unk3;
-        private System.Windows.Forms.NumericUpDown light;
         private System.Windows.Forms.NumericUpDown progressID;
         private System.Windows.Forms.Button addViewButton;
         private System.Windows.Forms.Button deleteViewButton;
