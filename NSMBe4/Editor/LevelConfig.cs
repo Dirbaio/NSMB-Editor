@@ -260,10 +260,6 @@ namespace NSMBe4 {
             }
 
             EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData));
-            if (oldTileset != newData[0][0xC] || oldBottomBg != newData[0][6])
-                EdControl.editor.LevelConfigForm_ReloadTileset();
-            else
-                EdControl.Invalidate();
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)

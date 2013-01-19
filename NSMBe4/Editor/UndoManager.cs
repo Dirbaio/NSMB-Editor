@@ -945,6 +945,8 @@ namespace NSMBe4
             EdControl.Level.Blocks = UndoManager.Clone(oldData);
             EdControl.Level.CalculateSpriteModifiers();
             EdControl.config.LoadSettings();
+            int oldTileset = newData[0][0xC];
+            int oldBottomBg = newData[0][6];
         }
         public override void Redo()
         {
@@ -956,11 +958,11 @@ namespace NSMBe4
         {
             this.oldData = UndoManager.Clone(EdControl.Level.Blocks);
         }
-        /*
         public override void AfterAction()
         {
-            EdControl.Level.CalculateSpriteModifiers();
-        }*/
+            if (newData[0][0xC] != oldData[0][0xC] || newData[0][6] != oldData[0][6])
+                EdControl.editor.LevelConfigForm_ReloadTileset();
+        }
         public override string ToString()
         {
             return LanguageManager.GetList("UndoActions")[36];
