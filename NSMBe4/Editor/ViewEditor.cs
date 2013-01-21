@@ -122,7 +122,6 @@ namespace NSMBe4
             unk1.Value = v.Unknown1;
             unk2.Value = v.Unknown2;
             unk3.Value = v.Unknown3;
-            light.Value = v.Lighting;
             lightList.SelectedIndex = v.Lighting < lightList.Items.Count ? v.Lighting : -1;
             progressID.Value = v.FlagpoleID;
 

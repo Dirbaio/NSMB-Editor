@@ -99,10 +99,13 @@ namespace NSMBe4
             int ObjectCount = eBGFile.Length / 10;
             Objects = new List<NSMBObject>(ObjectCount);
             FilePos = 0;
+            
             for (int ObjectIdx = 0; ObjectIdx < ObjectCount; ObjectIdx++) {
                 int ObjID = eBGFile[FilePos] | (eBGFile[FilePos + 1] << 8);
-                int ObjX = eBGFile[FilePos + 2] | (eBGFile[FilePos + 3] << 8);
-                int ObjY = eBGFile[FilePos + 4] | (eBGFile[FilePos + 5] << 8);
+                //int ObjX = eBGFile[FilePos + 2] | (eBGFile[FilePos + 3] << 8);
+                //int ObjY = eBGFile[FilePos + 4] | (eBGFile[FilePos + 5] << 8);
+                int ObjX = BitConverter.ToInt16(eBGFile, FilePos + 2);
+                int ObjY = BitConverter.ToInt16(eBGFile, FilePos + 4);
                 int ObjWidth = eBGFile[FilePos + 6] | (eBGFile[FilePos + 7] << 8);
                 int ObjHeight = eBGFile[FilePos + 8] | (eBGFile[FilePos + 9] << 8);
                 Objects.Add(new NSMBObject(ObjID & 4095, (ObjID & 61440) >> 12, ObjX, ObjY, ObjWidth, ObjHeight, GFX));
@@ -214,6 +217,8 @@ namespace NSMBe4
         {
             if (w == 0) return;
             if (h == 0) return;
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
 
             for (int xx = 0; xx < w; xx++)
                 for (int yy = 0; yy < h; yy++)

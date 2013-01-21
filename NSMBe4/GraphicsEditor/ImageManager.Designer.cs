@@ -193,7 +193,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 33);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Tile width";
             // 
@@ -226,7 +226,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Tile offset";
             // 
