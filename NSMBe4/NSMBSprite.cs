@@ -130,7 +130,8 @@ namespace NSMBe4
                     break;
                 //case 40: see 183
                 case 42:
-                    y -= 48; height = 48;
+                    x -= 8; y -= 48;
+                    height = 48;
                     if (Data[5] % 0x10 == 1) {
                         x -= 29; width = 45;
                     }
@@ -992,9 +993,9 @@ namespace NSMBe4
                     break;
                 //case 40: see 183
                 case 42:
-                    g.DrawImage(Properties.Resources.ChainChompLog, RenderX, RenderY - 48);
+                    g.DrawImage(Properties.Resources.ChainChompLog, RenderX - 8, RenderY - 48);
                     if (Data[5] % 0x10 == 1)
-                        g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28);
+                        g.DrawImage(Properties.Resources.ChainChomp, RenderX - 37, RenderY - 28);
                     break;
                 case 43:
                     g.DrawImage(Properties.Resources.ChainChomp, RenderX - 29, RenderY - 28);

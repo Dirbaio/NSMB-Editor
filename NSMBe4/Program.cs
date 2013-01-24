@@ -74,6 +74,8 @@ namespace NSMBe4
             {
                 OpenFileDialog openROMDialog = new OpenFileDialog();
                 openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
+                if (Properties.Settings.Default.ROMFolder != "")
+                    openROMDialog.InitialDirectory = Properties.Settings.Default.ROMFolder;
                 if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     path = openROMDialog.FileName;
             }
@@ -81,6 +83,8 @@ namespace NSMBe4
 
             if (path != "")
             {
+                Properties.Settings.Default.ROMFolder = System.IO.Path.GetDirectoryName(path);
+                Properties.Settings.Default.Save();
 //                try
                 {
                     ROM.load(path);

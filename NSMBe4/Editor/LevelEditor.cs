@@ -73,6 +73,8 @@ namespace NSMBe4 {
 
             if (Properties.Settings.Default.mdi)
                 this.MdiParent = MdiParentForm.instance;
+            if (Properties.Settings.Default.LevelMaximized)
+                this.WindowState = FormWindowState.Maximized;
             this.LevelFilename = LevelFilename;
 
             smallBlockOverlaysToolStripMenuItem.Checked = Properties.Settings.Default.SmallBlockOverlays;
@@ -370,6 +372,12 @@ namespace NSMBe4 {
                 bw.Close();
             }
             catch (Exception ex) { }
+        }
+
+        private void LevelEditor_SizeChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LevelMaximized = this.WindowState == FormWindowState.Maximized;
+            Properties.Settings.Default.Save();
         }
     }
 }
