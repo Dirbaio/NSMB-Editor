@@ -299,6 +299,14 @@ namespace NSMBe4
                 delete();
                 return true;
             }
+            if (keyData == (Keys.PageDown)) {
+                mode.lower();
+                return true;
+            }
+            if (keyData == (Keys.PageUp)) {
+                mode.raise();
+                return true;
+            }
             int xDelta = 0, yDelta = 0;
             if (keyData == Keys.Up)
                 yDelta -= 1;
@@ -566,6 +574,16 @@ namespace NSMBe4
         public void delete()
         {
             mode.DeleteObject();
+        }
+
+        public void lower()
+        {
+            mode.lower();
+        }
+
+        public void raise()
+        {
+            mode.raise();
         }
 
         private void DrawingArea_MouseUp(object sender, MouseEventArgs e)

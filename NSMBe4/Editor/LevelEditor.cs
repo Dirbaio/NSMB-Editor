@@ -342,6 +342,16 @@ namespace NSMBe4 {
             levelEditorControl1.delete();
         }
 
+        private void lowerButton_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.lower();
+        }
+
+        private void raiseButton_Click(object sender, EventArgs e)
+        {
+            levelEditorControl1.raise();
+        }
+
         private void backupTimer_Tick(object sender, EventArgs e)
         {
             if (!ROM.fileBackups.Contains(LevelFilename))

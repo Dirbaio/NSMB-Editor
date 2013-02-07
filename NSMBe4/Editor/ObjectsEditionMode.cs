@@ -651,6 +651,16 @@ namespace NSMBe4
             }
         }
 
+        public override void lower()
+        {
+            EdControl.UndoManager.Do(new LowerLvlItemAction(SelectedObjects));
+        }
+
+        public override void raise()
+        {
+            EdControl.UndoManager.Do(new RaiseLvlItemAction(SelectedObjects));
+        }
+
         //creates a clone of a list
 
         private List<LevelItem> CloneList(List<LevelItem> Objects)

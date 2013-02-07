@@ -78,6 +78,9 @@
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
             this.backupTimer = new System.Windows.Forms.Timer(this.components);
             this.levelSaver = new System.ComponentModel.BackgroundWorker();
+            this.lowerButton = new System.Windows.Forms.ToolStripButton();
+            this.raiseButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -102,6 +105,9 @@
             this.pasteButton,
             this.deleteButton,
             this.toolStripSeparator5,
+            this.lowerButton,
+            this.raiseButton,
+            this.toolStripSeparator6,
             this.snapToggleButton,
             this.dsScreenShowButton,
             this.showGridButton,
@@ -585,6 +591,31 @@
             // 
             this.levelSaver.DoWork += new System.ComponentModel.DoWorkEventHandler(this.levelSaver_DoWork);
             // 
+            // lowerButton
+            // 
+            this.lowerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.lowerButton.Image = global::NSMBe4.Properties.Resources.move_back;
+            this.lowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.lowerButton.Name = "lowerButton";
+            this.lowerButton.Size = new System.Drawing.Size(23, 22);
+            this.lowerButton.Text = "Lower to Bottom (pg dn)";
+            this.lowerButton.Click += new System.EventHandler(this.lowerButton_Click);
+            // 
+            // raiseButton
+            // 
+            this.raiseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.raiseButton.Image = global::NSMBe4.Properties.Resources.move_front;
+            this.raiseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.raiseButton.Name = "raiseButton";
+            this.raiseButton.Size = new System.Drawing.Size(23, 22);
+            this.raiseButton.Text = "Raise to Top (pg up)";
+            this.raiseButton.Click += new System.EventHandler(this.raiseButton_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,6 +703,9 @@
         private System.Windows.Forms.ToolStripMenuItem showResizeHandles;
         private System.Windows.Forms.Timer backupTimer;
         private System.ComponentModel.BackgroundWorker levelSaver;
+        private System.Windows.Forms.ToolStripButton lowerButton;
+        private System.Windows.Forms.ToolStripButton raiseButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 

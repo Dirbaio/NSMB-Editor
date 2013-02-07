@@ -50,27 +50,19 @@ namespace NSMBe4
         public abstract void SelectObject(Object o);
         public abstract void Refresh();
 
-        public virtual void SelectAll()
-        {
-            
-        }
-
-        public virtual void DeleteObject()
-        {
-        }
+        public virtual void SelectAll() { }
+        public virtual void DeleteObject() { }
 
         public virtual string copy()
         {
             return "";
         }
 
-        public virtual void paste(string contents)
-        {
-        }
+        public virtual void paste(string contents) { }
 
-        public virtual void MoveObjects(int xDelta, int yDelta)
-        {
+        public virtual void lower() { }
+        public virtual void raise() { }
 
-        }
+        public virtual void MoveObjects(int xDelta, int yDelta) { }
     }
 }

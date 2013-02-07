@@ -564,6 +564,8 @@
     <Content Include="Resources\Icons\file_sdat.png" />
     <Content Include="Resources\Icons\image--arrow.png" />
     <Content Include="Resources\Icons\image--plus.png" />
+    <None Include="Resources\Icons\move_back.png" />
+    <None Include="Resources\Icons\move_front.png" />
     <Content Include="Resources\Icons\textfield_add.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <Content Include="Editor\nsmbe.ico" />

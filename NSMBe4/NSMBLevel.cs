@@ -267,6 +267,54 @@ namespace NSMBe4
             }
         }
 
+        public List<int> RemoveZIndex(List<LevelItem> objs)
+        {
+            List<int> zIndex = new List<int>();
+            foreach (LevelItem obj in objs)
+                zIndex.Add(RemoveZIndex(obj));
+            return zIndex;
+        }
+
+        public int RemoveZIndex(LevelItem obj)
+        {
+            int idx = -1;
+            if (obj is NSMBObject) {
+                idx = Objects.IndexOf(obj as NSMBObject);
+                Objects.Remove(obj as NSMBObject);
+            }
+            if (obj is NSMBSprite) {
+                idx = Sprites.IndexOf(obj as NSMBSprite);
+                Sprites.Remove(obj as NSMBSprite);
+            }
+            if (obj is NSMBEntrance) {
+                idx = Entrances.IndexOf(obj as NSMBEntrance);
+                Entrances.Remove(obj as NSMBEntrance);
+            }
+            if (obj is NSMBView) {
+                NSMBView v = obj as NSMBView;
+                if (v.isZone) {
+                    idx = Zones.IndexOf(v);
+                    Zones.Remove(v);
+                } else {
+                    idx = Views.IndexOf(v);
+                    Views.Remove(v);
+                }
+            }
+            if (obj is NSMBPathPoint) {
+                NSMBPathPoint pp = obj as NSMBPathPoint;
+                idx = pp.parent.points.IndexOf(pp);
+                pp.parent.points.Remove(pp);
+                if (pp.parent.points.Count == 0)
+                {
+                    if (pp.parent.isProgressPath)
+                        ProgressPaths.Remove(pp.parent);
+                    else
+                        Paths.Remove(pp.parent);
+                }
+            }
+            return idx == -1 ? 0 : idx;
+        }
+
         public void Add(List<LevelItem> objs)
         {
             foreach (LevelItem obj in objs)
@@ -291,6 +339,43 @@ namespace NSMBe4
             if (obj is NSMBPathPoint) {
                 NSMBPathPoint pp = obj as NSMBPathPoint;
                 pp.parent.points.Add(pp);
+                if (pp.parent.isProgressPath) {
+                    if (!ProgressPaths.Contains(pp.parent))
+                        ProgressPaths.Add(pp.parent);
+                } else {
+                    if (!Paths.Contains(pp.parent))
+                        Paths.Add(pp.parent);
+                }
+            }
+        }
+
+        public void Add(List<LevelItem> objs, List<int> zIndex)
+        {
+            //This needs to iterate in reverse order to preserve the correct z-index
+            for (int i = objs.Count - 1; i >= 0; i--)
+                Add(objs[i], zIndex[i]);
+        }
+
+        public void Add(LevelItem obj, int zIndex)
+        {
+            if (obj is NSMBObject)
+                Objects.Insert(zIndex, obj as NSMBObject);
+            if (obj is NSMBSprite)
+                Sprites.Insert(zIndex, obj as NSMBSprite);
+            if (obj is NSMBEntrance)
+                Entrances.Insert(zIndex, obj as NSMBEntrance);
+            if (obj is NSMBView)
+            {
+                NSMBView v = obj as NSMBView;
+                if (v.isZone)
+                    Zones.Insert(zIndex, v);
+                else
+                    Views.Insert(zIndex, v);
+            }
+            if (obj is NSMBPathPoint)
+            {
+                NSMBPathPoint pp = obj as NSMBPathPoint;
+                pp.parent.points.Insert(zIndex, pp);
                 if (pp.parent.isProgressPath) {
                     if (!ProgressPaths.Contains(pp.parent))
                         ProgressPaths.Add(pp.parent);

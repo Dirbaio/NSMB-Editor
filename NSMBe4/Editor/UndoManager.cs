@@ -294,15 +294,19 @@ namespace NSMBe4
     }
     public class RemoveLvlItemAction : LvlItemAction
     {
+        List<int> zIndex;
         public RemoveLvlItemAction(List<LevelItem> objs) : base(objs) { }
         public override void Undo()
         {
-            EdControl.Level.Add(objs);
+            EdControl.Level.Add(objs, zIndex);
             repaintObjectRectangle();
         }
         public override void Redo()
         {
-            EdControl.Level.Remove(objs);
+            if (zIndex == null)
+                zIndex = EdControl.Level.RemoveZIndex(objs);
+            else
+                EdControl.Level.Remove(objs);
             repaintObjectRectangle();
         }
     }
@@ -343,7 +347,6 @@ namespace NSMBe4
                 if (obj is NSMBObject && (this.XSDelta != 0 || this.YSDelta != 0))
                     (obj as NSMBObject).UpdateObjCache();
             }
-
             r = Rectangle.Union(r, getObjectRectangle());
             EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
         }
@@ -380,50 +383,56 @@ namespace NSMBe4
             return true;
         }
     }
-    /*
-    public class ResizeLvlItemAction : LvlItemAction
+
+    public class LowerLvlItemAction : LvlItemAction
     {
-        int XDelta, YDelta;
-        public ResizeLvlItemAction(List<LevelItem> objs, int XDelta, int YDelta)
-            : base(objs)
-        {
-            this.XDelta = XDelta;
-            this.YDelta = YDelta;
-        }
+        List<int> zIndex;
+
+        public LowerLvlItemAction(List<LevelItem> objs) : base(objs) {  }
 
         public override void Undo()
         {
-            foreach (LevelItem obj in objs) {
-                obj.width -= XDelta;
-                obj.height -= YDelta;
-                if (obj is NSMBObject)
-                    (obj as NSMBObject).UpdateObjCache();
-            }
+            EdControl.Level.Remove(objs);
+            EdControl.Level.Add(objs, zIndex);
+            repaintObjectRectangle();
         }
+
         public override void Redo()
         {
-            foreach (LevelItem obj in objs) {
-                obj.width += XDelta;
-                obj.height += YDelta;
-                if (obj is NSMBObject)
-                    (obj as NSMBObject).UpdateObjCache();
-            }
+            if (zIndex == null)
+                zIndex = EdControl.Level.RemoveZIndex(objs);
+            else
+                EdControl.Level.Remove(objs);
+            // Loop in backwards order so the z-order of the selected objects is kept the same.
+            for (int i = objs.Count - 1; i >= 0; i--)
+                EdControl.Level.Add(objs[i], 0);
+            repaintObjectRectangle();
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
-        }
+    }
 
-        public override bool Merge(Action act)
+    public class RaiseLvlItemAction : LvlItemAction
+    {
+        List<int> zIndex;
+
+        public RaiseLvlItemAction(List<LevelItem> objs) : base(objs) { }
+
+        public override void Undo()
         {
-            ResizeLvlItemAction rlia = act as ResizeLvlItemAction;
-            this.XDelta += rlia.XDelta;
-            this.YDelta += rlia.YDelta;
-
-            return true;
+            EdControl.Level.Remove(objs);
+            EdControl.Level.Add(objs, zIndex);
+            repaintObjectRectangle();
         }
-    }*/
+
+        public override void Redo()
+        {
+            if (zIndex == null)
+                zIndex = EdControl.Level.RemoveZIndex(objs);
+            else
+                EdControl.Level.Remove(objs);
+            EdControl.Level.Add(objs);
+            repaintObjectRectangle();
+        }
+    }
     #endregion
     #region Specific Actions
     public class ChangeObjectTypeAction : LvlItemAction
@@ -551,10 +560,7 @@ namespace NSMBe4
         {
             for (int l = 0; l < this.objs.Count; l++)
                 if (!(this.objs[l] is NSMBSprite))
-                {
-                    this.objs.RemoveAt(l);
-                    l--;
-                }
+                    this.objs.RemoveAt(l--);
             if (this.objs.Count == 0)
                 cancel = true;
             OrigData = new byte[this.objs.Count][];
