@@ -567,6 +567,7 @@
     <None Include="Resources\Icons\move_back.png" />
     <None Include="Resources\Icons\move_front.png" />
     <Content Include="Resources\Icons\textfield_add.png" />
+    <None Include="Resources\pathpoint_add.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <Content Include="Editor\nsmbe.ico" />
     <Content Include="Resources\version.txt" />

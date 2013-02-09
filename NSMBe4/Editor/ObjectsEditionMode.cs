@@ -35,8 +35,7 @@ namespace NSMBe4
         bool CreateObj;
         NSMBObject newObj;
 
-        ResizeType horResize = ResizeType.ResizeNone;
-        ResizeType vertResize = ResizeType.ResizeNone;
+        MouseAction mouseAct = new MouseAction();
 
         int minBoundX, minBoundY; //the top left corner of the selected objects
         int maxBoundX, maxBoundY; //the top left corner of the selected objects
@@ -112,38 +111,46 @@ namespace NSMBe4
 
         private void RenderSelectedObject(LevelItem o, Graphics g)
         {
-                if (o is NSMBView)
-                {
-                    Color c;
-                    if ((o as NSMBView).isZone)
-                        c = Color.LightGreen;
-                    else
-                        c = Color.White;
+            if (o is NSMBView)
+            {
+                Color c;
+                if ((o as NSMBView).isZone)
+                    c = Color.LightGreen;
+                else
+                    c = Color.White;
 
-                    g.FillRectangle(new SolidBrush(Color.FromArgb(80, c)), o.x, o.y, o.width, o.height);
-                    Rectangle viewText = GetViewTextRect(o);
-                    if (viewText != Rectangle.Empty)
-                    {
-                        SolidBrush fill = new SolidBrush(Color.FromArgb(80, c));
-                        g.FillRectangle(fill, viewText);
-                        g.DrawRectangle(Pens.White, viewText);
-                        fill.Dispose();
-                    }
-                }
-
-                g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
-                g.DrawRectangle(Pens.Black, o.x-1, o.y-1, o.width+2, o.height+2);
-                if (o.isResizable && resizeHandles)
+                g.FillRectangle(new SolidBrush(Color.FromArgb(80, c)), o.x, o.y, o.width, o.height);
+                Rectangle viewText = GetViewTextRect(o);
+                if (viewText != Rectangle.Empty)
                 {
-                    drawResizeKnob(g, o.x, o.y);
-                    drawResizeKnob(g, o.x, o.y + o.height);
-                    drawResizeKnob(g, o.x, o.y + o.height / 2);
-                    drawResizeKnob(g, o.x + o.width, o.y);
-                    drawResizeKnob(g, o.x + o.width, o.y + o.height);
-                    drawResizeKnob(g, o.x + o.width, o.y + o.height / 2);
-                    drawResizeKnob(g, o.x + o.width / 2, o.y);
-                    drawResizeKnob(g, o.x + o.width / 2, o.y + o.height);
+                    SolidBrush fill = new SolidBrush(Color.FromArgb(80, c));
+                    g.FillRectangle(fill, viewText);
+                    g.DrawRectangle(Pens.White, viewText);
+                    fill.Dispose();
                 }
+            }
+
+            if (o is NSMBPathPoint)
+            {
+                Bitmap img = Properties.Resources.pathpoint_add;
+                g.DrawImage(img, o.x + 16, o.y);
+                img.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                g.DrawImage(img, o.x - 16, o.y);
+            }
+
+            g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
+            g.DrawRectangle(Pens.Black, o.x-1, o.y-1, o.width+2, o.height+2);
+            if (o.isResizable && resizeHandles)
+            {
+                drawResizeKnob(g, o.x, o.y);
+                drawResizeKnob(g, o.x, o.y + o.height);
+                drawResizeKnob(g, o.x, o.y + o.height / 2);
+                drawResizeKnob(g, o.x + o.width, o.y);
+                drawResizeKnob(g, o.x + o.width, o.y + o.height);
+                drawResizeKnob(g, o.x + o.width, o.y + o.height / 2);
+                drawResizeKnob(g, o.x + o.width / 2, o.y);
+                drawResizeKnob(g, o.x + o.width / 2, o.y + o.height);
+            }
         }
 
         public void ReloadObjectPicker()
@@ -285,46 +292,61 @@ namespace NSMBe4
             dx = x;
             dy = y;
 
-            bool drag = false;
-            getActionAtPos(x, y, out drag, out vertResize, out horResize);
+            mouseAct = getActionAtPos(x, y);
             // Resize with the shift key
-            if (Control.ModifierKeys == Keys.Shift && drag && vertResize == ResizeType.ResizeNone && horResize == ResizeType.ResizeNone)
+            if (mouseAct.nodeType != CreateNode.None)
             {
-                vertResize = ResizeType.ResizeEnd;
-                horResize = ResizeType.ResizeEnd;
-            }
-            if (!drag)
-            {
-                // Select an object
-                findSelectedObjects(x, y, x, y, true, true);
-                SelectMode = SelectedObjects.Count == 0;
-            }
-            else if (vertResize == ResizeType.ResizeNone && horResize == ResizeType.ResizeNone)
-            {
-                List<LevelItem> selectedObjectsBack = new List<LevelItem>();
-                selectedObjectsBack.AddRange(SelectedObjects);
-
-                // Select an object
-                findSelectedObjects(x, y, x, y, true, true);
-
-                if (SelectedObjects.Count == 0)
-                    SelectMode = true;
-                else
+                NSMBPathPoint pp = new NSMBPathPoint(mouseAct.node);
+                int zIndex = pp.parent.points.IndexOf(mouseAct.node);
+                if (mouseAct.nodeType == CreateNode.After)
                 {
-                    if(selectedObjectsBack.Contains(SelectedObjects[0]))
-                        SelectedObjects = selectedObjectsBack;
+                    pp.x += 16;
+                    zIndex++;
                 }
-                UpdateSelectionBounds();
-                EdControl.repaint();
+                else
+                    pp.x -= 16;
+                EdControl.UndoManager.Do(new AddPathNodeAction(UndoManager.ObjToList(pp), zIndex));
+                SelectObject(pp);
             }
-
-            if (!SelectMode)
+            else
             {
-                CloneMode = Control.ModifierKeys == Keys.Control;
-                lx -= selectionSnap / 2;
-                ly -= selectionSnap / 2;
-            }
+                if (Control.ModifierKeys == Keys.Shift && mouseAct.drag && mouseAct.vert == ResizeType.ResizeNone && mouseAct.hor == ResizeType.ResizeNone)
+                {
+                    mouseAct.vert = ResizeType.ResizeEnd;
+                    mouseAct.hor = ResizeType.ResizeEnd;
+                }
+                if (!mouseAct.drag)
+                {
+                    // Select an object
+                    findSelectedObjects(x, y, x, y, true, true);
+                    SelectMode = SelectedObjects.Count == 0;
+                }
+                else if (mouseAct.vert == ResizeType.ResizeNone && mouseAct.hor == ResizeType.ResizeNone)
+                {
+                    List<LevelItem> selectedObjectsBack = new List<LevelItem>();
+                    selectedObjectsBack.AddRange(SelectedObjects);
 
+                    // Select an object
+                    findSelectedObjects(x, y, x, y, true, true);
+
+                    if (SelectedObjects.Count == 0)
+                        SelectMode = true;
+                    else
+                    {
+                        if (selectedObjectsBack.Contains(SelectedObjects[0]))
+                            SelectedObjects = selectedObjectsBack;
+                    }
+                    UpdateSelectionBounds();
+                    EdControl.repaint();
+                }
+
+                if (!SelectMode)
+                {
+                    CloneMode = Control.ModifierKeys == Keys.Control;
+                    lx -= selectionSnap / 2;
+                    ly -= selectionSnap / 2;
+                }
+            }
             EdControl.repaint();
 
             tabs.SelectObjects(SelectedObjects);
@@ -372,13 +394,13 @@ namespace NSMBe4
                     EdControl.UndoManager.Do(new AddLvlItemAction(newObjects));
 
                     CloneMode = false;
-                    vertResize = ResizeType.ResizeNone;
-                    horResize = ResizeType.ResizeNone;
+                    mouseAct.vert = ResizeType.ResizeNone;
+                    mouseAct.hor = ResizeType.ResizeNone;
 
                     SelectedObjects = newObjects;
                 }
 
-                if (horResize == ResizeType.ResizeNone && vertResize == ResizeType.ResizeNone)
+                if (mouseAct.hor == ResizeType.ResizeNone && mouseAct.vert == ResizeType.ResizeNone)
                 {
                     int xDelta = x-lx;
                     int yDelta = y-ly;
@@ -413,26 +435,26 @@ namespace NSMBe4
                     yDelta &= ~(selectionSnap - 1);
                     if (xDelta == 0 && yDelta == 0) return;
 
-                    if (horResize == ResizeType.ResizeBegin)
+                    if (mouseAct.hor == ResizeType.ResizeBegin)
                     {
                         if (-xDelta <= -minSizeX + selectionSnap) xDelta = -(-minSizeX + selectionSnap);
                         if (xDelta < -minBoundX) xDelta = -minBoundX;
                         xMoveDelta = xDelta;
                         xResizeDelta = -xDelta;
                     }
-                    if (vertResize == ResizeType.ResizeBegin)
+                    if (mouseAct.vert == ResizeType.ResizeBegin)
                     {
                         if (-yDelta <= -minSizeY + selectionSnap) yDelta = -(-minSizeY + selectionSnap);
                         if (yDelta < -minBoundY) yDelta = -minBoundY;
                         yMoveDelta = yDelta;
                         yResizeDelta = -yDelta;
                     }
-                    if (horResize == ResizeType.ResizeEnd)
+                    if (mouseAct.hor == ResizeType.ResizeEnd)
                     {
                         if (xDelta <= -minSizeX + selectionSnap) xDelta = -minSizeX + selectionSnap;
                         xResizeDelta = xDelta;
                     }
-                    if (vertResize == ResizeType.ResizeEnd)
+                    if (mouseAct.vert == ResizeType.ResizeEnd)
                     {
                         if (yDelta <= -minSizeY + selectionSnap) yDelta = -minSizeY + selectionSnap;
                         yResizeDelta = yDelta;
@@ -455,57 +477,84 @@ namespace NSMBe4
             ResizeBegin,
             ResizeNone,
             ResizeEnd
-        };
+        }
 
-        private void getActionAtPos(int x, int y, out bool drag, out ResizeType vert, out ResizeType hor)
+        enum CreateNode
         {
-            drag = false;
+            None,
+            Before,
+            After
+        }
 
-            hor = ResizeType.ResizeNone;
-            vert = ResizeType.ResizeNone;
+        class MouseAction
+        {
+            public bool drag = false;
+            public ResizeType vert = ResizeType.ResizeNone;
+            public ResizeType hor = ResizeType.ResizeNone;
+            public CreateNode nodeType = CreateNode.None;
+            public NSMBPathPoint node = null;
+        }
 
+        private MouseAction getActionAtPos(int x, int y)
+        {
+            MouseAction act = new MouseAction();
             for (int l = SelectedObjects.Count - 1; l > -1; l--)
             {
                 LevelItem o = SelectedObjects[l];
-
+                // For clicking the plus buttons on selected nodes
+                if (o is NSMBPathPoint)
+                {
+                    NSMBPathPoint pp = o as NSMBPathPoint;
+                    if (x >= pp.x + 16 && x < pp.x + 32 && y >= pp.y && y < pp.y + 16)
+                    {
+                        act.nodeType = CreateNode.After;
+                        act.node = pp;
+                        return act;
+                    }
+                    if (x >= pp.x - 16 && x < pp.x && y >= pp.y && y < pp.y + 16)
+                    {
+                        act.nodeType = CreateNode.Before;
+                        act.node = pp;
+                        return act;
+                    }
+                }
                 if (o.isResizable && resizeHandles)
                 {
-                    drag = true;
+                    act.drag = true;
 
                     if (x >= o.x - 8 && x <= o.x + 4)
-                        hor = ResizeType.ResizeBegin;
+                        act.hor = ResizeType.ResizeBegin;
                     else if (x >= o.x + o.width - 4 && x <= o.x + o.width + 8)
-                        hor = ResizeType.ResizeEnd;
+                        act.hor = ResizeType.ResizeEnd;
                     else if (x >= o.x && x <= o.x + o.width)
-                        hor = ResizeType.ResizeNone;
-                    else drag = false;
+                        act.hor = ResizeType.ResizeNone;
+                    else act.drag = false;
 
                     if (y >= o.y - 8 && y <= o.y + 4)
-                        vert = ResizeType.ResizeBegin;
+                        act.vert = ResizeType.ResizeBegin;
                     else if (y >= o.y + o.height - 4 && y <= o.y + o.height + 8)
-                        vert = ResizeType.ResizeEnd;
+                        act.vert = ResizeType.ResizeEnd;
                     else if (y >= o.y && y <= o.y + o.height)
-                        vert = ResizeType.ResizeNone;
-                    else drag = false;
+                        act.vert = ResizeType.ResizeNone;
+                    else act.drag = false;
                     //Only display move cursor on views if cursor is over text
-                    if (vert == ResizeType.ResizeNone && hor == ResizeType.ResizeNone && o is NSMBView && !GetViewTextRect(o).Contains(x, y))
-                        drag = false;
+                    if (act.vert == ResizeType.ResizeNone && act.hor == ResizeType.ResizeNone && o is NSMBView && !GetViewTextRect(o).Contains(x, y))
+                        act.drag = false;
                 }
                 else
                 {
-                    hor = ResizeType.ResizeNone;
-                    vert = ResizeType.ResizeNone;
+                    act.hor = ResizeType.ResizeNone;
+                    act.vert = ResizeType.ResizeNone;
 
-                    drag = false;
+                    act.drag = false;
 
-                    if (x >= o.x && x < o.x + o.width)
-                        if (y >= o.y && y < o.y + o.height)
-                            drag = true;
+                    if (x >= o.x && x < o.x + o.width && y >= o.y && y < o.y + o.height)
+                        act.drag = true;
                 }
 
-
-                if (drag) return;
-            } 
+                if (act.drag) return act;
+            }
+            return act;
         }
 
         public override void MouseUp()
@@ -522,23 +571,19 @@ namespace NSMBe4
 
         private Cursor getCursorForPos(int x, int y)
         {
-            bool drag;
-            ResizeType vert;
-            ResizeType hor;
+            MouseAction act = getActionAtPos(x, y);
+            
+            if (!act.drag) return Cursors.Default;
 
-            getActionAtPos(x, y, out drag, out vert, out hor);
+            if (act.vert == ResizeType.ResizeBegin && act.hor == ResizeType.ResizeBegin) return Cursors.SizeNWSE;
+            if (act.vert == ResizeType.ResizeEnd && act.hor == ResizeType.ResizeEnd) return Cursors.SizeNWSE;
 
-            if (!drag) return Cursors.Default;
+            if (act.vert == ResizeType.ResizeBegin && act.hor == ResizeType.ResizeEnd) return Cursors.SizeNESW;
+            if (act.vert == ResizeType.ResizeEnd && act.hor == ResizeType.ResizeBegin) return Cursors.SizeNESW;
 
-            if (vert == ResizeType.ResizeBegin && hor == ResizeType.ResizeBegin) return Cursors.SizeNWSE;
-            if (vert == ResizeType.ResizeEnd && hor == ResizeType.ResizeEnd) return Cursors.SizeNWSE;
-
-            if (vert == ResizeType.ResizeBegin && hor == ResizeType.ResizeEnd) return Cursors.SizeNESW;
-            if (vert == ResizeType.ResizeEnd && hor == ResizeType.ResizeBegin) return Cursors.SizeNESW;
-
-            if (vert == ResizeType.ResizeNone && hor == ResizeType.ResizeNone) return Cursors.SizeAll;
-            if (vert == ResizeType.ResizeNone) return Cursors.SizeWE;
-            if (hor == ResizeType.ResizeNone) return Cursors.SizeNS;
+            if (act.vert == ResizeType.ResizeNone && act.hor == ResizeType.ResizeNone) return Cursors.SizeAll;
+            if (act.vert == ResizeType.ResizeNone) return Cursors.SizeWE;
+            if (act.hor == ResizeType.ResizeNone) return Cursors.SizeNS;
 
             return Cursors.Default;
         }

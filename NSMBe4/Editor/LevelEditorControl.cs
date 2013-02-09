@@ -226,7 +226,7 @@ namespace NSMBe4
 
 			// And other stuff.
             foreach(NSMBSprite s in Level.Sprites)
-                if(ViewablePixels.IntersectsWith(s.getRect()) || s.AlwaysDraw())
+                if(s.AlwaysDraw() || ViewablePixels.IntersectsWith(s.getRect()))
                     s.render(e.Graphics, this);
 
             foreach(NSMBEntrance n in Level.Entrances)
@@ -446,6 +446,8 @@ namespace NSMBe4
             ignoreMouse = true;
             hScrollBar.LargeChange = DrawingArea.Width + 16;
             vScrollBar.LargeChange = DrawingArea.Height + 16;
+            hScrollBar.Value = Math.Max(0, Math.Min(hScrollBar.Value, hScrollBar.Maximum - hScrollBar.LargeChange));
+            vScrollBar.Value = Math.Max(0, Math.Min(vScrollBar.Value, vScrollBar.Maximum - vScrollBar.LargeChange));
         }
 
         private void DrawingArea_MouseLeave(object sender, EventArgs e)
@@ -476,9 +478,9 @@ namespace NSMBe4
                 {
                     Point NewPosition = new Point(ViewablePixels.X - XDelta, ViewablePixels.Y - YDelta);
                     if (NewPosition.X < 0) NewPosition.X = 0;
-                    if (NewPosition.X > hScrollBar.Maximum) NewPosition.X = hScrollBar.Maximum;
+                    if (NewPosition.X > hScrollBar.Maximum - hScrollBar.LargeChange) NewPosition.X = hScrollBar.Maximum - hScrollBar.LargeChange;
                     if (NewPosition.Y < 0) NewPosition.Y = 0;
-                    if (NewPosition.Y > vScrollBar.Maximum) NewPosition.Y = vScrollBar.Maximum;
+                    if (NewPosition.Y > vScrollBar.Maximum - vScrollBar.LargeChange) NewPosition.Y = vScrollBar.Maximum - vScrollBar.LargeChange;
                     DragStartX = NewX;
                     DragStartY = NewY;
                     ScrollEditorPixel(NewPosition);
@@ -532,7 +534,6 @@ namespace NSMBe4
             UpdateScrollbars();
             DrawingArea.Invalidate();
         }
-
 
         public void ScrollEditorPixel(Point NewPosition)
         {
@@ -610,6 +611,11 @@ namespace NSMBe4
                 mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value, (int)(mousePos.Y / zoom) + vScrollBar.Value);
                 UpdateScrollbars();
             }
+        }
+
+        public void GiveFocus()
+        {
+            DrawingArea.Focus();
         }
     }
 }

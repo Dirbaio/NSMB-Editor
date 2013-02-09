@@ -47,16 +47,6 @@ namespace NSMBe4
             redo.ButtonClick += new EventHandler(onRedoLast);
         }
 
-        private bool equalLists(List<LevelItem> a, List<LevelItem> b)
-        {
-            if (a.Count != b.Count) return false;
-
-            for (int i = 0; i < a.Count; i++)
-                if (a[i] != b[i]) return false;
-
-            return true;
-        }
-
         public void Do(Action act)
         {
             if (act.cancel)
@@ -69,19 +59,10 @@ namespace NSMBe4
             EdControl.mode.Refresh();
             
             //Then save the done action. Merge with previous actions if needed.
-            bool merged = false;
             //Determine if the actions should be merged
-            if (merge && UActions.Count > 0 && UActions.Peek().CanMerge && UActions.Peek().GetType().Equals(act.GetType()))
-            {
-                Action pAct = UActions.Peek();
-                if (pAct is LvlItemAction && act is LvlItemAction && !equalLists((pAct as LvlItemAction).objs, (act as LvlItemAction).objs))
-                    merged = false;
-                else
-                    merged = pAct.Merge(act);
-            }
- 
-            //If we didn't merge the action we need to save the new action.
-            if (!merged) 
+            if (merge && UActions.Count > 0 && UActions.Peek().CanMerge(act))
+                UActions.Peek().Merge(act);
+            else
             {
                 UActions.Push(act);
                 ToolStripMenuItem item = new ToolStripMenuItem(act.ToString());
@@ -98,6 +79,7 @@ namespace NSMBe4
 
             //Always after doing an action.
             EdControl.repaint();
+            EdControl.GiveFocus();
 
             //Now set some flags.
             undo.Enabled = true;
@@ -186,15 +168,6 @@ namespace NSMBe4
         }
 
         //Helper functions? Here? :O
-        public static byte[][] Clone(byte[][] data)
-        {
-            int len = data.GetLength(0);
-            byte[][] newData = new byte[len][];
-            for (int l = 0; l < len; l++)
-                newData[l] = data[l].Clone() as byte[];
-            return newData;
-        }
-
         public static List<LevelItem> ObjToList(LevelItem obj)
         {
             List<LevelItem> l = new List<LevelItem>();
@@ -213,15 +186,8 @@ namespace NSMBe4
         public virtual void Redo() { }
         public virtual void AfterAction() { }
         public virtual void AfterSetEdControl() { }
-        public virtual bool CanMerge {
-            get {
-                return false;
-            }
-        }
-        public virtual void SelectObjects() { }
-
-        //Merge returns true if merge has been done successfully
-        public virtual bool Merge(Action act) { return false; }
+        public virtual bool CanMerge(Action act) { return false; }
+        public virtual void Merge(Action act) { }
 
         public void SetEdControl(LevelEditorControl EdControl)
         {
@@ -244,9 +210,19 @@ namespace NSMBe4
                 cancel = true;
         }
 
-        public override void SelectObjects()
+        public override void AfterAction()
+        {
+            SelectObjects();
+        }
+
+        public void SelectObjects()
         {
             EdControl.SelectObject(objs);
+        }
+
+        public void Deselect()
+        {
+            EdControl.SelectObject(null);
         }
 
         protected Rectangle getObjectRectangle()
@@ -270,11 +246,25 @@ namespace NSMBe4
             return r;
         }
 
-
         protected void repaintObjectRectangle()
         {
             Rectangle r = getObjectRectangle();
             EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
+        }
+
+        protected bool sameItems(Action act)
+        {
+            return act is LvlItemAction && equalLists((act as LvlItemAction).objs, objs);
+        }
+
+        private bool equalLists(List<LevelItem> a, List<LevelItem> b)
+        {
+            if (a.Count != b.Count) return false;
+
+            for (int i = 0; i < a.Count; i++)
+                if (a[i] != b[i]) return false;
+
+            return true;
         }
     }
 
@@ -285,13 +275,22 @@ namespace NSMBe4
         {
             EdControl.Level.Remove(objs);
             repaintObjectRectangle();
+            Deselect();
         }
         public override void Redo()
         {
             EdControl.Level.Add(objs);
             repaintObjectRectangle();
+            SelectObjects();
         }
+        public override bool CanMerge(Action act)
+        {
+            return act is MoveResizeLvlItemAction && sameItems(act);
+        }
+        // There is no Merge() method because I just want the move action to be thrown out (not put on the undo stack)
+        public override void AfterAction() { }
     }
+
     public class RemoveLvlItemAction : LvlItemAction
     {
         List<int> zIndex;
@@ -300,6 +299,7 @@ namespace NSMBe4
         {
             EdControl.Level.Add(objs, zIndex);
             repaintObjectRectangle();
+            SelectObjects();
         }
         public override void Redo()
         {
@@ -307,8 +307,10 @@ namespace NSMBe4
                 zIndex = EdControl.Level.RemoveZIndex(objs);
             else
                 EdControl.Level.Remove(objs);
+            Deselect();
             repaintObjectRectangle();
         }
+        public override void AfterAction() { }
     }
 
     public class MoveResizeLvlItemAction : LvlItemAction
@@ -367,20 +369,18 @@ namespace NSMBe4
             EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
         }
 
-        public override bool CanMerge {
-            get {
-                return true;
-            }
+        public override bool CanMerge(Action act)
+        {
+            return act is MoveResizeLvlItemAction && sameItems(act);
         }
-        public override bool Merge(Action act)
+
+        public override void Merge(Action act)
         {
             MoveResizeLvlItemAction mlia = act as MoveResizeLvlItemAction;
             this.XDelta += mlia.XDelta;
             this.YDelta += mlia.YDelta;
             this.XSDelta += mlia.XSDelta;
             this.YSDelta += mlia.YSDelta;
-
-            return true;
         }
     }
 
@@ -479,18 +479,15 @@ namespace NSMBe4
             }
             repaintObjectRectangle();
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
+        public override bool CanMerge(Action act)
+        {
+            return act is ChangeObjectTypeAction && sameItems(act);
         }
-        public override bool Merge(Action act)
+        public override void Merge(Action act)
         {
             ChangeObjectTypeAction cota = act as ChangeObjectTypeAction;
             this.NewTS = cota.NewTS;
             this.NewNum = cota.NewNum;
-
-            return true;
         }
         public override string ToString()
         {
@@ -526,17 +523,14 @@ namespace NSMBe4
             foreach (LevelItem obj in objs)
                 (obj as NSMBSprite).Type = NewType;
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
+        public override bool CanMerge(Action act)
+        {
+            return act is ChangeSpriteTypeAction && sameItems(act);
         }
-        public override bool Merge(Action act)
+        public override void Merge(Action act)
         {
             ChangeSpriteTypeAction csta = act as ChangeSpriteTypeAction;
             this.NewType = csta.NewType;
-
-            return true;
         }
         public override void AfterAction()
         {
@@ -578,17 +572,14 @@ namespace NSMBe4
             foreach (LevelItem obj in objs)
                 (obj as NSMBSprite).Data = NewData.Clone() as byte[];
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
+        public override bool CanMerge(Action act)
+        {
+            return act is ChangeSpriteDataAction && sameItems(act);
         }
-        public override bool Merge(Action act)
+        public override void Merge(Action act)
         {
             ChangeSpriteDataAction csda = act as ChangeSpriteDataAction;
             this.NewData = csda.NewData;
-
-            return true;
         }
         public override void AfterAction()
         {
@@ -658,18 +649,13 @@ namespace NSMBe4
                 case 8: e.Settings = value; break;
             }
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
+        public override bool CanMerge(Action act)
+        {
+            if (!(act is ChangeEntranceDataAction && sameItems(act))) return false;
+            return (act as ChangeEntranceDataAction).PropNum == this.PropNum;
         }
-        public override bool Merge(Action act) {
-            ChangeEntranceDataAction ceda = (act as ChangeEntranceDataAction);
-            if (ceda.PropNum != this.PropNum)
-                return false;
-
-            this.NewV = ceda.NewV;
-            return true;
+        public override void Merge(Action act) {
+            this.NewV = (act as ChangeEntranceDataAction).NewV;
         }
         public override string ToString()
         {
@@ -690,10 +676,8 @@ namespace NSMBe4
             for (int l = 0; l < this.objs.Count; l++)
                 if (this.objs[l] is NSMBEntrance)
                     OrigV.Add(Read(this.objs[l] as NSMBEntrance));
-                else {
-                    this.objs.RemoveAt(l);
-                    l--;
-                }
+                else
+                    this.objs.RemoveAt(l--);
         }
         public override void Undo()
         {
@@ -732,18 +716,14 @@ namespace NSMBe4
                     case 3: e.Settings &= 254; break;
                 }
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
-        }
-        public override bool Merge(Action act) {
-            ChangeEntranceBitAction ceba = (act as ChangeEntranceBitAction);
-            if (ceba.PropNum != this.PropNum)
-                return false;
 
-            this.NewV = ceba.NewV;
-            return true;
+        public override bool CanMerge(Action act)
+        {
+            if (!(act is ChangeEntranceBitAction && sameItems(act))) return false;
+            return (act as ChangeEntranceBitAction).PropNum == this.PropNum;
+        }
+        public override void Merge(Action act) {
+            this.NewV = (act as ChangeEntranceBitAction).NewV;
         }
     }
     public class ChangePathIDAction : LvlItemAction
@@ -779,6 +759,32 @@ namespace NSMBe4
         {
             return LanguageManager.GetList("UndoActions")[20];
         }
+    }
+    public class AddPathNodeAction : LvlItemAction
+    {
+        List<int> zIndex = new List<int>();
+
+        public AddPathNodeAction(List<LevelItem> obj, int zIndex)
+            : base(obj)
+        {
+            this.zIndex.Add(zIndex);
+        }
+        public override void Undo()
+        {
+            EdControl.Level.Remove(objs);
+            Deselect();
+        }
+        public override void Redo()
+        {
+            EdControl.Level.Add(objs, zIndex);
+            SelectObjects();
+        }
+        public override bool CanMerge(Action act)
+        {
+            return act is MoveResizeLvlItemAction && sameItems(act);
+        }
+        // There is no Merge() method because I just want the move action to be thrown out (not put on the undo stack)
+        public override void AfterAction() { }
     }
     public class ChangePathNodeDataAction : LvlItemAction
     {
@@ -832,19 +838,14 @@ namespace NSMBe4
                 case 5: p.Unknown6 = value; break;
             }
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
-        }
-        public override bool Merge(Action act)
+        public override bool CanMerge(Action act)
         {
-            ChangePathNodeDataAction cpnd = (act as ChangePathNodeDataAction);
-            if (cpnd.PropNum != this.PropNum)
-                return false;
-
-            this.NewV = cpnd.NewV;
-            return true;
+            if (!(act is ChangePathNodeDataAction && sameItems(act))) return false;
+            return (act as ChangePathNodeDataAction).PropNum == this.PropNum;
+        }
+        public override void Merge(Action act)
+        {
+            this.NewV = (act as ChangePathNodeDataAction).NewV;
         }
         public override string ToString()
         {
@@ -915,19 +916,14 @@ namespace NSMBe4
                 case 12: v.CameraBottomStick = value; break;
             }
         }
-        public override bool CanMerge {
-            get {
-                return true;
-            }
-        }
-        public override bool Merge(Action act)
+        public override bool CanMerge(Action act)
         {
-            ChangeViewDataAction cvda = (act as ChangeViewDataAction);
-            if (cvda.PropNum != this.PropNum)
-                return false;
-
-            this.NewV = cvda.NewV;
-            return true;
+            if (!(act is ChangeViewDataAction && sameItems(act))) return false;
+            return (act as ChangeViewDataAction).PropNum == this.PropNum;
+        }
+        public override void Merge(Action act)
+        {
+            this.NewV = (act as ChangeViewDataAction).NewV;
         }
         //public override string ToString()
         //{
@@ -948,7 +944,7 @@ namespace NSMBe4
         }
         public override void Undo()
         {
-            EdControl.Level.Blocks = UndoManager.Clone(oldData);
+            EdControl.Level.Blocks = Clone(oldData);
             EdControl.Level.CalculateSpriteModifiers();
             EdControl.config.LoadSettings();
             int oldTileset = newData[0][0xC];
@@ -956,13 +952,13 @@ namespace NSMBe4
         }
         public override void Redo()
         {
-            EdControl.Level.Blocks = UndoManager.Clone(newData);
+            EdControl.Level.Blocks = Clone(newData);
             EdControl.Level.CalculateSpriteModifiers();
             EdControl.config.LoadSettings();
         }
         public override void AfterSetEdControl()
         {
-            this.oldData = UndoManager.Clone(EdControl.Level.Blocks);
+            this.oldData = Clone(EdControl.Level.Blocks);
         }
         public override void AfterAction()
         {
@@ -972,6 +968,15 @@ namespace NSMBe4
         public override string ToString()
         {
             return LanguageManager.GetList("UndoActions")[36];
+        }
+
+        public static byte[][] Clone(byte[][] data)
+        {
+            int len = data.GetLength(0);
+            byte[][] newData = new byte[len][];
+            for (int l = 0; l < len; l++)
+                newData[l] = data[l].Clone() as byte[];
+            return newData;
         }
     }
     #endregion

@@ -1313,6 +1313,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap pathpoint_add {
+            get {
+                object obj = ResourceManager.GetObject("pathpoint_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap paths {
             get {
                 object obj = ResourceManager.GetObject("paths", resourceCulture);

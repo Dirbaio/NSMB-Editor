@@ -219,6 +219,8 @@ namespace NSMBe4
             if (h == 0) return;
             if (x < 0) x = 0;
             if (y < 0) y = 0;
+            if (x + w > 512) w = 512 - x;
+            if (y + h > 256) h = 256 - y;
 
             for (int xx = 0; xx < w; xx++)
                 for (int yy = 0; yy < h; yy++)

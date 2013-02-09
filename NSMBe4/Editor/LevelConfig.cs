@@ -202,7 +202,7 @@ namespace NSMBe4 {
 
         private void saveSettings() {
             if (updating) return;
-            byte[][] newData = UndoManager.Clone(Level.Blocks);
+            byte[][] newData = ChangeLevelSettingsAction.Clone(Level.Blocks);
             newData[0][0] = (byte)startEntranceUpDown.Value;
             newData[0][1] = (byte)midwayEntranceUpDown.Value;
             newData[0][4] = (byte)((int)timeLimitUpDown.Value & 255);
