@@ -33,6 +33,7 @@ namespace NSMBe4 {
         public BackgroundDragEditionMode bgdragem;
 
         public ToolsForm tools;
+        public SpriteEventsViewer sprEvents;
 
         public LevelEditor(string LevelFilename, string LevelName)
         {
@@ -114,6 +115,7 @@ namespace NSMBe4 {
             levelEditorControl1.minimapctrl = minimapControl1;
 
             tools = new ToolsForm(levelEditorControl1);
+            sprEvents = new SpriteEventsViewer(levelEditorControl1);
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);
             levelEditorControl1.minimap = MinimapForm;
             MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), LevelName);
@@ -204,6 +206,8 @@ namespace NSMBe4 {
 
             if (tools != null)
                 tools.Close();
+            if (sprEvents != null)
+                sprEvents.Close();
             GFX.close();
             Level.close();
         }
@@ -388,6 +392,13 @@ namespace NSMBe4 {
         {
             Properties.Settings.Default.LevelMaximized = this.WindowState == FormWindowState.Maximized;
             Properties.Settings.Default.Save();
+        }
+
+        private void spriteEvents_Click(object sender, EventArgs e)
+        {
+            sprEvents.Show();
+            sprEvents.BringToFront();
+            sprEvents.ReloadSprites(null, null);
         }
     }
 }
