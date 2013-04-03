@@ -45,12 +45,17 @@ namespace NSMBe4 {
 			populateListBox(pipeDoorTypeListBox, 32, "PipeTileType");
 
 			updateParamTypeAndData();
+            updateHexEditor();
 
 			DataUpdateFlag--;
 
 			Visible = true;
 		}
 
+        private void updateHexEditor()
+        {
+            hexBehaviorEditor.setArray(getBehaviorArray());
+        }
 
 		private void populateListBox(ListBox listBox, int maxID, string listName) {
 			var strings = LanguageManager.GetList(listName);
@@ -217,16 +222,25 @@ namespace NSMBe4 {
 			DataUpdateFlag--;
 		}
 
-
-
 		private void sendDataChangedEvent() {
-			if (DataUpdateFlag == 0)
-				DataChanged(
-					((currentFlags & 0xFFFF) << 16) |
+            if (DataUpdateFlag > 0) return;
+
+            updateHexEditor();
+            DataChanged(getBehaviorUInt());
+		}
+
+        private uint getBehaviorUInt()
+        {
+            return ((currentFlags & 0xFFFF) << 16) |
 					((currentFlags & 0xF0000) >> 8) |
 					(uint)(currentSubType << 12) |
-					(uint)currentParam);
-		}
+					(uint)currentParam;
+        }
+
+        private byte[] getBehaviorArray()
+        {
+            return BitConverter.GetBytes(getBehaviorUInt());
+        }
 
 		int DataUpdateFlag = 0;
 
@@ -293,6 +307,13 @@ namespace NSMBe4 {
 			currentParam |= pipeDoorTypeListBox.SelectedIndex;
 			sendDataChangedEvent();
 		}
+
+        private void hexBehaviorEditor_ValueChanged(byte[] val)
+        {
+            if (DataUpdateFlag > 0) return;
+
+            setData(BitConverter.ToUInt32(val, 0));
+        }
 
 	}
 }

@@ -47,11 +47,11 @@
             this.camBottom = new System.Windows.Forms.NumericUpDown();
             this.camTopSpecial = new System.Windows.Forms.NumericUpDown();
             this.camBottomSpecial = new System.Windows.Forms.NumericUpDown();
-            this.camStick = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.scrollVertically = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.viewID = new System.Windows.Forms.NumericUpDown();
             this.addViewButton = new System.Windows.Forms.Button();
@@ -68,7 +68,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.camBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camStick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -81,7 +80,7 @@
             this.viewsList.Location = new System.Drawing.Point(0, 0);
             this.viewsList.Name = "viewsList";
             this.viewsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.viewsList.Size = new System.Drawing.Size(277, 147);
+            this.viewsList.Size = new System.Drawing.Size(277, 153);
             this.viewsList.TabIndex = 0;
             this.viewsList.SelectedIndexChanged += new System.EventHandler(this.viewsList_SelectedIndexChanged);
             // 
@@ -108,13 +107,13 @@
             this.tableLayoutPanel1.Controls.Add(this.camBottom, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.camTopSpecial, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.camBottomSpecial, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.camStick, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.label13, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label14, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label16, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.scrollVertically, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 231);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 237);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 12;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -129,14 +128,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(277, 288);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(277, 282);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 163);
+            this.label2.Location = new System.Drawing.Point(3, 157);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 0;
@@ -146,7 +145,7 @@
             // 
             this.lightList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.lightList.FormattingEnabled = true;
-            this.lightList.Location = new System.Drawing.Point(123, 238);
+            this.lightList.Location = new System.Drawing.Point(123, 232);
             this.lightList.Name = "lightList";
             this.lightList.Size = new System.Drawing.Size(121, 21);
             this.lightList.TabIndex = 2;
@@ -156,7 +155,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 189);
+            this.label3.Location = new System.Drawing.Point(3, 183);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 0;
@@ -166,7 +165,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 215);
+            this.label4.Location = new System.Drawing.Point(3, 209);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 13);
             this.label4.TabIndex = 0;
@@ -176,7 +175,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 242);
+            this.label5.Location = new System.Drawing.Point(3, 236);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 0;
@@ -186,7 +185,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 137);
+            this.label6.Location = new System.Drawing.Point(3, 131);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(47, 13);
             this.label6.TabIndex = 0;
@@ -196,7 +195,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 268);
+            this.label7.Location = new System.Drawing.Point(3, 262);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 0;
@@ -206,7 +205,7 @@
             // 
             this.music.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.music.FormattingEnabled = true;
-            this.music.Location = new System.Drawing.Point(123, 133);
+            this.music.Location = new System.Drawing.Point(123, 127);
             this.music.Name = "music";
             this.music.Size = new System.Drawing.Size(121, 21);
             this.music.TabIndex = 2;
@@ -214,7 +213,7 @@
             // 
             // unk1
             // 
-            this.unk1.Location = new System.Drawing.Point(123, 160);
+            this.unk1.Location = new System.Drawing.Point(123, 154);
             this.unk1.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -227,7 +226,7 @@
             // 
             // unk2
             // 
-            this.unk2.Location = new System.Drawing.Point(123, 186);
+            this.unk2.Location = new System.Drawing.Point(123, 180);
             this.unk2.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -240,7 +239,7 @@
             // 
             // unk3
             // 
-            this.unk3.Location = new System.Drawing.Point(123, 212);
+            this.unk3.Location = new System.Drawing.Point(123, 206);
             this.unk3.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -253,7 +252,7 @@
             // 
             // progressID
             // 
-            this.progressID.Location = new System.Drawing.Point(123, 265);
+            this.progressID.Location = new System.Drawing.Point(123, 259);
             this.progressID.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -346,19 +345,6 @@
             this.camBottomSpecial.TabIndex = 1;
             this.camBottomSpecial.ValueChanged += new System.EventHandler(this.camBottomSpecial_ValueChanged);
             // 
-            // camStick
-            // 
-            this.camStick.Location = new System.Drawing.Point(123, 107);
-            this.camStick.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.camStick.Name = "camStick";
-            this.camStick.Size = new System.Drawing.Size(121, 20);
-            this.camStick.TabIndex = 1;
-            this.camStick.ValueChanged += new System.EventHandler(this.camStick_ValueChanged);
-            // 
             // label13
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -393,11 +379,21 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 110);
+            this.label16.Location = new System.Drawing.Point(3, 107);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(47, 13);
             this.label16.TabIndex = 0;
             this.label16.Text = "<label1>";
+            // 
+            // scrollVertically
+            // 
+            this.scrollVertically.AutoSize = true;
+            this.scrollVertically.Location = new System.Drawing.Point(123, 107);
+            this.scrollVertically.Name = "scrollVertically";
+            this.scrollVertically.Size = new System.Drawing.Size(15, 14);
+            this.scrollVertically.TabIndex = 3;
+            this.scrollVertically.UseVisualStyleBackColor = true;
+            this.scrollVertically.CheckedChanged += new System.EventHandler(this.scrollVertically_CheckedChanged);
             // 
             // label12
             // 
@@ -449,7 +445,7 @@
             this.panel1.Controls.Add(this.deleteViewButton);
             this.panel1.Controls.Add(this.addViewButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 147);
+            this.panel1.Location = new System.Drawing.Point(0, 153);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(277, 26);
             this.panel1.TabIndex = 4;
@@ -464,7 +460,7 @@
             this.panel2.Controls.Add(this.viewID, 1, 0);
             this.panel2.Controls.Add(this.label12, 0, 0);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 173);
+            this.panel2.Location = new System.Drawing.Point(0, 179);
             this.panel2.Name = "panel2";
             this.panel2.RowCount = 2;
             this.panel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -504,7 +500,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.camBottom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camTopSpecial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.camBottomSpecial)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.camStick)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewID)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -539,7 +534,6 @@
         private System.Windows.Forms.NumericUpDown camBottom;
         private System.Windows.Forms.NumericUpDown camTopSpecial;
         private System.Windows.Forms.NumericUpDown camBottomSpecial;
-        private System.Windows.Forms.NumericUpDown camStick;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
@@ -547,5 +541,6 @@
         private System.Windows.Forms.TableLayoutPanel panel2;
         private System.Windows.Forms.Button selectContents;
         private System.Windows.Forms.ComboBox lightList;
+        private System.Windows.Forms.CheckBox scrollVertically;
     }
 }

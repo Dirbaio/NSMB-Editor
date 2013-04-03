@@ -129,7 +129,7 @@ namespace NSMBe4
             camTopSpecial.Value = v.CameraTopSpin;
             camBottom.Value = v.CameraBottom;
             camBottomSpecial.Value = v.CameraBottomSpin;
-            camStick.Value = v.CameraBottomStick;
+            scrollVertically.Checked = v.CameraBottomStick >= 15;
             DataUpdateFlag = false;
         }
 
@@ -187,12 +187,6 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 6, lightList.SelectedIndex));
         }
 
-        //private void light_ValueChanged(object sender, EventArgs e)
-        //{
-        //    if (DataUpdateFlag) return;
-        //    EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 6, (int)light.Value));
-        //}
-
         private void progressID_ValueChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
@@ -223,10 +217,10 @@ namespace NSMBe4
             EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 11, (int)camBottomSpecial.Value));
         }
 
-        private void camStick_ValueChanged(object sender, EventArgs e)
+        private void scrollVertically_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 12, (int)camStick.Value));
+            EdControl.UndoManager.Do(new ChangeViewDataAction(SelectedObjects, 12, scrollVertically.Checked ? 15 : 0));
         }
 
         private void selectContents_Click(object sender, EventArgs e)

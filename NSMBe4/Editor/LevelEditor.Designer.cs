@@ -45,6 +45,7 @@
             this.redoButton = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.spriteFinder = new System.Windows.Forms.ToolStripButton();
+            this.spriteEvents = new System.Windows.Forms.ToolStripButton();
             this.zoomMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +82,6 @@
             this.levelEditorControl1 = new NSMBe4.LevelEditorControl();
             this.backupTimer = new System.Windows.Forms.Timer(this.components);
             this.levelSaver = new System.ComponentModel.BackgroundWorker();
-            this.spriteEvents = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -300,6 +300,16 @@
             this.spriteFinder.Text = "<spriteFinder>";
             this.spriteFinder.Click += new System.EventHandler(this.spriteFinder_Click);
             // 
+            // spriteEvents
+            // 
+            this.spriteEvents.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.spriteEvents.Image = ((System.Drawing.Image)(resources.GetObject("spriteEvents.Image")));
+            this.spriteEvents.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.spriteEvents.Name = "spriteEvents";
+            this.spriteEvents.Size = new System.Drawing.Size(23, 22);
+            this.spriteEvents.Text = "Sprite Events";
+            this.spriteEvents.Click += new System.EventHandler(this.spriteEvents_Click);
+            // 
             // zoomMenu
             // 
             this.zoomMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -326,31 +336,31 @@
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem13.Text = "800 %";
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem12.Text = "400 %";
             // 
             // toolStripMenuItem11
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem11.Text = "200 %";
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem10.Text = "150 %";
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem9.Text = "125 %";
             // 
             // toolStripMenuItem2
@@ -358,43 +368,43 @@
             this.toolStripMenuItem2.Checked = true;
             this.toolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem2.Text = "100 %";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem1.Text = "85 %";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem7.Text = "75 %";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem3.Text = "66 %";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem4.Text = "50 %";
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem5.Text = "33 %";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItem6.Text = "25 %";
             // 
             // toolStripSeparator3
@@ -617,16 +627,6 @@
             // levelSaver
             // 
             this.levelSaver.DoWork += new System.ComponentModel.DoWorkEventHandler(this.levelSaver_DoWork);
-            // 
-            // spriteEvents
-            // 
-            this.spriteEvents.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.spriteEvents.Image = ((System.Drawing.Image)(resources.GetObject("spriteEvents.Image")));
-            this.spriteEvents.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.spriteEvents.Name = "spriteEvents";
-            this.spriteEvents.Size = new System.Drawing.Size(23, 22);
-            this.spriteEvents.Text = "Sprite Events";
-            this.spriteEvents.Click += new System.EventHandler(this.spriteEvents_Click);
             // 
             // LevelEditor
             // 

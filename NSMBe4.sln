@@ -18,15 +18,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.ClientProfileRelease|Any CPU.ActiveCfg = ClientProfileRelease|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.ClientProfileRelease|Any CPU.Build.0 = ClientProfileRelease|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.ClientProfileRelease|x86.ActiveCfg = ClientProfileRelease|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Release|x86.ActiveCfg = Release|Any CPU
 		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.ClientProfileRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.ClientProfileRelease|Any CPU.Build.0 = Release|Any CPU
 		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.ClientProfileRelease|x86.ActiveCfg = Release|x86
@@ -39,6 +30,18 @@ Global
 		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Release|x86.ActiveCfg = Release|x86
 		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Release|x86.Build.0 = Release|x86
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.ClientProfileRelease|Any CPU.ActiveCfg = ClientProfileRelease|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.ClientProfileRelease|Any CPU.Build.0 = ClientProfileRelease|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.ClientProfileRelease|x86.ActiveCfg = ClientProfileRelease|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26C5F25F-B450-4CAF-AD8B-B8D11AE73457}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = NSMBe4\NSMBe4.csproj
@@ -68,9 +71,6 @@ Global
 		$7.MessageStyle = $8
 		$8.LineAlign = 0
 		$7.inheritsSet = Mono
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
