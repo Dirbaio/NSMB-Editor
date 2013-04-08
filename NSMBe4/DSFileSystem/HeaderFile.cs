@@ -25,7 +25,7 @@ namespace NSMBe4.DSFileSystem
     public class HeaderFile : PhysicalFile
     {
         public HeaderFile(Filesystem parent, Directory parentDir)
-            : base(parent, parentDir, -1, "header.bin", 0, 0x4000)
+            : base(parent, parentDir, -8, "header.bin", 0, 0x4000)
         {
 
         }

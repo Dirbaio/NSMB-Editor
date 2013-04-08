@@ -105,11 +105,11 @@ namespace NSMBe4.DSFileSystem
             }
         }
 
-        public override void editionStarted() 
+        public override void startEdition() 
         {
         	parentFile.beginEdit(this);
         }
-        public override void editionEnded() 
+        public override void endEdition() 
         {
         	parentFile.endEdit(this);
         }

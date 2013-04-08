@@ -25,7 +25,7 @@ namespace NSMBe4.DSFileSystem
     public class BannerFile : PhysicalFile
     {
         public BannerFile(Filesystem parent, Directory parentDir, File headerFile)
-            : base(parent, parentDir, -8, "banner.bin", headerFile, 0x68, 0, true)
+            : base(parent, parentDir, -9, "banner.bin", headerFile, 0x68, 0, true)
         {
             endFile = null;
             fileSizeP = 0x840;
@@ -47,9 +47,9 @@ namespace NSMBe4.DSFileSystem
             updatingCrc = false;
         }
 
-        public override void editionEnded()
+        public override void endEdition()
         {
-            base.editionEnded();
+            base.endEdition();
             if(!updatingCrc)
                 updateCRC16();
         }

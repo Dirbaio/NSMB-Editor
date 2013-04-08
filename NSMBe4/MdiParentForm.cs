@@ -79,6 +79,8 @@ namespace NSMBe4
                 Properties.Settings.Default.MDIWindowPos = this.Location;
             }
             Properties.Settings.Default.Save();
+
+            Application.Exit();
         }
 
         private void MdiParentForm_SizeChanged(object sender, EventArgs e)

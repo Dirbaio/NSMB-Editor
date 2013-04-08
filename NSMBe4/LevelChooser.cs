@@ -789,5 +789,10 @@ namespace NSMBe4 {
         {
             ROM.dlpMode = dlpCheckBox.Checked;
         }
+
+        private void LevelChooser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

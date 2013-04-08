@@ -239,6 +239,12 @@ namespace NSMBe4
             return NewStr.ToString().Trim();
         }
 
+        public string ReadString()
+        {
+            int len = readUShort();
+            return ReadString(len);
+        }
+
         // What is this function supposed to do lol
         public override void Flush()
         {

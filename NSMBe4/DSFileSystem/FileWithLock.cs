@@ -58,10 +58,9 @@ namespace NSMBe4.DSFileSystem
         {
             if (editedBy != null || editedIntervals.Count != 0)
                 throw new AlreadyEditingException(this);
-            else
-                editedBy = editor;
-            
-            editionStarted();
+ 
+            startEdition();
+            editedBy = editor;
         }
 
         public override void endEdit(Object editor)
@@ -69,8 +68,8 @@ namespace NSMBe4.DSFileSystem
             if (editor == null || editor != editedBy)
                 throw new Exception("Not correct editor: " + name);
 
+            endEdition();
             editedBy = null;
-            editionEnded();
         }
         
         public override void beginEditInterval(int start, int end)
@@ -80,13 +79,14 @@ namespace NSMBe4.DSFileSystem
             if (editedBy != null)
                 throw new AlreadyEditingException(this);
 			
-			if(editedIntervals.Count == 0)
-				editionStarted();
-				
         	foreach(Interval i in editedIntervals)
         		if(i.start < end && start < i.end)
 	                throw new AlreadyEditingException(this);
-			editedIntervals.Add(new Interval(start, end));
+            
+            if (editedIntervals.Count == 0)
+                startEdition();
+            
+            editedIntervals.Add(new Interval(start, end));
         }
         
         public override void endEditInterval(int start, int end)
@@ -97,7 +97,7 @@ namespace NSMBe4.DSFileSystem
                 throw new Exception("Not correct interval: " + name);
 
 			if(editedIntervals.Count == 0)
-				editionEnded();
+				endEdition();
         }
 
         public override bool beingEditedBy(Object ed)
@@ -110,7 +110,7 @@ namespace NSMBe4.DSFileSystem
         	return editor == editedBy;
         }
         
-        public virtual void editionStarted() {}
-        public virtual void editionEnded() {}
+        public virtual void startEdition() {}
+        public virtual void endEdition() {}
     }
 }

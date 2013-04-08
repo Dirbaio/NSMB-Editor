@@ -52,74 +52,26 @@ namespace NSMBe4
                 LanguageManager.Load(Properties.Resources.English.Split('\n'));
             }
 
-            //This makes the editor behave BAD when no internet. 
-            //This actually catches the error now, but I'm leaving it disabled because the Sprite DB outputs a corrupt file
+            new StartForm().Show();
+            Application.Run();
 
-            //if (Properties.Settings.Default.AutoUpdateSD)
-            //    SpriteData.update();
+            //string[] args = Environment.GetCommandLineArgs();
 
 
-            string path = "";
-            string[] args = Environment.GetCommandLineArgs();
-            string[] backups = null;
-
-            if (Properties.Settings.Default.BackupFiles != "" &&
-                MessageBox.Show("NSMBe did not shut down correctly and has recovered some of your levels.\nWould you like to open those now? If not, they can be opened later from the /Backup folder", "Open backups?", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                backups = Properties.Settings.Default.BackupFiles.Split(';');
-                path = backups[0];
-            }
-            else if (args.Length > 1)
-                path = args[1];
-            else
+            /*
+              
+            if(args.Length > 2 && args[2] == "asmpatch")
             {
-                OpenFileDialog openROMDialog = new OpenFileDialog();
-                openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
-                if (Properties.Settings.Default.ROMFolder != "")
-                    openROMDialog.InitialDirectory = Properties.Settings.Default.ROMFolder;
-                if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    path = openROMDialog.FileName;
+				PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+				pm.restore();
+				pm.generatePatch();
             }
-
-
-            if (path != "")
+            else if(args.Length > 2 && args[2] == "getcodeaddr")
             {
-                Properties.Settings.Default.ROMFolder = System.IO.Path.GetDirectoryName(path);
-                Properties.Settings.Default.Save();
-//                try
-                {
-                    ROM.load(path);
-                }
-  /*              catch (Exception ex)
-                {
-                    MessageBox.Show("Could not open ROM file for writing. Is it open with other program?\n\n"+ex.Message);
-                    return;
-                }
-    */            
-                if(args.Length > 2 && args[2] == "asmpatch")
-                {
-				    PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
-				    pm.restore();
-				    pm.generatePatch();
-                }
-                else if(args.Length > 2 && args[2] == "getcodeaddr")
-                {
-				    PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
-				    pm.restore();
-                    Console.Out.WriteLine(String.Format("{0:X8}", pm.getCodeAddr()));
-                }
-				else
-				{
-                    if (backups != null)
-                        for (int l = 1; l < backups.Length; l++)
-                            ROM.fileBackups.Add(backups[l]);
-
-		            SpriteData.Load();
-		            if (Properties.Settings.Default.mdi)
-		                Application.Run(new MdiParentForm());
-		            else
-		                Application.Run(new LevelChooser());
-		        }
-            }
+				PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+				pm.restore();
+                Console.Out.WriteLine(String.Format("{0:X8}", pm.getCodeAddr()));
+            }*/
         }
     }
 }

@@ -78,11 +78,12 @@ namespace NSMBe4 {
         //Download play-friendly mode.
         public static bool dlpMode = false;
 
-        public static void load(String filename)
+        public static void load(Filesystem fs)
         {
-            ROM.filename = filename;
-            FS = new NitroROMFilesystem(filename);
-            romfile = new System.IO.FileInfo(filename);
+            filename = fs.getRomPath();
+            FS = fs;
+            if(fs is NitroROMFilesystem)
+                romfile = new System.IO.FileInfo(filename);
 
 			arm9binFile = FS.getFileByName("arm9.bin");			
 			arm9ovFile = FS.getFileByName("arm9ovt.bin");	

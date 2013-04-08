@@ -72,9 +72,10 @@ namespace NSMBe4.DSFileSystem
         protected void addFile(File f)
         {
             allFiles.Add(f);
-            if(f.id != -1)
-                if(!filesById.ContainsKey(f.id))
-                    filesById.Add(f.id, f);
+            if (filesById.ContainsKey(f.id))
+                throw new Exception("Duplicate file ID");
+
+            filesById.Add(f.id, f);
 //            filesByName.Add(f.name, f);
         }
 
@@ -82,8 +83,9 @@ namespace NSMBe4.DSFileSystem
         protected void addDir(Directory d)
         {
             allDirs.Add(d);
-            if(d.id != -1)
-               dirsById.Add(d.id, d);
+            if(dirsById.ContainsKey(d.id))
+                throw new Exception("Duplicate dir ID");
+            dirsById.Add(d.id, d);
 //            dirsByName.Add(d.name, d);
         }
 
@@ -120,5 +122,9 @@ namespace NSMBe4.DSFileSystem
 		public virtual void save() {}
 		public virtual void close() {}
 
+        public virtual string getRomPath()
+        {
+            return "Wadafuq.";
+        }
     }
 }

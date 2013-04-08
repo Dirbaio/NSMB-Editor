@@ -62,12 +62,12 @@ namespace NSMBe4.DSFileSystem
 			parentFile.replaceInterval(newFile, inlineOffs+start);
 		}
 
-        public override void editionStarted() 
+        public override void startEdition() 
         {
         	parentFile.beginEditInterval(inlineOffs, inlineOffs+inlineLen);
         }
 
-        public override void editionEnded() 
+        public override void endEdition() 
         {
         	parentFile.endEditInterval(inlineOffs, inlineOffs+inlineLen);
         }
