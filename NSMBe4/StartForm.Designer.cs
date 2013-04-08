@@ -31,11 +31,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.openRomButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.connectButton = new System.Windows.Forms.Button();
-            this.hostTextBox = new System.Windows.Forms.TextBox();
-            this.portTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.portTextBox = new System.Windows.Forms.TextBox();
+            this.hostTextBox = new System.Windows.Forms.TextBox();
+            this.connectButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -79,26 +79,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Connect to server";
             // 
-            // connectButton
+            // label2
             // 
-            this.connectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.connectButton.Location = new System.Drawing.Point(146, 71);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(110, 23);
-            this.connectButton.TabIndex = 0;
-            this.connectButton.Text = "Connect";
-            this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Port:";
             // 
-            // hostTextBox
+            // label1
             // 
-            this.hostTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hostTextBox.Location = new System.Drawing.Point(47, 19);
-            this.hostTextBox.Name = "hostTextBox";
-            this.hostTextBox.Size = new System.Drawing.Size(209, 20);
-            this.hostTextBox.TabIndex = 1;
-            this.hostTextBox.Text = "nsmbhd.net";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Host: ";
             // 
             // portTextBox
             // 
@@ -110,23 +107,25 @@
             this.portTextBox.TabIndex = 2;
             this.portTextBox.Text = "7373";
             // 
-            // label1
+            // hostTextBox
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Host: ";
+            this.hostTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hostTextBox.Location = new System.Drawing.Point(47, 19);
+            this.hostTextBox.Name = "hostTextBox";
+            this.hostTextBox.Size = new System.Drawing.Size(209, 20);
+            this.hostTextBox.TabIndex = 1;
             // 
-            // label2
+            // connectButton
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Port:";
+            this.connectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.connectButton.Location = new System.Drawing.Point(146, 71);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(110, 23);
+            this.connectButton.TabIndex = 0;
+            this.connectButton.Text = "Connect";
+            this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
             // label3
             // 
