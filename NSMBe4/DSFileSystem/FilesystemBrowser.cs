@@ -429,5 +429,27 @@ namespace NSMBe4.DSFileSystem
 
             f.decompress();*/
         }
+
+        private void fileTreeView_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            // The dragged file must first be saved to disk
+            TreeNode node = e.Item as TreeNode;
+            if (!(node.Tag is File))
+                return;
+            File f = node.Tag as File;
+            string FileName = f.name;
+            string DestFileName = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), FileName);
+            byte[] TempFile = f.getContents();
+            FileStream wfs = new FileStream(DestFileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            wfs.Write(TempFile, 0, TempFile.GetLength(0));
+            wfs.Dispose();
+
+            // Then start a drag and drop
+            String[] files = new String[] { DestFileName };
+            DragDropEffects drop = DoDragDrop(new DataObject(DataFormats.FileDrop, files), DragDropEffects.Move);
+            // Delete the file if it wasn't dropped anywhere
+            if (drop == DragDropEffects.None)
+                System.IO.File.Delete(DestFileName);
+        }
     }
 }
