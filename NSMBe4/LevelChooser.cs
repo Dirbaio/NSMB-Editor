@@ -782,7 +782,11 @@ namespace NSMBe4 {
         private void deleteBackups_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show((LanguageManager.Get("LevelChooser", "delbackup")), (LanguageManager.Get("LevelChooser", "delbacktitle")), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                System.IO.Directory.Delete(Path.Combine(Application.StartupPath, "Backup"), true);
+            {
+                String backupPath = Path.Combine(Application.StartupPath, "Backup");
+                if (System.IO.Directory.Exists(backupPath))
+                    System.IO.Directory.Delete(backupPath, true);
+            }
         }
 
         private void dlpCheckBox_CheckedChanged(object sender, EventArgs e)

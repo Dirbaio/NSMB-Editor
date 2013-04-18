@@ -122,6 +122,7 @@ namespace NSMBe4.DSFileSystem
 
             string StatusMsg;
             bool e;
+            bool extract = false;
 
             if (n == null)
             {
@@ -132,16 +133,18 @@ namespace NSMBe4.DSFileSystem
             {
                 StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FolderStatus"), n.Text, (n.Tag as Directory).id);
                 e = false;
+                extract = true;
             }
             else
             {
                 File f = n.Tag as File;
                 StatusMsg = string.Format(LanguageManager.Get("FilesystemBrowser", "FileStatus"), (f is PhysicalFile)?((PhysicalFile)f).fileBegin.ToString("X"):"?", f.fileSize.ToString(), f.id);
                 e = true;
+                extract = true;
             }
 
 
-            extractFileButton.Enabled = e;
+            extractFileButton.Enabled = extract;
             replaceFileButton.Enabled = e;
             compressFileButton.Enabled = e;
             decompressFileButton.Enabled = e;
@@ -155,17 +158,44 @@ namespace NSMBe4.DSFileSystem
 
         private void extractFileButton_Click(object sender, EventArgs e)
         {
-            File f = fileTreeView.SelectedNode.Tag as File;
-
-            string FileName = f.name;
-            extractFileDialog.FileName = FileName;
-            if (extractFileDialog.ShowDialog() == DialogResult.OK)
+            if (fileTreeView.SelectedNode.Tag is Directory)
             {
-                string DestFileName = extractFileDialog.FileName;
-                byte[] TempFile = f.getContents();
-                FileStream wfs = new FileStream(DestFileName, FileMode.Create, FileAccess.Write, FileShare.None);
-                wfs.Write(TempFile, 0, TempFile.GetLength(0));
-                wfs.Dispose();
+                Directory d = fileTreeView.SelectedNode.Tag as Directory;
+
+                if (extractDirectoryDialog.ShowDialog() == DialogResult.OK)
+                    extractDirectory(d, extractDirectoryDialog.SelectedPath);
+            }
+            else
+            {
+                File f = fileTreeView.SelectedNode.Tag as File;
+
+                string FileName = f.name;
+                extractFileDialog.FileName = FileName;
+                if (extractFileDialog.ShowDialog() == DialogResult.OK)
+                    extractFile(f, extractFileDialog.FileName);
+            }
+        }
+
+        private void extractFile(File f, String fileName)
+        {
+            byte[] tempFile = f.getContents();
+            FileStream wfs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            wfs.Write(tempFile, 0, tempFile.GetLength(0));
+            wfs.Dispose();
+        }
+
+        private void extractDirectory(Directory d, String filePath)
+        {
+            foreach (File f in d.childrenFiles)
+            {
+                extractFile(f, System.IO.Path.Combine(filePath, f.name));
+            }
+            foreach (Directory subd in d.childrenDirs)
+            {
+                String destDir = System.IO.Path.Combine(filePath, subd.name);
+                if (!System.IO.Directory.Exists(destDir))
+                    System.IO.Directory.CreateDirectory(destDir);
+                extractDirectory(subd, destDir);
             }
         }
 
@@ -432,24 +462,44 @@ namespace NSMBe4.DSFileSystem
 
         private void fileTreeView_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            // The dragged file must first be saved to disk
             TreeNode node = e.Item as TreeNode;
-            if (!(node.Tag is File))
-                return;
-            File f = node.Tag as File;
-            string FileName = f.name;
-            string DestFileName = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), FileName);
-            byte[] TempFile = f.getContents();
-            FileStream wfs = new FileStream(DestFileName, FileMode.Create, FileAccess.Write, FileShare.None);
-            wfs.Write(TempFile, 0, TempFile.GetLength(0));
-            wfs.Dispose();
 
-            // Then start a drag and drop
-            String[] files = new String[] { DestFileName };
-            DragDropEffects drop = DoDragDrop(new DataObject(DataFormats.FileDrop, files), DragDropEffects.Move);
-            // Delete the file if it wasn't dropped anywhere
-            if (drop == DragDropEffects.None)
-                System.IO.File.Delete(DestFileName);
+            if (node.Tag is File)
+            {
+                // The dragged file must first be saved to disk
+                File f = node.Tag as File;
+                string FileName = f.name;
+                string DestFileName = Path.Combine(System.IO.Path.GetTempPath(), FileName);
+                extractFile(f, DestFileName);
+
+                // Then start a drag and drop
+                String[] files = new String[] { DestFileName };
+                DragDropEffects drop = DoDragDrop(new DataObject(DataFormats.FileDrop, files), DragDropEffects.Move);
+                // Delete the file if it wasn't dropped anywhere
+                if (System.IO.File.Exists(DestFileName))
+                    System.IO.File.Delete(DestFileName);
+                Console.Out.WriteLine(drop);
+            }
+            else if (node.Tag is Directory)
+            {
+                // Create the directory first, then save the contents into it
+                Directory d = node.Tag as Directory;
+                String DestDir = System.IO.Path.GetTempPath();
+                String newFolderName;
+                if (d.name.Contains(Path.DirectorySeparatorChar.ToString())) // This will be the root folder
+                    newFolderName = "root";
+                else
+                    newFolderName = d.name;
+                DestDir = System.IO.Path.Combine(DestDir, newFolderName);
+                if (!System.IO.Directory.Exists(DestDir))
+                    System.IO.Directory.CreateDirectory(DestDir);
+                extractDirectory(d, DestDir);
+
+                String[] folders = new String[] { DestDir };
+                DragDropEffects drop = DoDragDrop(new DataObject(DataFormats.FileDrop, folders), DragDropEffects.Move);
+                if (System.IO.Directory.Exists(DestDir))
+                    System.IO.Directory.Delete(DestDir, true);
+            }
         }
     }
 }

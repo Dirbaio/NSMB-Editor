@@ -112,9 +112,9 @@ namespace NSMBe4 {
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
@@ -242,9 +242,9 @@ namespace NSMBe4 {
             // 
             // levelTreeView
             // 
-            this.levelTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.levelTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.levelTreeView.Location = new System.Drawing.Point(6, 6);
             this.levelTreeView.Name = "levelTreeView";
             this.levelTreeView.Size = new System.Drawing.Size(522, 417);
@@ -352,7 +352,7 @@ namespace NSMBe4 {
             this.label10.Size = new System.Drawing.Size(234, 43);
             this.label10.TabIndex = 11;
             this.label10.Text = "This will prevent some values in the header from being updated. The ROM will work" +
-                " over DLP but may not work on some flashcards.";
+    " over DLP but may not work on some flashcards.";
             // 
             // dlpCheckBox
             // 
@@ -367,9 +367,9 @@ namespace NSMBe4 {
             // 
             // musicSlotsGrp
             // 
-            this.musicSlotsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.musicSlotsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.musicSlotsGrp.Controls.Add(this.renameBtn);
             this.musicSlotsGrp.Controls.Add(this.musicList);
             this.musicSlotsGrp.Location = new System.Drawing.Point(258, 236);
@@ -392,9 +392,9 @@ namespace NSMBe4 {
             // 
             // musicList
             // 
-            this.musicList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.musicList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.musicList.FormattingEnabled = true;
             this.musicList.Location = new System.Drawing.Point(6, 20);
             this.musicList.Name = "musicList";
@@ -403,8 +403,8 @@ namespace NSMBe4 {
             // 
             // patchesGroupbox
             // 
-            this.patchesGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchesGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.patchesGroupbox.Controls.Add(this.patchExport);
             this.patchesGroupbox.Controls.Add(this.patchImport);
             this.patchesGroupbox.Location = new System.Drawing.Point(258, 6);
@@ -416,8 +416,8 @@ namespace NSMBe4 {
             // 
             // patchExport
             // 
-            this.patchExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.patchExport.Location = new System.Drawing.Point(6, 19);
             this.patchExport.Name = "patchExport";
             this.patchExport.Size = new System.Drawing.Size(266, 23);
@@ -428,8 +428,8 @@ namespace NSMBe4 {
             // 
             // patchImport
             // 
-            this.patchImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.patchImport.Location = new System.Drawing.Point(6, 48);
             this.patchImport.Name = "patchImport";
             this.patchImport.Size = new System.Drawing.Size(266, 23);
@@ -452,8 +452,8 @@ namespace NSMBe4 {
             // 
             // mpPatch
             // 
-            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mpPatch.Location = new System.Drawing.Point(6, 19);
             this.mpPatch.Name = "mpPatch";
             this.mpPatch.Size = new System.Drawing.Size(234, 23);
@@ -464,8 +464,8 @@ namespace NSMBe4 {
             // 
             // mpPatch2
             // 
-            this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mpPatch2.Location = new System.Drawing.Point(6, 48);
             this.mpPatch2.Name = "mpPatch2";
             this.mpPatch2.Size = new System.Drawing.Size(234, 23);
@@ -476,8 +476,8 @@ namespace NSMBe4 {
             // 
             // dataFinderButton
             // 
-            this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataFinderButton.Location = new System.Drawing.Point(6, 77);
             this.dataFinderButton.Name = "dataFinderButton";
             this.dataFinderButton.Size = new System.Drawing.Size(234, 23);
@@ -488,8 +488,8 @@ namespace NSMBe4 {
             // 
             // asmToolsGroupbox
             // 
-            this.asmToolsGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.asmToolsGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.asmToolsGroupbox.Controls.Add(this.makeclean);
             this.asmToolsGroupbox.Controls.Add(this.makeinsert);
             this.asmToolsGroupbox.Controls.Add(this.decompArm9Bin);
@@ -502,8 +502,8 @@ namespace NSMBe4 {
             // 
             // makeclean
             // 
-            this.makeclean.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.makeclean.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.makeclean.Location = new System.Drawing.Point(6, 77);
             this.makeclean.Name = "makeclean";
             this.makeclean.Size = new System.Drawing.Size(266, 23);
@@ -514,8 +514,8 @@ namespace NSMBe4 {
             // 
             // makeinsert
             // 
-            this.makeinsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.makeinsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.makeinsert.Location = new System.Drawing.Point(6, 48);
             this.makeinsert.Name = "makeinsert";
             this.makeinsert.Size = new System.Drawing.Size(266, 23);
@@ -526,8 +526,8 @@ namespace NSMBe4 {
             // 
             // decompArm9Bin
             // 
-            this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.decompArm9Bin.Location = new System.Drawing.Point(6, 19);
             this.decompArm9Bin.Name = "decompArm9Bin";
             this.decompArm9Bin.Size = new System.Drawing.Size(266, 23);
@@ -651,8 +651,8 @@ namespace NSMBe4 {
             // 
             // languageListBox
             // 
-            this.languageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.languageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.languageListBox.FormattingEnabled = true;
             this.languageListBox.Location = new System.Drawing.Point(6, 32);
             this.languageListBox.Name = "languageListBox";
@@ -661,8 +661,8 @@ namespace NSMBe4 {
             // 
             // updateSpriteDataButton
             // 
-            this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.updateSpriteDataButton.Location = new System.Drawing.Point(165, 126);
             this.updateSpriteDataButton.Name = "updateSpriteDataButton";
             this.updateSpriteDataButton.Size = new System.Drawing.Size(75, 23);
@@ -684,8 +684,8 @@ namespace NSMBe4 {
             // 
             // dumpMapButton
             // 
-            this.dumpMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dumpMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dumpMapButton.Location = new System.Drawing.Point(258, 207);
             this.dumpMapButton.Name = "dumpMapButton";
             this.dumpMapButton.Size = new System.Drawing.Size(278, 23);
@@ -716,6 +716,7 @@ namespace NSMBe4 {
             // 
             // linkLabel2
             // 
+            this.linkLabel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.Location = new System.Drawing.Point(211, 258);
             this.linkLabel2.Name = "linkLabel2";
@@ -728,6 +729,7 @@ namespace NSMBe4 {
             // 
             // linkLabel1
             // 
+            this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(224, 245);
             this.linkLabel1.Name = "linkLabel1";
@@ -740,6 +742,7 @@ namespace NSMBe4 {
             // 
             // label9
             // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(246, 225);
@@ -750,6 +753,7 @@ namespace NSMBe4 {
             // 
             // label8
             // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(84, 203);
             this.label8.Name = "label8";
@@ -759,6 +763,7 @@ namespace NSMBe4 {
             // 
             // label7
             // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(209, 190);
             this.label7.Name = "label7";
@@ -768,6 +773,7 @@ namespace NSMBe4 {
             // 
             // label6
             // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(204, 177);
             this.label6.Name = "label6";
@@ -777,6 +783,7 @@ namespace NSMBe4 {
             // 
             // label5
             // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(205, 164);
             this.label5.Name = "label5";
@@ -786,6 +793,7 @@ namespace NSMBe4 {
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(238, 144);
@@ -796,6 +804,7 @@ namespace NSMBe4 {
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 69);
             this.label3.Name = "label3";
@@ -806,6 +815,7 @@ namespace NSMBe4 {
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(37, 16);
