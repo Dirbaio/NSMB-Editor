@@ -145,7 +145,7 @@ namespace NSMBe4.DSFileSystem
 
 
             extractFileButton.Enabled = extract;
-            replaceFileButton.Enabled = e;
+            replaceFileButton.Enabled = extract;
             compressFileButton.Enabled = e;
             decompressFileButton.Enabled = e;
             hexEdButton.Enabled = e;
@@ -158,14 +158,7 @@ namespace NSMBe4.DSFileSystem
 
         private void extractFileButton_Click(object sender, EventArgs e)
         {
-            if (fileTreeView.SelectedNode.Tag is Directory)
-            {
-                Directory d = fileTreeView.SelectedNode.Tag as Directory;
-
-                if (extractDirectoryDialog.ShowDialog() == DialogResult.OK)
-                    extractDirectory(d, extractDirectoryDialog.SelectedPath);
-            }
-            else
+            if (fileTreeView.SelectedNode.Tag is File)
             {
                 File f = fileTreeView.SelectedNode.Tag as File;
 
@@ -173,6 +166,13 @@ namespace NSMBe4.DSFileSystem
                 extractFileDialog.FileName = FileName;
                 if (extractFileDialog.ShowDialog() == DialogResult.OK)
                     extractFile(f, extractFileDialog.FileName);
+            }
+            else
+            {
+                Directory d = fileTreeView.SelectedNode.Tag as Directory;
+
+                if (extractDirectoryDialog.ShowDialog() == DialogResult.OK)
+                    extractDirectory(d, extractDirectoryDialog.SelectedPath);
             }
         }
 
@@ -184,66 +184,107 @@ namespace NSMBe4.DSFileSystem
             wfs.Dispose();
         }
 
-        private void extractDirectory(Directory d, String filePath)
+        private string extractDirectory(Directory d, String filePath)
         {
+            String newFolderName;
+            if (d.name.Contains(Path.DirectorySeparatorChar.ToString())) // This will be the root folder
+                newFolderName = "FILESYSTEM";
+            else
+                newFolderName = d.name;
+            String destDir = System.IO.Path.Combine(filePath, newFolderName);
+            if (!System.IO.Directory.Exists(destDir))
+                System.IO.Directory.CreateDirectory(destDir);
+
             foreach (File f in d.childrenFiles)
-            {
-                extractFile(f, System.IO.Path.Combine(filePath, f.name));
-            }
+                extractFile(f, System.IO.Path.Combine(destDir, f.name));
             foreach (Directory subd in d.childrenDirs)
-            {
-                String destDir = System.IO.Path.Combine(filePath, subd.name);
-                if (!System.IO.Directory.Exists(destDir))
-                    System.IO.Directory.CreateDirectory(destDir);
                 extractDirectory(subd, destDir);
-            }
+            return destDir;
         }
 
         private void replaceFileButton_Click(object sender, EventArgs e)
         {
-            File f = fileTreeView.SelectedNode.Tag as File;
+            if (fileTreeView.SelectedNode.Tag is File)
+            {
+                File f = fileTreeView.SelectedNode.Tag as File;
 
-            try
-            {
-                f.beginEdit(this);
-            }
-            catch (AlreadyEditingException)
-            {
-                MessageBox.Show(LanguageManager.Get("Errors", "File"));
-                return;
-            }
+                try {
+                    f.beginEdit(this);
+                } catch (AlreadyEditingException) {
+                    MessageBox.Show(LanguageManager.Get("Errors", "File"));
+                    return;
+                }
                 
-            string FileName = f.name;
-            replaceFileDialog.FileName = FileName;
-            if (replaceFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                UpdateFileInfo();
-                f.endEdit(this);
-                return;
-            }
-/*
-            if(f is OverlayFile)
-            {
-                DialogResult r = MessageBox.Show("You're importing an overlay file. Is it a compressed overlay?\n\n(Overlays are compressed by default, so it probably is unless you decompressed it)", "Something", MessageBoxButtons.YesNoCancel);
-                if(r == DialogResult.Cancel)
-                {
+                string FileName = f.name;
+                replaceFileDialog.FileName = FileName;
+                if (replaceFileDialog.ShowDialog() != DialogResult.OK) {
                     UpdateFileInfo();
                     f.endEdit(this);
                     return;
                 }
+/*
+                if(f is OverlayFile)
+                {
+                    DialogResult r = MessageBox.Show("You're importing an overlay file. Is it a compressed overlay?\n\n(Overlays are compressed by default, so it probably is unless you decompressed it)", "Something", MessageBoxButtons.YesNoCancel);
+                    if(r == DialogResult.Cancel)
+                    {
+                        UpdateFileInfo();
+                        f.endEdit(this);
+                        return;
+                    }
 
-                (f as OverlayFile).isCompressed = r == DialogResult.Yes;
-            }*/
+                    (f as OverlayFile).isCompressed = r == DialogResult.Yes;
+                }*/
+                replaceFile(f, replaceFileDialog.FileName);
 
-            string SrcFileName = replaceFileDialog.FileName;
-            FileStream rfs = new FileStream(SrcFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            byte[] TempFile = new byte[rfs.Length];
-            rfs.Read(TempFile, 0, (int)rfs.Length);
+                UpdateFileInfo();
+                f.endEdit(this);
+            }
+            else
+            {
+                if (extractDirectoryDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Directory d = fileTreeView.SelectedNode.Tag as Directory;
+                    replaceDirectory(d, extractDirectoryDialog.SelectedPath);
+                }
+            }
+        }
+
+        private void replaceFile(File f, String inputFile)
+        {
+            // NOTE: f.beginEdit(this) must be called before this function
+            FileStream rfs = new FileStream(inputFile, FileMode.Open, FileAccess.Read, FileShare.Read);
+            byte[] tempFile = new byte[rfs.Length];
+            rfs.Read(tempFile, 0, (int)rfs.Length);
             rfs.Dispose();
-            f.replace(TempFile, this);
+            f.replace(tempFile, this);
+        }
 
-            UpdateFileInfo();
-            f.endEdit(this);
+        private void replaceDirectory(Directory d, String inputDir)
+        {
+            foreach (File f in d.childrenFiles)
+            {
+                try
+                {
+                    String inputFile = System.IO.Path.Combine(inputDir, f.name);
+                    if (System.IO.File.Exists(inputFile))
+                    {
+                        f.beginEdit(this);
+                        replaceFile(f, inputFile);
+                        f.endEdit(this);
+                    }
+                    else
+                        Console.Out.WriteLine("Input file does not exist: " + inputFile);
+                }
+                catch (Exception ex) {
+                    Console.Out.WriteLine("Failed to replace file: " + f.name + "\n\n" + ex.Message);
+                }
+            }
+            foreach (Directory subd in d.childrenDirs)
+            {
+                String nextDir = System.IO.Path.Combine(inputDir, subd.name);
+                replaceDirectory(subd, nextDir);
+            }
         }
 
         private void compressFileButton_Click(object sender, EventArgs e)
@@ -478,22 +519,13 @@ namespace NSMBe4.DSFileSystem
                 // Delete the file if it wasn't dropped anywhere
                 if (System.IO.File.Exists(DestFileName))
                     System.IO.File.Delete(DestFileName);
-                Console.Out.WriteLine(drop);
             }
             else if (node.Tag is Directory)
             {
-                // Create the directory first, then save the contents into it
+                // Same process as above
                 Directory d = node.Tag as Directory;
                 String DestDir = System.IO.Path.GetTempPath();
-                String newFolderName;
-                if (d.name.Contains(Path.DirectorySeparatorChar.ToString())) // This will be the root folder
-                    newFolderName = "root";
-                else
-                    newFolderName = d.name;
-                DestDir = System.IO.Path.Combine(DestDir, newFolderName);
-                if (!System.IO.Directory.Exists(DestDir))
-                    System.IO.Directory.CreateDirectory(DestDir);
-                extractDirectory(d, DestDir);
+                DestDir = extractDirectory(d, DestDir);
 
                 String[] folders = new String[] { DestDir };
                 DragDropEffects drop = DoDragDrop(new DataObject(DataFormats.FileDrop, folders), DragDropEffects.Move);
