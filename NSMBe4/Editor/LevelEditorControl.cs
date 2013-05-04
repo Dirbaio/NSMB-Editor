@@ -47,9 +47,9 @@ namespace NSMBe4
             Ready = false;
             hScrollBar.Visible = false;
             vScrollBar.Visible = false;
-           // MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
-           // DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
-           // this.SetStyle(ControlStyles.Selectable, true);
+            MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+            DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+            this.SetStyle(ControlStyles.Selectable, true);
             //dragTimer.Start();
         }
 
@@ -262,7 +262,7 @@ namespace NSMBe4
             return ProcessCmdKey(ref msg, keyData);
         }
 
-        private Keys[] tabShortcuts = { Keys.C, Keys.O, Keys.S, Keys.E, Keys.V, Keys.Z, Keys.P, Keys.G };
+        
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -320,6 +320,7 @@ namespace NSMBe4
                 mode.MoveObjects(xDelta, yDelta);
                 return true;
             }
+            Keys[] tabShortcuts = { Keys.C, Keys.O, Keys.S, Keys.E, Keys.V, Keys.Z, Keys.P, Keys.G };
             int newTab = Array.IndexOf(tabShortcuts, keyData);
             if (newTab != -1) {
                 editor.oem.tabs.SelectedTab = newTab;
