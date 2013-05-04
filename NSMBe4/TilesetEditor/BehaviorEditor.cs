@@ -58,15 +58,15 @@ namespace NSMBe4 {
         }
 
 		private void populateListBox(ListBox listBox, int maxID, string listName) {
-			var strings = LanguageManager.GetList(listName);
+			List<String> strings = LanguageManager.GetList(listName);
 
 			listBox.BeginUpdate();
 			listBox.Items.Clear();
 			for (int i = 0; i < maxID; i++)
 				listBox.Items.Add(string.Format("Unknown ({0} / 0x{0:X})", i));
 
-			foreach (var item in strings) {
-				var where = item.IndexOf('=');
+			foreach (string item in strings) {
+				int where = item.IndexOf('=');
 
 				int idx;
 				if (item.StartsWith("0x"))
@@ -74,7 +74,7 @@ namespace NSMBe4 {
 				else
 					idx = int.Parse(item.Substring(0, where));
 
-				var text = item.Substring(where+1);
+				string text = item.Substring(where+1);
 
 				listBox.Items[idx] = text;
 			}
@@ -93,12 +93,12 @@ namespace NSMBe4 {
 			return effectiveParamType(currentFlags, currentSubType);
 		}
 		private ParamTypes effectiveParamType(uint flags, int subType) {
-			var types = effectiveParamTypes(flags, subType);
+			List<ParamTypes> types = effectiveParamTypes(flags, subType);
 			return types[0];
 		}
 
 		private List<ParamTypes> effectiveParamTypes(uint flags, int subType) {
-			var output = new List<ParamTypes>();
+			List<ParamTypes> output = new List<ParamTypes>();
 			if ((flags & 2) != 0)
 				output.Add(ParamTypes.CoinParam);
 			if ((flags & 4) != 0)
@@ -150,12 +150,12 @@ namespace NSMBe4 {
 		private ParamTypes currentParamType = ParamTypes.DummyUnsetParam;
 
 		private void updateParamTypeAndData() {
-			var paramTypes = effectiveParamTypes(currentFlags, currentSubType);
+			List<ParamTypes> paramTypes = effectiveParamTypes(currentFlags, currentSubType);
 			useParamType(paramTypes[0]);
 			refreshParamData();
 
 			if (paramTypes.Count == 1) {
-				var typeName = LanguageManager.Get("BehaviorEditor",
+				string typeName = LanguageManager.Get("BehaviorEditor",
 					"type_" + getInternalLangNameForParamType(paramTypes[0]));
 
 				paramsLabel.Text = string.Format(
@@ -163,7 +163,7 @@ namespace NSMBe4 {
 					typeName);
 
 			} else {
-				var typeNames = new string[paramTypes.Count];
+				string[] typeNames = new string[paramTypes.Count];
 				for (int i = 0; i < paramTypes.Count; i++) {
 					typeNames[i] = LanguageManager.Get("BehaviorEditor",
 						"type_" + getInternalLangNameForParamType(paramTypes[i]));
