@@ -320,8 +320,17 @@ namespace NSMBe4
                 mode.MoveObjects(xDelta, yDelta);
                 return true;
             }
-            Keys[] tabShortcuts = { Keys.C, Keys.O, Keys.S, Keys.E, Keys.V, Keys.Z, Keys.P, Keys.G };
-            int newTab = Array.IndexOf(tabShortcuts, keyData);
+
+            int newTab = -1;
+            if (keyData == Keys.C) newTab = 0;
+            if (keyData == Keys.O) newTab = 1;
+            if (keyData == Keys.S) newTab = 2;
+            if (keyData == Keys.E) newTab = 3;
+            if (keyData == Keys.V) newTab = 4;
+            if (keyData == Keys.Z) newTab = 5;
+            if (keyData == Keys.P) newTab = 6;
+            if (keyData == Keys.G) newTab = 7;
+
             if (newTab != -1) {
                 editor.oem.tabs.SelectedTab = newTab;
                 this.Focus(); //For some reason setting a new tab gives it focus
