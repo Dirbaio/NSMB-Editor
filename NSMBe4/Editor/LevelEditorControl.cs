@@ -47,9 +47,9 @@ namespace NSMBe4
             Ready = false;
             hScrollBar.Visible = false;
             vScrollBar.Visible = false;
-            MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
-            DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
-            this.SetStyle(ControlStyles.Selectable, true);
+           // MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+           // DrawingArea.MouseWheel += new MouseEventHandler(DrawingArea_MouseWheel);
+           // this.SetStyle(ControlStyles.Selectable, true);
             //dragTimer.Start();
         }
 
