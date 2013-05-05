@@ -43,16 +43,22 @@ namespace NSMBe4
             if (path == "")
                 return;
 
-            NitroROMFilesystem fs = new NitroROMFilesystem(path);
+            try
+            {
+                NitroROMFilesystem fs = new NitroROMFilesystem(path);
+                Properties.Settings.Default.ROMFolder = System.IO.Path.GetDirectoryName(path);
+                Properties.Settings.Default.Save();
 
-            Properties.Settings.Default.ROMFolder = System.IO.Path.GetDirectoryName(path);
-            Properties.Settings.Default.Save();
+                if (backups != null)
+                    for (int l = 1; l < backups.Length; l++)
+                        ROM.fileBackups.Add(backups[l]);
 
-            if (backups != null)
-                for (int l = 1; l < backups.Length; l++)
-                    ROM.fileBackups.Add(backups[l]);
-
-            run(fs);
+                run(fs);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void connectButton_Click(object sender, EventArgs e)
