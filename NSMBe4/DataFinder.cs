@@ -99,9 +99,7 @@ namespace NSMBe4 {
 
             for (int i = 0; i < Levels.Count; i++)
             {
-                File levelFile = ROM.FS.getFileByName(LevelFiles[i] + ".bin");
-                File bgFile = ROM.FS.getFileByName(LevelFiles[i] + "_bgdat.bin");
-                NSMBLevel l = new NSMBLevel(levelFile, bgFile, null);
+                NSMBLevel l = new NSMBLevel(new InternalLevelSource(LevelFiles[i], null));
 
                 string n = Levels[i];
                 n += ": ";

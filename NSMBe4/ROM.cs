@@ -180,6 +180,16 @@ namespace NSMBe4 {
             Properties.Settings.Default.Save();
         }
 
+        public static DSFileSystem.File getLevelFile(string filename)
+        {
+            return FS.getFileByName(filename + ".bin");
+        }
+
+        public static DSFileSystem.File getBGDatFile(string filename)
+        {
+            return FS.getFileByName(filename + "_bgdat.bin");
+        }
+
         public enum Origin {
             US = 0, EU = 1, JP = 2, KR = 3, UNK = 4
         }

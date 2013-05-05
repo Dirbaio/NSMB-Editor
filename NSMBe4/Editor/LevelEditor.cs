@@ -35,34 +35,12 @@ namespace NSMBe4 {
         public ToolsForm tools;
         public SpriteEventsViewer sprEvents;
 
-        public LevelEditor(string LevelFilename, string LevelName)
+        public LevelEditor(NSMBLevel Level)
         {
             InitializeComponent();
-            File LevelFileID = ROM.FS.getFileByName(LevelFilename + ".bin");
-            File LevelBGDatFileID = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
-            LoadEditor(LevelFilename, LevelName, LevelFileID.getContents(), LevelBGDatFileID.getContents(), LevelFileID, LevelBGDatFileID);
-        }
 
-        public LevelEditor(string LevelFilename, string LevelName, byte[] levelFileData, byte[] bgdatFileData)
-        {
-            InitializeComponent();
-            File LevelFileID = ROM.FS.getFileByName(LevelFilename + ".bin");
-            File LevelBGDatFileID = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
-            LoadEditor(LevelFilename, LevelName, levelFileData, bgdatFileData, LevelFileID, LevelBGDatFileID);
-        }
-
-        public LevelEditor(string ExportedFileName, string LevelName, byte[] levelFileData, byte[] bgFileData, int SavedLevelFileID, int SavedBGFileID)
-        {
-            InitializeComponent();
-            if (ExportedFileName == "")
-                LoadEditor("", "Level on Clipboard", levelFileData, bgFileData, null, null);
-            else
-                LoadEditor(ExportedFileName, LevelName, levelFileData, bgFileData, null, null);
-            Level.SavedLevelFileID = SavedLevelFileID;
-            Level.SavedBGFileID = SavedBGFileID;
-        }
-
-        private void LoadEditor(string LevelFilename, string LevelName, byte[] LevelFile, byte[] BGDatFile, File LevelFileID, File LevelBGDatFileID) {
+            this.Level = Level;
+            this.GFX = Level.GFX;
             coordinateViewer1.EdControl = levelEditorControl1;
             //This is supposed to reduce flickering on stuff like the side panel...
             //But it doesn't :(
@@ -71,18 +49,16 @@ namespace NSMBe4 {
               ControlStyles.UserPaint |
               ControlStyles.DoubleBuffer, true); 
             
-
             if (Properties.Settings.Default.mdi)
                 this.MdiParent = MdiParentForm.instance;
             if (Properties.Settings.Default.LevelMaximized)
                 this.WindowState = FormWindowState.Maximized;
-            this.LevelFilename = LevelFilename;
 
             smallBlockOverlaysToolStripMenuItem.Checked = Properties.Settings.Default.SmallBlockOverlays;
             showResizeHandles.Checked = Properties.Settings.Default.ShowResizeHandles;
 
             LanguageManager.ApplyToContainer(this, "LevelEditor");
-            this.Text = LanguageManager.Get("General", "EditingSomething") + " " + LevelName;
+            this.Text = LanguageManager.Get("General", "EditingSomething") + " " + Level.name;
             // these need to be added manually
             reloadTilesets.Text = LanguageManager.Get("LevelEditor", "reloadTilesets");
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
@@ -92,19 +68,6 @@ namespace NSMBe4 {
 
             levelEditorControl1.LoadUndoManager(undoButton, redoButton);
 
-            // There's a catch 22 here: Level loading requires graphics. Graphics loading requires level.
-            // Therefore, I have a simple loader here which gets this info.
-            int Block1Offset = LevelFile[0] | (LevelFile[1] << 8) | (LevelFile[2] << 16) | (LevelFile[3] << 24);
-            int Block3Offset = LevelFile[16] | (LevelFile[17] << 8) | (LevelFile[18] << 16) | (LevelFile[19] << 24);
-            byte TilesetID = LevelFile[Block1Offset + 0x0C];
-            byte BGNSCID = LevelFile[Block3Offset + 2];
-
-            GFX = new NSMBGraphics();
-            GFX.LoadTilesets(TilesetID, BGNSCID);
-            if (LevelFileID == null)
-                Level = new NSMBLevel(LevelFilename, LevelFile, BGDatFile, GFX);
-            else
-                Level = new NSMBLevel(LevelFileID, LevelBGDatFileID, LevelFile, BGDatFile, GFX);
             Level.enableWrite();
             levelEditorControl1.Initialise(GFX, Level, this);
 
@@ -118,7 +81,7 @@ namespace NSMBe4 {
             sprEvents = new SpriteEventsViewer(levelEditorControl1);
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);
             levelEditorControl1.minimap = MinimapForm;
-            MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), LevelName);
+            MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), Level.name);
             minimapControl1.loadMinimap(Level, levelEditorControl1);
             this.Icon = Properties.Resources.nsmbe;
 
@@ -139,8 +102,6 @@ namespace NSMBe4 {
         private LevelConfig LevelConfigForm;
         private NSMBLevel Level;
         private NSMBGraphics GFX;
-
-        public string LevelFilename;
 
         private UserControl SelectedPanel;
 
@@ -177,7 +138,7 @@ namespace NSMBe4 {
             }
             if (!e.Cancel)
             {
-                ROM.fileBackups.Remove(LevelFilename);
+                ROM.fileBackups.Remove(Level.source.getBackupText());
                 ROM.writeBackupSetting();
             }
         }
@@ -358,9 +319,9 @@ namespace NSMBe4 {
 
         private void backupTimer_Tick(object sender, EventArgs e)
         {
-            if (!ROM.fileBackups.Contains(LevelFilename))
+            if (!ROM.fileBackups.Contains(Level.source.getBackupText()))
             {
-                ROM.fileBackups.Add(LevelFilename);
+                ROM.fileBackups.Add(Level.source.getBackupText());
                 ROM.writeBackupSetting();
             }
             levelSaver.RunWorkerAsync();
@@ -370,16 +331,12 @@ namespace NSMBe4 {
         {
             try
             {
-                Console.Out.WriteLine("Backing up level " + LevelFilename);
-                ExportedLevel exlvl = levelEditorControl1.Level.getExport();
+                Console.Out.WriteLine("Backing up level " + Level.source.getBackupText());
+                ExportedLevel exlvl = Level.getExport();
                 string backupPath = System.IO.Path.Combine(Application.StartupPath, "Backup");
                 if (!System.IO.Directory.Exists(backupPath))
                     System.IO.Directory.CreateDirectory(backupPath);
-                string filename;
-                if (levelEditorControl1.Level.isExported)
-                    filename = System.IO.Path.GetFileName(LevelFilename);
-                else
-                    filename = LevelFilename + ".nml";
+                string filename = Level.source.getBackupFileName();
                 System.IO.FileStream fs = new System.IO.FileStream(System.IO.Path.Combine(backupPath, filename), System.IO.FileMode.Create);
                 System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs);
                 exlvl.Write(bw);

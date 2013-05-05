@@ -88,23 +88,15 @@ namespace NSMBe4 {
 
             // Load file backups from crash
             string backupPath = Path.Combine(Application.StartupPath, "Backup");
-            if (ROM.fileBackups.Count > 0)
-                foreach (string filename in ROM.fileBackups)
+            if (ROM.fileBackups.Count > 0) {
+                foreach (string filename in ROM.fileBackups) {
                     try
                     {
-                        string backupname;
-                        if (filename.Contains("/") || filename.Contains("\\"))
-                            backupname = Path.GetFileName(filename);
-                        else
-                            backupname = filename + ".nml";
-                        FileStream fs = new System.IO.FileStream(Path.Combine(backupPath, backupname), FileMode.Open);
-                        BinaryReader br = new BinaryReader(fs);
-                        ExportedLevel exlvl = new ExportedLevel(br);
-                        br.Close();
-                        if (!exlvl.hasError())
-                            new LevelEditor(filename,"Recovered Level - " + filename, exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID).Show();
+                        new LevelEditor(new NSMBLevel(LevelSource.getForBackupLevel(filename, backupPath))).Show();
                     }
                     catch (Exception) { }
+                }
+            }
 
 
             this.Text = "NSMB Editor 5.2 Beta - " + ROM.filename;
@@ -183,7 +175,7 @@ namespace NSMBe4 {
             // Open it
             try
             {
-                LevelEditor NewEditor = new LevelEditor((string)levelTreeView.SelectedNode.Tag, EditorCaption);
+                LevelEditor NewEditor = new LevelEditor(new NSMBLevel(new InternalLevelSource((string)levelTreeView.SelectedNode.Tag, EditorCaption)));
                 NewEditor.Show();
             }
             catch (AlreadyEditingException)
@@ -232,18 +224,19 @@ namespace NSMBe4 {
 
             // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
-            NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+            DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
+            DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
 
             // Load it
-            FileStream fs = new FileStream(importLevelDialog.FileName, FileMode.Open);
-            BinaryReader br = new BinaryReader(fs);
-            ExportedLevel exlvl = new ExportedLevel(br);
-            if (exlvl.hasError())
-                MessageBox.Show(exlvl.ErrorMessage, exlvl.ErrorTitle);
-            else
-                exlvl.Import(LevelFile, BGFile);
-            br.Close();
+            try
+            {
+                ExternalLevelSource level = new ExternalLevelSource(importLevelDialog.FileName);
+                level.level.Import(LevelFile, BGFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void exportLevelButton_Click(object sender, EventArgs e) {
@@ -255,8 +248,8 @@ namespace NSMBe4 {
 
             // Get the files
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
-            NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+            DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
+            DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
 
             // Load it
             FileStream fs = new FileStream(exportLevelDialog.FileName, FileMode.Create);
@@ -270,16 +263,9 @@ namespace NSMBe4 {
             if (importLevelDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 return;
             try {
-                FileStream fs = new System.IO.FileStream(importLevelDialog.FileName, FileMode.Open);
-                BinaryReader br = new BinaryReader(fs);
-                ExportedLevel exlvl = new ExportedLevel(br);
-                br.Close();
-                if (exlvl.hasError())
-                    MessageBox.Show(exlvl.ErrorMessage, exlvl.ErrorTitle);
-                else
-                    new LevelEditor(importLevelDialog.FileName, "Exported Level - " + importLevelDialog.FileName, exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID).Show();
+                new LevelEditor(new NSMBLevel(new ExternalLevelSource(importLevelDialog.FileName))).Show();
             } catch (Exception ex) {
-                MessageBox.Show("Failed to open level file: " + ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -289,19 +275,11 @@ namespace NSMBe4 {
                 return;
             try
             {
-                string leveltxt = Clipboard.GetText();
-                if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
-                    throw new Exception();
-                leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
-                byte[] levelfile = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
-                ByteArrayInputStream strm = new ByteArrayInputStream(levelfile);
-                BinaryReader br = new BinaryReader(strm);
-
                 string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-                NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
-                NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
-                new ExportedLevel(br).Import(LevelFile, BGFile);
-                br.Close();
+                DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
+                DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
+                ClipboardLevelSource level = new ClipboardLevelSource();
+                level.level.Import(LevelFile, BGFile);
             }
             catch (Exception ex)
             {
@@ -312,8 +290,8 @@ namespace NSMBe4 {
         private void exportClipboard_Click(object sender, EventArgs e)
         {
             string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            NSMBe4.DSFileSystem.File LevelFile = ROM.FS.getFileByName(LevelFilename + ".bin");
-            NSMBe4.DSFileSystem.File BGFile = ROM.FS.getFileByName(LevelFilename + "_bgdat.bin");
+            DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
+            DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
 
             ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
             BinaryWriter bw = new BinaryWriter(strm);
@@ -327,22 +305,11 @@ namespace NSMBe4 {
         {
             try
             {
-                string leveltxt = Clipboard.GetText();
-                if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
-                    throw new Exception();
-                leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
-                byte[] leveldata = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
-                ByteArrayInputStream strm = new ByteArrayInputStream(leveldata);
-                BinaryReader br = new BinaryReader(strm);
-
-                ExportedLevel exlvl = new ExportedLevel(br);
-                LevelEditor newEditor = new LevelEditor("", "", exlvl.LevelFile, exlvl.BGFile, exlvl.LevelFileID, exlvl.BGFileID);
-                newEditor.Show();
-                br.Close();
+                new LevelEditor(new NSMBLevel(new ClipboardLevelSource())).Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show((LanguageManager.Get("LevelChooser", "clipinvalidlevel")));
+                MessageBox.Show(LanguageManager.Get("LevelChooser", "clipinvalidlevel"));
             }
         }
 
@@ -550,7 +517,7 @@ namespace NSMBe4 {
 
         private void mpPatch2_Click(object sender, EventArgs e)
         {
-            NSMBLevel lvl = new NSMBLevel(ROM.FS.getFileByName("J01_1.bin"), ROM.FS.getFileByName("J01_1_bgdat.bin"), null);
+            NSMBLevel lvl = new NSMBLevel(new InternalLevelSource("J01_1", ""));
             NarcReplace("Dat_Field.narc", "I_M_nohara.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Field.narc", "I_M_nohara_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Field.narc", "d_2d_PA_I_M_nohara.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
@@ -567,7 +534,7 @@ namespace NSMBe4 {
             NarcReplace("Dat_Field.narc", "d_2d_I_M_free_nohara_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
 
-            lvl = new NSMBLevel(ROM.FS.getFileByName("J02_1.bin"), ROM.FS.getFileByName("J02_1_bgdat.bin"), null);
+            lvl = new NSMBLevel(new InternalLevelSource("J02_1", ""));
             NarcReplace("Dat_Basement.narc", "I_M_chika3.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Basement.narc", "I_M_chika3_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Basement.narc", "d_2d_PA_I_M_chika3.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
@@ -580,7 +547,7 @@ namespace NSMBe4 {
             NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
 
 
-            lvl = new NSMBLevel(ROM.FS.getFileByName("J03_1.bin"), ROM.FS.getFileByName("J03_1_bgdat.bin"), null);
+            lvl = new NSMBLevel(new InternalLevelSource("J03_1", ""));
             NarcReplace("Dat_Ice.narc", "I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Ice.narc", "I_M_setsugen2_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Ice.narc", "d_2d_PA_I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
@@ -596,8 +563,8 @@ namespace NSMBe4 {
             NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCG));
             NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
-            
-            lvl = new NSMBLevel(ROM.FS.getFileByName("J04_1.bin"), ROM.FS.getFileByName("J04_1_bgdat.bin"), null);
+
+            lvl = new NSMBLevel(new InternalLevelSource("J04_1", ""));
             NarcReplace("Dat_Pipe.narc", "W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Pipe.narc", "W_M_dokansoto_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Pipe.narc", "d_2d_PA_W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
@@ -614,7 +581,7 @@ namespace NSMBe4 {
             NarcReplace("Dat_Pipe.narc", "d_2d_W_M_free_dokansoto_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
 
-            lvl = new NSMBLevel(ROM.FS.getFileByName("J05_1.bin"), ROM.FS.getFileByName("J05_1_bgdat.bin"), null);
+            lvl = new NSMBLevel(new InternalLevelSource("J05_1", ""));
             NarcReplace("Dat_Fort.narc", "I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Fort.narc", "I_M_yakata_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Fort.narc", "d_2d_PA_I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
