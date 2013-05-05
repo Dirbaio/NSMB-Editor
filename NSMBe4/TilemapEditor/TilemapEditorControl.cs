@@ -311,11 +311,16 @@ namespace NSMBe4
             pictureBox1.Invalidate(true);
         }
 
-        Keys[] shortcuts = { Keys.D, Keys.X, Keys.Y, Keys.C, Keys.V, Keys.P };
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            int idx = Array.IndexOf(shortcuts, keyData);
+            int idx = -1;
+            if (keyData == Keys.D) idx = 0;
+            if (keyData == Keys.X) idx = 1;
+            if (keyData == Keys.Y) idx = 2;
+            if (keyData == Keys.C) idx = 3;
+            if (keyData == Keys.V) idx = 4;
+            if (keyData == Keys.P) idx = 5;
+
             if (idx > -1)
             {
                 ed.setMode((EditionMode)idx);
