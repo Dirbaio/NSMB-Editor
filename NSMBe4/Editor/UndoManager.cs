@@ -47,7 +47,7 @@ namespace NSMBe4
             redo.ButtonClick += new EventHandler(onRedoLast);
         }
 
-        public void Do(Action act)
+        public void Do(Action act, bool select = false)
         {
             if (act.cancel)
                 return;
@@ -55,7 +55,10 @@ namespace NSMBe4
             //First do the action. Only the *new* action
             act.SetEdControl(EdControl);
             act.Redo();
-            act.AfterAction();
+    
+            if(select)
+                act.AfterAction();
+            
             EdControl.mode.Refresh();
             
             //Then save the done action. Merge with previous actions if needed.

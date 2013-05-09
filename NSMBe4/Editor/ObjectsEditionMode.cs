@@ -416,9 +416,12 @@ namespace NSMBe4
                     ly += yDelta;
                 
                     //Force align =D
-                    foreach (LevelItem o in SelectedObjects)
-                        if (o.rx % selectionSnap != 0 || o.ry % selectionSnap != 0 || o.rwidth % selectionSnap != 0 || o.rheight % selectionSnap != 0)
-                            EdControl.UndoManager.Do(new MoveResizeLvlItemAction(UndoManager.ObjToList(o), -o.rx % selectionSnap, -o.ry % selectionSnap, -o.rwidth % selectionSnap, -o.rheight % selectionSnap));
+                    //Only done when ONE object because you'll probably NOT want multiple objects
+                    //moving relative to each other.
+                    if(SelectedObjects.Count == 1)
+                        foreach (LevelItem o in SelectedObjects)
+                            if (o.rx % selectionSnap != 0 || o.ry % selectionSnap != 0 || o.rwidth % selectionSnap != 0 || o.rheight % selectionSnap != 0)
+                                EdControl.UndoManager.Do(new MoveResizeLvlItemAction(UndoManager.ObjToList(o), -o.rx % selectionSnap, -o.ry % selectionSnap, -o.rwidth % selectionSnap, -o.rheight % selectionSnap));
 
                 }
                 else
