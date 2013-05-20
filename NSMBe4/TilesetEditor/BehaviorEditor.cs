@@ -24,7 +24,12 @@ namespace NSMBe4 {
 		int currentSubType;
 		int currentParam;
 
-		public void setData(uint data) {
+        public void setData(uint data)
+        {
+            setData(data, true);
+        }
+
+		private void setData(uint data, bool updateHex) {
 			currentFlags = ((data & 0xFFFF0000) >> 16) | ((data & 0xF00) << 8);
 			currentSubType = (int)(data & 0xF000) >> 12;
 			currentParam = (int)data & 0xFF;
@@ -45,7 +50,8 @@ namespace NSMBe4 {
 			populateListBox(pipeDoorTypeListBox, 32, "PipeTileType");
 
 			updateParamTypeAndData();
-            updateHexEditor();
+            if (updateHex)
+                updateHexEditor();
 
 			DataUpdateFlag--;
 
@@ -312,7 +318,9 @@ namespace NSMBe4 {
         {
             if (DataUpdateFlag > 0) return;
 
-            setData(BitConverter.ToUInt32(val, 0));
+            setData(BitConverter.ToUInt32(val, 0), false);
+            // Doesn't use sendDataChangedEvent() because it will refresh the hexBehaviorEditor
+            DataChanged(getBehaviorUInt());
         }
 
 	}
