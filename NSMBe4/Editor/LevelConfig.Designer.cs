@@ -48,34 +48,34 @@
             this.set5ComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.grpBGBottom = new System.Windows.Forms.GroupBox();
             this.bgBottomLayerPreviewButton = new System.Windows.Forms.Button();
             this.bgBottomLayerComboBox = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpBGTop = new System.Windows.Forms.GroupBox();
             this.bgTopLayerPreviewButton = new System.Windows.Forms.Button();
             this.bgTopLayerComboBox = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpTileset = new System.Windows.Forms.GroupBox();
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblStartEntrance = new System.Windows.Forms.Label();
+            this.lblTimeLimit = new System.Windows.Forms.Label();
             this.timeLimitUpDown = new System.Windows.Forms.NumericUpDown();
             this.startEntranceUpDown = new System.Windows.Forms.NumericUpDown();
+            this.midwayEntranceUpDown = new System.Windows.Forms.NumericUpDown();
+            this.soundSetUpDown = new System.Windows.Forms.NumericUpDown();
+            this.lblMidwayEntrance = new System.Windows.Forms.Label();
+            this.lblSoundSet = new System.Windows.Forms.Label();
             this.levelWrapCheckBox = new System.Windows.Forms.CheckBox();
             this.forceMiniCheckBox = new System.Windows.Forms.CheckBox();
             this.miniMarioPhysicsCheckBox = new System.Windows.Forms.CheckBox();
-            this.midwayEntranceUpDown = new System.Windows.Forms.NumericUpDown();
-            this.soundSetUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpBGBottom.SuspendLayout();
+            this.grpBGTop.SuspendLayout();
+            this.grpTileset.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeLimitUpDown)).BeginInit();
@@ -386,9 +386,9 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.grpBGBottom);
+            this.tabPage2.Controls.Add(this.grpBGTop);
+            this.tabPage2.Controls.Add(this.grpTileset);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -397,17 +397,17 @@
             this.tabPage2.Text = "<tabPage2>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
+            // grpBGBottom
             // 
-            this.groupBox3.Controls.Add(this.bgBottomLayerPreviewButton);
-            this.groupBox3.Controls.Add(this.bgBottomLayerComboBox);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(3, 122);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(237, 74);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "<groupBox3>";
+            this.grpBGBottom.Controls.Add(this.bgBottomLayerPreviewButton);
+            this.grpBGBottom.Controls.Add(this.bgBottomLayerComboBox);
+            this.grpBGBottom.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpBGBottom.Location = new System.Drawing.Point(3, 122);
+            this.grpBGBottom.Name = "grpBGBottom";
+            this.grpBGBottom.Size = new System.Drawing.Size(237, 74);
+            this.grpBGBottom.TabIndex = 2;
+            this.grpBGBottom.TabStop = false;
+            this.grpBGBottom.Text = "<BottomBackground>";
             // 
             // bgBottomLayerPreviewButton
             // 
@@ -431,17 +431,17 @@
             this.bgBottomLayerComboBox.TabIndex = 0;
             this.bgBottomLayerComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
-            // groupBox2
+            // grpBGTop
             // 
-            this.groupBox2.Controls.Add(this.bgTopLayerPreviewButton);
-            this.groupBox2.Controls.Add(this.bgTopLayerComboBox);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(3, 49);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(237, 73);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "<groupBox2>";
+            this.grpBGTop.Controls.Add(this.bgTopLayerPreviewButton);
+            this.grpBGTop.Controls.Add(this.bgTopLayerComboBox);
+            this.grpBGTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpBGTop.Location = new System.Drawing.Point(3, 49);
+            this.grpBGTop.Name = "grpBGTop";
+            this.grpBGTop.Size = new System.Drawing.Size(237, 73);
+            this.grpBGTop.TabIndex = 1;
+            this.grpBGTop.TabStop = false;
+            this.grpBGTop.Text = "<TopBackground>";
             // 
             // bgTopLayerPreviewButton
             // 
@@ -465,16 +465,16 @@
             this.bgTopLayerComboBox.TabIndex = 0;
             this.bgTopLayerComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
-            // groupBox1
+            // grpTileset
             // 
-            this.groupBox1.Controls.Add(this.tilesetComboBox);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(237, 46);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "<groupBox1>";
+            this.grpTileset.Controls.Add(this.tilesetComboBox);
+            this.grpTileset.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpTileset.Location = new System.Drawing.Point(3, 3);
+            this.grpTileset.Name = "grpTileset";
+            this.grpTileset.Size = new System.Drawing.Size(237, 46);
+            this.grpTileset.TabIndex = 0;
+            this.grpTileset.TabStop = false;
+            this.grpTileset.Text = "<Tileset>";
             // 
             // tilesetComboBox
             // 
@@ -503,14 +503,14 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lblStartEntrance, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lblTimeLimit, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.timeLimitUpDown, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.startEntranceUpDown, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.midwayEntranceUpDown, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.soundSetUpDown, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label15, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lblMidwayEntrance, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblSoundSet, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.levelWrapCheckBox, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.forceMiniCheckBox, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.miniMarioPhysicsCheckBox, 0, 6);
@@ -529,53 +529,102 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(237, 412);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // label2
+            // lblStartEntrance
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "<label2>";
+            this.lblStartEntrance.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblStartEntrance.AutoSize = true;
+            this.lblStartEntrance.Location = new System.Drawing.Point(17, 32);
+            this.lblStartEntrance.Name = "lblStartEntrance";
+            this.lblStartEntrance.Size = new System.Drawing.Size(84, 13);
+            this.lblStartEntrance.TabIndex = 2;
+            this.lblStartEntrance.Text = "<StartEntrance>";
             // 
-            // label1
+            // lblTimeLimit
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "<label1>";
+            this.lblTimeLimit.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblTimeLimit.AutoSize = true;
+            this.lblTimeLimit.Location = new System.Drawing.Point(38, 6);
+            this.lblTimeLimit.Name = "lblTimeLimit";
+            this.lblTimeLimit.Size = new System.Drawing.Size(63, 13);
+            this.lblTimeLimit.TabIndex = 1;
+            this.lblTimeLimit.Text = "<TimeLimit>";
             // 
             // timeLimitUpDown
             // 
             this.timeLimitUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeLimitUpDown.Location = new System.Drawing.Point(56, 3);
+            this.timeLimitUpDown.Location = new System.Drawing.Point(107, 3);
             this.timeLimitUpDown.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
             this.timeLimitUpDown.Name = "timeLimitUpDown";
-            this.timeLimitUpDown.Size = new System.Drawing.Size(178, 20);
+            this.timeLimitUpDown.Size = new System.Drawing.Size(127, 20);
             this.timeLimitUpDown.TabIndex = 0;
             this.timeLimitUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
             // startEntranceUpDown
             // 
             this.startEntranceUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.startEntranceUpDown.Location = new System.Drawing.Point(56, 29);
+            this.startEntranceUpDown.Location = new System.Drawing.Point(107, 29);
             this.startEntranceUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.startEntranceUpDown.Name = "startEntranceUpDown";
-            this.startEntranceUpDown.Size = new System.Drawing.Size(178, 20);
+            this.startEntranceUpDown.Size = new System.Drawing.Size(127, 20);
             this.startEntranceUpDown.TabIndex = 4;
             this.startEntranceUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
+            // 
+            // midwayEntranceUpDown
+            // 
+            this.midwayEntranceUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.midwayEntranceUpDown.Location = new System.Drawing.Point(107, 55);
+            this.midwayEntranceUpDown.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.midwayEntranceUpDown.Name = "midwayEntranceUpDown";
+            this.midwayEntranceUpDown.Size = new System.Drawing.Size(127, 20);
+            this.midwayEntranceUpDown.TabIndex = 5;
+            this.midwayEntranceUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
+            // 
+            // soundSetUpDown
+            // 
+            this.soundSetUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.soundSetUpDown.Hexadecimal = true;
+            this.soundSetUpDown.Location = new System.Drawing.Point(107, 81);
+            this.soundSetUpDown.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.soundSetUpDown.Name = "soundSetUpDown";
+            this.soundSetUpDown.Size = new System.Drawing.Size(127, 20);
+            this.soundSetUpDown.TabIndex = 5;
+            this.soundSetUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
+            // 
+            // lblMidwayEntrance
+            // 
+            this.lblMidwayEntrance.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblMidwayEntrance.AutoSize = true;
+            this.lblMidwayEntrance.Location = new System.Drawing.Point(3, 58);
+            this.lblMidwayEntrance.Name = "lblMidwayEntrance";
+            this.lblMidwayEntrance.Size = new System.Drawing.Size(98, 13);
+            this.lblMidwayEntrance.TabIndex = 3;
+            this.lblMidwayEntrance.Text = "<MidwayEntrance>";
+            // 
+            // lblSoundSet
+            // 
+            this.lblSoundSet.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblSoundSet.AutoSize = true;
+            this.lblSoundSet.Location = new System.Drawing.Point(35, 84);
+            this.lblSoundSet.Name = "lblSoundSet";
+            this.lblSoundSet.Size = new System.Drawing.Size(66, 13);
+            this.lblSoundSet.TabIndex = 3;
+            this.lblSoundSet.Text = "<SoundSet>";
             // 
             // levelWrapCheckBox
             // 
@@ -616,55 +665,6 @@
             this.miniMarioPhysicsCheckBox.UseVisualStyleBackColor = true;
             this.miniMarioPhysicsCheckBox.CheckedChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
-            // midwayEntranceUpDown
-            // 
-            this.midwayEntranceUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.midwayEntranceUpDown.Location = new System.Drawing.Point(56, 55);
-            this.midwayEntranceUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.midwayEntranceUpDown.Name = "midwayEntranceUpDown";
-            this.midwayEntranceUpDown.Size = new System.Drawing.Size(178, 20);
-            this.midwayEntranceUpDown.TabIndex = 5;
-            this.midwayEntranceUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
-            // 
-            // soundSetUpDown
-            // 
-            this.soundSetUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.soundSetUpDown.Hexadecimal = true;
-            this.soundSetUpDown.Location = new System.Drawing.Point(56, 81);
-            this.soundSetUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.soundSetUpDown.Name = "soundSetUpDown";
-            this.soundSetUpDown.Size = new System.Drawing.Size(178, 20);
-            this.soundSetUpDown.TabIndex = 5;
-            this.soundSetUpDown.ValueChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "<label3>";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 84);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(47, 13);
-            this.label15.TabIndex = 3;
-            this.label15.Text = "<label3>";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -689,9 +689,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
+            this.grpBGBottom.ResumeLayout(false);
+            this.grpBGTop.ResumeLayout(false);
+            this.grpTileset.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -730,18 +730,18 @@
         private System.Windows.Forms.ComboBox set1ComboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpTileset;
         private System.Windows.Forms.ComboBox tilesetComboBox;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpBGTop;
         private System.Windows.Forms.Button bgTopLayerPreviewButton;
         private System.Windows.Forms.ComboBox bgTopLayerComboBox;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox grpBGBottom;
         private System.Windows.Forms.Button bgBottomLayerPreviewButton;
         private System.Windows.Forms.ComboBox bgBottomLayerComboBox;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblStartEntrance;
+        private System.Windows.Forms.Label lblTimeLimit;
         private System.Windows.Forms.NumericUpDown timeLimitUpDown;
         private System.Windows.Forms.NumericUpDown startEntranceUpDown;
         private System.Windows.Forms.CheckBox levelWrapCheckBox;
@@ -749,8 +749,8 @@
         private System.Windows.Forms.CheckBox miniMarioPhysicsCheckBox;
         private System.Windows.Forms.NumericUpDown midwayEntranceUpDown;
         private System.Windows.Forms.NumericUpDown soundSetUpDown;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblMidwayEntrance;
+        private System.Windows.Forms.Label lblSoundSet;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

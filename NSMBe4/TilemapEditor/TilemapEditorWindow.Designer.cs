@@ -46,7 +46,7 @@
             this.ClientSize = new System.Drawing.Size(921, 589);
             this.Controls.Add(this.tilemapEditor1);
             this.Name = "TilemapEditorWindow";
-            this.Text = "TilemapEditorTest";
+            this.Text = "<Tilemap Editor>";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TilemapEditorWindow_FormClosing);
             this.ResumeLayout(false);
 

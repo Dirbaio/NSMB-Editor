@@ -69,10 +69,13 @@ namespace NSMBe4 {
                 musicList.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
 
             LanguageManager.ApplyToContainer(this, "LevelChooser");
-            importLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
-            exportLevelDialog.Filter = LanguageManager.Get("LevelChooser", "LevelFilter");
-            openPatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
-            savePatchDialog.Filter = LanguageManager.Get("LevelChooser", "PatchFilter");
+            openROMDialog.Filter = LanguageManager.Get("Filters", "rom");
+            importLevelDialog.Filter = LanguageManager.Get("Filters", "level");
+            exportLevelDialog.Filter = LanguageManager.Get("Filters", "level");
+            openPatchDialog.Filter = LanguageManager.Get("Filters", "patch");
+            savePatchDialog.Filter = LanguageManager.Get("Filters", "patch");
+            openTextFileDialog.Filter = LanguageManager.Get("Filters", "text");
+            saveTextFileDialog.Filter = LanguageManager.Get("Filters", "text");
             this.Activate();
             //Get Language Files
 			string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
@@ -143,7 +146,7 @@ namespace NSMBe4 {
                         LevelNode = WorldNode.Nodes.Add("ln" + NameIdx.ToString(), ParseLevel[0]);
                         int AreaCount = int.Parse(ParseLevel[2]);
                         for (int AreaIdx = 1; AreaIdx <= AreaCount; AreaIdx++) {
-                            AreaNode = LevelNode.Nodes.Add("ln" + NameIdx.ToString() + "a" + AreaIdx.ToString(), "Area " + AreaIdx.ToString());
+                            AreaNode = LevelNode.Nodes.Add("ln" + NameIdx.ToString() + "a" + AreaIdx.ToString(), LanguageManager.Get("LevelChooser", "Area") + " " + AreaIdx.ToString());
                             AreaNode.Tag = WorldID + ParseLevel[1] + "_" + AreaIdx.ToString();
                         }
                     }
@@ -297,7 +300,7 @@ namespace NSMBe4 {
             BinaryWriter bw = new BinaryWriter(strm);
 
             new ExportedLevel(LevelFile, BGFile).Write(bw);
-            Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(ROM.LZ77_Compress(strm.getData())) + "|");
+            ClipboardLevelSource.copyData(strm.getData());
             bw.Close();
         }
 
@@ -340,6 +343,8 @@ namespace NSMBe4 {
          * - File contents as byte[]
          */
 
+        public const string patchHeader = "NSMBe4 Exported Patch";
+
         private void patchExport_Click(object sender, EventArgs e)
         {
             //output to show to the user
@@ -360,7 +365,7 @@ namespace NSMBe4 {
             FileStream fs = new FileStream(savePatchDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
             
             BinaryWriter bw = new BinaryWriter(fs);
-            bw.Write("NSMBe4 Exported Patch");
+            bw.Write(patchHeader);
 
             //DO THE PATCH!!
             ProgressWindow progress = new ProgressWindow(LanguageManager.Get("Patch", "ExportProgressTitle"));
@@ -441,7 +446,7 @@ namespace NSMBe4 {
             BinaryReader br = new BinaryReader(fs);
 
             string header = br.ReadString();
-            if (header != "NSMBe4 Exported Patch")
+            if (header != patchHeader)
             {
                 MessageBox.Show(
                     LanguageManager.Get("Patch", "InvalidFile"),
@@ -630,11 +635,6 @@ namespace NSMBe4 {
             f.endEdit(this);
 
             fs.close();
-        }
-
-        private void tilesetEditor_Click(object sender, EventArgs e)
-        {
-            new TilesetChooser().Show();
         }
 
 		//ASM Tools

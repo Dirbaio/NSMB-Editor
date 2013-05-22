@@ -93,7 +93,7 @@ namespace NSMBe4
         private void importTilesetBtn_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "NMT Files|*.nmt";
+            ofd.Filter = LanguageManager.Get("Filters", "tileset");
             ofd.CheckFileExists = true;
 
             if (ofd.ShowDialog() != DialogResult.OK) return;
@@ -105,7 +105,7 @@ namespace NSMBe4
         private void exportTilesetBtn_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "NMT Files|*.nmt";
+            sfd.Filter = LanguageManager.Get("Filters", "tileset");
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
             NSMBTileset t = loadTileset(getSelectedID());
@@ -143,11 +143,11 @@ namespace NSMBe4
         {
             if (tilesetListBox.SelectedIndex < 2)
             {
-                MessageBox.Show("This tileset cannot be renamed");
+                MessageBox.Show(LanguageManager.Get("TilesetList", "errorRename"));
                 return;
             }
             string newName;
-            if (textForm.ShowDialog("Enter new tileset name:", tilesetListBox.SelectedItem.ToString(), out newName) == DialogResult.OK)
+            if (textForm.ShowDialog(LanguageManager.Get("TilesetList", "renamePrompt"), tilesetListBox.SelectedItem.ToString(), out newName) == DialogResult.OK)
             {
                 if (newName == string.Empty)
                 {

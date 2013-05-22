@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPrompt = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.OKbtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lblPrompt
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.lblPrompt.AutoSize = true;
+            this.lblPrompt.Location = new System.Drawing.Point(12, 9);
+            this.lblPrompt.Name = "lblPrompt";
+            this.lblPrompt.Size = new System.Drawing.Size(52, 13);
+            this.lblPrompt.TabIndex = 0;
+            this.lblPrompt.Text = "<Prompt>";
             // 
             // textBox1
             // 
@@ -56,7 +56,7 @@
             this.OKbtn.Name = "OKbtn";
             this.OKbtn.Size = new System.Drawing.Size(75, 23);
             this.OKbtn.TabIndex = 2;
-            this.OKbtn.Text = "OK";
+            this.OKbtn.Text = "<OK>";
             this.OKbtn.UseVisualStyleBackColor = true;
             this.OKbtn.Click += new System.EventHandler(this.OKbtn_Click);
             // 
@@ -67,7 +67,7 @@
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 3;
-            this.CancelBtn.Text = "Cancel";
+            this.CancelBtn.Text = "<Cancel>";
             this.CancelBtn.UseVisualStyleBackColor = true;
             this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
@@ -81,13 +81,13 @@
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.OKbtn);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPrompt);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TextInputForm";
             this.ShowIcon = false;
-            this.Text = "Enter Text";
+            this.Text = "<Enter Text>";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,7 +95,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPrompt;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button OKbtn;
         private System.Windows.Forms.Button CancelBtn;

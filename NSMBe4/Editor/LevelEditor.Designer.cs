@@ -65,11 +65,11 @@
             this.reloadTilesets = new System.Windows.Forms.ToolStripMenuItem();
             this.smallBlockOverlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showResizeHandles = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.backgroundDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.setBgImageButton = new System.Windows.Forms.ToolStripMenuItem();
             this.removeBgButton = new System.Windows.Forms.ToolStripMenuItem();
             this.moveBGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openImage = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -122,13 +122,12 @@
             this.toolStripSeparator3,
             this.editTileset,
             this.optionsMenu,
-            this.toolStripDropDownButton1});
+            this.backgroundDropDown});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.toolStrip1.Size = new System.Drawing.Size(963, 25);
             this.toolStrip1.TabIndex = 5;
-            this.toolStrip1.Text = "toolStrip1";
             // 
             // saveLevelButton
             // 
@@ -162,7 +161,7 @@
             this.cutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutButton.Name = "cutButton";
             this.cutButton.Size = new System.Drawing.Size(23, 22);
-            this.cutButton.Text = "Cut";
+            this.cutButton.Text = "<Cut>";
             this.cutButton.Click += new System.EventHandler(this.cutButton_Click);
             // 
             // copyButton
@@ -172,7 +171,7 @@
             this.copyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(23, 22);
-            this.copyButton.Text = "Copy";
+            this.copyButton.Text = "<Copy>";
             this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
             // 
             // pasteButton
@@ -182,7 +181,7 @@
             this.pasteButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteButton.Name = "pasteButton";
             this.pasteButton.Size = new System.Drawing.Size(23, 22);
-            this.pasteButton.Text = "Paste";
+            this.pasteButton.Text = "<Paste>";
             this.pasteButton.Click += new System.EventHandler(this.pasteButton_Click);
             // 
             // deleteButton
@@ -192,7 +191,7 @@
             this.deleteButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteButton.Text = "Delete";
+            this.deleteButton.Text = "<Delete>";
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // toolStripSeparator5
@@ -207,7 +206,7 @@
             this.lowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lowerButton.Name = "lowerButton";
             this.lowerButton.Size = new System.Drawing.Size(23, 22);
-            this.lowerButton.Text = "Lower to Bottom (pg dn)";
+            this.lowerButton.Text = "<Lower to Bottom (pg dn)>";
             this.lowerButton.Click += new System.EventHandler(this.lowerButton_Click);
             // 
             // raiseButton
@@ -217,7 +216,7 @@
             this.raiseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.raiseButton.Name = "raiseButton";
             this.raiseButton.Size = new System.Drawing.Size(23, 22);
-            this.raiseButton.Text = "Raise to Top (pg up)";
+            this.raiseButton.Text = "<Raise to Top (pg up)>";
             this.raiseButton.Click += new System.EventHandler(this.raiseButton_Click);
             // 
             // toolStripSeparator6
@@ -235,7 +234,7 @@
             this.snapToggleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.snapToggleButton.Name = "snapToggleButton";
             this.snapToggleButton.Size = new System.Drawing.Size(23, 22);
-            this.snapToggleButton.Text = "Toggle Snap";
+            this.snapToggleButton.Text = "<Toggle Snap>";
             this.snapToggleButton.Click += new System.EventHandler(this.snapToggleButton_Click);
             // 
             // dsScreenShowButton
@@ -246,7 +245,7 @@
             this.dsScreenShowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dsScreenShowButton.Name = "dsScreenShowButton";
             this.dsScreenShowButton.Size = new System.Drawing.Size(23, 22);
-            this.dsScreenShowButton.Text = "Show DS-sized screen";
+            this.dsScreenShowButton.Text = "<Show DS-sized screen>";
             this.dsScreenShowButton.Click += new System.EventHandler(this.dsScreenShowButton_Click);
             // 
             // showGridButton
@@ -257,7 +256,7 @@
             this.showGridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showGridButton.Name = "showGridButton";
             this.showGridButton.Size = new System.Drawing.Size(23, 22);
-            this.showGridButton.Text = "Show Grid";
+            this.showGridButton.Text = "<Show Grid>";
             this.showGridButton.Click += new System.EventHandler(this.showGridButton_Click);
             // 
             // toolStripSeparator2
@@ -307,7 +306,7 @@
             this.spriteEvents.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.spriteEvents.Name = "spriteEvents";
             this.spriteEvents.Size = new System.Drawing.Size(23, 22);
-            this.spriteEvents.Text = "Sprite Events";
+            this.spriteEvents.Text = "<Sprite Events>";
             this.spriteEvents.Click += new System.EventHandler(this.spriteEvents_Click);
             // 
             // zoomMenu
@@ -455,50 +454,45 @@
             this.showResizeHandles.CheckOnClick = true;
             this.showResizeHandles.Name = "showResizeHandles";
             this.showResizeHandles.Size = new System.Drawing.Size(295, 22);
-            this.showResizeHandles.Text = "Show Resize Handles";
+            this.showResizeHandles.Text = "<ShowResizeHandles>";
             this.showResizeHandles.Click += new System.EventHandler(this.showResizeHandles_Click);
             // 
-            // toolStripDropDownButton1
+            // backgroundDropDown
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backgroundDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.backgroundDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setBgImageButton,
             this.removeBgButton,
             this.moveBGToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = global::NSMBe4.Properties.Resources.image;
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
-            this.toolStripDropDownButton1.Text = "Background";
+            this.backgroundDropDown.Image = global::NSMBe4.Properties.Resources.image;
+            this.backgroundDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.backgroundDropDown.Name = "backgroundDropDown";
+            this.backgroundDropDown.Size = new System.Drawing.Size(29, 22);
+            this.backgroundDropDown.Text = "<Background>";
             // 
             // setBgImageButton
             // 
             this.setBgImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.setBgImageButton.Name = "setBgImageButton";
-            this.setBgImageButton.Size = new System.Drawing.Size(135, 22);
-            this.setBgImageButton.Text = "Set BG";
+            this.setBgImageButton.Size = new System.Drawing.Size(148, 22);
+            this.setBgImageButton.Text = "<SetBG>";
             this.setBgImageButton.Click += new System.EventHandler(this.setBgImageButton_Click);
             // 
             // removeBgButton
             // 
             this.removeBgButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.removeBgButton.Name = "removeBgButton";
-            this.removeBgButton.Size = new System.Drawing.Size(135, 22);
-            this.removeBgButton.Text = "Remove BG";
+            this.removeBgButton.Size = new System.Drawing.Size(148, 22);
+            this.removeBgButton.Text = "<RemoveBG>";
             this.removeBgButton.Click += new System.EventHandler(this.removeBgButton_Click);
             // 
             // moveBGToolStripMenuItem
             // 
             this.moveBGToolStripMenuItem.CheckOnClick = true;
             this.moveBGToolStripMenuItem.Name = "moveBGToolStripMenuItem";
-            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.moveBGToolStripMenuItem.Text = "Move BG";
+            this.moveBGToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.moveBGToolStripMenuItem.Text = "<MoveBG>";
             this.moveBGToolStripMenuItem.Click += new System.EventHandler(this.moveBGToolStripMenuItem_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.bmp; *.gif; *.tiff)|*.png; *.jpg; *.jpeg; *." +
-    "bmp; *.gif; *.tiff|All Files (*.*)|*.*";
             // 
             // splitContainer1
             // 
@@ -576,7 +570,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(241, 90);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Minimap";
+            this.tabPage1.Text = "<Minimap>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // minimapControl1
@@ -596,7 +590,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(241, 90);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Obj Position";
+            this.tabPage2.Text = "<Obj Position>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // coordinateViewer1
@@ -685,8 +679,8 @@
         private System.Windows.Forms.ToolStripSplitButton undoButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSplitButton redoButton;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.OpenFileDialog openImage;
+        private System.Windows.Forms.ToolStripDropDownButton backgroundDropDown;
         private System.Windows.Forms.ToolStripMenuItem setBgImageButton;
         private System.Windows.Forms.ToolStripMenuItem removeBgButton;
         private System.Windows.Forms.ToolStripMenuItem moveBGToolStripMenuItem;

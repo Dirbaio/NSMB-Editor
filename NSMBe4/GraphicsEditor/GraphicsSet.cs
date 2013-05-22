@@ -56,7 +56,7 @@ namespace NSMBe4
             checkStuff();
 
             SaveFileDialog ofd = new SaveFileDialog();
-            ofd.Filter = "PNG Files|*.png";
+            ofd.Filter = LanguageManager.Get("Filters", "png");
             if (ofd.ShowDialog(win) == DialogResult.Cancel) return false;
             calcSizes();
 
@@ -101,7 +101,7 @@ namespace NSMBe4
             checkStuff();
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "PNG Files|*.png";
+            ofd.Filter = LanguageManager.Get("Filters", "png");
             if (ofd.ShowDialog() == DialogResult.Cancel) return false;
 
             calcSizes();

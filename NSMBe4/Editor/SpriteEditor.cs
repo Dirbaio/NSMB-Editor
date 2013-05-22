@@ -50,12 +50,15 @@ namespace NSMBe4
                 i++;
             }
             if (SpriteData.spriteNames.Count == 0)
+            {
+                string spriteText = LanguageManager.Get("SpriteEditor", "sprite");
                 for (int s = 0; s < ROM.SpriteCount; s++)
-                    spritelist[s] = "Sprite " + s;
+                    spritelist[s] = String.Format(spriteText, s);
+            }
 
             for (int l = 0; l < ROM.SpriteCount; l++)
                 curSprites.Add(l);
-            categoryList.Items.Add("All");
+            categoryList.Items.Add(LanguageManager.Get("SpriteEditor", "All"));
             foreach (string cat in SpriteData.categories)
                 categoryList.Items.Add(cat);
             categoryList.SelectedIndex = 0;

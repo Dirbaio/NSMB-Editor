@@ -8,6 +8,9 @@ namespace NSMBe4
 {
     public class ExportedLevel
     {
+        public const string fileHeader = "NSMBe4 Exported Level";
+        public const ushort version = 1;
+
         public byte[] LevelFile;
         public byte[] BGDatFile;
         public int LevelFileID = 0;
@@ -34,13 +37,13 @@ namespace NSMBe4
         public ExportedLevel(System.IO.BinaryReader br)
         {
             string Header = br.ReadString();
-            if (Header != "NSMBe4 Exported Level")
+            if (Header != fileHeader)
             {
                 throw new Exception(LanguageManager.Get("NSMBLevel", "InvalidFile"));
             }
 
             ushort FileVersion = br.ReadUInt16();
-            if (FileVersion > 1)
+            if (FileVersion > version)
             {
                 throw new Exception(LanguageManager.Get("NSMBLevel", "OldVersion"));
             }
@@ -83,8 +86,8 @@ namespace NSMBe4
 
         public void Write(System.IO.BinaryWriter bw)
         {
-            bw.Write("NSMBe4 Exported Level");
-            bw.Write((ushort)1);
+            bw.Write(fileHeader);
+            bw.Write(version);
             bw.Write((ushort)LevelFileID);
             bw.Write((ushort)BGDatFileID);
             bw.Write(LevelFile.Length);

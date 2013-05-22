@@ -30,6 +30,8 @@ namespace NSMBe4.Editor
         public CoordinateViewer()
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "CoordinateViewer");
+
             xUpDown.Maximum = 512 * 16;
             yUpDown.Maximum = 256 * 16;
             widthUpDown.Minimum = 1;

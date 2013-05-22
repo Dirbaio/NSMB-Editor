@@ -21,6 +21,9 @@ using System.Text;
 
 namespace NSMBe4 {
     public static class LanguageManager {
+
+        public const string tooltipIdentifier = ".tooltip";
+
         private static Dictionary<string, Dictionary<string, string>> Contents;
         private static Dictionary<string, List<string>> Lists;
 
@@ -134,8 +137,8 @@ namespace NSMBe4 {
                     Control.Text = Referred[Control.Name];
                 }
                 //Applies tooltip text to a control
-                if (tooltip != null && Referred.ContainsKey(Control.Name + ".tooltip")) {
-                    tooltip.SetToolTip(Control, Referred[Control.Name + ".tooltip"]);
+                if (tooltip != null && Referred.ContainsKey(Control.Name + tooltipIdentifier)) {
+                    tooltip.SetToolTip(Control, Referred[Control.Name + tooltipIdentifier]);
                 }
 
                 if (Control is System.Windows.Forms.ToolStrip) {
@@ -145,8 +148,8 @@ namespace NSMBe4 {
                             TSItem.Text = Referred[TSItem.Name];
                         }
                         //Sets tooltip on a toolstrip
-                        if (Referred.ContainsKey(TSItem.Name + ".tooltip")) {
-                            TSItem.ToolTipText = Referred[TSItem.Name + ".tooltip"];
+                        if (Referred.ContainsKey(TSItem.Name + tooltipIdentifier)) {
+                            TSItem.ToolTipText = Referred[TSItem.Name + tooltipIdentifier];
                         }
                     }
                 }

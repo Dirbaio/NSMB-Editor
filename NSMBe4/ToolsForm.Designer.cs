@@ -44,10 +44,8 @@
             this.nudFindTileset = new System.Windows.Forms.NumericUpDown();
             this.lblTileset = new System.Windows.Forms.Label();
             this.objFindNext = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -255,15 +253,6 @@
             this.objFindNext.UseVisualStyleBackColor = true;
             this.objFindNext.Click += new System.EventHandler(this.objFindNext_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 72);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 22);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Find Next";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -286,16 +275,6 @@
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(94, 20);
             this.numericUpDown2.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "New Sprite Number";
             // 
             // ToolsForm
             // 
@@ -330,10 +309,8 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button objFindNext;
         private System.Windows.Forms.TableLayoutPanel tableFindObj;

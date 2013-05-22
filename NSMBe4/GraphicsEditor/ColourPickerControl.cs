@@ -55,10 +55,10 @@ namespace NSMBe4 {
             e.Graphics.FillRectangle(SystemBrushes.Control, 0, 101, 1, 1);
             e.Graphics.FillRectangle(SystemBrushes.Control, 255, 101, 1, 1);
 
-            TextRenderer.DrawText(e.Graphics, "Red", SystemFonts.DialogFont, new Point(0, 2), Color.White);
-            TextRenderer.DrawText(e.Graphics, "Green", SystemFonts.DialogFont, new Point(0, 30), Color.White);
-            TextRenderer.DrawText(e.Graphics, "Blue", SystemFonts.DialogFont, new Point(0, 58), Color.White);
-            TextRenderer.DrawText(e.Graphics, "Preview", SystemFonts.DialogFont, new Point(0, 86), Color.White);
+            TextRenderer.DrawText(e.Graphics, _redlabel, SystemFonts.DialogFont, new Point(0, 2), Color.White);
+            TextRenderer.DrawText(e.Graphics, _greenlabel, SystemFonts.DialogFont, new Point(0, 30), Color.White);
+            TextRenderer.DrawText(e.Graphics, _bluelabel, SystemFonts.DialogFont, new Point(0, 58), Color.White);
+            TextRenderer.DrawText(e.Graphics, _previewlabel, SystemFonts.DialogFont, new Point(0, 86), Color.White);
         }
 
         private int LastActivated = -1;

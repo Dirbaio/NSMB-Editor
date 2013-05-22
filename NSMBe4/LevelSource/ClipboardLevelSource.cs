@@ -8,7 +8,9 @@ namespace NSMBe4
 {
     public class ClipboardLevelSource : LevelSource
     {
-        public static string backupInfoString = "Clipboard";
+        public const string backupInfoString = "Clipboard";
+        public const string clipboardHeader = "NSMBeLevel|";
+        public const string clipboardFooter = "|";
 
         public ExportedLevel level;
 
@@ -21,7 +23,7 @@ namespace NSMBe4
             if (loadFileName == "")
             {
                 string leveltxt = Clipboard.GetText();
-                if (!(leveltxt.StartsWith("NSMBeLevel|") && leveltxt.EndsWith("|")))
+                if (!(leveltxt.StartsWith(clipboardHeader) && leveltxt.EndsWith(clipboardFooter)))
                     throw new Exception();
                 leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
                 byte[] leveldata = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
@@ -62,7 +64,7 @@ namespace NSMBe4
             ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
             System.IO.BinaryWriter bw = new System.IO.BinaryWriter(strm);
             level.Write(bw);
-            Clipboard.SetText("NSMBeLevel|" + Convert.ToBase64String(ROM.LZ77_Compress(strm.getData())) + "|");
+            copyData(strm.getData());
         }
 
         public override string getLevelName()
@@ -88,6 +90,11 @@ namespace NSMBe4
         public override void close()
         {
             // Nothing to do here
+        }
+
+        public static void copyData(byte[] data)
+        {
+            Clipboard.SetText(clipboardHeader + Convert.ToBase64String(ROM.LZ77_Compress(data)) + clipboardFooter);
         }
     }
 }

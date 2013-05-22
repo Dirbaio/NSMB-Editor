@@ -465,10 +465,6 @@
       <DependentUpon>TilePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilesetEditor\TilesetChooser.resx">
-      <DependentUpon>TilesetChooser.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\TilesetEditor.resx">
       <DependentUpon>TilesetEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -574,9 +570,6 @@
     <None Include="Resources\Icons\image.png" />
     <None Include="Resources\Icons\layer-flip.png" />
     <None Include="Resources\Icons\layer-flip-vertical.png" />
-    <None Include="behaviors.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\Icons\note-bright.png" />
     <Content Include="Resources\Icons\calculator-scientific.png" />
     <Content Include="Resources\Icons\cross-script-bright.png" />
@@ -618,9 +611,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\brush.png" />
@@ -1001,12 +991,6 @@
     </Compile>
     <Compile Include="TilemapEditor\TilePicker.Designer.cs">
       <DependentUpon>TilePicker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TilesetEditor\TilesetChooser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TilesetEditor\TilesetChooser.Designer.cs">
-      <DependentUpon>TilesetChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="TilesetEditor\TilesetEditor.cs">
       <SubType>Form</SubType>

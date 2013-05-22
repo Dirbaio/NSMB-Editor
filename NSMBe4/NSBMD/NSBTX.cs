@@ -104,7 +104,7 @@ namespace NSMBe4.NSBMD
             str.skip((uint)(0xE + textures.Length * 4));
 
             ImageManagerWindow mgr = new ImageManagerWindow();
-            mgr.Text = f.name + " - Texture Editor";
+            mgr.Text = string.Format(LanguageManager.Get("ImageManager", "textureTitle"), f.name);
 
             bool hasFormat5 = false;
             for (int i = 0; i < textures.Length; i++)

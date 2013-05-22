@@ -34,6 +34,8 @@ namespace NSMBe4 {
         public LevelMinimap(NSMBLevel Level, LevelEditorControl EdControl)
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "LevelMinimap");
+
             if (Properties.Settings.Default.mdi)
                 this.MdiParent = MdiParentForm.instance;
             this.Level = Level;

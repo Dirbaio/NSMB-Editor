@@ -34,6 +34,7 @@ namespace NSMBe4
         public PaletteViewer(File f)
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "PaletteViewer");
             this.MdiParent = MdiParentForm.instance;
             this.f = f;
             this.pal = FilePalette.arrayToPalette(f.getContents());

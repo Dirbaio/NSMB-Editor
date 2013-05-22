@@ -20,6 +20,11 @@ namespace NSMBe4
             InitializeComponent();
             this.ed = ed;
             spriteTable.DataSource = spriteList;
+
+            LanguageManager.ApplyToContainer(this, "SpriteEvents");
+            this.EventID.HeaderText = LanguageManager.Get("SpriteEvents", "EventID");
+            this.SpriteNum.HeaderText = LanguageManager.Get("SpriteEvents", "SpriteNumber");
+            this.SpriteName.HeaderText = LanguageManager.Get("SpriteEvents", "SpriteName");
         }
 
         public void ReloadSprites(object sender, EventArgs e)

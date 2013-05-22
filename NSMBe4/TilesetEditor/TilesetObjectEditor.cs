@@ -54,7 +54,7 @@ namespace NSMBe4
             if (tls.Objects[num] == null)
                 return;
             previewObject.ObjNum = num;
-            groupBox1.Visible = false;
+            grpTileSettings.Visible = false;
             obj = tls.Objects[num];
             if (obj.tiles.Count == 0)
                 obj.tiles.Add(new List<NSMBTileset.ObjectDefTile>());
@@ -64,7 +64,7 @@ namespace NSMBe4
             objWidth.Value = obj.width;
             objHeight.Value = obj.height;
             DataUpdateFlag = false;
-            groupBox1.Visible = selTile != null;
+            grpTileSettings.Visible = selTile != null;
             repaint();
         }
 
@@ -205,7 +205,7 @@ namespace NSMBe4
                         else if (Control.ModifierKeys == Keys.Alt)
                             selTile.controlByte ^= 1;
                     }
-                    groupBox1.Visible = selTile != null;
+                    grpTileSettings.Visible = selTile != null;
                     if (selTile != null) {
                         tilePicker1.selTileHeight = 1;
                         tilePicker1.selTileWidth = 1;
@@ -223,7 +223,7 @@ namespace NSMBe4
             map16Tile.Value = selTile.tileID;
             controlByte.Value = selTile.controlByte;
 //            map16Picker1.selectTile(selTile.tileID);
-            groupBox1.Visible = selTile != null;
+            grpTileSettings.Visible = selTile != null;
 
             DataUpdateFlag = false;
         }

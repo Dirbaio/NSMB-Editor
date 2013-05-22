@@ -106,7 +106,6 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(564, 25);
             this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
             // 
             // saveButton
             // 
@@ -115,7 +114,7 @@
             this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(23, 22);
-            this.saveButton.Text = "Save";
+            this.saveButton.Text = "<Save>";
             this.saveButton.Visible = false;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -135,7 +134,7 @@
             this.drawToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.drawToolButton.Name = "drawToolButton";
             this.drawToolButton.Size = new System.Drawing.Size(23, 22);
-            this.drawToolButton.Text = "Draw (d)";
+            this.drawToolButton.Text = "<Draw (d)>";
             this.drawToolButton.Click += new System.EventHandler(this.drawToolButton_Click);
             // 
             // xFlipToolButton
@@ -146,7 +145,7 @@
             this.xFlipToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.xFlipToolButton.Name = "xFlipToolButton";
             this.xFlipToolButton.Size = new System.Drawing.Size(23, 22);
-            this.xFlipToolButton.Text = "Horizontal flip (x)";
+            this.xFlipToolButton.Text = "<Horizontal flip (x)>";
             this.xFlipToolButton.Click += new System.EventHandler(this.xFlipToolButton_Click);
             // 
             // yFlipToolButton
@@ -157,7 +156,7 @@
             this.yFlipToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.yFlipToolButton.Name = "yFlipToolButton";
             this.yFlipToolButton.Size = new System.Drawing.Size(23, 22);
-            this.yFlipToolButton.Text = "Vertical flip (y)";
+            this.yFlipToolButton.Text = "<Vertical flip (y)>";
             this.yFlipToolButton.Click += new System.EventHandler(this.yFlipToolButton_Click);
             // 
             // copyToolButton
@@ -168,7 +167,7 @@
             this.copyToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolButton.Name = "copyToolButton";
             this.copyToolButton.Size = new System.Drawing.Size(23, 22);
-            this.copyToolButton.Text = "Copy (c)";
+            this.copyToolButton.Text = "<Copy (c)>";
             this.copyToolButton.Click += new System.EventHandler(this.copyToolButton_Click);
             // 
             // pasteToolButton
@@ -179,7 +178,7 @@
             this.pasteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolButton.Name = "pasteToolButton";
             this.pasteToolButton.Size = new System.Drawing.Size(23, 22);
-            this.pasteToolButton.Text = "Paste (v)";
+            this.pasteToolButton.Text = "<Paste (v)>";
             this.pasteToolButton.Click += new System.EventHandler(this.pasteToolButton_Click);
             // 
             // changePalToolButton
@@ -190,7 +189,7 @@
             this.changePalToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.changePalToolButton.Name = "changePalToolButton";
             this.changePalToolButton.Size = new System.Drawing.Size(23, 22);
-            this.changePalToolButton.Text = "Change Palette (p)";
+            this.changePalToolButton.Text = "<Change Palette (p)>";
             this.changePalToolButton.Click += new System.EventHandler(this.changePalToolButton_Click);
             // 
             // toolStripSeparator2
@@ -206,7 +205,7 @@
             this.undoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undoButton.Name = "undoButton";
             this.undoButton.Size = new System.Drawing.Size(23, 22);
-            this.undoButton.Text = "Undo";
+            this.undoButton.Text = "<Undo>";
             // 
             // redoButton
             // 
@@ -216,7 +215,7 @@
             this.redoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redoButton.Name = "redoButton";
             this.redoButton.Size = new System.Drawing.Size(23, 22);
-            this.redoButton.Text = "Redo";
+            this.redoButton.Text = "<Redo>";
             // 
             // TilemapEditor
             // 

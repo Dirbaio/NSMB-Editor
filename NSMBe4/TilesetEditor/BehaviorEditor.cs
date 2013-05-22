@@ -69,7 +69,7 @@ namespace NSMBe4 {
 			listBox.BeginUpdate();
 			listBox.Items.Clear();
 			for (int i = 0; i < maxID; i++)
-				listBox.Items.Add(string.Format("Unknown ({0} / 0x{0:X})", i));
+				listBox.Items.Add(string.Format(LanguageManager.Get("BehaviorEditor", "unknown"), i));
 
 			foreach (string item in strings) {
 				int where = item.IndexOf('=');

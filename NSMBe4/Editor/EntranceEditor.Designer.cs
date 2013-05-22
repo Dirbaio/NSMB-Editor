@@ -29,25 +29,25 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.entranceSetting1 = new System.Windows.Forms.CheckBox();
+            this.lowerScreen = new System.Windows.Forms.CheckBox();
             this.entranceTypeComboBox = new System.Windows.Forms.ComboBox();
             this.entranceViewUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lblView = new System.Windows.Forms.Label();
             this.entrancePipeIDUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lblConnectedPipe = new System.Windows.Forms.Label();
             this.entranceDestEntranceUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
+            this.lblDestEntrance = new System.Windows.Forms.Label();
             this.entranceDestAreaUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
+            this.lblDestArea = new System.Windows.Forms.Label();
             this.entranceCameraYPosUpDown = new System.Windows.Forms.NumericUpDown();
             this.entranceCameraXPosUpDown = new System.Windows.Forms.NumericUpDown();
-            this.entranceSetting128 = new System.Windows.Forms.CheckBox();
-            this.entranceSetting16 = new System.Windows.Forms.CheckBox();
-            this.entranceSetting8 = new System.Windows.Forms.CheckBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.exitOnly = new System.Windows.Forms.CheckBox();
+            this.screenFade = new System.Windows.Forms.CheckBox();
+            this.connectedPipe = new System.Windows.Forms.CheckBox();
+            this.lblEntranceID = new System.Windows.Forms.Label();
+            this.lblCameraX = new System.Windows.Forms.Label();
             this.entranceNumberUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lblCameraY = new System.Windows.Forms.Label();
             this.deleteEntranceButton = new System.Windows.Forms.Button();
             this.addEntranceButton = new System.Windows.Forms.Button();
             this.entranceListBox = new System.Windows.Forms.ListBox();
@@ -70,25 +70,25 @@
             this.tableLayoutPanel5.ColumnCount = 2;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.entranceSetting1, 0, 11);
+            this.tableLayoutPanel5.Controls.Add(this.lowerScreen, 0, 11);
             this.tableLayoutPanel5.Controls.Add(this.entranceTypeComboBox, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.entranceViewUpDown, 1, 7);
-            this.tableLayoutPanel5.Controls.Add(this.label21, 0, 7);
+            this.tableLayoutPanel5.Controls.Add(this.lblView, 0, 7);
             this.tableLayoutPanel5.Controls.Add(this.entrancePipeIDUpDown, 1, 6);
-            this.tableLayoutPanel5.Controls.Add(this.label20, 0, 6);
+            this.tableLayoutPanel5.Controls.Add(this.lblConnectedPipe, 0, 6);
             this.tableLayoutPanel5.Controls.Add(this.entranceDestEntranceUpDown, 1, 5);
-            this.tableLayoutPanel5.Controls.Add(this.label19, 0, 5);
+            this.tableLayoutPanel5.Controls.Add(this.lblDestEntrance, 0, 5);
             this.tableLayoutPanel5.Controls.Add(this.entranceDestAreaUpDown, 1, 4);
-            this.tableLayoutPanel5.Controls.Add(this.label18, 0, 4);
-            this.tableLayoutPanel5.Controls.Add(this.entranceCameraYPosUpDown, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.entranceCameraXPosUpDown, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.entranceSetting128, 0, 8);
-            this.tableLayoutPanel5.Controls.Add(this.entranceSetting16, 0, 9);
-            this.tableLayoutPanel5.Controls.Add(this.entranceSetting8, 0, 10);
-            this.tableLayoutPanel5.Controls.Add(this.label17, 0, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label15, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.entranceNumberUpDown, 1, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label16, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.lblDestArea, 0, 4);
+            this.tableLayoutPanel5.Controls.Add(this.exitOnly, 0, 8);
+            this.tableLayoutPanel5.Controls.Add(this.screenFade, 0, 9);
+            this.tableLayoutPanel5.Controls.Add(this.connectedPipe, 0, 10);
+            this.tableLayoutPanel5.Controls.Add(this.lblEntranceID, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.lblCameraY, 0, 3);
+            this.tableLayoutPanel5.Controls.Add(this.lblCameraX, 0, 2);
+            this.tableLayoutPanel5.Controls.Add(this.entranceNumberUpDown, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.entranceCameraYPosUpDown, 1, 3);
+            this.tableLayoutPanel5.Controls.Add(this.entranceCameraXPosUpDown, 1, 2);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 204);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -109,18 +109,18 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(274, 304);
             this.tableLayoutPanel5.TabIndex = 10;
             // 
-            // entranceSetting1
+            // lowerScreen
             // 
-            this.entranceSetting1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.entranceSetting1.AutoSize = true;
-            this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting1, 2);
-            this.entranceSetting1.Location = new System.Drawing.Point(3, 283);
-            this.entranceSetting1.Name = "entranceSetting1";
-            this.entranceSetting1.Size = new System.Drawing.Size(119, 17);
-            this.entranceSetting1.TabIndex = 21;
-            this.entranceSetting1.Text = "<entranceSetting1>";
-            this.entranceSetting1.UseVisualStyleBackColor = true;
-            this.entranceSetting1.CheckedChanged += new System.EventHandler(this.entranceSetting1_CheckedChanged);
+            this.lowerScreen.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lowerScreen.AutoSize = true;
+            this.tableLayoutPanel5.SetColumnSpan(this.lowerScreen, 2);
+            this.lowerScreen.Location = new System.Drawing.Point(3, 283);
+            this.lowerScreen.Name = "lowerScreen";
+            this.lowerScreen.Size = new System.Drawing.Size(149, 17);
+            this.lowerScreen.TabIndex = 21;
+            this.lowerScreen.Text = "<DisplayOnLowerScreen>";
+            this.lowerScreen.UseVisualStyleBackColor = true;
+            this.lowerScreen.CheckedChanged += new System.EventHandler(this.entranceSetting1_CheckedChanged);
             // 
             // entranceTypeComboBox
             // 
@@ -148,15 +148,15 @@
             this.entranceViewUpDown.TabIndex = 17;
             this.entranceViewUpDown.ValueChanged += new System.EventHandler(this.entranceViewUpDown_ValueChanged);
             // 
-            // label21
+            // lblView
             // 
-            this.label21.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(81, 188);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(53, 13);
-            this.label21.TabIndex = 16;
-            this.label21.Text = "<label21>";
+            this.lblView.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblView.AutoSize = true;
+            this.lblView.Location = new System.Drawing.Point(92, 188);
+            this.lblView.Name = "lblView";
+            this.lblView.Size = new System.Drawing.Size(42, 13);
+            this.lblView.TabIndex = 16;
+            this.lblView.Text = "<View>";
             // 
             // entrancePipeIDUpDown
             // 
@@ -172,15 +172,15 @@
             this.entrancePipeIDUpDown.TabIndex = 15;
             this.entrancePipeIDUpDown.ValueChanged += new System.EventHandler(this.entrancePipeIDUpDown_ValueChanged);
             // 
-            // label20
+            // lblConnectedPipe
             // 
-            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(81, 162);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(53, 13);
-            this.label20.TabIndex = 14;
-            this.label20.Text = "<label20>";
+            this.lblConnectedPipe.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblConnectedPipe.AutoSize = true;
+            this.lblConnectedPipe.Location = new System.Drawing.Point(25, 162);
+            this.lblConnectedPipe.Name = "lblConnectedPipe";
+            this.lblConnectedPipe.Size = new System.Drawing.Size(109, 13);
+            this.lblConnectedPipe.TabIndex = 14;
+            this.lblConnectedPipe.Text = "<Connected Pipe ID>";
             // 
             // entranceDestEntranceUpDown
             // 
@@ -196,15 +196,15 @@
             this.entranceDestEntranceUpDown.TabIndex = 13;
             this.entranceDestEntranceUpDown.ValueChanged += new System.EventHandler(this.entranceDestEntranceUpDown_ValueChanged);
             // 
-            // label19
+            // lblDestEntrance
             // 
-            this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(81, 136);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(53, 13);
-            this.label19.TabIndex = 12;
-            this.label19.Text = "<label19>";
+            this.lblDestEntrance.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblDestEntrance.AutoSize = true;
+            this.lblDestEntrance.Location = new System.Drawing.Point(16, 136);
+            this.lblDestEntrance.Name = "lblDestEntrance";
+            this.lblDestEntrance.Size = new System.Drawing.Size(118, 13);
+            this.lblDestEntrance.TabIndex = 12;
+            this.lblDestEntrance.Text = "<Destination Entrance>";
             // 
             // entranceDestAreaUpDown
             // 
@@ -220,15 +220,15 @@
             this.entranceDestAreaUpDown.TabIndex = 11;
             this.entranceDestAreaUpDown.ValueChanged += new System.EventHandler(this.entranceDestAreaUpDown_ValueChanged);
             // 
-            // label18
+            // lblDestArea
             // 
-            this.label18.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(81, 110);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(53, 13);
-            this.label18.TabIndex = 10;
-            this.label18.Text = "<label18>";
+            this.lblDestArea.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblDestArea.AutoSize = true;
+            this.lblDestArea.Location = new System.Drawing.Point(40, 110);
+            this.lblDestArea.Name = "lblDestArea";
+            this.lblDestArea.Size = new System.Drawing.Size(94, 13);
+            this.lblDestArea.TabIndex = 10;
+            this.lblDestArea.Text = "<DestinationArea>";
             // 
             // entranceCameraYPosUpDown
             // 
@@ -238,7 +238,7 @@
             0,
             0,
             0});
-            this.entranceCameraYPosUpDown.Location = new System.Drawing.Point(140, 55);
+            this.entranceCameraYPosUpDown.Location = new System.Drawing.Point(140, 81);
             this.entranceCameraYPosUpDown.Maximum = new decimal(new int[] {
             4095,
             0,
@@ -257,7 +257,7 @@
             0,
             0,
             0});
-            this.entranceCameraXPosUpDown.Location = new System.Drawing.Point(140, 29);
+            this.entranceCameraXPosUpDown.Location = new System.Drawing.Point(140, 55);
             this.entranceCameraXPosUpDown.Maximum = new decimal(new int[] {
             8191,
             0,
@@ -268,69 +268,69 @@
             this.entranceCameraXPosUpDown.TabIndex = 5;
             this.entranceCameraXPosUpDown.ValueChanged += new System.EventHandler(this.entranceCameraXPosUpDown_ValueChanged);
             // 
-            // entranceSetting128
+            // exitOnly
             // 
-            this.entranceSetting128.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.entranceSetting128.AutoSize = true;
-            this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting128, 2);
-            this.entranceSetting128.Location = new System.Drawing.Point(3, 211);
-            this.entranceSetting128.Name = "entranceSetting128";
-            this.entranceSetting128.Size = new System.Drawing.Size(131, 17);
-            this.entranceSetting128.TabIndex = 18;
-            this.entranceSetting128.Text = "<entranceSetting128>";
-            this.entranceSetting128.UseVisualStyleBackColor = true;
-            this.entranceSetting128.CheckedChanged += new System.EventHandler(this.entranceSetting128_CheckedChanged);
+            this.exitOnly.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.exitOnly.AutoSize = true;
+            this.tableLayoutPanel5.SetColumnSpan(this.exitOnly, 2);
+            this.exitOnly.Location = new System.Drawing.Point(3, 211);
+            this.exitOnly.Name = "exitOnly";
+            this.exitOnly.Size = new System.Drawing.Size(76, 17);
+            this.exitOnly.TabIndex = 18;
+            this.exitOnly.Text = "<ExitOnly>";
+            this.exitOnly.UseVisualStyleBackColor = true;
+            this.exitOnly.CheckedChanged += new System.EventHandler(this.entranceSetting128_CheckedChanged);
             // 
-            // entranceSetting16
+            // screenFade
             // 
-            this.entranceSetting16.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.entranceSetting16.AutoSize = true;
-            this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting16, 2);
-            this.entranceSetting16.Location = new System.Drawing.Point(3, 235);
-            this.entranceSetting16.Name = "entranceSetting16";
-            this.entranceSetting16.Size = new System.Drawing.Size(125, 17);
-            this.entranceSetting16.TabIndex = 19;
-            this.entranceSetting16.Text = "<entranceSetting16>";
-            this.entranceSetting16.UseVisualStyleBackColor = true;
-            this.entranceSetting16.CheckedChanged += new System.EventHandler(this.entranceSetting16_CheckedChanged);
+            this.screenFade.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.screenFade.AutoSize = true;
+            this.tableLayoutPanel5.SetColumnSpan(this.screenFade, 2);
+            this.screenFade.Location = new System.Drawing.Point(3, 235);
+            this.screenFade.Name = "screenFade";
+            this.screenFade.Size = new System.Drawing.Size(169, 17);
+            this.screenFade.TabIndex = 19;
+            this.screenFade.Text = "<UseFadingScreenTransition>";
+            this.screenFade.UseVisualStyleBackColor = true;
+            this.screenFade.CheckedChanged += new System.EventHandler(this.entranceSetting16_CheckedChanged);
             // 
-            // entranceSetting8
+            // connectedPipe
             // 
-            this.entranceSetting8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.entranceSetting8.AutoSize = true;
-            this.tableLayoutPanel5.SetColumnSpan(this.entranceSetting8, 2);
-            this.entranceSetting8.Location = new System.Drawing.Point(3, 259);
-            this.entranceSetting8.Name = "entranceSetting8";
-            this.entranceSetting8.Size = new System.Drawing.Size(119, 17);
-            this.entranceSetting8.TabIndex = 20;
-            this.entranceSetting8.Text = "<entranceSetting8>";
-            this.entranceSetting8.UseVisualStyleBackColor = true;
-            this.entranceSetting8.CheckedChanged += new System.EventHandler(this.entranceSetting8_CheckedChanged);
+            this.connectedPipe.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.connectedPipe.AutoSize = true;
+            this.tableLayoutPanel5.SetColumnSpan(this.connectedPipe, 2);
+            this.connectedPipe.Location = new System.Drawing.Point(3, 259);
+            this.connectedPipe.Name = "connectedPipe";
+            this.connectedPipe.Size = new System.Drawing.Size(111, 17);
+            this.connectedPipe.TabIndex = 20;
+            this.connectedPipe.Text = "<ConnectedPipe>";
+            this.connectedPipe.UseVisualStyleBackColor = true;
+            this.connectedPipe.CheckedChanged += new System.EventHandler(this.entranceSetting8_CheckedChanged);
             // 
-            // label17
+            // lblEntranceID
             // 
-            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(81, 84);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(53, 13);
-            this.label17.TabIndex = 8;
-            this.label17.Text = "<label17>";
+            this.lblEntranceID.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblEntranceID.AutoSize = true;
+            this.lblEntranceID.Location = new System.Drawing.Point(61, 32);
+            this.lblEntranceID.Name = "lblEntranceID";
+            this.lblEntranceID.Size = new System.Drawing.Size(73, 13);
+            this.lblEntranceID.TabIndex = 8;
+            this.lblEntranceID.Text = "<EntranceID>";
             // 
-            // label15
+            // lblCameraX
             // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(81, 32);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(53, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "<label15>";
+            this.lblCameraX.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblCameraX.AutoSize = true;
+            this.lblCameraX.Location = new System.Drawing.Point(72, 58);
+            this.lblCameraX.Name = "lblCameraX";
+            this.lblCameraX.Size = new System.Drawing.Size(62, 13);
+            this.lblCameraX.TabIndex = 4;
+            this.lblCameraX.Text = "<CameraX>";
             // 
             // entranceNumberUpDown
             // 
             this.entranceNumberUpDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entranceNumberUpDown.Location = new System.Drawing.Point(140, 81);
+            this.entranceNumberUpDown.Location = new System.Drawing.Point(140, 29);
             this.entranceNumberUpDown.Maximum = new decimal(new int[] {
             8191,
             0,
@@ -341,15 +341,15 @@
             this.entranceNumberUpDown.TabIndex = 9;
             this.entranceNumberUpDown.ValueChanged += new System.EventHandler(this.entranceNumberUpDown_ValueChanged);
             // 
-            // label16
+            // lblCameraY
             // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(81, 58);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(53, 13);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "<label16>";
+            this.lblCameraY.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblCameraY.AutoSize = true;
+            this.lblCameraY.Location = new System.Drawing.Point(72, 84);
+            this.lblCameraY.Name = "lblCameraY";
+            this.lblCameraY.Size = new System.Drawing.Size(62, 13);
+            this.lblCameraY.TabIndex = 6;
+            this.lblCameraY.Text = "<CameraY>";
             // 
             // deleteEntranceButton
             // 
@@ -422,25 +422,25 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.CheckBox entranceSetting1;
+        private System.Windows.Forms.CheckBox lowerScreen;
         private System.Windows.Forms.ComboBox entranceTypeComboBox;
         private System.Windows.Forms.NumericUpDown entranceViewUpDown;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label lblView;
         private System.Windows.Forms.NumericUpDown entrancePipeIDUpDown;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lblConnectedPipe;
         private System.Windows.Forms.NumericUpDown entranceDestEntranceUpDown;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lblDestEntrance;
         private System.Windows.Forms.NumericUpDown entranceDestAreaUpDown;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblDestArea;
         private System.Windows.Forms.NumericUpDown entranceCameraYPosUpDown;
         private System.Windows.Forms.NumericUpDown entranceCameraXPosUpDown;
-        private System.Windows.Forms.CheckBox entranceSetting128;
-        private System.Windows.Forms.CheckBox entranceSetting16;
-        private System.Windows.Forms.CheckBox entranceSetting8;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox exitOnly;
+        private System.Windows.Forms.CheckBox screenFade;
+        private System.Windows.Forms.CheckBox connectedPipe;
+        private System.Windows.Forms.Label lblEntranceID;
+        private System.Windows.Forms.Label lblCameraX;
         private System.Windows.Forms.NumericUpDown entranceNumberUpDown;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblCameraY;
         private System.Windows.Forms.Button deleteEntranceButton;
         private System.Windows.Forms.Button addEntranceButton;
         private System.Windows.Forms.ListBox entranceListBox;

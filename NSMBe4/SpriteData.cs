@@ -88,11 +88,11 @@ namespace NSMBe4
                 sw.Write(data);
                 sw.Close();
                 fs.Close();
-                MessageBox.Show("Spritedata.xml has successfully been updated.");
+                MessageBox.Show(LanguageManager.Get("SpriteData", "Updated"));
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error updating the sprite data file: "+e.Message);
+                MessageBox.Show(String.Format(LanguageManager.Get("SpriteData", "ErrorUpdate"), e.Message), LanguageManager.Get("SpriteData", "ErrorTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -102,7 +102,7 @@ namespace NSMBe4
 
             if (!File.Exists(path))
             {
-                if (MessageBox.Show("spritedata.xml not found. Do you want to download it?", "Hello!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show(LanguageManager.Get("SpriteData", "Prompt"), LanguageManager.Get("SpriteData", "PromptTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     update();
                 else
                     return;
@@ -133,7 +133,7 @@ namespace NSMBe4
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error parsing spritedata.xml:\n" + e.Message + "\n"+e.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Get("SpriteData", "ErrorParse"), LanguageManager.Get("SpriteData", "ErrorTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 datas.Clear();
             }
         } 

@@ -186,7 +186,7 @@ namespace NSMBe4
             gs.win = this;
 
             if (err)
-                if (MessageBox.Show("Some textures will not be imported/exported because they aren't compatible. Do you want to continue?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                if (MessageBox.Show(LanguageManager.Get("ImageManager", "incompatible"), LanguageManager.Get("ImageManager", "incompatibleTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return null;
 
             return gs;
@@ -227,11 +227,11 @@ namespace NSMBe4
 
         private void exportThisBtn_Click(object sender, EventArgs e)
         {
-            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, "Error: No image selected!"); return; }
-            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, "Error: No palette selected!"); return; }
+            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, LanguageManager.Get("ImageManager", "noImageSelected")); return; }
+            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, LanguageManager.Get("ImageManager", "noPaletteSelected")); return; }
 
             SaveFileDialog ofd = new SaveFileDialog();
-            ofd.Filter = "PNG Files|*.png";
+            ofd.Filter = LanguageManager.Get("Filters", "png");
             if (ofd.ShowDialog(this) == DialogResult.Cancel) return;
 
             Bitmap b = (imageListBox.SelectedItem as PalettedImage).render(paletteListBox.SelectedItem as Palette);
@@ -241,11 +241,11 @@ namespace NSMBe4
 
         private void importThisBtn_Click(object sender, EventArgs e)
         {
-            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, "Error: No image selected!"); return; }
-            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, "Error: No palette selected!"); return; }
+            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, LanguageManager.Get("ImageManager", "noImageSelected")); return; }
+            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, LanguageManager.Get("ImageManager", "noPaletteSelected")); return; }
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "PNG Files|*.png";
+            ofd.Filter = LanguageManager.Get("Filters", "png");
             if (ofd.ShowDialog(this) == DialogResult.Cancel) return;
 
             Bitmap b = new Bitmap(ofd.FileName);
@@ -256,11 +256,11 @@ namespace NSMBe4
 
         private void importThisWithPalBtn_Click(object sender, EventArgs e)
         {
-            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, "Error: No image selected!"); return; }
-            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, "Error: No palette selected!"); return; }
+            if (!(imageListBox.SelectedItem is PalettedImage)) { MessageBox.Show(this, LanguageManager.Get("ImageManager", "noImageSelected")); return; }
+            if (!(paletteListBox.SelectedItem is Palette)) { MessageBox.Show(this, LanguageManager.Get("ImageManager", "noPaletteSelected")); return; }
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "PNG Files|*.png";
+            ofd.Filter = LanguageManager.Get("Filters", "png");
             if (ofd.ShowDialog(this) == DialogResult.Cancel) return;
 
             Bitmap b = new Bitmap(ofd.FileName);

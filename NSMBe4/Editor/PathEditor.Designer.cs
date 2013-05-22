@@ -31,18 +31,18 @@
             this.addPath = new System.Windows.Forms.Button();
             this.deletePath = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPathID = new System.Windows.Forms.Label();
             this.pathID = new System.Windows.Forms.NumericUpDown();
             this.pathsList = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpPathSettings = new System.Windows.Forms.GroupBox();
+            this.grpNodeSettings = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblValue1 = new System.Windows.Forms.Label();
+            this.lblValue2 = new System.Windows.Forms.Label();
+            this.lblValue4 = new System.Windows.Forms.Label();
+            this.lblValue5 = new System.Windows.Forms.Label();
+            this.lblValue6 = new System.Windows.Forms.Label();
+            this.lblValue3 = new System.Windows.Forms.Label();
             this.unk1 = new System.Windows.Forms.NumericUpDown();
             this.unk3 = new System.Windows.Forms.NumericUpDown();
             this.unk2 = new System.Windows.Forms.NumericUpDown();
@@ -56,8 +56,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pathID)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpPathSettings.SuspendLayout();
+            this.grpNodeSettings.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unk3)).BeginInit();
@@ -95,12 +95,12 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblPathID, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.pathID, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 19);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -109,15 +109,15 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(235, 28);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // label1
+            // lblPathID
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "<label1>";
+            this.lblPathID.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblPathID.AutoSize = true;
+            this.lblPathID.Location = new System.Drawing.Point(3, 7);
+            this.lblPathID.Name = "lblPathID";
+            this.lblPathID.Size = new System.Drawing.Size(52, 13);
+            this.lblPathID.TabIndex = 0;
+            this.lblPathID.Text = "<PathID>";
             // 
             // pathID
             // 
@@ -134,9 +134,9 @@
             // 
             // pathsList
             // 
-            this.pathsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pathsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pathsList.FormattingEnabled = true;
             this.pathsList.Location = new System.Drawing.Point(0, 0);
             this.pathsList.Name = "pathsList";
@@ -145,44 +145,44 @@
             this.pathsList.TabIndex = 2;
             this.pathsList.SelectedIndexChanged += new System.EventHandler(this.pathsList_SelectedIndexChanged);
             // 
-            // groupBox1
+            // grpPathSettings
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Location = new System.Drawing.Point(3, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(244, 53);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "<groupBox1>";
+            this.grpPathSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPathSettings.Controls.Add(this.tableLayoutPanel1);
+            this.grpPathSettings.Location = new System.Drawing.Point(3, 8);
+            this.grpPathSettings.Name = "grpPathSettings";
+            this.grpPathSettings.Size = new System.Drawing.Size(244, 53);
+            this.grpPathSettings.TabIndex = 3;
+            this.grpPathSettings.TabStop = false;
+            this.grpPathSettings.Text = "<PathSettings>";
             // 
-            // groupBox2
+            // grpNodeSettings
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox2.Location = new System.Drawing.Point(3, 67);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(244, 183);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "<groupBox2>";
+            this.grpNodeSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpNodeSettings.Controls.Add(this.tableLayoutPanel2);
+            this.grpNodeSettings.Location = new System.Drawing.Point(3, 67);
+            this.grpNodeSettings.Name = "grpNodeSettings";
+            this.grpNodeSettings.Size = new System.Drawing.Size(244, 183);
+            this.grpNodeSettings.TabIndex = 4;
+            this.grpNodeSettings.TabStop = false;
+            this.grpNodeSettings.Text = "<NodeSettings>";
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblValue1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lblValue2, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lblValue4, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lblValue5, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.lblValue6, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.lblValue3, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.unk1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.unk3, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.unk2, 1, 1);
@@ -203,65 +203,65 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(235, 158);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // label3
+            // lblValue1
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "<label3>";
+            this.lblValue1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblValue1.AutoSize = true;
+            this.lblValue1.Location = new System.Drawing.Point(3, 6);
+            this.lblValue1.Name = "lblValue1";
+            this.lblValue1.Size = new System.Drawing.Size(52, 13);
+            this.lblValue1.TabIndex = 0;
+            this.lblValue1.Text = "<Value1>";
             // 
-            // label4
+            // lblValue2
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "<label4>";
+            this.lblValue2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblValue2.AutoSize = true;
+            this.lblValue2.Location = new System.Drawing.Point(3, 32);
+            this.lblValue2.Name = "lblValue2";
+            this.lblValue2.Size = new System.Drawing.Size(52, 13);
+            this.lblValue2.TabIndex = 0;
+            this.lblValue2.Text = "<Value2>";
             // 
-            // label6
+            // lblValue4
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 84);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "<label6>";
+            this.lblValue4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblValue4.AutoSize = true;
+            this.lblValue4.Location = new System.Drawing.Point(3, 84);
+            this.lblValue4.Name = "lblValue4";
+            this.lblValue4.Size = new System.Drawing.Size(52, 13);
+            this.lblValue4.TabIndex = 0;
+            this.lblValue4.Text = "<Value4>";
             // 
-            // label7
+            // lblValue5
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 110);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "<label7>";
+            this.lblValue5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblValue5.AutoSize = true;
+            this.lblValue5.Location = new System.Drawing.Point(3, 110);
+            this.lblValue5.Name = "lblValue5";
+            this.lblValue5.Size = new System.Drawing.Size(52, 13);
+            this.lblValue5.TabIndex = 0;
+            this.lblValue5.Text = "<Value5>";
             // 
-            // label8
+            // lblValue6
             // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 137);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "<label8>";
+            this.lblValue6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblValue6.AutoSize = true;
+            this.lblValue6.Location = new System.Drawing.Point(3, 137);
+            this.lblValue6.Name = "lblValue6";
+            this.lblValue6.Size = new System.Drawing.Size(52, 13);
+            this.lblValue6.TabIndex = 0;
+            this.lblValue6.Text = "<Value6>";
             // 
-            // label9
+            // lblValue3
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 58);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "<label9>";
+            this.lblValue3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblValue3.AutoSize = true;
+            this.lblValue3.Location = new System.Drawing.Point(3, 58);
+            this.lblValue3.Name = "lblValue3";
+            this.lblValue3.Size = new System.Drawing.Size(52, 13);
+            this.lblValue3.TabIndex = 0;
+            this.lblValue3.Text = "<Value3>";
             // 
             // unk1
             // 
@@ -389,8 +389,8 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Controls.Add(this.grpNodeSettings);
+            this.panel2.Controls.Add(this.grpPathSettings);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 196);
             this.panel2.Name = "panel2";
@@ -408,8 +408,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pathID)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
+            this.grpPathSettings.ResumeLayout(false);
+            this.grpNodeSettings.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unk1)).EndInit();
@@ -432,18 +432,18 @@
         private System.Windows.Forms.Button addPath;
         private System.Windows.Forms.Button deletePath;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPathID;
         private System.Windows.Forms.NumericUpDown pathID;
         private System.Windows.Forms.ListBox pathsList;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpPathSettings;
+        private System.Windows.Forms.GroupBox grpNodeSettings;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblValue1;
+        private System.Windows.Forms.Label lblValue2;
+        private System.Windows.Forms.Label lblValue4;
+        private System.Windows.Forms.Label lblValue5;
+        private System.Windows.Forms.Label lblValue6;
+        private System.Windows.Forms.Label lblValue3;
         private System.Windows.Forms.NumericUpDown unk1;
         private System.Windows.Forms.NumericUpDown unk3;
         private System.Windows.Forms.NumericUpDown unk2;

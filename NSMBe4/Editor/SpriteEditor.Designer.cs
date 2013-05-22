@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.spriteListBox = new System.Windows.Forms.ListBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblSpriteType = new System.Windows.Forms.Label();
             this.spriteDataTextBox = new System.Windows.Forms.TextBox();
             this.spriteTypeUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lblSpriteData = new System.Windows.Forms.Label();
             this.spriteDataPanel = new System.Windows.Forms.Panel();
             this.search = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
@@ -62,16 +62,16 @@
             this.spriteListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.spriteListBox_DrawItem);
             this.spriteListBox.SelectedIndexChanged += new System.EventHandler(this.spriteListBox_SelectedIndexChanged);
             // 
-            // label10
+            // lblSpriteType
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 6);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(98, 13);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "<label10>";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblSpriteType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSpriteType.AutoSize = true;
+            this.lblSpriteType.Location = new System.Drawing.Point(3, 32);
+            this.lblSpriteType.Name = "lblSpriteType";
+            this.lblSpriteType.Size = new System.Drawing.Size(98, 13);
+            this.lblSpriteType.TabIndex = 24;
+            this.lblSpriteType.Text = "<SpriteType>";
+            this.lblSpriteType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // spriteDataTextBox
             // 
@@ -97,15 +97,16 @@
             this.spriteTypeUpDown.TabIndex = 22;
             this.spriteTypeUpDown.ValueChanged += new System.EventHandler(this.spriteTypeUpDown_ValueChanged);
             // 
-            // label8
+            // lblSpriteData
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.Location = new System.Drawing.Point(3, 31);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(98, 15);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "<label8>";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblSpriteData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSpriteData.AutoSize = true;
+            this.lblSpriteData.Location = new System.Drawing.Point(3, 6);
+            this.lblSpriteData.Name = "lblSpriteData";
+            this.lblSpriteData.Size = new System.Drawing.Size(98, 13);
+            this.lblSpriteData.TabIndex = 21;
+            this.lblSpriteData.Text = "<RawSpriteData>";
+            this.lblSpriteData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // spriteDataPanel
             // 
@@ -151,19 +152,19 @@
             this.lblCategory.AutoSize = true;
             this.lblCategory.Location = new System.Drawing.Point(3, 9);
             this.lblCategory.Name = "lblCategory";
-            this.lblCategory.Size = new System.Drawing.Size(52, 13);
+            this.lblCategory.Size = new System.Drawing.Size(61, 13);
             this.lblCategory.TabIndex = 1;
-            this.lblCategory.Text = "Category:";
+            this.lblCategory.Text = "<Category>";
             // 
             // categoryList
             // 
-            this.categoryList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.categoryList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.categoryList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.categoryList.FormattingEnabled = true;
-            this.categoryList.Location = new System.Drawing.Point(61, 6);
+            this.categoryList.Location = new System.Drawing.Point(70, 6);
             this.categoryList.Name = "categoryList";
-            this.categoryList.Size = new System.Drawing.Size(218, 21);
+            this.categoryList.Size = new System.Drawing.Size(209, 21);
             this.categoryList.TabIndex = 0;
             this.categoryList.SelectedIndexChanged += new System.EventHandler(this.categoryList_SelectedIndexChanged);
             // 
@@ -177,8 +178,8 @@
             this.tableLayoutPanel1.Controls.Add(this.clearSpriteData, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.spriteTypeUpDown, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.spriteDataTextBox, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblSpriteType, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblSpriteData, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -250,10 +251,10 @@
         #endregion
 
         private System.Windows.Forms.ListBox spriteListBox;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblSpriteType;
         private System.Windows.Forms.TextBox spriteDataTextBox;
         private System.Windows.Forms.NumericUpDown spriteTypeUpDown;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblSpriteData;
         private System.Windows.Forms.Panel spriteDataPanel;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label search;

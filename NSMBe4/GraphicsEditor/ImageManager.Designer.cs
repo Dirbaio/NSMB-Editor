@@ -33,15 +33,15 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblBitmaps = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPalettes = new System.Windows.Forms.Label();
             this.image2dOptions = new System.Windows.Forms.Panel();
             this.fourBppCheckBox = new System.Windows.Forms.CheckBox();
             this.tileOffsetNumber = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblTileOffset = new System.Windows.Forms.Label();
             this.tileWidthNumber = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblTileWidth = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.autopaletteCheckBox = new System.Windows.Forms.CheckBox();
             this.importAllBtn = new System.Windows.Forms.Button();
@@ -112,50 +112,50 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.imageListBox);
-            this.panel4.Controls.Add(this.label2);
+            this.panel4.Controls.Add(this.lblBitmaps);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(243, 111);
             this.panel4.TabIndex = 5;
             // 
-            // label2
+            // lblBitmaps
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Bitmaps";
+            this.lblBitmaps.AutoSize = true;
+            this.lblBitmaps.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblBitmaps.Location = new System.Drawing.Point(0, 0);
+            this.lblBitmaps.Name = "lblBitmaps";
+            this.lblBitmaps.Size = new System.Drawing.Size(56, 13);
+            this.lblBitmaps.TabIndex = 2;
+            this.lblBitmaps.Text = "<Bitmaps>";
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.paletteListBox);
-            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.lblPalettes);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 120);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(243, 112);
             this.panel3.TabIndex = 4;
             // 
-            // label1
+            // lblPalettes
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Palettes";
+            this.lblPalettes.AutoSize = true;
+            this.lblPalettes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblPalettes.Location = new System.Drawing.Point(0, 0);
+            this.lblPalettes.Name = "lblPalettes";
+            this.lblPalettes.Size = new System.Drawing.Size(57, 13);
+            this.lblPalettes.TabIndex = 3;
+            this.lblPalettes.Text = "<Palettes>";
             // 
             // image2dOptions
             // 
             this.image2dOptions.Controls.Add(this.fourBppCheckBox);
             this.image2dOptions.Controls.Add(this.tileOffsetNumber);
-            this.image2dOptions.Controls.Add(this.label4);
+            this.image2dOptions.Controls.Add(this.lblTileOffset);
             this.image2dOptions.Controls.Add(this.tileWidthNumber);
-            this.image2dOptions.Controls.Add(this.label3);
+            this.image2dOptions.Controls.Add(this.lblTileWidth);
             this.image2dOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.image2dOptions.Location = new System.Drawing.Point(0, 235);
             this.image2dOptions.Name = "image2dOptions";
@@ -167,40 +167,39 @@
             this.fourBppCheckBox.AutoSize = true;
             this.fourBppCheckBox.Location = new System.Drawing.Point(44, 57);
             this.fourBppCheckBox.Name = "fourBppCheckBox";
-            this.fourBppCheckBox.Size = new System.Drawing.Size(119, 17);
+            this.fourBppCheckBox.Size = new System.Drawing.Size(126, 17);
             this.fourBppCheckBox.TabIndex = 2;
-            this.fourBppCheckBox.Text = "View in 4bpp format";
+            this.fourBppCheckBox.Text = "<ViewIn4bppFormat>";
             this.fourBppCheckBox.UseVisualStyleBackColor = true;
             this.fourBppCheckBox.CheckedChanged += new System.EventHandler(this.tileWidthNumber_ValueChanged);
             // 
             // tileOffsetNumber
             // 
-            this.tileOffsetNumber.AutoSize = true;
             this.tileOffsetNumber.Enabled = false;
-            this.tileOffsetNumber.Location = new System.Drawing.Point(44, 31);
+            this.tileOffsetNumber.Location = new System.Drawing.Point(75, 31);
             this.tileOffsetNumber.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.tileOffsetNumber.Name = "tileOffsetNumber";
-            this.tileOffsetNumber.Size = new System.Drawing.Size(199, 20);
+            this.tileOffsetNumber.Size = new System.Drawing.Size(168, 20);
             this.tileOffsetNumber.TabIndex = 1;
             this.tileOffsetNumber.ValueChanged += new System.EventHandler(this.tileWidthNumber_ValueChanged);
             // 
-            // label4
+            // lblTileOffset
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 33);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Tile width";
+            this.lblTileOffset.AutoSize = true;
+            this.lblTileOffset.Location = new System.Drawing.Point(3, 33);
+            this.lblTileOffset.Name = "lblTileOffset";
+            this.lblTileOffset.Size = new System.Drawing.Size(64, 13);
+            this.lblTileOffset.TabIndex = 0;
+            this.lblTileOffset.Text = "<TileOffset>";
             // 
             // tileWidthNumber
             // 
             this.tileWidthNumber.Enabled = false;
-            this.tileWidthNumber.Location = new System.Drawing.Point(44, 5);
+            this.tileWidthNumber.Location = new System.Drawing.Point(75, 5);
             this.tileWidthNumber.Maximum = new decimal(new int[] {
             64,
             0,
@@ -212,7 +211,7 @@
             0,
             0});
             this.tileWidthNumber.Name = "tileWidthNumber";
-            this.tileWidthNumber.Size = new System.Drawing.Size(199, 20);
+            this.tileWidthNumber.Size = new System.Drawing.Size(168, 20);
             this.tileWidthNumber.TabIndex = 1;
             this.tileWidthNumber.Value = new decimal(new int[] {
             1,
@@ -221,14 +220,14 @@
             0});
             this.tileWidthNumber.ValueChanged += new System.EventHandler(this.tileWidthNumber_ValueChanged);
             // 
-            // label3
+            // lblTileWidth
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 7);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Tile offset";
+            this.lblTileWidth.AutoSize = true;
+            this.lblTileWidth.Location = new System.Drawing.Point(3, 7);
+            this.lblTileWidth.Name = "lblTileWidth";
+            this.lblTileWidth.Size = new System.Drawing.Size(64, 13);
+            this.lblTileWidth.TabIndex = 0;
+            this.lblTileWidth.Text = "<TileWidth>";
             // 
             // panel2
             // 
@@ -252,9 +251,9 @@
             this.autopaletteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autopaletteCheckBox.Location = new System.Drawing.Point(6, 159);
             this.autopaletteCheckBox.Name = "autopaletteCheckBox";
-            this.autopaletteCheckBox.Size = new System.Drawing.Size(114, 17);
+            this.autopaletteCheckBox.Size = new System.Drawing.Size(126, 17);
             this.autopaletteCheckBox.TabIndex = 3;
-            this.autopaletteCheckBox.Text = "Auto palette select";
+            this.autopaletteCheckBox.Text = "<Auto palette select>";
             this.autopaletteCheckBox.UseVisualStyleBackColor = true;
             // 
             // importAllBtn
@@ -263,7 +262,7 @@
             this.importAllBtn.Name = "importAllBtn";
             this.importAllBtn.Size = new System.Drawing.Size(237, 23);
             this.importAllBtn.TabIndex = 0;
-            this.importAllBtn.Text = "Import all bitmaps with all palettes";
+            this.importAllBtn.Text = "<Import all bitmaps with all palettes>";
             this.importAllBtn.UseVisualStyleBackColor = true;
             this.importAllBtn.Click += new System.EventHandler(this.importAllBtn_Click);
             // 
@@ -273,7 +272,7 @@
             this.saveAllBtn.Name = "saveAllBtn";
             this.saveAllBtn.Size = new System.Drawing.Size(75, 23);
             this.saveAllBtn.TabIndex = 0;
-            this.saveAllBtn.Text = "Save all";
+            this.saveAllBtn.Text = "<Save all>";
             this.saveAllBtn.UseVisualStyleBackColor = true;
             this.saveAllBtn.Click += new System.EventHandler(this.saveAllBtn_Click);
             // 
@@ -283,7 +282,7 @@
             this.exportAllBtn.Name = "exportAllBtn";
             this.exportAllBtn.Size = new System.Drawing.Size(237, 23);
             this.exportAllBtn.TabIndex = 0;
-            this.exportAllBtn.Text = "Export all bitmaps with all palettes";
+            this.exportAllBtn.Text = "<Export all bitmaps with all palettes>";
             this.exportAllBtn.UseVisualStyleBackColor = true;
             this.exportAllBtn.Click += new System.EventHandler(this.exportAllBtn_Click);
             // 
@@ -293,7 +292,7 @@
             this.importThisWithPalBtn.Name = "importThisWithPalBtn";
             this.importThisWithPalBtn.Size = new System.Drawing.Size(240, 23);
             this.importThisWithPalBtn.TabIndex = 0;
-            this.importThisWithPalBtn.Text = "Import this bitmap and recreate palette";
+            this.importThisWithPalBtn.Text = "<Import this bitmap and recreate palette>";
             this.importThisWithPalBtn.UseVisualStyleBackColor = true;
             this.importThisWithPalBtn.Click += new System.EventHandler(this.importThisWithPalBtn_Click);
             // 
@@ -303,7 +302,7 @@
             this.importThisBtn.Name = "importThisBtn";
             this.importThisBtn.Size = new System.Drawing.Size(240, 23);
             this.importThisBtn.TabIndex = 0;
-            this.importThisBtn.Text = "Import this bitmap with existing palette";
+            this.importThisBtn.Text = "<Import this bitmap with existing palette>";
             this.importThisBtn.UseVisualStyleBackColor = true;
             this.importThisBtn.Click += new System.EventHandler(this.importThisBtn_Click);
             // 
@@ -313,7 +312,7 @@
             this.exportThisBtn.Name = "exportThisBtn";
             this.exportThisBtn.Size = new System.Drawing.Size(116, 23);
             this.exportThisBtn.TabIndex = 0;
-            this.exportThisBtn.Text = "Export this bitmap";
+            this.exportThisBtn.Text = "<Export this bitmap>";
             this.exportThisBtn.UseVisualStyleBackColor = true;
             this.exportThisBtn.Click += new System.EventHandler(this.exportThisBtn_Click);
             // 
@@ -356,16 +355,16 @@
         private System.Windows.Forms.ListBox paletteListBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblBitmaps;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPalettes;
         private System.Windows.Forms.Panel image2dOptions;
         private System.Windows.Forms.NumericUpDown tileWidthNumber;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblTileWidth;
         private GraphicsEditor graphicsEditor1;
         private System.Windows.Forms.CheckBox fourBppCheckBox;
         private System.Windows.Forms.NumericUpDown tileOffsetNumber;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblTileOffset;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button importAllBtn;
         private System.Windows.Forms.Button exportAllBtn;

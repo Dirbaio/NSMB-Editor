@@ -566,17 +566,20 @@ namespace NSMBe4
             mode.DeleteObject();
         }
 
+        public const string clipHeader = "NSMBeClip|";
+        public const string clipFooter = "|";
+
         public void copy()
         {
             string str = mode.copy();
             if (str.Length > 0)
-                Clipboard.SetText("NSMBeClip|" + str + "|");
+                Clipboard.SetText(clipHeader + str + clipFooter);
         }
 
         public void paste()
         {
             string str = Clipboard.GetText().Trim();
-            if (str.Length > 0 && str.StartsWith("NSMBeClip|") && str.EndsWith("|")) {
+            if (str.Length > 0 && str.StartsWith(clipHeader) && str.EndsWith(clipFooter)) {
                 mode.paste(str.Substring(10, str.Length - 11));
                 mode.Refresh();
             }

@@ -37,7 +37,6 @@ namespace NSMBe4.DSFileSystem
             InitializeComponent();
 
             LanguageManager.ApplyToContainer(this, "FilesystemBrowser");
-
             UpdateFileInfo();
 
             //The ImageList is created here rather than in Visual Studio
@@ -61,6 +60,9 @@ namespace NSMBe4.DSFileSystem
         public new void Load(Filesystem fs)
         {
             this.fs = fs;
+
+            extractFileDialog.Filter = LanguageManager.Get("Filters", "all");
+            replaceFileDialog.Filter = LanguageManager.Get("Filters", "all");
 
             TreeNode main = new TreeNode(fs.mainDir.name, 0, 0);
             main.Tag = fs.mainDir;
@@ -127,7 +129,7 @@ namespace NSMBe4.DSFileSystem
             if (n == null)
             {
                 e = false;
-                StatusMsg = "No file selected";
+                StatusMsg = LanguageManager.Get("FilesystemBrowser", "NoFileSelected");
             }
             else if (n.Tag is Directory)
             {
@@ -225,7 +227,7 @@ namespace NSMBe4.DSFileSystem
 /*
                 if(f is OverlayFile)
                 {
-                    DialogResult r = MessageBox.Show("You're importing an overlay file. Is it a compressed overlay?\n\n(Overlays are compressed by default, so it probably is unless you decompressed it)", "Something", MessageBoxButtons.YesNoCancel);
+                    DialogResult r = MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "ImportOverlay"), LanguageManager.Get("FilesystemBrowser", "ImportOverlayTitle"), MessageBoxButtons.YesNoCancel);
                     if(r == DialogResult.Cancel)
                     {
                         UpdateFileInfo();
@@ -491,12 +493,12 @@ namespace NSMBe4.DSFileSystem
 
             if (f == null)
             {
-                MessageBox.Show("Error: Not an overlay file");
+                MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "ErrorNotOverlay"));
                 return;
             }
 
             if (!f.isCompressed)
-                MessageBox.Show("Error: Overlay file is already decompressed");
+                MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "ErrorDecompressed"));
 
             f.decompress();*/
         }

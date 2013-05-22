@@ -16,6 +16,8 @@ namespace NSMBe4
         public StartForm()
         {
             InitializeComponent();
+
+            LanguageManager.ApplyToContainer(this, "StartForm");
         }
 
         private void openRomButton_Click(object sender, EventArgs e)
@@ -25,7 +27,7 @@ namespace NSMBe4
             string[] backups = null;
 
             if (Properties.Settings.Default.BackupFiles != "" &&
-                MessageBox.Show("NSMBe did not shut down correctly and has recovered some of your levels.\nWould you like to open those now? If not, they can be opened later from the /Backup folder", "Open backups?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                MessageBox.Show(LanguageManager.Get("StartForm", "OpenBackups"), LanguageManager.Get("StartForm", "OpenBackupsTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 backups = Properties.Settings.Default.BackupFiles.Split(';');
                 path = backups[0];
@@ -33,7 +35,7 @@ namespace NSMBe4
             else
             {
                 OpenFileDialog openROMDialog = new OpenFileDialog();
-                openROMDialog.Filter = LanguageManager.Get("LevelChooser", "ROMFilter");
+                openROMDialog.Filter = LanguageManager.Get("Filters", "rom");
                 if (Properties.Settings.Default.ROMFolder != "")
                     openROMDialog.InitialDirectory = Properties.Settings.Default.ROMFolder;
                 if (openROMDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

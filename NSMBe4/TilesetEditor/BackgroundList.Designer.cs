@@ -61,7 +61,7 @@
             this.exportPNGButton.Name = "exportPNGButton";
             this.exportPNGButton.Size = new System.Drawing.Size(75, 23);
             this.exportPNGButton.TabIndex = 4;
-            this.exportPNGButton.Text = "Export PNG";
+            this.exportPNGButton.Text = "<ExportPNG>";
             this.exportPNGButton.Click += new System.EventHandler(this.exportPNGButton_Click);
             // 
             // importPNGButton
@@ -70,7 +70,7 @@
             this.importPNGButton.Name = "importPNGButton";
             this.importPNGButton.Size = new System.Drawing.Size(75, 23);
             this.importPNGButton.TabIndex = 3;
-            this.importPNGButton.Text = "Import PNG";
+            this.importPNGButton.Text = "<ImportPNG>";
             this.importPNGButton.UseVisualStyleBackColor = true;
             this.importPNGButton.Click += new System.EventHandler(this.importPNGButton_Click);
             // 
@@ -80,7 +80,7 @@
             this.exportTilesetBtn.Name = "exportTilesetBtn";
             this.exportTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.exportTilesetBtn.TabIndex = 0;
-            this.exportTilesetBtn.Text = "Export";
+            this.exportTilesetBtn.Text = "<Export>";
             this.exportTilesetBtn.UseVisualStyleBackColor = true;
             this.exportTilesetBtn.Click += new System.EventHandler(this.exportTilesetBtn_Click);
             // 
@@ -90,7 +90,7 @@
             this.importTilesetBtn.Name = "importTilesetBtn";
             this.importTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.importTilesetBtn.TabIndex = 1;
-            this.importTilesetBtn.Text = "Import";
+            this.importTilesetBtn.Text = "<Import>";
             this.importTilesetBtn.UseVisualStyleBackColor = true;
             this.importTilesetBtn.Click += new System.EventHandler(this.importTilesetBtn_Click);
             // 
@@ -100,7 +100,7 @@
             this.editTilesetBtn.Name = "editTilesetBtn";
             this.editTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.editTilesetBtn.TabIndex = 2;
-            this.editTilesetBtn.Text = "Edit";
+            this.editTilesetBtn.Text = "<Edit>";
             this.editTilesetBtn.UseVisualStyleBackColor = true;
             this.editTilesetBtn.Click += new System.EventHandler(this.editTilesetBtn_Click);
             // 
@@ -110,7 +110,7 @@
             this.RenameBtn.Name = "RenameBtn";
             this.RenameBtn.Size = new System.Drawing.Size(75, 23);
             this.RenameBtn.TabIndex = 2;
-            this.RenameBtn.Text = "Rename";
+            this.RenameBtn.Text = "<Rename>";
             this.RenameBtn.UseVisualStyleBackColor = true;
             this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
             // 

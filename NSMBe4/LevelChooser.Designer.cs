@@ -44,9 +44,9 @@ namespace NSMBe4 {
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.filesystemBrowser1 = new NSMBe4.DSFileSystem.FilesystemBrowser();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.grpDLPMode = new System.Windows.Forms.GroupBox();
+            this.lblDLPMode2 = new System.Windows.Forms.Label();
+            this.lblDLPMode1 = new System.Windows.Forms.Label();
             this.dlpCheckBox = new System.Windows.Forms.CheckBox();
             this.musicSlotsGrp = new System.Windows.Forms.GroupBox();
             this.renameBtn = new System.Windows.Forms.Button();
@@ -76,17 +76,13 @@ namespace NSMBe4 {
             this.changeLanguageButton = new System.Windows.Forms.Button();
             this.dumpMapButton = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lnkNSMBHD = new System.Windows.Forms.LinkLabel();
+            this.lnkGitHub = new System.Windows.Forms.LinkLabel();
+            this.lblLinksHeader = new System.Windows.Forms.Label();
+            this.lblCredits = new System.Windows.Forms.Label();
+            this.lblCreditsHeader = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.openROMDialog = new System.Windows.Forms.OpenFileDialog();
             this.importLevelDialog = new System.Windows.Forms.OpenFileDialog();
             this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
             this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
@@ -94,13 +90,14 @@ namespace NSMBe4 {
             this.openTextFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.openROMDialog = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpDLPMode.SuspendLayout();
             this.musicSlotsGrp.SuspendLayout();
             this.patchesGroupbox.SuspendLayout();
             this.nsmbToolsGroupbox.SuspendLayout();
@@ -143,7 +140,7 @@ namespace NSMBe4 {
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(542, 488);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "<tabPage2>";
+            this.tabPage2.Text = "<Level Listing>";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // openClipboard
@@ -153,7 +150,7 @@ namespace NSMBe4 {
             this.openClipboard.Name = "openClipboard";
             this.openClipboard.Size = new System.Drawing.Size(118, 23);
             this.openClipboard.TabIndex = 8;
-            this.openClipboard.Text = "Open Clipboard";
+            this.openClipboard.Text = "<OpenClipboard>";
             this.openClipboard.UseVisualStyleBackColor = true;
             this.openClipboard.Click += new System.EventHandler(this.openClipboard_Click);
             // 
@@ -165,7 +162,7 @@ namespace NSMBe4 {
             this.exportClipboard.Name = "exportClipboard";
             this.exportClipboard.Size = new System.Drawing.Size(106, 23);
             this.exportClipboard.TabIndex = 7;
-            this.exportClipboard.Text = "Export to Clipboard";
+            this.exportClipboard.Text = "<ExportToClipboard>";
             this.exportClipboard.UseVisualStyleBackColor = true;
             this.exportClipboard.Click += new System.EventHandler(this.exportClipboard_Click);
             // 
@@ -177,7 +174,7 @@ namespace NSMBe4 {
             this.importClipboard.Name = "importClipboard";
             this.importClipboard.Size = new System.Drawing.Size(94, 23);
             this.importClipboard.TabIndex = 6;
-            this.importClipboard.Text = "Import Clipboard";
+            this.importClipboard.Text = "<ImportClipboard>";
             this.importClipboard.UseVisualStyleBackColor = true;
             this.importClipboard.Click += new System.EventHandler(this.importClipboard_Click);
             // 
@@ -188,7 +185,7 @@ namespace NSMBe4 {
             this.openLevel.Name = "openLevel";
             this.openLevel.Size = new System.Drawing.Size(119, 23);
             this.openLevel.TabIndex = 5;
-            this.openLevel.Text = "Open Exported Level";
+            this.openLevel.Text = "<OpenExportedLevel>";
             this.openLevel.UseVisualStyleBackColor = true;
             this.openLevel.Click += new System.EventHandler(this.openLevel_Click);
             // 
@@ -260,7 +257,7 @@ namespace NSMBe4 {
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(542, 488);
             this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Tilesets";
+            this.tabPage5.Text = "<Tilesets>";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // tilesetList1
@@ -278,7 +275,7 @@ namespace NSMBe4 {
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(542, 488);
             this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Backgrounds";
+            this.tabPage6.Text = "<Backgrounds>";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // backgroundList1
@@ -297,7 +294,7 @@ namespace NSMBe4 {
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(542, 488);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "<tabPage1>";
+            this.tabPage1.Text = "<File Browser>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // filesystemBrowser1
@@ -310,7 +307,7 @@ namespace NSMBe4 {
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox2);
+            this.tabPage3.Controls.Add(this.grpDLPMode);
             this.tabPage3.Controls.Add(this.musicSlotsGrp);
             this.tabPage3.Controls.Add(this.patchesGroupbox);
             this.tabPage3.Controls.Add(this.nsmbToolsGroupbox);
@@ -322,46 +319,46 @@ namespace NSMBe4 {
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(542, 488);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "<tabPage3>";
+            this.tabPage3.Text = "<Tools/Options>";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // grpDLPMode
             // 
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.dlpCheckBox);
-            this.groupBox2.Location = new System.Drawing.Point(6, 365);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(246, 117);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "DLP mode";
+            this.grpDLPMode.Controls.Add(this.lblDLPMode2);
+            this.grpDLPMode.Controls.Add(this.lblDLPMode1);
+            this.grpDLPMode.Controls.Add(this.dlpCheckBox);
+            this.grpDLPMode.Location = new System.Drawing.Point(6, 365);
+            this.grpDLPMode.Name = "grpDLPMode";
+            this.grpDLPMode.Size = new System.Drawing.Size(246, 117);
+            this.grpDLPMode.TabIndex = 11;
+            this.grpDLPMode.TabStop = false;
+            this.grpDLPMode.Text = "<DLP mode>";
             // 
-            // label11
+            // lblDLPMode2
             // 
-            this.label11.Location = new System.Drawing.Point(6, 82);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(231, 31);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "You do NOT need to enable this if you\'re using firmware.nds or FlashMe.";
+            this.lblDLPMode2.Location = new System.Drawing.Point(6, 82);
+            this.lblDLPMode2.Name = "lblDLPMode2";
+            this.lblDLPMode2.Size = new System.Drawing.Size(231, 31);
+            this.lblDLPMode2.TabIndex = 11;
+            this.lblDLPMode2.Text = "<You do NOT need to enable this if you\'re using firmware.nds or FlashMe.>";
             // 
-            // label10
+            // lblDLPMode1
             // 
-            this.label10.Location = new System.Drawing.Point(6, 39);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(234, 43);
-            this.label10.TabIndex = 11;
-            this.label10.Text = "This will prevent some values in the header from being updated. The ROM will work" +
-    " over DLP but may not work on some flashcards.";
+            this.lblDLPMode1.Location = new System.Drawing.Point(6, 39);
+            this.lblDLPMode1.Name = "lblDLPMode1";
+            this.lblDLPMode1.Size = new System.Drawing.Size(234, 43);
+            this.lblDLPMode1.TabIndex = 11;
+            this.lblDLPMode1.Text = "<This will prevent some values in the header from being updated. The ROM will wor" +
+    "k over DLP but may not work on some flashcards.>";
             // 
             // dlpCheckBox
             // 
             this.dlpCheckBox.AutoSize = true;
             this.dlpCheckBox.Location = new System.Drawing.Point(6, 19);
             this.dlpCheckBox.Name = "dlpCheckBox";
-            this.dlpCheckBox.Size = new System.Drawing.Size(198, 17);
+            this.dlpCheckBox.Size = new System.Drawing.Size(210, 17);
             this.dlpCheckBox.TabIndex = 10;
-            this.dlpCheckBox.Text = "Enable Download Play-friendly mode";
+            this.dlpCheckBox.Text = "<Enable Download Play-friendly mode>";
             this.dlpCheckBox.UseVisualStyleBackColor = true;
             this.dlpCheckBox.CheckedChanged += new System.EventHandler(this.dlpCheckBox_CheckedChanged);
             // 
@@ -377,7 +374,7 @@ namespace NSMBe4 {
             this.musicSlotsGrp.Size = new System.Drawing.Size(278, 246);
             this.musicSlotsGrp.TabIndex = 8;
             this.musicSlotsGrp.TabStop = false;
-            this.musicSlotsGrp.Text = "Music Slots";
+            this.musicSlotsGrp.Text = "<Music Slots>";
             // 
             // renameBtn
             // 
@@ -386,7 +383,7 @@ namespace NSMBe4 {
             this.renameBtn.Name = "renameBtn";
             this.renameBtn.Size = new System.Drawing.Size(75, 23);
             this.renameBtn.TabIndex = 10;
-            this.renameBtn.Text = "Rename";
+            this.renameBtn.Text = "<Rename>";
             this.renameBtn.UseVisualStyleBackColor = true;
             this.renameBtn.Click += new System.EventHandler(this.renameBtn_Click);
             // 
@@ -412,7 +409,7 @@ namespace NSMBe4 {
             this.patchesGroupbox.Size = new System.Drawing.Size(278, 80);
             this.patchesGroupbox.TabIndex = 7;
             this.patchesGroupbox.TabStop = false;
-            this.patchesGroupbox.Text = "Patches";
+            this.patchesGroupbox.Text = "<Patches>";
             // 
             // patchExport
             // 
@@ -448,7 +445,7 @@ namespace NSMBe4 {
             this.nsmbToolsGroupbox.Size = new System.Drawing.Size(246, 109);
             this.nsmbToolsGroupbox.TabIndex = 6;
             this.nsmbToolsGroupbox.TabStop = false;
-            this.nsmbToolsGroupbox.Text = "NSMB Tools";
+            this.nsmbToolsGroupbox.Text = "<NSMB Tools>";
             // 
             // mpPatch
             // 
@@ -498,7 +495,7 @@ namespace NSMBe4 {
             this.asmToolsGroupbox.Size = new System.Drawing.Size(278, 109);
             this.asmToolsGroupbox.TabIndex = 4;
             this.asmToolsGroupbox.TabStop = false;
-            this.asmToolsGroupbox.Text = "ASM Tools";
+            this.asmToolsGroupbox.Text = "<ASM Tools>";
             // 
             // makeclean
             // 
@@ -508,7 +505,7 @@ namespace NSMBe4 {
             this.makeclean.Name = "makeclean";
             this.makeclean.Size = new System.Drawing.Size(266, 23);
             this.makeclean.TabIndex = 3;
-            this.makeclean.Text = "Run \'make clean\'";
+            this.makeclean.Text = "<Run \'make clean\'>";
             this.makeclean.UseVisualStyleBackColor = true;
             this.makeclean.Click += new System.EventHandler(this.makeclean_Click);
             // 
@@ -520,7 +517,7 @@ namespace NSMBe4 {
             this.makeinsert.Name = "makeinsert";
             this.makeinsert.Size = new System.Drawing.Size(266, 23);
             this.makeinsert.TabIndex = 3;
-            this.makeinsert.Text = "Run \'make\' and insert";
+            this.makeinsert.Text = "<Run \'make\' and insert>";
             this.makeinsert.UseVisualStyleBackColor = true;
             this.makeinsert.Click += new System.EventHandler(this.makeinsert_Click);
             // 
@@ -532,7 +529,7 @@ namespace NSMBe4 {
             this.decompArm9Bin.Name = "decompArm9Bin";
             this.decompArm9Bin.Size = new System.Drawing.Size(266, 23);
             this.decompArm9Bin.TabIndex = 3;
-            this.decompArm9Bin.Text = "Decompress ARM9 binary";
+            this.decompArm9Bin.Text = "<Decompress ARM9 binary>";
             this.decompArm9Bin.UseVisualStyleBackColor = true;
             this.decompArm9Bin.Click += new System.EventHandler(this.decompArm9Bin_Click);
             // 
@@ -562,7 +559,7 @@ namespace NSMBe4 {
             this.deleteBackups.Name = "deleteBackups";
             this.deleteBackups.Size = new System.Drawing.Size(120, 23);
             this.deleteBackups.TabIndex = 13;
-            this.deleteBackups.Text = "Delete all backups";
+            this.deleteBackups.Text = "<Delete all backups>";
             this.deleteBackups.UseVisualStyleBackColor = true;
             this.deleteBackups.Click += new System.EventHandler(this.deleteBackups_Click);
             // 
@@ -571,9 +568,9 @@ namespace NSMBe4 {
             this.lblMinutes.AutoSize = true;
             this.lblMinutes.Location = new System.Drawing.Point(118, 180);
             this.lblMinutes.Name = "lblMinutes";
-            this.lblMinutes.Size = new System.Drawing.Size(50, 13);
+            this.lblMinutes.Size = new System.Drawing.Size(62, 13);
             this.lblMinutes.TabIndex = 12;
-            this.lblMinutes.Text = "Minute(s)";
+            this.lblMinutes.Text = "<Minute(s)>";
             // 
             // autoBackupTime
             // 
@@ -603,18 +600,18 @@ namespace NSMBe4 {
             this.lblEvery.AutoSize = true;
             this.lblEvery.Location = new System.Drawing.Point(23, 180);
             this.lblEvery.Name = "lblEvery";
-            this.lblEvery.Size = new System.Drawing.Size(34, 13);
+            this.lblEvery.Size = new System.Drawing.Size(46, 13);
             this.lblEvery.TabIndex = 10;
-            this.lblEvery.Text = "Every";
+            this.lblEvery.Text = "<Every>";
             // 
             // chkAutoBackup
             // 
             this.chkAutoBackup.AutoSize = true;
             this.chkAutoBackup.Location = new System.Drawing.Point(6, 156);
             this.chkAutoBackup.Name = "chkAutoBackup";
-            this.chkAutoBackup.Size = new System.Drawing.Size(117, 17);
+            this.chkAutoBackup.Size = new System.Drawing.Size(129, 17);
             this.chkAutoBackup.TabIndex = 9;
-            this.chkAutoBackup.Text = "Auto-backup levels";
+            this.chkAutoBackup.Text = "<Auto-backup levels>";
             this.chkAutoBackup.UseVisualStyleBackColor = true;
             this.chkAutoBackup.CheckedChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
             // 
@@ -623,9 +620,9 @@ namespace NSMBe4 {
             this.autoUpdate.AutoSize = true;
             this.autoUpdate.Location = new System.Drawing.Point(6, 130);
             this.autoUpdate.Name = "autoUpdate";
-            this.autoUpdate.Size = new System.Drawing.Size(140, 17);
+            this.autoUpdate.Size = new System.Drawing.Size(152, 17);
             this.autoUpdate.TabIndex = 7;
-            this.autoUpdate.Text = "Auto-update Sprite Data";
+            this.autoUpdate.Text = "<Auto-update Sprite Data>";
             this.autoUpdate.UseVisualStyleBackColor = true;
             this.autoUpdate.CheckedChanged += new System.EventHandler(this.autoUpdate_CheckedChanged);
             // 
@@ -663,11 +660,11 @@ namespace NSMBe4 {
             // 
             this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateSpriteDataButton.Location = new System.Drawing.Point(165, 126);
+            this.updateSpriteDataButton.Location = new System.Drawing.Point(158, 126);
             this.updateSpriteDataButton.Name = "updateSpriteDataButton";
-            this.updateSpriteDataButton.Size = new System.Drawing.Size(75, 23);
+            this.updateSpriteDataButton.Size = new System.Drawing.Size(82, 23);
             this.updateSpriteDataButton.TabIndex = 3;
-            this.updateSpriteDataButton.Text = "Update now";
+            this.updateSpriteDataButton.Text = "<UpdateNow>";
             this.updateSpriteDataButton.UseVisualStyleBackColor = true;
             this.updateSpriteDataButton.Click += new System.EventHandler(this.updateSpriteDataButton_Click);
             // 
@@ -690,20 +687,17 @@ namespace NSMBe4 {
             this.dumpMapButton.Name = "dumpMapButton";
             this.dumpMapButton.Size = new System.Drawing.Size(278, 23);
             this.dumpMapButton.TabIndex = 3;
-            this.dumpMapButton.Text = "Dump rom map";
+            this.dumpMapButton.Text = "<Dump ROM map>";
             this.dumpMapButton.UseVisualStyleBackColor = true;
             this.dumpMapButton.Click += new System.EventHandler(this.dumpMapButton_Click);
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.linkLabel2);
-            this.tabPage4.Controls.Add(this.linkLabel1);
-            this.tabPage4.Controls.Add(this.label9);
-            this.tabPage4.Controls.Add(this.label8);
-            this.tabPage4.Controls.Add(this.label7);
-            this.tabPage4.Controls.Add(this.label6);
-            this.tabPage4.Controls.Add(this.label5);
-            this.tabPage4.Controls.Add(this.label4);
+            this.tabPage4.Controls.Add(this.lnkNSMBHD);
+            this.tabPage4.Controls.Add(this.lnkGitHub);
+            this.tabPage4.Controls.Add(this.lblLinksHeader);
+            this.tabPage4.Controls.Add(this.lblCredits);
+            this.tabPage4.Controls.Add(this.lblCreditsHeader);
             this.tabPage4.Controls.Add(this.label3);
             this.tabPage4.Controls.Add(this.label1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -711,96 +705,68 @@ namespace NSMBe4 {
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(542, 488);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "<tabPage4>";
+            this.tabPage4.Text = "<About>";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // linkLabel2
+            // lnkNSMBHD
             // 
-            this.linkLabel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(211, 258);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(120, 13);
-            this.linkLabel2.TabIndex = 9;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "NSMB Hacking Domain";
-            this.toolTip1.SetToolTip(this.linkLabel2, "http://nsmbhd.net/");
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
+            this.lnkNSMBHD.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lnkNSMBHD.AutoSize = true;
+            this.lnkNSMBHD.Location = new System.Drawing.Point(211, 258);
+            this.lnkNSMBHD.Name = "lnkNSMBHD";
+            this.lnkNSMBHD.Size = new System.Drawing.Size(120, 13);
+            this.lnkNSMBHD.TabIndex = 9;
+            this.lnkNSMBHD.TabStop = true;
+            this.lnkNSMBHD.Text = "NSMB Hacking Domain";
+            this.toolTip1.SetToolTip(this.lnkNSMBHD, "http://nsmbhd.net/");
+            this.lnkNSMBHD.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
             // 
-            // linkLabel1
+            // lnkGitHub
             // 
-            this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(224, 245);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(95, 13);
-            this.linkLabel1.TabIndex = 8;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "NSMBe on GitHub";
-            this.toolTip1.SetToolTip(this.linkLabel1, "http://github.com/Dirbaio/NSMB-Editor");
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.lnkGitHub.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lnkGitHub.AutoSize = true;
+            this.lnkGitHub.Location = new System.Drawing.Point(224, 245);
+            this.lnkGitHub.Name = "lnkGitHub";
+            this.lnkGitHub.Size = new System.Drawing.Size(95, 13);
+            this.lnkGitHub.TabIndex = 8;
+            this.lnkGitHub.TabStop = true;
+            this.lnkGitHub.Text = "NSMBe on GitHub";
+            this.toolTip1.SetToolTip(this.lnkGitHub, "http://github.com/Dirbaio/NSMB-Editor");
+            this.lnkGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // label9
+            // lblLinksHeader
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(246, 225);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 20);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Links";
+            this.lblLinksHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblLinksHeader.AutoSize = true;
+            this.lblLinksHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLinksHeader.Location = new System.Drawing.Point(246, 225);
+            this.lblLinksHeader.Name = "lblLinksHeader";
+            this.lblLinksHeader.Size = new System.Drawing.Size(51, 20);
+            this.lblLinksHeader.TabIndex = 7;
+            this.lblLinksHeader.Text = "Links";
             // 
-            // label8
+            // lblCredits
             // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(84, 203);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(375, 13);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "And everyone else who\'s helped us make the editor and community awesome!";
+            this.lblCredits.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCredits.Location = new System.Drawing.Point(6, 164);
+            this.lblCredits.Name = "lblCredits";
+            this.lblCredits.Size = new System.Drawing.Size(530, 61);
+            this.lblCredits.TabIndex = 3;
+            this.lblCredits.Text = "Treeki - Original Developer\r\nDirbaio - Current Developer\r\nPiranhaplant - Develope" +
+    "r\r\nAnd everyone else who\'s helped us make the editor and community awesome!";
+            this.lblCredits.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label7
+            // lblCreditsHeader
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(209, 190);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(124, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Piranhaplant - Developer";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(204, 177);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(135, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Dirbaio - Current Developer";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(205, 164);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(133, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Treeki - Original Developer";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(238, 144);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 20);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Credits";
+            this.lblCreditsHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblCreditsHeader.AutoSize = true;
+            this.lblCreditsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCreditsHeader.Location = new System.Drawing.Point(238, 144);
+            this.lblCreditsHeader.Name = "lblCreditsHeader";
+            this.lblCreditsHeader.Size = new System.Drawing.Size(66, 20);
+            this.lblCreditsHeader.TabIndex = 2;
+            this.lblCreditsHeader.Text = "Credits";
             // 
             // label3
             // 
@@ -824,34 +790,6 @@ namespace NSMBe4 {
             this.label1.TabIndex = 0;
             this.label1.Text = "New Super Mario Bros. Editor";
             // 
-            // openROMDialog
-            // 
-            this.openROMDialog.Filter = "Nintendo DS ROMs (*.nds)|*.nds|All files (*.*)|*.*";
-            // 
-            // importLevelDialog
-            // 
-            this.importLevelDialog.Filter = "NSMB Editor Exported Levels (*.nml)|*.nml|All files (*.*)|*.*";
-            // 
-            // exportLevelDialog
-            // 
-            this.exportLevelDialog.Filter = "NSMB Editor Exported Levels (*.nml)|*.nml|All files (*.*)|*.*";
-            // 
-            // savePatchDialog
-            // 
-            this.savePatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
-            // 
-            // openPatchDialog
-            // 
-            this.openPatchDialog.Filter = "NSMB Patches (*.nmp)|*.nmp|All files (*.*)|*.*";
-            // 
-            // openTextFileDialog
-            // 
-            this.openTextFileDialog.Filter = "Text Files|*.txt|All files|*.*";
-            // 
-            // saveTextFileDialog
-            // 
-            this.saveTextFileDialog.Filter = "Text files|*.txt";
-            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -869,8 +807,8 @@ namespace NSMBe4 {
             this.tabPage6.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpDLPMode.ResumeLayout(false);
+            this.grpDLPMode.PerformLayout();
             this.musicSlotsGrp.ResumeLayout(false);
             this.patchesGroupbox.ResumeLayout(false);
             this.nsmbToolsGroupbox.ResumeLayout(false);
@@ -893,7 +831,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button importLevelButton;
         private System.Windows.Forms.Button editLevelButton;
         private System.Windows.Forms.TreeView levelTreeView;
-        private System.Windows.Forms.OpenFileDialog openROMDialog;
         private System.Windows.Forms.OpenFileDialog importLevelDialog;
         private System.Windows.Forms.SaveFileDialog exportLevelDialog;
         private System.Windows.Forms.TabPage tabPage3;
@@ -923,14 +860,11 @@ namespace NSMBe4 {
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblCredits;
+        private System.Windows.Forms.Label lblCreditsHeader;
+        private System.Windows.Forms.LinkLabel lnkNSMBHD;
+        private System.Windows.Forms.LinkLabel lnkGitHub;
+        private System.Windows.Forms.Label lblLinksHeader;
         private System.Windows.Forms.GroupBox patchesGroupbox;
         private System.Windows.Forms.GroupBox nsmbToolsGroupbox;
         private System.Windows.Forms.TabPage tabPage5;
@@ -950,9 +884,10 @@ namespace NSMBe4 {
         private System.Windows.Forms.Button importClipboard;
         private System.Windows.Forms.Button openClipboard;
         private System.Windows.Forms.Button exportClipboard;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.GroupBox grpDLPMode;
+        private System.Windows.Forms.Label lblDLPMode1;
         private System.Windows.Forms.CheckBox dlpCheckBox;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblDLPMode2;
+        private System.Windows.Forms.OpenFileDialog openROMDialog;
     }
 }

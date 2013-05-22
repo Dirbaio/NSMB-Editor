@@ -17,7 +17,7 @@ namespace NSMBe4
 
         public DialogResult ShowDialog(string prompt, string defaultText, out string result)
         {
-            label1.Text = prompt;
+            lblPrompt.Text = prompt;
             textBox1.Text = defaultText;
             textBox1.Focus();
             textBox1.SelectAll();

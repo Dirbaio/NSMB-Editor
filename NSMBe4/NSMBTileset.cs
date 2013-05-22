@@ -860,12 +860,14 @@ namespace NSMBe4
         }
         #endregion
 
+        public const string tilesetFileHeader = "NSMBe Exported Tileset";
+
         public void exportTileset(string filename)
         {
 
             System.IO.BinaryWriter bw = new System.IO.BinaryWriter(
                 new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write));
-            bw.Write("NSMBe Exported Tileset");
+            bw.Write(tilesetFileHeader);
             writeFileContents(PalFile, bw);
             writeFileContents(GFXFile, bw);
             writeFileContents(Map16File, bw);
@@ -915,7 +917,7 @@ namespace NSMBe4
             System.IO.BinaryReader br = new System.IO.BinaryReader(
                 new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read));
             string header = br.ReadString();
-            if (header != "NSMBe Exported Tileset")
+            if (header != tilesetFileHeader)
             {
                 MessageBox.Show(
                     LanguageManager.Get("NSMBLevel", "InvalidFile"),

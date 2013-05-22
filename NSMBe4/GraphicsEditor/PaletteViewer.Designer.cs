@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaletteViewer));
             this.paletteList = new System.Windows.Forms.ListBox();
             this.is4bpp = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -59,7 +58,7 @@
             this.is4bpp.Name = "is4bpp";
             this.is4bpp.Size = new System.Drawing.Size(144, 17);
             this.is4bpp.TabIndex = 1;
-            this.is4bpp.Text = "16 Color";
+            this.is4bpp.Text = "<16 Color>";
             this.is4bpp.UseVisualStyleBackColor = true;
             this.is4bpp.CheckedChanged += new System.EventHandler(this.is4bpp_CheckedChanged);
             // 
@@ -99,7 +98,7 @@
             this.addAllToManager.Name = "addAllToManager";
             this.addAllToManager.Size = new System.Drawing.Size(75, 22);
             this.addAllToManager.TabIndex = 1;
-            this.addAllToManager.Text = "Add all";
+            this.addAllToManager.Text = "<Add all>";
             this.addAllToManager.UseVisualStyleBackColor = true;
             this.addAllToManager.Click += new System.EventHandler(this.addAllToManager_Click);
             // 
@@ -109,7 +108,7 @@
             this.addToManager.Name = "addToManager";
             this.addToManager.Size = new System.Drawing.Size(75, 22);
             this.addToManager.TabIndex = 0;
-            this.addToManager.Text = "Add";
+            this.addToManager.Text = "<Add>";
             this.addToManager.UseVisualStyleBackColor = true;
             this.addToManager.Click += new System.EventHandler(this.addToManager_Click);
             // 
@@ -121,9 +120,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PaletteViewer";
-            this.Text = "PaletteViewer";
+            this.Text = "<PaletteViewer>";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

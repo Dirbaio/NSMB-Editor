@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.selectionInfo = new System.Windows.Forms.Label();
             this.selectedFileInfo = new System.Windows.Forms.Label();
             this.decompressFileButton = new System.Windows.Forms.Button();
             this.compressFileButton = new System.Windows.Forms.Button();
@@ -46,16 +46,16 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // selectionInfo
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "<label1>";
+            this.selectionInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selectionInfo.AutoSize = true;
+            this.selectionInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectionInfo.Location = new System.Drawing.Point(3, 4);
+            this.selectionInfo.Name = "selectionInfo";
+            this.selectionInfo.Size = new System.Drawing.Size(96, 13);
+            this.selectionInfo.TabIndex = 14;
+            this.selectionInfo.Text = "<SelectionInfo>";
             // 
             // selectedFileInfo
             // 
@@ -122,14 +122,6 @@
             this.fileTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.fileTreeView_AfterSelect);
             this.fileTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.fileTreeView_NodeMouseDoubleClick);
             // 
-            // extractFileDialog
-            // 
-            this.extractFileDialog.Filter = "All files (*.*)|*.*";
-            // 
-            // replaceFileDialog
-            // 
-            this.replaceFileDialog.Filter = "All files (*.*)|*.*";
-            // 
             // hexEdButton
             // 
             this.hexEdButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -170,13 +162,13 @@
             this.decompressOverlayButton.Name = "decompressOverlayButton";
             this.decompressOverlayButton.Size = new System.Drawing.Size(125, 23);
             this.decompressOverlayButton.TabIndex = 11;
-            this.decompressOverlayButton.Text = "Decompress overlay";
+            this.decompressOverlayButton.Text = "<Decompress overlay>";
             this.decompressOverlayButton.UseVisualStyleBackColor = true;
             this.decompressOverlayButton.Click += new System.EventHandler(this.decompressOverlayButton_Click);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.selectionInfo);
             this.panel1.Controls.Add(this.extractFileButton);
             this.panel1.Controls.Add(this.selectedFileInfo);
             this.panel1.Controls.Add(this.replaceFileButton);
@@ -209,7 +201,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label selectionInfo;
         private System.Windows.Forms.Label selectedFileInfo;
         private System.Windows.Forms.Button decompressFileButton;
         private System.Windows.Forms.Button compressFileButton;

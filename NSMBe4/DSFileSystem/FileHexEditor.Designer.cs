@@ -46,10 +46,9 @@
             this.hexBox1.LineInfoForeColor = System.Drawing.Color.Empty;
             this.hexBox1.LineInfoVisible = true;
             this.hexBox1.Location = new System.Drawing.Point(0, 25);
-            this.hexBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hexBox1.Name = "hexBox1";
             this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox1.Size = new System.Drawing.Size(999, 462);
+            this.hexBox1.Size = new System.Drawing.Size(749, 371);
             this.hexBox1.StringViewVisible = true;
             this.hexBox1.TabIndex = 3;
             this.hexBox1.UseFixedBytesPerLine = true;
@@ -60,7 +59,7 @@
             this.saveButton.Image = global::NSMBe4.Properties.Resources.save;
             this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(124, 22);
+            this.saveButton.Size = new System.Drawing.Size(94, 22);
             this.saveButton.Text = "<saveButton>";
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -74,9 +73,8 @@
             this.goButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(999, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(749, 25);
             this.toolStrip1.TabIndex = 4;
-            this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripSeparator1
             // 
@@ -86,13 +84,13 @@
             // lblOffset
             // 
             this.lblOffset.Name = "lblOffset";
-            this.lblOffset.Size = new System.Drawing.Size(71, 22);
+            this.lblOffset.Size = new System.Drawing.Size(50, 22);
             this.lblOffset.Text = "<Offset>";
             // 
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(132, 25);
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 25);
             // 
             // goButton
             // 
@@ -100,18 +98,17 @@
             this.goButton.Image = ((System.Drawing.Image)(resources.GetObject("goButton.Image")));
             this.goButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.goButton.Name = "goButton";
-            this.goButton.Size = new System.Drawing.Size(52, 22);
+            this.goButton.Size = new System.Drawing.Size(37, 22);
             this.goButton.Text = "<Go>";
             this.goButton.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // FileHexEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 487);
+            this.ClientSize = new System.Drawing.Size(749, 396);
             this.Controls.Add(this.hexBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FileHexEditor";
             this.Text = "<_TITLE>";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FileHexEditor_FormClosing);

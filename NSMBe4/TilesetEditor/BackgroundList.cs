@@ -43,7 +43,12 @@ namespace NSMBe4
 
             public override string ToString()
             {
-                return (topLayer?"TOP":"BOTTOM")+" "+name;
+                string type;
+                if (topLayer)
+                    type = LanguageManager.Get("BackgroundList", "top");
+                else
+                    type = LanguageManager.Get("BackgroundList", "bottom");
+                return type + " " + name;
             }
         }
 
@@ -53,9 +58,6 @@ namespace NSMBe4
         {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "BackgroundList");
-
-            //TODO add this shit to the language file
-//            LanguageManager.ApplyToContainer(this, "BackgroundList");
 
             if (ROM.UserInfo == null) return;
             int id = 0;
@@ -140,6 +142,8 @@ namespace NSMBe4
             editSelectedBG();
         }
 
+        string fileHeader = "NSMBe Exported Background";
+
         private void importTilesetBtn_Click(object sender, EventArgs e)
         {
             getFiles();
@@ -149,7 +153,7 @@ namespace NSMBe4
             if (LayoutFile == null) return;
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "NMB Files|*.nmb";
+            ofd.Filter = LanguageManager.Get("Filters", "background");
             ofd.CheckFileExists = true;
 
             if (ofd.ShowDialog() != DialogResult.OK) return;
@@ -157,7 +161,7 @@ namespace NSMBe4
             System.IO.BinaryReader br = new System.IO.BinaryReader(
                 new System.IO.FileStream(ofd.FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read));
             string header = br.ReadString();
-            if (header != "NSMBe Exported Background")
+            if (header != fileHeader)
             {
                 MessageBox.Show(
                     LanguageManager.Get("NSMBLevel", "InvalidFile"),
@@ -180,12 +184,12 @@ namespace NSMBe4
             if (LayoutFile == null) return;
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "NMB Files|*.nmb";
+            sfd.Filter = LanguageManager.Get("Filters", "background");
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
             System.IO.BinaryWriter bw = new System.IO.BinaryWriter(
                 new System.IO.FileStream(sfd.FileName, System.IO.FileMode.Create, System.IO.FileAccess.Write));
-            bw.Write("NSMBe Exported Background");
+            bw.Write(fileHeader);
             writeFileContents(GFXFile, bw);
             writeFileContents(PalFile, bw);
             writeFileContents(LayoutFile, bw);
@@ -220,7 +224,7 @@ namespace NSMBe4
             int palOffs = bg.topLayer ? 8 : 10;
 
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "PNG Files|*.png";
+            ofd.Filter = LanguageManager.Get("Filters", "png");
             ofd.CheckFileExists = true;
 
             if (ofd.ShowDialog() != DialogResult.OK) return;
@@ -261,7 +265,7 @@ namespace NSMBe4
             if (t == null) return;
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "PNG Files|*.png";
+            sfd.Filter = LanguageManager.Get("Filters", "png");
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
             t.render();
@@ -273,7 +277,7 @@ namespace NSMBe4
             string newName;
             BackgroundEntry bg = tilesetListBox.SelectedItem as BackgroundEntry;
             string listName = bg.topLayer ? "Foregrounds" : "Backgrounds";
-            if (textForm.ShowDialog("Enter new background name:", bg.name, out newName) == DialogResult.OK)
+            if (textForm.ShowDialog(LanguageManager.Get("BackgroundList", "renamePrompt"), bg.name, out newName) == DialogResult.OK)
             {
                 if (newName == string.Empty)
                 {

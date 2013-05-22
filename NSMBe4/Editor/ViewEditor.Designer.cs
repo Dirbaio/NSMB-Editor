@@ -30,29 +30,29 @@
         {
             this.viewsList = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblUnknown1 = new System.Windows.Forms.Label();
             this.lightList = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblUnknown2 = new System.Windows.Forms.Label();
+            this.lblUnknown3 = new System.Windows.Forms.Label();
+            this.lbl3DLighting = new System.Windows.Forms.Label();
+            this.lblMusic = new System.Windows.Forms.Label();
+            this.lblProgressPath = new System.Windows.Forms.Label();
             this.music = new System.Windows.Forms.ComboBox();
             this.unk1 = new System.Windows.Forms.NumericUpDown();
             this.unk2 = new System.Windows.Forms.NumericUpDown();
             this.unk3 = new System.Windows.Forms.NumericUpDown();
             this.progressID = new System.Windows.Forms.NumericUpDown();
             this.camTop = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblCameraTop = new System.Windows.Forms.Label();
             this.camBottom = new System.Windows.Forms.NumericUpDown();
             this.camTopSpecial = new System.Windows.Forms.NumericUpDown();
             this.camBottomSpecial = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lblCameraBottom = new System.Windows.Forms.Label();
+            this.lblCamerTopSpecial = new System.Windows.Forms.Label();
+            this.lblCamerBottomSpecial = new System.Windows.Forms.Label();
+            this.lblScrollVertically = new System.Windows.Forms.Label();
             this.scrollVertically = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblID = new System.Windows.Forms.Label();
             this.viewID = new System.Windows.Forms.NumericUpDown();
             this.addViewButton = new System.Windows.Forms.Button();
             this.deleteViewButton = new System.Windows.Forms.Button();
@@ -90,27 +90,27 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.55556F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44444F));
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.lblUnknown1, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.lightList, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.lblUnknown2, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.lblUnknown3, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.lbl3DLighting, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.lblMusic, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.lblProgressPath, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.music, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.unk1, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.unk2, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.unk3, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.progressID, 1, 11);
             this.tableLayoutPanel1.Controls.Add(this.camTop, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblCameraTop, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.camBottom, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.camTopSpecial, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.camBottomSpecial, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label13, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label14, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label15, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label16, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.lblCameraBottom, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblCamerTopSpecial, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblCamerBottomSpecial, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblScrollVertically, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.scrollVertically, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 237);
@@ -131,15 +131,15 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(277, 282);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // label2
+            // lblUnknown1
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 157);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "<label2>";
+            this.lblUnknown1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblUnknown1.AutoSize = true;
+            this.lblUnknown1.Location = new System.Drawing.Point(3, 157);
+            this.lblUnknown1.Name = "lblUnknown1";
+            this.lblUnknown1.Size = new System.Drawing.Size(71, 13);
+            this.lblUnknown1.TabIndex = 0;
+            this.lblUnknown1.Text = "<Unknown1>";
             // 
             // lightList
             // 
@@ -151,55 +151,55 @@
             this.lightList.TabIndex = 2;
             this.lightList.SelectedIndexChanged += new System.EventHandler(this.lightList_SelectedIndexChanged);
             // 
-            // label3
+            // lblUnknown2
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 183);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "<label3>";
+            this.lblUnknown2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblUnknown2.AutoSize = true;
+            this.lblUnknown2.Location = new System.Drawing.Point(3, 183);
+            this.lblUnknown2.Name = "lblUnknown2";
+            this.lblUnknown2.Size = new System.Drawing.Size(71, 13);
+            this.lblUnknown2.TabIndex = 0;
+            this.lblUnknown2.Text = "<Unknown2>";
             // 
-            // label4
+            // lblUnknown3
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 209);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "<label4>";
+            this.lblUnknown3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblUnknown3.AutoSize = true;
+            this.lblUnknown3.Location = new System.Drawing.Point(3, 209);
+            this.lblUnknown3.Name = "lblUnknown3";
+            this.lblUnknown3.Size = new System.Drawing.Size(71, 13);
+            this.lblUnknown3.TabIndex = 0;
+            this.lblUnknown3.Text = "<Unknown3>";
             // 
-            // label5
+            // lbl3DLighting
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 236);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "<label5>";
+            this.lbl3DLighting.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl3DLighting.AutoSize = true;
+            this.lbl3DLighting.Location = new System.Drawing.Point(3, 236);
+            this.lbl3DLighting.Name = "lbl3DLighting";
+            this.lbl3DLighting.Size = new System.Drawing.Size(70, 13);
+            this.lbl3DLighting.TabIndex = 0;
+            this.lbl3DLighting.Text = "<3DLighting>";
             // 
-            // label6
+            // lblMusic
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 131);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "<label6>";
+            this.lblMusic.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblMusic.AutoSize = true;
+            this.lblMusic.Location = new System.Drawing.Point(3, 131);
+            this.lblMusic.Name = "lblMusic";
+            this.lblMusic.Size = new System.Drawing.Size(47, 13);
+            this.lblMusic.TabIndex = 0;
+            this.lblMusic.Text = "<Music>";
             // 
-            // label7
+            // lblProgressPath
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 262);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "<label7>";
+            this.lblProgressPath.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblProgressPath.AutoSize = true;
+            this.lblProgressPath.Location = new System.Drawing.Point(3, 262);
+            this.lblProgressPath.Name = "lblProgressPath";
+            this.lblProgressPath.Size = new System.Drawing.Size(93, 13);
+            this.lblProgressPath.TabIndex = 0;
+            this.lblProgressPath.Text = "<ProgressPathID>";
             // 
             // music
             // 
@@ -281,15 +281,15 @@
             this.camTop.TabIndex = 1;
             this.camTop.ValueChanged += new System.EventHandler(this.camTop_ValueChanged);
             // 
-            // label1
+            // lblCameraTop
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "<label1>";
+            this.lblCameraTop.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCameraTop.AutoSize = true;
+            this.lblCameraTop.Location = new System.Drawing.Point(3, 6);
+            this.lblCameraTop.Name = "lblCameraTop";
+            this.lblCameraTop.Size = new System.Drawing.Size(102, 13);
+            this.lblCameraTop.TabIndex = 0;
+            this.lblCameraTop.Text = "<CameraTopOffset>";
             // 
             // camBottom
             // 
@@ -345,45 +345,45 @@
             this.camBottomSpecial.TabIndex = 1;
             this.camBottomSpecial.ValueChanged += new System.EventHandler(this.camBottomSpecial_ValueChanged);
             // 
-            // label13
+            // lblCameraBottom
             // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 32);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "<label1>";
+            this.lblCameraBottom.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCameraBottom.AutoSize = true;
+            this.lblCameraBottom.Location = new System.Drawing.Point(3, 26);
+            this.lblCameraBottom.Name = "lblCameraBottom";
+            this.lblCameraBottom.Size = new System.Drawing.Size(110, 26);
+            this.lblCameraBottom.TabIndex = 0;
+            this.lblCameraBottom.Text = "<CameraBottomOffset>";
             // 
-            // label14
+            // lblCamerTopSpecial
             // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 58);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(47, 13);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "<label1>";
+            this.lblCamerTopSpecial.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCamerTopSpecial.AutoSize = true;
+            this.lblCamerTopSpecial.Location = new System.Drawing.Point(3, 52);
+            this.lblCamerTopSpecial.Name = "lblCamerTopSpecial";
+            this.lblCamerTopSpecial.Size = new System.Drawing.Size(109, 26);
+            this.lblCamerTopSpecial.TabIndex = 0;
+            this.lblCamerTopSpecial.Text = "<CameraTopOffsetSpecial>";
             // 
-            // label15
+            // lblCamerBottomSpecial
             // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 84);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(47, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "<label1>";
+            this.lblCamerBottomSpecial.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCamerBottomSpecial.AutoSize = true;
+            this.lblCamerBottomSpecial.Location = new System.Drawing.Point(3, 78);
+            this.lblCamerBottomSpecial.Name = "lblCamerBottomSpecial";
+            this.lblCamerBottomSpecial.Size = new System.Drawing.Size(110, 26);
+            this.lblCamerBottomSpecial.TabIndex = 0;
+            this.lblCamerBottomSpecial.Text = "<CameraBottomOffsetSpecial>";
             // 
-            // label16
+            // lblScrollVertically
             // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 107);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(47, 13);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "<label1>";
+            this.lblScrollVertically.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblScrollVertically.AutoSize = true;
+            this.lblScrollVertically.Location = new System.Drawing.Point(3, 107);
+            this.lblScrollVertically.Name = "lblScrollVertically";
+            this.lblScrollVertically.Size = new System.Drawing.Size(87, 13);
+            this.lblScrollVertically.TabIndex = 0;
+            this.lblScrollVertically.Text = "<ScrollVertically>";
             // 
             // scrollVertically
             // 
@@ -395,15 +395,15 @@
             this.scrollVertically.UseVisualStyleBackColor = true;
             this.scrollVertically.CheckedChanged += new System.EventHandler(this.scrollVertically_CheckedChanged);
             // 
-            // label12
+            // lblID
             // 
-            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 8);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 13);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "<label12>";
+            this.lblID.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblID.AutoSize = true;
+            this.lblID.Location = new System.Drawing.Point(3, 8);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(30, 13);
+            this.lblID.TabIndex = 0;
+            this.lblID.Text = "<ID>";
             // 
             // viewID
             // 
@@ -458,7 +458,7 @@
             this.panel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.44F));
             this.panel2.Controls.Add(this.selectContents, 0, 1);
             this.panel2.Controls.Add(this.viewID, 1, 0);
-            this.panel2.Controls.Add(this.label12, 0, 0);
+            this.panel2.Controls.Add(this.lblID, 0, 0);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 179);
             this.panel2.Name = "panel2";
@@ -513,13 +513,13 @@
 
         private System.Windows.Forms.ListBox viewsList;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblCameraTop;
+        private System.Windows.Forms.Label lblUnknown1;
+        private System.Windows.Forms.Label lblUnknown2;
+        private System.Windows.Forms.Label lblUnknown3;
+        private System.Windows.Forms.Label lbl3DLighting;
+        private System.Windows.Forms.Label lblMusic;
+        private System.Windows.Forms.Label lblProgressPath;
         private System.Windows.Forms.NumericUpDown camTop;
         private System.Windows.Forms.ComboBox music;
         private System.Windows.Forms.NumericUpDown unk1;
@@ -528,16 +528,16 @@
         private System.Windows.Forms.NumericUpDown progressID;
         private System.Windows.Forms.Button addViewButton;
         private System.Windows.Forms.Button deleteViewButton;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblID;
         private System.Windows.Forms.NumericUpDown viewID;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown camBottom;
         private System.Windows.Forms.NumericUpDown camTopSpecial;
         private System.Windows.Forms.NumericUpDown camBottomSpecial;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblCameraBottom;
+        private System.Windows.Forms.Label lblCamerTopSpecial;
+        private System.Windows.Forms.Label lblCamerBottomSpecial;
+        private System.Windows.Forms.Label lblScrollVertically;
         private System.Windows.Forms.TableLayoutPanel panel2;
         private System.Windows.Forms.Button selectContents;
         private System.Windows.Forms.ComboBox lightList;

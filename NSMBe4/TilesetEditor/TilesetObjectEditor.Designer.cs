@@ -30,25 +30,25 @@
         {
             this.editZone = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblObjectEditor = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.description = new System.Windows.Forms.Label();
             this.desc = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.grpObjectSettings = new System.Windows.Forms.GroupBox();
+            this.lblHeight = new System.Windows.Forms.Label();
+            this.lblWidth = new System.Windows.Forms.Label();
             this.objWidth = new System.Windows.Forms.NumericUpDown();
             this.objHeight = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.grpTileSettings = new System.Windows.Forms.GroupBox();
+            this.lblMap16Num = new System.Windows.Forms.Label();
+            this.lblControlByte = new System.Windows.Forms.Label();
             this.map16Tile = new System.Windows.Forms.NumericUpDown();
             this.controlByte = new System.Windows.Forms.NumericUpDown();
             this.previewBox = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblObjectPreview = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tilePicker1 = new NSMBe4.TilePicker();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblMap16Tiles = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.deleteButton = new System.Windows.Forms.Button();
             this.newLineButton = new System.Windows.Forms.Button();
@@ -59,10 +59,10 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpObjectSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objHeight)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.grpTileSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.map16Tile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.controlByte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
@@ -92,34 +92,34 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.editZone);
-            this.splitContainer1.Panel1.Controls.Add(this.label5);
+            this.splitContainer1.Panel1.Controls.Add(this.lblObjectEditor);
             this.splitContainer1.Panel1.Controls.Add(this.panel2);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.previewBox);
-            this.splitContainer1.Panel2.Controls.Add(this.label3);
+            this.splitContainer1.Panel2.Controls.Add(this.lblObjectPreview);
             this.splitContainer1.Size = new System.Drawing.Size(400, 389);
             this.splitContainer1.SplitterDistance = 262;
             this.splitContainer1.TabIndex = 1;
             // 
-            // label5
+            // lblObjectEditor
             // 
-            this.label5.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(0, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(243, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "<label5>";
+            this.lblObjectEditor.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblObjectEditor.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblObjectEditor.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblObjectEditor.Location = new System.Drawing.Point(0, 0);
+            this.lblObjectEditor.Name = "lblObjectEditor";
+            this.lblObjectEditor.Size = new System.Drawing.Size(243, 13);
+            this.lblObjectEditor.TabIndex = 5;
+            this.lblObjectEditor.Text = "<ObjectEditor>";
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.description);
             this.panel2.Controls.Add(this.desc);
-            this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Controls.Add(this.grpObjectSettings);
+            this.panel2.Controls.Add(this.grpTileSettings);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(243, 0);
             this.panel2.Name = "panel2";
@@ -145,38 +145,38 @@
             this.desc.TabIndex = 5;
             this.desc.TextChanged += new System.EventHandler(this.desc_TextChanged);
             // 
-            // groupBox2
+            // grpObjectSettings
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpObjectSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.objWidth);
-            this.groupBox2.Controls.Add(this.objHeight);
-            this.groupBox2.Location = new System.Drawing.Point(3, 113);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(148, 99);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "<groupBox2>";
+            this.grpObjectSettings.Controls.Add(this.lblHeight);
+            this.grpObjectSettings.Controls.Add(this.lblWidth);
+            this.grpObjectSettings.Controls.Add(this.objWidth);
+            this.grpObjectSettings.Controls.Add(this.objHeight);
+            this.grpObjectSettings.Location = new System.Drawing.Point(3, 113);
+            this.grpObjectSettings.Name = "grpObjectSettings";
+            this.grpObjectSettings.Size = new System.Drawing.Size(148, 99);
+            this.grpObjectSettings.TabIndex = 4;
+            this.grpObjectSettings.TabStop = false;
+            this.grpObjectSettings.Text = "<ObjectSettings>";
             // 
-            // label7
+            // lblHeight
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 55);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "<label7>";
+            this.lblHeight.AutoSize = true;
+            this.lblHeight.Location = new System.Drawing.Point(6, 55);
+            this.lblHeight.Name = "lblHeight";
+            this.lblHeight.Size = new System.Drawing.Size(50, 13);
+            this.lblHeight.TabIndex = 0;
+            this.lblHeight.Text = "<Height>";
             // 
-            // label6
+            // lblWidth
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "<label6>";
+            this.lblWidth.AutoSize = true;
+            this.lblWidth.Location = new System.Drawing.Point(6, 16);
+            this.lblWidth.Name = "lblWidth";
+            this.lblWidth.Size = new System.Drawing.Size(47, 13);
+            this.lblWidth.TabIndex = 0;
+            this.lblWidth.Text = "<Width>";
             // 
             // objWidth
             // 
@@ -208,38 +208,38 @@
             this.objHeight.TabIndex = 2;
             this.objHeight.ValueChanged += new System.EventHandler(this.objHeight_ValueChanged);
             // 
-            // groupBox1
+            // grpTileSettings
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpTileSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.map16Tile);
-            this.groupBox1.Controls.Add(this.controlByte);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(148, 101);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "<groupBox1>";
+            this.grpTileSettings.Controls.Add(this.lblMap16Num);
+            this.grpTileSettings.Controls.Add(this.lblControlByte);
+            this.grpTileSettings.Controls.Add(this.map16Tile);
+            this.grpTileSettings.Controls.Add(this.controlByte);
+            this.grpTileSettings.Location = new System.Drawing.Point(3, 3);
+            this.grpTileSettings.Name = "grpTileSettings";
+            this.grpTileSettings.Size = new System.Drawing.Size(148, 101);
+            this.grpTileSettings.TabIndex = 3;
+            this.grpTileSettings.TabStop = false;
+            this.grpTileSettings.Text = "<TileSettings>";
             // 
-            // label1
+            // lblMap16Num
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "<label1>";
+            this.lblMap16Num.AutoSize = true;
+            this.lblMap16Num.Location = new System.Drawing.Point(6, 16);
+            this.lblMap16Num.Name = "lblMap16Num";
+            this.lblMap16Num.Size = new System.Drawing.Size(89, 13);
+            this.lblMap16Num.TabIndex = 0;
+            this.lblMap16Num.Text = "<Map16Number>";
             // 
-            // label2
+            // lblControlByte
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "<label2>";
+            this.lblControlByte.AutoSize = true;
+            this.lblControlByte.Location = new System.Drawing.Point(6, 55);
+            this.lblControlByte.Name = "lblControlByte";
+            this.lblControlByte.Size = new System.Drawing.Size(73, 13);
+            this.lblControlByte.TabIndex = 0;
+            this.lblControlByte.Text = "<ControlByte>";
             // 
             // map16Tile
             // 
@@ -289,22 +289,22 @@
             this.previewBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previewBox_MouseDown);
             this.previewBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.previewBox_MouseMove);
             // 
-            // label3
+            // lblObjectPreview
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(400, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "<label3>";
+            this.lblObjectPreview.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblObjectPreview.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblObjectPreview.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblObjectPreview.Location = new System.Drawing.Point(0, 0);
+            this.lblObjectPreview.Name = "lblObjectPreview";
+            this.lblObjectPreview.Size = new System.Drawing.Size(400, 13);
+            this.lblObjectPreview.TabIndex = 1;
+            this.lblObjectPreview.Text = "<ObjectPreview>";
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.tilePicker1);
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.lblMap16Tiles);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(400, 0);
@@ -323,16 +323,16 @@
             this.tilePicker1.TabIndex = 6;
             this.tilePicker1.TileSelected += new NSMBe4.TilePicker.TileSelectedd(this.tilePicker1_TileSelected);
             // 
-            // label4
+            // lblMap16Tiles
             // 
-            this.label4.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(0, 55);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(274, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "<label4>";
+            this.lblMap16Tiles.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblMap16Tiles.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblMap16Tiles.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblMap16Tiles.Location = new System.Drawing.Point(0, 55);
+            this.lblMap16Tiles.Name = "lblMap16Tiles";
+            this.lblMap16Tiles.Size = new System.Drawing.Size(274, 13);
+            this.lblMap16Tiles.TabIndex = 4;
+            this.lblMap16Tiles.Text = "<Map16Tiles>";
             // 
             // panel3
             // 
@@ -400,12 +400,12 @@
             this.splitContainer1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpObjectSettings.ResumeLayout(false);
+            this.grpObjectSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.objHeight)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpTileSettings.ResumeLayout(false);
+            this.grpTileSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.map16Tile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.controlByte)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
@@ -424,19 +424,19 @@
         private System.Windows.Forms.PictureBox previewBox;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NumericUpDown map16Tile;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblMap16Num;
         private System.Windows.Forms.NumericUpDown controlByte;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblControlByte;
+        private System.Windows.Forms.Label lblObjectEditor;
+        private System.Windows.Forms.Label lblObjectPreview;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblMap16Tiles;
+        private System.Windows.Forms.GroupBox grpObjectSettings;
+        private System.Windows.Forms.Label lblWidth;
+        private System.Windows.Forms.GroupBox grpTileSettings;
         private System.Windows.Forms.NumericUpDown objHeight;
         private System.Windows.Forms.NumericUpDown objWidth;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblHeight;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button emptyTileButton;
         private System.Windows.Forms.Button slopeControlButton;

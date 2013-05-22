@@ -125,25 +125,25 @@ namespace NSMBe4
         private void entranceSetting128_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 0, entranceSetting128.Checked));
+            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 0, exitOnly.Checked));
         }
 
         private void entranceSetting16_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 1, entranceSetting16.Checked));
+            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 1, screenFade.Checked));
         }
 
         private void entranceSetting8_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 2, entranceSetting8.Checked));
+            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 2, connectedPipe.Checked));
         }
 
         private void entranceSetting1_CheckedChanged(object sender, EventArgs e)
         {
             if (DataUpdateFlag) return;
-            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 3, entranceSetting1.Checked));
+            EdControl.UndoManager.Do(new ChangeEntranceBitAction(SelectedObjects, 3, lowerScreen.Checked));
         }
 
         private void addEntranceButton_Click(object sender, EventArgs e)
@@ -199,10 +199,10 @@ namespace NSMBe4
             entrancePipeIDUpDown.Value = en.ConnectedPipeID;
             entranceDestEntranceUpDown.Value = en.DestEntrance;
             entranceTypeComboBox.SelectedIndex = en.Type;
-            entranceSetting128.Checked = (en.Settings & 128) != 0;
-            entranceSetting16.Checked = (en.Settings & 16) != 0;
-            entranceSetting8.Checked = (en.Settings & 8) != 0;
-            entranceSetting1.Checked = (en.Settings & 1) != 0;
+            exitOnly.Checked = (en.Settings & 128) != 0;
+            screenFade.Checked = (en.Settings & 16) != 0;
+            connectedPipe.Checked = (en.Settings & 8) != 0;
+            lowerScreen.Checked = (en.Settings & 1) != 0;
             entranceViewUpDown.Value = en.EntryView;
             DataUpdateFlag = false;
         }

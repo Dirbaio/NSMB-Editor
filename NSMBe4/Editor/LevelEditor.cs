@@ -65,6 +65,7 @@ namespace NSMBe4 {
             setBgImageButton.Text = LanguageManager.Get("LevelEditor", "setBgImageButton");
             removeBgButton.Text = LanguageManager.Get("LevelEditor", "removeBgButton");
             moveBGToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "moveBGToolStripMenuItem");
+            openImage.Filter = LanguageManager.Get("Filters", "image");
 
             levelEditorControl1.LoadUndoManager(undoButton, redoButton);
 
@@ -245,18 +246,18 @@ namespace NSMBe4 {
 
         private void setBgImageButton_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() != DialogResult.OK)
+            if (openImage.ShowDialog() != DialogResult.OK)
                 return;
 
             try
             {
-                Image i = Image.FromFile(openFileDialog1.FileName, false);
+                Image i = Image.FromFile(openImage.FileName, false);
                 removeBgButton_Click(null, null);
                 levelEditorControl1.bgImage = i;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading image file: " + ex.Message);
+                MessageBox.Show(String.Format(LanguageManager.Get("LevelEditor", "ImageError"), ex.Message));
             }
             levelEditorControl1.repaint();
         }

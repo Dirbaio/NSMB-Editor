@@ -32,8 +32,8 @@
             this.exportTilesetBtn = new System.Windows.Forms.Button();
             this.importTilesetBtn = new System.Windows.Forms.Button();
             this.editTilesetBtn = new System.Windows.Forms.Button();
-            this.tilesetListBox = new System.Windows.Forms.ListBox();
             this.RenameBtn = new System.Windows.Forms.Button();
+            this.tilesetListBox = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +57,7 @@
             this.exportTilesetBtn.Name = "exportTilesetBtn";
             this.exportTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.exportTilesetBtn.TabIndex = 0;
-            this.exportTilesetBtn.Text = "Export";
+            this.exportTilesetBtn.Text = "<Export>";
             this.exportTilesetBtn.UseVisualStyleBackColor = true;
             this.exportTilesetBtn.Click += new System.EventHandler(this.exportTilesetBtn_Click);
             // 
@@ -67,7 +67,7 @@
             this.importTilesetBtn.Name = "importTilesetBtn";
             this.importTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.importTilesetBtn.TabIndex = 1;
-            this.importTilesetBtn.Text = "Import";
+            this.importTilesetBtn.Text = "<Import>";
             this.importTilesetBtn.UseVisualStyleBackColor = true;
             this.importTilesetBtn.Click += new System.EventHandler(this.importTilesetBtn_Click);
             // 
@@ -77,9 +77,19 @@
             this.editTilesetBtn.Name = "editTilesetBtn";
             this.editTilesetBtn.Size = new System.Drawing.Size(75, 23);
             this.editTilesetBtn.TabIndex = 2;
-            this.editTilesetBtn.Text = "Edit";
+            this.editTilesetBtn.Text = "<Edit>";
             this.editTilesetBtn.UseVisualStyleBackColor = true;
             this.editTilesetBtn.Click += new System.EventHandler(this.editTilesetBtn_Click);
+            // 
+            // RenameBtn
+            // 
+            this.RenameBtn.Location = new System.Drawing.Point(130, 3);
+            this.RenameBtn.Name = "RenameBtn";
+            this.RenameBtn.Size = new System.Drawing.Size(75, 23);
+            this.RenameBtn.TabIndex = 2;
+            this.RenameBtn.Text = "<Rename>";
+            this.RenameBtn.UseVisualStyleBackColor = true;
+            this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
             // 
             // tilesetListBox
             // 
@@ -90,16 +100,6 @@
             this.tilesetListBox.Size = new System.Drawing.Size(451, 272);
             this.tilesetListBox.TabIndex = 1;
             this.tilesetListBox.DoubleClick += new System.EventHandler(this.tilesetListBox_DoubleClick);
-            // 
-            // RenameBtn
-            // 
-            this.RenameBtn.Location = new System.Drawing.Point(130, 3);
-            this.RenameBtn.Name = "RenameBtn";
-            this.RenameBtn.Size = new System.Drawing.Size(75, 23);
-            this.RenameBtn.TabIndex = 2;
-            this.RenameBtn.Text = "Rename";
-            this.RenameBtn.UseVisualStyleBackColor = true;
-            this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
             // 
             // TilesetList
             // 

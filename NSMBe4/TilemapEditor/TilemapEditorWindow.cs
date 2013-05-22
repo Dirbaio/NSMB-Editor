@@ -32,6 +32,7 @@ namespace NSMBe4.TilemapEditor
         public TilemapEditorWindow(Tilemap t)
         {
             InitializeComponent();
+            LanguageManager.ApplyToContainer(this, "TilemapEditor");
             this.t = t;
             t.beginEdit();
             tilemapEditor1.showSaveButton();

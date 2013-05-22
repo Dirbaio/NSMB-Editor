@@ -59,7 +59,7 @@ namespace NSMBe4
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("An error occurred while reading ROM user info on line " + (lineNum + 1).ToString() + ".\n\nThe original error message was:\n" + ex.Message);
+                System.Windows.Forms.MessageBox.Show(String.Format(LanguageManager.Get("ROMUserInfo", "ErrorRead"), lineNum + 1, ex.Message));
             }
         }
 
@@ -150,7 +150,7 @@ namespace NSMBe4
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Error saving ROM user info file:\n\n" + ex.Message);
+                System.Windows.Forms.MessageBox.Show(String.Format(LanguageManager.Get("ROMUserInfo", "ErrorWrite"), ex.Message));
             }
         }
     }
