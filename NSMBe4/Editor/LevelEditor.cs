@@ -62,6 +62,7 @@ namespace NSMBe4 {
             // these need to be added manually
             reloadTilesets.Text = LanguageManager.Get("LevelEditor", "reloadTilesets");
             smallBlockOverlaysToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "smallBlockOverlaysToolStripMenuItem");
+            showResizeHandles.Text = LanguageManager.Get("LevelEditor", "showResizeHandles");
             setBgImageButton.Text = LanguageManager.Get("LevelEditor", "setBgImageButton");
             removeBgButton.Text = LanguageManager.Get("LevelEditor", "removeBgButton");
             moveBGToolStripMenuItem.Text = LanguageManager.Get("LevelEditor", "moveBGToolStripMenuItem");
@@ -217,7 +218,7 @@ namespace NSMBe4 {
             levelEditorControl1.delete();
         }
 
-        private void toolStripDropDownButton1_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void zoomMenu_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             foreach (ToolStripMenuItem it in zoomMenu.DropDown.Items)
                 it.Checked = false;
@@ -230,6 +231,28 @@ namespace NSMBe4 {
 
             float z = Int32.Parse(s);
             levelEditorControl1.SetZoom(z / 100);
+        }
+
+        public void zoomOut()
+        {
+            int idx = findZoomItemIndex();
+            if (idx < zoomMenu.DropDown.Items.Count - 1)
+                zoomMenu.DropDown.Items[idx + 1].PerformClick();
+        }
+
+        public void zoomIn()
+        {
+            int idx = findZoomItemIndex();
+            if (idx > 0)
+                zoomMenu.DropDown.Items[idx - 1].PerformClick();
+        }
+
+        private int findZoomItemIndex()
+        {
+            for (int i = 0; i < zoomMenu.DropDown.Items.Count; i++)
+                if ((zoomMenu.DropDown.Items[i] as ToolStripMenuItem).Checked)
+                    return i;
+            return -1;
         }
 
         private void editTileset_Click(object sender, EventArgs e)
@@ -301,6 +324,24 @@ namespace NSMBe4 {
         {
             levelEditorControl1.showGrid = showGridButton.Checked;
             levelEditorControl1.repaint();
+        }
+
+        private FormWindowState prevState;
+
+        private void fullScreenButton_Click(object sender, EventArgs e)
+        {
+            if (fullScreenButton.Checked)
+            {
+                prevState = this.WindowState;
+                this.WindowState = FormWindowState.Normal;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+                this.WindowState = prevState;
+            }
         }
 
         private void deleteButton_Click(object sender, EventArgs e)

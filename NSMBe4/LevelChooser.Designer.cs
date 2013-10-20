@@ -68,7 +68,6 @@ namespace NSMBe4 {
             this.autoBackupTime = new System.Windows.Forms.NumericUpDown();
             this.lblEvery = new System.Windows.Forms.Label();
             this.chkAutoBackup = new System.Windows.Forms.CheckBox();
-            this.autoUpdate = new System.Windows.Forms.CheckBox();
             this.useMDI = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.languageListBox = new System.Windows.Forms.ListBox();
@@ -540,7 +539,6 @@ namespace NSMBe4 {
             this.groupBox1.Controls.Add(this.autoBackupTime);
             this.groupBox1.Controls.Add(this.lblEvery);
             this.groupBox1.Controls.Add(this.chkAutoBackup);
-            this.groupBox1.Controls.Add(this.autoUpdate);
             this.groupBox1.Controls.Add(this.useMDI);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.languageListBox);
@@ -615,17 +613,6 @@ namespace NSMBe4 {
             this.chkAutoBackup.UseVisualStyleBackColor = true;
             this.chkAutoBackup.CheckedChanged += new System.EventHandler(this.autoBackupTime_ValueChanged);
             // 
-            // autoUpdate
-            // 
-            this.autoUpdate.AutoSize = true;
-            this.autoUpdate.Location = new System.Drawing.Point(6, 130);
-            this.autoUpdate.Name = "autoUpdate";
-            this.autoUpdate.Size = new System.Drawing.Size(152, 17);
-            this.autoUpdate.TabIndex = 7;
-            this.autoUpdate.Text = "<Auto-update Sprite Data>";
-            this.autoUpdate.UseVisualStyleBackColor = true;
-            this.autoUpdate.CheckedChanged += new System.EventHandler(this.autoUpdate_CheckedChanged);
-            // 
             // useMDI
             // 
             this.useMDI.AutoSize = true;
@@ -660,11 +647,11 @@ namespace NSMBe4 {
             // 
             this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateSpriteDataButton.Location = new System.Drawing.Point(158, 126);
+            this.updateSpriteDataButton.Location = new System.Drawing.Point(6, 127);
             this.updateSpriteDataButton.Name = "updateSpriteDataButton";
-            this.updateSpriteDataButton.Size = new System.Drawing.Size(82, 23);
+            this.updateSpriteDataButton.Size = new System.Drawing.Size(153, 23);
             this.updateSpriteDataButton.TabIndex = 3;
-            this.updateSpriteDataButton.Text = "<UpdateNow>";
+            this.updateSpriteDataButton.Text = "<UpdateSpriteData>";
             this.updateSpriteDataButton.UseVisualStyleBackColor = true;
             this.updateSpriteDataButton.Click += new System.EventHandler(this.updateSpriteDataButton_Click);
             // 
@@ -856,7 +843,6 @@ namespace NSMBe4 {
         private System.Windows.Forms.SaveFileDialog saveTextFileDialog;
         private System.Windows.Forms.CheckBox useMDI;
         private System.Windows.Forms.Button updateSpriteDataButton;
-        private System.Windows.Forms.CheckBox autoUpdate;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;

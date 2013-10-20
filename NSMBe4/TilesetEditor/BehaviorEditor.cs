@@ -18,6 +18,7 @@ namespace NSMBe4 {
 				LanguageManager.GetList("BehaviourFlags").ToArray());
 			subTypeComboBox.Items.AddRange(
 				LanguageManager.GetList("TileSubTypes").ToArray());
+            LanguageManager.ApplyToContainer(this, "BehaviorEditor");
 		}
 
 		uint currentFlags;

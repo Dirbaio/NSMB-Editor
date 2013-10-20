@@ -40,6 +40,7 @@
             this.snapToggleButton = new System.Windows.Forms.ToolStripButton();
             this.dsScreenShowButton = new System.Windows.Forms.ToolStripButton();
             this.showGridButton = new System.Windows.Forms.ToolStripButton();
+            this.fullScreenButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.undoButton = new System.Windows.Forms.ToolStripSplitButton();
             this.redoButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -112,6 +113,7 @@
             this.snapToggleButton,
             this.dsScreenShowButton,
             this.showGridButton,
+            this.fullScreenButton,
             this.toolStripSeparator2,
             this.undoButton,
             this.redoButton,
@@ -259,6 +261,17 @@
             this.showGridButton.Text = "<Show Grid>";
             this.showGridButton.Click += new System.EventHandler(this.showGridButton_Click);
             // 
+            // fullScreenButton
+            // 
+            this.fullScreenButton.CheckOnClick = true;
+            this.fullScreenButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.fullScreenButton.Image = global::NSMBe4.Properties.Resources.application_resize_full;
+            this.fullScreenButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fullScreenButton.Name = "fullScreenButton";
+            this.fullScreenButton.Size = new System.Drawing.Size(23, 22);
+            this.fullScreenButton.Text = "<FullScreen>";
+            this.fullScreenButton.Click += new System.EventHandler(this.fullScreenButton_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -330,7 +343,7 @@
             this.zoomMenu.Name = "zoomMenu";
             this.zoomMenu.Size = new System.Drawing.Size(29, 22);
             this.zoomMenu.Text = "<zoomMenu>";
-            this.zoomMenu.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripDropDownButton1_DropDownItemClicked);
+            this.zoomMenu.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.zoomMenu_DropDownItemClicked);
             // 
             // toolStripMenuItem13
             // 
@@ -713,6 +726,7 @@
         private System.Windows.Forms.ToolStripButton raiseButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton spriteEvents;
+        private System.Windows.Forms.ToolStripButton fullScreenButton;
     }
 }
 

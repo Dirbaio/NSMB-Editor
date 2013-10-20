@@ -56,7 +56,6 @@ namespace NSMBe4 {
         private void LevelChooser_Load(object sender, EventArgs e)
         {
             useMDI.Checked = Properties.Settings.Default.mdi;
-            autoUpdate.Checked = Properties.Settings.Default.AutoUpdateSD;
             chkAutoBackup.Checked = Properties.Settings.Default.AutoBackup > 0;
             if (chkAutoBackup.Checked)
                 autoBackupTime.Value = Properties.Settings.Default.AutoBackup;
@@ -661,12 +660,6 @@ namespace NSMBe4 {
         private void useMDI_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.mdi = useMDI.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void autoUpdate_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.AutoUpdateSD = autoUpdate.Checked;
             Properties.Settings.Default.Save();
         }
 

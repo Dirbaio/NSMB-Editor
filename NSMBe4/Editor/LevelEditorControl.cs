@@ -60,6 +60,9 @@ namespace NSMBe4
 
         public void SetZoom(float nZoom)
         {
+            // Make the top corner stay the same between zooms
+            hScrollBar.Value = Math.Max(hScrollBar.Minimum, Math.Min(hScrollBar.Maximum, (int)(hScrollBar.Value * (nZoom / zoom))));
+            vScrollBar.Value = Math.Max(vScrollBar.Minimum, Math.Min(vScrollBar.Maximum, (int)(vScrollBar.Value * (nZoom / zoom))));
             this.zoom = nZoom;
             UpdateScrollbars();
             repaint();
@@ -96,24 +99,25 @@ namespace NSMBe4
 
         #region Scrolling
         private void UpdateScrollbars() {
+            hScrollBar.Maximum = (int)Math.Floor(510 * 16 * zoom);
+            hScrollBar.LargeChange = DrawingArea.Width;
+            hScrollBar.Value = Math.Min(hScrollBar.Value, Math.Max(hScrollBar.Minimum, hScrollBar.Maximum - hScrollBar.LargeChange));
+            hScrollBar.Enabled = hScrollBar.Maximum > hScrollBar.LargeChange;
+
+            vScrollBar.Maximum = (int)Math.Floor(254 * 16 * zoom);
+            vScrollBar.LargeChange = DrawingArea.Height;
+            vScrollBar.Value = Math.Min(vScrollBar.Value, Math.Max(vScrollBar.Minimum, vScrollBar.Maximum - vScrollBar.LargeChange));
+            vScrollBar.Enabled = vScrollBar.Maximum > vScrollBar.LargeChange;
+
+            ViewablePixels.X = (int)(hScrollBar.Value / zoom);
+            ViewablePixels.Y = (int)(vScrollBar.Value / zoom);
             ViewablePixels.Width = (int)Math.Ceiling((float)DrawingArea.Width / zoom);
             ViewablePixels.Height = (int)Math.Ceiling((float)DrawingArea.Height / zoom);
 
-            int xMax = 511 * 16;// - ViewablePixels.Width;
-            int yMax = 255 * 16;// - ViewablePixels.Height;
-            if (yMax < 0) yMax = 0;
-            if (xMax < 0) xMax = 0;
-
-            vScrollBar.Maximum = yMax;
-            hScrollBar.Maximum = xMax;
-
-            ViewablePixels.X = hScrollBar.Value;
-            ViewablePixels.Y = vScrollBar.Value;
-
             ViewableBlocks.X = ViewablePixels.X / 16;
             ViewableBlocks.Y = ViewablePixels.Y / 16;
-            ViewableBlocks.Width = (ViewablePixels.Width + 15) / 16+1;
-            ViewableBlocks.Height = (ViewablePixels.Height + 15) / 16+1;
+            ViewableBlocks.Width = (ViewablePixels.Width + 15) / 16 + 1;
+            ViewableBlocks.Height = (ViewablePixels.Height + 15) / 16 + 1;
         }
 
         private void LevelEditorControl_Resize(object sender, EventArgs e) {
@@ -132,7 +136,10 @@ namespace NSMBe4
         }
 
         private void DrawingArea_MouseWheel(object sender, MouseEventArgs e) {
-            vScrollBar.Value = Math.Max(vScrollBar.Minimum, Math.Min(vScrollBar.Maximum - vScrollBar.LargeChange + 1, vScrollBar.Value - e.Delta / 4));
+            if (Control.ModifierKeys == Keys.Shift)
+                ScrollEditorPixel(new Point((int)(ViewablePixels.X - e.Delta / zoom / 4), ViewablePixels.Y));
+            else
+                ScrollEditorPixel(new Point(ViewablePixels.X, (int)(ViewablePixels.Y - e.Delta / zoom / 4)));
         }
 
         #endregion
@@ -262,8 +269,6 @@ namespace NSMBe4
             return ProcessCmdKey(ref msg, keyData);
         }
 
-        
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             Console.Out.WriteLine(keyData);
@@ -307,6 +312,16 @@ namespace NSMBe4
                 mode.raise();
                 return true;
             }
+            if (keyData == Keys.Add)
+            {
+                editor.zoomIn();
+                return true;
+            }
+            if (keyData == Keys.Subtract)
+            {
+                editor.zoomOut();
+                return true;
+            }
             int xDelta = 0, yDelta = 0;
             if (keyData == Keys.Up)
                 yDelta -= 1;
@@ -318,6 +333,20 @@ namespace NSMBe4
                 xDelta += 1;
             if (xDelta != 0 || yDelta != 0) {
                 mode.MoveObjects(xDelta, yDelta);
+                return true;
+            }
+            xDelta = 0; yDelta = 0;
+            if (keyData == Keys.W)
+                yDelta -= 1;
+            if (keyData == Keys.S)
+                yDelta += 1;
+            if (keyData == Keys.A)
+                xDelta -= 1;
+            if (keyData == Keys.D)
+                xDelta += 1;
+            if (xDelta != 0 || yDelta != 0)
+            {
+                ScrollEditorPixel(new Point(hScrollBar.Value + (int)(xDelta * 16 * zoom), vScrollBar.Value + (int)(yDelta * 16 * zoom)));
                 return true;
             }
 
@@ -482,19 +511,11 @@ namespace NSMBe4
             {
                 int NewX = e.X;
                 int NewY = e.Y;
-                int XDelta = (int)((NewX - DragStartX)/zoom);
-                int YDelta = (int)((NewY - DragStartY)/zoom);
-                if (XDelta != 0 || YDelta != 0)
-                {
-                    Point NewPosition = new Point(ViewablePixels.X - XDelta, ViewablePixels.Y - YDelta);
-                    if (NewPosition.X < 0) NewPosition.X = 0;
-                    if (NewPosition.X > hScrollBar.Maximum - hScrollBar.LargeChange) NewPosition.X = hScrollBar.Maximum - hScrollBar.LargeChange;
-                    if (NewPosition.Y < 0) NewPosition.Y = 0;
-                    if (NewPosition.Y > vScrollBar.Maximum - vScrollBar.LargeChange) NewPosition.Y = vScrollBar.Maximum - vScrollBar.LargeChange;
-                    DragStartX = NewX;
-                    DragStartY = NewY;
-                    ScrollEditorPixel(NewPosition);
-                }
+                int XDelta = NewX - DragStartX;
+                int YDelta = NewY - DragStartY;
+                ScrollEditorPixel(new Point(hScrollBar.Value - XDelta, vScrollBar.Value - YDelta));
+                DragStartX = NewX;
+                DragStartY = NewY;
             }
             else if ((e.Button == MouseButtons.Left || e.Button == MouseButtons.Right) && Ready && mode != null)
                 mode.MouseDrag(xx, yy);
@@ -539,19 +560,14 @@ namespace NSMBe4
 
         public void ScrollEditor(Point NewPosition) {
 
-            hScrollBar.Value = NewPosition.X*16;
-            vScrollBar.Value = NewPosition.Y*16;
-            UpdateScrollbars();
-            DrawingArea.Invalidate();
+            hScrollBar.Value = Math.Max(hScrollBar.Minimum, Math.Min(hScrollBar.Maximum, NewPosition.X * 16));
+            vScrollBar.Value = Math.Max(vScrollBar.Minimum, Math.Min(vScrollBar.Maximum, NewPosition.Y * 16));
         }
 
         public void ScrollEditorPixel(Point NewPosition)
         {
-            ViewablePixels.Location = NewPosition;
-            hScrollBar.Value = NewPosition.X;
-            vScrollBar.Value = NewPosition.Y;
-            UpdateScrollbars();
-            DrawingArea.Invalidate();
+            hScrollBar.Value = Math.Max(hScrollBar.Minimum, Math.Min(hScrollBar.Maximum, NewPosition.X));
+            vScrollBar.Value = Math.Max(vScrollBar.Minimum, Math.Min(vScrollBar.Maximum, NewPosition.Y));
         }
 
         public void SelectObject(Object no)

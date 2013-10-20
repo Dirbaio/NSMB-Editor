@@ -48,8 +48,8 @@
             this.camTopSpecial = new System.Windows.Forms.NumericUpDown();
             this.camBottomSpecial = new System.Windows.Forms.NumericUpDown();
             this.lblCameraBottom = new System.Windows.Forms.Label();
-            this.lblCamerTopSpecial = new System.Windows.Forms.Label();
-            this.lblCamerBottomSpecial = new System.Windows.Forms.Label();
+            this.lblCameraTopSpecial = new System.Windows.Forms.Label();
+            this.lblCameraBottomSpecial = new System.Windows.Forms.Label();
             this.lblScrollVertically = new System.Windows.Forms.Label();
             this.scrollVertically = new System.Windows.Forms.CheckBox();
             this.lblID = new System.Windows.Forms.Label();
@@ -108,8 +108,8 @@
             this.tableLayoutPanel1.Controls.Add(this.camTopSpecial, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.camBottomSpecial, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.lblCameraBottom, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblCamerTopSpecial, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblCamerBottomSpecial, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblCameraTopSpecial, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblCameraBottomSpecial, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.lblScrollVertically, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.scrollVertically, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -355,25 +355,25 @@
             this.lblCameraBottom.TabIndex = 0;
             this.lblCameraBottom.Text = "<CameraBottomOffset>";
             // 
-            // lblCamerTopSpecial
+            // lblCameraTopSpecial
             // 
-            this.lblCamerTopSpecial.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblCamerTopSpecial.AutoSize = true;
-            this.lblCamerTopSpecial.Location = new System.Drawing.Point(3, 52);
-            this.lblCamerTopSpecial.Name = "lblCamerTopSpecial";
-            this.lblCamerTopSpecial.Size = new System.Drawing.Size(109, 26);
-            this.lblCamerTopSpecial.TabIndex = 0;
-            this.lblCamerTopSpecial.Text = "<CameraTopOffsetSpecial>";
+            this.lblCameraTopSpecial.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCameraTopSpecial.AutoSize = true;
+            this.lblCameraTopSpecial.Location = new System.Drawing.Point(3, 52);
+            this.lblCameraTopSpecial.Name = "lblCameraTopSpecial";
+            this.lblCameraTopSpecial.Size = new System.Drawing.Size(109, 26);
+            this.lblCameraTopSpecial.TabIndex = 0;
+            this.lblCameraTopSpecial.Text = "<CameraTopOffsetSpecial>";
             // 
-            // lblCamerBottomSpecial
+            // lblCameraBottomSpecial
             // 
-            this.lblCamerBottomSpecial.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblCamerBottomSpecial.AutoSize = true;
-            this.lblCamerBottomSpecial.Location = new System.Drawing.Point(3, 78);
-            this.lblCamerBottomSpecial.Name = "lblCamerBottomSpecial";
-            this.lblCamerBottomSpecial.Size = new System.Drawing.Size(110, 26);
-            this.lblCamerBottomSpecial.TabIndex = 0;
-            this.lblCamerBottomSpecial.Text = "<CameraBottomOffsetSpecial>";
+            this.lblCameraBottomSpecial.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCameraBottomSpecial.AutoSize = true;
+            this.lblCameraBottomSpecial.Location = new System.Drawing.Point(3, 78);
+            this.lblCameraBottomSpecial.Name = "lblCameraBottomSpecial";
+            this.lblCameraBottomSpecial.Size = new System.Drawing.Size(110, 26);
+            this.lblCameraBottomSpecial.TabIndex = 0;
+            this.lblCameraBottomSpecial.Text = "<CameraBottomOffsetSpecial>";
             // 
             // lblScrollVertically
             // 
@@ -535,8 +535,8 @@
         private System.Windows.Forms.NumericUpDown camTopSpecial;
         private System.Windows.Forms.NumericUpDown camBottomSpecial;
         private System.Windows.Forms.Label lblCameraBottom;
-        private System.Windows.Forms.Label lblCamerTopSpecial;
-        private System.Windows.Forms.Label lblCamerBottomSpecial;
+        private System.Windows.Forms.Label lblCameraTopSpecial;
+        private System.Windows.Forms.Label lblCameraBottomSpecial;
         private System.Windows.Forms.Label lblScrollVertically;
         private System.Windows.Forms.TableLayoutPanel panel2;
         private System.Windows.Forms.Button selectContents;

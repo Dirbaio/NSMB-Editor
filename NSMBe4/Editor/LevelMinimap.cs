@@ -71,22 +71,9 @@ namespace NSMBe4 {
             if (e.Button == MouseButtons.Left) {
                 // Calculate new position
                 Rectangle va = EdControl.ViewableBlocks;
-                Rectangle NewArea = new Rectangle(0, 0, va.Width, va.Height);
-                NewArea.X = e.X - (NewArea.Width / 2);
-                NewArea.Y = e.Y - (NewArea.Height / 2);
-                // Make sure it's within bounds
-                if (NewArea.X < 0) {
-                    NewArea.X = 0;
-                }
-                if (NewArea.Y < 0) {
-                    NewArea.Y = 0;
-                }
-                if (NewArea.Right >= 512) {
-                    NewArea.X = 511 - NewArea.Width;
-                }
-                if (NewArea.Bottom >= 256) {
-                    NewArea.Y = 255 - NewArea.Height;
-                }
+                Rectangle NewArea = new Rectangle(0, 0, (int)(va.Width * EdControl.zoom), (int)(va.Height * EdControl.zoom));
+                NewArea.X = (int)(e.X * EdControl.zoom) - (NewArea.Width / 2);
+                NewArea.Y = (int)(e.Y * EdControl.zoom) - (NewArea.Height / 2);
                 // Set it
                 EdControl.ScrollEditor(NewArea.Location);
                 pictureBox1.Invalidate();

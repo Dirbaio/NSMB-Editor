@@ -571,6 +571,7 @@
     <None Include="Resources\Icons\layer-flip.png" />
     <None Include="Resources\Icons\layer-flip-vertical.png" />
     <None Include="Resources\Icons\note-bright.png" />
+    <None Include="Resources\Icons\application-resize-full.png" />
     <Content Include="Resources\Icons\calculator-scientific.png" />
     <Content Include="Resources\Icons\cross-script-bright.png" />
     <Content Include="Resources\Icons\cross-script.png" />

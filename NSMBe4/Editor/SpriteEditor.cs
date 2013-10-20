@@ -59,6 +59,8 @@ namespace NSMBe4
             for (int l = 0; l < ROM.SpriteCount; l++)
                 curSprites.Add(l);
             categoryList.Items.Add(LanguageManager.Get("SpriteEditor", "All"));
+            categoryList.Items.Add(LanguageManager.Get("SpriteEditor", "InLevel"));
+            categoryList.Items.Add(LanguageManager.Get("SpriteEditor", "InSpriteSets"));
             foreach (string cat in SpriteData.categories)
                 categoryList.Items.Add(cat);
             categoryList.SelectedIndex = 0;
@@ -252,12 +254,27 @@ namespace NSMBe4
         private void categoryList_SelectedIndexChanged(object sender, EventArgs e)
         {
             allSprites.Clear();
-            if (categoryList.SelectedIndex == 0)
-                for(int l = 0; l < ROM.SpriteCount; l++)
-                allSprites.Add(l);
-            else
-                foreach (int spriteId in SpriteData.spritesInCategory[SpriteData.categoryIds[categoryList.SelectedIndex - 1]])
-                    allSprites.Add(spriteId);
+            switch (categoryList.SelectedIndex)
+            {
+                case 0:
+                    for (int i = 0; i < ROM.SpriteCount; i++)
+                        allSprites.Add(i);
+                    break;
+                case 1:
+                    foreach (NSMBSprite s in EdControl.Level.Sprites)
+                        if (!allSprites.Contains(s.Type))
+                            allSprites.Add(s.Type);
+                    break;
+                case 2:
+                    for (int i = 0; i < ROM.SpriteCount; i++)
+                        if (EdControl.Level.ValidSprites[i])
+                            allSprites.Add(i);
+                    break;
+                default:
+                    foreach (int spriteId in SpriteData.spritesInCategory[SpriteData.categoryIds[categoryList.SelectedIndex - 3]])
+                        allSprites.Add(spriteId);
+                    break;
+            }
             textBox1_TextChanged(sender, e);
         }
     }

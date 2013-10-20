@@ -32,7 +32,7 @@ namespace NSMBe4
         public static List<int> categoryIds = new List<int>();
         public static List<string> categories = new List<string>();
         public static Dictionary<int, List<int>> spritesInCategory = new Dictionary<int, List<int>>();
-        public static string directory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NSMBe");
+        public static string directory = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
         public static string path = System.IO.Path.Combine(directory, "spritedata.xml");
         
         int spriteID;

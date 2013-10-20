@@ -84,29 +84,12 @@ namespace NSMBe4
             {
                 // Calculate new position
 
-                int xx = (int)(e.X / scale);
-                int yy = (int)(e.Y / scale);
+                int xx = (int)(e.X / scale * EdControl.zoom);
+                int yy = (int)(e.Y / scale * EdControl.zoom);
                 Rectangle va = EdControl.ViewableBlocks;
-                Rectangle NewArea = new Rectangle(0, 0, va.Width, va.Height);
+                Rectangle NewArea = new Rectangle(0, 0, (int)(va.Width * EdControl.zoom), (int)(va.Height * EdControl.zoom));
                 NewArea.X = xx - (NewArea.Width / 2);
                 NewArea.Y = yy - (NewArea.Height / 2);
-                // Make sure it's within bounds
-                if (NewArea.X < 0)
-                {
-                    NewArea.X = 0;
-                }
-                if (NewArea.Y < 0)
-                {
-                    NewArea.Y = 0;
-                }
-                if (NewArea.Right >= 512)
-                {
-                    NewArea.X = 511 - NewArea.Width;
-                }
-                if (NewArea.Bottom >= 256)
-                {
-                    NewArea.Y = 255 - NewArea.Height;
-                }
                 // Set it
                 EdControl.ScrollEditor(NewArea.Location);
                 pictureBox1.Invalidate();
