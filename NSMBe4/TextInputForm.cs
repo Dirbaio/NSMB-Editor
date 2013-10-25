@@ -17,6 +17,7 @@ namespace NSMBe4
 
         public DialogResult ShowDialog(string prompt, string defaultText, out string result)
         {
+            LanguageManager.ApplyToContainer(this, "TextInputForm");
             lblPrompt.Text = prompt;
             textBox1.Text = defaultText;
             textBox1.Focus();

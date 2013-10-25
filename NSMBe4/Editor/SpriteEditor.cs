@@ -139,7 +139,7 @@ namespace NSMBe4
         private void spriteTypeUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (updating) return;
-            EdControl.UndoManager.Do(new ChangeSpriteTypeAction(SelectedObjects, (int)spriteTypeUpDown.Value));
+            EdControl.UndoManager.Do(new ChangeSpriteTypeAction(SelectedObjects, (int)spriteTypeUpDown.Value), true);
         }
 
         private void spriteListBox_SelectedIndexChanged(object sender, EventArgs e)

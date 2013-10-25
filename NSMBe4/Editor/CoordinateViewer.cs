@@ -64,7 +64,7 @@ namespace NSMBe4.Editor
                 widthUpDown.Enabled = it.isResizable;
                 heightUpDown.Enabled = it.isResizable;
                 widthUpDown.Value = Math.Min(widthUpDown.Maximum, Math.Max(widthUpDown.Minimum, it.rwidth / it.snap));
-                heightUpDown.Value = Math.Min(heightUpDown.Maximum, Math.Min(heightUpDown.Minimum, it.rheight / it.snap));
+                heightUpDown.Value = Math.Min(heightUpDown.Maximum, Math.Max(heightUpDown.Minimum, it.rheight / it.snap));
             }
 
             updating = false;
