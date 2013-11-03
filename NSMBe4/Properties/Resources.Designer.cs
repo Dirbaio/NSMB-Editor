@@ -221,6 +221,13 @@ namespace NSMBe4.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BowserJrMasked {
+            get {
+                object obj = ResourceManager.GetObject("BowserJrMasked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Brick {
             get {
                 object obj = ResourceManager.GetObject("Brick", resourceCulture);

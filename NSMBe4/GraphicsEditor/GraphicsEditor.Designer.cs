@@ -41,7 +41,7 @@
             this.undoButton = new System.Windows.Forms.Button();
             this.redoButton = new System.Windows.Forms.Button();
             this.rectangleTool = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
+            this.saveGraphics = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.palettePicker1 = new NSMBe4.PalettePicker();
             this.panel1.SuspendLayout();
@@ -158,9 +158,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -226,15 +226,15 @@
             this.rectangleTool.UseVisualStyleBackColor = true;
             this.rectangleTool.Click += new System.EventHandler(this.toolButton_Click);
             // 
-            // saveButton
+            // saveGraphics
             // 
-            this.saveButton.Image = global::NSMBe4.Properties.Resources.save;
-            this.saveButton.Location = new System.Drawing.Point(3, 3);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(24, 24);
-            this.saveButton.TabIndex = 19;
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveGraphics.Image = global::NSMBe4.Properties.Resources.save;
+            this.saveGraphics.Location = new System.Drawing.Point(3, 3);
+            this.saveGraphics.Name = "saveGraphics";
+            this.saveGraphics.Size = new System.Drawing.Size(24, 24);
+            this.saveGraphics.TabIndex = 19;
+            this.saveGraphics.UseVisualStyleBackColor = true;
+            this.saveGraphics.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // palettePicker1
             // 
@@ -249,7 +249,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.saveGraphics);
             this.Controls.Add(this.rectangleTool);
             this.Controls.Add(this.redoButton);
             this.Controls.Add(this.undoButton);
@@ -295,7 +295,7 @@
         private System.Windows.Forms.Button undoButton;
         private System.Windows.Forms.Button redoButton;
         private System.Windows.Forms.Button rectangleTool;
-        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button saveGraphics;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.PictureBox drawingBox;
     }

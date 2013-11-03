@@ -633,7 +633,7 @@ namespace NSMBe4
                     break;
                 case 220:
                     y -= 25;
-                    width = 31; height = 41;
+                    width = 32; height = 41;
                     break;
                 case 222:
                     if (Data[5] / 0x10 == 1)
@@ -1672,7 +1672,10 @@ namespace NSMBe4
                     }
                     break;
                 case 220:
-                    g.DrawImage(Properties.Resources.BowserJr, RenderX, RenderY - 25);
+                    if ((Data[5] & 0xF0) == 0 || (Data[5] & 0xF0) == 0x30)
+                        g.DrawImage(Properties.Resources.BowserJrMasked, RenderX, RenderY - 25);
+                    else
+                        g.DrawImage(Properties.Resources.BowserJr, RenderX, RenderY - 25);
                     break;
                 case 222:
                     if (Data[5] / 0x10 == 1)

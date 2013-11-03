@@ -15,6 +15,13 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <DelaySign>false</DelaySign>
     <StartupObject>NSMBe4.Program</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,13 +36,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -572,6 +572,9 @@
     <None Include="Resources\Icons\layer-flip-vertical.png" />
     <None Include="Resources\Icons\note-bright.png" />
     <None Include="Resources\Icons\application-resize-full.png" />
+    <Content Include="README.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icons\calculator-scientific.png" />
     <Content Include="Resources\Icons\cross-script-bright.png" />
     <Content Include="Resources\Icons\cross-script.png" />
@@ -589,6 +592,7 @@
     <None Include="Resources\Icons\refresh.png" />
     <Content Include="Resources\Icons\textfield_add.png" />
     <None Include="Resources\pathpoint_add.png" />
+    <None Include="Resources\Sprite Images\BowserJrMasked.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <Content Include="Editor\nsmbe.ico" />
     <Content Include="Resources\version.txt" />
@@ -1023,6 +1027,11 @@
     <None Include="Resources\entrances.png" />
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
@@ -1036,6 +1045,11 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
