@@ -850,10 +850,6 @@ namespace NSMBe4
         {
             this.NewV = (act as ChangePathNodeDataAction).NewV;
         }
-        public override string ToString()
-        {
-            return string.Format(LanguageManager.GetList("UndoActions")[24], LanguageManager.Get("PathEditor", PropNum + 7).Replace(":", ""));
-        }
     }
     public class ChangeViewDataAction : LvlItemAction
     {

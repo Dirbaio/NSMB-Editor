@@ -259,7 +259,7 @@ namespace NSMBe4 {
                 newData[13][checkthese_idx[CheckIdx]] = (byte)modifierval;
             }
 
-            EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData));
+            EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData), true);
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
