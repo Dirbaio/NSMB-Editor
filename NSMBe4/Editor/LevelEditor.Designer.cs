@@ -243,7 +243,7 @@
             // 
             this.dsScreenShowButton.CheckOnClick = true;
             this.dsScreenShowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.dsScreenShowButton.Image = global::NSMBe4.Properties.Resources.monitor;
+            this.dsScreenShowButton.Image = global::NSMBe4.Properties.Resources.ds;
             this.dsScreenShowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dsScreenShowButton.Name = "dsScreenShowButton";
             this.dsScreenShowButton.Size = new System.Drawing.Size(23, 22);

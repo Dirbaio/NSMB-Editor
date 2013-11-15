@@ -137,9 +137,9 @@ namespace NSMBe4
 
         private void DrawingArea_MouseWheel(object sender, MouseEventArgs e) {
             if (Control.ModifierKeys == Keys.Shift)
-                ScrollEditorPixel(new Point((int)(ViewablePixels.X - e.Delta / zoom / 4), ViewablePixels.Y));
+                ScrollEditorPixel(new Point((int)(ViewablePixels.X * zoom - e.Delta / 4), ViewablePixels.Y));
             else
-                ScrollEditorPixel(new Point(ViewablePixels.X, (int)(ViewablePixels.Y - e.Delta / zoom / 4)));
+                ScrollEditorPixel(new Point(ViewablePixels.X, (int)(ViewablePixels.Y * zoom - e.Delta / 4)));
         }
 
         #endregion

@@ -566,7 +566,6 @@
     <None Include="Resources\tileoverrides2.png" />
     <None Include="Resources\Icons\magnet.png" />
     <None Include="Resources\Icons\guide-snap.png" />
-    <None Include="Resources\Icons\monitor.png" />
     <None Include="Resources\Icons\image.png" />
     <None Include="Resources\Icons\layer-flip.png" />
     <None Include="Resources\Icons\layer-flip-vertical.png" />
@@ -578,6 +577,7 @@
     <Content Include="Resources\Icons\calculator-scientific.png" />
     <Content Include="Resources\Icons\cross-script-bright.png" />
     <Content Include="Resources\Icons\cross-script.png" />
+    <None Include="Resources\Icons\ds.png" />
     <Content Include="Resources\Icons\file_narc.png" />
     <Content Include="Resources\Icons\file_ncg.png" />
     <Content Include="Resources\Icons\file_ncl.png" />
