@@ -136,12 +136,6 @@
     <Compile Include="Editor\GoodTabsPanel.Designer.cs">
       <DependentUpon>GoodTabsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\TabsPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Editor\TabsPanel.Designer.cs">
-      <DependentUpon>TabsPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="GraphicsEditor\EnpgImage2D.cs" />
     <Compile Include="GraphicsEditor\Image3D.cs" />
     <Compile Include="GraphicsEditor\Image3Dformat5.cs" />
@@ -322,9 +316,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\MinimapControl.resx">
       <DependentUpon>MinimapControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TabsPanel.resx">
-      <DependentUpon>TabsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphicsEditor\ColourPicker.resx">
       <DependentUpon>ColourPicker.cs</DependentUpon>

@@ -56,6 +56,7 @@ namespace NSMBe4 {
         private void LevelChooser_Load(object sender, EventArgs e)
         {
             useMDI.Checked = Properties.Settings.Default.mdi;
+            dlpCheckBox.Checked = Properties.Settings.Default.dlpMode;
             chkAutoBackup.Checked = Properties.Settings.Default.AutoBackup > 0;
             if (chkAutoBackup.Checked)
                 autoBackupTime.Value = Properties.Settings.Default.AutoBackup;
@@ -752,6 +753,8 @@ namespace NSMBe4 {
         private void dlpCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             ROM.dlpMode = dlpCheckBox.Checked;
+            Properties.Settings.Default.dlpMode = dlpCheckBox.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private void LevelChooser_FormClosed(object sender, FormClosedEventArgs e)
