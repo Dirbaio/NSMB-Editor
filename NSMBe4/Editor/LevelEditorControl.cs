@@ -386,7 +386,11 @@ namespace NSMBe4
                 }
 
                 if (mode != null)
-                    mode.MouseDown((int)(e.X / zoom) + ViewablePixels.X, (int)(e.Y / zoom) + ViewablePixels.Y, e.Button);
+                {
+                    int x = (int)((e.X + ViewablePixels.X * zoom) / zoom);
+                    int y = (int)((e.Y + ViewablePixels.Y * zoom) / zoom);
+                    mode.MouseDown(x, y, e.Button);
+                }
             
                 this.Focus();
             }
@@ -504,8 +508,8 @@ namespace NSMBe4
             }
             int DragSpeed = (int)Math.Ceiling(16 * zoom);
 
-            int xx = (int)(e.X / zoom) + ViewablePixels.X;
-            int yy = (int)(e.Y / zoom) + ViewablePixels.Y;
+            int xx = (int)((e.X + ViewablePixels.X * zoom) / zoom);
+            int yy = (int)((e.Y + ViewablePixels.Y * zoom) / zoom);
 
             if (scrollingDrag)
             {
@@ -637,8 +641,10 @@ namespace NSMBe4
                 if (mousePos.Y > DrawingArea.Height && vScrollBar.Value < vScrollBar.Maximum)
                     vScrollBar.Value  = Math.Min(vScrollBar.Maximum - vScrollBar.LargeChange + 1, vScrollBar.Value + mousePos.Y - DrawingArea.Height);
 
-                mode.MouseDrag((int)(mousePos.X / zoom) + hScrollBar.Value, (int)(mousePos.Y / zoom) + vScrollBar.Value);
                 UpdateScrollbars();
+                int x = (int)((mousePos.X + ViewablePixels.X * zoom) / zoom);
+                int y = (int)((mousePos.Y + ViewablePixels.Y * zoom) / zoom);
+                mode.MouseDrag(x, y);
             }
         }
 
