@@ -35,10 +35,10 @@ namespace NSMBe4
             if (c.A == 0)
                 return 0;
 
-            int bestInd = 0;
-            float bestDif = ImageIndexer.colorDifferenceWithoutAlpha(pal[0], c);
+            int bestInd = 1;
+            float bestDif = ImageIndexer.colorDifferenceWithoutAlpha(pal[1], c);
 
-            for (int i = 0; i < pal.Length; i++)
+            for (int i = 1; i < pal.Length; i++)
             {
                 float d = ImageIndexer.colorDifferenceWithoutAlpha(pal[i], c);
                 if (d < bestDif)
