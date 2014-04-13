@@ -220,6 +220,11 @@ namespace NSMBe4
             if (PalFile == null) return;
             if (LayoutFile == null) return;
 
+            // Create a local copy because the global variables could be overwritten while the background is importing
+            File myGFXFile = GFXFile;
+            File myPalFile = PalFile;
+            File myLayoutFile = LayoutFile;
+
             int offs = bg.topLayer ? 256 : 576;
             int palOffs = bg.topLayer ? 8 : 10;
 
@@ -239,14 +244,14 @@ namespace NSMBe4
             for (int i = 0; i < palette.Length; i++)
                 oo.writeUShort(NSMBTileset.toRGB15(palette[i]));
             for (int i = 0; i < 256; i++)
-                oo.writeUShort(0); 
+                oo.writeUShort(0);
 
-            PalFile.beginEdit(this);
-            PalFile.replace(ROM.LZ77_Compress(oo.getArray()), this);
-            PalFile.endEdit(this);
-            GFXFile.beginEdit(this);
-            GFXFile.replace(ROM.LZ77_Compress(ImageIndexer.indexImageWithPalette(ti.tileBuffer, palette)), this);
-            GFXFile.endEdit(this);
+            myPalFile.beginEdit(this);
+            myPalFile.replace(ROM.LZ77_Compress(oo.getArray()), this);
+            myPalFile.endEdit(this);
+            myGFXFile.beginEdit(this);
+            myGFXFile.replace(ROM.LZ77_Compress(ImageIndexer.indexImageWithPalette(ti.tileBuffer, palette)), this);
+            myGFXFile.endEdit(this);
             b.Dispose();
 
             ByteArrayOutputStream layout = new ByteArrayOutputStream();
@@ -254,9 +259,9 @@ namespace NSMBe4
                 for (int x = 0; x < 64; x++)
                     layout.writeUShort((ushort)((ti.tileMap[x, y] + offs) | (palOffs<<12)));
 
-            LayoutFile.beginEdit(this);
-            LayoutFile.replace(ROM.LZ77_Compress(layout.getArray()), this);
-            LayoutFile.endEdit(this);
+            myLayoutFile.beginEdit(this);
+            myLayoutFile.replace(ROM.LZ77_Compress(layout.getArray()), this);
+            myLayoutFile.endEdit(this);
         }
 
         private void exportPNGButton_Click(object sender, EventArgs e)
