@@ -135,11 +135,12 @@ namespace NSMBe4
             DrawingArea.Invalidate();
         }
 
-        private void DrawingArea_MouseWheel(object sender, MouseEventArgs e) {
+        private void DrawingArea_MouseWheel(object sender, MouseEventArgs e)
+        {
             if (Control.ModifierKeys == Keys.Shift)
-                ScrollEditorPixel(new Point((int)(ViewablePixels.X * zoom - e.Delta / 4), ViewablePixels.Y));
+                ScrollEditorPixel(new Point((int)(ViewablePixels.X * zoom - e.Delta / 4), (int)(ViewablePixels.Y * zoom)));
             else
-                ScrollEditorPixel(new Point(ViewablePixels.X, (int)(ViewablePixels.Y * zoom - e.Delta / 4)));
+                ScrollEditorPixel(new Point((int)(ViewablePixels.X * zoom), (int)(ViewablePixels.Y * zoom - e.Delta / 4)));
         }
 
         #endregion
