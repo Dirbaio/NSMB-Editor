@@ -120,7 +120,7 @@ namespace NSMBe4
             }
             b.Dispose();
 
-            ImageIndexer ii = new ImageIndexer(bl, 256, true, 0);
+            ImageIndexer ii = new ImageIndexer(bl, pals[0].pal.Length, true, 0);
             
 
             int x = 0;
