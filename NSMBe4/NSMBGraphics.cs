@@ -74,6 +74,14 @@ namespace NSMBe4
             // Patch in a bunch of overrides to the normal tileset
             // Now works directly on the map16 data
             Tilesets[0].UseOverrides = true;
+            Tilesets[0].Overrides[1] = 136;
+            Tilesets[0].Overrides[2] = 137;
+            Tilesets[0].Overrides[3] = 138;
+            Tilesets[0].Overrides[4] = 139;
+            Tilesets[0].Overrides[5] = 140;
+            Tilesets[0].Overrides[6] = 141;
+            Tilesets[0].Overrides[7] = 142;
+            Tilesets[0].Overrides[8] = 143;
             Tilesets[0].Overrides[36] = 135;
             Tilesets[0].Overrides[112] = 26;
             Tilesets[0].Overrides[113] = 27;
