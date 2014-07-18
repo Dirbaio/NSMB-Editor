@@ -122,5 +122,11 @@ namespace NSMBe4.TilemapEditor
         {
 
         }
+
+        private void gridButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            tilemapEditorControl1.showGrid = gridButton.Checked;
+            tilemapEditorControl1.Invalidate(true);
+        }
     }
 }

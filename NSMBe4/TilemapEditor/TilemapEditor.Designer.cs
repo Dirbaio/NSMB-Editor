@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tilemapEditorControl1 = new NSMBe4.TilemapEditorControl();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tilePicker1 = new NSMBe4.TilePicker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -44,6 +42,10 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.gridButton = new System.Windows.Forms.ToolStripButton();
+            this.tilePicker1 = new NSMBe4.TilePicker();
+            this.tilemapEditorControl1 = new NSMBe4.TilemapEditorControl();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -59,15 +61,6 @@
             this.panel1.Size = new System.Drawing.Size(280, 373);
             this.panel1.TabIndex = 2;
             // 
-            // tilemapEditorControl1
-            // 
-            this.tilemapEditorControl1.AutoSize = true;
-            this.tilemapEditorControl1.Location = new System.Drawing.Point(4, 3);
-            this.tilemapEditorControl1.MinimumSize = new System.Drawing.Size(256, 224);
-            this.tilemapEditorControl1.Name = "tilemapEditorControl1";
-            this.tilemapEditorControl1.Size = new System.Drawing.Size(256, 398);
-            this.tilemapEditorControl1.TabIndex = 1;
-            // 
             // panel2
             // 
             this.panel2.AutoScroll = true;
@@ -78,15 +71,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(284, 373);
             this.panel2.TabIndex = 3;
-            // 
-            // tilePicker1
-            // 
-            this.tilePicker1.AutoSize = true;
-            this.tilePicker1.Location = new System.Drawing.Point(3, 3);
-            this.tilePicker1.MinimumSize = new System.Drawing.Size(256, 224);
-            this.tilePicker1.Name = "tilePicker1";
-            this.tilePicker1.Size = new System.Drawing.Size(278, 265);
-            this.tilePicker1.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -101,7 +85,9 @@
             this.changePalToolButton,
             this.toolStripSeparator2,
             this.undoButton,
-            this.redoButton});
+            this.redoButton,
+            this.toolStripSeparator3,
+            this.gridButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(564, 25);
@@ -217,6 +203,40 @@
             this.redoButton.Size = new System.Drawing.Size(23, 22);
             this.redoButton.Text = "<Redo>";
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // gridButton
+            // 
+            this.gridButton.CheckOnClick = true;
+            this.gridButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.gridButton.Image = global::NSMBe4.Properties.Resources.grid;
+            this.gridButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.gridButton.Name = "gridButton";
+            this.gridButton.Size = new System.Drawing.Size(23, 22);
+            this.gridButton.Text = "<Show Grid>";
+            this.gridButton.CheckStateChanged += new System.EventHandler(this.gridButton_CheckStateChanged);
+            // 
+            // tilePicker1
+            // 
+            this.tilePicker1.AutoSize = true;
+            this.tilePicker1.Location = new System.Drawing.Point(3, 3);
+            this.tilePicker1.MinimumSize = new System.Drawing.Size(256, 224);
+            this.tilePicker1.Name = "tilePicker1";
+            this.tilePicker1.Size = new System.Drawing.Size(278, 265);
+            this.tilePicker1.TabIndex = 0;
+            // 
+            // tilemapEditorControl1
+            // 
+            this.tilemapEditorControl1.AutoSize = true;
+            this.tilemapEditorControl1.Location = new System.Drawing.Point(4, 3);
+            this.tilemapEditorControl1.MinimumSize = new System.Drawing.Size(256, 224);
+            this.tilemapEditorControl1.Name = "tilemapEditorControl1";
+            this.tilemapEditorControl1.Size = new System.Drawing.Size(256, 398);
+            this.tilemapEditorControl1.TabIndex = 1;
+            // 
             // TilemapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,5 +275,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton undoButton;
         private System.Windows.Forms.ToolStripButton redoButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton gridButton;
     }
 }

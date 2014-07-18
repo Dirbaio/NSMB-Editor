@@ -53,6 +53,8 @@ namespace NSMBe4
         public Stack<TilemapUndoEntry> UActions = new Stack<TilemapUndoEntry>();
         public Stack<TilemapUndoEntry> RActions = new Stack<TilemapUndoEntry>();
 
+        public bool showGrid = false;
+
         public enum EditionMode
         {
             DRAW = 0,
@@ -115,6 +117,14 @@ namespace NSMBe4
                 0, 0, bufferWidth * tileSize, bufferHeight * tileSize);
 
             e.Graphics.DrawImage(t.buffer, 0, 0);
+
+            if (showGrid)
+            {
+                for (int x = 16; x < Width; x += 16)
+                    e.Graphics.DrawLine(Pens.Gray, x, 0, x, Height);
+                for (int y = 16; y < Height; y += 16)
+                    e.Graphics.DrawLine(Pens.Gray, 0, y, Width, y);
+            }
 
             getDefaultSize();
 
