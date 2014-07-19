@@ -197,11 +197,11 @@ namespace NSMBe4
             if (it is NSMBView)
             {
                 Rectangle viewText = GetViewTextRect(it);
-                if (r.IntersectsWith(viewText) && !SelectedObjects.Contains(it))
-                    SelectedObjects.Add(it);
+                if (r.IntersectsWith(viewText) && !CurSelectedObjs.Contains(it))
+                    CurSelectedObjs.Add(it);
             }
-            else if (r.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)) && !SelectedObjects.Contains(it))
-                    SelectedObjects.Add(it);
+            else if (r.IntersectsWith(new Rectangle(it.x, it.y, it.width, it.height)) && !CurSelectedObjs.Contains(it))
+                CurSelectedObjs.Add(it);
         }
 
         private Rectangle GetViewTextRect(LevelItem view)
@@ -218,7 +218,7 @@ namespace NSMBe4
         public void findSelectedObjects(int x1, int y1, int x2, int y2, bool firstOnly, bool clearSelection)
         {
             if (clearSelection)
-                SelectedObjects.Clear();
+                CurSelectedObjs.Clear();
 
             if (x1 > x2) { int aux = x1; x1 = x2; x2 = aux; }
             if (y1 > y2) { int aux = y1; y1 = y2; y2 = aux; }
@@ -237,11 +237,11 @@ namespace NSMBe4
                 foreach (NSMBPathPoint pp in p.points)
                     selectIfInside(pp, r);
 
-            if (firstOnly && SelectedObjects.Count > 1)
+            if (firstOnly && CurSelectedObjs.Count > 1)
             {
-                LevelItem obj = SelectedObjects[SelectedObjects.Count - 1];
-                SelectedObjects.Clear();
-                SelectedObjects.Add(obj);
+                LevelItem obj = CurSelectedObjs[SelectedObjects.Count - 1];
+                CurSelectedObjs.Clear();
+                CurSelectedObjs.Add(obj);
             }
 
             UpdateSelectionBounds();
@@ -318,8 +318,12 @@ namespace NSMBe4
                 if (!mouseAct.drag)
                 {
                     // Select an object
+                    if (Control.ModifierKeys != Keys.Shift)
+                        SelectedObjects.Clear();
                     findSelectedObjects(x, y, x, y, true, true);
-                    SelectMode = SelectedObjects.Count == 0;
+                    SelectMode = CurSelectedObjs.Count == 0;
+                    if (!SelectMode)
+                        SelectedObjects.Add(CurSelectedObjs[0]);
                 }
                 else if (mouseAct.vert == ResizeType.ResizeNone && mouseAct.hor == ResizeType.ResizeNone)
                 {
@@ -562,6 +566,10 @@ namespace NSMBe4
 
         public override void MouseUp()
         {
+            foreach (LevelItem obj in CurSelectedObjs)
+                if (!SelectedObjects.Contains(obj))
+                    SelectedObjects.Add(obj);
+            CurSelectedObjs.Clear();
             if (CreateObj)
                 SelectObject(null);
             CreateObj = false;
