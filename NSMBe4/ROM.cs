@@ -75,6 +75,8 @@ namespace NSMBe4 {
         public static File rsaSigFile;
         public static File headerFile;
 
+        public static uint arm9RAMAddress;
+
         //Download play-friendly mode.
         public static bool dlpMode = false;
 
@@ -92,8 +94,9 @@ namespace NSMBe4 {
 			arm7ovFile = FS.getFileByName("arm7ovt.bin");			
 			arm7ovs = loadOvTable(arm7ovFile);
 			rsaSigFile = FS.getFileByName("rsasig.bin");			
-			headerFile = FS.getFileByName("header.bin");			
-			
+			headerFile = FS.getFileByName("header.bin");
+
+            arm9RAMAddress = headerFile.getUintAt(0x28);
 			
             ByteArrayInputStream header = new ByteArrayInputStream(headerFile.getContents());
             romInternalName = header.ReadString(12);
