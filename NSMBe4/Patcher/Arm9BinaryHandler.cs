@@ -57,11 +57,11 @@ namespace NSMBe4.Patcher
 
             sections = new List<Arm9BinSection>();
 
-            int copyTableBegin = (int)(f.getUintAt(getCodeSettingsOffs() + 0x00) - 0x02000000u);
-            int copyTableEnd = (int)(f.getUintAt(getCodeSettingsOffs() + 0x04) - 0x02000000u);
-            int dataBegin = (int)(f.getUintAt(getCodeSettingsOffs() + 0x08) - 0x02000000u);
+            int copyTableBegin = (int)(f.getUintAt(getCodeSettingsOffs() + 0x00) - ROM.arm9RAMAddress);
+            int copyTableEnd = (int)(f.getUintAt(getCodeSettingsOffs() + 0x04) - ROM.arm9RAMAddress);
+            int dataBegin = (int)(f.getUintAt(getCodeSettingsOffs() + 0x08) - ROM.arm9RAMAddress);
 
-            newSection(0x02000000, dataBegin, 0x0, 0);
+            newSection((int)ROM.arm9RAMAddress, dataBegin, 0x0, 0);
             sections[0].real = false;
 
             while (copyTableBegin < copyTableEnd)
@@ -92,7 +92,7 @@ namespace NSMBe4.Patcher
                 o.align(4);
             }
 
-            uint sectionTableAddr = 0x02000E00;
+            uint sectionTableAddr = ROM.arm9RAMAddress + 0xE00;
             ByteArrayOutputStream o2 = new ByteArrayOutputStream();
             foreach (Arm9BinSection s in sections)
             {
@@ -116,14 +116,14 @@ namespace NSMBe4.Patcher
 
             byte[] data = o.getArray();
             byte[] sectionTable = o2.getArray();
-            Array.Copy(sectionTable, 0, data, sectionTableAddr - 0x02000000, sectionTable.Length);
+            Array.Copy(sectionTable, 0, data, sectionTableAddr - ROM.arm9RAMAddress, sectionTable.Length);
             f.replace(data, this);
             f.endEdit(this);
 
             f.setUintAt(getCodeSettingsOffs() + 0x00, (uint)sectionTableAddr);
             Console.Out.WriteLine(String.Format("{0:X8} {1:X8}", getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr));
             f.setUintAt(getCodeSettingsOffs() + 0x04, (uint)o2.getPos() + sectionTableAddr);
-            f.setUintAt(getCodeSettingsOffs() + 0x08, (uint)(sections[0].len + 0x02000000));
+            f.setUintAt(getCodeSettingsOffs() + 0x08, (uint)(sections[0].len + ROM.arm9RAMAddress));
 
             Console.Out.WriteLine("DONE");
         }
@@ -134,7 +134,7 @@ namespace NSMBe4.Patcher
         {
             // Find the end of the settings
             // This old method doesn't work with The Legendary Starfy :\ -Treeki
-            //return (int)(getUintAt(0x90C) - 0x02000000u);
+            //return (int)(f.getUintAt(0x90C) - ROM.arm9RAMAddress);
             if (_codeSettingsOffs == -1)
             {
                 for (int i = 0; i < 0x8000; i += 4)
@@ -174,7 +174,7 @@ namespace NSMBe4.Patcher
             if(!isCompressed) return;
 
 
-            int decompressionOffs = decompressionRamAddr - 0x02000000;
+            int decompressionOffs = decompressionRamAddr - (int)ROM.arm9RAMAddress;
 
             int compDatSize = (int)(f.getUintAt(decompressionOffs - 8) & 0xFFFFFF);
             int compDatOffs = decompressionOffs - compDatSize;
