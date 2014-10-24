@@ -239,7 +239,7 @@ namespace NSMBe4
 
             if (firstOnly && CurSelectedObjs.Count > 1)
             {
-                LevelItem obj = CurSelectedObjs[SelectedObjects.Count - 1];
+                LevelItem obj = CurSelectedObjs[CurSelectedObjs.Count - 1];
                 CurSelectedObjs.Clear();
                 CurSelectedObjs.Add(obj);
             }
