@@ -247,7 +247,14 @@ namespace NSMBe4
         public int getSelectedType()
         {
             if (spriteListBox.SelectedIndex == -1)
+            {
+                // Fix for this http://nsmbhd.net/post/39505/
+                if (SelectedObjects.Count > 0 && SelectedObjects[0] is NSMBSprite)
+                {
+                    return (SelectedObjects[0] as NSMBSprite).Type;
+                }
                 return -1;
+            }
             return curSprites[spriteListBox.SelectedIndex];
         }
 
