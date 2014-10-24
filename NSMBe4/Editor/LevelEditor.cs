@@ -328,7 +328,7 @@ namespace NSMBe4 {
 
         private FormWindowState prevState;
 
-        private void fullScreenButton_Click(object sender, EventArgs e)
+        private void fullScreenButton_CheckedChanged(object sender, EventArgs e)
         {
             if (fullScreenButton.Checked)
             {
@@ -342,6 +342,11 @@ namespace NSMBe4 {
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
                 this.WindowState = prevState;
             }
+        }
+
+        public void ExitFullScreen()
+        {
+            fullScreenButton.Checked = false;
         }
 
         private void deleteButton_Click(object sender, EventArgs e)

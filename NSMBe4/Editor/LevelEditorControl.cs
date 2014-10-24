@@ -323,6 +323,11 @@ namespace NSMBe4
                 editor.zoomOut();
                 return true;
             }
+            if (keyData == Keys.Escape)
+            {
+                editor.ExitFullScreen();
+                return true;
+            }
             int xDelta = 0, yDelta = 0;
             if (keyData == Keys.Up)
                 yDelta -= 1;

@@ -270,7 +270,7 @@
             this.fullScreenButton.Name = "fullScreenButton";
             this.fullScreenButton.Size = new System.Drawing.Size(23, 22);
             this.fullScreenButton.Text = "<FullScreen>";
-            this.fullScreenButton.Click += new System.EventHandler(this.fullScreenButton_Click);
+            this.fullScreenButton.CheckedChanged += new System.EventHandler(this.fullScreenButton_CheckedChanged);
             // 
             // toolStripSeparator2
             // 
