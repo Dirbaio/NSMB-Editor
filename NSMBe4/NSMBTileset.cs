@@ -552,7 +552,7 @@ namespace NSMBe4
                     outp.writeByte(controlByte);
                 else if(emptyTile)
                 {
-                    outp.writeByte(0);
+                    outp.writeByte(controlByte);
                     outp.writeByte(0);
                     outp.writeByte(0);
                 }
