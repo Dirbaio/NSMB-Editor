@@ -71,6 +71,7 @@ namespace NSMBe4.DSFileSystem
 
             fileTreeView.Nodes.Clear();
             fileTreeView.Nodes.Add(main);
+            main.Expand();
         }
 
         private int getIconForFile(File f)
