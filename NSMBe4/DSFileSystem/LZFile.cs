@@ -30,6 +30,8 @@ namespace NSMBe4.DSFileSystem
         {
             None,
             LZ,
+            // Used for palette files, they might be compressed, might not
+            MaybeLZ,
             LZWithHeader
         }
         
@@ -38,6 +40,16 @@ namespace NSMBe4.DSFileSystem
         	nameP = parent.name;
             parentFile = parent;
 			comp = ct;
+
+            // If we think it might be compressed, try decompressing it. If it succeeds, assume it was compressed.
+            if (comp == CompressionType.MaybeLZ) {
+                try {
+                    ROM.LZ77_Decompress(parentFile.getContents());
+                    comp = CompressionType.LZ;
+                } catch {
+                    comp = CompressionType.None;
+                }
+            }
 
             if (comp == CompressionType.None)
         		fileSizeP = parent.fileSize;

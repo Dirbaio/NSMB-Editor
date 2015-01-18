@@ -446,7 +446,7 @@ namespace NSMBe4.DSFileSystem
                 else if (filename.EndsWith(".carc"))
                     new FilesystemBrowserDialog(new NarcFilesystem(f, true)).Show();
                 else if (filename.Contains("_ncl.bin"))
-                    new PaletteViewer(new LZFile(f, LZFile.CompressionType.LZ)).Show();
+                    new PaletteViewer(new LZFile(f, LZFile.CompressionType.MaybeLZ)).Show();
                 else if (filename.Contains("_nsc.bin"))
                 {
                     if (LevelChooser.imgMgr == null) return;
