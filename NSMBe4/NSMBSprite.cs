@@ -28,7 +28,7 @@ namespace NSMBe4
         public int X;
         public int Y;
         public int Type;
-        public byte[] Data
+        public byte[] Data;
         private NSMBLevel Level;
 
         private static SolidBrush invalidBrush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
