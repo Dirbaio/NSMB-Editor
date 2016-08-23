@@ -484,6 +484,8 @@
     <EmbeddedResource Include="XButton.resx">
       <DependentUpon>XButton.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Languages\Dutch.ini" />
+    <None Include="Languages\Portuguese.ini" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
