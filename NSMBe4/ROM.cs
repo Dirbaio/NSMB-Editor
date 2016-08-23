@@ -110,6 +110,8 @@ namespace NSMBe4 {
                 Region = Origin.JP;
             else if (romGamecode == "A2DK")
                 Region = Origin.KR;
+            else if (romGamecode == "A2DC")
+                Region = Origin.CH;
             else
             {
                 isNSMBRom = false;
@@ -118,6 +120,7 @@ namespace NSMBe4 {
 
             if (isNSMBRom)
             {
+                headerFile.setByteAt(0x1D, 0x00);
                 UserInfo = new ROMUserInfo(filename);
                 LoadOverlay0();
             }
@@ -194,7 +197,7 @@ namespace NSMBe4 {
         }
 
         public enum Origin {
-            US = 0, EU = 1, JP = 2, KR = 3, UNK = 4
+            US = 0, EU = 1, JP = 2, KR = 3, CH = 4, UNK = 5
         }
 
         public static Origin Region = Origin.US;
@@ -221,25 +224,25 @@ namespace NSMBe4 {
         }
 
         public static int[,] Offsets = {
-                                           {131, 135, 131, 131}, //File Offset (Overlay Count)
-                                           {0x2F8E4, 0x2F0F8, 0x2ECE4, 0x2EDA4}, //TS_UNT_HD
-                                           {0x2FA14, 0x2F228, 0x2EE14, 0x2EED4}, //TS_UNT
-                                           {0x2FB44, 0x2F358, 0x2EF44, 0x2F004}, //TS_CHK
-                                           {0x2FC74, 0x2F488, 0x2F074, 0x2F134}, //TS_ANIM_NCG
-                                           {0x30D74, 0x30588, 0x30174, 0x30234}, //BG_NCG
-                                           {0x30EA4, 0x306B8, 0x302A4, 0x30364}, //TS_NCG
-                                           {0x30FD4, 0x307E8, 0x303D4, 0x30494}, //FG_NCG
-                                           {0x31104, 0x30918, 0x30504, 0x305C4}, //FG_NSC
-                                           {0x31234, 0x30A48, 0x30634, 0x306F4}, //BG_NSC
-                                           {0x31364, 0x30B78, 0x30764, 0x30824}, //BG_NCL
-                                           {0x31494, 0x30CA8, 0x30894, 0x30954}, //TS_NCL
-                                           {0x315C4, 0x30DD8, 0x309C4, 0x30A84}, //FG_NCL
-                                           {0x316F4, 0x30F08, 0x30AF4, 0x30BB4}, //TS_PNL
-                                           {0x30CD8, 0x304EC, 0x300D8, 0x30198}, //Jyotyu_NCL
-                                           {0x2FDA4, 0x2F5B8, 0x2F1A4, 0x2FC74}, //Jyotyu_CHK
-                                           {0x2C930, 0x2BDF0, 0x2BD30, 0x2BDF0}, //Modifiers
-                                           {0x29BD8, 0x00000, 0x00000, 0x00000}, //Sprite Class IDs
-                                           {0x2CBBC, 0, 0, 0}, //weird table¿?
+                                           {131, 135, 131, 131, 131}, //File Offset (Overlay Count)
+                                           {0x2F8E4, 0x2F0F8, 0x2ECE4, 0x2EDA4, 0x2EDA4}, //TS_UNT_HD
+                                           {0x2FA14, 0x2F228, 0x2EE14, 0x2EED4, 0x2EED4}, //TS_UNT
+                                           {0x2FB44, 0x2F358, 0x2EF44, 0x2F004, 0x2F004}, //TS_CHK
+                                           {0x2FC74, 0x2F488, 0x2F074, 0x2F134, 0x2F134}, //TS_ANIM_NCG
+                                           {0x30D74, 0x30588, 0x30174, 0x30234, 0x30234}, //BG_NCG
+                                           {0x30EA4, 0x306B8, 0x302A4, 0x30364, 0x30364}, //TS_NCG
+                                           {0x30FD4, 0x307E8, 0x303D4, 0x30494, 0x30494}, //FG_NCG
+                                           {0x31104, 0x30918, 0x30504, 0x305C4, 0x305C4}, //FG_NSC
+                                           {0x31234, 0x30A48, 0x30634, 0x306F4, 0x306F4}, //BG_NSC
+                                           {0x31364, 0x30B78, 0x30764, 0x30824, 0x30824}, //BG_NCL
+                                           {0x31494, 0x30CA8, 0x30894, 0x30954, 0x30954}, //TS_NCL
+                                           {0x315C4, 0x30DD8, 0x309C4, 0x30A84, 0x30A84}, //FG_NCL
+                                           {0x316F4, 0x30F08, 0x30AF4, 0x30BB4, 0x30BB4}, //TS_PNL
+                                           {0x30CD8, 0x304EC, 0x300D8, 0x30198, 0x30198}, //Jyotyu_NCL
+                                           {0x2FDA4, 0x2F5B8, 0x2F1A4, 0x2FC74, 0x2FC74}, //Jyotyu_CHK
+                                           {0x2C930, 0x2BDF0, 0x2BD30, 0x2BDF0, 0x2BDF0}, //Modifiers
+                                           {0x29BD8, 0x290C4, 0x29008, 0x290E0, 0x290DC}, //Sprite Class IDs
+                                           {0x2CBBC, 0, 0, 0, 0}, //weird table¿?
                                        };
 
         public static int[] FileSizes = {

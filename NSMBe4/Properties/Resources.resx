@@ -538,12 +538,6 @@
   <data name="HangingScuttleBug" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/HangingScuttleBug.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PurpleMushroomEdge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/PurpleMushroomEdge.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PurpleMushroomSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/PurpleMushroomSection.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="BomOmb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/BomOmb.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -639,15 +633,6 @@
   </data>
   <data name="ThruWallPlatform" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/ThruWallPlatform.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DrawBridgeEnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/DrawBridgeEnd.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DrawBridgeHinge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/DrawBridgeHinge.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DrawBridgeSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/DrawBridgeSection.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RoofSpiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/RoofSpiny.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1091,5 +1076,155 @@
   </data>
   <data name="SwollenPipe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite Images\SwollenPipe.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieAwayBig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieAwayBig.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieAwayBigger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieAwayBigger.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieAwayBiggest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieAwayBiggest.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieBig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieBig.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieBigger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieBigger.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieBiggest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieBiggest.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieTowardsBig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieTowardsBig.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieTowardsBigger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieTowardsBigger.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DorrieTowardsBiggest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DorrieTowardsBiggest.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JumpingBrickBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\JumpingBrickBlock.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipeLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PipeLeft.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipeLongRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PipeLongRight.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipeRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PipeRight.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipeShortLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PipeShortLeft.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipeShortRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PipeShortRight.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Spinning3PointedLargePlatform" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Spinning3PointedLargePlatform.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheepCheepGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\CheepCheepGreen.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheepCheepTrailLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\CheepCheepTrailLeft.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheepCheepTrailRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\CheepCheepTrailRight.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EnemyGenerator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\EnemyGenerator.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MushroomEdgePurple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\MushroomEdgePurple.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MushroomSectionPurple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\MushroomSectionPurple.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SnakeBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\SnakeBlock.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadBackground1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadBackground1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadBackground2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadBackground2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadBackground3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadBackground3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadBackground4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadBackground4.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadBackground5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadBackground5.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadHouse1UP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadHouse1UP.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadHouseItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadHouseItem.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToadHouseMega" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ToadHouseMega.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toadsworth" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Toadsworth.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lakithunder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Lakithunder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MontyTank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\MontyTank.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Clockwise" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Clockwise.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge10.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge11.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge12.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge13.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge14.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge15.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge4.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge5.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge6.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge7.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge8.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DrawBridge9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\DrawBridge9.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

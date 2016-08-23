@@ -87,6 +87,10 @@ namespace NSMBe4.Patcher
                     ind = l.IndexOf("hook_");
                 if (l.Contains("repl_"))
                     ind = l.IndexOf("repl_");
+                if (l.Contains("xrpl_"))
+                    ind = l.IndexOf("xrpl_");
+                if (l.Contains("lrpl_"))
+                    ind = l.IndexOf("lrpl_");
 
                 if (ind != -1)
                 {
@@ -106,15 +110,24 @@ namespace NSMBe4.Patcher
                     switch(cmd)
                     {
                         case "nsub":
-                            val = makeBranchOpcode(ramAddr, destRamAddr, false);
+                            val = makeBranchOpcode(ramAddr, destRamAddr, 0);
                             break;
                         case "repl":
-                            val = makeBranchOpcode(ramAddr, destRamAddr, true);
+                            val = makeBranchOpcode(ramAddr, destRamAddr, 1);
+                            break;
+                        case "xrpl":
+                            val = makeBranchOpcode(ramAddr, destRamAddr, 2);
+                            break;
+                        case "lrpl":
+                            UInt16 lrvalue = 0xB500; //push {r14}
+                            handler.writeToRamAddr(ramAddr, lrvalue, ovId);
+                            ramAddr += 2;
+                            val = makeBranchOpcode(ramAddr, destRamAddr, 2);
                             break;
                         case "hook":
                             //Jump to the hook addr
                             thisHookAddr = hookAddr;
-                            val = makeBranchOpcode(ramAddr, hookAddr, false);
+                            val = makeBranchOpcode(ramAddr, hookAddr, 0);
 
                             uint originalOpcode = handler.readFromRamAddr(ramAddr, ovId);
                             
@@ -124,11 +137,11 @@ namespace NSMBe4.Patcher
                             hookAddr += 4;
                             extradata.writeUInt(0xE92D5FFF); //push {r0-r12, r14}
                             hookAddr += 4;
-                            extradata.writeUInt(makeBranchOpcode(hookAddr, destRamAddr, true));
+                            extradata.writeUInt(makeBranchOpcode(hookAddr, destRamAddr, 1));
                             hookAddr += 4;
                             extradata.writeUInt(0xE8BD5FFF); //pop {r0-r12, r14}
                             hookAddr += 4;
-                            extradata.writeUInt(makeBranchOpcode(hookAddr, ramAddr+4, false));
+                            extradata.writeUInt(makeBranchOpcode(hookAddr, ramAddr+4, 0));
                             hookAddr += 4;
                             extradata.writeUInt(0x12345678);
                             hookAddr += 4;
@@ -163,18 +176,35 @@ namespace NSMBe4.Patcher
         }
 
 
-        public static uint makeBranchOpcode(int srcAddr, int destAddr, bool withLink)
+        public static uint makeBranchOpcode(int srcAddr, int destAddr, int withLink)
         {
             unchecked
             {
                 uint res = (uint)0xEA000000;
 
-                if (withLink)
+                if (withLink == 1)
                     res |= 0x01000000;
 
                 int offs = (destAddr / 4) - (srcAddr / 4) - 2;
                 offs &= 0x00FFFFFF;
+
                 res |= (uint)offs;
+
+                if (withLink == 2)
+                {
+                    UInt16 res1 = 0xF000;
+                    UInt16 res2 = 0xE800;
+                    
+                    offs = destAddr - srcAddr - 2;
+                    offs >>= 2;
+                    offs &= 0x003FFFFF;
+                    
+                    res1 |= (UInt16)((offs >> 10) & 0x7FF);
+                    res2 |= (UInt16)((offs << 1)  & 0x7FF);
+
+                    res = (uint)(((uint)res2 << 16) | res1);
+
+                }
 
                 return res;
             }
