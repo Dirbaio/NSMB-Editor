@@ -117,7 +117,7 @@ namespace NSMBe4
     				se.unk = inp.readUInt();
     				se.tileNumber = inp.readUShort();
     				se.tileCount = inp.readUShort();
-                    se.tileCount *= 2;
+                    //se.tileCount *= 2;
     				
     				uint imageCode = (uint) ((se.tileNumber << 16) | se.tileCount);
     				int imageId = imagesDict.Count;
@@ -147,7 +147,7 @@ namespace NSMBe4
 			foreach(BncdImage img in images)
 			{
 		        File imgFile = new InlineFile(f, (int)dataOffset+img.tileNumber*tileLen, img.tileCount*tileLen, f.name);
-		        LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 8*img.tileWidth, false, false));
+		        LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 8*img.tileWidth, true, false)); //remember to put is4bpp to false
 			}
     	}
     	

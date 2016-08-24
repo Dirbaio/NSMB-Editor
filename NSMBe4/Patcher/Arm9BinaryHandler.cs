@@ -92,7 +92,7 @@ namespace NSMBe4.Patcher
                 o.align(4);
             }
 
-            uint sectionTableAddr = ROM.arm9RAMAddress + 0xE00;
+            uint sectionTableAddr = ROM.arm9RAMAddress + ROM.ASMOffset;
             ByteArrayOutputStream o2 = new ByteArrayOutputStream();
             foreach (Arm9BinSection s in sections)
             {
