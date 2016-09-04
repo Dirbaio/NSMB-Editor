@@ -580,20 +580,11 @@
   <data name="WigglerL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/WigglerL.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ArrowSign" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/ArrowSign.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ArrowSignRotate45" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/ArrowSignRotate45.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Eel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/Eel.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EelNonMoving" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/EelNonMoving.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ArrowSignRotate45F" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/Sprite Images/ArrowSignRotate45F.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/Sprite Images/Log.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1226,5 +1217,143 @@
   </data>
   <data name="DrawBridge9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite Images\DrawBridge9.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow10.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow4.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow5.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow6.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow7.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow8.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Arrow9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Arrow9.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe10.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe11.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe12.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe13.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe14.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe15.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe17.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe18.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe19.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe20.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe21.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe22.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe23" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe23.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe25.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe26.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe27.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe28.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe29" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe29.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe30.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe31" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe31.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe4.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe5.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe6.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe7.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe8.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pipe9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\Pipe9.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipeJoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\PipeJoint.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArrowSign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ArrowSign.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArrowSignRotate45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ArrowSignRotate45.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArrowSignRotate45F" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite Images\ArrowSignRotate45F.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

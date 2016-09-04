@@ -314,6 +314,27 @@ namespace NSMBe4
                     if (Data[4] % 0x10 == 1)
                         y += 8;
                     break;
+                //case 77:
+                //    if (Data[3] % 0x10 == 0)
+                //    {
+                //        width = 32;
+                //        height = 32;
+                //    }
+                //    x -= (width - 16) / 2;
+                //    y -= (height - 16);
+                //    if (Data[3] % 0x10 == 0)
+                //    {
+                //        if ((Data[4] & 0xF0)/ 0x10 == 13)
+                //            x -= 8;
+                //        if (Data[4] % 0x10 == 14)
+                //            y += 8;
+                //    }
+                //    else
+                //    {
+                //        x = x + (int)(Math.Pow(-1, 1 + (Data[4] & 0x30) / 0x10) * (1 - 2 * (1 + (Data[4] & 0x30) / 0x10)) - 1);
+                //        y = y + 4 * (Data[4] % 0x4);
+                //    }
+                //    break;
                 case 79:
                     int DorrieShiftX1 = 40;
                     int DorrieShiftX2 = 40;
@@ -1504,6 +1525,44 @@ namespace NSMBe4
                         RenderY += 8;
                     g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16));
                     break;
+                //case 77:
+                //    bool SignboardBool = true;
+                //    string SignboardString = "Pipe";
+                //    int SignboardNumber = (16 * (Data[2] % 0x10) + ((Data[3] & 0xF0) / 0x10)) % 0x20;
+                //    if (((Data[2] & 0x10) / 0x10) == 0)
+                //    {
+                //        SignboardString = "Arrow";
+                //        SignboardNumber %= 0x10;
+                //        if (SignboardNumber > 9)
+                //        {
+                //            SignboardString = "PipeJoint";
+                //            SignboardBool = false;
+                //        }
+                //    }
+                //    if (SignboardBool)
+                //    {
+                //        SignboardNumber += 1;
+                //        SignboardString = SignboardString + SignboardNumber;
+                //    }
+                //    img = (Bitmap)Properties.Resources.ResourceManager.GetObject(SignboardString);
+                //    if (Data[3] % 0x10 == 1)
+                //    {
+                //        img = new Bitmap(img, 16, 16);
+                //    }
+                //    if (Data[3] % 0x10 == 0)
+                //    {
+                //        if ((Data[4] & 0xF0)/ 0x10 == 13)
+                //            RenderX -= 8;
+                //        if (Data[4] % 0x10 == 14)
+                //            RenderY += 8;
+                //    }
+                //    else
+                //    {
+                //        RenderX = RenderX + (int)(Math.Pow(-1, 1 + (Data[4] & 0x30) / 0x10) * (1 - 2 * (1 + (Data[4] & 0x30) / 0x10)) - 1);
+                //        RenderY = RenderY + 4 * (Data[4] % 0x4);
+                //    }
+                //    g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16));
+                //    break;
                 case 79:
                     Bitmap Dorrie1 = Properties.Resources.Dorrie;
                     Bitmap Dorrie2 = Properties.Resources.DorrieAway;
