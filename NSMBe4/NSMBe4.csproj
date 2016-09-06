@@ -697,6 +697,8 @@
     <None Include="Resources\Sprite Images\ArrowSign.PNG" />
     <None Include="Resources\Sprite Images\ArrowSignRotate45.PNG" />
     <None Include="Resources\Sprite Images\ArrowSignRotate45F.PNG" />
+    <None Include="Resources\Sprite Images\Zoom1.png" />
+    <None Include="Resources\Sprite Images\Zoom2.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <Content Include="Editor\nsmbe.ico" />
     <Content Include="Resources\version.txt" />

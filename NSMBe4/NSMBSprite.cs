@@ -173,6 +173,25 @@ namespace NSMBe4
                 case 48:
                     width = 192; height = 64;
                     break;
+                case 49:
+                    int ZoomLength = (Data[3] & 0xF0) / 0x10;
+                    int ZoomHeight = Math.Max(Data[3] % 0x10, 1);
+                    int ZoomOffset = Data[5] >> 5;
+                    if (ZoomLength > ZoomOffset || ZoomLength == 0)
+                    {
+                        if (ZoomLength == 0)
+                            ZoomLength = 8;
+                        x -= 16 * ZoomLength;
+                        y -= 16 * ZoomHeight;
+                        width = ZoomLength * 32;
+                        height = ZoomHeight * 16;
+                    }
+                    else
+                    {
+                        width = 72;
+                        height = 28;
+                    }
+                    break;
                 case 50:
                     y -= 90;
                     width = 32; height = 74;
@@ -296,7 +315,7 @@ namespace NSMBe4
                         width = 104; height = 28;
                     }
                     break;
-                case 77:
+                /**/case 77:
                     width = 48; height = 48;
                     if (Data[3] % 0x10 == 1)
                     {
@@ -313,28 +332,28 @@ namespace NSMBe4
                         x += 8;
                     if (Data[4] % 0x10 == 1)
                         y += 8;
-                    break;
-                //case 77:
-                //    if (Data[3] % 0x10 == 0)
-                //    {
-                //        width = 32;
-                //        height = 32;
-                //    }
-                //    x -= (width - 16) / 2;
-                //    y -= (height - 16);
-                //    if (Data[3] % 0x10 == 0)
-                //    {
-                //        if ((Data[4] & 0xF0)/ 0x10 == 13)
-                //            x -= 8;
-                //        if (Data[4] % 0x10 == 14)
-                //            y += 8;
-                //    }
-                //    else
-                //    {
-                //        x = x + (int)(Math.Pow(-1, 1 + (Data[4] & 0x30) / 0x10) * (1 - 2 * (1 + (Data[4] & 0x30) / 0x10)) - 1);
-                //        y = y + 4 * (Data[4] % 0x4);
-                //    }
-                //    break;
+                    break;/**/
+                /*/case 77:
+                    if (Data[3] % 0x10 == 0)
+                    {
+                        width = 32;
+                        height = 32;
+                    }
+                    x -= (width - 16) / 2;
+                    y -= (height - 16);
+                    if (Data[3] % 0x10 == 0)
+                    {
+                        if ((Data[4] & 0xF0) / 0x10 == 13)
+                            x -= 8;
+                        if (Data[4] % 0x10 == 14)
+                            y += 8;
+                    }
+                    else
+                    {
+                        x = x + (int)(Math.Pow(-1, 1 + (Data[4] & 0x30) / 0x10) * (1 - 2 * (1 + (Data[4] & 0x30) / 0x10)) - 1);
+                        y = y + 4 * (Data[4] % 0x4);
+                    }
+                    break;/**/
                 case 79:
                     int DorrieShiftX1 = 40;
                     int DorrieShiftX2 = 40;
@@ -1324,6 +1343,56 @@ namespace NSMBe4
                 case 48:
                     g.DrawImage(Properties.Resources.FlipGateLarge, RenderX, RenderY);
                     break;
+                case 49:
+                    int ZoomLength = (Data[3] & 0xF0) / 0x10;
+                    int ZoomHeight = Data[3] % 0x10;
+                    int ZoomOffset = Data[5] >> 5;
+                    if (ZoomLength > ZoomOffset || ZoomLength == 0)
+                    {
+                        int ZoomLength2 = ZoomLength;
+                        int ZoomHeight2 = Math.Max(ZoomHeight, 1);
+                        if (ZoomLength == 0)
+                            ZoomLength2 = 8;
+                        for (int i = 0; i < ZoomHeight2; i++)
+                        {
+                            int ZoomY = RenderY - 16 * (i + 1);
+                            for (int j = ZoomOffset; j < ZoomLength2; j++)
+                            {
+                                int ZoomX1 = RenderX - 16 * (j + 1);
+                                int ZoomX2 = RenderX + 16 * j;
+                                g.DrawImage(Properties.Resources.Zoom1, ZoomX1, ZoomY);
+                                g.DrawImage(Properties.Resources.Zoom2, ZoomX2, ZoomY);
+                            }
+                        }
+                        if (ZoomLength == 0)
+                        {
+                            img = Properties.Resources.arrow_down;
+                            img2 = Properties.Resources.arrow_down;
+                            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                            img2.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                            g.DrawImage(img, RenderX - 144, RenderY - 8 * (ZoomHeight2 + 1), 16, 16);
+                            g.DrawImage(img2, RenderX + 128, RenderY - 8 * (ZoomHeight2 + 1), 16, 16);
+                            g.DrawImage(Properties.Resources.Infinity, RenderX - 160, RenderY - 8 * (ZoomHeight2 + 1), 16, 16);
+                            g.DrawImage(Properties.Resources.Infinity, RenderX + 144, RenderY - 8 * (ZoomHeight2 + 1), 16, 16);
+                        }
+                        if (ZoomHeight == 0)
+                        {
+                            img = Properties.Resources.arrow_down;
+                            img2 = Properties.Resources.arrow_down;
+                            img2.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                            g.DrawImage(img, RenderX - 8, RenderY, 16, 16);
+                            g.DrawImage(img2, RenderX - 8, RenderY - 32, 16, 16);
+                            g.DrawImage(Properties.Resources.Infinity, RenderX - 8, RenderY + 16, 16, 16);
+                            g.DrawImage(Properties.Resources.Infinity, RenderX - 8, RenderY - 48, 16, 16);
+                        }
+                    }
+                    else
+                    {
+                        Rectangle r = new Rectangle(RenderX, RenderY, 72, 28);
+                        g.FillRectangle(Brushes.Black, r);
+                        g.DrawString(LanguageManager.Get("Sprites", "Zoom"), NSMBGraphics.SmallInfoFont, Brushes.White, r);
+                    }
+                    break;
                 case 50:
                     g.DrawImage(Properties.Resources.TubeBubbles, RenderX, RenderY - 90);
                     break;
@@ -1498,7 +1567,7 @@ namespace NSMBe4
                         g.DrawString(LanguageManager.Get("Sprites", "Eel"), NSMBGraphics.SmallInfoFont, Brushes.White, r);
                     }
                     break;
-                case 77:
+                /**/case 77:
                     if (Data[5] / 0x10 % 2 == 1)
                     {
                         img = Properties.Resources.ArrowSignRotate45;
@@ -1524,45 +1593,45 @@ namespace NSMBe4
                     if (Data[4] % 0x10 == 1)
                         RenderY += 8;
                     g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16));
-                    break;
-                //case 77:
-                //    bool SignboardBool = true;
-                //    string SignboardString = "Pipe";
-                //    int SignboardNumber = (16 * (Data[2] % 0x10) + ((Data[3] & 0xF0) / 0x10)) % 0x20;
-                //    if (((Data[2] & 0x10) / 0x10) == 0)
-                //    {
-                //        SignboardString = "Arrow";
-                //        SignboardNumber %= 0x10;
-                //        if (SignboardNumber > 9)
-                //        {
-                //            SignboardString = "PipeJoint";
-                //            SignboardBool = false;
-                //        }
-                //    }
-                //    if (SignboardBool)
-                //    {
-                //        SignboardNumber += 1;
-                //        SignboardString = SignboardString + SignboardNumber;
-                //    }
-                //    img = (Bitmap)Properties.Resources.ResourceManager.GetObject(SignboardString);
-                //    if (Data[3] % 0x10 == 1)
-                //    {
-                //        img = new Bitmap(img, 16, 16);
-                //    }
-                //    if (Data[3] % 0x10 == 0)
-                //    {
-                //        if ((Data[4] & 0xF0)/ 0x10 == 13)
-                //            RenderX -= 8;
-                //        if (Data[4] % 0x10 == 14)
-                //            RenderY += 8;
-                //    }
-                //    else
-                //    {
-                //        RenderX = RenderX + (int)(Math.Pow(-1, 1 + (Data[4] & 0x30) / 0x10) * (1 - 2 * (1 + (Data[4] & 0x30) / 0x10)) - 1);
-                //        RenderY = RenderY + 4 * (Data[4] % 0x4);
-                //    }
-                //    g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16));
-                //    break;
+                    break;/**/
+                /*/case 77:
+                    bool SignboardBool = true;
+                    string SignboardString = "Pipe";
+                    int SignboardNumber = (16 * (Data[2] % 0x10) + ((Data[3] & 0xF0) / 0x10)) % 0x20;
+                    if (((Data[2] & 0x10) / 0x10) == 0)
+                    {
+                        SignboardString = "Arrow";
+                        SignboardNumber %= 0x10;
+                        if (SignboardNumber > 9)
+                        {
+                            SignboardString = "PipeJoint";
+                            SignboardBool = false;
+                        }
+                    }
+                    if (SignboardBool)
+                    {
+                        SignboardNumber += 1;
+                        SignboardString = SignboardString + SignboardNumber;
+                    }
+                    img = (Bitmap)Properties.Resources.ResourceManager.GetObject(SignboardString);
+                    if (Data[3] % 0x10 == 1)
+                    {
+                        img = new Bitmap(img, 16, 16);
+                    }
+                    if (Data[3] % 0x10 == 0)
+                    {
+                        if ((Data[4] & 0xF0) / 0x10 == 13)
+                            RenderX -= 8;
+                        if (Data[4] % 0x10 == 14)
+                            RenderY += 8;
+                    }
+                    else
+                    {
+                        RenderX = RenderX + (int)(Math.Pow(-1, 1 + (Data[4] & 0x30) / 0x10) * (1 - 2 * (1 + (Data[4] & 0x30) / 0x10)) - 1);
+                        RenderY = RenderY + 4 * (Data[4] % 0x4);
+                    }
+                    g.DrawImage(img, RenderX - (img.Width - 16) / 2, RenderY - (img.Height - 16));
+                    break;/**/
                 case 79:
                     Bitmap Dorrie1 = Properties.Resources.Dorrie;
                     Bitmap Dorrie2 = Properties.Resources.DorrieAway;
