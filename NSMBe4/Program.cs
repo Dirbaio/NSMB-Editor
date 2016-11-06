@@ -52,11 +52,27 @@ namespace NSMBe4
                 LanguageManager.Load(Properties.Resources.English.Split('\n'));
             }
 
-            new StartForm().Show();
+            string[] args = Environment.GetCommandLineArgs();
+            
+            if(args.Length == 2)
+            {
+                Console.Out.WriteLine("Loading ROM: "+args[1]);
+
+                NitroROMFilesystem fs = new NitroROMFilesystem(args[1]);
+                ROM.load(fs);
+
+                SpriteData.Load();
+                if (Properties.Settings.Default.mdi)
+                    new MdiParentForm().Show();
+                else
+                    new LevelChooser().Show();
+            }
+            else
+            {
+                new StartForm().Show();
+            }
+
             Application.Run();
-
-            //string[] args = Environment.GetCommandLineArgs();
-
 
             /*
               
