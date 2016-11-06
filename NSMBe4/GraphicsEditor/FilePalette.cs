@@ -39,7 +39,7 @@ namespace NSMBe4
 
             pal = arrayToPalette(f.getContents());
             if(pal.Length != 0)
-                pal[0] = Color.Transparent;
+                pal[0] = NSMBGraphics.ReallyTransparent;
         }
 
         public static Color[] arrayToPalette(byte[] data)

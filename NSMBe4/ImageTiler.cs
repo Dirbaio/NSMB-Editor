@@ -318,7 +318,7 @@ namespace NSMBe4
                     {
                         Color c = b.GetPixel(x + xp, y + yp);
                         if (c.A < 128)
-                            data[x, y] = Color.Transparent;
+                            data[x, y] = NSMBGraphics.ReallyTransparent;
                         else
                             data[x, y] = Color.FromArgb(c.R, c.G, c.B);
                     }

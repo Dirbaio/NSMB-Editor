@@ -140,7 +140,9 @@ namespace NSMBe4
 
                     if (t.tileNum < 0 || t.tileNum >= tileCount)
                     {
-                        bufferGx.FillRectangle(Brushes.Transparent, x * 8, y * 8, 8, 8);
+                        bufferGx.SetClip(new Rectangle(x * 8, y * 8, 8, 8));
+                        bufferGx.Clear(NSMBGraphics.ReallyTransparent);
+                        bufferGx.ResetClip();
                         continue;
                     }
                     if (t.palNum >= palettes.Length) continue;

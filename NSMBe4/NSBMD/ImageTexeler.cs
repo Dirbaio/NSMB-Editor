@@ -179,7 +179,7 @@ namespace NSMBe4.NSBMD
             bool transpFound = false;
             for (int i = 0; i < pal.Length; i++)
             {
-                if (pal[i] == Color.Transparent)
+                if (pal[i] == NSMBGraphics.ReallyTransparent)
                 {
                     pal[i] = pal[pal.Length - 1];
                     transpFound = true;
@@ -187,7 +187,7 @@ namespace NSMBe4.NSBMD
             }
 
             if (transpFound)
-                pal[pal.Length - 1] = Color.Transparent;
+                pal[pal.Length - 1] = NSMBGraphics.ReallyTransparent;
         }
         */
 
@@ -227,8 +227,8 @@ namespace NSMBe4.NSBMD
 
         public float palDifUni(Color[] a, Color[] b)
         {
-            bool aTransp = a[3] == Color.Transparent;
-            bool bTransp = b[3] == Color.Transparent;
+            bool aTransp = a[3] == NSMBGraphics.ReallyTransparent;
+            bool bTransp = b[3] == NSMBGraphics.ReallyTransparent;
 
             if (aTransp != bTransp) return float.PositiveInfinity;
 

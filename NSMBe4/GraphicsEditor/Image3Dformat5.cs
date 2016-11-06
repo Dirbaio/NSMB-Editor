@@ -79,11 +79,11 @@ namespace NSMBe4
                             switch (mode)
                             {
                                 case 0:
-                                    if (color == 3) col = Color.Transparent;
+                                    if (color == 3) col = NSMBGraphics.ReallyTransparent;
                                     break;
                                 case 1:
                                     if (color == 2) col = ImageTiler.colorMean(p.getColorSafe(palOffs), p.getColorSafe(palOffs + 1), 1, 1);
-                                    if (color == 3) col = Color.Transparent;
+                                    if (color == 3) col = NSMBGraphics.ReallyTransparent;
                                     break;
                                 case 3:
                                     if (color == 2) col = ImageTiler.colorMean(p.getColorSafe(palOffs), p.getColorSafe(palOffs + 1), 5, 3);

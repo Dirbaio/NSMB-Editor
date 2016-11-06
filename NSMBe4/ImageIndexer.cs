@@ -164,7 +164,7 @@ namespace NSMBe4
                     //                Console.Out.WriteLine(i + ": " + boxes[i] + ": "+ palette[i]);
                 }
                 if (useAlpha)
-                    palettes[i][0] = Color.Transparent;
+                    palettes[i][0] = NSMBGraphics.ReallyTransparent;
                 
             }
 
@@ -432,7 +432,7 @@ namespace NSMBe4
 
             public Color getColor(int i)
             {
-                if (transp[i * 3]) return Color.Transparent;
+                if (transp[i * 3]) return NSMBGraphics.ReallyTransparent;
                 return Color.FromArgb(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
             }
 

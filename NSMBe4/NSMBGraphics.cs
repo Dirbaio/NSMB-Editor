@@ -278,5 +278,6 @@ namespace NSMBe4
         public static Font SmallInfoFont = new Font("Small Fonts", 7);
         public static Font InfoFont = new Font("Tahoma", 8);
         public static Pen PathPen = new Pen(Color.FromArgb(128, 255, 255, 255), 3);
+        public static Color ReallyTransparent = Color.FromArgb(0, 0, 0, 0);
     }
 }
