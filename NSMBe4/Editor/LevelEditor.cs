@@ -191,6 +191,8 @@ namespace NSMBe4 {
             oem.resizeHandles = showResizeHandles.Checked;
             Invalidate(true);
         }
+        
+        // Perhaps you can use the ProcessCmdKey() method for shortcuts? Like copy, paste, cut, etc.
 
         private void spriteFinder_Click(object sender, EventArgs e)
         {
