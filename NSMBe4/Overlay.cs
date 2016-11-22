@@ -24,10 +24,10 @@ namespace NSMBe4
 {
     public class Overlay
     {
-		public File f;
+        public File f;
         private File ovTableFile;
         private uint ovTableOffs;
-        
+
         public uint ovId { get { return ovTableFile.getUintAt((int)ovTableOffs + 0x00); } }
         public uint ramAddr { get { return ovTableFile.getUintAt((int)ovTableOffs + 0x04); } }
         public uint ramSize { get { return ovTableFile.getUintAt((int)ovTableOffs + 0x08); } }
@@ -46,7 +46,7 @@ namespace NSMBe4
             {
                 byte b = ovTableFile.getByteAt((int)ovTableOffs + 0x1F);
                 b &= 0xFE; // clear bit
-                if(value)
+                if (value)
                     b |= 0x1;
                 ovTableFile.setByteAt((int)ovTableOffs + 0x1F, b);
             }
@@ -54,7 +54,7 @@ namespace NSMBe4
 
         public Overlay(File file, File ovTableFile, uint ovTableOffs)
         {
-        	this.f = file;
+            this.f = file;
             this.ovTableFile = ovTableFile;
             this.ovTableOffs = ovTableOffs;
         }

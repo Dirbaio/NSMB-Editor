@@ -27,7 +27,8 @@ namespace NSMBe4
 {
     public class SpriteData
     {
-        public static Dictionary<int, SpriteData> datas = new Dictionary<int,SpriteData>();
+        public static Dictionary<int, SpriteData> datas = new Dictionary<int, SpriteData>();
+        public static Dictionary<int, SpriteData> datas2 = new Dictionary<int, SpriteData>();
         public static List<string> spriteNames = new List<string>();
         public static List<int> categoryIds = new List<int>();
         public static List<string> categories = new List<string>();
@@ -99,6 +100,7 @@ namespace NSMBe4
         public static void Load()
         {
             datas = new Dictionary<int, SpriteData>();
+            datas2 = new Dictionary<int, SpriteData>();
 
             if (!File.Exists(path))
             {
@@ -125,8 +127,16 @@ namespace NSMBe4
                 {
                     SpriteData d = readFromStream(xmlr);
                     if (d != null)
-                        datas.Add(d.spriteID, d);
+                        datas2.Add(d.spriteID, d);
                 }
+
+                for (int i = 0; i < datas2.Count; i++)
+                {
+                    int ActorID = (int)ROM.GetClassIDFromTable(i);
+                    datas.Add(i, datas2[ActorID]);
+                }
+
+                datas2.Clear();
 
                 xmlr.Close();
                 fs.Close();
@@ -135,6 +145,7 @@ namespace NSMBe4
             {
                 MessageBox.Show(LanguageManager.Get("SpriteData", "ErrorParse"), LanguageManager.Get("SpriteData", "ErrorTitle"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 datas.Clear();
+                datas2.Clear();
             }
         } 
         
@@ -143,6 +154,7 @@ namespace NSMBe4
             SpriteData sd = new SpriteData();
 
             sd.spriteID = int.Parse(xmlr.GetAttribute("id"));
+            //sd.spriteID = (int)ROM.GetClassIDFromTable(sd.spriteID);
             xmlr.ReadToFollowing("name");
             sd.name = xmlr.ReadElementContentAsString();
             spriteNames.Add(sd.name);
@@ -223,7 +235,7 @@ namespace NSMBe4
 
             public int getBitCount()
             {
-                return (endNibble - startNibble + 1)*4;
+                return (endNibble - startNibble + 1);
             }
 
             public int getMin()
@@ -248,17 +260,23 @@ namespace NSMBe4
 
             public int getValue(byte[] data)
             {
-                byte[] nibbles = new byte[12];
+                byte[] nibbles = new byte[48];
                 for (int i = 0; i < 6; i++)
                 {
-                    nibbles[2 * i] = (byte)(data[i] >> 4);
-                    nibbles[2 * i + 1] = (byte)(data[i] & 0xF);
+                    nibbles[8 * i] = (byte)(data[i] >> 7);
+                    nibbles[8 * i + 1] = (byte)((data[i] >> 6) & 0x1);
+                    nibbles[8 * i + 2] = (byte)((data[i] >> 5) & 0x1);
+                    nibbles[8 * i + 3] = (byte)((data[i] >> 4) & 0x1);
+                    nibbles[8 * i + 4] = (byte)((data[i] >> 3) & 0x1);
+                    nibbles[8 * i + 5] = (byte)((data[i] >> 2) & 0x1);
+                    nibbles[8 * i + 6] = (byte)((data[i] >> 1) & 0x1);
+                    nibbles[8 * i + 7] = (byte)(data[i] & 0x1);
                 }
 
                 int res = 0;
-                for (int i = startNibble; i <= endNibble; i++)
+                for (int i = startNibble - 1; i <= endNibble - 1; i++)
                 {
-                    res = res << 4 | nibbles[i];
+                    res = res << 1 | nibbles[i];
                 }
 
                 if (display == "signedvalue" && res > getMax())
@@ -277,11 +295,17 @@ namespace NSMBe4
 
             public void setValue(int b, byte[] data)
             {
-                byte[] nibbles = new byte[12];
+                byte[] nibbles = new byte[48];
                 for (int i = 0; i < 6; i++)
                 {
-                    nibbles[2 * i] = (byte)(data[i] >> 4);
-                    nibbles[2 * i + 1] = (byte)(data[i] & 0xF);
+                    nibbles[8 * i] = (byte)(data[i] >> 7);
+                    nibbles[8 * i + 1] = (byte)((data[i] >> 6) & 0x1);
+                    nibbles[8 * i + 2] = (byte)((data[i] >> 5) & 0x1);
+                    nibbles[8 * i + 3] = (byte)((data[i] >> 4) & 0x1);
+                    nibbles[8 * i + 4] = (byte)((data[i] >> 3) & 0x1);
+                    nibbles[8 * i + 5] = (byte)((data[i] >> 2) & 0x1);
+                    nibbles[8 * i + 6] = (byte)((data[i] >> 1) & 0x1);
+                    nibbles[8 * i + 7] = (byte)(data[i] & 0x1);
                 }
 
                 if (display == "value" || display == "signedvalue")
@@ -290,15 +314,15 @@ namespace NSMBe4
                 if (display == "checkbox")
                     b *= this.data;
 
-                for (int i = endNibble; i >= startNibble; i--)
+                for (int i = endNibble - 1; i >= startNibble - 1; i--)
                 {
-                    nibbles[i] = (byte)(b & 0xF);
-                    b = b >> 4;
+                    nibbles[i] = (byte)(b & 0x1);
+                    b = b >> 1;
                 }
 
                 for (int i = 0; i < 6; i++)
                 {
-                    data[i] = (byte)(nibbles[2*i] << 4 | nibbles[2*i+1]);
+                    data[i] = (byte)(nibbles[8 * i] << 7 | nibbles[8 * i + 1] << 6 | nibbles[8 * i + 2] << 5 | nibbles[8 * i + 3] << 4 | nibbles[8 * i + 4] << 3 | nibbles[8 * i + 5] << 2 | nibbles[8 * i + 6] << 1 | nibbles[8 * i + 7]);
                 }
             }
         }

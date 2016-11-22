@@ -225,19 +225,19 @@ namespace NSMBe4.DSFileSystem
                     f.endEdit(this);
                     return;
                 }
-/*
-                if(f is OverlayFile)
-                {
-                    DialogResult r = MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "ImportOverlay"), LanguageManager.Get("FilesystemBrowser", "ImportOverlayTitle"), MessageBoxButtons.YesNoCancel);
-                    if(r == DialogResult.Cancel)
-                    {
-                        UpdateFileInfo();
-                        f.endEdit(this);
-                        return;
-                    }
 
-                    (f as OverlayFile).isCompressed = r == DialogResult.Yes;
-                }*/
+                //if (f.id >= 0 && f.id <= ROM.OverlayCount)
+                //{
+                //    DialogResult r = MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "ImportOverlay"), LanguageManager.Get("FilesystemBrowser", "ImportOverlayTitle"), MessageBoxButtons.YesNoCancel);
+                //    if(r == DialogResult.Cancel)
+                //    {
+                //        UpdateFileInfo();
+                //        f.endEdit(this);
+                //        return;
+                //    }
+
+                //    f.isCompressed = r == DialogResult.Yes;
+                //}
                 replaceFile(f, replaceFileDialog.FileName);
 
                 UpdateFileInfo();
@@ -490,18 +490,20 @@ namespace NSMBe4.DSFileSystem
         private void decompressOverlayButton_Click(object sender, EventArgs e)
         {
         	//TODO
-/*            OverlayFile f = fileTreeView.SelectedNode.Tag as OverlayFile;
+            File f = fileTreeView.SelectedNode.Tag as File;
 
-            if (f == null)
+            if (f.id < 0 || f.id > ROM.OverlayCount)
             {
                 MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "ErrorNotOverlay"));
                 return;
             }
 
-            if (!f.isCompressed)
+            Overlay ovdec = ROM.arm9ovs2[f.id];
+
+            if (!ovdec.isCompressed)
                 MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "ErrorDecompressed"));
 
-            f.decompress();*/
+            ovdec.decompress();
         }
 
         private void fileTreeView_ItemDrag(object sender, ItemDragEventArgs e)

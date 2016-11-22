@@ -58,14 +58,17 @@ namespace NSMBe4 {
         public static bool isNSMBRom = true;
         public static string romInternalName;
         public static string romGamecode;
+        public static uint ASMOffset;
 
         public const int SpriteCount = 326;
+        public static int OverlayCount = 130;
 
         public static List<string> fileBackups = new List<string>();
 		
         public static File arm9binFile;
         public static File arm9ovFile;
-		public static Overlay[] arm9ovs;
+        public static Overlay[] arm9ovs;
+        public static Overlay[] arm9ovs2;
 
         public static File arm7binFile;
         public static File arm7ovFile;
@@ -87,9 +90,10 @@ namespace NSMBe4 {
             if(fs is NitroROMFilesystem)
                 romfile = new System.IO.FileInfo(filename);
 
-			arm9binFile = FS.getFileByName("arm9.bin");			
-			arm9ovFile = FS.getFileByName("arm9ovt.bin");	
-			arm9ovs = loadOvTable(arm9ovFile);
+			arm9binFile = FS.getFileByName("arm9.bin");
+            arm9ovFile = FS.getFileByName("arm9ovt.bin");
+            arm9ovs = loadOvTable(arm9ovFile);
+            arm9ovs2 = loadOvTable2(arm9ovFile);
 			arm7binFile = FS.getFileByName("arm7.bin");			
 			arm7ovFile = FS.getFileByName("arm7ovt.bin");			
 			arm7ovs = loadOvTable(arm7ovFile);
@@ -101,23 +105,105 @@ namespace NSMBe4 {
             ByteArrayInputStream header = new ByteArrayInputStream(headerFile.getContents());
             romInternalName = header.ReadString(12);
             romGamecode = header.ReadString(4);
-
-            if (romGamecode == "A2DE")
+            ASMOffset = 0xE00;
+            // New Super Mario Bros.
+            if (romGamecode == "A2DE") // English
                 Region = Origin.US;
-            else if (romGamecode == "A2DP")
+            else if (romGamecode == "A2DP") // European
+            {
                 Region = Origin.EU;
-            else if (romGamecode == "A2DJ")
+                OverlayCount = 134;
+            }
+            else if (romGamecode == "A2DJ") // Japanese
                 Region = Origin.JP;
-            else if (romGamecode == "A2DK")
+            else if (romGamecode == "A2DK") // Korean
                 Region = Origin.KR;
+            else if (romGamecode == "A2DC") // Chinese
+                Region = Origin.CH;
             else
             {
                 isNSMBRom = false;
                 Region = Origin.UNK;
+                // Pokémon Diamond Version
+                if (romGamecode == "ADAE") // English
+                    ASMOffset = 0x106770;
+                else if (romGamecode == "ADAJ") // Japanese
+                    ASMOffset = 0x108070;
+                else if (romGamecode == "ADAF") // French
+                    ASMOffset = 0x1068F0;
+                else if (romGamecode == "ADAS") // Spanish
+                    ASMOffset = 0x106910;
+                else if (romGamecode == "ADAI") // Italian
+                    ASMOffset = 0x106850;
+                else if (romGamecode == "ADAD") // German
+                    ASMOffset = 0x1068B0;
+                else if (romGamecode == "ADAK") // Korean
+                    ASMOffset = 0x103C70;
+                // Pokémon Pearl Version
+                else if (romGamecode == "APAE") // English
+                    ASMOffset = 0x106770;
+                else if (romGamecode == "APAJ") // Japanese
+                    ASMOffset = 0x1081B0;
+                else if (romGamecode == "APAF") // French
+                    ASMOffset = 0x1068F0;
+                else if (romGamecode == "APAS") // Spanish
+                    ASMOffset = 0x106910;
+                else if (romGamecode == "APAI") // Italian
+                    ASMOffset = 0x106850;
+                else if (romGamecode == "APAD") // German
+                    ASMOffset = 0x1068B0;
+                else if (romGamecode == "APAK") // Korean
+                    ASMOffset = 0x103C80;
+                // Pokémon Platinum Version
+                else if (romGamecode == "CPUE") // English
+                    ASMOffset = 0x1010A0;
+                else if (romGamecode == "CPUJ") // Japanese
+                    ASMOffset = 0x100490;
+                else if (romGamecode == "CPUF") // French
+                    ASMOffset = 0x101280;
+                else if (romGamecode == "CPUS") // Spanish
+                    ASMOffset = 0x1012A0;
+                else if (romGamecode == "CPUI") // Italian
+                    ASMOffset = 0x101200;
+                else if (romGamecode == "CPUD") // German
+                    ASMOffset = 0x101240;
+                else if (romGamecode == "CPUK") // Korean
+                    ASMOffset = 0x101F90;
+                // Pokémon HeartGold Version
+                else if (romGamecode == "IPKE") // English
+                    ASMOffset = 0x110BE0;
+                else if (romGamecode == "IPKJ") // Japanese
+                    ASMOffset = 0x110110;
+                else if (romGamecode == "IPKF") // French
+                    ASMOffset = 0x110C00;
+                else if (romGamecode == "IPKS") // Spanish
+                    ASMOffset = 0x110C00;
+                else if (romGamecode == "IPKI") // Italian
+                    ASMOffset = 0x110B80;
+                else if (romGamecode == "IPKD") // German
+                    ASMOffset = 0x110BC0;
+                else if (romGamecode == "IPKK") // Korean
+                    ASMOffset = 0x1115D0;
+                // Pokémon SoulSilver Version
+                else if (romGamecode == "IPGE") // English
+                    ASMOffset = 0x110BE0;
+                else if (romGamecode == "IPGJ") // Japanese
+                    ASMOffset = 0x110110;
+                else if (romGamecode == "IPGF") // French
+                    ASMOffset = 0x110C00;
+                else if (romGamecode == "IPGS") // Spanish
+                    ASMOffset = 0x110C20;
+                else if (romGamecode == "IPGI") // Italian
+                    ASMOffset = 0x110B80;
+                else if (romGamecode == "IPGD") // German
+                    ASMOffset = 0x110BC0;
+                else if (romGamecode == "IPGK") // Korean
+                    ASMOffset = 0x1115D0;
             }
 
             if (isNSMBRom)
             {
+                headerFile.setByteAt(0x1D, 0x00);
                 UserInfo = new ROMUserInfo(filename);
                 LoadOverlay0();
             }
@@ -125,7 +211,7 @@ namespace NSMBe4 {
 
         private static Overlay[] loadOvTable(File table)
         {
-        	Overlay[] ovs = new Overlay[table.fileSize/32];
+            Overlay[] ovs = new Overlay[table.fileSize / 32];
 
             ByteArrayInputStream tbl = new ByteArrayInputStream(table.getContents());
 
@@ -140,13 +226,39 @@ namespace NSMBe4 {
                 uint staticInitEnd = tbl.readUInt();
                 ushort fileID = tbl.readUShort();
                 tbl.skip(6); //unused 0's
-				
-				ovs[ovId] = new Overlay(FS.getFileById(fileID), table, (uint)i*32);
+
+                ovs[ovId] = new Overlay(FS.getFileById(fileID), table, (uint)i * 32);
 
                 i++;
             }
-            
+
             return ovs;
+        }
+
+        private static Overlay[] loadOvTable2(File table)
+        {
+            Overlay[] ovs2 = new Overlay[table.fileSize / 32]; // initialize secondary overlay table
+
+            ByteArrayInputStream tbl = new ByteArrayInputStream(table.getContents());
+
+            int i = 0;
+            while (tbl.lengthAvailable(32))
+            {
+                uint ovId = tbl.readUInt();
+                uint ramAddr = tbl.readUInt();
+                uint ramSize = tbl.readUInt();
+                uint bssSize = tbl.readUInt();
+                uint staticInitStart = tbl.readUInt();
+                uint staticInitEnd = tbl.readUInt();
+                ushort fileID = tbl.readUShort();
+                tbl.skip(6); //unused 0's
+
+                ovs2[fileID] = new Overlay(FS.getFileById(fileID), table, (uint)i * 32); //secondary overlay table used for overlay decompression
+
+                i++;
+            }
+
+            return ovs2;
         }
         
         public static void close()
@@ -194,7 +306,7 @@ namespace NSMBe4 {
         }
 
         public enum Origin {
-            US = 0, EU = 1, JP = 2, KR = 3, UNK = 4
+            US = 0, EU = 1, JP = 2, KR = 3, CH = 4, UNK = 5
         }
 
         public static Origin Region = Origin.US;
@@ -221,25 +333,25 @@ namespace NSMBe4 {
         }
 
         public static int[,] Offsets = {
-                                           {131, 135, 131, 131}, //File Offset (Overlay Count)
-                                           {0x2F8E4, 0x2F0F8, 0x2ECE4, 0x2EDA4}, //TS_UNT_HD
-                                           {0x2FA14, 0x2F228, 0x2EE14, 0x2EED4}, //TS_UNT
-                                           {0x2FB44, 0x2F358, 0x2EF44, 0x2F004}, //TS_CHK
-                                           {0x2FC74, 0x2F488, 0x2F074, 0x2F134}, //TS_ANIM_NCG
-                                           {0x30D74, 0x30588, 0x30174, 0x30234}, //BG_NCG
-                                           {0x30EA4, 0x306B8, 0x302A4, 0x30364}, //TS_NCG
-                                           {0x30FD4, 0x307E8, 0x303D4, 0x30494}, //FG_NCG
-                                           {0x31104, 0x30918, 0x30504, 0x305C4}, //FG_NSC
-                                           {0x31234, 0x30A48, 0x30634, 0x306F4}, //BG_NSC
-                                           {0x31364, 0x30B78, 0x30764, 0x30824}, //BG_NCL
-                                           {0x31494, 0x30CA8, 0x30894, 0x30954}, //TS_NCL
-                                           {0x315C4, 0x30DD8, 0x309C4, 0x30A84}, //FG_NCL
-                                           {0x316F4, 0x30F08, 0x30AF4, 0x30BB4}, //TS_PNL
-                                           {0x30CD8, 0x304EC, 0x300D8, 0x30198}, //Jyotyu_NCL
-                                           {0x2FDA4, 0x2F5B8, 0x2F1A4, 0x2FC74}, //Jyotyu_CHK
-                                           {0x2C930, 0x2BDF0, 0x2BD30, 0x2BDF0}, //Modifiers
-                                           {0x29BD8, 0x00000, 0x00000, 0x00000}, //Sprite Class IDs
-                                           {0x2CBBC, 0, 0, 0}, //weird table¿?
+                                           {131, 135, 131, 131, 131}, //File Offset (Overlay Count)
+                                           {0x2F8E4, 0x2F0F8, 0x2ECE4, 0x2EDA4, 0x2EDA4}, //TS_UNT_HD
+                                           {0x2FA14, 0x2F228, 0x2EE14, 0x2EED4, 0x2EED4}, //TS_UNT
+                                           {0x2FB44, 0x2F358, 0x2EF44, 0x2F004, 0x2F004}, //TS_CHK
+                                           {0x2FC74, 0x2F488, 0x2F074, 0x2F134, 0x2F134}, //TS_ANIM_NCG
+                                           {0x30D74, 0x30588, 0x30174, 0x30234, 0x30234}, //BG_NCG
+                                           {0x30EA4, 0x306B8, 0x302A4, 0x30364, 0x30364}, //TS_NCG
+                                           {0x30FD4, 0x307E8, 0x303D4, 0x30494, 0x30494}, //FG_NCG
+                                           {0x31104, 0x30918, 0x30504, 0x305C4, 0x305C4}, //FG_NSC
+                                           {0x31234, 0x30A48, 0x30634, 0x306F4, 0x306F4}, //BG_NSC
+                                           {0x31364, 0x30B78, 0x30764, 0x30824, 0x30824}, //BG_NCL
+                                           {0x31494, 0x30CA8, 0x30894, 0x30954, 0x30954}, //TS_NCL
+                                           {0x315C4, 0x30DD8, 0x309C4, 0x30A84, 0x30A84}, //FG_NCL
+                                           {0x316F4, 0x30F08, 0x30AF4, 0x30BB4, 0x30BB4}, //TS_PNL
+                                           {0x30CD8, 0x304EC, 0x300D8, 0x30198, 0x30198}, //Jyotyu_NCL
+                                           {0x2FDA4, 0x2F5B8, 0x2F1A4, 0x2FC74, 0x2FC74}, //Jyotyu_CHK
+                                           {0x2C930, 0x2BDF0, 0x2BD30, 0x2BDF0, 0x2BDF0}, //Modifiers
+                                           {0x29BD8, 0x290C4, 0x29008, 0x290E0, 0x290DC}, //Sprite Class IDs
+                                           {0x2CBBC, 0, 0, 0, 0}, //weird table¿?
                                        };
 
         public static int[] FileSizes = {

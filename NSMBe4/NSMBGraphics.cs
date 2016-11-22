@@ -89,7 +89,7 @@ namespace NSMBe4
             Tilesets[0].Overrides[115] = 55;
             Tilesets[0].Overrides[116] = 28;
             Tilesets[0].Overrides[117] = 57;
-            Tilesets[0].Overrides[118] = 0;
+            Tilesets[0].Overrides[118] = 144;
             Tilesets[0].Overrides[119] = 1;
             Tilesets[0].Overrides[120] = 4;
             Tilesets[0].Overrides[121] = 5;
@@ -228,6 +228,36 @@ namespace NSMBe4
             File TileBehaviorFile = ROM.FS.getFileById(ROM.GetFileIDFromTable(TilesetID, ROM.Data.Table_TS_CHK   ));
 
             Tilesets[1] = new NSMBTileset(GFXFile, PalFile, Map16File, ObjFile, ObjIndexFile, TileBehaviorFile, false, 1);
+            if (TilesetID == 1 || TilesetID == 39)
+            {
+                Tilesets[1].UseOverrides = true;
+                Tilesets[1].Overrides[29] = 149;
+                Tilesets[1].Overrides[30] = 146;
+                Tilesets[1].Overrides[31] = 155;
+                Tilesets[1].Overrides[47] = 152;
+                if (TilesetID == 1)
+                {
+                    Tilesets[1].Overrides[112] = 145;
+                    Tilesets[1].Overrides[113] = 147;
+                    Tilesets[1].Overrides[114] = 148;
+                    Tilesets[1].Overrides[115] = 150;
+                    Tilesets[1].Overrides[128] = 151;
+                    Tilesets[1].Overrides[129] = 153;
+                    Tilesets[1].Overrides[130] = 154;
+                    Tilesets[1].Overrides[131] = 156;
+                }
+                else
+                {
+                    Tilesets[1].Overrides[128] = 145;
+                    Tilesets[1].Overrides[129] = 147;
+                    Tilesets[1].Overrides[130] = 148;
+                    Tilesets[1].Overrides[131] = 150;
+                    Tilesets[1].Overrides[144] = 151;
+                    Tilesets[1].Overrides[145] = 153;
+                    Tilesets[1].Overrides[146] = 154;
+                    Tilesets[1].Overrides[147] = 156;
+                }
+            }
         }
 
         public void RepatchBlocks(bool type) {

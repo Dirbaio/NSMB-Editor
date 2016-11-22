@@ -43,11 +43,11 @@ namespace NSMBe4
 
             SSTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
-            int i = 0;
-            foreach (string sprite in SpriteData.spriteNames)
+            for (int i = 0; i < SpriteData.spriteNames.Count; i++)
             {
+                int ActorID = (int)ROM.GetClassIDFromTable(i);
+                string sprite = SpriteData.spriteNames[ActorID];
                 spritelist[i] = i + ": " + sprite;
-                i++;
             }
             if (SpriteData.spriteNames.Count == 0)
             {

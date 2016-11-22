@@ -107,6 +107,7 @@
     <Compile Include="LevelSource\ExternalLevelSource.cs" />
     <Compile Include="LevelSource\InternalLevelSource.cs" />
     <Compile Include="LevelSource\LevelSource.cs" />
+    <Compile Include="Overlay.cs" />
     <Compile Include="Patcher\Arm9BinaryHandler.cs" />
     <Compile Include="Editor\CoordinateViewer.cs">
       <SubType>UserControl</SubType>
@@ -227,6 +228,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ROMUserInfo.cs" />
     <Compile Include="SectionFileLoader.cs" />
     <Compile Include="SortableBindingList\PropertyComparer.cs" />
@@ -478,15 +484,12 @@
     <EmbeddedResource Include="XButton.resx">
       <DependentUpon>XButton.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Languages\Dutch.ini" />
+    <None Include="Languages\Portuguese.ini" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -584,6 +587,118 @@
     <Content Include="Resources\Icons\textfield_add.png" />
     <None Include="Resources\pathpoint_add.png" />
     <None Include="Resources\Sprite Images\BowserJrMasked.png" />
+    <None Include="Resources\Sprite Images\BossKey.png" />
+    <None Include="Resources\Sprite Images\PrincessPeach.png" />
+    <None Include="Resources\Sprite Images\BowserSwitch.png" />
+    <None Include="Resources\Sprite Images\FinalBoss.png" />
+    <None Include="Resources\Sprite Images\Bowser.png" />
+    <None Include="Resources\Sprite Images\DryBowser.png" />
+    <None Include="Resources\Sprite Images\CheepSkipper.png" />
+    <None Include="Resources\Sprite Images\MegaGoomba.png" />
+    <None Include="Resources\Sprite Images\MummiPokey.png" />
+    <None Include="Resources\Sprite Images\PeteyPiranha.png" />
+    <None Include="Resources\Sprite Images\SwollenPipe.png" />
+    <None Include="Resources\Sprite Images\Pump.png" />
+    <None Include="Resources\Sprite Images\MushroomEdgeGreen.png" />
+    <None Include="Resources\Sprite Images\MushroomSectionGreen.png" />
+    <None Include="Resources\Sprite Images\Spinning3PointedLargePlatform.png" />
+    <None Include="Resources\Sprite Images\DorrieAwayBig.png" />
+    <None Include="Resources\Sprite Images\DorrieAwayBigger.png" />
+    <None Include="Resources\Sprite Images\DorrieAwayBiggest.png" />
+    <None Include="Resources\Sprite Images\DorrieBig.png" />
+    <None Include="Resources\Sprite Images\DorrieBigger.png" />
+    <None Include="Resources\Sprite Images\DorrieBiggest.png" />
+    <None Include="Resources\Sprite Images\DorrieTowardsBig.png" />
+    <None Include="Resources\Sprite Images\DorrieTowardsBigger.png" />
+    <None Include="Resources\Sprite Images\DorrieTowardsBiggest.png" />
+    <None Include="Resources\Sprite Images\JumpingBrickBlock.png" />
+    <None Include="Resources\Sprite Images\PipeLeft.png" />
+    <None Include="Resources\Sprite Images\PipeLongRight.png" />
+    <None Include="Resources\Sprite Images\PipeRight.png" />
+    <None Include="Resources\Sprite Images\PipeShortLeft.png" />
+    <None Include="Resources\Sprite Images\PipeShortRight.png" />
+    <None Include="Resources\Sprite Images\MushroomEdgePurple.PNG" />
+    <None Include="Resources\Sprite Images\MushroomSectionPurple.PNG" />
+    <None Include="Resources\Sprite Images\CheepCheepGreen.png" />
+    <None Include="Resources\Sprite Images\CheepCheepTrailLeft.png" />
+    <None Include="Resources\Sprite Images\CheepCheepTrailRight.png" />
+    <None Include="Resources\Sprite Images\SnakeBlock.png" />
+    <None Include="Resources\Sprite Images\Toadsworth.png" />
+    <None Include="Resources\Sprite Images\ToadBackground1.png" />
+    <None Include="Resources\Sprite Images\ToadBackground2.png" />
+    <None Include="Resources\Sprite Images\ToadBackground3.png" />
+    <None Include="Resources\Sprite Images\ToadBackground4.png" />
+    <None Include="Resources\Sprite Images\ToadBackground5.png" />
+    <None Include="Resources\Sprite Images\ToadHouse1UP.png" />
+    <None Include="Resources\Sprite Images\ToadHouseItem.png" />
+    <None Include="Resources\Sprite Images\ToadHouseMega.png" />
+    <None Include="Resources\Sprite Images\EnemyGenerator.png" />
+    <None Include="Resources\Sprite Images\Lakithunder.png" />
+    <None Include="Resources\Sprite Images\MontyTank.png" />
+    <None Include="Resources\Sprite Images\Clockwise.png" />
+    <None Include="Resources\Sprite Images\DrawBridge1.png" />
+    <None Include="Resources\Sprite Images\DrawBridge2.png" />
+    <None Include="Resources\Sprite Images\DrawBridge3.png" />
+    <None Include="Resources\Sprite Images\DrawBridge4.png" />
+    <None Include="Resources\Sprite Images\DrawBridge5.png" />
+    <None Include="Resources\Sprite Images\DrawBridge6.png" />
+    <None Include="Resources\Sprite Images\DrawBridge7.png" />
+    <None Include="Resources\Sprite Images\DrawBridge8.png" />
+    <None Include="Resources\Sprite Images\DrawBridge9.png" />
+    <None Include="Resources\Sprite Images\DrawBridge10.png" />
+    <None Include="Resources\Sprite Images\DrawBridge11.png" />
+    <None Include="Resources\Sprite Images\DrawBridge12.png" />
+    <None Include="Resources\Sprite Images\DrawBridge13.png" />
+    <None Include="Resources\Sprite Images\DrawBridge14.png" />
+    <None Include="Resources\Sprite Images\DrawBridge15.png" />
+    <None Include="Resources\Sprite Images\Arrow1.png" />
+    <None Include="Resources\Sprite Images\Arrow2.png" />
+    <None Include="Resources\Sprite Images\Arrow3.png" />
+    <None Include="Resources\Sprite Images\Arrow4.png" />
+    <None Include="Resources\Sprite Images\Arrow5.png" />
+    <None Include="Resources\Sprite Images\Arrow6.png" />
+    <None Include="Resources\Sprite Images\Arrow7.png" />
+    <None Include="Resources\Sprite Images\Arrow8.png" />
+    <None Include="Resources\Sprite Images\Arrow9.png" />
+    <None Include="Resources\Sprite Images\Arrow10.png" />
+    <None Include="Resources\Sprite Images\Pipe1.png" />
+    <None Include="Resources\Sprite Images\Pipe2.png" />
+    <None Include="Resources\Sprite Images\Pipe3.png" />
+    <None Include="Resources\Sprite Images\Pipe4.png" />
+    <None Include="Resources\Sprite Images\Pipe5.png" />
+    <None Include="Resources\Sprite Images\Pipe6.png" />
+    <None Include="Resources\Sprite Images\Pipe7.png" />
+    <None Include="Resources\Sprite Images\Pipe8.png" />
+    <None Include="Resources\Sprite Images\Pipe9.png" />
+    <None Include="Resources\Sprite Images\Pipe10.png" />
+    <None Include="Resources\Sprite Images\Pipe11.png" />
+    <None Include="Resources\Sprite Images\Pipe12.png" />
+    <None Include="Resources\Sprite Images\Pipe13.png" />
+    <None Include="Resources\Sprite Images\Pipe14.png" />
+    <None Include="Resources\Sprite Images\Pipe15.png" />
+    <None Include="Resources\Sprite Images\Pipe16.png" />
+    <None Include="Resources\Sprite Images\Pipe17.png" />
+    <None Include="Resources\Sprite Images\Pipe18.png" />
+    <None Include="Resources\Sprite Images\Pipe19.png" />
+    <None Include="Resources\Sprite Images\Pipe20.png" />
+    <None Include="Resources\Sprite Images\Pipe21.png" />
+    <None Include="Resources\Sprite Images\Pipe22.png" />
+    <None Include="Resources\Sprite Images\Pipe23.png" />
+    <None Include="Resources\Sprite Images\Pipe24.png" />
+    <None Include="Resources\Sprite Images\Pipe25.png" />
+    <None Include="Resources\Sprite Images\Pipe26.png" />
+    <None Include="Resources\Sprite Images\Pipe27.png" />
+    <None Include="Resources\Sprite Images\Pipe28.png" />
+    <None Include="Resources\Sprite Images\Pipe29.png" />
+    <None Include="Resources\Sprite Images\Pipe30.png" />
+    <None Include="Resources\Sprite Images\Pipe31.png" />
+    <None Include="Resources\Sprite Images\Pipe32.png" />
+    <None Include="Resources\Sprite Images\PipeJoint.png" />
+    <None Include="Resources\Sprite Images\ArrowSign.PNG" />
+    <None Include="Resources\Sprite Images\ArrowSignRotate45.PNG" />
+    <None Include="Resources\Sprite Images\ArrowSignRotate45F.PNG" />
+    <None Include="Resources\Sprite Images\Zoom1.png" />
+    <None Include="Resources\Sprite Images\Zoom2.png" />
     <Content Include="TilesetEditor\nsmbe.ico" />
     <Content Include="Editor\nsmbe.ico" />
     <Content Include="Resources\version.txt" />
@@ -729,8 +844,6 @@
     <None Include="Resources\Sprite Images\SpikeBass.PNG" />
     <None Include="Resources\Sprite Images\HangingScuttleBug.PNG" />
     <None Include="Resources\Sprite Images\Dorrie.PNG" />
-    <None Include="Resources\Sprite Images\PurpleMushroomEdge.PNG" />
-    <None Include="Resources\Sprite Images\PurpleMushroomSection.PNG" />
     <None Include="Resources\Sprite Images\BulletBillCannon.PNG" />
     <None Include="Resources\Sprite Images\BulletBillCannonTop.PNG" />
     <None Include="Resources\Sprite Images\BomOmb.PNG" />
@@ -747,9 +860,6 @@
     <None Include="Resources\Sprite Images\WigglerL.PNG" />
     <None Include="Resources\Sprite Images\Eel.PNG" />
     <None Include="Resources\Sprite Images\EelNonMoving.PNG" />
-    <None Include="Resources\Sprite Images\ArrowSign.PNG" />
-    <None Include="Resources\Sprite Images\ArrowSignRotate45.PNG" />
-    <None Include="Resources\Sprite Images\ArrowSignRotate45F.PNG" />
     <None Include="Resources\Sprite Images\SeaWeed.PNG" />
     <None Include="Resources\Sprite Images\Spinning4PointedPlatform.PNG" />
     <None Include="Resources\Sprite Images\WhirlPool.PNG" />
@@ -764,9 +874,6 @@
     <None Include="Resources\Sprite Images\ThruWallPlatform.PNG" />
     <None Include="Resources\Sprite Images\BalloonBoo.PNG" />
     <None Include="Resources\Sprite Images\RoofSpiny.PNG" />
-    <None Include="Resources\Sprite Images\DrawBridgeEnd.PNG" />
-    <None Include="Resources\Sprite Images\DrawBridgeHinge.PNG" />
-    <None Include="Resources\Sprite Images\DrawBridgeSection.PNG" />
     <None Include="Resources\Sprite Images\Pendulum.PNG" />
     <None Include="Resources\Sprite Images\GiantThwomp.PNG" />
     <None Include="Resources\Sprite Images\Vine.PNG" />
@@ -893,7 +1000,6 @@
     <Compile Include="DSFileSystem\NarcFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroFilesystem.cs" />
     <Compile Include="DSFileSystem\NitroROMFilesystem.cs" />
-    <Compile Include="Overlay.cs" />
     <Compile Include="Editor\BackgroundDragEditionMode.cs" />
     <Compile Include="Editor\MinimapControl.cs">
       <SubType>UserControl</SubType>
