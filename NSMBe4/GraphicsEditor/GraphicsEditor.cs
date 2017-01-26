@@ -690,5 +690,20 @@ namespace NSMBe4 {
         private void redoButton_Click(object sender, EventArgs e) {
             Redo();
         }
+        private void shortcuts(KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Z)
+            {
+                Undo();
+            }
+            if (e.Control && e.KeyCode == Keys.Add)
+            {
+                SetZoomLevel(ZoomLevel + 1);
+            }
+            if (e.Control && e.KeyCode == Keys.Subtract)
+            {
+                SetZoomLevel(ZoomLevel - 1);
+            }
+        }
     }
 }
