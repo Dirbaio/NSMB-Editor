@@ -88,7 +88,7 @@ namespace NSMBe4.Patcher
                 if (l.Contains("repl_"))
                     ind = l.IndexOf("repl_");
 
-                if (ind != -1)
+                if (ind != -1 && l.IndexOf(" _ZZ") != 31) // Ignore local names
                 {
                     int destRamAddr= parseHex(l.Substring(0, 8));    //Redirect dest addr
                     int ramAddr = parseHex(l.Substring(ind + 5, 8)); //Patched addr
